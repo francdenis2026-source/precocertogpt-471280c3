@@ -13,6 +13,7 @@ import { startPaymentNotifications } from "./lib/paymentNotifications";
 
 const savedTheme = localStorage.getItem("theme");
 const initialTheme = savedTheme === "dark" ? "dark" : "light";
+localStorage.setItem("theme", initialTheme);
 document.documentElement.dataset.theme = initialTheme;
 document.documentElement.style.colorScheme = initialTheme;
 

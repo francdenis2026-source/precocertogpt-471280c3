@@ -6,17 +6,13 @@ import "@fontsource-variable/outfit";
 import "./index.css";
 import "./styles/GlobalScrollbarRefinement.css";
 import App from "./App";
-import "./pages/HomeNeoLayout.css";
-import "./pages/HomeFinalConsolidatedTheme.css";
 import { HourlyHomeProductRotation } from "./components/HourlyHomeProductRotation";
 import { HomepageSearchInputPolish } from "./components/HomepageSearchInputPolish";
 import { HomepageSearchCloseFix } from "./components/HomepageSearchCloseFix";
 import { startPaymentNotifications } from "./lib/paymentNotifications";
 
 const savedTheme = localStorage.getItem("theme");
-const initialTheme = savedTheme === "light" || savedTheme === "dark"
-  ? savedTheme
-  : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+const initialTheme = savedTheme === "dark" ? "dark" : "light";
 document.documentElement.dataset.theme = initialTheme;
 document.documentElement.style.colorScheme = initialTheme;
 

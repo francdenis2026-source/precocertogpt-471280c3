@@ -1,3 +1,5 @@
+@import "./HomeImpeccableCorrection2026.css";
+
 /* Single-source guard for / homepage.
    Loaded last to prevent legacy homepage themes from winning through specificity. */
 html body .pc-home.pc-home{

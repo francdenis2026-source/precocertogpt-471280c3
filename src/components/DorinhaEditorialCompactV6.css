@@ -1,12 +1,12 @@
 /* Dorinha V6 — compact premium editorial storefront. Loaded last on purpose. */
 .dorinha-pro {
-  --dv6-wine:#321821;
-  --dv6-wine-2:#48232f;
-  --dv6-gold:#d4ad6a;
-  --dv6-paper:#faf7f2;
-  --dv6-ink:#24191d;
-  --dv6-muted:#74666b;
-  --dv6-line:#e7ddd8;
+  --dv6-wine:var(--pc-color-foreground);
+  --dv6-wine-2:var(--pc-color-foreground);
+  --dv6-gold:var(--pc-color-accent);
+  --dv6-paper:var(--pc-color-background);
+  --dv6-ink:var(--pc-color-foreground);
+  --dv6-muted:var(--pc-color-muted);
+  --dv6-line:var(--pc-color-muted);
   --dv6-shadow:0 14px 38px rgba(49,24,33,.08);
 }
 

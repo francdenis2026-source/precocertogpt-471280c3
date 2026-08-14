@@ -1,11 +1,13 @@
+@import "./DesignTokens.css";
+
 :root {
-  --brand-primary: #2457f5;
-  --brand-primary-dark: #153bc2;
-  --brand-accent: #d8ff3e;
-  --brand-ink: #0b1020;
-  --brand-canvas: #f4f5ed;
-  --brand-surface: #ffffff;
-  --brand-line: #d8dcd2;
+  --brand-primary: var(--pc-color-primary);
+  --brand-primary-dark: var(--pc-color-primary-hover);
+  --brand-accent: var(--pc-color-accent);
+  --brand-ink: var(--pc-color-foreground);
+  --brand-canvas: var(--pc-color-background);
+  --brand-surface: var(--pc-color-surface);
+  --brand-line: var(--pc-color-border);
 }
 
 html { background: var(--brand-canvas); }
@@ -37,3 +39,4 @@ body :where(.button-primary, .btn-primary, [data-variant="primary"]):hover { bac
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
 }
+

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import "./HomepageAuditFixes.css";
 
 function applyHomepageAuditFixes() {
   const home = document.querySelector<HTMLElement>(".pc-home");

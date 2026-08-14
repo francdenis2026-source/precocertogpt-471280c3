@@ -75,10 +75,10 @@ function installStyles() {
     body.pc-product-polish :is(.favorite-button,.favorite-btn,.heart-button,[aria-label*='favorit' i])[aria-pressed='true'],
     body.pc-product-polish :is(.favorite-button,.favorite-btn,.heart-button).is-favorite,
     body.pc-product-polish :is(.favorite-button,.favorite-btn,.heart-button).active {
-      background: color-mix(in srgb,#ef4444 12%,var(--surface)) !important;
-      border-color: color-mix(in srgb,#ef4444 38%,var(--border)) !important;
-      color:#dc2626 !important;
-      box-shadow: inset 0 0 0 1px color-mix(in srgb,#ef4444 12%,transparent) !important;
+      background: color-mix(in srgb,var(--pc-color-danger) 12%,var(--surface)) !important;
+      border-color: color-mix(in srgb,var(--pc-color-danger) 38%,var(--border)) !important;
+      color:var(--pc-color-danger) !important;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb,var(--pc-color-danger) 12%,transparent) !important;
     }
     body.pc-product-polish :is(.favorite-button,.favorite-btn,.heart-button,[aria-label*='favorit' i]) svg {
       transition: transform .18s ease, fill .18s ease, color .18s ease;
@@ -122,7 +122,7 @@ function installStyles() {
       font-weight:750 !important;
     }
     body.pc-product-polish :is(.highest-price,.price--highest,.comparison-highest) {
-      color: color-mix(in srgb,#ef4444 84%,var(--text-main)) !important;
+      color: color-mix(in srgb,var(--pc-color-danger) 84%,var(--text-main)) !important;
       font-weight:800 !important;
     }
 

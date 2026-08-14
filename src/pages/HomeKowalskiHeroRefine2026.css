@@ -1,0 +1,93 @@
+/* Kowalski / Emil design-engineering hero refinement */
+.pc-home .pc-hero {
+  min-height: 486px;
+  padding: 84px 0 40px;
+  background: #07111f;
+}
+
+.pc-home .pc-hero::before {
+  background: url('/compra-inteligente-profissional.webp') 72% 52% / cover no-repeat;
+  filter: saturate(.88) contrast(1.04) brightness(.82);
+  transform: scale(1.015);
+}
+
+.pc-home .pc-hero::after {
+  background:
+    linear-gradient(90deg,
+      rgba(7,17,31,.995) 0%,
+      rgba(7,17,31,.975) 39%,
+      rgba(7,17,31,.78) 62%,
+      rgba(7,17,31,.40) 82%,
+      rgba(7,17,31,.20) 100%),
+    linear-gradient(180deg, rgba(7,17,31,.05), rgba(7,17,31,.34));
+}
+
+.pc-home .pc-hero-copy { max-width: 735px; }
+.pc-home .pc-hero h1 { max-width: 710px; text-wrap: balance; }
+.pc-home .pc-hero h1 em {
+  color: #fbbf24;
+  font-style: normal;
+  text-shadow: 0 1px 18px rgba(245,158,11,.10);
+}
+.pc-home .pc-hero-copy > p { color: #d5dfec; }
+.pc-home .pc-kicker { color: #dbeafe; background: rgba(255,255,255,.055); }
+
+/* Keep the photo visible without sacrificing text contrast. */
+.pc-home .pc-hero-side > div {
+  background: rgba(12,27,45,.70);
+  border-color: rgba(255,255,255,.095);
+  backdrop-filter: blur(7px) saturate(110%);
+}
+.pc-home .pc-hero-side > div > svg {
+  background: rgba(37,99,235,.16);
+  color: #bfdbfe;
+}
+
+/* Frequent interactions should feel immediate, not animated for decoration. */
+.pc-home .pc-search button,
+.pc-home .pc-merchant,
+.pc-home .pc-quick button,
+.pc-home .pc-icon-button,
+.pc-home .pc-menu-button {
+  transition-property: transform, background-color, border-color, box-shadow, color;
+  transition-duration: 140ms;
+  transition-timing-function: cubic-bezier(.23,1,.32,1);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .pc-home .pc-search button:hover,
+  .pc-home .pc-merchant:hover { transform: translateY(-1px); }
+  .pc-home .pc-search button:active,
+  .pc-home .pc-merchant:active,
+  .pc-home .pc-quick button:active,
+  .pc-home .pc-icon-button:active,
+  .pc-home .pc-menu-button:active { transform: scale(.98); }
+}
+
+@media (max-width: 680px) {
+  .pc-home .pc-hero {
+    min-height: 0;
+    padding: 70px 0 28px;
+  }
+  .pc-home .pc-hero::before {
+    background-position: 66% 50%;
+    filter: saturate(.84) contrast(1.03) brightness(.72);
+  }
+  .pc-home .pc-hero::after {
+    background:
+      linear-gradient(90deg, rgba(7,17,31,.99) 0%, rgba(7,17,31,.92) 68%, rgba(7,17,31,.62) 100%),
+      linear-gradient(180deg, rgba(7,17,31,.10), rgba(7,17,31,.42));
+  }
+  .pc-home .pc-hero h1 em { color: #fcd34d; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-home .pc-search button,
+  .pc-home .pc-merchant,
+  .pc-home .pc-quick button,
+  .pc-home .pc-icon-button,
+  .pc-home .pc-menu-button {
+    transition-duration: 0ms;
+    transform: none !important;
+  }
+}

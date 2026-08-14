@@ -1,0 +1,206 @@
+/* PreçoCerto — premium refinement pass
+   Softer visual language, improved readability, hero framing, compact footer and restrained pointer interactions. */
+
+.pc-home {
+  --pr-surface: #fbfbf8;
+  --pr-surface-2: #f5f6f2;
+  --pr-text: #211c24;
+  --pr-muted: #625b66;
+  --pr-line: rgba(36,17,45,.10);
+  --pr-teal: #0f8f8b;
+  --pr-teal-soft: #e6f4f2;
+  --pr-gold: #e7ad3a;
+  --pr-plum: #2c1933;
+  --pr-shadow: 0 10px 26px rgba(35,24,39,.07);
+  --pr-shadow-hover: 0 14px 30px rgba(35,24,39,.10);
+}
+
+/* Remove the heavy full-page photo. Keep the page calm and editorial. */
+.pc-home main {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(15,143,139,.045), transparent 23%),
+    radial-gradient(circle at 12% 38%, rgba(231,173,58,.045), transparent 21%),
+    var(--pr-surface) !important;
+}
+[data-theme="dark"] .pc-home main {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(79,209,197,.035), transparent 23%),
+    #17131a !important;
+}
+
+/* Header stays distinct, but calmer. */
+.pc-home .pc-header {
+  background: #0b4a48;
+  border-bottom-color: rgba(255,255,255,.08);
+  box-shadow: none;
+}
+.pc-home .pc-header.is-scrolled {
+  background: rgba(11,74,72,.97);
+  box-shadow: 0 8px 24px rgba(5,39,38,.14);
+}
+.pc-home .pc-header::before {
+  background: #e8b343;
+  color: #2c210c;
+  font-size: .71rem;
+  letter-spacing: .025em;
+  font-weight: 820;
+}
+.pc-home .pc-header-inner { height: 58px; }
+.pc-home .pc-nav a { font-size: .9rem; font-weight: 720; }
+.pc-home .pc-merchant { font-size: .86rem; border-radius: 10px; }
+
+/* Hero: more photographic, less crushed, better framing. */
+.pc-home .pc-hero {
+  min-height: 474px;
+  padding: 122px 0 36px;
+  background: var(--pr-plum);
+}
+.pc-home .pc-hero::before {
+  background-position: 64% 46% !important;
+  filter: saturate(.86) contrast(1.01) brightness(.97) !important;
+  transform: scale(1.005);
+}
+.pc-home .pc-hero::after {
+  background:
+    linear-gradient(90deg, rgba(44,25,51,.985) 0%, rgba(44,25,51,.92) 36%, rgba(44,25,51,.57) 62%, rgba(44,25,51,.10) 100%),
+    linear-gradient(180deg, rgba(44,25,51,.02), rgba(44,25,51,.18));
+}
+.pc-home .pc-hero h1 {
+  max-width: 720px;
+  font-size: clamp(2.8rem,5vw,4.25rem);
+  line-height: .99;
+  letter-spacing: -.045em;
+  font-weight: 860;
+}
+.pc-home .pc-hero-copy > p {
+  max-width: 620px;
+  color: #eee7f0;
+  font-size: 1.05rem;
+  line-height: 1.62;
+}
+.pc-home .pc-kicker { font-size: .8rem; font-weight: 760; }
+.pc-home .pc-search { min-height: 58px; border-radius: 12px; box-shadow: 0 14px 30px rgba(18,9,21,.18); }
+.pc-home .pc-search input { font-size: 1.03rem; font-weight: 560; }
+.pc-home .pc-search button { height: 46px; font-size: .9rem; }
+.pc-home .pc-quick { font-size: .84rem; }
+.pc-home .pc-quick button { font-size: .82rem; }
+
+/* Improve overall readability — avoid tiny supporting copy. */
+.pc-home .pc-heading > span { font-size: .8rem; letter-spacing: .065em; }
+.pc-home .pc-heading h2 { font-size: clamp(1.8rem,2.45vw,2.22rem); line-height: 1.12; }
+.pc-home .pc-heading p { font-size: .98rem; line-height: 1.62; color: var(--pr-muted); }
+.pc-home :is(.pc-action-strip small,.pc-category small,.pc-product-info small,.pc-store-line small,.pc-store-card small,.pc-store-card em,.pc-how-copy p,.pc-hero-side small,.pc-price-line small,.pc-price-line em) {
+  font-size: .82rem;
+  line-height: 1.45;
+}
+.pc-home :is(.pc-action-strip strong,.pc-category strong,.pc-product-info strong,.pc-store-line strong,.pc-store-card strong,.pc-how-copy strong,.pc-hero-side strong) {
+  font-size: .94rem;
+  line-height: 1.38;
+}
+.pc-home :is(.pc-basket-copy p,.pc-commercial p,.pc-compare-copy p,.pc-how-head p) {
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
+/* Cards: softer surfaces and subtler shape language. */
+.pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-how-step,.pc-compare-product,.pc-action-strip-inner) {
+  border-color: var(--pr-line);
+  box-shadow: 0 4px 14px rgba(35,24,39,.035);
+}
+.pc-home .pc-category { min-height: 76px; }
+.pc-home .pc-product-card { border-radius: 14px; }
+.pc-home .pc-product-media { background: #f7f7f4; }
+.pc-home .pc-product-media img { transition: transform 160ms cubic-bezier(.2,.8,.2,1), filter 160ms ease; }
+.pc-home .pc-store-card { min-height: 80px; }
+.pc-home .pc-how-step { padding: 15px; }
+.pc-home .pc-opportunities,
+.pc-home .pc-stores,
+.pc-home .pc-how {
+  background: rgba(255,255,255,.76);
+  border-color: rgba(36,17,45,.055);
+  box-shadow: 0 12px 30px rgba(36,17,45,.035);
+  backdrop-filter: blur(4px);
+}
+[data-theme="dark"] .pc-home :is(.pc-opportunities,.pc-stores,.pc-how) { background: rgba(31,25,34,.78); }
+
+/* Keep photography only where it helps storytelling. */
+.pc-home .pc-basket-section {
+  background:
+    linear-gradient(110deg, rgba(11,74,72,.94) 0%, rgba(11,74,72,.84) 50%, rgba(11,74,72,.52) 100%),
+    url('/compra-inteligente-profissional.webp') 68% 49% / cover no-repeat;
+}
+.pc-home .pc-commercial {
+  background:
+    linear-gradient(115deg, rgba(44,25,51,.97) 0%, rgba(44,25,51,.84) 55%, rgba(44,25,51,.56) 100%),
+    url('/comerciante-local-feijo.webp') 66% 50% / cover no-repeat;
+}
+
+/* Footer: intentionally short and quiet. */
+.pc-home .pc-footer {
+  border-top-width: 2px;
+  background: #082d2c;
+}
+.pc-home .pc-footer-inner {
+  padding-block: 12px 8px;
+  gap: 18px;
+}
+.pc-home .pc-footer-brand img { width: 128px; height: auto; }
+.pc-home .pc-footer-brand p { margin-top: 4px; font-size: .8rem; line-height: 1.4; }
+.pc-home .pc-footer nav { gap: 12px; }
+.pc-home .pc-footer nav a { font-size: .8rem; line-height: 1.2; }
+.pc-home .pc-footer-bottom {
+  min-height: 29px;
+  padding-block: 5px;
+  font-size: .72rem;
+}
+
+/* Pointer interactions: refinement, not bounce. */
+.pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-how-step,.pc-action-strip a,.pc-service-item,.pc-hero-side > div) {
+  transition:
+    transform 150ms cubic-bezier(.2,.8,.2,1),
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+@media (hover:hover) and (pointer:fine) {
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-how-step,.pc-action-strip a,.pc-service-item,.pc-hero-side > div):hover {
+    transform: translateY(-1px) !important;
+    border-color: rgba(15,143,139,.34);
+    box-shadow: var(--pr-shadow-hover) !important;
+  }
+  .pc-home .pc-product-card:hover .pc-product-media img {
+    transform: scale(1.015) !important;
+    filter: saturate(1.03);
+  }
+  .pc-home :is(.pc-category,.pc-store-card,.pc-action-strip a):hover > svg:last-child {
+    transform: translateX(2px);
+  }
+  .pc-home .pc-service-item:hover .pc-service-icon,
+  .pc-home .pc-category:hover .pc-category-icon {
+    transform: scale(1.025) !important;
+  }
+  .pc-home :is(.pc-nav a,.pc-footer a,.pc-quick button,.pc-compare-button,.pc-merchant):hover {
+    filter: brightness(1.035);
+  }
+}
+.pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-how-step,.pc-action-strip a,.pc-service-item,.pc-hero-side > div):active {
+  transform: translateY(0) scale(.997) !important;
+}
+
+@media (max-width: 680px) {
+  .pc-home .pc-hero { padding: 104px 0 28px; min-height: 0; }
+  .pc-home .pc-hero::before { background-position: 58% 48% !important; }
+  .pc-home .pc-hero h1 { font-size: clamp(2.25rem,10vw,3.05rem); }
+  .pc-home .pc-hero-copy > p { font-size: 1rem; }
+  .pc-home .pc-heading p,
+  .pc-home :is(.pc-basket-copy p,.pc-commercial p,.pc-compare-copy p,.pc-how-head p) { font-size: .96rem; }
+  .pc-home .pc-footer-inner { padding-block: 10px 7px; }
+  .pc-home .pc-footer-bottom { min-height: 27px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-home *, .pc-home *::before, .pc-home *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}

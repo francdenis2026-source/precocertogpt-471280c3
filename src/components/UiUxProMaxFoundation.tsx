@@ -624,7 +624,7 @@ function installFoundationStyles() {
     [data-theme="dark"] .result-info > small,
     [data-theme="dark"] .result-market small,
     [data-theme="dark"] .results-head p {
-      color: #aebdca;
+      color: var(--pc-color-muted);
     }
 
     @media (max-width: 820px) {

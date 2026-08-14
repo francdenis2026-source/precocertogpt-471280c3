@@ -73,9 +73,9 @@ export function MercadoPagoCallback() {
       {state === "loading" ? (
         <Loader2 size={42} className="animate-spin" />
       ) : state === "success" ? (
-        <CheckCircle2 size={48} color="#2f7d4d" />
+        <CheckCircle2 size={48} color="var(--pc-color-primary)" />
       ) : (
-        <XCircle size={48} color="#a63b3b" />
+        <XCircle size={48} color="var(--pc-color-danger)" />
       )}
 
       <h1>
@@ -112,13 +112,13 @@ const s: Record<string, React.CSSProperties> = {
     justifyContent: "center",
     gap: 16,
     textAlign: "center",
-    fontFamily: "Inter,system-ui,sans-serif",
+    fontFamily: "Manrope Variable", Manrope, system-ui, sans-serif",
     padding: 24,
-    background: "#fcfcfd",
+    background: "var(--pc-color-surface)",
   },
   banner: {
-    background: "#fee2e2",
-    color: "#991b1b",
+    background: "var(--pc-color-muted)",
+    color: "var(--pc-color-foreground)",
     padding: "12px 24px",
     borderRadius: 8,
     display: "flex",
@@ -127,7 +127,7 @@ const s: Record<string, React.CSSProperties> = {
     fontSize: "0.95rem",
     fontWeight: 500,
     marginBottom: 24,
-    border: "1px solid #fecaca",
+    border: "1px solid color-mix(in srgb, var(--pc-color-danger) 10%, var(--pc-color-surface))",
     boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   },
   actions: {
@@ -136,7 +136,7 @@ const s: Record<string, React.CSSProperties> = {
     marginTop: 8,
   },
   retryButton: {
-    background: "#183d2b",
+    background: "var(--pc-color-foreground)",
     color: "white",
     padding: "10px 20px",
     borderRadius: 10,
@@ -150,11 +150,11 @@ const s: Record<string, React.CSSProperties> = {
   },
   backButton: {
     background: "transparent",
-    color: "#4b5563",
+    color: "var(--pc-color-muted)",
     padding: "10px 20px",
     borderRadius: 10,
     textDecoration: "none",
-    border: "1px solid #e5e7eb",
+    border: "1px solid var(--pc-color-border)",
     fontWeight: 500,
   },
 };

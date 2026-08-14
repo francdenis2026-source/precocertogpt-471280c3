@@ -49,9 +49,9 @@ export function DeveloperMarketplaceAbout() {
           <aside className="pc-about-modal__developer">
             <div className="pc-about-modal__avatar"><Code2 /></div>
             <span>Desenvolvedor</span>
-            <h3>Franc Denis</h3>
+            <h3>Franc D’nis</h3>
             <p className="pc-about-modal__location"><MapPin /> Feijó, Acre</p>
-            <p>Franc Denis é morador de Feijó e desenvolveu o PreçoCerto a partir das necessidades locais, com o objetivo de oferecer à população e aos comerciantes uma ferramenta de venda e descoberta digital mais eficaz, conveniente e conectada à realidade da cidade.</p>
+            <p>Franc D’nis é morador de Feijó e desenvolveu o PreçoCerto a partir das necessidades locais, com o objetivo de oferecer à população e aos comerciantes uma ferramenta de venda e descoberta digital mais eficaz, conveniente e conectada à realidade da cidade.</p>
             <div className="pc-about-modal__contacts">
               <a href="mailto:precocerto-fj@proton.me"><Mail /><span><small>E-mail</small>precocerto-fj@proton.me</span><ExternalLink /></a>
               <a href="https://wa.me/5568992031340" target="_blank" rel="noreferrer"><MessageCircle /><span><small>WhatsApp</small>(68) 99203-1340</span><ExternalLink /></a>

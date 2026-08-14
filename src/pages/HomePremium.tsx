@@ -120,8 +120,17 @@ export function HomePremium() {
   useEffect(() => {
     if (!selectedProduct) return;
     dialogTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const scrollY = window.scrollY;
     const previousOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousPosition = document.body.style.position;
+    const previousTop = document.body.style.top;
+    const previousWidth = document.body.style.width;
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
     const background = [...document.querySelectorAll<HTMLElement>(".pcx-home > :not(.pcx-modal)")];
     background.forEach((element) => element.setAttribute("inert", ""));
     window.setTimeout(() => closeRef.current?.focus(), 0);
@@ -136,7 +145,12 @@ export function HomePremium() {
     };
     document.addEventListener("keydown", onKeyDown);
     return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
       document.body.style.overflow = previousOverflow;
+      document.body.style.position = previousPosition;
+      document.body.style.top = previousTop;
+      document.body.style.width = previousWidth;
+      window.scrollTo(0, scrollY);
       background.forEach((element) => element.removeAttribute("inert"));
       document.removeEventListener("keydown", onKeyDown);
       dialogTriggerRef.current?.focus();
@@ -224,8 +238,10 @@ export function HomePremium() {
             <Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/farmacias">Farmácias</Link><Link to="/favoritos">Favoritos</Link><Link to="/colaborar">Colaborar</Link>
           </nav>
           <div className="pcx-header__actions">
-            <button className="pcx-icon-button" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
-              {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+            <button className="pcx-theme-toggle" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"} aria-pressed={theme === "dark"} title={theme === "dark" ? "Mudar para modo claro" : "Mudar para modo escuro"}>
+              <span className="pcx-theme-toggle__thumb" aria-hidden="true" />
+              <Sun className="pcx-theme-toggle__sun" aria-hidden="true" />
+              <Moon className="pcx-theme-toggle__moon" aria-hidden="true" />
             </button>
             <Link className="pcx-login" to="/login" aria-label="Entrar na plataforma"><LogIn aria-hidden="true" /> Entrar</Link>
             <Link className="pcx-merchant" to="/lojista">Área do lojista <ArrowRight aria-hidden="true" /></Link>

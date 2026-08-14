@@ -87,7 +87,7 @@ export function DorinhaAuthorStore() {
 
   useEffect(() => {
     // SEO e Open Graph
-    const title = "Dorinha Barroso · Livros Acreanos | PreçoCerto Marketplace";
+    const title = "Dorinha Barroso · Livros acreanos | PreçoCerto";
     const desc = "Descubra as obras de Dorinha Barroso, escritora acreana, historiadora e pedagoga. Compre livros diretamente com a autora.";
     const url = window.location.href;
     const image = "https://precocertogpt.lovable.app/dorinha-hero-editorial-v3.png";

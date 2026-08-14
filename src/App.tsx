@@ -64,11 +64,7 @@ import "./components/ImpeccableFullSitePolish.css";
 import "./components/ImpeccableStructuralLegacy.css";
 import "./components/DorinhaEditorialCompactV6.css";
 import "./pages/HomeVercelGuidelines2026.css";
-import "./pages/HomeTotalRedesignAllSkills2026.css";
-import "./pages/HomeVisualPolishAllSkills2026.css";
-import "./pages/HomeTopbarGapFix2026.css";
-import "./pages/HomePremiumRefine2026.css";
-import "./pages/HomeTopStripRootFix2026.css";
+import "./pages/HomeRebuildAllSkills2026.css";
 
 export default function App() {
   return (

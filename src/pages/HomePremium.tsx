@@ -174,7 +174,7 @@ export function HomePremium() {
             <span className="pcx-brand__mark"><TrendingDown aria-hidden="true" /></span><span>preço<strong>certo</strong></span>
           </Link>
           <nav className="pcx-nav" aria-label="Navegação principal">
-            <Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/farmacias">Farmácias</Link><Link to="/colaborar">Colaborar</Link>
+            <Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/farmacias">Farmácias</Link><Link to="/favoritos">Favoritos</Link><Link to="/colaborar">Colaborar</Link>
           </nav>
           <div className="pcx-header__actions">
             <button className="pcx-icon-button" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
@@ -186,7 +186,7 @@ export function HomePremium() {
           </div>
         </div>
         {menuOpen && <nav id="pcx-mobile-menu" className="pcx-mobile-menu" aria-label="Navegação mobile">
-          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas locais</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Farmácias</Link><Link to="/colaborar" onClick={() => setMenuOpen(false)}>Colaborar</Link><Link to="/login" onClick={() => setMenuOpen(false)}>Entrar na plataforma</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Área do lojista</Link>
+          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas locais</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Farmácias</Link><Link to="/favoritos" onClick={() => setMenuOpen(false)}>Favoritos</Link><Link to="/colaborar" onClick={() => setMenuOpen(false)}>Colaborar</Link><Link to="/login" onClick={() => setMenuOpen(false)}>Entrar na plataforma</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Área do lojista</Link>
         </nav>}
       </header>
 
@@ -255,7 +255,7 @@ export function HomePremium() {
         <section className="pcx-story pcx-story--merchant"><div className="pcx-shell pcx-story__inner"><div><h2>Sua loja, perto de quem já quer comprar.</h2><p>Atualize preços, apresente seu catálogo e seja encontrado por clientes da cidade.</p></div><Link to="/lojista">Conhecer área do lojista <ArrowRight aria-hidden="true" /></Link></div></section>
       </main>
 
-      <footer className="pcx-footer"><div className="pcx-shell pcx-footer__inner"><Link className="pcx-brand" to="/"><span className="pcx-brand__mark"><TrendingDown aria-hidden="true" /></span><span>preço<strong>certo</strong></span></Link><p>Comparação local para decisões melhores em Feijó.</p><nav aria-label="Links do rodapé"><Link to="/sobre">Sobre</Link><Link to="/contato">Contato</Link><Link to="/privacidade">Privacidade</Link><Link to="/lojista">Lojistas</Link></nav><div className="pcx-footer__meta"><small>© {new Date().getFullYear()} PreçoCerto</small><button className="pcx-footer__credit pc-dev-credit" type="button" aria-haspopup="dialog" onClick={() => window.dispatchEvent(new Event("precocerto:developer-about"))}>Desenvolvido por <strong>Franc D&apos;nis</strong></button></div></div></footer>
+      <footer className="pcx-footer"><div className="pcx-shell pcx-footer__inner"><Link className="pcx-brand" to="/"><span className="pcx-brand__mark"><TrendingDown aria-hidden="true" /></span><span>preço<strong>certo</strong></span></Link><p>Comparação local para decisões melhores em Feijó.</p><nav aria-label="Links do rodapé"><Link to="/sobre">Sobre</Link><Link to="/contato">Contato</Link><Link to="/privacidade">Privacidade</Link><Link to="/favoritos">Favoritos</Link><Link to="/lojista">Lojistas</Link></nav><div className="pcx-footer__meta"><small>© {new Date().getFullYear()} PreçoCerto</small><button className="pcx-footer__credit pc-dev-credit" type="button" aria-haspopup="dialog" onClick={() => window.dispatchEvent(new Event("precocerto:developer-about"))}>Desenvolvido por <strong>Franc D&apos;nis</strong></button></div></div></footer>
 
       {selectedProduct && <div className={`pcx-modal${dialogClosing ? " is-closing" : ""}`} role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeDialog(); }}>
         <section ref={dialogRef} className="pcx-dialog" role="dialog" aria-modal="true" aria-labelledby="pcx-dialog-title">

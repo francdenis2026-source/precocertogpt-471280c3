@@ -54,9 +54,9 @@ function unavailableButton(button: HTMLButtonElement, label = "Venda online em b
   Object.assign(button.style, {
     cursor: "not-allowed",
     opacity: "0.76",
-    background: "#eef2f0",
-    color: "#5f6c65",
-    border: "1px solid #d9e0dc",
+    background: "var(--pc-color-background)",
+    color: "var(--pc-color-muted)",
+    border: "1px solid var(--pc-color-border)",
     boxShadow: "none",
   });
 }
@@ -216,22 +216,22 @@ export function PublicOnlineSalesAvailability() {
       if (!live || !availability) {
         button.disabled = true;
         button.innerHTML = "◷ Venda online ainda indisponível";
-        Object.assign(button.style, { border:"1px solid #d9e0dc", background:"#f1f4f2", color:"#657168", cursor:"not-allowed" });
+        Object.assign(button.style, { border:"1px solid var(--pc-color-border)", background:"var(--pc-color-background)", color:"var(--pc-color-muted)", cursor:"not-allowed" });
         const hint = document.createElement("p");
         hint.textContent = availability?.sales_message || "Este estabelecimento ainda não ativou a venda online deste produto. O preço continua disponível para comparação.";
-        Object.assign(hint.style, { margin:"8px 2px 0", fontSize:"12px", lineHeight:"1.5", color:"#69756e" });
+        Object.assign(hint.style, { margin:"8px 2px 0", fontSize:"12px", lineHeight:"1.5", color:"var(--pc-color-muted)" });
         host.append(button, hint);
         return;
       }
 
       button.innerHTML = "🛒 Comprar online";
-      Object.assign(button.style, { border:"1px solid #173a29", background:"#183d2b", color:"white", cursor:"pointer", boxShadow:"0 10px 24px rgba(24,61,43,.16)" });
+      Object.assign(button.style, { border:"1px solid var(--pc-color-foreground)", background:"var(--pc-color-foreground)", color:"white", cursor:"pointer", boxShadow:"0 10px 24px rgba(24,61,43,.16)" });
       button.addEventListener("click", () => {
         window.location.href = `/loja/${encodeURIComponent(availability.merchant_id)}`;
       });
       const hint = document.createElement("p");
       hint.textContent = `Venda online disponível por ${availability.establishment_name}. O preço e o estoque serão validados novamente antes do pagamento.`;
-      Object.assign(hint.style, { margin:"8px 2px 0", fontSize:"12px", lineHeight:"1.5", color:"#4e6658" });
+      Object.assign(hint.style, { margin:"8px 2px 0", fontSize:"12px", lineHeight:"1.5", color:"var(--pc-color-muted)" });
       host.append(button, hint);
     }
 
@@ -248,12 +248,12 @@ export function PublicOnlineSalesAvailability() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  banner:{display:"grid",gridTemplateColumns:"minmax(220px,34%) 1fr",gap:24,alignItems:"center",background:"linear-gradient(135deg,#f7fcf9 0%,#f7f9fc 100%)",border:"1px solid #dfe8e3",borderRadius:22,padding:"clamp(18px,3vw,30px)",boxShadow:"0 14px 38px rgba(19,48,34,.06)",overflow:"hidden"},
+  banner:{display:"grid",gridTemplateColumns:"minmax(220px,34%) 1fr",gap:24,alignItems:"center",background:"linear-gradient(135deg,var(--pc-color-surface) 0%,var(--pc-color-surface) 100%)",border:"1px solid var(--pc-color-border)",borderRadius:22,padding:"clamp(18px,3vw,30px)",boxShadow:"0 14px 38px rgba(19,48,34,.06)",overflow:"hidden"},
   bannerVisual:{display:"flex",alignItems:"center",justifyContent:"center",minHeight:170},
   bannerImage:{width:"100%",maxWidth:310,height:"auto",display:"block"},
   bannerContent:{minWidth:0},
-  kicker:{display:"inline-flex",alignItems:"center",gap:7,fontSize:11,fontWeight:900,letterSpacing:".11em",color:"#0f766e"},
-  bannerTitle:{fontSize:"clamp(22px,3vw,32px)",lineHeight:1.08,letterSpacing:"-.035em",margin:"10px 0 10px",color:"#17231c"},
-  bannerText:{margin:0,color:"#66736c",lineHeight:1.65,fontSize:14,maxWidth:720},
-  bannerPoints:{display:"flex",flexWrap:"wrap",gap:"8px 18px",marginTop:16,color:"#3e5146",fontSize:12,fontWeight:700},
+  kicker:{display:"inline-flex",alignItems:"center",gap:7,fontSize:11,fontWeight:900,letterSpacing:".11em",color:"var(--pc-color-primary)"},
+  bannerTitle:{fontSize:"clamp(22px,3vw,32px)",lineHeight:1.08,letterSpacing:"-.035em",margin:"10px 0 10px",color:"var(--pc-color-foreground)"},
+  bannerText:{margin:0,color:"var(--pc-color-muted)",lineHeight:1.65,fontSize:14,maxWidth:720},
+  bannerPoints:{display:"flex",flexWrap:"wrap",gap:"8px 18px",marginTop:16,color:"var(--pc-color-muted)",fontSize:12,fontWeight:700},
 };

@@ -45,7 +45,7 @@ function ensureStyles() {
     }
 
     body.pc-user-flow :is(.basket-saving,.savings-value,.economy-value,.saving-badge) {
-      color: #148447;
+      color: var(--pc-color-primary);
     }
 
     body.pc-user-flow :is(.basket-item,.favorite-card,.favorites-card) img {
@@ -66,9 +66,9 @@ function ensureStyles() {
     }
 
     body.pc-user-flow :is(.favorite-button,.favorite-toggle,[aria-pressed="true"],[data-favorite="true"],[data-favorited="true"]) {
-      background: color-mix(in srgb, #ef4444 12%, var(--surface));
-      border-color: color-mix(in srgb, #ef4444 38%, var(--border));
-      color: #dc2626;
+      background: color-mix(in srgb, var(--pc-color-danger) 12%, var(--surface));
+      border-color: color-mix(in srgb, var(--pc-color-danger) 38%, var(--border));
+      color: var(--pc-color-danger);
     }
 
     body.pc-user-flow :is(.favorite-button,.favorite-toggle,[aria-pressed="true"],[data-favorite="true"],[data-favorited="true"]) svg {

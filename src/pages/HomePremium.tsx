@@ -1,4 +1,4 @@
-import { FormEvent, KeyboardEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, PointerEvent as ReactPointerEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -211,6 +211,22 @@ export function HomePremium() {
   }), [opportunities]);
 
   const openProduct = (product: Product) => { setDialogClosing(false); setSelectedProduct(product); };
+  const moveProductPreview = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    event.currentTarget.style.setProperty("--pcx-product-x", `${(x - .5) * 10}px`);
+    event.currentTarget.style.setProperty("--pcx-product-y", `${(y - .5) * 8}px`);
+    event.currentTarget.style.setProperty("--pcx-spot-x", `${x * 100}%`);
+    event.currentTarget.style.setProperty("--pcx-spot-y", `${Math.min(y * 100, 58)}%`);
+  };
+  const resetProductPreview = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    event.currentTarget.style.removeProperty("--pcx-product-x");
+    event.currentTarget.style.removeProperty("--pcx-product-y");
+    event.currentTarget.style.removeProperty("--pcx-spot-x");
+    event.currentTarget.style.removeProperty("--pcx-spot-y");
+  };
   const search = (term: string) => navigate(term.trim() ? `/buscar?q=${encodeURIComponent(term.trim())}` : "/buscar");
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -308,8 +324,8 @@ export function HomePremium() {
           <div className="pcx-section__head"><div><h2 id="oportunidades-title">Diferenças que cabem no bolso.</h2><p>Os produtos com maior variação de preço entre as lojas.</p></div><Link to="/buscar">Comparar mais <ArrowRight aria-hidden="true" /></Link></div>
           <div className="pcx-products" aria-busy={catalogLoading}>{catalogLoading && <span className="pcx-sr-only" role="status" aria-live="polite">Carregando oportunidades…</span>}{catalogLoading ? Array.from({ length: 5 }, (_, index) => <div className="pcx-product pcx-product--skeleton" key={index} aria-hidden="true"><span /><i /><i /></div>) : opportunities.map((product, index) => {
             const saving = Math.max(0, product.maxPrice - product.minPrice); const offer = bestOffer(product);
-            return <button key={`${product.id}-${index}`} className="pcx-product" type="button" onClick={() => openProduct(product)} title={`Comparar ${product.name}`}>
-              <span className="pcx-product__saving">− {money(saving)}</span><span className="pcx-product__media"><ProductVisual product={product} /></span>
+            return <button key={`${product.id}-${index}`} className="pcx-product" type="button" onClick={() => openProduct(product)} onPointerMove={moveProductPreview} onPointerLeave={resetProductPreview} onPointerCancel={resetProductPreview} title={`Comparar ${product.name}`}>
+              <span className="pcx-product__saving">− {money(saving)}</span><span className="pcx-product__media"><ProductVisual product={product} /><span className="pcx-product__hint" aria-hidden="true">Ver comparação <ArrowRight /></span></span>
               <span className="pcx-product__body"><small>{cleanMeta(product.brand, product.size) || "Produto local"}</small><strong title={product.name}>{product.name}</strong><span className="pcx-product__store"><Store aria-hidden="true" /><b>{offer.establishment || "Loja local"}</b></span><span className="pcx-product__price"><small>a partir de</small><b>{money(product.minPrice)}</b></span></span>
             </button>;
           })}</div>

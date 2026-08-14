@@ -354,9 +354,9 @@ export function HomePremium() {
 
         <section className="pcx-proof" aria-label="Números da plataforma">
           <div className="pcx-shell pcx-proof__grid">
-            <div><strong>{catalogLoading ? "—" : catalog.metrics.products.toLocaleString("pt-BR")}</strong><span>produtos monitorados</span></div>
-            <div><strong>{catalogLoading ? "—" : catalog.metrics.prices.toLocaleString("pt-BR")}</strong><span>preços comparados</span></div>
-            <div><strong>{catalogLoading ? "—" : catalog.metrics.stores.toLocaleString("pt-BR")}</strong><span>estabelecimentos locais</span></div>
+            <div className={`pcx-proof__metric${catalogLoading ? " is-loading" : " is-ready"}`}><strong>{catalogLoading ? "—" : catalog.metrics.products.toLocaleString("pt-BR")}</strong><span>produtos monitorados</span></div>
+            <div className={`pcx-proof__metric${catalogLoading ? " is-loading" : " is-ready"}`}><strong>{catalogLoading ? "—" : catalog.metrics.prices.toLocaleString("pt-BR")}</strong><span>preços comparados</span></div>
+            <div className={`pcx-proof__metric${catalogLoading ? " is-loading" : " is-ready"}`}><strong>{catalogLoading ? "—" : catalog.metrics.stores.toLocaleString("pt-BR")}</strong><span>estabelecimentos locais</span></div>
             <div className="pcx-proof__trust"><ShieldCheck aria-hidden="true" /><span><strong>Dados transparentes</strong><small>{catalogError ? "Dados locais — atualização remota indisponível" : updatedLabel(catalog.updatedAt)}</small></span></div>
           </div>
         </section>

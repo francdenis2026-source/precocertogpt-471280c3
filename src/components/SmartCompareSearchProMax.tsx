@@ -73,7 +73,7 @@ export function SmartCompareSearchProMax(){
  const baseLabel=(base:"kg"|"L"|"un")=>base==="un"?"unidade":base;
 
  return <main className="scpm-page">
-  <section className="scpm-hero"><div className="scpm-shell scpm-hero__inner"><div><span className="scpm-kicker"><BrainCircuit/> Comparação inteligente</span><h1>Não veja apenas o preço. <strong>Veja o que vale mais.</strong></h1><p>O PreçoCerto compara embalagens, peso, volume e quantidade para mostrar quando pagar um pouco mais entrega mais produto pelo seu dinheiro.</p></div><div className="scpm-hero__metric"><Sparkles/><span>Nova análise</span><strong>Custo por kg, litro ou unidade</strong><small>Comparações somente entre medidas compatíveis.</small></div></div></section>
+  <section className="scpm-hero"><div className="scpm-shell scpm-hero__inner"><div><span className="scpm-kicker"><BrainCircuit/> Comparação inteligente</span><h1>Comparação inteligente de preços em Feijó: <strong>veja o que vale mais.</strong></h1><p>O PreçoCerto compara embalagens, peso, volume e quantidade para mostrar quando pagar um pouco mais entrega mais produto pelo seu dinheiro.</p></div><div className="scpm-hero__metric"><Sparkles/><span>Nova análise</span><strong>Custo por kg, litro ou unidade</strong><small>Comparações somente entre medidas compatíveis.</small></div></div></section>
 
   <section className="scpm-searchbar"><div className="scpm-shell"><form onSubmit={submit}><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Busque um produto, marca ou categoria" aria-label="Buscar produto"/><button type="submit">Comparar <ArrowRight/></button></form></div></section>
 

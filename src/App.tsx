@@ -55,6 +55,7 @@ import { CustomerOrders } from "./components/CustomerOrders";
 import { MercadoPagoCallback } from "./components/MercadoPagoCallback";
 import { CollaboratePage, ContactPage, PharmaciesPage } from "./components/PublicFooterServicePages";
 import { HomePremium } from "./pages/HomePremium";
+import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
@@ -106,6 +107,7 @@ export default function App() {
         <FremixCuratedVideos />
         <BasketSessionFlow />
         <AuthorMerchantDashboardWelcome />
+        <RouteHead />
         <Routes>
           <Route path="/" element={<HomePremium />} />
           <Route path="/buscar" element={<SmartCompareSearchProMax />} />

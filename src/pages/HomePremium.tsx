@@ -46,6 +46,27 @@ const money = (value: number) => new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 }).format(value);
 
+const cleanMeta = (...values: Array<string | null | undefined>) => values
+  .map((value) => value?.trim())
+  .filter((value): value is string => Boolean(value && value !== "-"))
+  .join(" · ");
+
+const updatedLabel = (value?: string) => {
+  if (!value) return "Atualização não informada";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Atualização não informada";
+  return `Atualizado em ${new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
+  }).format(date)}`;
+};
+
+function ProductVisual({ product, eager = false }: { product: Product; eager?: boolean }) {
+  const [failed, setFailed] = useState(false);
+  const image = resolveProductImage(product);
+  if (!image || failed) return <PackageSearch aria-hidden="true" />;
+  return <img src={image} alt={product.name} loading={eager ? "eager" : "lazy"} onError={() => setFailed(true)} />;
+}
+
 const readTheme = (): Theme => {
   if (typeof window === "undefined") return "light";
   return window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
@@ -84,6 +105,7 @@ export function HomePremium() {
     updatedAt: initialCatalog.updatedAt,
   });
   const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -94,8 +116,8 @@ export function HomePremium() {
   useEffect(() => {
     let active = true;
     fetchCatalog()
-      .then((result) => { if (active) setCatalog(result); })
-      .catch(() => undefined)
+      .then((result) => { if (active) { setCatalog(result); setCatalogError(false); } })
+      .catch(() => { if (active) setCatalogError(true); })
       .finally(() => { if (active) setCatalogLoading(false); });
     return () => { active = false; };
   }, []);
@@ -116,6 +138,8 @@ export function HomePremium() {
     dialogTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const background = [...document.querySelectorAll<HTMLElement>(".pcx-home > :not(.pcx-modal)")];
+    background.forEach((element) => element.setAttribute("inert", ""));
     window.setTimeout(() => closeRef.current?.focus(), 0);
 
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
@@ -142,6 +166,7 @@ export function HomePremium() {
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
+      background.forEach((element) => element.removeAttribute("inert"));
       document.removeEventListener("keydown", onKeyDown);
       dialogTriggerRef.current?.focus();
     };
@@ -166,6 +191,10 @@ export function HomePremium() {
     : [], [comparisonProduct]);
   const stores = useMemo(() => catalog.stores.filter((store) => store.products > 0).slice(0, 6), [catalog.stores]);
   const headlineSaving = comparisonProduct ? Math.max(0, comparisonProduct.maxPrice - comparisonProduct.minPrice) : 0;
+  const selectedOffers = selectedProduct
+    ? [...(selectedProduct.offers ?? [])].filter((offer) => offer.value > 0).sort((a, b) => a.value - b.value).slice(0, 5)
+    : [];
+  const hasComparison = selectedOffers.length > 1;
 
   const search = (term: string) => {
     const normalized = term.trim();
@@ -283,9 +312,9 @@ export function HomePremium() {
                         onClick={() => { setSelectedProduct(product); setSearchOpen(false); }}
                       >
                         <span className="pcx-result__image">
-                          {resolveProductImage(product) ? <img src={resolveProductImage(product)} alt="" /> : <PackageSearch aria-hidden="true" />}
+                          <ProductVisual product={product} />
                         </span>
-                        <span><strong>{product.name}</strong><small>{product.brand} · {product.size}</small></span>
+                        <span><strong>{product.name}</strong>{cleanMeta(product.brand, product.size) && <small>{cleanMeta(product.brand, product.size)}</small>}</span>
                         <span className="pcx-result__price"><small>a partir de</small><strong>{money(product.minPrice)}</strong></span>
                       </button>
                     )) : <div className="pcx-results__empty"><PackageSearch aria-hidden="true" /><span><strong>Nenhum resultado para “{query}”</strong><small>Tente buscar por arroz, leite ou limpeza.</small></span></div>}
@@ -301,15 +330,15 @@ export function HomePremium() {
             <aside className="pcx-radar" aria-label="Exemplo de comparação em tempo real">
               <div className="pcx-radar__top">
                 <span><Sparkles aria-hidden="true" /> Radar de economia</span>
-                <span className="pcx-live"><i /> Atualizado</span>
+                <span className="pcx-live"><i /> {updatedLabel(catalog.updatedAt)}</span>
               </div>
               {comparisonProduct ? (
                 <>
                   <div className="pcx-radar__product">
                     <div className="pcx-radar__image">
-                      {resolveProductImage(comparisonProduct) ? <img src={resolveProductImage(comparisonProduct)} alt={comparisonProduct.name} /> : <ShoppingBasket aria-hidden="true" />}
+                      <ProductVisual product={comparisonProduct} eager />
                     </div>
-                    <div><small>Melhor oportunidade agora</small><h2>{comparisonProduct.name}</h2><p>{comparisonProduct.brand} · {comparisonProduct.size}</p></div>
+                    <div><small>Melhor oportunidade agora</small><h2>{comparisonProduct.name}</h2>{cleanMeta(comparisonProduct.brand, comparisonProduct.size) && <p>{cleanMeta(comparisonProduct.brand, comparisonProduct.size)}</p>}</div>
                   </div>
                   <div className="pcx-radar__prices">
                     <div><span>Menor preço</span><strong>{money(comparisonProduct.minPrice)}</strong></div>
@@ -318,7 +347,7 @@ export function HomePremium() {
                   <div className="pcx-radar__saving"><TrendingDown aria-hidden="true" /><span>Você pode economizar</span><strong>{money(headlineSaving)}</strong></div>
                   <button type="button" onClick={() => setSelectedProduct(comparisonProduct)}>Ver comparação completa <ChevronRight aria-hidden="true" /></button>
                 </>
-              ) : <div className="pcx-radar__loading">Carregando comparação...</div>}
+              ) : <div className="pcx-radar__loading">{catalogError ? "Não foi possível atualizar agora. Exibiremos os dados locais disponíveis." : "Carregando comparação..."}</div>}
             </aside>
           </div>
         </section>
@@ -328,7 +357,7 @@ export function HomePremium() {
             <div><strong>{catalogLoading ? "—" : catalog.metrics.products.toLocaleString("pt-BR")}</strong><span>produtos monitorados</span></div>
             <div><strong>{catalogLoading ? "—" : catalog.metrics.prices.toLocaleString("pt-BR")}</strong><span>preços comparados</span></div>
             <div><strong>{catalogLoading ? "—" : catalog.metrics.stores.toLocaleString("pt-BR")}</strong><span>estabelecimentos locais</span></div>
-            <div className="pcx-proof__trust"><ShieldCheck aria-hidden="true" /><span><strong>Dados transparentes</strong><small>Você decide onde comprar</small></span></div>
+            <div className="pcx-proof__trust"><ShieldCheck aria-hidden="true" /><span><strong>Dados transparentes</strong><small>{catalogError ? "Dados locais — atualização remota indisponível" : updatedLabel(catalog.updatedAt)}</small></span></div>
           </div>
         </section>
 
@@ -361,10 +390,10 @@ export function HomePremium() {
                   <button key={`${product.id}-${index}`} className="pcx-product" type="button" onClick={() => setSelectedProduct(product)}>
                     <span className="pcx-product__badge">Economize {money(saving)}</span>
                     <span className="pcx-product__media">
-                      {resolveProductImage(product) ? <img src={resolveProductImage(product)} alt={product.name} loading={index > 2 ? "lazy" : "eager"} /> : <PackageSearch aria-hidden="true" />}
+                      <ProductVisual product={product} eager={index <= 2} />
                     </span>
                     <span className="pcx-product__body">
-                      <small>{product.category}</small><strong>{product.name}</strong><span>{product.brand} · {product.size}</span>
+                      <small>{product.category}</small><strong>{product.name}</strong>{cleanMeta(product.brand, product.size) && <span>{cleanMeta(product.brand, product.size)}</span>}
                       <span className="pcx-product__price"><small>a partir de</small><b>{money(product.minPrice)}</b></span>
                       <span className="pcx-product__store"><MapPin aria-hidden="true" /> {bestOffer(product).establishment}</span>
                     </span>
@@ -397,7 +426,7 @@ export function HomePremium() {
                     </div>
                   ))}
                 </div>
-                <div className="pcx-compare__footer"><Clock3 aria-hidden="true" /> Preços informados pelas lojas e colaboradores locais.</div>
+                <div className="pcx-compare__footer"><Clock3 aria-hidden="true" /> Preços informados pelas lojas e colaboradores locais. {updatedLabel(catalog.updatedAt)}.</div>
               </div>
             </div>
           </section>
@@ -443,21 +472,20 @@ export function HomePremium() {
           <section ref={dialogRef} className="pcx-dialog" role="dialog" aria-modal="true" aria-labelledby="pcx-dialog-title">
             <button ref={closeRef} className="pcx-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X aria-hidden="true" /></button>
             <div className="pcx-dialog__media">
-              {resolveProductImage(selectedProduct) ? <img src={resolveProductImage(selectedProduct)} alt={selectedProduct.name} /> : <PackageSearch aria-hidden="true" />}
+              <ProductVisual product={selectedProduct} eager />
             </div>
             <div className="pcx-dialog__content">
-              <span className="pcx-kicker">Comparação de preços</span>
+              <span className="pcx-kicker">{hasComparison ? "Comparação de preços" : "Detalhes do preço"}</span>
               <h2 id="pcx-dialog-title">{selectedProduct.name}</h2>
-              <p>{selectedProduct.brand} · {selectedProduct.size} · {selectedProduct.category}</p>
-              <div className="pcx-dialog__summary"><div><small>Menor preço</small><strong>{money(selectedProduct.minPrice)}</strong></div><div><small>Preço médio</small><strong>{money(selectedProduct.avgPrice)}</strong></div><div><small>Diferença</small><strong>{money(Math.max(0, selectedProduct.maxPrice - selectedProduct.minPrice))}</strong></div></div>
+              {cleanMeta(selectedProduct.brand, selectedProduct.size, selectedProduct.category) && <p>{cleanMeta(selectedProduct.brand, selectedProduct.size, selectedProduct.category)}</p>}
+              <div className={`pcx-dialog__summary${hasComparison ? "" : " is-single"}`}><div><small>{hasComparison ? "Menor preço" : "Preço encontrado"}</small><strong>{money(selectedProduct.minPrice)}</strong></div>{hasComparison && <><div><small>Preço médio</small><strong>{money(selectedProduct.avgPrice)}</strong></div><div><small>Diferença</small><strong>{money(Math.max(0, selectedProduct.maxPrice - selectedProduct.minPrice))}</strong></div></>}</div>
               <div className="pcx-dialog__offers">
-                {([...(selectedProduct.offers ?? [])].sort((a, b) => a.value - b.value).slice(0, 5).length
-                  ? [...(selectedProduct.offers ?? [])].sort((a, b) => a.value - b.value).slice(0, 5)
-                  : [bestOffer(selectedProduct)]).map((offer, index) => (
+                {(selectedOffers.length ? selectedOffers : [bestOffer(selectedProduct)]).map((offer, index) => (
                     <div key={`${offer.establishmentId}-${index}`}><span><strong>{offer.establishment}</strong><small><MapPin aria-hidden="true" /> {offer.neighborhood}</small></span>{index === 0 && <em>Melhor preço</em>}<b>{money(offer.value)}</b></div>
                   ))}
               </div>
-              <div className="pcx-dialog__actions"><Link to={`/buscar?q=${encodeURIComponent(selectedProduct.name)}`}>Ver página de comparação <ArrowRight aria-hidden="true" /></Link><button type="button" onClick={() => setSelectedProduct(null)}>Continuar navegando</button></div>
+              <p className="pcx-dialog__source"><Clock3 aria-hidden="true" /> {updatedLabel(selectedProduct.capturedAt ?? catalog.updatedAt)}. Preço informado pela loja ou por colaborador local.</p>
+              <div className="pcx-dialog__actions"><Link to={`/buscar?q=${encodeURIComponent(selectedProduct.name)}`}>{hasComparison ? "Ver página de comparação" : "Buscar outras ofertas"} <ArrowRight aria-hidden="true" /></Link><button type="button" onClick={() => setSelectedProduct(null)}>Continuar navegando</button></div>
             </div>
           </section>
         </div>
@@ -474,3 +502,4 @@ export function HomePremium() {
     </div>
   );
 }
+

@@ -322,3 +322,41 @@
   .pcx-product:hover, .pcx-home button:active, .pcx-home a:active { transform: none !important; }
   .pcx-dialog, .pcx-modal, .pcx-mobile-menu { animation: pcx-fade 120ms linear both !important; }
 }
+
+
+/* Acesso do usuário no header */
+.pcx-login {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+  border-radius: 99px;
+  padding: 0 15px;
+  color: inherit;
+  font-size: .74rem;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.pcx-login:hover {
+  border-color: var(--pcx-accent);
+  background: color-mix(in srgb, var(--pcx-accent) 10%, transparent);
+  color: var(--pcx-accent);
+}
+
+.pcx-login:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--pcx-accent) 42%, transparent);
+  outline-offset: 3px;
+}
+
+.pcx-login svg {
+  width: 17px;
+  height: 17px;
+}
+
+@media (max-width: 1020px) {
+  .pcx-login { display: none; }
+}

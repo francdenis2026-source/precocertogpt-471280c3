@@ -165,7 +165,7 @@ function installStyles() {
     body.pc-admin-deep main > header {
       margin-bottom: 16px !important;
       padding-bottom: 15px !important;
-      border-bottom: 1px solid #dde5df !important;
+      border-bottom: 1px solid var(--pc-color-border) !important;
       align-items: center !important;
     }
 

@@ -1,17 +1,78 @@
 import { FormEvent, useEffect, useState } from "react";
-import { ArrowLeft, Check, Link2, ShieldCheck, Store } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, BarChart3, Eye, EyeOff, PackageSearch, ShieldCheck, Store, TrendingDown } from "lucide-react";
 import { supabase } from "../lib/roles";
+import { resolveAuthenticatedHome } from "../lib/merchantPlatform";
+import "./MerchantOnboardingPage.css";
 
-type Plan={code:string;name:string;monthly_price:number;commission_rate:number;features:Record<string,unknown>};
-type Establishment={id:string;name:string;neighborhood:string|null;kind:string|null};
-const money=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
+type View = "login" | "register";
 
-export function MerchantOnboardingPage(){
- const [plans,setPlans]=useState<Plan[]>([]),[establishments,setEstablishments]=useState<Establishment[]>([]),[plan,setPlan]=useState("professional"),[user,setUser]=useState<any>(null),[state,setState]=useState<"idle"|"sending"|"ok"|"error">("idle"),[message,setMessage]=useState("");
- useEffect(()=>{void(async()=>{if(!supabase)return;const [{data:s},{data:p},{data:e}]=await Promise.all([supabase.auth.getSession(),supabase.from("platform_plans").select("code,name,monthly_price,commission_rate,features").eq("active",true).order("commission_rate",{ascending:false}),supabase.from("establishments").select("id,name,neighborhood,kind").order("name")]);setUser(s.session?.user??null);setPlans((p??[]) as Plan[]);setEstablishments((e??[]) as Establishment[])})()},[]);
- async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();if(!supabase||!user){setState("error");setMessage("Entre na sua conta do Preço Certo antes de enviar o cadastro. Assim o estabelecimento será vinculado ao seu painel.");return}setState("sending");const fd=new FormData(e.currentTarget),business_name=String(fd.get("business_name")||"").trim(),neighborhood=String(fd.get("neighborhood")||"").trim(),owner_name=String(fd.get("owner_name")||"").trim(),phone=String(fd.get("phone")||"").trim(),email=String(fd.get("email")||user.email||"").trim(),kind=String(fd.get("kind")||"market"),establishment_id=String(fd.get("establishment_id")||"").trim()||null;if(!business_name||!neighborhood){setState("error");setMessage("Informe o nome do comércio e o bairro.");return}const {error}=await supabase.from("merchant_applications").insert({applicant_user_id:user.id,business_name,neighborhood,kind,owner_name:owner_name||null,phone:phone||null,email:email||null,desired_plan:plan,establishment_id,status:"pending"});if(error){setState("error");setMessage(error.message);return}setState("ok");setMessage(establishment_id?"Solicitação enviada. Após a validação, o catálogo público desse estabelecimento será importado para o seu painel para você revisar estoque e disponibilidade.":"Solicitação enviada. Quando a administração aprovar, seu painel de comerciante será liberado automaticamente.")}
-  return <main style={s.page}><header style={s.top}><a href="/" style={s.back}><ArrowLeft size={16}/> Voltar</a><strong>PreçoCerto · Para comerciantes</strong></header><section style={s.hero}><div><span style={s.kicker}>COMÉRCIO LOCAL, OPERAÇÃO DIGITAL</span><h1 style={s.h1}>Escolha seu plano e prepare sua loja para vender.</h1><p style={s.lead}>Após a aprovação, você terá catálogo, pedidos ao vivo, financeiro, entrega, equipe e integração de pagamentos em um painel separado da administração da plataforma.</p></div><div style={s.security}><ShieldCheck/><div><strong>Seu painel é privado</strong><p>A administração acompanha cadastro, plano e indicadores agregados, mas não opera preços, estoque, pedidos ou caixa da sua loja.</p></div></div></section>
-  <section style={s.plans}>{plans.map(p=><button type="button" key={p.code} onClick={()=>setPlan(p.code)} style={{...s.plan,...(plan===p.code?s.planOn:{})}}><span style={s.kicker}>{p.code.toUpperCase()}</span><h2>{p.name}</h2><strong style={s.price}>{p.monthly_price>0?`${money.format(p.monthly_price)}/mês`:"Valor definido pela plataforma"}</strong><small>Comissão configurada: {Number(p.commission_rate).toLocaleString("pt-BR")}%</small><div style={s.checks}><span><Check size={14}/> Catálogo e pedidos</span>{!!p.features?.finance&&<span><Check size={14}/> Financeiro</span>}{!!p.features?.delivery&&<span><Check size={14}/> Entregas</span>}{!!p.features?.team&&<span><Check size={14}/> Equipe</span>}</div></button>)}</section>
-  <section style={s.formCard}><div><Store size={28}/><h2>Dados do estabelecimento</h2><p>Use a mesma conta com a qual você administrará o comércio.</p><div style={s.bridge}><Link2 size={18}/><span>Se a sua loja já aparece na comparação de preços, selecione-a no formulário. Isso evita duplicidade e prepara a importação do catálogo já existente.</span></div>{!user&&<div style={s.warn}>Você ainda não está autenticado. Entre pela página inicial antes de enviar.</div>}</div><form onSubmit={submit} style={s.form}><label>Minha loja já aparece no Preço Certo<select name="establishment_id" defaultValue=""><option value="">Não / não encontrei</option>{establishments.map(est=><option key={est.id} value={est.id}>{est.name}{est.neighborhood?` · ${est.neighborhood}`:""}</option>)}</select></label><label>Nome do comércio<input name="business_name" required placeholder="Ex.: Mercado Avenida"/></label><div style={s.two}><label>Bairro<input name="neighborhood" required placeholder="Centro"/></label><label>Segmento<select name="kind"><option value="market">Mercado / supermercado</option><option value="butcher">Açougue</option><option value="pharmacy">Farmácia</option><option value="other">Outro</option></select></label></div><div style={s.two}><label>Responsável<input name="owner_name" placeholder="Nome do responsável"/></label><label>WhatsApp<input name="phone" inputMode="tel" placeholder="(68) 99999-9999"/></label></div><label>E-mail<input name="email" type="email" defaultValue={user?.email||""}/></label><div style={s.selected}>Plano selecionado: <strong>{plans.find(p=>p.code===plan)?.name||plan}</strong></div>{message&&<div style={state==="ok"?s.ok:s.warn}>{message}</div>}<button disabled={state==="sending"||!user} style={s.submit}>{state==="sending"?"Enviando…":"Enviar para aprovação"}</button></form></section></main>;
+export function MerchantOnboardingPage() {
+  const [view, setView] = useState<View>(() => new URLSearchParams(location.search).get("cadastro") === "1" ? "register" : "login");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => { document.body.classList.add("pc-merchant-access"); return () => document.body.classList.remove("pc-merchant-access"); }, []);
+
+  function select(next: View) { setView(next); setError(""); setMessage(""); history.replaceState({}, "", next === "register" ? "/lojista?cadastro=1" : "/lojista"); }
+
+  async function submitLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setBusy(true); setError("");
+    const data = new FormData(event.currentTarget);
+    const { error: authError } = await supabase.auth.signInWithPassword({ email: String(data.get("email")), password: String(data.get("password")) });
+    if (authError) { setError("Não foi possível entrar. Confira o e-mail e a senha."); setBusy(false); return; }
+    const destination = await resolveAuthenticatedHome("/painel-lojista");
+    if (!destination.startsWith("/painel-lojista")) { await supabase.auth.signOut(); setError("Esta conta ainda não está vinculada a um negócio ativo. Solicite o cadastro ao lado."); setBusy(false); return; }
+    location.assign(destination);
+  }
+
+  async function submitRegistration(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setBusy(true); setError(""); setMessage("");
+    const data = new FormData(event.currentTarget);
+    const email = String(data.get("email")).trim();
+    const password = String(data.get("password"));
+    const businessName = String(data.get("business_name")).trim();
+    const { data: auth, error: authError } = await supabase.auth.signUp({ email, password, options: { data: { full_name: String(data.get("owner_name")).trim(), account_type: "merchant" } } });
+    if (authError) { setError(authError.message.includes("already") ? "Este e-mail já possui acesso. Use a opção Entrar." : "Não foi possível criar o acesso. Revise os dados e tente novamente."); setBusy(false); return; }
+    if (auth.session) {
+      const { error: applicationError } = await supabase.from("merchant_applications").insert({ applicant_user_id: auth.user!.id, business_name: businessName, neighborhood: String(data.get("neighborhood")).trim(), kind: String(data.get("kind")), owner_name: String(data.get("owner_name")).trim(), phone: String(data.get("phone")).trim() || null, email, desired_plan: "professional", establishment_id: null, status: "pending" });
+      if (applicationError) { setError("O acesso foi criado, mas não conseguimos enviar o negócio. Entre e tente novamente."); setBusy(false); return; }
+    }
+    setMessage(auth.session ? "Solicitação enviada. Avisaremos quando o painel estiver liberado." : "Acesso criado. Confirme o e-mail para concluir a solicitação do negócio.");
+    setBusy(false);
+  }
+
+  return <main className="merchant-access">
+    <section className="merchant-access__visual" aria-label="PreçoCerto para comerciantes">
+      <img src="/merchant-access-hero.webp" alt="Comerciante administrando seu catálogo em um tablet" width="1200" height="900" />
+      <div className="merchant-access__shade" />
+      <a className="merchant-access__brand" href="/" aria-label="PreçoCerto — início"><span><TrendingDown /></span>preço<strong>certo</strong></a>
+      <div className="merchant-access__pitch"><span className="merchant-access__eyebrow">ÁREA DO LOJISTA</span><h1>Seu negócio, pronto para ser encontrado.</h1><p>Organize catálogo, preços e presença local em um único painel.</p><div className="merchant-access__features"><span><PackageSearch /> Catálogo atualizado</span><span><BarChart3 /> Visão da operação</span><span><BadgeCheck /> Presença profissional</span></div></div>
+      <small>PreçoCerto · Comércio local de Feijó</small>
+    </section>
+    <section className="merchant-access__content">
+      <div className="merchant-access__top"><a href="/"><ArrowLeft /> Voltar ao site</a><span><ShieldCheck /> Ambiente seguro</span></div>
+      <div className="merchant-access__card">
+        <div className="merchant-access__heading"><span><Store /> PORTA DE ENTRADA DO SEU NEGÓCIO</span><h2>{view === "login" ? "Acesse seu painel" : "Cadastre seu negócio"}</h2><p>{view === "login" ? "Entre com o acesso vinculado ao estabelecimento." : "Crie o acesso do responsável e envie os dados essenciais."}</p></div>
+        <div className="merchant-access__tabs" role="tablist" aria-label="Escolha uma opção"><button role="tab" aria-selected={view === "login"} onClick={() => select("login")}>Entrar</button><button role="tab" aria-selected={view === "register"} onClick={() => select("register")}>Cadastrar negócio</button></div>
+        {view === "login" ? <form className="merchant-access__form" onSubmit={submitLogin}>
+          <label>E-mail do responsável<input name="email" type="email" autoComplete="username" placeholder="nome@empresa.com" required /></label>
+          <label>Senha<div className="merchant-access__password"><input name="password" type={passwordVisible ? "text" : "password"} autoComplete="current-password" placeholder="Sua senha" minLength={6} required /><button type="button" onClick={() => setPasswordVisible(v => !v)} aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"}>{passwordVisible ? <EyeOff /> : <Eye />}</button></div></label>
+          {error && <div className="merchant-access__alert" role="alert">{error}</div>}
+          <button className="merchant-access__submit" disabled={busy}>{busy ? "Entrando…" : <>Entrar no painel <ArrowRight /></>}</button>
+          <a className="merchant-access__support" href="/fale-conosco">Preciso recuperar meu acesso</a>
+        </form> : <form className="merchant-access__form merchant-access__form--register" onSubmit={submitRegistration}>
+          <div className="merchant-access__row"><label>Nome do negócio<input name="business_name" placeholder="Ex.: Mercado Avenida" required /></label><label>Segmento<select name="kind" defaultValue="market"><option value="market">Mercado</option><option value="butcher">Açougue</option><option value="pharmacy">Farmácia</option><option value="other">Outro</option></select></label></div>
+          <div className="merchant-access__row"><label>Responsável<input name="owner_name" autoComplete="name" placeholder="Nome completo" required /></label><label>Bairro<input name="neighborhood" placeholder="Centro" required /></label></div>
+          <div className="merchant-access__row"><label>E-mail profissional<input name="email" type="email" autoComplete="email" placeholder="nome@empresa.com" required /></label><label>WhatsApp<input name="phone" type="tel" autoComplete="tel" placeholder="(68) 99999-9999" /></label></div>
+          <label>Crie uma senha<input name="password" type="password" autoComplete="new-password" placeholder="Mínimo de 6 caracteres" minLength={6} required /></label>
+          {error && <div className="merchant-access__alert" role="alert">{error}</div>}{message && <div className="merchant-access__success" role="status">{message}</div>}
+          <button className="merchant-access__submit" disabled={busy || !!message}>{busy ? "Enviando…" : <>Solicitar cadastro <ArrowRight /></>}</button>
+          <p className="merchant-access__terms">A solicitação passa por validação antes da liberação do painel.</p>
+        </form>}
+      </div>
+      <p className="merchant-access__consumer">Quer apenas comparar preços? <a href="/login">Entrar como consumidor</a></p>
+    </section>
+  </main>;
 }
-const s:Record<string,React.CSSProperties>={page:{minHeight:"100vh",background:"var(--pc-color-background)",color:"var(--pc-color-foreground)",fontFamily:"'Manrope Variable', Manrope, system-ui, sans-serif",paddingBottom:70},top:{height:64,padding:"0 clamp(18px,4vw,60px)",display:"flex",alignItems:"center",justifyContent:"space-between",background:"white",borderBottom:"1px solid var(--pc-color-border)"},back:{display:"flex",alignItems:"center",gap:6,color:"inherit",textDecoration:"none",fontWeight:700},hero:{maxWidth:1180,margin:"0 auto",padding:"58px 20px 30px",display:"grid",gridTemplateColumns:"1.25fr .75fr",gap:24,alignItems:"end"},kicker:{fontSize:10,fontWeight:900,letterSpacing:".13em",opacity:.58},h1:{fontSize:"clamp(36px,5vw,62px)",lineHeight:1,letterSpacing:"-.055em",margin:"10px 0 18px"},lead:{fontSize:16,color:"var(--pc-color-muted)",lineHeight:1.65,maxWidth:720},security:{background:"var(--pc-color-background)",border:"1px solid var(--pc-color-muted)",borderRadius:18,padding:20,display:"flex",gap:12},plans:{maxWidth:1180,margin:"0 auto",padding:"10px 20px 24px",display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:12},plan:{textAlign:"left",padding:22,borderRadius:17,border:"1px solid var(--pc-color-border)",background:"white",cursor:"pointer",display:"grid",gap:7},planOn:{border:"2px solid var(--pc-color-primary)",boxShadow:"0 12px 34px rgba(31,91,59,.12)"},price:{fontSize:18},checks:{display:"grid",gap:5,marginTop:10,fontSize:12,color:"var(--pc-color-muted)"},formCard:{maxWidth:1140,margin:"0 auto",background:"white",border:"1px solid var(--pc-color-border)",borderRadius:20,padding:26,display:"grid",gridTemplateColumns:".7fr 1.3fr",gap:30},form:{display:"grid",gap:12},two:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10},selected:{padding:12,borderRadius:10,background:"var(--pc-color-background)"},bridge:{marginTop:18,padding:13,borderRadius:12,background:"var(--pc-color-background)",display:"flex",gap:9,fontSize:13,lineHeight:1.45},submit:{minHeight:48,border:0,borderRadius:11,background:"var(--pc-color-foreground)",color:"white",fontWeight:850,cursor:"pointer"},warn:{padding:12,borderRadius:10,background:"var(--pc-color-background)",color:"var(--pc-color-accent)",fontSize:13},ok:{padding:12,borderRadius:10,background:"var(--pc-color-background)",color:"var(--pc-color-primary)",fontSize:13}}

@@ -64,6 +64,7 @@ import "./components/ImpeccableFullSitePolish.css";
 import "./components/ImpeccableStructuralLegacy.css";
 import "./components/DorinhaEditorialCompactV6.css";
 import "./pages/HomeMaxSkills2026.css";
+import "./pages/HomeCompactProfessional2026.css";
 
 export default function App() {
   return (

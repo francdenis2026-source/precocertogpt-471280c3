@@ -9,6 +9,7 @@ import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { suggestProducts } from "../lib/productSearch";
+import { JsonLd } from "../components/JsonLd";
 import "./HomePremium.css";
 
 type Theme = "light" | "dark";
@@ -149,6 +150,29 @@ export function HomePremium() {
   const selectedOffers = selectedProduct ? [...(selectedProduct.offers ?? [])].filter((offer) => offer.value > 0).sort((a, b) => a.value - b.value).slice(0, 5) : [];
   const hasComparison = selectedOffers.length > 1;
 
+  const productsStructuredData = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Produtos com maior variação de preço em Feijó (AC)",
+    itemListElement: opportunities.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Product",
+        name: product.name,
+        ...(product.brand && product.brand !== "-" ? { brand: { "@type": "Brand", name: product.brand } } : {}),
+        offers: {
+          "@type": "AggregateOffer",
+          priceCurrency: "BRL",
+          lowPrice: Number(product.minPrice.toFixed(2)),
+          highPrice: Number(product.maxPrice.toFixed(2)),
+          offerCount: (product.offers ?? []).filter((offer) => offer.value > 0).length || 1,
+          availability: "https://schema.org/InStock",
+        },
+      },
+    })),
+  }), [opportunities]);
+
   const openProduct = (product: Product) => { setDialogClosing(false); setSelectedProduct(product); };
   const search = (term: string) => navigate(term.trim() ? `/buscar?q=${encodeURIComponent(term.trim())}` : "/buscar");
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
@@ -191,10 +215,11 @@ export function HomePremium() {
       </header>
 
       <main id="conteudo">
+        <JsonLd id="pcx-products-jsonld" data={productsStructuredData} />
         <section className="pcx-hero" aria-labelledby="pcx-title">
           <div className="pcx-shell pcx-hero__grid">
             <div className="pcx-hero__copy">
-              <h1 id="pcx-title">A compra começa <em>antes</em> da prateleira.</h1>
+              <h1 id="pcx-title">Comparação de preços em Feijó: <em>saiba antes</em> onde comprar.</h1>
               <p>Em Feijó, compare o mesmo produto nas lojas da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               <div className="pcx-search-area" ref={searchAreaRef}>
                 <form className="pcx-search" role="search" onSubmit={submitSearch}>

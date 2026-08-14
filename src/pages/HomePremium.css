@@ -61,7 +61,9 @@ html:not([data-theme="dark"]) .pcx-header { border-color: rgba(31,55,44,.12); ba
 .pcx-theme-toggle[aria-pressed="true"] .pcx-theme-toggle__moon { color: #fff; opacity: 1; }
 .pcx-theme-toggle:hover { border-color: var(--pcx-accent); box-shadow: 0 5px 16px rgba(17,37,28,.13); transform: translateY(-1px); }
 .pcx-theme-toggle:active { transform: scale(.98); }
-html:not([data-theme="dark"]) .pcx-theme-toggle { border-color: rgba(24,49,38,.24); background: rgba(24,49,38,.09); color: #183126; box-shadow: 0 4px 13px rgba(24,49,38,.1); }
+html:not([data-theme="dark"]) .pcx-theme-toggle { border-color: rgba(24,49,38,.34); background: rgba(24,49,38,.12); color: #183126; box-shadow: 0 4px 13px rgba(24,49,38,.1), 0 1px 0 rgba(255,255,255,.65) inset; }
+html:not([data-theme="dark"]) .pcx-theme-toggle__moon { color: #315646; opacity: .9; }
+html:not([data-theme="dark"]) .pcx-theme-toggle__sun { color: #a94b2a; opacity: 1; }
 .pcx-merchant { min-height: 42px; display: inline-flex; align-items: center; gap: 8px; border-radius: 99px; background: var(--pcx-accent); color: #fff !important; padding: 0 17px; font-size: .78rem; font-weight: 800; transition: background 160ms ease, box-shadow 160ms ease; }
 .pcx-merchant:hover { background: var(--pc-color-accent-hover); box-shadow: 0 8px 22px rgba(163, 74, 39, .2); }
 .pcx-merchant svg { width: 15px; }

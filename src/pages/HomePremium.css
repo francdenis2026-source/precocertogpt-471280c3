@@ -51,16 +51,17 @@ html:not([data-theme="dark"]) .pcx-header { border-color: rgba(31,55,44,.12); ba
 .pcx-icon-button:hover, .pcx-menu-button:hover { border-color: var(--pcx-accent); background: color-mix(in srgb, var(--pcx-accent) 11%, transparent); color: var(--pcx-accent); transform: translateY(-1px); }
 .pcx-header.is-scrolled .pcx-icon-button, .pcx-header.is-scrolled .pcx-menu-button { border-color: color-mix(in srgb, currentColor 34%, transparent); background: color-mix(in srgb, currentColor 5%, transparent); }
 .pcx-icon-button svg, .pcx-menu-button svg { width: 18px; }
-.pcx-theme-toggle { position: relative; width: 72px; height: 42px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; justify-items: center; overflow: hidden; border: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-radius: 13px; background: color-mix(in srgb, currentColor 7%, transparent); color: inherit; padding: 3px; box-shadow: 0 1px 0 rgba(255,255,255,.12) inset; isolation: isolate; transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 160ms var(--pc-ease-out); }
-.pcx-theme-toggle__thumb { position: absolute; z-index: -1; top: 3px; left: 3px; width: 33px; height: 34px; border-radius: 10px; background: #fff9ef; box-shadow: 0 4px 12px rgba(17,37,28,.18); transition: transform 220ms var(--pc-ease-out), background-color 180ms ease, box-shadow 180ms ease; }
-.pcx-theme-toggle[aria-pressed="true"] .pcx-theme-toggle__thumb { transform: translateX(32px); background: #315a48; box-shadow: 0 4px 14px rgba(0,0,0,.28); }
+.pcx-theme-toggle { position: relative; width: 76px; height: 42px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; justify-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.26); border-radius: 12px; background: rgba(5,26,19,.5); color: #fff; padding: 3px; box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, 0 5px 16px rgba(2,14,10,.12); isolation: isolate; transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 160ms var(--pc-ease-out); }
+.pcx-theme-toggle__thumb { position: absolute; z-index: -1; top: 3px; left: 3px; width: 34px; height: 34px; border-radius: 9px; background: #fff7e9; box-shadow: 0 3px 10px rgba(2,14,10,.24); transition: transform 220ms var(--pc-ease-out), background-color 180ms ease, box-shadow 180ms ease; }
+.pcx-theme-toggle[aria-pressed="true"] .pcx-theme-toggle__thumb { transform: translateX(34px); background: #c56640; box-shadow: 0 4px 13px rgba(76,26,10,.38); }
 .pcx-theme-toggle svg { position: relative; z-index: 1; width: 16px; height: 16px; transition: color 180ms ease, opacity 180ms ease, transform 220ms var(--pc-ease-out); }
-.pcx-theme-toggle__sun { color: #b6532f; }
-.pcx-theme-toggle__moon { color: currentColor; opacity: .55; }
-.pcx-theme-toggle[aria-pressed="true"] .pcx-theme-toggle__sun { color: currentColor; opacity: .55; }
+.pcx-theme-toggle__sun { color: #a94b2a; }
+.pcx-theme-toggle__moon { color: #dce9e2; opacity: .78; }
+.pcx-theme-toggle[aria-pressed="true"] .pcx-theme-toggle__sun { color: #f3c6a8; opacity: .9; }
 .pcx-theme-toggle[aria-pressed="true"] .pcx-theme-toggle__moon { color: #fff; opacity: 1; }
 .pcx-theme-toggle:hover { border-color: var(--pcx-accent); box-shadow: 0 5px 16px rgba(17,37,28,.13); transform: translateY(-1px); }
 .pcx-theme-toggle:active { transform: scale(.98); }
+html:not([data-theme="dark"]) .pcx-theme-toggle { border-color: rgba(24,49,38,.24); background: rgba(24,49,38,.09); color: #183126; box-shadow: 0 4px 13px rgba(24,49,38,.1); }
 .pcx-merchant { min-height: 42px; display: inline-flex; align-items: center; gap: 8px; border-radius: 99px; background: var(--pcx-accent); color: #fff !important; padding: 0 17px; font-size: .78rem; font-weight: 800; transition: background 160ms ease, box-shadow 160ms ease; }
 .pcx-merchant:hover { background: var(--pc-color-accent-hover); box-shadow: 0 8px 22px rgba(163, 74, 39, .2); }
 .pcx-merchant svg { width: 15px; }
@@ -410,7 +411,7 @@ html[data-theme="dark"] .pcx-receipt {
 
 
 /* Acesso do usuário no header */
-.pcx-login {
+.pcx-header .pcx-login {
   min-height: 42px;
   display: inline-flex;
   align-items: center;
@@ -428,31 +429,31 @@ html[data-theme="dark"] .pcx-receipt {
   transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms var(--pc-ease-out), box-shadow 160ms ease;
 }
 
-.pcx-login:hover {
+.pcx-header .pcx-login:hover {
   border-color: var(--pcx-accent);
   background: var(--pcx-accent);
   color: #fff;
   transform: translateY(-1px);
 }
 
-html:not([data-theme="dark"]) .pcx-login {
+html:not([data-theme="dark"]) .pcx-header .pcx-login {
   border-color: #183126;
   background: #183126;
   color: #fff;
   box-shadow: 0 6px 16px rgba(24,49,38,.18);
 }
 
-html:not([data-theme="dark"]) .pcx-login:hover {
+html:not([data-theme="dark"]) .pcx-header .pcx-login:hover {
   border-color: var(--pcx-accent);
   background: var(--pcx-accent);
 }
 
-.pcx-login:focus-visible {
+.pcx-header .pcx-login:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--pcx-accent) 42%, transparent);
   outline-offset: 3px;
 }
 
-.pcx-login svg {
+.pcx-header .pcx-login svg {
   width: 17px;
   height: 17px;
 }

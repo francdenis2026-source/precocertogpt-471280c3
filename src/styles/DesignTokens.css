@@ -1,20 +1,17 @@
-/* PreçoCerto — primitive → semantic → component tokens */
+/* PreçoCerto — primitives → semantics → components */
 :root {
-  /* Primitive: color */
-  --pc-color-blue-500: #2457f5;
-  --pc-color-blue-700: #153bc2;
-  --pc-color-lime-300: #d8ff3e;
-  --pc-color-navy-950: #080c17;
-  --pc-color-navy-900: #0b1020;
-  --pc-color-slate-700: #465067;
-  --pc-color-slate-300: #d8dcd2;
-  --pc-color-canvas: #f4f5ed;
+  --pc-color-forest-700: #17493a;
+  --pc-color-forest-800: #10372c;
+  --pc-color-copper-500: #a84d2c;
+  --pc-color-copper-600: #873b22;
+  --pc-color-parchment-50: #fbf8f1;
+  --pc-color-parchment-100: #f1eadf;
+  --pc-color-ink-900: #18211c;
+  --pc-color-ink-600: #5d675f;
+  --pc-color-line: #d9d0c1;
   --pc-color-white: #ffffff;
-  --pc-color-success: #14805e;
-  --pc-color-warning: #a55b08;
-  --pc-color-danger: #c93636;
-
-  /* Primitive: spacing, type, shape, depth and motion */
+  --pc-color-success: #247052;
+  --pc-color-danger: #b43f3f;
   --pc-space-1: .25rem;
   --pc-space-2: .5rem;
   --pc-space-3: .75rem;
@@ -23,64 +20,43 @@
   --pc-space-8: 2rem;
   --pc-space-12: 3rem;
   --pc-space-16: 4rem;
-  --pc-space-20: 5rem;
-  --pc-font-caption: .75rem;
-  --pc-font-small: .875rem;
-  --pc-font-body: 1rem;
-  --pc-font-lead: 1.125rem;
-  --pc-radius-control: .75rem;
-  --pc-radius-card: 1rem;
-  --pc-radius-panel: 1.5rem;
-  --pc-shadow-card: 0 14px 36px rgba(11, 16, 32, .11);
-  --pc-shadow-dialog: 0 30px 90px rgba(3, 6, 14, .4);
+  --pc-radius-control: .65rem;
+  --pc-radius-card: .9rem;
+  --pc-radius-panel: 1.25rem;
+  --pc-shadow-card: 0 14px 36px rgba(25, 35, 29, .09);
+  --pc-shadow-dialog: 0 32px 100px rgba(7, 17, 12, .35);
   --pc-duration-fast: 150ms;
   --pc-duration-normal: 220ms;
-  --pc-duration-slow: 320ms;
-  --pc-ease-out: cubic-bezier(.22, 1, .36, 1);
-
-  /* Semantic */
-  --pc-color-background: var(--pc-color-canvas);
-  --pc-color-surface: var(--pc-color-white);
-  --pc-color-foreground: var(--pc-color-navy-900);
-  --pc-color-muted: var(--pc-color-slate-700);
-  --pc-color-border: var(--pc-color-slate-300);
-  --pc-color-primary: var(--pc-color-blue-500);
-  --pc-color-primary-hover: var(--pc-color-blue-700);
+  --pc-duration-slow: 340ms;
+  --pc-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --pc-color-background: var(--pc-color-parchment-100);
+  --pc-color-surface: rgba(251, 248, 241, .92);
+  --pc-color-foreground: var(--pc-color-ink-900);
+  --pc-color-muted: var(--pc-color-ink-600);
+  --pc-color-border: var(--pc-color-line);
+  --pc-color-primary: var(--pc-color-forest-700);
+  --pc-color-primary-hover: var(--pc-color-forest-800);
   --pc-color-primary-foreground: var(--pc-color-white);
-  --pc-color-accent: var(--pc-color-lime-300);
-  --pc-color-accent-foreground: var(--pc-color-navy-900);
-  --pc-color-focus: var(--pc-color-lime-300);
-  --pc-space-control: var(--pc-space-3);
-  --pc-space-card: var(--pc-space-6);
-  --pc-space-section: clamp(var(--pc-space-12), 7vw, var(--pc-space-20));
-
-  /* Component */
+  --pc-color-accent: var(--pc-color-copper-500);
+  --pc-color-accent-hover: var(--pc-color-copper-600);
+  --pc-color-accent-foreground: var(--pc-color-white);
+  --pc-color-focus: #d77a50;
   --pc-button-height: 2.75rem;
-  --pc-button-radius: var(--pc-radius-control);
-  --pc-button-bg: var(--pc-color-primary);
-  --pc-button-fg: var(--pc-color-primary-foreground);
-  --pc-button-hover-bg: var(--pc-color-primary-hover);
   --pc-input-height: 3rem;
-  --pc-input-bg: var(--pc-color-surface);
-  --pc-input-border: var(--pc-color-border);
-  --pc-input-radius: var(--pc-radius-control);
   --pc-card-bg: var(--pc-color-surface);
-  --pc-card-border: var(--pc-color-border);
-  --pc-card-radius: var(--pc-radius-card);
-  --pc-card-shadow: var(--pc-shadow-card);
-  --pc-dialog-bg: var(--pc-color-surface);
-  --pc-dialog-radius: var(--pc-radius-panel);
-  --pc-dialog-shadow: var(--pc-shadow-dialog);
+  --pc-dialog-bg: var(--pc-color-parchment-50);
 }
 
 [data-theme="dark"] {
-  --pc-color-background: var(--pc-color-navy-950);
-  --pc-color-surface: #111827;
-  --pc-color-foreground: #f6f7ef;
-  --pc-color-muted: #aab3c4;
-  --pc-color-border: #2a3346;
-  --pc-color-primary: #7091ff;
-  --pc-color-primary-hover: #9aafff;
-  --pc-color-primary-foreground: var(--pc-color-navy-950);
+  --pc-color-background: #101914;
+  --pc-color-surface: rgba(24, 35, 29, .94);
+  --pc-color-foreground: #f5efe5;
+  --pc-color-muted: #b9c1ba;
+  --pc-color-border: #3a483f;
+  --pc-color-primary: #79b99b;
+  --pc-color-primary-hover: #9bceb5;
+  --pc-color-primary-foreground: #0d2118;
+  --pc-color-accent: #bd5b35;
+  --pc-color-accent-hover: #d0734c;
+  --pc-dialog-bg: #18231d;
 }
-

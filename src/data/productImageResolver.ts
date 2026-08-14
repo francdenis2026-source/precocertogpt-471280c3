@@ -7,6 +7,12 @@ const assetModules = import.meta.glob("../assets/*.{png,jpg,jpeg,webp,avif}.asse
   import: "default",
 }) as Record<string, AssetMeta>;
 
+const productImages = import.meta.glob("../assets/products/*.{png,jpg,jpeg,webp,avif}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
 const normalize = (value: string) => value
   .normalize("NFD")
   .replace(/[\u0300-\u036f]/g, "")
@@ -23,7 +29,17 @@ const localAssets = Object.entries(assetModules)
   })
   .filter((item): item is { url: string; key: string } => Boolean(item?.url && item.key));
 
+const productAssets = Object.entries(productImages).map(([path, url]) => ({
+  url,
+  key: normalize(path.replace(/^.*\//, "")),
+}));
+
+localAssets.push(...productAssets);
+
 const publicFallbacks = [
+  { terms: ["aguasanitaria", "ype", "1l"], url: "/products/agua-sanitaria-ype-1l.jpg" },
+  { terms: ["aguasanitaria", "ype", "2l"], url: "/products/agua-sanitaria-ype-2l.jpg" },
+  { terms: ["bisteca"], url: "/products/bisteca.jpg" },
   { terms: ["arroz", "tiojoao"], url: "/products/arroz-tio-joao-5kg.png" },
   { terms: ["arroz", "bernardo"], url: "/products/arroz-branco-bernardo-1kg.jpg" },
   { terms: ["cafe", "3coracoes"], url: "/products/cafe-3-coracoes-500g.jpg" },

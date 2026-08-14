@@ -30,7 +30,6 @@ function installStyles() {
     .pc-theme-toggle:active{transform:scale(.96)}
     .pc-theme-toggle:focus-visible{outline:3px solid color-mix(in srgb,var(--pc-accent) 45%,transparent);outline-offset:3px}
     .pc-theme-toggle svg{width:19px;height:19px}
-    .pc-dev-credit{display:block!important;margin-top:8px!important;color:color-mix(in srgb,currentColor 72%,transparent)!important;font-size:10px!important;font-weight:800!important;letter-spacing:.02em!important;border:0!important;background:transparent!important;padding:0!important;text-align:left!important}
     .pc-secondary-hero{position:relative;isolation:isolate;overflow:hidden;max-width:1180px;margin:26px auto 34px;min-height:168px;border-radius:24px;background:url('/hero-profissional.png') center 48%/cover no-repeat;color:white;box-shadow:0 18px 48px rgba(2,18,29,.16)}
     .pc-secondary-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,18,29,.94),rgba(4,31,39,.82) 55%,rgba(4,31,39,.36))}
     .pc-secondary-hero__inner{min-height:168px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px clamp(20px,4vw,44px)}
@@ -45,20 +44,6 @@ function installStyles() {
     @media(prefers-reduced-motion:reduce){body,.pc-theme-toggle,.pc-secondary-hero a,body.pc-premium-public *{transition:none!important;animation:none!important}}
   `;
   document.head.appendChild(style);
-}
-
-function mountDeveloperCredit() {
-  const footer = document.querySelector("footer");
-  if (!footer || footer.querySelector(".pc-dev-credit")) return;
-  const credit = document.createElement("button");
-  credit.type = "button";
-  credit.className = "pc-dev-credit";
-  credit.textContent = "dev<Franc D'nis>";
-  credit.setAttribute("aria-label", "Sobre o PreçoCerto e o desenvolvedor Franc Denis");
-  credit.title = "Conheça o PreçoCerto e seu desenvolvedor";
-  credit.addEventListener("click", () => window.dispatchEvent(new CustomEvent("precocerto:developer-about")));
-  const target = footer.querySelector(".th-footer__row") || footer.firstElementChild || footer;
-  target.appendChild(credit);
 }
 
 function mountSecondaryHero(pathname: string) {
@@ -92,10 +77,11 @@ export function GlobalPremiumExperience() {
   useEffect(() => {
     const publicRoute = !pathname.startsWith("/admin") && !pathname.startsWith("/painel-lojista");
     document.body.classList.toggle("pc-premium-public", publicRoute);
-    const run = () => { mountDeveloperCredit(); mountSecondaryHero(pathname); };
+    const run = () => { mountSecondaryHero(pathname); };
     const timer = window.setTimeout(run, 80);
     return () => { window.clearTimeout(timer); document.body.classList.remove("pc-premium-public"); document.querySelector(".pc-secondary-hero")?.remove(); };
   }, [pathname]);
 
+  if (pathname === "/") return null;
   return <button className="pc-theme-toggle" type="button" aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"} title={theme === "dark" ? "Modo claro" : "Modo escuro"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? <Sun aria-hidden="true"/> : <Moon aria-hidden="true"/>}</button>;
 }

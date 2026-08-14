@@ -194,9 +194,17 @@ export function HomePremium() {
         window.innerWidth - width - viewportPadding,
       );
       const desiredHeight = suggestions.length ? Math.min(suggestions.length, 6) * 76 + 14 : 82;
-      const spaceBelow = viewportBottom - formRect.bottom - viewportPadding - 8;
-      const top = spaceBelow >= Math.min(desiredHeight, 488) ? formRect.bottom + 8 : safeTop;
-      const maxHeight = Math.min(488, Math.max(160, viewportBottom - top - viewportPadding));
+      const panelGap = window.innerWidth <= 520 ? 8 : 10;
+      const preferredHeight = Math.min(desiredHeight, 488);
+      const spaceBelow = Math.max(0, viewportBottom - formRect.bottom - viewportPadding - panelGap);
+      const spaceAbove = Math.max(0, formRect.top - safeTop - panelGap);
+      const minimumUsefulHeight = suggestions.length ? 150 : 82;
+      const placeBelow = spaceBelow >= Math.min(preferredHeight, minimumUsefulHeight) || spaceBelow >= spaceAbove;
+      const availableHeight = placeBelow ? spaceBelow : spaceAbove;
+      const maxHeight = Math.max(72, Math.min(488, availableHeight));
+      const top = placeBelow
+        ? formRect.bottom + panelGap
+        : Math.max(safeTop, formRect.top - panelGap - maxHeight);
 
       setResultsPosition({ top, left, width, maxHeight });
     };
@@ -303,7 +311,7 @@ export function HomePremium() {
               <h1 id="pcx-title">Comparação de preços em Feijó: <em>saiba antes</em> onde comprar.</h1>
               <p>Em Feijó, compare o mesmo produto nas lojas da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               <div className="pcx-search-area" ref={searchAreaRef}>
-                <form className={`pcx-search${searchPinned ? " is-pinned" : ""}`} role="search" onSubmit={submitSearch}>
+                <form className={`pcx-search${searchPinned ? " is-pinned" : ""}${resultsVisible ? " is-results-open" : ""}`} role="search" onSubmit={submitSearch}>
                   <label htmlFor="pcx-search-input">O que você quer comprar?</label>
                   <div className="pcx-search__control"><Search aria-hidden="true" />
                     <input id="pcx-search-input" name="produto" value={query} onChange={(event) => { setQuery(event.target.value); setSearchOpen(true); setActiveResult(-1); }} onFocus={() => setSearchOpen(true)} onKeyDown={handleSearchKeys} placeholder="Ex.: arroz, café, leite…" autoComplete="off" aria-autocomplete="list" aria-controls="pcx-search-results" aria-expanded={searchOpen && query.trim().length >= 2} aria-activedescendant={activeResult >= 0 ? `pcx-result-${activeResult}` : undefined} />

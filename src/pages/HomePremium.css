@@ -90,7 +90,9 @@ html[data-theme="dark"] .pcx-hero__copy > p { color: rgba(255,255,255,.78); }
 .pcx-hero__portrait figcaption svg { width: 14px; }
 .pcx-hero__portrait figcaption strong { max-width: 14ch; font-family: "Outfit Variable", Outfit, sans-serif; font-size: 1.05rem; line-height: 1.1; text-align: right; }
 .pcx-search-area { position: relative; z-index: 3; max-width: 700px; margin-top: 27px; }
-.pcx-search { border: 1px solid rgba(31,55,44,.2); border-radius: 16px; background: #fbf8f1; padding: 6px; box-shadow: 0 22px 48px rgba(65,45,30,.16); transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms var(--pc-ease-out); }
+.pcx-search { position: relative; z-index: 4; border: 1px solid rgba(31,55,44,.2); border-radius: 16px; background: #fbf8f1; padding: 6px; box-shadow: 0 22px 48px rgba(65,45,30,.16); transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms var(--pc-ease-out); }
+.pcx-search.is-results-open { border-color: #c8643d; box-shadow: 0 0 0 4px rgba(200,100,61,.2), 0 28px 64px rgba(3,17,11,.34); }
+html[data-theme="dark"] .pcx-search.is-results-open { border-color: #f2a17f; box-shadow: 0 0 0 4px rgba(242,161,127,.2), 0 28px 64px rgba(0,0,0,.44); }
 .pcx-search.is-pinned { position: fixed; z-index: 49; top: calc(env(safe-area-inset-top) + 76px); left: 50%; width: min(700px, calc(100vw - 32px)); margin: 0; transform: translateX(-50%); box-shadow: 0 18px 44px rgba(10,28,18,.24), 0 0 0 1px rgba(255,255,255,.4); animation: pcx-enter 180ms var(--pc-ease-out) both; }
 .pcx-search.is-pinned:focus-within { transform: translateX(-50%) translateY(-1px); }
 html[data-theme="dark"] .pcx-search { border-color: rgba(255,255,255,.34); box-shadow: 0 24px 54px rgba(3,17,11,.3); }

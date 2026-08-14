@@ -58,14 +58,12 @@ import { HomePremium } from "./pages/HomePremium";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
-import "./components/TrueHomepageKowalski.css";
 import "./components/KowalskiGlobalExperience.css";
 import "./components/KowalskiLegacyDeep.css";
 import "./components/ImpeccableFullSitePolish.css";
 import "./components/ImpeccableStructuralLegacy.css";
 import "./components/DorinhaEditorialCompactV6.css";
-import "./pages/HomeMaxSkills2026.css";
-import "./pages/HomeCompactProfessional2026.css";
+import "./pages/HomeEditorialMarketplace2026.css";
 
 export default function App() {
   return (

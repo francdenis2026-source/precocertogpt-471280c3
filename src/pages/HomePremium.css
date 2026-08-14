@@ -126,7 +126,7 @@ html[data-theme="dark"] .pcx-receipt {
 .pcx-section__head > a:hover { color: var(--pc-color-primary-hover); }
 .pcx-section__head svg { width: 15px; }
 .pcx-categories { display: grid; grid-template-columns: repeat(4,1fr); border-block: 1px solid var(--pcx-line); }
-.pcx-category { min-height: 82px; display: grid; grid-template-columns: 42px minmax(0,1fr) auto; align-items: center; gap: 12px; border: 0; border-right: 1px solid var(--pcx-line); background: color-mix(in srgb, var(--pcx-surface) 72%, transparent); color: var(--pcx-ink); padding: 12px 17px; text-align: left; transition: background 180ms ease, color 180ms ease; }
+.pcx-category { min-height: 82px; display: grid; grid-template-columns: 42px minmax(0,1fr) auto; align-items: center; gap: 12px; border: 0; border-right: 1px solid var(--pcx-line); background: color-mix(in srgb, var(--pcx-surface) 72%, transparent); color: var(--pcx-ink); padding: 12px 17px; text-align: left; transition: background 180ms ease, color 180ms ease, transform 180ms var(--pc-ease-out), box-shadow 180ms ease; }
 .pcx-category:last-child { border-right: 0; }
 .pcx-category:hover { background: var(--pcx-primary); color: var(--pc-color-primary-foreground); }
 .pcx-category__icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--pcx-accent) 14%, transparent); color: var(--pcx-accent); }
@@ -392,3 +392,13 @@ html[data-theme="dark"] .pcx-receipt {
 @media (max-width: 1020px) {
   .pcx-login { display: none; }
 }
+
+@media (hover:hover) and (pointer:fine){
+  .pcx-category:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,35,26,.1)}
+  .pcx-section__head>a,.pcx-footer nav a,.pcx-footer__credit{transition:transform 160ms var(--pc-ease-out),color 160ms ease,opacity 160ms ease}
+  .pcx-section__head>a:hover{transform:translateX(3px)}
+  .pcx-footer nav a:hover,.pcx-footer__credit:hover{transform:translateY(-2px)}
+  .pcx-product:hover .pcx-product__image img{transform:scale(1.035)}
+}
+.pcx-category:active,.pcx-product:active,.pcx-footer__credit:active{transform:scale(.985)}
+.pcx-product__image img{transition:transform 220ms var(--pc-ease-out)}

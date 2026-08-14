@@ -1,10 +1,43 @@
 /* Vercel Web Interface Guidelines — homepage safeguards */
+
+/* Root reset: the homepage must start at the very top of the viewport. */
+html,
+body,
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
 .pc-home {
-  -webkit-tap-highlight-color: rgba(37, 99, 235, .14);
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-tap-highlight-color: rgba(184, 92, 66, .16);
+}
+
+/* Keep the device safe-area inside the colored header, never as a white strip above it. */
+.pc-home .pc-header {
+  margin-top: 0 !important;
+  top: 0 !important;
 }
 
 .pc-home .pc-header-inner {
-  padding-top: env(safe-area-inset-top, 0px);
+  padding-top: 0 !important;
+}
+
+/* Override legacy global green/blue focus colors on the homepage only. */
+.pc-home :where(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid rgba(184, 92, 66, .48) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 5px rgba(224, 162, 58, .15) !important;
 }
 
 .pc-home .pc-mobile-menu {

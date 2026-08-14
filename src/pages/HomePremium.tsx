@@ -238,7 +238,12 @@ export function HomePremium() {
               </div>
             </div>
 
-            <aside className="pcx-receipt" aria-label="Resumo da melhor oportunidade atual">
+            <div className="pcx-hero__visual">
+              <figure className="pcx-hero__portrait">
+                <img src="/hero-precocerto-comparacao-v2.webp" alt="Pessoa comparando preços pelo celular enquanto faz compras no mercado" width="1776" height="920" fetchPriority="high" />
+                <figcaption><span><MapPin aria-hidden="true" /> Feijó, Acre</span><strong>Compare antes de escolher.</strong></figcaption>
+              </figure>
+              <aside className="pcx-receipt" aria-label="Resumo da melhor oportunidade atual">
               <div className="pcx-receipt__head"><span>RECIBO DE ECONOMIA</span><small>{catalogError ? "base local" : updatedLabel(catalog.updatedAt)}</small></div>
               {comparisonProduct ? <>
                 <div className="pcx-receipt__product"><span><ProductVisual product={comparisonProduct} eager /></span><div><small>Oportunidade de hoje</small><h2>{comparisonProduct.name}</h2><p>{cleanMeta(comparisonProduct.brand, comparisonProduct.size)}</p></div></div>
@@ -247,7 +252,8 @@ export function HomePremium() {
                 <div className="pcx-receipt__total"><span>Diferença encontrada</span><strong>{money(headlineSaving)}</strong></div>
                 <button type="button" onClick={() => openProduct(comparisonProduct)}>Ver onde comprar <ChevronRight aria-hidden="true" /></button>
               </> : <div className="pcx-receipt__loading">Carregando dados locais…</div>}
-            </aside>
+              </aside>
+            </div>
           </div>
         </section>
 

@@ -46,7 +46,7 @@
   padding: 8px 36px 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--pc-border);
-  background: #fff;
+  background: var(--pc-color-surface);
   font-size: 0.9rem;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .info-item {
-  background: #fff;
+  background: var(--pc-color-surface);
   padding: 20px;
   border-radius: 20px;
   display: flex;
@@ -128,12 +128,12 @@
 
 .btn-call {
   background: var(--pc-teal);
-  color: #fff;
+  color: var(--pc-color-surface);
 }
 
 .btn-whatsapp {
-  background: #25d366;
-  color: #fff;
+  background: var(--pc-color-primary);
+  color: var(--pc-color-surface);
 }
 
 .btn:hover {
@@ -143,7 +143,7 @@
 }
 
 .category-section {
-  background: #fff;
+  background: var(--pc-color-surface);
   padding: 40px;
   border-radius: 24px;
   border: 1px solid var(--pc-border);
@@ -165,7 +165,7 @@
 
 /* Map Section */
 .map-placeholder {
-  background: #f0f7f7;
+  background: var(--pc-color-background);
   height: 300px;
   border-radius: 16px;
   display: flex;
@@ -192,7 +192,7 @@
 }
 
 .btn-directions {
-  background: #fff;
+  background: var(--pc-color-surface);
   color: var(--pc-teal);
   border: 1px solid var(--pc-teal);
   margin-top: 16px;
@@ -207,7 +207,7 @@
 }
 
 .testimonial-card {
-  background: #fdfdfd;
+  background: var(--pc-card-bg);
   padding: 24px;
   border-radius: 16px;
   border: 1px solid var(--pc-border);
@@ -239,7 +239,7 @@
 
 .date {
   font-size: 0.8rem;
-  color: #aaa;
+  color: var(--pc-color-muted);
 }
 
 .add-review {
@@ -278,7 +278,7 @@
 
 .btn-submit {
   background: var(--pc-text);
-  color: #fff;
+  color: var(--pc-color-surface);
   align-self: flex-start;
 }
 
@@ -302,12 +302,12 @@
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  background: #fafafa;
+  background: var(--pc-card-bg);
 }
 
 .faq-answer {
   padding: 16px 20px;
-  background: #fff;
+  background: var(--pc-color-surface);
   border-top: 1px solid var(--pc-border);
   color: var(--pc-muted);
   font-size: 0.95rem;
@@ -329,7 +329,7 @@
 /* General Contact Form */
 .contact-form-section {
   background: var(--pc-text);
-  color: #fff;
+  color: var(--pc-color-surface);
   padding: 40px;
   border-radius: 24px;
 }
@@ -350,7 +350,7 @@
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.05);
-  color: #fff;
+  color: var(--pc-color-surface);
 }
 
 .contact-form-section input::placeholder, .contact-form-section textarea::placeholder {

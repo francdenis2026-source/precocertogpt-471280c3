@@ -4712,7 +4712,10 @@ function AuthPage({ path, onAdminAuth, onLogin }: { path: string; onAdminAuth: (
 
   return <div className="auth-page">
     <div className="auth-brand-panel">
-      <Brand inverse/>
+      <a className="auth-home-brand" href="/" aria-label="PreçoCerto — página inicial">
+        <span className="auth-home-brand__mark"><TrendingDown aria-hidden="true" /></span>
+        <span>preço<strong>certo</strong></span>
+      </a>
       <div>
         <span className="eyebrow eyebrow--gold">Antes de comprar, compare</span>
         <h1>{isAdminLogin ? "Painel de Controle Restrito" : register?"Economize desde a primeira lista.":"Que bom ter você de volta."}</h1>
@@ -4723,7 +4726,10 @@ function AuthPage({ path, onAdminAuth, onLogin }: { path: string; onAdminAuth: (
           <li><Check/> {isAdminLogin ? "Segurança de dados e backups" : "Bônus por envio de nota fiscal"}</li>
         </ul>
       </div>
-      <small>O menor preço, na hora certa.</small>
+      <div className="auth-brand-foot">
+        <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
+        <strong>Escolhas melhores começam com comparação.</strong>
+      </div>
     </div>
     <main className="auth-form-wrap">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>

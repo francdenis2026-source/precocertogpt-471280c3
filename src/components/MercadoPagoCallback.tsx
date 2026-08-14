@@ -112,7 +112,7 @@ const s: Record<string, React.CSSProperties> = {
     justifyContent: "center",
     gap: 16,
     textAlign: "center",
-    fontFamily: "Manrope Variable", Manrope, system-ui, sans-serif",
+    fontFamily: "'Manrope Variable', Manrope, system-ui, sans-serif",
     padding: 24,
     background: "var(--pc-color-surface)",
   },

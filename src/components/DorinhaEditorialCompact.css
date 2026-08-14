@@ -1,16 +1,16 @@
 /* Dorinha — final editorial layer. Compact, warm and deliberately restrained. */
 .dorinha-pro,
 .storefront-pro--author {
-  --de-canvas: #f5f1eb;
-  --de-paper: #fffdf9;
-  --de-ink: #2b2227;
-  --de-muted: #72686d;
-  --de-wine: #442737;
-  --de-wine-deep: #2b1823;
-  --de-gold: #bd9859;
-  --de-line: #ddd4ce;
-  --de-on-dark: #fffaf6;
-  --de-on-dark-muted: #ded3d8;
+  --de-canvas: var(--pc-color-background);
+  --de-paper: var(--pc-color-surface);
+  --de-ink: var(--pc-color-foreground);
+  --de-muted: var(--pc-color-muted);
+  --de-wine: var(--pc-color-foreground);
+  --de-wine-deep: var(--pc-color-foreground);
+  --de-gold: var(--pc-color-accent);
+  --de-line: var(--pc-color-muted);
+  --de-on-dark: var(--pc-color-surface);
+  --de-on-dark-muted: var(--pc-color-border);
   --de-serif: Georgia, "Times New Roman", serif;
   --de-sans: "Avenir Next", Avenir, Manrope, system-ui, sans-serif;
   --de-container: 1160px;
@@ -44,7 +44,7 @@
   backdrop-filter: blur(14px) !important;
 }
 .dorinha-pro__brand { color: var(--de-wine) !important; font: 600 18px/1 var(--de-serif) !important; }
-.dorinha-pro__brand span { color: #82767b !important; font: 700 9px/1.2 var(--de-sans) !important; }
+.dorinha-pro__brand span { color: var(--pc-color-muted) !important; font: 700 9px/1.2 var(--de-sans) !important; }
 .dorinha-pro__top nav { gap: 3px !important; }
 .dorinha-pro__top nav a,
 .dorinha-pro__top nav button { min-height: 40px !important; padding: 0 11px !important; border-radius: 7px !important; font: 700 11px/1 var(--de-sans) !important; }
@@ -73,8 +73,8 @@
   align-self: center !important;
   padding: 62px max(36px, calc((100vw - var(--de-container)) / 2)) 58px !important;
 }
-.dorinha-pro__signature { color: #dfd0d5 !important; font: 650 11px/1.3 var(--de-sans) !important; }
-.dorinha-pro__signature svg { color: #d2b06f !important; }
+.dorinha-pro__signature { color: var(--pc-color-muted) !important; font: 650 11px/1.3 var(--de-sans) !important; }
+.dorinha-pro__signature svg { color: var(--pc-color-accent) !important; }
 .dorinha-pro__hero--v4 h1 {
   max-width: 700px !important;
   margin: 16px 0 18px !important;
@@ -83,13 +83,13 @@
   line-height: .91 !important;
   letter-spacing: -.04em !important;
 }
-.dorinha-pro__hero--v4 h1 em { color: #dfc185 !important; font-style: italic !important; font-weight: 500 !important; }
+.dorinha-pro__hero--v4 h1 em { color: color-mix(in srgb, var(--pc-color-accent) 12%, var(--pc-color-surface)) !important; font-style: italic !important; font-weight: 500 !important; }
 .dorinha-pro__hero-copy > p { max-width: 610px !important; color: var(--de-on-dark-muted) !important; font-size: 15px !important; line-height: 1.65 !important; }
 .dorinha-pro__hero-actions { margin-top: 23px !important; gap: 8px !important; }
 .dorinha-pro__hero-actions a { min-height: 45px !important; padding: 0 16px !important; border-radius: 7px !important; box-shadow: none !important; }
-.dorinha-pro__hero-actions a:first-child { background: #fffaf5 !important; color: #33202c !important; }
-.dorinha-pro__hero-actions a:last-child { background: var(--de-gold) !important; color: #2d2018 !important; border-color: var(--de-gold) !important; }
-.dorinha-pro__hero-meta { margin-top: 18px !important; gap: 15px !important; color: #cfc2c8 !important; }
+.dorinha-pro__hero-actions a:first-child { background: var(--pc-color-surface) !important; color: var(--pc-color-foreground) !important; }
+.dorinha-pro__hero-actions a:last-child { background: var(--de-gold) !important; color: var(--pc-color-foreground) !important; border-color: var(--de-gold) !important; }
+.dorinha-pro__hero-meta { margin-top: 18px !important; gap: 15px !important; color: var(--pc-color-border) !important; }
 .dorinha-pro__hero-meta span { font-size: 10px !important; }
 .dorinha-pro__hero-portrait { min-height: 510px !important; height: 510px !important; width: 100% !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
 .dorinha-pro__hero-portrait img { object-position: center 15% !important; filter: saturate(.82) contrast(1.03) !important; }
@@ -101,17 +101,17 @@
 .dorinha-pro__intro h2,
 .dorinha-pro__section-head h2 { font-size: clamp(2.2rem, 3.8vw, 3.65rem) !important; line-height: .99 !important; }
 .dorinha-pro__intro p { max-width: 43ch !important; color: var(--de-muted) !important; font-size: 14px !important; line-height: 1.7 !important; }
-.dorinha-pro__section-note { color: #806571 !important; font: 700 11px/1.3 var(--de-sans) !important; letter-spacing: 0 !important; text-transform: none !important; }
+.dorinha-pro__section-note { color: var(--pc-color-muted) !important; font: 700 11px/1.3 var(--de-sans) !important; letter-spacing: 0 !important; text-transform: none !important; }
 .dorinha-pro__catalog { padding: 44px 0 66px !important; }
 .dorinha-pro__section-head { margin-bottom: 23px !important; }
 .dorinha-pro__grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 12px !important; }
 .dorinha-pro__book,
 .dorinha-pro__book:first-child,
 .dorinha-pro__book:nth-child(2) { grid-column: span 1 !important; border: 1px solid var(--de-line) !important; border-radius: 9px !important; background: var(--de-paper) !important; box-shadow: none !important; }
-.dorinha-pro__book:hover { transform: none !important; border-color: #bfaeb3 !important; box-shadow: 0 8px 22px rgba(58, 37, 48, .055) !important; }
+.dorinha-pro__book:hover { transform: none !important; border-color: var(--pc-color-muted) !important; box-shadow: 0 8px 22px rgba(58, 37, 48, .055) !important; }
 .dorinha-pro__cover,
 .dorinha-pro__book:first-child .dorinha-pro__cover,
-.dorinha-pro__book:nth-child(2) .dorinha-pro__cover { min-height: 265px !important; height: 265px !important; background: #ebe4de !important; }
+.dorinha-pro__book:nth-child(2) .dorinha-pro__cover { min-height: 265px !important; height: 265px !important; background: var(--pc-color-border) !important; }
 .dorinha-pro__cover img { max-height: 230px !important; filter: drop-shadow(0 12px 12px rgba(45, 29, 37, .17)) !important; }
 .dorinha-pro__book-body { padding: 16px !important; }
 .dorinha-pro__book h3 { min-height: 42px !important; margin: 7px 0 6px !important; font-size: 20px !important; }
@@ -119,11 +119,11 @@
 .dorinha-pro__book-footer { margin-top: 14px !important; padding-top: 12px !important; }
 .dorinha-pro__book-footer .dorinha-pro__book-actions a { min-height: 42px !important; border-radius: 6px !important; background: var(--de-wine) !important; box-shadow: none !important; }
 
-.dorinha-pro__author { max-width: var(--de-container) !important; margin: 0 auto 56px !important; padding: 22px !important; grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr) !important; gap: 44px !important; border-radius: 10px !important; background: #35212e !important; }
+.dorinha-pro__author { max-width: var(--de-container) !important; margin: 0 auto 56px !important; padding: 22px !important; grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr) !important; gap: 44px !important; border-radius: 10px !important; background: var(--pc-color-foreground) !important; }
 .dorinha-pro__author-photo { min-height: 410px !important; height: 410px !important; border-radius: 6px !important; }
 .dorinha-pro__author-copy { padding: 26px 24px 26px 0 !important; }
-.dorinha-pro__author-copy h2 { color: #fffaf6 !important; font-size: clamp(2.7rem, 4.4vw, 4.4rem) !important; }
-.dorinha-pro__author-copy > p { color: #d6cbd0 !important; font-size: 14px !important; line-height: 1.7 !important; }
+.dorinha-pro__author-copy h2 { color: var(--pc-color-surface) !important; font-size: clamp(2.7rem, 4.4vw, 4.4rem) !important; }
+.dorinha-pro__author-copy > p { color: var(--pc-color-border) !important; font-size: 14px !important; line-height: 1.7 !important; }
 .dorinha-pro__facts { margin: 20px 0 !important; }
 .dorinha-pro__facts div { padding: 11px 8px !important; border-radius: 0 !important; }
 .dorinha-pro__author-copy > a { min-height: 43px !important; border-radius: 6px !important; }
@@ -132,9 +132,9 @@
 .dorinha-pro__pix-icon { width: 46px !important; height: 46px !important; border-radius: 6px !important; background: var(--de-wine) !important; }
 .dorinha-pro__pix h2 { font-size: clamp(1.35rem, 2vw, 1.75rem) !important; }
 .dorinha-pro__pix > a { border-radius: 6px !important; background: var(--de-wine) !important; box-shadow: none !important; }
-.dorinha-pro__market { padding: 38px max(20px, calc((100vw - var(--de-container)) / 2)) !important; background: #eae3dd !important; }
+.dorinha-pro__market { padding: 38px max(20px, calc((100vw - var(--de-container)) / 2)) !important; background: var(--pc-color-border) !important; }
 .dorinha-pro__market h2 { font-size: clamp(1.85rem, 3vw, 2.7rem) !important; }
-.dorinha-pro__footer { min-height: 68px !important; padding: 14px max(20px, calc((100vw - var(--de-container)) / 2)) !important; background: #281721 !important; }
+.dorinha-pro__footer { min-height: 68px !important; padding: 14px max(20px, calc((100vw - var(--de-container)) / 2)) !important; background: var(--pc-color-foreground) !important; }
 
 /* Author checkout */
 .storefront-pro--author .storefront-pro__top { height: 60px !important; min-height: 60px !important; padding: 0 max(18px, calc((100vw - var(--de-container)) / 2)) !important; border: 0 !important; border-bottom: 1px solid rgba(68, 39, 55, .12) !important; border-radius: 0 !important; background: rgba(255, 253, 249, .95) !important; box-shadow: none !important; }
@@ -150,31 +150,31 @@
 .storefront-pro--author .storefront-pro__section-head { margin-bottom: 16px !important; }
 .storefront-pro--author .storefront-pro__grid { gap: 10px !important; }
 .storefront-pro--author .storefront-pro__product { border-radius: 8px !important; background: var(--de-paper) !important; box-shadow: none !important; }
-.storefront-pro--author .storefront-pro__image { min-height: 235px !important; height: 235px !important; background: #ebe4de !important; }
+.storefront-pro--author .storefront-pro__image { min-height: 235px !important; height: 235px !important; background: var(--pc-color-border) !important; }
 .storefront-pro--author .storefront-pro__image img { max-height: 205px !important; }
 .storefront-pro--author .storefront-pro__product-body { padding: 14px !important; }
 .storefront-pro--author .storefront-pro__qty { border-radius: 6px !important; }
 .storefront-pro--author .storefront-pro__qty button { min-width: 40px !important; min-height: 40px !important; border-radius: 5px !important; }
 .storefront-pro--author .storefront-pro__checkout { top: 76px !important; }
-.storefront-pro--author .storefront-pro__checkout-card { padding: 20px !important; border: 1px solid #d7cbc7 !important; border-radius: 9px !important; background: var(--de-paper) !important; box-shadow: 0 10px 28px rgba(55, 35, 46, .055) !important; }
+.storefront-pro--author .storefront-pro__checkout-card { padding: 20px !important; border: 1px solid var(--pc-color-muted) !important; border-radius: 9px !important; background: var(--de-paper) !important; box-shadow: 0 10px 28px rgba(55, 35, 46, .055) !important; }
 .storefront-pro--author .storefront-pro__delivery,
 .storefront-pro--author .storefront-pro__payment { border-radius: 6px !important; }
 .storefront-pro--author .storefront-pro__delivery button { min-height: 42px !important; border-radius: 5px !important; }
 .storefront-pro--author form input,
-.storefront-pro--author form select { min-height: 44px !important; border-radius: 5px !important; background: #fff !important; }
+.storefront-pro--author form select { min-height: 44px !important; border-radius: 5px !important; background: var(--pc-color-surface) !important; }
 .storefront-pro--author .storefront-pro__pay { min-height: 50px !important; border-radius: 6px !important; background: var(--de-wine) !important; }
-.storefront-pro--author :where(a, button, input, select):focus-visible { outline: 3px solid #c6a463 !important; outline-offset: 2px !important; }
+.storefront-pro--author :where(a, button, input, select):focus-visible { outline: 3px solid var(--pc-color-accent) !important; outline-offset: 2px !important; }
 
 html[data-theme="dark"] .dorinha-pro,
-html[data-theme="dark"] .storefront-pro--author { --de-canvas: #171115; --de-paper: #21191d; --de-ink: #f4ecef; --de-muted: #bcaeb5; --de-line: #40343a; background: var(--de-canvas) !important; }
+html[data-theme="dark"] .storefront-pro--author { --de-canvas: var(--pc-color-foreground); --de-paper: var(--pc-color-foreground); --de-ink: var(--pc-color-background); --de-muted: var(--pc-color-muted); --de-line: var(--pc-color-foreground); background: var(--de-canvas) !important; }
 html[data-theme="dark"] .dorinha-pro__top,
-html[data-theme="dark"] .storefront-pro--author .storefront-pro__top { background: rgba(31, 23, 27, .96) !important; border-color: #40343a !important; }
+html[data-theme="dark"] .storefront-pro--author .storefront-pro__top { background: rgba(31, 23, 27, .96) !important; border-color: var(--pc-color-foreground) !important; }
 html[data-theme="dark"] .dorinha-pro__book,
 html[data-theme="dark"] .dorinha-pro__pix,
 html[data-theme="dark"] .storefront-pro--author .storefront-pro__product,
 html[data-theme="dark"] .storefront-pro--author .storefront-pro__checkout-card { background: var(--de-paper) !important; border-color: var(--de-line) !important; }
 html[data-theme="dark"] .dorinha-pro__cover,
-html[data-theme="dark"] .storefront-pro--author .storefront-pro__image { background: #2a2125 !important; }
+html[data-theme="dark"] .storefront-pro--author .storefront-pro__image { background: var(--pc-color-foreground) !important; }
 
 @media (max-width: 1000px) {
   .dorinha-pro__hero--v4,

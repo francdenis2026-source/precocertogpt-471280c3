@@ -45,7 +45,7 @@ const trustedProductImage = (product: Product) => {
 
 function ProductVisual({ product, eager = false }: { product: Product; eager?: boolean }) {
   const [failed, setFailed] = useState(false);
-  const image = trustedProductImage(product) ?? resolveProductImage(product);
+  const image = resolveProductImage(product) ?? trustedProductImage(product);
   useEffect(() => setFailed(false), [image]);
   if (!image || failed) return <PackageSearch aria-hidden="true" />;
   return <img src={image} alt={product.name} width="220" height="180" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => setFailed(true)} />;

@@ -1,0 +1,434 @@
+/* PreçoCerto — complete homepage rebuild
+   Direction: frontend-design + design-taste + brand + design-system + animate + Vercel guidelines.
+   Identity: warm editorial marketplace. No blue/cyan/turquoise; green only semantic. */
+
+.pc-home {
+  --hr-bg: #f3ede3;
+  --hr-bg-2: #e7ddcf;
+  --hr-paper: #fffaf2;
+  --hr-paper-2: #f8f0e5;
+  --hr-ink: #27221f;
+  --hr-muted: #6c615a;
+  --hr-charcoal: #292421;
+  --hr-charcoal-2: #3a302b;
+  --hr-wine: #7b3139;
+  --hr-wine-dark: #54232a;
+  --hr-rust: #b85c42;
+  --hr-rust-dark: #944631;
+  --hr-amber: #e0a23a;
+  --hr-copper: #aa6d3d;
+  --hr-success: #4d7852;
+  --hr-line: rgba(78,56,43,.14);
+  --hr-line-dark: rgba(255,240,220,.12);
+  --hr-shadow-sm: 0 8px 20px rgba(64,45,35,.06);
+  --hr-shadow-md: 0 16px 40px rgba(64,45,35,.10);
+  --hr-fast: 150ms;
+  --hr-ease: cubic-bezier(.22,.8,.22,1);
+  color: var(--hr-ink);
+  background: var(--hr-bg);
+  font-family: Inter, Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+[data-theme="dark"] .pc-home {
+  --hr-bg: #211d1a;
+  --hr-bg-2: #2a2420;
+  --hr-paper: #2a2521;
+  --hr-paper-2: #332b26;
+  --hr-ink: #fff7ea;
+  --hr-muted: #c8b9aa;
+  --hr-line: rgba(255,235,210,.12);
+  --hr-shadow-sm: 0 8px 22px rgba(0,0,0,.18);
+  --hr-shadow-md: 0 18px 44px rgba(0,0,0,.28);
+}
+
+.pc-home main {
+  position: relative;
+  overflow: clip;
+  background:
+    radial-gradient(circle at 85% 12%, rgba(184,92,66,.08), transparent 25%),
+    radial-gradient(circle at 10% 58%, rgba(224,162,58,.07), transparent 24%),
+    var(--hr-bg) !important;
+}
+
+.pc-home main::before {
+  content: "";
+  position: absolute;
+  inset: 36% 0 auto;
+  height: 440px;
+  pointer-events: none;
+  opacity: .08;
+  background:
+    linear-gradient(180deg, var(--hr-bg), transparent 22%, transparent 78%, var(--hr-bg)),
+    url('/comerciante-local-feijo.webp') center 48% / cover no-repeat;
+  filter: sepia(.16) saturate(.72) contrast(.96);
+}
+
+.pc-home :is(a,button,input):focus-visible {
+  outline: 3px solid rgba(184,92,66,.48) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224,162,58,.15) !important;
+}
+
+/* Top/header */
+.pc-home .pc-header {
+  background: rgba(39,34,31,.985) !important;
+  border-bottom: 1px solid rgba(255,240,220,.10) !important;
+  box-shadow: none !important;
+}
+.pc-home .pc-header::before {
+  background: linear-gradient(90deg,#d89a33,#e2ad4d) !important;
+  color: #322519 !important;
+  height: 24px !important;
+  font-size: .68rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .045em !important;
+}
+.pc-home .pc-header { padding-top: 24px !important; }
+.pc-home .pc-header-inner { height: 58px !important; gap: 18px; }
+.pc-home .pc-logo img { width: 156px !important; height: 37px !important; }
+.pc-home .pc-nav { gap: 20px; }
+.pc-home .pc-nav a {
+  color: #f7ede0 !important;
+  font-size: .91rem !important;
+  font-weight: 730 !important;
+  letter-spacing: -.01em;
+}
+.pc-home .pc-nav a::after { background: var(--hr-amber) !important; height: 2px !important; }
+.pc-home .pc-icon-button,
+.pc-home .pc-menu-button {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 9px !important;
+  background: rgba(255,250,242,.06) !important;
+  border-color: rgba(255,240,220,.13) !important;
+  color: #fff7ed !important;
+}
+.pc-home .pc-merchant {
+  min-height: 38px !important;
+  padding-inline: 14px !important;
+  border-radius: 9px !important;
+  background: var(--hr-rust) !important;
+  color: #fffaf2 !important;
+  box-shadow: none !important;
+  font-size: .86rem !important;
+}
+.pc-home .pc-mobile-menu { background: var(--hr-charcoal) !important; }
+.pc-home .pc-mobile-menu a { color: #fff7ed !important; font-size: .96rem; }
+
+/* Hero */
+.pc-home .pc-hero {
+  min-height: 420px !important;
+  padding: 104px 0 28px !important;
+  background: var(--hr-charcoal) !important;
+  overflow: hidden;
+}
+.pc-home .pc-hero::before {
+  background: url('/compra-inteligente-profissional.webp') 70% 48% / cover no-repeat !important;
+  filter: saturate(.84) contrast(1.04) brightness(.92) sepia(.05) !important;
+  transform: scale(1.015);
+}
+.pc-home .pc-hero::after {
+  background:
+    linear-gradient(90deg,rgba(39,34,31,.99) 0%,rgba(39,34,31,.95) 39%,rgba(39,34,31,.56) 66%,rgba(39,34,31,.10) 100%),
+    linear-gradient(180deg,rgba(123,49,57,.05),rgba(39,34,31,.20)) !important;
+}
+.pc-home .pc-hero-inner {
+  grid-template-columns: minmax(0,1.12fr) minmax(220px,.38fr) !important;
+  gap: 28px !important;
+  align-items: center !important;
+}
+.pc-home .pc-kicker {
+  background: rgba(255,250,242,.075) !important;
+  border-color: rgba(255,240,220,.14) !important;
+  color: #f0d8c4 !important;
+  font-size: .79rem !important;
+  letter-spacing: .055em !important;
+}
+.pc-home .pc-hero h1 {
+  max-width: 710px !important;
+  margin: 10px 0 11px !important;
+  color: #fffaf2 !important;
+  font-size: clamp(2.75rem,4.9vw,4.25rem) !important;
+  line-height: .97 !important;
+  letter-spacing: -.052em !important;
+  font-weight: 860 !important;
+  text-wrap: balance;
+}
+.pc-home .pc-hero h1 em { color: #efb14b !important; text-shadow: none !important; }
+.pc-home .pc-hero h1 em::after { background: var(--hr-rust) !important; height: 2px !important; }
+.pc-home .pc-hero-copy > p {
+  max-width: 620px !important;
+  color: #eadfd4 !important;
+  font-size: 1.03rem !important;
+  line-height: 1.58 !important;
+}
+.pc-home .pc-search-area { max-width: 700px !important; margin-top: 17px !important; }
+.pc-home .pc-search {
+  min-height: 58px !important;
+  padding: 4px 5px 4px 14px !important;
+  border: 1px solid rgba(255,250,242,.72) !important;
+  border-radius: 10px !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 14px 30px rgba(24,17,13,.22) !important;
+}
+.pc-home .pc-search:focus-within {
+  border-color: var(--hr-rust) !important;
+  box-shadow: 0 0 0 4px rgba(184,92,66,.18),0 14px 30px rgba(24,17,13,.18) !important;
+}
+.pc-home .pc-search > svg { color: #776a62 !important; }
+.pc-home .pc-search input { height: 48px !important; color: #2b2521 !important; font-size: 1.02rem !important; }
+.pc-home .pc-search input::placeholder { color: #81746c !important; }
+.pc-home .pc-search button {
+  min-width: 164px !important;
+  height: 48px !important;
+  border-radius: 8px !important;
+  background: var(--hr-rust) !important;
+  color: #fffaf2 !important;
+  font-size: .89rem !important;
+  font-weight: 850 !important;
+}
+.pc-home .pc-quick { color: #dfd0c2 !important; font-size: .81rem !important; }
+.pc-home .pc-quick button {
+  background: rgba(255,250,242,.07) !important;
+  border-color: rgba(255,240,220,.14) !important;
+  color: #fff4e9 !important;
+  font-size: .79rem !important;
+}
+.pc-home .pc-hero-side { gap: 8px !important; }
+.pc-home .pc-hero-side > div {
+  min-height: 66px !important;
+  padding: 10px 11px !important;
+  border-radius: 9px !important;
+  background: rgba(49,41,36,.70) !important;
+  border-color: rgba(255,240,220,.12) !important;
+  backdrop-filter: blur(5px);
+  box-shadow: none !important;
+}
+.pc-home .pc-hero-side > div > svg { background: rgba(184,92,66,.17) !important; color: #efb5a2 !important; }
+.pc-home .pc-hero-side strong { color: #fffaf2 !important; font-size: .85rem !important; }
+.pc-home .pc-hero-side small { color: #dccdc0 !important; font-size: .75rem !important; }
+
+/* Strips */
+.pc-home .pc-services-strip {
+  background: #e8ddce !important;
+  border-bottom-color: var(--hr-line) !important;
+}
+[data-theme="dark"] .pc-home .pc-services-strip { background: #302823 !important; }
+.pc-home .pc-services-scroll { min-height: 50px !important; padding: 5px 0 !important; gap: 5px !important; }
+.pc-home .pc-service-item { min-height: 39px !important; border-radius: 8px !important; color: var(--hr-ink) !important; font-size: .81rem !important; }
+.pc-home .pc-service-icon { width: 31px !important; height: 31px !important; background: var(--hr-paper) !important; border-color: var(--hr-line) !important; color: var(--hr-wine) !important; }
+.pc-home .pc-action-strip { padding-block: 9px !important; }
+.pc-home .pc-action-strip-inner { background: var(--hr-paper) !important; border-color: var(--hr-line) !important; box-shadow: none !important; }
+.pc-home .pc-action-strip a { min-height: 58px !important; color: var(--hr-ink) !important; }
+.pc-home .pc-action-strip a > svg:first-child { background: #f1ded5 !important; color: var(--hr-wine) !important; }
+.pc-home .pc-action-strip strong { font-size: .87rem !important; }
+.pc-home .pc-action-strip small { color: var(--hr-muted) !important; font-size: .76rem !important; }
+
+/* Global section rhythm */
+.pc-home .pc-section { padding-block: 30px !important; position: relative; }
+.pc-home .pc-section:nth-of-type(even) { background: rgba(255,250,242,.38); }
+.pc-home .pc-heading { margin-bottom: 13px !important; }
+.pc-home .pc-heading > span { color: var(--hr-wine) !important; font-size: .78rem !important; font-weight: 850 !important; letter-spacing: .075em !important; }
+.pc-home .pc-heading h2,
+.pc-home .pc-how-head h2,
+.pc-home .pc-basket-copy h2,
+.pc-home .pc-commercial h2,
+.pc-home .pc-compare-copy h2 {
+  color: var(--hr-ink) !important;
+  font-family: Manrope, Inter, system-ui, sans-serif;
+  letter-spacing: -.036em !important;
+  line-height: 1.08 !important;
+}
+.pc-home .pc-heading h2 { font-size: clamp(1.78rem,2.35vw,2.15rem) !important; }
+.pc-home .pc-heading p,
+.pc-home :is(.pc-how-head p,.pc-basket-copy p,.pc-commercial p,.pc-compare-copy p) {
+  color: var(--hr-muted) !important;
+  font-size: .98rem !important;
+  line-height: 1.58 !important;
+}
+
+/* Categories */
+.pc-home .pc-category-row { gap: 9px !important; }
+.pc-home .pc-category {
+  min-height: 68px !important;
+  padding: 10px 12px !important;
+  border: 1px solid var(--hr-line) !important;
+  border-radius: 9px !important;
+  background: rgba(255,250,242,.90) !important;
+  color: var(--hr-ink) !important;
+  box-shadow: none !important;
+}
+.pc-home .pc-category-icon { width: 36px !important; height: 36px !important; border-radius: 8px !important; background: #f0ded5 !important; color: var(--hr-wine) !important; }
+.pc-home .pc-category strong { font-size: .88rem !important; }
+.pc-home .pc-category small { color: var(--hr-muted) !important; font-size: .76rem !important; }
+
+/* Products */
+.pc-home .pc-product-grid { gap: 12px !important; }
+.pc-home .pc-product-card {
+  border: 1px solid var(--hr-line) !important;
+  border-radius: 10px !important;
+  background: var(--hr-paper) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  transition: transform var(--hr-fast) var(--hr-ease), border-color var(--hr-fast) ease, box-shadow var(--hr-fast) ease !important;
+}
+.pc-home .pc-product-card.is-featured { border-color: rgba(224,162,58,.56) !important; }
+.pc-home .pc-product-media { min-height: 146px !important; background: #f7f0e6 !important; }
+[data-theme="dark"] .pc-home .pc-product-media { background: #211d1a !important; }
+.pc-home .pc-product-media img { max-height: 134px !important; transition: transform 180ms var(--hr-ease) !important; }
+.pc-home .pc-product-info { padding: 10px 12px 6px !important; }
+.pc-home .pc-product-info small { color: var(--hr-muted) !important; font-size: .76rem !important; }
+.pc-home .pc-product-info strong { color: var(--hr-ink) !important; font-size: .96rem !important; line-height: 1.28 !important; }
+.pc-home .pc-price-line { padding: 8px 12px 10px !important; }
+.pc-home .pc-price-line small { color: var(--hr-muted) !important; font-size: .73rem !important; }
+.pc-home .pc-price-line strong { color: var(--hr-wine) !important; font-size: 1.28rem !important; }
+.pc-home .pc-price-line em { color: var(--hr-success) !important; font-size: .72rem !important; }
+.pc-home .pc-store-line { padding: 9px 12px !important; border-top-color: var(--hr-line) !important; color: var(--hr-muted) !important; font-size: .77rem !important; }
+.pc-home .pc-product-action { color: var(--hr-wine) !important; }
+
+/* Comparison: compact intermediate strip */
+.pc-home .pc-compare-section,
+.pc-home .pc-compare {
+  padding-block: 22px !important;
+}
+.pc-home .pc-compare-shell,
+.pc-home .pc-compare-inner {
+  min-height: 0 !important;
+  padding: 18px 20px !important;
+  border: 1px solid var(--hr-line) !important;
+  border-radius: 12px !important;
+  background: linear-gradient(90deg,rgba(255,250,242,.96),rgba(248,240,229,.94)) !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] .pc-home :is(.pc-compare-shell,.pc-compare-inner) { background: #2b2521 !important; }
+.pc-home .pc-compare-copy h2 { font-size: clamp(1.45rem,2vw,1.8rem) !important; margin-bottom: 6px !important; }
+.pc-home .pc-compare-copy p { margin-bottom: 8px !important; }
+.pc-home .pc-compare-card,
+.pc-home .pc-compare-demo { border-color: var(--hr-line) !important; background: var(--hr-paper) !important; box-shadow: none !important; border-radius: 10px !important; }
+.pc-home .pc-compare :is(button,a) { background: var(--hr-wine) !important; color: #fffaf2 !important; }
+
+/* Stores */
+.pc-home .pc-store-grid { gap: 10px !important; }
+.pc-home .pc-store-card {
+  min-height: 0 !important;
+  padding: 12px !important;
+  border-radius: 10px !important;
+  background: rgba(255,250,242,.94) !important;
+  border: 1px solid var(--hr-line) !important;
+  box-shadow: none !important;
+}
+.pc-home .pc-store-card img { max-height: 44px !important; max-width: 82px !important; }
+.pc-home .pc-store-card strong { color: var(--hr-ink) !important; font-size: .92rem !important; }
+.pc-home .pc-store-card small { color: var(--hr-muted) !important; font-size: .76rem !important; }
+.pc-home .pc-store-card :is(a,button) { color: var(--hr-wine) !important; font-size: .78rem !important; }
+
+/* Basket / how it works / commercial */
+.pc-home .pc-basket,
+.pc-home .pc-how,
+.pc-home .pc-commercial {
+  border-radius: 14px !important;
+}
+.pc-home .pc-basket {
+  background:
+    linear-gradient(90deg,rgba(39,34,31,.95),rgba(39,34,31,.80)),
+    url('/compra-inteligente-profissional.webp') center 58% / cover no-repeat !important;
+  color: #fff7ec !important;
+}
+.pc-home .pc-basket-copy h2,
+.pc-home .pc-basket-copy p { color: #fff7ec !important; }
+.pc-home .pc-how { background: var(--hr-paper) !important; border-color: var(--hr-line) !important; box-shadow: none !important; }
+.pc-home .pc-how-step { border-color: var(--hr-line) !important; }
+.pc-home .pc-how-step strong { color: var(--hr-ink) !important; font-size: .91rem !important; }
+.pc-home .pc-how-step p { color: var(--hr-muted) !important; font-size: .82rem !important; }
+.pc-home .pc-commercial {
+  background:
+    linear-gradient(90deg,rgba(84,35,42,.96),rgba(84,35,42,.78)),
+    url('/comerciante-local-feijo.webp') center 44% / cover no-repeat !important;
+  color: #fff7ec !important;
+}
+.pc-home .pc-commercial h2,
+.pc-home .pc-commercial p { color: #fff7ec !important; }
+.pc-home .pc-commercial :is(a,button) { background: var(--hr-amber) !important; color: #2f2419 !important; border-radius: 8px !important; }
+
+/* Footer */
+.pc-home .pc-footer {
+  border-top: 2px solid var(--hr-amber) !important;
+  background: #26211e !important;
+  color: #efe3d6 !important;
+}
+.pc-home .pc-footer-main { padding: 13px 0 10px !important; }
+.pc-home .pc-footer-grid { gap: 14px !important; }
+.pc-home .pc-footer h3,
+.pc-home .pc-footer strong { color: #fff8ee !important; }
+.pc-home .pc-footer a,
+.pc-home .pc-footer p,
+.pc-home .pc-footer small { color: #cdbfb2 !important; font-size: .77rem !important; }
+.pc-home .pc-footer-bottom { min-height: 29px !important; padding-block: 6px !important; border-top-color: rgba(255,240,220,.10) !important; }
+.pc-home .pc-footer-logo img { max-height: 32px !important; }
+
+/* Pointer interactions: polished, not bouncy */
+@media (hover:hover) and (pointer:fine) {
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-service-item,.pc-action-strip a,.pc-how-step) {
+    transition: transform var(--hr-fast) var(--hr-ease), border-color var(--hr-fast) ease, box-shadow var(--hr-fast) ease, background-color var(--hr-fast) ease !important;
+  }
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-service-item,.pc-action-strip a,.pc-how-step):hover {
+    transform: translateY(-1px) !important;
+    border-color: rgba(123,49,57,.34) !important;
+    box-shadow: var(--hr-shadow-sm) !important;
+  }
+  .pc-home .pc-product-card:hover .pc-product-media img { transform: scale(1.018) !important; }
+  .pc-home :is(.pc-nav a,.pc-merchant,.pc-search button,.pc-quick button,.pc-icon-button,.pc-menu-button):hover { filter: brightness(1.045); }
+  .pc-home :is(button,a):active { transform: translateY(0) scale(.99); }
+}
+
+/* Mobile */
+@media (max-width: 780px) {
+  .pc-home .pc-header::before { height: 22px !important; }
+  .pc-home .pc-header { padding-top: 22px !important; }
+  .pc-home .pc-header-inner { height: 54px !important; }
+  .pc-home .pc-logo img { width: 142px !important; height: 34px !important; }
+  .pc-home .pc-hero { min-height: auto !important; padding: 84px 0 24px !important; }
+  .pc-home .pc-hero::before { background-position: 64% 48% !important; opacity: .9; }
+  .pc-home .pc-hero::after {
+    background: linear-gradient(180deg,rgba(39,34,31,.93) 0%,rgba(39,34,31,.90) 58%,rgba(39,34,31,.70) 100%) !important;
+  }
+  .pc-home .pc-hero-inner { grid-template-columns: 1fr !important; gap: 14px !important; }
+  .pc-home .pc-hero h1 { font-size: clamp(2.25rem,11vw,3.15rem) !important; max-width: 14ch !important; }
+  .pc-home .pc-hero-copy > p { font-size: .99rem !important; max-width: 34ch !important; }
+  .pc-home .pc-search { min-height: 54px !important; }
+  .pc-home .pc-search input { font-size: 16px !important; }
+  .pc-home .pc-search button { min-width: 108px !important; padding-inline: 12px !important; }
+  .pc-home .pc-hero-side { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+  .pc-home .pc-hero-side > div { min-height: 58px !important; padding: 8px !important; }
+  .pc-home .pc-section { padding-block: 24px !important; }
+  .pc-home .pc-heading h2 { font-size: 1.65rem !important; }
+  .pc-home .pc-category-row { display: flex !important; overflow-x: auto !important; scroll-snap-type: x proximity; padding-bottom: 4px; }
+  .pc-home .pc-category { min-width: 172px !important; scroll-snap-align: start; }
+  .pc-home .pc-product-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 9px !important; }
+  .pc-home .pc-product-media { min-height: 124px !important; }
+  .pc-home .pc-product-media img { max-height: 114px !important; }
+  .pc-home .pc-product-info strong { font-size: .9rem !important; }
+  .pc-home .pc-price-line strong { font-size: 1.14rem !important; }
+  .pc-home :is(.pc-compare-shell,.pc-compare-inner) { padding: 14px !important; }
+  .pc-home .pc-store-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .pc-home .pc-footer-main { padding: 10px 0 8px !important; }
+}
+
+@media (max-width: 460px) {
+  .pc-home .pc-product-grid,
+  .pc-home .pc-store-grid { grid-template-columns: 1fr 1fr !important; }
+  .pc-home .pc-search button { min-width: 94px !important; }
+  .pc-home .pc-hero-side { grid-template-columns: 1fr !important; }
+  .pc-home .pc-hero-side > div { min-height: 52px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-home *,
+  .pc-home *::before,
+  .pc-home *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -213,7 +213,7 @@ export function AdminStoreCatalog({ onAudit }: { onAudit: (message: string, type
       {summaries.map(store => {
         const logoUrl = getStoreLogoUrl(store.name);
         return <button key={store.id} className={store.id === selectedStoreId ? "active" : ""} onClick={() => setSelectedStoreId(store.id)}>
-          <i className={logoUrl ? "has-image" : ""} style={{ background: store.brand_color ?? "#1473e6" }}>
+          <i className={logoUrl ? "has-image" : ""} style={{ background: store.brand_color ?? "var(--pc-color-primary)" }}>
             {logoUrl ? <img src={logoUrl} alt={`Logomarca ${store.name}`} loading="lazy" /> : <Store/>}
           </i><span><b>{store.name}</b><small>{store.neighborhood || "Bairro não informado"}</small></span><strong>{store.products}</strong><em>produtos</em>
         </button>;

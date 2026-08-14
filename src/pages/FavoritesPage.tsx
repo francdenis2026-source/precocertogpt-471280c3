@@ -238,7 +238,7 @@ export default function FavoritesPage({
             <p style={{ color: 'var(--muted)' }}>{favoriteProducts.length} itens salvos na sua lista pessoal</p>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <button className="button button--primary" onClick={shareWhatsApp} title="Compartilhar no WhatsApp" style={{ background: '#25D366', borderColor: '#25D366', color: 'white' }}>
+            <button className="button button--primary" onClick={shareWhatsApp} title="Compartilhar no WhatsApp" style={{ background: 'var(--pc-color-primary)', borderColor: 'var(--pc-color-primary)', color: 'white' }}>
               <Share2 size={18} /> <span className="hide-mobile">WhatsApp</span>
             </button>
             <button className="button button--outline" onClick={exportFavoritesPDF} title="Exportar para PDF">

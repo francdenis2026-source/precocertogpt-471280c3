@@ -1,0 +1,96 @@
+/* Homepage chromatic governance: one coherent visual language */
+.pc-home {
+  --pc-navy: #07111f;
+  --pc-navy-2: #0d1b2a;
+  --pc-surface: #f8fafc;
+  --pc-surface-2: #f3f6fa;
+  --pc-blue: #2563eb;
+  --pc-blue-2: #1d4ed8;
+  --pc-amber: #f59e0b;
+  --pc-on-navy: #ffffff;
+  --pc-on-navy-muted: #d5dfec;
+  --pc-dark-border: rgba(255,255,255,.09);
+}
+
+[data-theme="dark"] .pc-home {
+  --pc-surface: #0f1724;
+  --pc-surface-2: #131f30;
+}
+
+/* Structural dark zones share the same navy family. */
+.pc-home .pc-header,
+.pc-home .pc-header.is-scrolled,
+.pc-home .pc-footer {
+  background: var(--pc-navy) !important;
+  border-color: var(--pc-dark-border) !important;
+}
+
+.pc-home .pc-hero {
+  background: var(--pc-navy) !important;
+}
+
+.pc-home .pc-commercial {
+  background: linear-gradient(135deg, var(--pc-navy) 0%, var(--pc-navy-2) 100%) !important;
+  border-top: 1px solid var(--pc-dark-border) !important;
+  border-bottom: 1px solid var(--pc-dark-border) !important;
+}
+
+.pc-home .pc-commercial h2,
+.pc-home .pc-footer :is(h2,h3,strong),
+.pc-home .pc-header :is(a,button) {
+  color: var(--pc-on-navy);
+}
+
+.pc-home .pc-commercial p,
+.pc-home .pc-footer :is(p,span,small),
+.pc-home .pc-hero-copy > p {
+  color: var(--pc-on-navy-muted);
+}
+
+/* Light bands remain light, but never stark white against the navy hero. */
+.pc-home .pc-services-strip,
+.pc-home .pc-action-strip-inner,
+.pc-home .pc-category,
+.pc-home .pc-product-card,
+.pc-home .pc-store-card,
+.pc-home .pc-how-step,
+.pc-home .pc-compare-card {
+  background: var(--pc-surface);
+}
+
+.pc-home .pc-services-strip {
+  border-bottom-color: #e2e8f0;
+}
+
+.pc-home .pc-service-item:hover,
+.pc-home .pc-action-strip a:hover,
+.pc-home .pc-store-card:hover,
+.pc-home .pc-how-demo {
+  background: var(--pc-surface-2);
+}
+
+/* Blue is interaction only; amber is value/economy only. */
+.pc-home :is(.pc-merchant,.pc-search button) {
+  background: var(--pc-blue);
+}
+.pc-home :is(.pc-merchant,.pc-search button):hover {
+  background: var(--pc-blue-2);
+}
+.pc-home .pc-hero h1 em,
+.pc-home .pc-commercial-copy > a,
+.pc-home .pc-price-line em {
+  color: #fbbf24;
+}
+.pc-home .pc-commercial-copy > a {
+  background: var(--pc-amber);
+  color: #2b1b00;
+}
+
+/* Keep all dark-section strokes in one family. */
+.pc-home :is(.pc-kicker,.pc-hero-side > div,.pc-commercial-features span,.pc-icon-button,.pc-menu-button) {
+  border-color: var(--pc-dark-border);
+}
+
+@media (max-width: 680px) {
+  .pc-home .pc-services-strip { background: var(--pc-surface); }
+}

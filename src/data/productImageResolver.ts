@@ -43,6 +43,7 @@ const publicFallbacks = [
   { terms: ["arroz", "tiojoao"], url: "/products/arroz-tio-joao-5kg.png" },
   { terms: ["arroz", "bernardo"], url: "/products/arroz-branco-bernardo-1kg.jpg" },
   { terms: ["cafe", "3coracoes"], url: "/products/cafe-3-coracoes-500g.jpg" },
+  { terms: ["leite", "empo", "italac", "integral", "400g"], url: "/products/leite-em-po-italac-integral-400g.webp" },
   { terms: ["leite", "italac"], url: "/products/leite-italac-1l.jpg" },
   { terms: ["feijao", "kicaldo"], url: "/products/feijao-kicaldo-1kg.jpg" },
   { terms: ["feijao", "bernardo"], url: "/products/feijao-carioca-bernardo-1kg.jpg" },

@@ -1,0 +1,76 @@
+/* Final homepage audit corrections: real selectors, structural density, mobile search. */
+.pc-home.pc-audit-polished main { display:block; }
+.pc-home.pc-audit-polished .pc-hero,
+.pc-home.pc-audit-polished .pc-services-strip,
+.pc-home.pc-audit-polished .pc-action-strip { order:initial; }
+
+.pc-home.pc-audit-polished .pc-heading { margin-bottom:18px; }
+.pc-home.pc-audit-polished .pc-heading h2 { margin-top:6px; }
+.pc-home.pc-audit-polished .pc-heading p { margin-top:5px; }
+
+.pc-home.pc-audit-polished .pc-category {
+  min-height:72px;
+  padding:10px 12px;
+  border-radius:12px;
+  box-shadow:var(--pc-shadow-sm);
+  transition:transform 180ms var(--pc-ease),box-shadow 180ms var(--pc-ease),border-color 180ms ease;
+}
+.pc-home.pc-audit-polished .pc-category:hover { transform:translateY(-1px); box-shadow:var(--pc-shadow-md); }
+.pc-home.pc-audit-polished .pc-category-icon { width:40px; height:40px; border-radius:10px; }
+
+.pc-home.pc-audit-polished .pc-how-step {
+  min-height:188px;
+  padding:14px;
+  border-radius:14px;
+  box-shadow:var(--pc-shadow-sm);
+  transition:transform 180ms var(--pc-ease),box-shadow 180ms var(--pc-ease),border-color 180ms ease;
+}
+.pc-home.pc-audit-polished .pc-how-step:hover { transform:translateY(-1px); box-shadow:var(--pc-shadow-md); }
+.pc-home.pc-audit-polished .pc-how-copy p { margin-top:4px; }
+
+.pc-home.pc-audit-polished .pc-product-card { border-radius:13px; }
+.pc-home.pc-audit-polished .pc-product-open { gap:0; }
+.pc-home.pc-audit-polished .pc-product-info { padding:10px 11px 8px; }
+.pc-home.pc-audit-polished .pc-product-info small { margin-bottom:3px; }
+.pc-home.pc-audit-polished .pc-price-line { padding:9px 11px 11px; gap:8px; }
+.pc-home.pc-audit-polished .pc-price-line strong { line-height:1.05; }
+.pc-home.pc-audit-polished .pc-product-media img { transition:transform 180ms var(--pc-ease); }
+
+.pc-home.pc-audit-polished .pc-store-card { min-height:66px; padding:8px 10px; border-radius:12px; }
+.pc-home.pc-audit-polished .pc-store-avatar { width:40px; height:40px; border-radius:10px; }
+
+.pc-home.pc-audit-polished .pc-header { border-bottom:1px solid rgba(255,255,255,.07); }
+.pc-home.pc-audit-polished .pc-header:not(.is-scrolled) {
+  background:linear-gradient(180deg,rgba(3,31,28,.94),rgba(3,31,28,.68));
+}
+
+@media (max-width:680px) {
+  .pc-home.pc-audit-polished .pc-search {
+    grid-template-columns:auto minmax(0,1fr) 48px;
+    min-height:54px;
+    padding:4px 5px 4px 12px;
+  }
+  .pc-home.pc-audit-polished .pc-search button {
+    grid-column:auto;
+    width:48px;
+    min-width:48px;
+    height:46px;
+    margin-top:0;
+    padding:0;
+    font-size:0;
+    border-radius:9px;
+  }
+  .pc-home.pc-audit-polished .pc-search button svg { width:18px; height:18px; margin:0; }
+  .pc-home.pc-audit-polished .pc-category-row { gap:7px; }
+  .pc-home.pc-audit-polished .pc-category { min-height:86px; padding:10px; }
+  .pc-home.pc-audit-polished .pc-how-step { min-height:164px; padding:12px; }
+  .pc-home.pc-audit-polished .pc-product-info { padding:9px 10px 7px; }
+  .pc-home.pc-audit-polished .pc-price-line { padding:8px 10px 10px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .pc-home.pc-audit-polished :is(.pc-category,.pc-how-step,.pc-product-card,.pc-store-card) {
+    transform:none !important;
+    transition:none !important;
+  }
+}

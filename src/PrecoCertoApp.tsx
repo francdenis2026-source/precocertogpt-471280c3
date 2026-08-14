@@ -1976,7 +1976,7 @@ function BasketPage({ products, addBasket, cart: initialCart, removeBasket, clea
                       {user && (
                         <button 
                           className="button button--primary button--small"
-                          style={{ width: '100%', marginTop: '0.25rem', background: '#25D366', color: 'white', border: 'none' }}
+                          style={{ width: '100%', marginTop: '0.25rem', background: 'var(--pc-color-success)', color: 'var(--pc-color-primary-foreground)', border: 'none' }}
                           onClick={async () => {
                             if (!user) return;
                             try {
@@ -2227,7 +2227,7 @@ function BasketPage({ products, addBasket, cart: initialCart, removeBasket, clea
                         <input 
                           readOnly 
                           value={shareReadOnly ? `${shareLink}?ro=1` : shareLink} 
-                          style={{ width: '100%', padding: '0.5rem', fontSize: '0.75rem', borderRadius: '6px', border: '1px solid var(--border)', background: 'white' }}
+                          style={{ width: '100%', padding: '0.5rem', fontSize: '0.75rem', borderRadius: '6px', border: '1px solid var(--border)', background: 'var(--pc-color-surface)' }}
                           onClick={e => (e.target as any).select()}
                         />
                         <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.78rem', marginTop: '0.5rem', color: 'var(--text)' }}>
@@ -2240,7 +2240,7 @@ function BasketPage({ products, addBasket, cart: initialCart, removeBasket, clea
                         </label>
                         <button 
                           className="button button--small" 
-                          style={{ marginTop: '0.5rem', width: '100%', background: 'var(--green)', color: 'white' }}
+                          style={{ marginTop: '0.5rem', width: '100%', background: 'var(--green)', color: 'var(--pc-color-primary-foreground)' }}
                           onClick={() => { navigator.clipboard.writeText(shareReadOnly ? `${shareLink}?ro=1` : shareLink); alert("Link copiado!"); }}
                         >
                           Copiar Link
@@ -3188,19 +3188,19 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
     ["Feijão Kicaldo 1 kg","Super Feijoense","R$ 7,49","Verificado"],
   ];
   const title = adminRouteNames[path] ?? (path.startsWith("/admin/cobertura/") ? "Detalhe da cobertura" : "Operação administrativa");
-  return <div className="admin-shell"><aside className="admin-sidebar"><Brand inverse/><nav><span>Operação</span><button onClick={() => setActiveAdminView("dashboard")} className={activeAdminView==="dashboard"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Visão geral do painel"><LayoutDashboard size={18}/> Visão geral</button><button onClick={() => setActiveAdminView("users")} className={activeAdminView==="users"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Gestão de usuários"><Users size={18}/> Usuários</button><button onClick={() => setActiveAdminView("storeCatalog")} className={activeAdminView==="storeCatalog"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Catálogos por estabelecimento"><Store size={18}/> Catálogos por loja</button><button onClick={() => setActiveAdminView("catalog")} className={activeAdminView==="catalog"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Gestão de produtos gerais"><PackageSearch size={18}/> Produtos gerais</button><button onClick={() => setActiveAdminView("images")} className={activeAdminView==="images"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Revisar fotos pendentes"><Camera size={18}/> Revisar Fotos</button><a href="/admin/clientes" aria-label="Gestão de clientes"><Users/> Clientes</a><a href="/admin/precos" aria-label="Gestão de preços"><CircleDollarSign/> Preços</a><a href="/admin/importacoes" className={path==="/admin/importacoes"?"active":""} aria-label="Histórico de importações"><Database/> Importações</a><span>Inteligência</span><a href="/admin/analytics" aria-label="Analytics e métricas"><BarChart3/> Analytics</a><a href="/admin/auditoria" aria-label="Logs de auditoria"><ShieldCheck/> Auditoria</a></nav><a className="admin-back" href="/" style={{ marginBottom: '1rem' }} aria-label="Voltar para o site principal"><ArrowRight/> o que ainda falta do plano</a><button className="button button--ghost button--small" onClick={handleLogoutRequest} style={{ color: '#fca5a5', marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'flex-start', paddingLeft: '1rem', borderRadius: '8px' }} aria-label="Deslogar do painel administrativo"><X size={16}/> Deslogar Admin</button></aside><main className="admin-main"><header><div><small>Admin / Operação</small><h1>{activeAdminView === "images" ? "Revisão de Fotos" : activeAdminView === "storeCatalog" ? "Catálogos por estabelecimento" : activeAdminView === "users" ? "Gestão de Usuários" : title}</h1></div><div>{importMsg && <span className="admin-import-badge" style={{fontSize:"0.75rem",background:"#fef3c7",color:"#92400e",padding:"0.25rem 0.75rem",borderRadius:"1rem",marginRight:"1rem"}}>{importMsg}</span>}<button className="icon-button" aria-label="Notificações"><Bell/></button><span className="admin-user">FD</span></div></header>
+  return <div className="admin-shell"><aside className="admin-sidebar"><Brand inverse/><nav><span>Operação</span><button onClick={() => setActiveAdminView("dashboard")} className={activeAdminView==="dashboard"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Visão geral do painel"><LayoutDashboard size={18}/> Visão geral</button><button onClick={() => setActiveAdminView("users")} className={activeAdminView==="users"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Gestão de usuários"><Users size={18}/> Usuários</button><button onClick={() => setActiveAdminView("storeCatalog")} className={activeAdminView==="storeCatalog"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Catálogos por estabelecimento"><Store size={18}/> Catálogos por loja</button><button onClick={() => setActiveAdminView("catalog")} className={activeAdminView==="catalog"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Gestão de produtos gerais"><PackageSearch size={18}/> Produtos gerais</button><button onClick={() => setActiveAdminView("images")} className={activeAdminView==="images"?"active":""} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', cursor: 'pointer', borderRadius: '8px' }} aria-label="Revisar fotos pendentes"><Camera size={18}/> Revisar Fotos</button><a href="/admin/clientes" aria-label="Gestão de clientes"><Users/> Clientes</a><a href="/admin/precos" aria-label="Gestão de preços"><CircleDollarSign/> Preços</a><a href="/admin/importacoes" className={path==="/admin/importacoes"?"active":""} aria-label="Histórico de importações"><Database/> Importações</a><span>Inteligência</span><a href="/admin/analytics" aria-label="Analytics e métricas"><BarChart3/> Analytics</a><a href="/admin/auditoria" aria-label="Logs de auditoria"><ShieldCheck/> Auditoria</a></nav><a className="admin-back" href="/" style={{ marginBottom: '1rem' }} aria-label="Voltar para o site principal"><ArrowRight/> o que ainda falta do plano</a><button className="button button--ghost button--small" onClick={handleLogoutRequest} style={{ color: 'color-mix(in srgb,var(--pc-color-danger) 42%,var(--pc-color-surface))', marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'flex-start', paddingLeft: '1rem', borderRadius: '8px' }} aria-label="Deslogar do painel administrativo"><X size={16}/> Deslogar Admin</button></aside><main className="admin-main"><header><div><small>Admin / Operação</small><h1>{activeAdminView === "images" ? "Revisão de Fotos" : activeAdminView === "storeCatalog" ? "Catálogos por estabelecimento" : activeAdminView === "users" ? "Gestão de Usuários" : title}</h1></div><div>{importMsg && <span className="admin-import-badge" style={{fontSize:"0.75rem",background:"color-mix(in srgb,var(--pc-color-accent) 12%,var(--pc-color-surface))",color:"var(--pc-color-accent)",padding:"0.25rem 0.75rem",borderRadius:"1rem",marginRight:"1rem"}}>{importMsg}</span>}<button className="icon-button" aria-label="Notificações"><Bell/></button><span className="admin-user">FD</span></div></header>
 
   {showLogoutConfirm && (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(4px)' }}>
-      <div style={{ background: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}>
-        <div style={{ width: '64px', height: '64px', background: '#fee2e2', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
-          <AlertTriangle color="#dc2626" size={32} />
+      <div style={{ background: 'var(--pc-color-surface)', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}>
+        <div style={{ width: '64px', height: '64px', background: 'color-mix(in srgb,var(--pc-color-danger) 8%,var(--pc-color-surface))', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
+          <AlertTriangle color="var(--pc-color-danger)" size={32} />
         </div>
         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Confirmar Logout?</h2>
-        <p style={{ color: '#6b7280', marginBottom: '2rem' }}>Você precisará da senha administrativa para acessar estas ferramentas novamente.</p>
+        <p style={{ color: 'var(--pc-color-muted)', marginBottom: '2rem' }}>Você precisará da senha administrativa para acessar estas ferramentas novamente.</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <button className="button button--outline" onClick={() => setShowLogoutConfirm(false)}>Cancelar</button>
-          <button className="button button--primary" style={{ background: '#dc2626' }} onClick={confirmLogout}>Sim, Deslogar</button>
+          <button className="button button--primary" style={{ background: 'var(--pc-color-danger)' }} onClick={confirmLogout}>Sim, Deslogar</button>
         </div>
       </div>
     </div>
@@ -3219,7 +3219,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
       <div className="admin-kpis">
         <article onClick={() => setActiveKpiDetail({ title: "Preços Ativos", data: rows })} style={{ cursor: 'pointer' }}><span>Preços ativos <Activity/></span><strong>8.932</strong><small className="positive">+12,4% nesta semana</small></article>
         <article onClick={() => setActiveKpiDetail({ title: "Produtos Cobertos", data: initialProducts.slice(0, 10) })} style={{ cursor: 'pointer' }}><span>Produtos cobertos <PackageSearch/></span><strong>1.247</strong><small>82% da cesta base</small></article>
-        <article onClick={() => setActiveAdminView("images")} style={{ cursor: 'pointer', border: '1px solid #f59e0b', background: '#fffbeb' }}><span>Fotos Pendentes <Camera color="#d97706"/></span><strong>{allProducts.filter(p => !p.image_url).length}</strong><small className="warning" style={{ color: '#d97706' }}>Itens sem imagem real</small></article>
+        <article onClick={() => setActiveAdminView("images")} style={{ cursor: 'pointer', border: '1px solid var(--pc-color-accent)', background: 'color-mix(in srgb,var(--pc-color-accent) 6%,var(--pc-color-surface))' }}><span>Fotos Pendentes <Camera color="var(--pc-color-accent)"/></span><strong>{allProducts.filter(p => !p.image_url).length}</strong><small className="warning" style={{ color: 'var(--pc-color-accent)' }}>Itens sem imagem real</small></article>
         <article onClick={() => setActiveKpiDetail({ title: "Estabelecimentos", data: initialStores })} style={{ cursor: 'pointer' }}><span>Estabelecimentos <Store/></span><strong>12</strong><small className="positive">12 sincronizando</small></article>
       </div>
 
@@ -3234,31 +3234,31 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
           {connStatus ? (
             <div className="connection-status-panel" style={{padding: "1rem"}}>
               <div style={{display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem"}}>
-                <span className={`status ${connStatus.success ? "ok" : "review"}`} style={{width: 10, height: 10, borderRadius: "50%", display: "inline-block", background: connStatus.success ? "#16a34a" : "#dc2626"}}/>
+                <span className={`status ${connStatus.success ? "ok" : "review"}`} style={{width: 10, height: 10, borderRadius: "50%", display: "inline-block", background: connStatus.success ? "var(--pc-color-success)" : "var(--pc-color-danger)"}}/>
                 <b>{connStatus.success ? "Conectado ao Supabase" : "Erro na Conexão"}</b>
-                {connStatus.success && <small style={{marginLeft: "auto", color: "#6b7280"}}>{connStatus.latency}ms latência</small>}
+                {connStatus.success && <small style={{marginLeft: "auto", color: "var(--pc-color-muted)"}}>{connStatus.latency}ms latência</small>}
               </div>
               {connStatus.success ? (
                 <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.5rem"}}>
-                  <div style={{background: "#f9fafb", padding: "0.75rem", borderRadius: "0.5rem"}}>
-                    <small style={{display: "block", color: "#6b7280", fontSize: "0.7rem"}}>Lojas</small>
+                  <div style={{background: "var(--pc-card-bg)", padding: "0.75rem", borderRadius: "0.5rem"}}>
+                    <small style={{display: "block", color: "var(--pc-color-muted)", fontSize: "0.7rem"}}>Lojas</small>
                     <strong>{connStatus.tables.establishments}</strong>
                   </div>
-                  <div style={{background: "#f9fafb", padding: "0.75rem", borderRadius: "0.5rem"}}>
-                    <small style={{display: "block", color: "#6b7280", fontSize: "0.7rem"}}>Produtos</small>
+                  <div style={{background: "var(--pc-card-bg)", padding: "0.75rem", borderRadius: "0.5rem"}}>
+                    <small style={{display: "block", color: "var(--pc-color-muted)", fontSize: "0.7rem"}}>Produtos</small>
                     <strong>{connStatus.tables.products}</strong>
                   </div>
-                  <div style={{background: "#f9fafb", padding: "0.75rem", borderRadius: "0.5rem"}}>
-                    <small style={{display: "block", color: "#6b7280", fontSize: "0.7rem"}}>Preços</small>
+                  <div style={{background: "var(--pc-card-bg)", padding: "0.75rem", borderRadius: "0.5rem"}}>
+                    <small style={{display: "block", color: "var(--pc-color-muted)", fontSize: "0.7rem"}}>Preços</small>
                     <strong>{connStatus.tables.prices}</strong>
                   </div>
                 </div>
               ) : (
-                <p style={{color: "#dc2626", fontSize: "0.85rem"}}>{connStatus.error}</p>
+                <p style={{color: "var(--pc-color-danger)", fontSize: "0.85rem"}}>{connStatus.error}</p>
               )}
             </div>
           ) : (
-            <div style={{padding: "2rem", textAlign: "center", color: "#6b7280"}}><small>Clique em testar para validar as tabelas externas.</small></div>
+            <div style={{padding: "2rem", textAlign: "center", color: "var(--pc-color-muted)"}}><small>Clique em testar para validar as tabelas externas.</small></div>
           )}
         </section>
 
@@ -3273,36 +3273,36 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
                   <span>{importMsg}</span>
                   <b>{Math.round((importProgress / importTotal) * 100)}%</b>
                 </div>
-                <div style={{height: "8px", background: "#f1f5f9", borderRadius: "4px", overflow: "hidden", marginBottom: "0.5rem"}}>
-                  <div style={{height: "100%", background: "#1473e6", width: `${(importProgress / importTotal) * 100}%`, transition: "width 0.3s ease"}} />
+                <div style={{height: "8px", background: "var(--pc-color-background)", borderRadius: "4px", overflow: "hidden", marginBottom: "0.5rem"}}>
+                  <div style={{height: "100%", background: "var(--pc-color-primary)", width: `${(importProgress / importTotal) * 100}%`, transition: "width 0.3s ease"}} />
                 </div>
-                <small style={{color: "#64748b"}}>{importProgress} de {importTotal} registros processados</small>
+                <small style={{color: "var(--pc-color-muted)"}}>{importProgress} de {importTotal} registros processados</small>
               </div>
             ) : importLog ? (
               <div style={{padding: "0"}}>
                 {importLog.error ? (
-                  <div style={{background: "#fee2e2", padding: "1rem", borderRadius: "0.5rem", border: "1px solid #fecaca"}}>
-                    <div style={{display: "flex", alignItems: "center", gap: "0.5rem", color: "#b91c1c", marginBottom: "0.5rem"}}>
+                  <div style={{background: "color-mix(in srgb,var(--pc-color-danger) 8%,var(--pc-color-surface))", padding: "1rem", borderRadius: "0.5rem", border: "1px solid color-mix(in srgb,var(--pc-color-danger) 28%,var(--pc-color-border))"}}>
+                    <div style={{display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--pc-color-danger)", marginBottom: "0.5rem"}}>
                       <AlertTriangle size={18} />
                       <strong>Erro Crítico na Importação</strong>
                     </div>
-                    <p style={{fontSize: "0.85rem", color: "#991b1b", margin: 0}}>{importLog.error}</p>
+                    <p style={{fontSize: "0.85rem", color: "var(--pc-color-danger)", margin: 0}}>{importLog.error}</p>
                   </div>
                 ) : (
                   <>
                     <div style={{display: "flex", justifyContent: "space-between", marginBottom: "0.5rem"}}>
                       <span style={{fontSize: "0.85rem"}}>Novos preços inseridos:</span>
-                      <strong style={{color: "#16a34a"}}>+{importLog.count}</strong>
+                      <strong style={{color: "var(--pc-color-success)"}}>+{importLog.count}</strong>
                     </div>
-                    <div style={{borderTop: "1px solid #e5e7eb", marginTop: "0.5rem", paddingTop: "0.5rem", display: "flex", justifyContent: "space-between"}}>
-                      <small style={{color: "#6b7280"}}>Execução: {(importLog.duration / 1000).toFixed(2)}s</small>
-                      <small style={{color: "#6b7280"}}>{importLog.stores} lojas | {importLog.products} produtos</small>
+                    <div style={{borderTop: "1px solid var(--pc-color-border)", marginTop: "0.5rem", paddingTop: "0.5rem", display: "flex", justifyContent: "space-between"}}>
+                      <small style={{color: "var(--pc-color-muted)"}}>Execução: {(importLog.duration / 1000).toFixed(2)}s</small>
+                      <small style={{color: "var(--pc-color-muted)"}}>{importLog.stores} lojas | {importLog.products} produtos</small>
                     </div>
                   </>
                 )}
               </div>
             ) : (
-              <div style={{padding: "1rem", textAlign: "center", color: "#6b7280"}}><small>Aguardando início do processo de carga.</small></div>
+              <div style={{padding: "1rem", textAlign: "center", color: "var(--pc-color-muted)"}}><small>Aguardando início do processo de carga.</small></div>
             )}
           </div>
         </section>
@@ -3319,16 +3319,16 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
         </div>
         <div style={{display:"flex",gap:"0.75rem"}}>
           <button className="button button--primary" onClick={() => setShowAddProduct(true)}><Plus/> Novo produto</button>
-          {activeAdminView === "catalog" && <button className="button button--primary" onClick={() => setShowAddStore(true)} style={{ background: '#10b981' }}><Store/> Nova Loja</button>}
+          {activeAdminView === "catalog" && <button className="button button--primary" onClick={() => setShowAddStore(true)} style={{ background: 'var(--pc-color-success)' }}><Store/> Nova Loja</button>}
         </div>
       </div>
       
       {activeAdminView === "catalog" && (
-        <div className="admin-tabs" style={{ display: 'flex', gap: '1rem', padding: '0 1.5rem', borderBottom: '1px solid #e2e8f0' }}>
-          <button onClick={() => setAdminActiveTab("products")} style={{ padding: '0.75rem 1rem', borderBottom: adminActiveTab === 'products' ? '2px solid #1473e6' : 'none', color: adminActiveTab === 'products' ? '#1473e6' : '#64748b', fontWeight: adminActiveTab === 'products' ? '600' : '400', background: 'none' }}>
+        <div className="admin-tabs" style={{ display: 'flex', gap: '1rem', padding: '0 1.5rem', borderBottom: '1px solid var(--pc-color-border)' }}>
+          <button onClick={() => setAdminActiveTab("products")} style={{ padding: '0.75rem 1rem', borderBottom: adminActiveTab === 'products' ? '2px solid var(--pc-color-primary)' : 'none', color: adminActiveTab === 'products' ? 'var(--pc-color-primary)' : 'var(--pc-color-muted)', fontWeight: adminActiveTab === 'products' ? '600' : '400', background: 'none' }}>
             Produtos ({filteredProducts.length})
           </button>
-          <button onClick={() => setAdminActiveTab("stores")} style={{ padding: '0.75rem 1rem', borderBottom: adminActiveTab === 'stores' ? '2px solid #1473e6' : 'none', color: adminActiveTab === 'stores' ? '#1473e6' : '#64748b', fontWeight: adminActiveTab === 'stores' ? '600' : '400', background: 'none' }}>
+          <button onClick={() => setAdminActiveTab("stores")} style={{ padding: '0.75rem 1rem', borderBottom: adminActiveTab === 'stores' ? '2px solid var(--pc-color-primary)' : 'none', color: adminActiveTab === 'stores' ? 'var(--pc-color-primary)' : 'var(--pc-color-muted)', fontWeight: adminActiveTab === 'stores' ? '600' : '400', background: 'none' }}>
             Lojas ({filteredStores.length})
           </button>
         </div>
@@ -3337,7 +3337,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
       <div className="admin-filters">
         <label style={{ flex: 1 }}><Search/><input placeholder="Buscar por nome ou marca..." value={adminSearch} onChange={e => setAdminSearch(e.target.value)} /></label>
         {activeAdminView === "images" && (
-          <select value={adminFilterStore} onChange={e => setAdminFilterStore(e.target.value)} style={{ padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
+          <select value={adminFilterStore} onChange={e => setAdminFilterStore(e.target.value)} style={{ padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid var(--pc-color-border)' }}>
             <option value="all">Status da Foto</option>
             <option value="missing">Sem Foto Real</option>
             <option value="present">Com Foto Real</option>
@@ -3378,7 +3378,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
                 <span><b>{money(p.minPrice)}</b></span>
                 <span style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.25rem' }}>
                   <button className="icon-button" onClick={() => setEditingItem({ type: 'product', data: p })}><Edit size={16}/></button>
-                  <button className="icon-button" onClick={() => setConfirmDelete({ type: 'product', id: String(p.id), name: p.name })} style={{ color: '#dc2626' }}><Trash2 size={16}/></button>
+                  <button className="icon-button" onClick={() => setConfirmDelete({ type: 'product', id: String(p.id), name: p.name })} style={{ color: 'var(--pc-color-danger)' }}><Trash2 size={16}/></button>
                 </span>
               </div>
             ))}
@@ -3393,7 +3393,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
                 <span>{s.kind === 'market' ? 'Supermercado' : s.kind}</span>
                 <span style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.25rem' }}>
                   <button className="icon-button" onClick={() => setEditingItem({ type: 'store', data: s })}><Edit size={16}/></button>
-                  <button className="icon-button" onClick={() => setConfirmDelete({ type: 'store', id: String(s.id), name: s.name })} style={{ color: '#dc2626' }}><Trash2 size={16}/></button>
+                  <button className="icon-button" onClick={() => setConfirmDelete({ type: 'store', id: String(s.id), name: s.name })} style={{ color: 'var(--pc-color-danger)' }}><Trash2 size={16}/></button>
                 </span>
               </div>
             ))}
@@ -3422,8 +3422,8 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
       <div className="admin-card-head" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div><h2>Auditoria Completa</h2><p>Logs de segurança e operações sensíveis.</p></div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <input type="date" value={dateFilter} onChange={e=>setDateFilter(e.target.value)} style={{ padding: '0.25rem', fontSize: '0.8rem', border: '1px solid #ddd', borderRadius: '4px' }}/>
-          <select value={typeFilter} onChange={e=>setTypeFilter(e.target.value)} style={{ padding: '0.25rem', fontSize: '0.8rem', border: '1px solid #ddd', borderRadius: '4px' }}>
+          <input type="date" value={dateFilter} onChange={e=>setDateFilter(e.target.value)} style={{ padding: '0.25rem', fontSize: '0.8rem', border: '1px solid var(--pc-color-border)', borderRadius: '4px' }}/>
+          <select value={typeFilter} onChange={e=>setTypeFilter(e.target.value)} style={{ padding: '0.25rem', fontSize: '0.8rem', border: '1px solid var(--pc-color-border)', borderRadius: '4px' }}>
             <option value="all">Todos Tipos</option>
             <option value="success">Sucesso</option>
             <option value="warning">Aviso</option>
@@ -3434,16 +3434,16 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
       </div>
       <div style={{ maxHeight: '400px', overflowY: 'auto', marginTop: '1rem' }}>
         {filteredLogs.length > 0 ? filteredLogs.map((log, i) => (
-          <div className="audit-row" key={i} style={{ borderBottom: '1px solid #f1f5f9', padding: '0.75rem 0' }}>
-            <span style={{ minWidth: '24px' }}>{log.type === "error" ? <AlertTriangle color="#dc2626"/> : log.type === "warning" ? <Bell color="#b45309"/> : <CheckCircle2 color="#16a34a"/>}</span>
+          <div className="audit-row" key={i} style={{ borderBottom: '1px solid var(--pc-color-background)', padding: '0.75rem 0' }}>
+            <span style={{ minWidth: '24px' }}>{log.type === "error" ? <AlertTriangle color="var(--pc-color-danger)"/> : log.type === "warning" ? <Bell color="var(--pc-color-accent)"/> : <CheckCircle2 color="var(--pc-color-success)"/>}</span>
             <div style={{ flex: 1 }}>
               <b style={{ fontSize: '0.9rem' }}>{log.action}</b>
-              <div style={{ fontSize: '0.75rem', color: '#64748b' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--pc-color-muted)' }}>
                 {log.user} • {new Date(log.at).toLocaleString("pt-BR")}
               </div>
             </div>
           </div>
-        )) : <div style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>Nenhum log encontrado para os filtros selecionados.</div>}
+        )) : <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--pc-color-muted)' }}>Nenhum log encontrado para os filtros selecionados.</div>}
       </div>
     </section>
 
@@ -3458,9 +3458,9 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
           <button className="icon-button" onClick={() => setActiveKpiDetail(null)}><X/></button>
         </div>
         <div className="admin-modal-body">
-          <div style={{ maxHeight: '300px', overflowY: 'auto', background: '#f8fafc', padding: '1rem', borderRadius: '0.5rem', fontSize: '0.75rem' }}>
+          <div style={{ maxHeight: '300px', overflowY: 'auto', background: 'var(--pc-card-bg)', padding: '1rem', borderRadius: '0.5rem', fontSize: '0.75rem' }}>
             {activeKpiDetail.data.map((item, i) => (
-              <div key={i} style={{ padding: '0.5rem 0', borderBottom: '1px solid #e2e8f0' }}>
+              <div key={i} style={{ padding: '0.5rem 0', borderBottom: '1px solid var(--pc-color-border)' }}>
                 {JSON.stringify(item)}
               </div>
             ))}
@@ -3507,7 +3507,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
         <div className="admin-modal-body" style={{ display: 'grid', gap: '0.5rem' }}>
           <label>Nome do Estabelecimento * <input name="name" required placeholder="Ex: Mercado do Povo" /></label>
           <label>Bairro * <input name="neighborhood" required placeholder="Ex: Centro" /></label>
-          <label>Cor da Marca <input name="color" type="color" defaultValue="#3b82f6" style={{ height: '40px', padding: '2px' }} /></label>
+          <label>Cor da Marca <input name="color" type="color" defaultValue="var(--pc-color-primary)" style={{ height: '40px', padding: '2px' }} /></label>
           <button type="submit" className="button button--primary" style={{ marginTop: '1rem' }}>Salvar Estabelecimento</button>
         </div>
       </form>
@@ -3554,16 +3554,16 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
           <button type="button" className="icon-button" onClick={() => setShowAddProduct(false)}><X/></button>
         </div>
         <div className="admin-modal-body" style={{ display: 'grid', gap: '0.5rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem', background: '#f8fafc', borderRadius: '0.5rem', border: '2px dashed #cbd5e1', marginBottom: '1rem', position: 'relative' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem', background: 'var(--pc-card-bg)', borderRadius: '0.5rem', border: '2px dashed var(--pc-color-border)', marginBottom: '1rem', position: 'relative' }}>
             {newProductPhoto ? (
               <div style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img src={newProductPhoto.url} style={{ width: '120px', height: '120px', objectFit: 'contain', borderRadius: '8px' }} alt="Preview" />
-                <button type="button" className="button button--ghost button--small" style={{ color: '#dc2626', marginTop: '0.5rem' }} onClick={() => setNewProductPhoto(null)}>Remover Foto</button>
+                <button type="button" className="button button--ghost button--small" style={{ color: 'var(--pc-color-danger)', marginTop: '0.5rem' }} onClick={() => setNewProductPhoto(null)}>Remover Foto</button>
               </div>
             ) : (
               <>
-                <Camera size={32} color="#64748b" />
-                <div style={{ fontSize: '0.75rem', marginTop: '0.5rem', color: '#64748b' }}>Clique para subir foto</div>
+                <Camera size={32} color="var(--pc-color-muted)" />
+                <div style={{ fontSize: '0.75rem', marginTop: '0.5rem', color: 'var(--pc-color-muted)' }}>Clique para subir foto</div>
               </>
             )}
             <input 
@@ -3609,12 +3609,12 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
           <button className="icon-button" onClick={() => setConfirmDelete(null)}><X/></button>
         </div>
         <div className="admin-modal-body">
-          <AlertTriangle size={48} color="#dc2626" style={{ margin: '0 auto 1rem' }} />
+          <AlertTriangle size={48} color="var(--pc-color-danger)" style={{ margin: '0 auto 1rem' }} />
           <p>Tem certeza que deseja excluir o {confirmDelete.type === 'product' ? 'produto' : 'estabelecimento'} <strong>{confirmDelete.name}</strong>?</p>
-          <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.5rem' }}>Esta ação não pode ser desfeita no banco de dados.</p>
+          <p style={{ fontSize: '0.8rem', color: 'var(--pc-color-muted)', marginTop: '0.5rem' }}>Esta ação não pode ser desfeita no banco de dados.</p>
           <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
             <button className="button button--outline" style={{ flex: 1 }} onClick={() => setConfirmDelete(null)}>Cancelar</button>
-            <button className="button button--primary" style={{ flex: 1, background: '#dc2626' }} onClick={handleDelete}>Excluir Agora</button>
+            <button className="button button--primary" style={{ flex: 1, background: 'var(--pc-color-danger)' }} onClick={handleDelete}>Excluir Agora</button>
           </div>
         </div>
       </div>
@@ -3649,7 +3649,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
         <div className="admin-modal-body" style={{ display: 'grid', gap: '1rem' }}>
           {editingItem.type === 'product' ? (
             <>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', background: '#f8fafc', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', background: 'var(--pc-card-bg)', borderRadius: '0.5rem', border: '1px solid var(--pc-color-border)' }}>
                 <img 
                   src={editingItem.data.image_url || "/products/arroz-tio-joao-5kg.png"} 
                   style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '4px', marginBottom: '0.5rem' }} 
@@ -3678,7 +3678,7 @@ function AdminPage({ path, onLogout, products: allProducts, stores: allStores }:
             <>
               <label>Nome da Loja <input name="name" defaultValue={editingItem.data.name} required /></label>
               <label>Bairro <input name="neighborhood" defaultValue={editingItem.data.neighborhood} /></label>
-              <label>Cor da Marca <input name="brand_color" type="color" defaultValue={editingItem.data.color || '#3b82f6'} style={{ height: '40px' }} /></label>
+              <label>Cor da Marca <input name="brand_color" type="color" defaultValue={editingItem.data.color || 'var(--pc-color-primary)'} style={{ height: '40px' }} /></label>
             </>
           )}
           <button type="submit" className="button button--primary" style={{ marginTop: '0.5rem' }}>Salvar Alterações</button>
@@ -4061,7 +4061,7 @@ function GenericPage({ path, products, stores, metrics, addBasket, favorites, to
                     bottom: '0',
                     right: '0',
                     background: 'var(--blue)',
-                    color: 'white',
+                    color: 'var(--pc-color-primary-foreground)',
                     border: 'none',
                     borderRadius: '50%',
                     width: '32px',
@@ -4436,15 +4436,15 @@ function GenericPage({ path, products, stores, metrics, addBasket, favorites, to
             </div>
             <div className="aside-stat" style={{ background: 'var(--gold-soft)', border: '1px solid var(--gold)', marginTop: '1.5rem', padding: '1rem', borderRadius: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.5rem' }}>
-                <div style={{ background: '#25D366', color: 'white', padding: '6px', borderRadius: '50%' }}><Users size={16} /></div>
-                <strong style={{ fontSize: '0.9rem', color: '#128C7E' }}>Alertas via WhatsApp</strong>
+                <div style={{ background: 'var(--pc-color-success)', color: 'var(--pc-color-primary-foreground)', padding: '6px', borderRadius: '50%' }}><Users size={16} /></div>
+                <strong style={{ fontSize: '0.9rem', color: 'var(--pc-color-success)' }}>Alertas via WhatsApp</strong>
               </div>
-              <p style={{ fontSize: '0.75rem', lineHeight: '1.3', color: '#444' }}>
+              <p style={{ fontSize: '0.75rem', lineHeight: '1.3', color: 'var(--pc-color-foreground)' }}>
                 Receba notificações instantâneas de quedas de preço e dados expirados no seu celular.
               </p>
               <button 
                 className="button button--small" 
-                style={{ background: '#25D366', color: 'white', border: 'none', width: '100%', marginTop: '0.8rem' }}
+                style={{ background: 'var(--pc-color-success)', color: 'var(--pc-color-primary-foreground)', border: 'none', width: '100%', marginTop: '0.8rem' }}
                 onClick={() => window.location.href = "/fale-conosco"}
               >
                 Solicitar ativação
@@ -4728,30 +4728,30 @@ function AuthPage({ path, onAdminAuth, onLogin }: { path: string; onAdminAuth: (
     <main className="auth-form-wrap">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <a className="auth-back" href="/" style={{ margin: 0 }}><ArrowRight/> Voltar ao início</a>
-        {!register && !isAdminLogin && <a href="/admin" style={{ fontSize: '0.75rem', color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#94a3b8'} onMouseOut={e => e.currentTarget.style.color = '#cbd5e1'}>Acesso Restrito</a>}
+        {!register && !isAdminLogin && <a href="/admin" style={{ fontSize: '0.75rem', color: 'var(--pc-color-border)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'var(--pc-color-muted)'} onMouseOut={e => e.currentTarget.style.color = 'var(--pc-color-border)'}>Acesso Restrito</a>}
       </div>
       <form className="auth-form" onSubmit={showForgot ? handleRecovery : submit}>
         
         <h2>{isAdminLogin ? (showForgot ? "Redefinir Senha" : "Login Administrativo") : register?"Comece grátis":"Entrar no PreçoCerto"}</h2>
         <p>{isAdminLogin ? (showForgot ? "Siga os passos para recuperar o acesso." : "Insira suas chaves de acesso para continuar.") : merchantLogin ? "Use o e-mail e a senha vinculados ao seu estabelecimento." : register?"Leva menos de dois minutos.":"Use seu CPF e PIN de 6 dígitos."}</p>
         
-        {error && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '0.75rem', borderRadius: '0.5rem', marginBottom: '1rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><AlertTriangle size={16}/> {error}</div>}
+        {error && <div style={{ background: 'color-mix(in srgb,var(--pc-color-danger) 8%,var(--pc-color-surface))', color: 'var(--pc-color-danger)', padding: '0.75rem', borderRadius: '0.5rem', marginBottom: '1rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><AlertTriangle size={16}/> {error}</div>}
 
         {isAdminLogin ? (
           showForgot ? (
             recoveryStep === 1 ? (
               <>
                 <label>E-mail do Administrador<input required type="email" value={recoveryUser} onChange={e=>setRecoveryUser(e.target.value)} placeholder="francdenisbr@gmail.com"/></label>
-                <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.5rem', background: '#f8fafc', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--pc-color-muted)', marginTop: '0.5rem', background: 'var(--pc-card-bg)', padding: '0.5rem', borderRadius: '0.25rem' }}>
                   <ShieldCheck size={12} style={{ verticalAlign: 'middle', marginRight: '4px' }}/>
                   Enviaremos um link seguro de redefinição para este e-mail.
                 </div>
               </>
             ) : (
-              <div style={{ fontSize: '0.85rem', color: '#166534', background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '0.85rem', borderRadius: '0.5rem' }}>
+              <div style={{ fontSize: '0.85rem', color: 'var(--pc-color-success)', background: 'color-mix(in srgb,var(--pc-color-success) 7%,var(--pc-color-surface))', border: '1px solid color-mix(in srgb,var(--pc-color-success) 25%,var(--pc-color-border))', padding: '0.85rem', borderRadius: '0.5rem' }}>
                 <Check size={14} style={{ verticalAlign: 'middle', marginRight: '6px' }}/>
                 Link enviado. Abra o e-mail e defina a nova senha na página segura.
-                <div style={{ marginTop: '0.5rem', color: '#b45309', display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ marginTop: '0.5rem', color: 'var(--pc-color-accent)', display: 'flex', alignItems: 'center', gap: 4 }}>
                   <Clock3 size={12}/> O link expira por segurança.
                 </div>
               </div>
@@ -5057,7 +5057,7 @@ function SearchPage({ products, stores, metrics, query, setQuery, addBasket, sav
   return (
     <div className="shell page-shell">
       {fetchError && (
-        <div className="status-banner status-banner--error" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', border: '1px solid #fecaca', fontSize: '0.9rem' }}>
+        <div className="status-banner status-banner--error" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', background: 'color-mix(in srgb,var(--pc-color-danger) 8%,var(--pc-color-surface))', color: 'var(--pc-color-danger)', borderRadius: '8px', border: '1px solid color-mix(in srgb,var(--pc-color-danger) 28%,var(--pc-color-border))', fontSize: '0.9rem' }}>
           <AlertTriangle size={20} />
           <div>
             <strong>Erro de conexão com o banco de dados:</strong> {fetchError}. 
@@ -5147,7 +5147,7 @@ function SearchPage({ products, stores, metrics, query, setQuery, addBasket, sav
                 <ProductImage product={p} size="compact" />
                 <button 
                   onClick={() => setCompareList(prev => prev.filter(i => i.id !== p.id))}
-                  style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', padding: '2px', cursor: 'pointer', borderRadius: '0 0 0 4px' }}
+                  style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(0,0,0,0.5)', color: 'var(--pc-color-primary-foreground)', border: 'none', padding: '2px', cursor: 'pointer', borderRadius: '0 0 0 4px' }}
                 >
                   <X size={10} />
                 </button>
@@ -5427,7 +5427,7 @@ export default function PrecoCertoApp() {
                   establishmentSlug: '', // Omitido ou buscado se necessário
                   establishment: o.establishments?.name || 'Desconhecido',
                   neighborhood: o.establishments?.neighborhood || '',
-                  storeColor: '#1473E6',
+                  storeColor: 'var(--pc-color-primary)',
                   value: Number(o.value),
                   capturedAt: o.captured_at
                 }));
@@ -6021,7 +6021,7 @@ function PaymentHistory({ user }: { user: SessionProfile | null }) {
                 <span style={{ 
                   fontSize: '0.75rem', padding: '2px 8px', borderRadius: '12px', 
                   background: p.status === 'paid' ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)',
-                  color: p.status === 'paid' ? '#15803d' : '#b91c1c',
+                  color: p.status === 'paid' ? 'var(--pc-color-success)' : 'var(--pc-color-danger)',
                   fontWeight: 600
                 }}>
                   {p.status === 'paid' ? 'Concluído' : 'Pendente'}

@@ -1,4 +1,5 @@
-import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight, BookOpen, Check, ChevronRight, HeartPulse, LogIn, MapPin, Menu, Moon,
@@ -63,6 +64,7 @@ function bestOffer(product: Product) {
 export function HomePremium() {
   const navigate = useNavigate();
   const searchAreaRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const dialogTriggerRef = useRef<HTMLElement | null>(null);
@@ -70,6 +72,7 @@ export function HomePremium() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeResult, setActiveResult] = useState(-1);
+  const [resultsPosition, setResultsPosition] = useState({ top: 0, left: 0, width: 0 });
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [dialogClosing, setDialogClosing] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
@@ -103,7 +106,7 @@ export function HomePremium() {
 
   useEffect(() => {
     const closeSearch = (event: PointerEvent) => {
-      if (!searchAreaRef.current?.contains(event.target as Node)) { setSearchOpen(false); setActiveResult(-1); }
+      if (!searchAreaRef.current?.contains(event.target as Node) && !resultsRef.current?.contains(event.target as Node)) { setSearchOpen(false); setActiveResult(-1); }
     };
     document.addEventListener("pointerdown", closeSearch);
     return () => document.removeEventListener("pointerdown", closeSearch);
@@ -141,13 +144,33 @@ export function HomePremium() {
   }, [selectedProduct]);
 
   const suggestions = useMemo(() => query.trim().length < 2 ? [] : suggestProducts(catalog.products, query, 6).filter((product) => product.minPrice > 0), [catalog.products, query]);
+  const resultsVisible = searchOpen && query.trim().length >= 2;
+
+  useLayoutEffect(() => {
+    if (!resultsVisible) return;
+    const updatePosition = () => {
+      const areaRect = searchAreaRef.current?.getBoundingClientRect();
+      const formRect = searchAreaRef.current?.querySelector(".pcx-search")?.getBoundingClientRect();
+      if (areaRect && formRect) setResultsPosition({ top: formRect.bottom, left: areaRect.left, width: areaRect.width });
+    };
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [resultsVisible]);
   const opportunities = useMemo(() => catalog.products.filter((product) => product.minPrice > 0)
     .sort((a, b) => Number(Boolean(trustedProductImage(b))) - Number(Boolean(trustedProductImage(a)))
       || (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 5), [catalog.products]);
   const comparisonProduct = opportunities[0] ?? catalog.products[0];
   const comparisonOffers = useMemo(() => comparisonProduct ? [...(comparisonProduct.offers ?? [])].filter((offer) => offer.value > 0).sort((a, b) => a.value - b.value).slice(0, 3) : [], [comparisonProduct]);
   const headlineSaving = comparisonProduct ? Math.max(0, comparisonProduct.maxPrice - comparisonProduct.minPrice) : 0;
-  const selectedOffers = selectedProduct ? [...(selectedProduct.offers ?? [])].filter((offer) => offer.value > 0).sort((a, b) => a.value - b.value).slice(0, 5) : [];
+  const selectedOffers = selectedProduct ? (() => {
+    const offers = [...(selectedProduct.offers ?? [])].filter((offer) => offer.value > 0).sort((a, b) => a.value - b.value).slice(0, 5);
+    return offers.length ? offers : [bestOffer(selectedProduct)];
+  })() : [];
   const hasComparison = selectedOffers.length > 1;
 
   const productsStructuredData = useMemo(() => ({
@@ -229,11 +252,11 @@ export function HomePremium() {
                     <button type="submit">Comparar <ArrowRight aria-hidden="true" /></button>
                   </div>
                 </form>
-                {searchOpen && query.trim().length >= 2 && <div id="pcx-search-results" className="pcx-results" role="listbox" aria-label="Sugestões de produtos">
-                  {suggestions.length ? suggestions.map((product, index) => <button id={`pcx-result-${index}`} key={`${product.id}-${product.establishmentId}`} type="button" role="option" aria-selected={activeResult === index} className={activeResult === index ? "is-active" : ""} onPointerDown={(event) => event.preventDefault()} onClick={() => { openProduct(product); setSearchOpen(false); }}>
-                    <span className="pcx-result__image"><ProductVisual product={product} /></span><span><strong>{product.name}</strong><small>{cleanMeta(product.brand, product.size)}</small></span><span className="pcx-result__price"><small>a partir de</small><strong>{money(product.minPrice)}</strong></span>
-                  </button>) : <div className="pcx-results__empty"><PackageSearch aria-hidden="true" /><span><strong>Nenhum produto encontrado</strong><small>Tente arroz, leite ou limpeza.</small></span></div>}
-                </div>}
+                {resultsVisible && typeof document !== "undefined" && createPortal(<div ref={resultsRef} id="pcx-search-results" className="pcx-results pcx-results--floating" role="listbox" aria-label="Sugestões de produtos" style={{ top: resultsPosition.top, left: resultsPosition.left, width: resultsPosition.width }}>
+                  {suggestions.length ? suggestions.map((product, index) => { const offer = bestOffer(product); return <button id={`pcx-result-${index}`} key={`${product.id}-${product.establishmentId}`} type="button" role="option" aria-selected={activeResult === index} className={activeResult === index ? "is-active" : ""} onPointerDown={(event) => event.preventDefault()} onClick={() => { openProduct(product); setSearchOpen(false); }}>
+                    <span className="pcx-result__image"><ProductVisual product={product} /></span><span className="pcx-result__details"><strong>{product.name}</strong><small>{cleanMeta(product.brand, product.size)}</small><b><Store aria-hidden="true" /> {offer.establishment || "Loja local"}</b></span><span className="pcx-result__price"><small>a partir de</small><strong>{money(product.minPrice)}</strong></span>
+                  </button>; }) : <div className="pcx-results__empty"><PackageSearch aria-hidden="true" /><span><strong>Nenhum produto encontrado</strong><small>Tente arroz, leite ou limpeza.</small></span></div>}
+                </div>, document.querySelector(".pcx-home") ?? document.body)}
                 <div className="pcx-quick" aria-label="Buscas populares"><span>Mais buscados</span>{popularSearches.map((term) => <button key={term} type="button" onClick={() => search(term)}>{term}</button>)}</div>
               </div>
             </div>
@@ -271,7 +294,7 @@ export function HomePremium() {
             const saving = Math.max(0, product.maxPrice - product.minPrice); const offer = bestOffer(product);
             return <button key={`${product.id}-${index}`} className="pcx-product" type="button" onClick={() => openProduct(product)} title={`Comparar ${product.name}`}>
               <span className="pcx-product__saving">− {money(saving)}</span><span className="pcx-product__media"><ProductVisual product={product} /></span>
-              <span className="pcx-product__body"><small>{cleanMeta(product.brand, product.size) || "Produto local"}</small><strong title={product.name}>{product.name}</strong><span className="pcx-product__store"><Store aria-hidden="true" /> {offer.establishment || "Loja local"}</span><span className="pcx-product__price"><small>a partir de</small><b>{money(product.minPrice)}</b></span></span>
+              <span className="pcx-product__body"><small>{cleanMeta(product.brand, product.size) || "Produto local"}</small><strong title={product.name}>{product.name}</strong><span className="pcx-product__store"><Store aria-hidden="true" /><b>{offer.establishment || "Loja local"}</b></span><span className="pcx-product__price"><small>a partir de</small><b>{money(product.minPrice)}</b></span></span>
             </button>;
           })}</div>
         </div></section>

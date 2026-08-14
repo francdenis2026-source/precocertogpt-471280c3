@@ -47,7 +47,7 @@ function ensureStyles() {
       max-width: 620px !important;
       font-size: 1.06rem !important;
       line-height: 1.62 !important;
-      color: #d4dee7 !important;
+      color: var(--pc-color-muted) !important;
     }
     body.pc-hero-header-polish .search-combo__form {
       border-radius: 15px !important;

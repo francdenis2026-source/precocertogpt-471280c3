@@ -10,6 +10,7 @@ import { PublicCatalogUxFixes } from "./components/PublicCatalogUxFixes";
 import { PublicOnlineSalesAvailability } from "./components/PublicOnlineSalesAvailability";
 import { SmartCompareSearchProMax } from "./components/SmartCompareSearchProMax";
 import { HomepageSearchKeyboardProMax } from "./components/HomepageSearchKeyboardProMax";
+import { HomepageAuditFixes } from "./components/HomepageAuditFixes";
 import { ProductMediaClippingProMax } from "./components/ProductMediaClippingProMax";
 import { HomeProductModalProMaxEnhancer } from "./components/HomeProductModalProMaxEnhancer";
 import { FooterCompactUx } from "./components/FooterCompactUx";
@@ -75,6 +76,7 @@ export default function App() {
         <GlobalPremiumExperience />
         <DeveloperMarketplaceAbout />
         <HomepageSearchKeyboardProMax />
+        <HomepageAuditFixes />
         <ProductMediaClippingProMax />
         <HomeProductModalProMaxEnhancer />
         <CorePublicPagesUiUx />

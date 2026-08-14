@@ -88,7 +88,7 @@
 
 .pcx-receipt { --pcx-receipt-bg: var(--pc-color-parchment-50); --pcx-receipt-ink: var(--pc-color-ink-900); --pcx-receipt-muted: var(--pc-color-ink-600); --pcx-receipt-line: var(--pc-color-line); --pcx-receipt-primary: var(--pc-color-forest-700); --pcx-receipt-accent: var(--pc-color-copper-500); --pcx-receipt-image: var(--pc-color-white); position: relative; width: min(100%, 390px); justify-self: end; border: 1px solid color-mix(in srgb, var(--pcx-receipt-primary) 32%, transparent); border-radius: 12px 12px 4px 4px; background: var(--pcx-receipt-bg); color: var(--pcx-receipt-ink); padding: 24px; box-shadow: 0 28px 80px rgba(3,17,11,.3), 0 1px 0 rgba(255,255,255,.8) inset; transform: rotate(.5deg); }
 html[data-theme="dark"] .pcx-receipt {
-  --pcx-receipt-bg: var(--pc-dialog-bg);
+  --pcx-receipt-bg: color-mix(in srgb, var(--pc-color-background) 76%, var(--pc-color-surface));
   --pcx-receipt-ink: var(--pc-color-foreground);
   --pcx-receipt-muted: var(--pc-color-muted);
   --pcx-receipt-line: var(--pc-color-border);

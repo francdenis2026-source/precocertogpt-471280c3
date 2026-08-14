@@ -24,7 +24,7 @@ function installStyles() {
       text-wrap: balance;
     }
 
-    body.pc-establishments-polish .pc-est-hero h1 span { color: #86efac !important; }
+    body.pc-establishments-polish .pc-est-hero h1 span { color: color-mix(in srgb, var(--pc-color-primary) 10%, var(--pc-color-surface)) !important; }
     body.pc-establishments-polish .pc-est-hero p {
       max-width: 720px;
       font-size: 1rem !important;
@@ -67,7 +67,7 @@ function installStyles() {
       z-index: 20;
       padding: 10px;
       background: rgba(245,247,246,.92);
-      border: 1px solid #dde6e0;
+      border: 1px solid var(--pc-color-border);
       border-radius: 16px;
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 30px rgba(15,55,35,.05);
@@ -86,16 +86,16 @@ function installStyles() {
 
     body.pc-establishments-polish .pc-est-card {
       border-radius: 20px !important;
-      border-color: #dce5df !important;
+      border-color: var(--pc-color-border) !important;
       box-shadow: 0 8px 28px rgba(11,38,24,.055) !important;
       min-height: 370px !important;
-      background: #fff !important;
+      background: var(--pc-color-surface) !important;
     }
 
     body.pc-establishments-polish .pc-est-card:hover {
       transform: translateY(-5px) !important;
       box-shadow: 0 22px 52px rgba(15,55,35,.11) !important;
-      border-color: #b7d2c0 !important;
+      border-color: var(--pc-color-muted) !important;
     }
 
     body.pc-establishments-polish .pc-est-card img {

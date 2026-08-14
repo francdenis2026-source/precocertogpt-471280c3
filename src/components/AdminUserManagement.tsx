@@ -99,7 +99,7 @@ export function AdminUserManagement() {
               ) : (
                 <button 
                   className="button button--small button--outline"
-                  style={{ color: '#dc2626' }}
+                  style={{ color: 'var(--pc-color-danger)' }}
                   onClick={() => updateRole(u.user_id, u.role, 'consumer')}
                 >
                   <UserMinus size={14}/> Rebaixar
@@ -108,14 +108,14 @@ export function AdminUserManagement() {
             </span>
           </div>
         )) : (
-          <div style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>
-            {error ? <div style={{ color: '#dc2626' }}><AlertCircle size={20}/> {error}</div> : "Nenhum usuário com papel atribuído encontrado."}
+          <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--pc-color-primary)' }}>
+            {error ? <div style={{ color: 'var(--pc-color-danger)' }}><AlertCircle size={20}/> {error}</div> : "Nenhum usuário com papel atribuído encontrado."}
           </div>
         )}
       </div>
       
       <div className="admin-card-foot">
-        <small style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <small style={{ color: 'var(--pc-color-primary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
           <Shield size={12}/> Alterações são registradas no log de auditoria via RLS.
         </small>
       </div>

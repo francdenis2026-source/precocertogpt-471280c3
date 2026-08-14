@@ -42,20 +42,20 @@ function installStyles() {
     }
 
     body.pc-public-refined :where(.generic-hero,.page-hero,.search-hero,.store-hero,.plans-hero,.auth-hero) :where(h1,h2) {
-      color: #ffffff !important;
+      color: var(--pc-color-surface) !important;
       text-shadow: 0 2px 18px rgba(0,0,0,.42);
     }
 
     body.pc-public-refined :where(.generic-hero,.page-hero,.search-hero,.store-hero,.plans-hero,.auth-hero) p {
       max-width: 720px;
-      color: #dce7f2 !important;
+      color: var(--pc-color-muted) !important;
       font-size: clamp(.98rem,1.5vw,1.08rem) !important;
       line-height: 1.62 !important;
       text-shadow: 0 2px 16px rgba(0,0,0,.48);
     }
 
     body.pc-public-refined :where(.generic-hero,.page-hero,.search-hero,.store-hero,.plans-hero,.auth-hero) :where(.eyebrow,.kicker) {
-      color: #a8d2ff !important;
+      color: color-mix(in srgb, var(--pc-color-primary) 9%, var(--pc-color-surface)) !important;
     }
 
     body.pc-public-refined :where(.section,.page-section) {

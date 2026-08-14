@@ -208,7 +208,7 @@ function Badge({ text }: { text: string }) {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  page: { minHeight: "100vh", background: "var(--pc-color-background)", padding: "32px clamp(18px,4vw,64px)", fontFamily: ""Manrope Variable",Manrope,system-ui,sans-serif", color: "var(--pc-color-foreground)" },
+  page: { minHeight: "100vh", background: "var(--pc-color-background)", padding: "32px clamp(18px,4vw,64px)", fontFamily: "'Manrope Variable',Manrope,system-ui,sans-serif", color: "var(--pc-color-foreground)" },
   header: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 18, maxWidth: 1300, margin: "0 auto 30px" },
   kicker: { fontSize: 10, fontWeight: 900, letterSpacing: ".14em", opacity: .55, textTransform: "uppercase" },
   h1: { fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-.04em", margin: "6px 0" },
@@ -241,5 +241,5 @@ const s: Record<string, React.CSSProperties> = {
   badge: { fontSize: 10, background: "var(--pc-color-background)", padding: "3px 6px", borderRadius: 4, fontWeight: 800, color: "var(--pc-color-muted)" },
   emptyTd: { padding: "40px", textAlign: "center", color: "var(--pc-color-muted)" },
   button: { background: "var(--pc-color-primary)", color: "white", textDecoration: "none", padding: "10px 14px", borderRadius: 10 },
-  center: { minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 10, textAlign: "center", fontFamily: ""Manrope Variable",Manrope,system-ui,sans-serif" }
+  center: { minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 10, textAlign: "center", fontFamily: "'Manrope Variable',Manrope,system-ui,sans-serif" }
 };

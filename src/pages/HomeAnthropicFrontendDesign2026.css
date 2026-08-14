@@ -1,0 +1,286 @@
+/* Anthropic frontend-design direction for PreçoCerto homepage
+   Subject: local price discovery in Feijó, Acre
+   Signature: the hero behaves like a local price-finder lens — strong editorial type, compact utility UI, and one deliberate amber value signal. */
+
+.pc-home {
+  --afd-ink: #07111f;
+  --afd-ink-2: #0b1d33;
+  --afd-sky: #1f6feb;
+  --afd-sky-2: #1557b0;
+  --afd-mango: #f5b400;
+  --afd-mango-soft: #fff3c4;
+  --afd-mist: #f3f7fb;
+  --afd-paper: #ffffff;
+  --afd-line: #d9e3ee;
+  --afd-text: #0d1726;
+  --afd-muted: #5f6f82;
+  --afd-radius: 12px;
+  --afd-radius-lg: 18px;
+  --afd-shadow: 0 16px 40px rgba(7,17,31,.10);
+  --afd-shadow-soft: 0 8px 24px rgba(7,17,31,.07);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--afd-mist);
+  color: var(--afd-text);
+}
+
+[data-theme="dark"] .pc-home {
+  --afd-mist: #08111d;
+  --afd-paper: #0e1928;
+  --afd-line: #22354b;
+  --afd-text: #f3f7fb;
+  --afd-muted: #9fb0c4;
+  --afd-mango-soft: #392d08;
+}
+
+.pc-home .pc-header,
+.pc-home .pc-header.is-scrolled,
+.pc-home .pc-footer {
+  background: rgba(7,17,31,.98);
+  border-color: rgba(255,255,255,.08);
+}
+
+.pc-home .pc-header-inner { height: 58px; }
+.pc-home .pc-logo img { width: 150px; height: 36px; }
+.pc-home .pc-nav { gap: 18px; }
+.pc-home .pc-nav a { font-size: .82rem; letter-spacing: .005em; color: #d8e3ef; }
+.pc-home .pc-nav a::after { background: var(--afd-mango); }
+.pc-home .pc-merchant { background: #fff; color: var(--afd-ink); border: 1px solid rgba(255,255,255,.72); border-radius: 9px; }
+.pc-home .pc-merchant:hover { background: #eef5ff; color: var(--afd-ink); }
+.pc-home .pc-icon-button,
+.pc-home .pc-menu-button { border-radius: 9px; background: rgba(255,255,255,.055); }
+
+.pc-home .pc-hero {
+  min-height: 470px;
+  padding: 80px 0 36px;
+  background: var(--afd-ink);
+}
+.pc-home .pc-hero::before {
+  background: url('/compra-inteligente-profissional.webp') 70% 52% / cover no-repeat;
+  filter: saturate(.82) contrast(1.05) brightness(.78);
+  transform: scale(1.015);
+}
+.pc-home .pc-hero::after {
+  background:
+    linear-gradient(90deg, rgba(7,17,31,.995) 0%, rgba(7,17,31,.965) 38%, rgba(7,17,31,.72) 64%, rgba(7,17,31,.30) 100%),
+    linear-gradient(180deg, rgba(7,17,31,.03), rgba(7,17,31,.34));
+}
+.pc-home .pc-hero-inner { grid-template-columns: minmax(0,1fr) minmax(220px,.30fr); gap: 30px; }
+.pc-home .pc-kicker {
+  min-height: 28px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #a8c9f7;
+  border-radius: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.pc-home .pc-hero h1 {
+  max-width: 720px;
+  margin: 10px 0 12px;
+  font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.65rem, 5vw, 4.35rem);
+  line-height: .96;
+  letter-spacing: -.062em;
+  font-weight: 850;
+  text-wrap: balance;
+}
+.pc-home .pc-hero h1 em {
+  display: inline-block;
+  position: relative;
+  color: #ffd34d;
+  font-style: normal;
+  text-shadow: none;
+}
+.pc-home .pc-hero h1 em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -.04em;
+  height: .10em;
+  background: var(--afd-mango);
+  border-radius: 999px;
+  opacity: .9;
+}
+.pc-home .pc-hero-copy > p { max-width: 590px; color: #d7e1ec; font-size: 1rem; line-height: 1.55; }
+
+/* Signature price-finder lens */
+.pc-home .pc-search-area { max-width: 700px; margin-top: 18px; }
+.pc-home .pc-search {
+  min-height: 58px;
+  padding: 4px 5px 4px 13px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 18px 36px rgba(0,0,0,.23), 0 0 0 1px rgba(245,180,0,.10);
+}
+.pc-home .pc-search::after {
+  content: "";
+  align-self: stretch;
+  width: 4px;
+  border-radius: 99px;
+  background: var(--afd-mango);
+  order: -1;
+  margin-right: 8px;
+}
+.pc-home .pc-search input { color: #0e1827; font-size: 1rem; font-weight: 600; }
+.pc-home .pc-search button { min-width: 176px; height: 48px; border-radius: 8px; background: var(--afd-sky); font-weight: 850; }
+.pc-home .pc-search button:hover { background: var(--afd-sky-2); }
+.pc-home .pc-quick { color: #aebfd1; }
+.pc-home .pc-quick button { border-radius: 7px; background: rgba(255,255,255,.045); color: #ecf4fc; }
+
+.pc-home .pc-hero-side { gap: 7px; }
+.pc-home .pc-hero-side > div {
+  min-height: 64px;
+  border-radius: 10px;
+  background: rgba(11,29,51,.68);
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(7px);
+  box-shadow: none;
+}
+.pc-home .pc-hero-side > div > svg { border-radius: 8px; background: rgba(31,111,235,.16); color: #b7d3ff; }
+.pc-home .pc-hero-side small { color: #a9b9cb; }
+
+.pc-home .pc-services-strip {
+  background: #f7f9fc;
+  border-color: #e1e8f0;
+}
+[data-theme="dark"] .pc-home .pc-services-strip { background: #0b1624; border-color: #22354b; }
+.pc-home .pc-service-item { border-radius: 8px; }
+.pc-home .pc-service-icon { border-radius: 7px; background: #e7effb; color: var(--afd-sky-2); }
+[data-theme="dark"] .pc-home .pc-service-icon { background: #152744; color: #8ab7ff; }
+
+.pc-home .pc-action-strip-inner,
+.pc-home .pc-category,
+.pc-home .pc-product-card,
+.pc-home .pc-store-card,
+.pc-home .pc-how-step,
+.pc-home .pc-compare-card {
+  border-radius: var(--afd-radius);
+  border-color: var(--afd-line);
+  background: var(--afd-paper);
+  box-shadow: none;
+}
+.pc-home .pc-action-strip a { min-height: 58px; }
+.pc-home .pc-action-strip a > svg:first-child,
+.pc-home .pc-category-icon,
+.pc-home .pc-how-icon { border-radius: 8px; background: #e9f1fc; color: var(--afd-sky-2); }
+[data-theme="dark"] .pc-home :is(.pc-action-strip a > svg:first-child,.pc-category-icon,.pc-how-icon) { background: #152744; color: #8ab7ff; }
+
+.pc-home .pc-section { padding-block: 38px; }
+.pc-home .pc-heading { margin-bottom: 15px; }
+.pc-home .pc-heading > span {
+  color: var(--afd-sky-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .70rem;
+  letter-spacing: .10em;
+}
+.pc-home .pc-heading h2,
+.pc-home .pc-how-head h2,
+.pc-home .pc-commercial h2 {
+  font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -.042em;
+}
+.pc-home .pc-heading h2 { font-size: clamp(1.55rem, 2.3vw, 2.05rem); }
+.pc-home .pc-heading p,
+.pc-home .pc-how-head p { color: var(--afd-muted); }
+
+.pc-home .pc-category-row { gap: 8px; }
+.pc-home .pc-category { min-height: 64px; padding: 9px 11px; }
+.pc-home .pc-category:hover { border-color: #9eb8da; background: #f2f7fd; }
+[data-theme="dark"] .pc-home .pc-category:hover { background: #122237; }
+
+.pc-home .pc-product-grid { gap: 12px; }
+.pc-home .pc-product-card { overflow: hidden; }
+.pc-home .pc-product-card:hover { border-color: #a7bad2; box-shadow: var(--afd-shadow-soft); }
+.pc-home .pc-product-media { background: #f5f8fb; }
+[data-theme="dark"] .pc-home .pc-product-media { background: #0b1420; }
+.pc-home .pc-product-featured-label {
+  background: var(--afd-mango);
+  color: #2c2100;
+  border-radius: 6px;
+  font-weight: 900;
+}
+.pc-home .pc-product-info { padding: 9px 11px 5px; }
+.pc-home .pc-price-line { padding: 7px 11px 10px; }
+.pc-home .pc-price-line strong { color: #0e5ad7; }
+[data-theme="dark"] .pc-home .pc-price-line strong { color: #75a8ff; }
+.pc-home .pc-price-line em { background: var(--afd-mango-soft); color: #7d5600; }
+[data-theme="dark"] .pc-home .pc-price-line em { color: #ffd34d; }
+.pc-home .pc-store-line { padding-inline: 11px; }
+.pc-home .pc-compare-button { min-height: 40px; margin: 8px 11px 11px; border-radius: 8px; }
+
+.pc-home .pc-compare-section {
+  background: #edf3f9;
+  border-block: 1px solid #dce6f0;
+}
+[data-theme="dark"] .pc-home .pc-compare-section { background: #0a1523; border-color: #22354b; }
+.pc-home .pc-compare-copy .pc-kicker { color: #315f9d; }
+[data-theme="dark"] .pc-home .pc-compare-copy .pc-kicker { color: #9bc0f6; }
+.pc-home .pc-compare-copy button { border-radius: 8px; background: var(--afd-sky); }
+.pc-home .pc-compare-product { border-radius: var(--afd-radius); }
+.pc-home .pc-compare-badge { background: var(--afd-mango); color: #2c2100; }
+
+.pc-home .pc-store-card { padding: 11px 12px; }
+.pc-home .pc-store-card:hover { background: #f6f9fc; }
+[data-theme="dark"] .pc-home .pc-store-card:hover { background: #122237; }
+
+.pc-home .pc-basket-section {
+  background:
+    linear-gradient(125deg, rgba(31,111,235,.10), transparent 42%),
+    #f7f9fc;
+  border-block: 1px solid #e0e8f0;
+}
+[data-theme="dark"] .pc-home .pc-basket-section { background: #0b1624; border-color: #22354b; }
+.pc-home .pc-basket-copy .pc-kicker { color: #315f9d; }
+[data-theme="dark"] .pc-home .pc-basket-copy .pc-kicker { color: #9bc0f6; }
+.pc-home .pc-basket-copy > a { background: var(--afd-ink); border-radius: 8px; }
+[data-theme="dark"] .pc-home .pc-basket-copy > a { background: #fff; color: var(--afd-ink); }
+
+.pc-home .pc-how-flow { gap: 8px; }
+.pc-home .pc-how-step { padding: 12px; }
+.pc-home .pc-how-number {
+  background: transparent;
+  color: var(--afd-sky-2);
+  border: 1px solid #b9cce4;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+[data-theme="dark"] .pc-home .pc-how-number { border-color: #355171; color: #9bc0f6; }
+
+.pc-home .pc-commercial {
+  background: linear-gradient(135deg, var(--afd-ink) 0%, var(--afd-ink-2) 100%);
+  border-color: rgba(255,255,255,.07);
+}
+.pc-home .pc-commercial-copy > span { color: #a8c9f7; }
+.pc-home .pc-commercial-copy > a { background: var(--afd-mango); color: #241a00; border-radius: 8px; }
+.pc-home .pc-commercial-features span { border-radius: 8px; }
+
+.pc-home .pc-footer { color: #dce6f0; }
+.pc-home .pc-footer a:hover { color: #fff; }
+.pc-home .pc-footer-bottom { border-top-color: rgba(255,255,255,.08); }
+
+/* Deliberate motion: one load moment, restrained recurring interactions. */
+.pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-action-strip a,.pc-how-step) {
+  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease, transform 150ms cubic-bezier(.23,1,.32,1);
+}
+@media (hover:hover) and (pointer:fine) {
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-action-strip a):hover { transform: translateY(-1px); }
+}
+
+@media (max-width: 680px) {
+  .pc-home .pc-header-inner { height: 54px; }
+  .pc-home .pc-hero { min-height: 0; padding: 66px 0 26px; }
+  .pc-home .pc-hero::before { background-position: 62% 50%; filter: saturate(.78) contrast(1.04) brightness(.66); }
+  .pc-home .pc-hero::after { background: linear-gradient(90deg, rgba(7,17,31,.995) 0%, rgba(7,17,31,.92) 68%, rgba(7,17,31,.62) 100%); }
+  .pc-home .pc-hero h1 { font-size: clamp(2.15rem, 10vw, 3rem); }
+  .pc-home .pc-search { min-height: 54px; }
+  .pc-home .pc-search button { min-width: 48px; width: 48px; height: 44px; }
+  .pc-home .pc-section { padding-block: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-home *, .pc-home *::before, .pc-home *::after { scroll-behavior: auto !important; transition-duration: 0ms !important; animation-duration: 0ms !important; }
+}

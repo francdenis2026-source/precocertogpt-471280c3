@@ -11,15 +11,16 @@
 }
 
 html { background: var(--brand-canvas); }
-body { background: var(--brand-canvas); color: var(--brand-ink); font-family: "Inter Variable", Inter, system-ui, sans-serif; }
+body { background: var(--brand-canvas); color: var(--brand-ink); font-family: "Manrope Variable", Manrope, system-ui, sans-serif; }\nbody :where(h1, h2, h3, h4, h5, h6) { font-family: "Outfit Variable", Outfit, "Manrope Variable", Manrope, system-ui, sans-serif; }
 
 [data-theme="dark"] {
-  --brand-primary: #7091ff;
-  --brand-primary-dark: #9aafff;
-  --brand-ink: #f6f7ef;
-  --brand-canvas: #080c17;
-  --brand-surface: #111827;
-  --brand-line: #2a3346;
+  --brand-primary: var(--pc-color-primary);
+  --brand-primary-dark: var(--pc-color-primary-hover);
+  --brand-accent: var(--pc-color-accent);
+  --brand-ink: var(--pc-color-foreground);
+  --brand-canvas: var(--pc-color-background);
+  --brand-surface: var(--pc-color-surface);
+  --brand-line: var(--pc-color-border);
 }
 
 /* Shared visual layer for the rest of the product. Layout and business states
@@ -33,7 +34,7 @@ body :where(button, [role="button"]) { touch-action: manipulation; }
 body :where(input, select, textarea) { accent-color: var(--brand-primary); }
 body :where(.app-shell, .page-shell, .dashboard-shell, .public-page, .catalog-page) { color: var(--brand-ink); }
 body :where(.card, .panel, .surface, .dashboard-card, .catalog-card) { border-color: var(--brand-line); background-color: var(--brand-surface); }
-body :where(.button-primary, .btn-primary, [data-variant="primary"]) { background-color: var(--brand-primary); color: #fff; }
+body :where(.button-primary, .btn-primary, [data-variant="primary"]) { background-color: var(--brand-primary); color: var(--pc-color-primary-foreground); }
 body :where(.button-primary, .btn-primary, [data-variant="primary"]):hover { background-color: var(--brand-primary-dark); }
 
 @media (prefers-reduced-motion: reduce) {

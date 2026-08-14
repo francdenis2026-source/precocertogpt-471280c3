@@ -67,6 +67,7 @@ import "./pages/HomeVercelGuidelines2026.css";
 import "./pages/HomeTotalRedesignAllSkills2026.css";
 import "./pages/HomeVisualPolishAllSkills2026.css";
 import "./pages/HomeTopbarGapFix2026.css";
+import "./pages/HomePremiumRefine2026.css";
 
 export default function App() {
   return (

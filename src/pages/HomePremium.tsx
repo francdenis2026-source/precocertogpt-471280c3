@@ -1,7 +1,7 @@
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  ArrowRight, BookOpen, Check, ChevronRight, HeartPulse, MapPin, Menu, Moon,
+  ArrowRight, BookOpen, Check, ChevronRight, HeartPulse, LogIn, MapPin, Menu, Moon,
   PackageSearch, Search, ShieldCheck, ShoppingBasket, Store, Sun, Tag,
   TrendingDown, X,
 } from "lucide-react";
@@ -180,12 +180,13 @@ export function HomePremium() {
             <button className="pcx-icon-button" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
               {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
             </button>
+            <Link className="pcx-login" to="/login" aria-label="Entrar na plataforma"><LogIn aria-hidden="true" /> Entrar</Link>
             <Link className="pcx-merchant" to="/lojista">Área do lojista <ArrowRight aria-hidden="true" /></Link>
             <button className="pcx-menu-button" type="button" aria-expanded={menuOpen} aria-controls="pcx-mobile-menu" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
           </div>
         </div>
         {menuOpen && <nav id="pcx-mobile-menu" className="pcx-mobile-menu" aria-label="Navegação mobile">
-          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas locais</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Farmácias</Link><Link to="/colaborar" onClick={() => setMenuOpen(false)}>Colaborar</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Área do lojista</Link>
+          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas locais</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Farmácias</Link><Link to="/colaborar" onClick={() => setMenuOpen(false)}>Colaborar</Link><Link to="/login" onClick={() => setMenuOpen(false)}>Entrar na plataforma</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Área do lojista</Link>
         </nav>}
       </header>
 

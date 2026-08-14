@@ -96,9 +96,9 @@ function injectStyles() {
 
     [data-theme='dark'] body.pc-home-rewrite .final-cta,
     body.pc-home-rewrite[data-theme='dark'] .final-cta {
-      background: linear-gradient(135deg, #0f172a, #172554) !important;
-      color: #f8fafc !important;
-      border: 1px solid #334155 !important;
+      background: linear-gradient(135deg, var(--pc-color-foreground), var(--pc-color-foreground)) !important;
+      color: var(--pc-color-surface) !important;
+      border: 1px solid var(--pc-color-foreground) !important;
       box-shadow: 0 18px 44px rgba(0,0,0,.28) !important;
     }
 
@@ -106,7 +106,7 @@ function injectStyles() {
     [data-theme='dark'] body.pc-home-rewrite .final-cta p,
     body.pc-home-rewrite[data-theme='dark'] .final-cta h2,
     body.pc-home-rewrite[data-theme='dark'] .final-cta p {
-      color: #f8fafc !important;
+      color: var(--pc-color-surface) !important;
     }
 
     [data-theme='dark'] body.pc-home-rewrite .button--white,

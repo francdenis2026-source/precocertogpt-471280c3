@@ -71,6 +71,7 @@ export function HomePremium() {
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchPinned, setSearchPinned] = useState(false);
   const [activeResult, setActiveResult] = useState(-1);
   const [resultsPosition, setResultsPosition] = useState({ top: 0, left: 0, width: 0, maxHeight: 360 });
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -102,6 +103,19 @@ export function HomePremium() {
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useLayoutEffect(() => {
+    const form = searchAreaRef.current?.querySelector(".pcx-search");
+    if (!form) return;
+    const pinPoint = form.getBoundingClientRect().top + window.scrollY;
+    const updatePinnedSearch = () => {
+      const headerHeight = document.querySelector(".pcx-header")?.getBoundingClientRect().height ?? 70;
+      setSearchPinned(window.scrollY + headerHeight + 12 >= pinPoint);
+    };
+    updatePinnedSearch();
+    window.addEventListener("scroll", updatePinnedSearch, { passive: true });
+    return () => window.removeEventListener("scroll", updatePinnedSearch);
   }, []);
 
   useEffect(() => {
@@ -289,7 +303,7 @@ export function HomePremium() {
               <h1 id="pcx-title">Comparação de preços em Feijó: <em>saiba antes</em> onde comprar.</h1>
               <p>Em Feijó, compare o mesmo produto nas lojas da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               <div className="pcx-search-area" ref={searchAreaRef}>
-                <form className="pcx-search" role="search" onSubmit={submitSearch}>
+                <form className={`pcx-search${searchPinned ? " is-pinned" : ""}`} role="search" onSubmit={submitSearch}>
                   <label htmlFor="pcx-search-input">O que você quer comprar?</label>
                   <div className="pcx-search__control"><Search aria-hidden="true" />
                     <input id="pcx-search-input" name="produto" value={query} onChange={(event) => { setQuery(event.target.value); setSearchOpen(true); setActiveResult(-1); }} onFocus={() => setSearchOpen(true)} onKeyDown={handleSearchKeys} placeholder="Ex.: arroz, café, leite…" autoComplete="off" aria-autocomplete="list" aria-controls="pcx-search-results" aria-expanded={searchOpen && query.trim().length >= 2} aria-activedescendant={activeResult >= 0 ? `pcx-result-${activeResult}` : undefined} />

@@ -1,5 +1,5 @@
 /* Dorinha V5 — compact editorial storefront, intentionally loaded last. */
-.dorinha-pro { --dv5-wine: #351923; --dv5-gold: #d5ae69; --dv5-paper: #f8f3ec; }
+.dorinha-pro { --dv5-wine: var(--pc-color-foreground); --dv5-gold: var(--pc-color-accent); --dv5-paper: var(--pc-color-background); }
 .dorinha-pro__top { height: 56px !important; min-height: 56px !important; }
 .dorinha-pro__hero--v4 { width: min(1160px, calc(100% - 32px)) !important; min-height: 292px !important; margin: 18px auto 0 !important; grid-template-columns: minmax(0, 1fr) 210px !important; gap: 26px !important; padding: 26px 28px !important; border-radius: 14px !important; overflow: hidden !important; background: var(--dv5-wine) !important; }
 .dorinha-pro__hero--v4:before { background: linear-gradient(90deg, rgba(39, 17, 25, .98), rgba(53, 25, 35, .89) 65%, rgba(53, 25, 35, .64)) !important; }

@@ -5696,8 +5696,8 @@ export default function PrecoCertoApp() {
     (window as any).setGlobalToast = (msg: string, type?: string) => setToast(msg);
   }, []);
 
-  return <div className="app">
-    <Header 
+  return <div className={`app${isAuth ? " app--auth" : ""}`}>
+    {!isAuth && <Header
       basketCount={cart.length} 
       favoritesCount={favorites.length} 
       user={user} 
@@ -5705,10 +5705,10 @@ export default function PrecoCertoApp() {
       products={products}
       favorites={favorites}
       addBasket={addBasket}
-    />
-    <main><div className="page-transition-enter-active" key={pathname}>{page}</div></main>
-    <Footer user={user}/>
-    <MobileBar basketCount={cart.length} favoritesCount={favorites.length}/>
+    />}
+    <main className={isAuth ? "auth-main" : undefined}><div className="page-transition-enter-active" key={pathname}>{page}</div></main>
+    {!isAuth && <Footer user={user}/>}
+    {!isAuth && <MobileBar basketCount={cart.length} favoritesCount={favorites.length}/>}
 
     {toast && (
       <div 

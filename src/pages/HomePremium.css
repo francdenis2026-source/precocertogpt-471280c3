@@ -100,7 +100,7 @@ html[data-theme="dark"] .pcx-receipt {
 .pcx-receipt::after { content: ""; position: absolute; inset: auto 0 -7px; height: 8px; background: linear-gradient(135deg, transparent 5px, var(--pcx-receipt-bg) 0) 0 0/10px 10px repeat-x; }
 .pcx-receipt__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px dashed var(--pcx-receipt-line); padding-bottom: 13px; font-family: "Manrope Variable", Manrope, sans-serif; font-size: .72rem; font-weight: 900; letter-spacing: .11em; color: var(--pcx-receipt-primary); }
 .pcx-receipt__head small { color: var(--pcx-receipt-ink); font-size: .7rem; font-weight: 700; letter-spacing: 0; text-align: right; opacity: .78; }
-.pcx-receipt__product { display: grid; grid-template-columns: 82px minmax(0,1fr); align-items: center; gap: 15px; border-bottom: 1px dashed color-mix(in srgb, var(--pc-color-foreground) 38%, transparent); padding: 20px 0; }
+.pcx-receipt__product { display: grid; grid-template-columns: 82px minmax(0,1fr); align-items: center; gap: 15px; border-bottom: 1px dashed var(--pcx-receipt-line); padding: 20px 0; }
 .pcx-receipt__product > span { width: 82px; height: 82px; display: grid; place-items: center; border: 1px solid var(--pcx-receipt-line); border-radius: 14px; background: var(--pcx-receipt-image); }
 .pcx-receipt__product img { width: 68px; height: 68px; object-fit: contain; }
 .pcx-receipt__product svg { width: 30px; color: var(--pcx-receipt-muted); }

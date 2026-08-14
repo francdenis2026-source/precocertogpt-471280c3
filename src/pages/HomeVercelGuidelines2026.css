@@ -1,0 +1,30 @@
+/* Vercel Web Interface Guidelines — homepage safeguards */
+.pc-home {
+  -webkit-tap-highlight-color: rgba(37, 99, 235, .14);
+}
+
+.pc-home .pc-header-inner {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.pc-home .pc-mobile-menu {
+  padding-bottom: max(10px, env(safe-area-inset-bottom, 0px));
+}
+
+.pc-home .pc-footer-bottom {
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 680px) {
+  .pc-home .pc-search input {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-home *,
+  .pc-home *::before,
+  .pc-home *::after {
+    scroll-behavior: auto !important;
+  }
+}

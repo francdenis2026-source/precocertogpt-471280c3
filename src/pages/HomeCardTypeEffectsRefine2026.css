@@ -1,0 +1,93 @@
+/* Final density/typography/motion refinement — Impeccable + UI/UX Pro Max + Animate */
+.pc-home {
+  --pc-ease-out: cubic-bezier(.23,1,.32,1);
+}
+
+.pc-home .pc-section { padding-block: 38px; }
+.pc-home .pc-heading { margin-bottom: 15px; }
+.pc-home .pc-heading h2 { font-size: clamp(1.5rem,2.2vw,2rem); line-height: 1.1; letter-spacing: -.035em; }
+.pc-home .pc-heading p { font-size: .94rem; line-height: 1.5; }
+.pc-home .pc-heading > span { font-size: .72rem; }
+
+.pc-home .pc-category-row { gap: 8px; }
+.pc-home .pc-category { min-height: 66px; padding: 9px 11px; border-radius: 10px; }
+.pc-home .pc-category-icon { width: 34px; height: 34px; border-radius: 8px; }
+.pc-home .pc-category strong { font-size: .9rem; line-height: 1.2; }
+.pc-home .pc-category small { font-size: .76rem; line-height: 1.25; }
+
+.pc-home .pc-product-grid { gap: 11px; }
+.pc-home .pc-product-card { border-radius: 12px; }
+.pc-home .pc-product-media { min-height: 0; aspect-ratio: 1.18 / 1; }
+.pc-home .pc-product-media img { object-fit: contain; padding: 10px; }
+.pc-home .pc-product-info { padding: 8px 10px 5px; }
+.pc-home .pc-product-info small { font-size: .72rem; line-height: 1.25; }
+.pc-home .pc-product-info strong { font-size: .9rem; line-height: 1.22; }
+.pc-home .pc-price-line { padding: 7px 10px 9px; gap: 7px; }
+.pc-home .pc-price-line small { font-size: .7rem; }
+.pc-home .pc-price-line strong { font-size: 1.06rem; line-height: 1; }
+.pc-home .pc-price-line em { font-size: .68rem; padding: 4px 7px; }
+.pc-home .pc-product-featured-label { font-size: .67rem; padding: 4px 6px; }
+
+.pc-home .pc-store-card { padding: 11px; border-radius: 12px; }
+.pc-home .pc-store-card :is(strong,h3,h4) { font-size: .9rem; line-height: 1.22; }
+.pc-home .pc-store-card :is(small,p) { font-size: .76rem; line-height: 1.35; }
+
+.pc-home .pc-how-list { gap: 8px; }
+.pc-home .pc-how-step { padding: 11px; border-radius: 12px; }
+.pc-home .pc-how-copy strong { font-size: .9rem; }
+.pc-home .pc-how-copy p { font-size: .8rem; line-height: 1.35; }
+.pc-home .pc-how-icon { width: 36px; height: 36px; }
+.pc-home .pc-how-number { width: 24px; height: 24px; font-size: .72rem; }
+.pc-home .pc-how-demo { padding: 8px; }
+
+.pc-home .pc-action-strip a { min-height: 58px; padding: 7px 11px; }
+.pc-home .pc-action-strip strong { font-size: .87rem; }
+.pc-home .pc-action-strip small { font-size: .74rem; line-height: 1.25; }
+.pc-home .pc-service-item { font-size: .77rem; }
+
+.pc-home .pc-hero-side > div { min-height: 62px; padding: 8px 10px; }
+.pc-home .pc-hero-side strong { font-size: .84rem; }
+.pc-home .pc-hero-side small { font-size: .73rem; line-height: 1.28; }
+
+@media (hover:hover) and (pointer:fine) {
+  .pc-home .pc-category,
+  .pc-home .pc-product-card,
+  .pc-home .pc-store-card,
+  .pc-home .pc-how-step,
+  .pc-home .pc-action-strip a,
+  .pc-home .pc-service-item,
+  .pc-home .pc-merchant,
+  .pc-home .pc-search button {
+    transition: transform 150ms var(--pc-ease-out), border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
+  }
+
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card):hover { transform: translateY(-1px); }
+  .pc-home .pc-how-step:hover { border-color: #c6d3e7; }
+  .pc-home .pc-action-strip a:hover,
+  .pc-home .pc-service-item:hover { transform: none; }
+}
+
+@media (hover:none), (pointer:coarse) {
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-how-step,.pc-action-strip a,.pc-service-item,.pc-merchant,.pc-search button) { transform: none !important; }
+}
+
+@media (max-width:680px) {
+  .pc-home .pc-section { padding-block: 30px; }
+  .pc-home .pc-heading { margin-bottom: 13px; }
+  .pc-home .pc-heading h2 { font-size: clamp(1.42rem,6.4vw,1.78rem); }
+  .pc-home .pc-heading p { font-size: .9rem; }
+  .pc-home .pc-category { min-height: 62px; padding: 8px 10px; }
+  .pc-home .pc-product-grid { gap: 9px; }
+  .pc-home .pc-product-media { aspect-ratio: 1.25 / 1; }
+  .pc-home .pc-product-info { padding: 7px 9px 4px; }
+  .pc-home .pc-price-line { padding: 6px 9px 8px; }
+  .pc-home .pc-how-step { padding: 10px; }
+  .pc-home .pc-store-card { padding: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-home :is(.pc-category,.pc-product-card,.pc-store-card,.pc-how-step,.pc-action-strip a,.pc-service-item,.pc-merchant,.pc-search button) {
+    transition-duration: 0ms !important;
+    transform: none !important;
+  }
+}

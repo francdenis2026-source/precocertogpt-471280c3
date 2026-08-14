@@ -202,8 +202,8 @@ function Toggle({ label, helper, checked, onChange, disabled = false }: { label:
 }
 
 const styles: Record<string, any> = {
-  page:{minHeight:"100vh",background:"var(--pc-color-background)",color:"var(--pc-color-foreground)",fontFamily:""Manrope Variable",Manrope,system-ui,sans-serif",padding:"32px 18px 70px"},
-  container:{maxWidth:1180,margin:"0 auto"},center:{minHeight:"70vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,fontFamily:""Manrope Variable",Manrope,system-ui,sans-serif"},
+  page:{minHeight:"100vh",background:"var(--pc-color-background)",color:"var(--pc-color-foreground)",fontFamily:"'Manrope Variable',Manrope,system-ui,sans-serif",padding:"32px 18px 70px"},
+  container:{maxWidth:1180,margin:"0 auto"},center:{minHeight:"70vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12,fontFamily:"'Manrope Variable',Manrope,system-ui,sans-serif"},
   back:{display:"inline-flex",alignItems:"center",gap:7,color:"var(--pc-color-muted)",fontWeight:700,textDecoration:"none",marginBottom:26},
   header:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:28,marginBottom:28},eyebrow:{fontSize:11,fontWeight:900,letterSpacing:1.7,color:"var(--pc-color-primary)"},h1:{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:-1.5,margin:"8px 0 12px",maxWidth:720},lead:{color:"var(--pc-color-muted)",fontSize:16,lineHeight:1.65,maxWidth:760,margin:0},
   storeBadge:{display:"flex",gap:11,alignItems:"center",background:"var(--pc-color-surface)",border:"1px solid var(--pc-color-border)",borderRadius:18,padding:"13px 16px",minWidth:210,boxShadow:"0 8px 30px rgba(15,23,42,.05)"},

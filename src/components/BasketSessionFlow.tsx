@@ -202,11 +202,11 @@ export function BasketSessionFlow() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  wrap: { position: "fixed", right: 18, bottom: 18, zIndex: 99990, width: "min(520px, calc(100vw - 32px))", display: "grid", gridTemplateColumns: "42px minmax(0,1fr) auto 30px", alignItems: "center", gap: 10, padding: 12, borderRadius: 16, border: "1px solid rgba(15,118,110,.22)", background: "rgba(255,255,255,.97)", color: "#13201a", boxShadow: "0 18px 52px rgba(15,23,42,.18)", backdropFilter: "blur(12px)" },
-  icon: { width: 40, height: 40, borderRadius: 12, display: "grid", placeItems: "center", background: "#e9f8ef", color: "#176b40" },
+  wrap: { position: "fixed", right: 18, bottom: 18, zIndex: 99990, width: "min(520px, calc(100vw - 32px))", display: "grid", gridTemplateColumns: "42px minmax(0,1fr) auto 30px", alignItems: "center", gap: 10, padding: 12, borderRadius: 16, border: "1px solid rgba(15,118,110,.22)", background: "rgba(255,255,255,.97)", color: "var(--pc-color-foreground)", boxShadow: "0 18px 52px rgba(15,23,42,.18)", backdropFilter: "blur(12px)" },
+  icon: { width: 40, height: 40, borderRadius: 12, display: "grid", placeItems: "center", background: "var(--pc-color-background)", color: "var(--pc-color-primary)" },
   copy: { minWidth: 0, display: "grid", gap: 2 },
   title: { fontSize: 13.5 },
-  text: { fontSize: 11.5, lineHeight: 1.4, color: "#627067" },
-  action: { minHeight: 38, border: 0, borderRadius: 10, padding: "0 12px", display: "inline-flex", alignItems: "center", gap: 6, background: "#173d2c", color: "white", fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" },
-  close: { width: 30, height: 30, border: 0, borderRadius: 9, display: "grid", placeItems: "center", background: "transparent", color: "#66736b", cursor: "pointer" }
+  text: { fontSize: 11.5, lineHeight: 1.4, color: "var(--pc-color-muted)" },
+  action: { minHeight: 38, border: 0, borderRadius: 10, padding: "0 12px", display: "inline-flex", alignItems: "center", gap: 6, background: "var(--pc-color-foreground)", color: "white", fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" },
+  close: { width: 30, height: 30, border: 0, borderRadius: 9, display: "grid", placeItems: "center", background: "transparent", color: "var(--pc-color-muted)", cursor: "pointer" }
 };

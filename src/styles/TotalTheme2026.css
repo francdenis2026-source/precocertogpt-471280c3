@@ -38,7 +38,199 @@ body :where(.card, .panel, .surface, .dashboard-card, .catalog-card) { border-co
 body :where(.button-primary, .btn-primary, [data-variant="primary"]) { background-color: var(--brand-primary); color: var(--pc-color-primary-foreground); }
 body :where(.button-primary, .btn-primary, [data-variant="primary"]):hover { background-color: var(--brand-primary-dark); }
 
+/* Unified public interaction layer: one motion language across homepage,
+   search, marketplace, service pages, headers and footers. */
+body.pc-premium-public {
+  --pc-hover-ease: cubic-bezier(.2,.8,.2,1);
+  --pc-hover-shadow: 0 18px 42px rgba(6,35,23,.16);
+  --pc-hover-halo: 0 0 0 4px color-mix(in srgb, var(--brand-primary) 12%, transparent);
+}
+
+body.pc-premium-public :where(
+  .pcx-category,
+  .visual-product-card,
+  .store-card,
+  .result-card,
+  .scpm-card,
+  .scpm-variant,
+  .est-card,
+  .pc-service-card,
+  .order-card,
+  .plan-card,
+  .benefit-card,
+  .surface-card
+) {
+  position: relative;
+  transition: transform 230ms var(--pc-hover-ease), border-color 210ms ease, box-shadow 230ms ease, background-color 210ms ease !important;
+}
+
+body.pc-premium-public :where(
+  .pcx-category,
+  .visual-product-card,
+  .store-card,
+  .result-card,
+  .scpm-card,
+  .scpm-variant,
+  .est-card,
+  .pc-service-card,
+  .order-card,
+  .plan-card,
+  .benefit-card,
+  .surface-card
+):focus-visible,
+body.pc-premium-public :where(
+  .visual-product-card,
+  .store-card,
+  .result-card,
+  .scpm-card,
+  .scpm-variant,
+  .est-card,
+  .pc-service-card,
+  .order-card,
+  .plan-card,
+  .benefit-card,
+  .surface-card
+):focus-within {
+  border-color: color-mix(in srgb, var(--brand-primary) 62%, var(--brand-line)) !important;
+  box-shadow: var(--pc-hover-shadow), var(--pc-hover-halo) !important;
+}
+
+body.pc-premium-public :where(
+  header .pcx-brand,
+  header .brand,
+  header .pcx-nav a,
+  header .desktop-nav a,
+  header .text-link,
+  header .pcx-login,
+  header .pcx-merchant,
+  header .icon-button,
+  header .pcx-theme-toggle,
+  header .pcx-menu-button,
+  .pcx-section__head > a,
+  .section-heading > a,
+  .inline-link,
+  .pcx-story a,
+  .pcx-receipt > button,
+  .pcx-compare__board > button,
+  .button,
+  a[class*="cta"],
+  a[class*="action"]
+) {
+  transition: transform 190ms var(--pc-hover-ease), border-color 190ms ease, background-color 190ms ease, color 190ms ease, box-shadow 210ms ease, filter 190ms ease !important;
+}
+
+body.pc-premium-public :where(.pcx-footer nav a, .site-footer a, footer nav a, .pcx-footer__credit) {
+  position: relative;
+  transition: transform 180ms var(--pc-hover-ease), color 180ms ease, opacity 180ms ease, background-color 180ms ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.pc-premium-public :where(
+    .pcx-category,
+    .visual-product-card,
+    .store-card,
+    .result-card,
+    .scpm-card,
+    .scpm-variant,
+    .est-card,
+    .pc-service-card,
+    .order-card,
+    .plan-card,
+    .benefit-card,
+    .surface-card
+  ):hover {
+    z-index: 2;
+    border-color: color-mix(in srgb, var(--brand-primary) 58%, var(--brand-line)) !important;
+    box-shadow: var(--pc-hover-shadow), var(--pc-hover-halo) !important;
+    transform: translateY(-4px) scale(1.008) !important;
+  }
+
+  body.pc-premium-public .pcx-category:hover {
+    transform: translateY(-4px) scale(1.012) !important;
+  }
+
+  body.pc-premium-public :where(
+    header .pcx-brand,
+    header .brand,
+    header .pcx-nav a,
+    header .desktop-nav a,
+    header .text-link,
+    header .pcx-login,
+    header .pcx-merchant,
+    header .icon-button,
+    header .pcx-theme-toggle,
+    header .pcx-menu-button,
+    .pcx-section__head > a,
+    .section-heading > a,
+    .inline-link,
+    .pcx-story a,
+    .pcx-receipt > button,
+    .pcx-compare__board > button,
+    .button,
+    a[class*="cta"],
+    a[class*="action"]
+  ):hover {
+    transform: translateY(-2px) !important;
+  }
+
+  body.pc-premium-public :where(.pcx-footer nav a, .site-footer a, footer nav a, .pcx-footer__credit):hover {
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+  }
+
+  body.pc-premium-public :where(.pcx-footer nav a, .site-footer a, footer nav a):hover {
+    background: color-mix(in srgb, white 8%, transparent);
+  }
+
+  body.pc-premium-public .pcx-footer .pcx-brand:hover .pcx-brand__mark {
+    transform: translateY(-2px) rotate(-4deg) scale(1.04) !important;
+  }
+}
+
+body.pc-premium-public :where(
+  .pcx-category,
+  .visual-product-card,
+  .store-card,
+  .result-card,
+  .scpm-card,
+  .scpm-variant,
+  .est-card,
+  .pc-service-card,
+  .order-card,
+  .plan-card,
+  .benefit-card,
+  .surface-card,
+  .button,
+  a[class*="cta"],
+  a[class*="action"]
+):active {
+  transform: scale(.985) !important;
+  transition-duration: 110ms !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
+  body.pc-premium-public :where(
+    .pcx-product,
+    .pcx-category,
+    .visual-product-card,
+    .store-card,
+    .result-card,
+    .scpm-card,
+    .scpm-variant,
+    .est-card,
+    .pc-service-card,
+    .order-card,
+    .plan-card,
+    .benefit-card,
+    .surface-card,
+    header a,
+    header button,
+    footer a,
+    footer button
+  ) {
+    transform: none !important;
+    transition-duration: 0ms !important;
+  }
 }
 

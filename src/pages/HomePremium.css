@@ -109,8 +109,8 @@ html[data-theme="dark"] .pcx-search { border-color: rgba(255,255,255,.34); box-s
 html[data-theme="dark"] .pcx-quick span { color: rgba(255,255,255,.55); }
 html[data-theme="dark"] .pcx-quick button { border-color: rgba(255,255,255,.35); color: rgba(255,255,255,.86); }
 html[data-theme="dark"] .pcx-quick button:hover { color: #fff; border-color: var(--pcx-accent); }
-.pcx-results { position: absolute; top: 68px; inset-inline: 0; z-index: 20; max-height: 360px; overflow-y: auto; border: 1px solid var(--pcx-line); border-radius: 14px; background: var(--pc-dialog-bg); color: var(--pcx-ink); padding: 7px; box-shadow: var(--pc-shadow-dialog); }
-.pcx-results--floating { position: fixed; inset-inline: auto; z-index: 2147482000; margin-top: 8px; animation: pcx-enter 180ms var(--pc-ease-out) both; }
+.pcx-results { position: absolute; top: 68px; inset-inline: 0; z-index: 20; max-height: 360px; overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: 7px; scrollbar-gutter: stable; border: 1px solid var(--pcx-line); border-radius: 14px; background: var(--pc-dialog-bg); color: var(--pcx-ink); padding: 7px; box-shadow: var(--pc-shadow-dialog); }
+.pcx-results--floating { position: fixed; inset-inline: auto; z-index: 2147482000; transform-origin: top center; animation: pcx-enter 180ms var(--pc-ease-out) both; }
 .pcx-results > button { width: 100%; min-height: 76px; display: grid; grid-template-columns: 52px minmax(0,1fr) auto; align-items: center; gap: 12px; border: 0; border-radius: 10px; background: transparent; color: inherit; padding: 9px 11px; text-align: left; }
 .pcx-results > button:hover, .pcx-results > button.is-active { background: color-mix(in srgb, var(--pcx-primary) 9%, transparent); }
 .pcx-result__image { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 10px; background: #fff; }
@@ -201,14 +201,14 @@ html[data-theme="dark"] .pcx-receipt {
 
 .pcx-market { border-block: 1px solid color-mix(in srgb, var(--pcx-line) 72%, transparent); background: color-mix(in srgb, var(--pcx-bg) 92%, var(--pcx-surface)); }
 .pcx-products { display: grid; grid-template-columns: repeat(5,1fr); gap: 13px; }
-.pcx-product { position: relative; min-width: 0; overflow: hidden; border: 1px solid color-mix(in srgb, var(--pcx-line) 72%, transparent); border-radius: 14px; background: var(--pcx-surface); color: var(--pcx-ink); padding: 0; text-align: left; box-shadow: 0 8px 24px rgba(16,32,23,.09); transition: border-color 180ms ease, box-shadow 200ms ease, transform 180ms var(--pc-ease-out); }
-.pcx-product:hover { box-shadow: 0 14px 32px rgba(10,28,18,.14); }
+.pcx-product { position: relative; z-index: 0; min-width: 0; overflow: hidden; isolation: isolate; border: 1px solid color-mix(in srgb, var(--pcx-line) 72%, transparent); border-radius: 14px; background: var(--pcx-surface); color: var(--pcx-ink); padding: 0; text-align: left; cursor: pointer; box-shadow: 0 8px 24px rgba(16,32,23,.09); transform: translateZ(0); transition: border-color 220ms ease, box-shadow 240ms ease, transform 240ms cubic-bezier(.2,.8,.2,1); will-change: transform; }
+.pcx-product::after { content: ""; position: absolute; z-index: 4; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pcx-primary) 72%, transparent), inset 0 1px 0 rgba(255,255,255,.22); opacity: 0; transition: opacity 220ms ease; }
 .pcx-product__saving { position: absolute; top: 11px; left: 11px; z-index: 2; border-radius: 8px; background: var(--pcx-accent); color: #fff; padding: 6px 9px; font-size: .65rem; font-weight: 850; box-shadow: 0 5px 14px rgba(90,31,13,.2); }
 .pcx-product__media { position: relative; min-height: 145px; display: grid; place-items: center; overflow: hidden; background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(244,240,231,.82)); padding: 17px; isolation: isolate; }
 .pcx-product__media::before { content: ""; position: absolute; z-index: 0; inset: 0; background: radial-gradient(circle at 50% 34%, rgba(255,255,255,.98) 0, rgba(255,255,255,.32) 34%, transparent 68%); opacity: .7; }
 .pcx-product__media img { position: relative; z-index: 1; width: 100%; height: 108px; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(24,31,27,.12)); transform: scale(1); transition: transform 200ms var(--pc-ease-out), filter 200ms ease; }
 .pcx-product__media > svg { width: 36px; color: #879087; }
-.pcx-product__body { display: flex; min-height: 148px; flex-direction: column; padding: 14px; }
+.pcx-product__body { display: flex; min-height: 148px; flex-direction: column; padding: 14px; transition: background-color 220ms ease; }
 .pcx-product__body > small { display: block; min-height: 17px; overflow: hidden; color: var(--pcx-muted); font-size: .68rem; white-space: nowrap; text-overflow: ellipsis; }
 .pcx-product__body > strong { min-height: 38px; display: -webkit-box; overflow: hidden; margin-top: 3px; font-size: .8rem; line-height: 1.35; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .pcx-product__store { display: flex; align-items: center; gap: 5px; overflow: hidden; margin-top: 10px; color: var(--pcx-muted); font-size: .68rem; white-space: nowrap; text-overflow: ellipsis; }
@@ -311,12 +311,15 @@ html[data-theme="dark"] .pcx-receipt {
 .pcx-home button:active, .pcx-home a:active { transform: scale(.97); transition-duration: 140ms; }
 
 @media (hover: hover) and (pointer: fine) {
-  .pcx-product:hover { transform: translateY(-2px); }
-  .pcx-product:hover .pcx-product__media img { filter: drop-shadow(0 11px 12px rgba(24,31,27,.16)); transform: scale(1.025); }
+  .pcx-home .pcx-product:hover { z-index: 3; border-color: color-mix(in srgb, var(--pcx-primary) 76%, var(--pcx-line)); box-shadow: 0 22px 46px rgba(6,35,23,.24), 0 0 0 4px color-mix(in srgb, var(--pcx-primary) 13%, transparent); transform: translateY(-6px) scale(1.018) !important; }
+  .pcx-product:hover::after { opacity: 1; }
+  .pcx-product:hover .pcx-product__body { background-color: color-mix(in srgb, var(--pcx-primary) 5%, transparent); }
+  .pcx-product:hover .pcx-product__media img { filter: drop-shadow(0 13px 15px rgba(24,31,27,.2)); transform: scale(1.055); }
   .pcx-product:hover .pcx-product__action { border-color: var(--pcx-primary); background: var(--pcx-primary); color: var(--pc-color-primary-foreground); }
-  .pcx-product:hover .pcx-product__action svg { transform: translateX(2px); }
+  .pcx-product:hover .pcx-product__action svg { transform: translateX(3px); }
 }
-.pcx-product:focus-visible { border-color: var(--pcx-primary); }
+.pcx-product:focus-visible { z-index: 3; border-color: var(--pcx-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--pc-color-focus) 25%, transparent), 0 18px 40px rgba(10,28,18,.18); }
+.pcx-product:focus-visible::after { opacity: 1; }
 .pcx-product:focus-visible .pcx-product__action { border-color: var(--pcx-primary); background: var(--pcx-primary); color: var(--pc-color-primary-foreground); }
 
 @keyframes pcx-shimmer { to { background-position: -300% 0; } }
@@ -378,7 +381,9 @@ html[data-theme="dark"] .pcx-receipt {
   .pcx-hero__portrait figcaption strong { font-size: .9rem; }
   .pcx-search__control { grid-template-columns: auto minmax(0,1fr); }
   .pcx-search button { grid-column: 1 / -1; width: 100%; justify-content: center; }
-  .pcx-results { top: 116px; }
+  .pcx-results > button { min-height: 72px; grid-template-columns: 46px minmax(0,1fr) auto; gap: 9px; padding: 8px; }
+  .pcx-result__image { width: 44px; height: 44px; }
+  .pcx-result__image img { width: 38px; height: 38px; }
   .pcx-quick span { width: 100%; }
   .pcx-receipt { width: calc(100% - 16px); padding: 15px 17px; transform: translateY(2px) rotate(-.35deg); }
   .pcx-receipt__head { flex-direction: row; }
@@ -557,7 +562,6 @@ html:not([data-theme="dark"]) .pcx-header .pcx-login:hover {
 }
 
 .pcx-category:focus-visible,
-.pcx-product:focus-visible,
 .pcx-receipt > button:focus-visible,
 .pcx-story a:focus-visible,
 .pcx-compare__board > button:focus-visible {
@@ -581,6 +585,7 @@ html:not([data-theme="dark"]) .pcx-header .pcx-login:hover {
   .pcx-brand__mark svg,
   .pcx-nav a,
   .pcx-product,
+  .pcx-product::after,
   .pcx-product__media img,
   .pcx-product__action,
   .pcx-product__action svg,

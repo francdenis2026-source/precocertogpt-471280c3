@@ -72,7 +72,7 @@ export function HomePremium() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeResult, setActiveResult] = useState(-1);
-  const [resultsPosition, setResultsPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [resultsPosition, setResultsPosition] = useState({ top: 0, left: 0, width: 0, maxHeight: 360 });
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [dialogClosing, setDialogClosing] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
@@ -165,16 +165,44 @@ export function HomePremium() {
     const updatePosition = () => {
       const areaRect = searchAreaRef.current?.getBoundingClientRect();
       const formRect = searchAreaRef.current?.querySelector(".pcx-search")?.getBoundingClientRect();
-      if (areaRect && formRect) setResultsPosition({ top: formRect.bottom, left: areaRect.left, width: areaRect.width });
+      if (!areaRect || !formRect) return;
+
+      const viewport = window.visualViewport;
+      const viewportTop = viewport?.offsetTop ?? 0;
+      const viewportHeight = viewport?.height ?? window.innerHeight;
+      const viewportBottom = viewportTop + viewportHeight;
+      const viewportPadding = window.innerWidth <= 520 ? 12 : 18;
+      const headerBottom = document.querySelector(".pcx-header")?.getBoundingClientRect().bottom ?? 0;
+      const safeTop = Math.max(viewportTop + viewportPadding, headerBottom + 10);
+      const width = Math.min(areaRect.width, window.innerWidth - (viewportPadding * 2));
+      const left = Math.min(
+        Math.max(areaRect.left, viewportPadding),
+        window.innerWidth - width - viewportPadding,
+      );
+      const desiredHeight = suggestions.length ? Math.min(suggestions.length, 6) * 76 + 14 : 82;
+      const spaceBelow = viewportBottom - formRect.bottom - viewportPadding - 8;
+      const top = spaceBelow >= Math.min(desiredHeight, 488) ? formRect.bottom + 8 : safeTop;
+      const maxHeight = Math.min(488, Math.max(160, viewportBottom - top - viewportPadding));
+
+      setResultsPosition({ top, left, width, maxHeight });
     };
     updatePosition();
     window.addEventListener("resize", updatePosition);
     window.addEventListener("scroll", updatePosition, true);
+    window.visualViewport?.addEventListener("resize", updatePosition);
+    window.visualViewport?.addEventListener("scroll", updatePosition);
     return () => {
       window.removeEventListener("resize", updatePosition);
       window.removeEventListener("scroll", updatePosition, true);
+      window.visualViewport?.removeEventListener("resize", updatePosition);
+      window.visualViewport?.removeEventListener("scroll", updatePosition);
     };
-  }, [resultsVisible]);
+  }, [resultsVisible, suggestions.length]);
+
+  useEffect(() => {
+    if (activeResult < 0) return;
+    resultsRef.current?.querySelector<HTMLElement>(`#pcx-result-${activeResult}`)?.scrollIntoView({ block: "nearest" });
+  }, [activeResult]);
   const opportunities = useMemo(() => catalog.products.filter((product) => product.minPrice > 0)
     .sort((a, b) => Number(Boolean(trustedProductImage(b))) - Number(Boolean(trustedProductImage(a)))
       || (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 5), [catalog.products]);
@@ -268,7 +296,7 @@ export function HomePremium() {
                     <button type="submit">Comparar <ArrowRight aria-hidden="true" /></button>
                   </div>
                 </form>
-                {resultsVisible && typeof document !== "undefined" && createPortal(<div ref={resultsRef} id="pcx-search-results" className="pcx-results pcx-results--floating" role="listbox" aria-label="Sugestões de produtos" style={{ top: resultsPosition.top, left: resultsPosition.left, width: resultsPosition.width }}>
+                {resultsVisible && typeof document !== "undefined" && createPortal(<div ref={resultsRef} id="pcx-search-results" className="pcx-results pcx-results--floating" role="listbox" aria-label="Sugestões de produtos" aria-live="polite" style={{ top: resultsPosition.top, left: resultsPosition.left, width: resultsPosition.width, maxHeight: resultsPosition.maxHeight }}>
                   {suggestions.length ? suggestions.map((product, index) => { const offer = bestOffer(product); return <button id={`pcx-result-${index}`} key={`${product.id}-${product.establishmentId}`} type="button" role="option" aria-selected={activeResult === index} className={activeResult === index ? "is-active" : ""} onPointerDown={(event) => event.preventDefault()} onClick={() => { openProduct(product); setSearchOpen(false); }}>
                     <span className="pcx-result__image"><ProductVisual product={product} /></span><span className="pcx-result__details"><strong>{product.name}</strong><small>{cleanMeta(product.brand, product.size)}</small><b><Store aria-hidden="true" /> {offer.establishment || "Loja local"}</b></span><span className="pcx-result__price"><small>a partir de</small><strong>{money(product.minPrice)}</strong></span>
                   </button>; }) : <div className="pcx-results__empty"><PackageSearch aria-hidden="true" /><span><strong>Nenhum produto encontrado</strong><small>Tente arroz, leite ou limpeza.</small></span></div>}

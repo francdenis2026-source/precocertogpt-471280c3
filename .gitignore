@@ -12,6 +12,11 @@
 
 # testing
 /coverage
+/test-results/
+
+# Python caches created by local design tooling
+__pycache__/
+*.pyc
 
 # next.js
 /.next/

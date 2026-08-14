@@ -173,7 +173,7 @@ export function DorinhaAuthorStore() {
       <span style={{ fontWeight: 600, color: 'var(--pc-color-foreground)' }}>Dorinha Barroso</span>
     </nav>
     <style>{`
-      .db-author-page{--db-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--db-body:"Inter Variable",Inter,system-ui,-apple-system,"Segoe UI",sans-serif;padding-top:0!important;font-family:var(--db-body);font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+      .db-author-page{--db-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--db-body:"Manrope Variable", Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;padding-top:0!important;font-family:var(--db-body);font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
       .db-author-page h1,.db-author-page h2,.db-author-page h3{font-family:var(--db-display);font-weight:700;text-wrap:balance}
       .db-author-page p{letter-spacing:0}
       .db-author-page a,.db-author-page button{letter-spacing:0}
@@ -430,7 +430,7 @@ export function DorinhaAuthorStore() {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  page:{minHeight:"100vh",background:"var(--pc-color-background)",color:"var(--pc-color-foreground)",fontFamily:"'Inter Variable',Inter,system-ui,-apple-system,'Segoe UI',sans-serif"},
+  page:{minHeight:"100vh",background:"var(--pc-color-background)",color:"var(--pc-color-foreground)",fontFamily:""Manrope Variable", Manrope,system-ui,-apple-system,'Segoe UI',sans-serif"},
   loading:{minHeight:"100vh",display:"grid",placeItems:"center",alignContent:"center",gap:12,background:"var(--pc-color-background)",color:"var(--pc-color-foreground)"},
   topbar:{height:58,padding:"0 clamp(14px,4vw,58px)",display:"flex",alignItems:"center",justifyContent:"space-between",gap:18,background:"rgba(250,248,244,.96)",backdropFilter:"blur(18px)",borderBottom:"1px solid rgba(64,44,77,.10)",position:"sticky",top:0,zIndex:30,boxShadow:"0 8px 30px rgba(31,18,41,.04)"},
   brand:{display:"flex",alignItems:"center",gap:8,textDecoration:"none",color:"var(--pc-color-foreground)"},brandMark:{width:30,height:30,borderRadius:9,display:"grid",placeItems:"center",background:"linear-gradient(145deg,var(--pc-color-foreground),var(--pc-color-foreground))",color:"color-mix(in srgb, var(--pc-color-accent) 12%, var(--pc-color-surface))",fontWeight:900},topNav:{display:"flex",alignItems:"center",gap:25,fontSize:13,fontWeight:700,color:"var(--pc-color-muted)"},topActions:{display:"flex",alignItems:"center",gap:7},iconButton:{height:36,border:"1px solid var(--pc-color-border)",background:"white",borderRadius:9,padding:"0 11px",display:"inline-flex",alignItems:"center",gap:6,cursor:"pointer",fontWeight:700,fontSize:13,color:"var(--pc-color-foreground)"},topWhats:{height:36,borderRadius:9,padding:"0 12px",display:"inline-flex",alignItems:"center",gap:6,background:"var(--pc-color-foreground)",color:"white",textDecoration:"none",fontWeight:750,fontSize:13},

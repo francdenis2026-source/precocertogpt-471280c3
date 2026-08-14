@@ -67,6 +67,7 @@ import "./pages/HomeEditorialMarketplace2026.css";
 import "./pages/HomeCardTypeEffectsRefine2026.css";
 import "./pages/HomeKowalskiHeroRefine2026.css";
 import "./pages/HomeColorGovernance2026.css";
+import "./pages/HomeVercelGuidelines2026.css";
 
 export default function App() {
   return (

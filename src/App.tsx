@@ -64,6 +64,7 @@ import "./components/ImpeccableFullSitePolish.css";
 import "./components/ImpeccableStructuralLegacy.css";
 import "./components/DorinhaEditorialCompactV6.css";
 import "./pages/HomeEditorialMarketplace2026.css";
+import "./pages/HomeCardTypeEffectsRefine2026.css";
 
 export default function App() {
   return (

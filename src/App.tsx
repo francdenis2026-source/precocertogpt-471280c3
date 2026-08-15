@@ -77,6 +77,7 @@ export default function App() {
           <Route path="/admin/comercios" element={<AdminMerchantManagement />} />
           <Route path="/colaborar" element={<CollaboratePage />} />
           <Route path="/contato" element={<ContactPage />} />
+          <Route path="/fale-conosco" element={<ContactPage />} />
           <Route path="/farmacias" element={<PharmaciesPage />} />
           <Route path="*" element={<PrecoCertoApp />} />
         </Routes>

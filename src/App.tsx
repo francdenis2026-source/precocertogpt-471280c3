@@ -59,21 +59,6 @@ import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
-import "./components/KowalskiGlobalExperience.css";
-import "./components/KowalskiLegacyDeep.css";
-import "./components/ImpeccableFullSitePolish.css";
-import "./components/ImpeccableStructuralLegacy.css";
-import "./components/DorinhaEditorialCompactV6.css";
-import "./pages/HomeVercelGuidelines2026.css";
-import "./pages/HomeRebuildAllSkills2026.css";
-import "./styles/TotalTheme2026.css";
-import "./styles/ProfessionalContrastPolish2026.css";
-import "./styles/HomePhotoComposition2026.css";
-import "./styles/UnifiedMarketplaceRedesign2026.css";
-import "./pages/HomeNextCompactTheme.css";
-import "./pages/HomeNextKowalski.css";
-import "./pages/HomeCivicEditorial2026.css";
-import "./pages/HomeLightHeroFinal.css";
 
 export default function App() {
   return (

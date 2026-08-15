@@ -7,9 +7,6 @@ import "./index.css";
 import "./styles/GlobalScrollbarRefinement.css";
 import "./styles/AuthCompactProfessional.css";
 import App from "./App";
-import { HourlyHomeProductRotation } from "./components/HourlyHomeProductRotation";
-import { HomepageSearchInputPolish } from "./components/HomepageSearchInputPolish";
-import { HomepageSearchCloseFix } from "./components/HomepageSearchCloseFix";
 import { startPaymentNotifications } from "./lib/paymentNotifications";
 
 const savedTheme = localStorage.getItem("theme");
@@ -23,8 +20,5 @@ startPaymentNotifications();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
-    <HomepageSearchInputPolish />
-    <HomepageSearchCloseFix />
-    <HourlyHomeProductRotation />
   </StrictMode>,
 );

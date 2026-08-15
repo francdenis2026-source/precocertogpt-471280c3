@@ -12,6 +12,8 @@
   --pcn-green-soft:#dfe9df;
   --pcn-copper:#a84d2c;
   --pcn-copper-soft:#f0dfd4;
+  --pcn-forest-surface:#17493a;
+  --pcn-action:#a84d2c;
   --pcn-shadow:0 16px 44px rgba(50,39,24,.10);
   --pcn-ease:cubic-bezier(.23,1,.32,1);
   color:var(--pcn-ink);
@@ -33,6 +35,8 @@
   --pcn-green-soft:#233a30;
   --pcn-copper:#df8766;
   --pcn-copper-soft:#3e2921;
+  --pcn-forest-surface:#214a39;
+  --pcn-action:#a84d2c;
   --pcn-shadow:0 18px 48px rgba(0,0,0,.28);
   background:
     radial-gradient(circle at 8% 22%,rgba(223,135,102,.07),transparent 28rem),
@@ -90,7 +94,7 @@
 .pcn-home .pcn-icon-link{width:44px}
 .pcn-home .pcn-theme{width:61px}
 .pcn-home .pcn-login{
-  min-height:44px;border-radius:10px;padding-inline:14px;color:#fff;background:var(--pcn-copper);
+  min-height:44px;border-radius:10px;padding-inline:14px;color:#fff;background:var(--pcn-action);
   box-shadow:0 8px 18px rgba(126,54,30,.16)
 }
 
@@ -134,7 +138,7 @@
 }
 .pcn-home .pcn-quick button svg{color:var(--pcn-green)}
 .pcn-home .pcn-receipt{
-  position:relative;justify-self:end;width:min(318px,100%);padding:20px;border:1px solid rgba(255,255,255,.5);border-radius:9px 9px 18px 18px;
+  position:relative;align-self:end;justify-self:end;width:min(292px,100%);margin-bottom:10px;padding:18px;border:1px solid rgba(255,255,255,.5);border-radius:9px 9px 18px 18px;
   background:rgba(255,253,248,.95);color:#18211c;box-shadow:0 24px 70px rgba(23,37,27,.28);backdrop-filter:blur(12px)
 }
 .pcn-home .pcn-receipt::after{
@@ -182,7 +186,7 @@
 .pcn-home .pcn-store strong{margin-top:11px;font-size:.86rem}
 .pcn-home .pcn-store small{color:var(--pcn-muted)}
 .pcn-home .pcn-store b{color:var(--pcn-green)}
-.pcn-home .pcn-store--all{background:var(--pcn-green);color:#fff;border-color:var(--pcn-green)}
+.pcn-home .pcn-store--all{background:var(--pcn-forest-surface);color:#fff;border-color:var(--pcn-forest-surface)}
 .pcn-home .pcn-store--all>span{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.12);font-size:1.35rem}
 .pcn-home .pcn-store--all small,.pcn-home .pcn-store--all b{color:rgba(255,255,255,.76)}
 .pcn-home .pcn-categories{grid-template-columns:repeat(6,1fr);gap:8px}
@@ -194,13 +198,13 @@
 .pcn-home .pcn-category strong{font-size:.82rem}.pcn-home .pcn-category small{color:var(--pcn-muted)}
 .pcn-home .pcn-smart{
   min-height:292px;margin-top:54px;border-color:color-mix(in srgb,var(--pcn-green) 35%,var(--pcn-line));border-radius:18px;
-  background:var(--pcn-green);box-shadow:0 18px 48px rgba(19,57,45,.18)
+  background:var(--pcn-forest-surface);box-shadow:0 18px 48px rgba(19,57,45,.18)
 }
 .pcn-home .pcn-smart__copy{padding:38px 42px}
 .pcn-home .pcn-smart__copy h2{margin:0 0 12px;color:#f5efe5;font-size:clamp(2rem,4vw,3.15rem);font-weight:620}
 .pcn-home .pcn-smart__copy p{color:#cadbd1}
 .pcn-home .pcn-smart__copy a{min-height:44px;margin-top:15px;border-radius:10px;background:#f5efe5;color:#17493a}
-.pcn-home .pcn-smart__image{min-height:292px;background:linear-gradient(90deg,#17493a 0%,rgba(23,73,58,.1) 46%),url('/compra-inteligente-profissional.webp') 58% 50%/cover no-repeat}
+.pcn-home .pcn-smart__image{min-height:292px;background:linear-gradient(90deg,var(--pcn-forest-surface) 0%,color-mix(in srgb,var(--pcn-forest-surface) 12%,transparent) 46%),url('/compra-inteligente-profissional.webp') 58% 50%/cover no-repeat}
 .pcn-home .pcn-products{grid-template-columns:repeat(5,1fr);gap:10px}
 .pcn-home .pcn-product{
   min-height:304px;padding:13px;border-color:var(--pcn-line);border-radius:14px;background:var(--pcn-paper);box-shadow:none
@@ -211,14 +215,14 @@
 .pcn-home .pcn-product>small{margin-top:12px;color:var(--pcn-muted)}
 .pcn-home .pcn-product>strong{font-size:.9rem}
 .pcn-home .pcn-product>div{padding-top:13px}.pcn-home .pcn-product>div b{font-size:1.18rem}
-.pcn-home .pcn-product>div>svg{border-radius:9px;background:var(--pcn-copper)}
+.pcn-home .pcn-product>div>svg{border-radius:9px;background:var(--pcn-action)}
 .pcn-home :where(.pcn-store small,.pcn-store b,.pcn-category small,.pcn-product>small,.pcn-product>div small){font-size:.75rem}
 .pcn-home .pcn-how{padding-top:58px;padding-bottom:58px}
 .pcn-home .pcn-how__grid{grid-template-columns:1.25fr 1fr 1fr 1fr;gap:8px}
 .pcn-home .pcn-how__grid>div{
   min-height:142px;padding:16px;border-color:var(--pcn-line);border-radius:12px;background:var(--pcn-paper);box-shadow:none
 }
-.pcn-home .pcn-how__grid>div:first-child{background:var(--pcn-copper);color:#fff;border-color:var(--pcn-copper)}
+.pcn-home .pcn-how__grid>div:first-child{background:var(--pcn-action);color:#fff;border-color:var(--pcn-action)}
 .pcn-home .pcn-how__grid>div>b{top:12px;right:13px;color:color-mix(in srgb,var(--pcn-copper) 38%,transparent);font-size:1.25rem}
 .pcn-home .pcn-how__grid>div:first-child>b{color:rgba(255,255,255,.42)}
 .pcn-home .pcn-how__grid>div>svg{width:34px;height:34px;padding:8px;border-radius:9px;background:var(--pcn-green)}
@@ -230,7 +234,7 @@
 }
 .pcn-home .pcn-merchant h2{margin:0 0 5px;font-size:clamp(1.45rem,3vw,2.15rem);font-weight:630}
 .pcn-home .pcn-merchant p{color:var(--pcn-muted)}
-.pcn-home .pcn-merchant>a{min-height:44px;border-radius:10px;background:var(--pcn-copper)}
+.pcn-home .pcn-merchant>a{min-height:44px;border-radius:10px;background:var(--pcn-action)}
 
 /* Win the cascade over the retired Kowalski layer. */
 .pcn-home :where(.pcn-store,.pcn-category,.pcn-product,.pcn-how__grid>div){box-shadow:none!important}
@@ -250,7 +254,22 @@ html[data-theme="dark"] .pcn-home :where(.pcn-store,.pcn-category,.pcn-product,.
 .pcn-home .pcn-footer p{margin:0;color:#afc5b9;font-size:.75rem}
 .pcn-footer__top nav{display:flex;align-items:center;gap:17px;margin-left:auto}
 .pcn-footer__top nav a{min-height:44px;display:inline-flex;align-items:center;color:#dce8e0;font-size:.75rem;font-weight:700}
-.pcn-footer__bottom{display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(255,255,255,.11);color:#a9bdb2;font-size:.75rem}
+.pcn-footer__bottom{display:flex;justify-content:space-between;gap:16px;padding-top:10px;border-top:1px solid rgba(255,255,255,.11);color:#a9bdb2;font-size:.75rem}
+.pcn-footer__bottom i{margin:0 4px;color:#f0a384;font-style:normal}
+
+/* Dark mode uses deep surfaces for actions: accent colors never become text backgrounds. */
+html[data-theme="dark"] .pcn-home .pcn-store--all{color:#fff;border-color:#3d6c56}
+html[data-theme="dark"] .pcn-home .pcn-store--all strong{color:#fff}
+html[data-theme="dark"] .pcn-home .pcn-store--all small,html[data-theme="dark"] .pcn-home .pcn-store--all b{color:#d5e7db}
+html[data-theme="dark"] .pcn-home .pcn-smart{border-color:#3d6c56}
+html[data-theme="dark"] .pcn-home .pcn-smart__copy h2{color:#fffaf2}
+html[data-theme="dark"] .pcn-home .pcn-smart__copy p{color:#d5e7db}
+html[data-theme="dark"] .pcn-home .pcn-smart__copy a{background:#fffaf2;color:#183d2f}
+html[data-theme="dark"] .pcn-home .pcn-how__grid>div:first-child p{color:#fff0e9}
+html[data-theme="dark"] .pcn-home .pcn-merchant{background:var(--pcn-forest-surface);border-color:#3d6c56}
+html[data-theme="dark"] .pcn-home .pcn-merchant h2{color:#fffaf2}
+html[data-theme="dark"] .pcn-home .pcn-merchant p{color:#d5e7db}
+html[data-theme="dark"] .pcn-home .pcn-utility a{color:#ffd0bd}
 
 /* One authored motion language: feedback only, no wandering cards. */
 .pcn-home :where(a,button,.pcn-store,.pcn-category,.pcn-product){
@@ -285,7 +304,7 @@ html[data-theme="dark"] .pcn-home :where(.pcn-store,.pcn-category,.pcn-product,.
   .pcn-home .pcn-hero__veil{background:linear-gradient(180deg,var(--pcn-bg) 0%,color-mix(in srgb,var(--pcn-bg) 94%,transparent) 49%,color-mix(in srgb,var(--pcn-bg) 58%,transparent) 72%,var(--pcn-bg) 100%)}
   .pcn-home .pcn-hero__content{min-height:auto;padding:116px 0 62px;grid-template-columns:1fr;gap:22px}
   .pcn-home .pcn-hero h1{font-size:clamp(3rem,13.8vw,4.8rem)}
-  .pcn-home .pcn-receipt{justify-self:end;width:min(100%,400px)}
+  .pcn-home .pcn-receipt{justify-self:end;align-self:auto;width:min(100%,400px);margin-bottom:0}
   .pcn-home .pcn-metrics-wrap{margin-top:-18px}
   .pcn-home .pcn-section{padding-top:45px}
   .pcn-home .pcn-products{grid-template-columns:repeat(2,1fr)}

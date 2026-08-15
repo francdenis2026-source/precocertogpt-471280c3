@@ -35,8 +35,6 @@ import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
-import "./styles/ProfessionalBluePalette2026.css";
-import "./styles/ProfessionalChromeCompact2026.css";
 
 export default function App() {
   return (
@@ -78,7 +76,7 @@ export default function App() {
           <Route path="/admin/plataforma" element={<PlatformAdminDashboard />} />
           <Route path="/admin/comercios" element={<AdminMerchantManagement />} />
           <Route path="/colaborar" element={<CollaboratePage />} />
-          <Route path="/fale-conosco" element={<ContactPage />} />
+          <Route path="/contato" element={<ContactPage />} />
           <Route path="/farmacias" element={<PharmaciesPage />} />
           <Route path="*" element={<PrecoCertoApp />} />
         </Routes>

@@ -4,6 +4,7 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/outfit";
 import "./index.css";
+import "./styles/GlobalTokenBridge.css";
 import "./styles/GlobalScrollbarRefinement.css";
 import "./styles/AuthCompactProfessional.css";
 import App from "./App";

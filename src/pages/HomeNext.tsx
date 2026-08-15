@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -41,7 +41,6 @@ export function HomeNext() {
   const [query, setQuery] = useState("");
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const searchDialogInput = useRef<HTMLInputElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload>({
     products: initialCatalog.products,
     stores: initialCatalog.stores,
@@ -62,12 +61,12 @@ export function HomeNext() {
   }, []);
 
   useEffect(() => {
-    if (!searchDialogOpen) return;
-    const timer = window.setTimeout(() => searchDialogInput.current?.focus(), 0);
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchDialogOpen(false); };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSearchDialogOpen(false);
+    };
     window.addEventListener("keydown", onKeyDown);
-    return () => { window.clearTimeout(timer); window.removeEventListener("keydown", onKeyDown); };
-  }, [searchDialogOpen]);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   useEffect(() => {
     const updateHeader = () => setHeaderScrolled(window.scrollY > 54);
@@ -91,16 +90,14 @@ export function HomeNext() {
   const suggestions = useMemo(() => {
     const term = query.trim().toLocaleLowerCase("pt-BR");
     if (!term) return [];
-    return catalog.products.filter((product) => `${product.name} ${product.brand || ""} ${product.establishment || ""}`.toLocaleLowerCase("pt-BR").includes(term)).slice(0, 12);
+    return catalog.products
+      .filter((product) => `${product.name} ${product.brand || ""} ${product.establishment || ""}`.toLocaleLowerCase("pt-BR").includes(term))
+      .slice(0, 8);
   }, [catalog.products, query]);
 
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!query.trim()) {
-      setSearchDialogOpen(false);
-      return;
-    }
-    setSearchDialogOpen(true);
+    setSearchDialogOpen(query.trim().length > 0);
   };
 
   const updateSearchQuery = (value: string) => {
@@ -117,8 +114,10 @@ export function HomeNext() {
     setQuery(term);
     setSearchDialogOpen(true);
   };
+
   const chooseSuggestion = (product: Product) => {
     setSearchDialogOpen(false);
+    setQuery(product.name);
     setSelectedProduct(product);
   };
 
@@ -170,12 +169,34 @@ export function HomeNext() {
             <div className="pcn-hero__copy">
               <h1>O mesmo produto.<br /><span>Outro preço.</span></h1>
               <p>Compare os comércios da cidade antes de sair de casa e escolha onde sua compra realmente vale mais.</p>
-              <form className="pcn-search" onSubmit={submitSearch} role="search">
-                <Search aria-hidden="true" />
-                <input id="pcn-home-search" value={query} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Busque produto, marca ou loja" aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />
-                {hasSearchQuery && <button className="pcn-search__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa" title="Limpar pesquisa"><X aria-hidden="true" /></button>}
-                <button className="pcn-search__submit" type="submit">Buscar <ArrowRight aria-hidden="true" /></button>
-              </form>
+              <div className="pcn-search-shell">
+                <form className="pcn-search" onSubmit={submitSearch} role="search">
+                  <Search aria-hidden="true" />
+                  <input id="pcn-home-search" value={query} onFocus={() => hasSearchQuery && setSearchDialogOpen(true)} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Busque produto, marca ou loja" aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />
+                  {hasSearchQuery && <button className="pcn-search__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa" title="Limpar pesquisa"><X aria-hidden="true" /></button>}
+                  <button className="pcn-search__submit" type="submit">Buscar <ArrowRight aria-hidden="true" /></button>
+                </form>
+
+                {searchDialogOpen && hasSearchQuery && (
+                  <div className="pcn-search-dropdown" role="listbox" aria-label="Produtos encontrados">
+                    <div className="pcn-search-dropdown__head">
+                      <span>Resultados para <b>“{query.trim()}”</b></span>
+                      <small>{suggestions.length} {suggestions.length === 1 ? "produto" : "produtos"}</small>
+                    </div>
+                    <div className="pcn-search-dropdown__list">
+                      {suggestions.length ? suggestions.map((product) => (
+                        <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)}>
+                          <span className="pcn-search-dropdown__thumb"><ProductImage product={product} /></span>
+                          <span className="pcn-search-dropdown__info"><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span>
+                          <strong>{money(product.minPrice)}</strong>
+                          <ArrowRight aria-hidden="true" />
+                        </button>
+                      )) : <p>Nenhum produto corresponde a “{query.trim()}”.</p>}
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="pcn-quick">
                 <button type="button" onClick={() => searchCategory("arroz")}><Tag /> Arroz</button>
                 <button type="button" onClick={() => searchCategory("café")}><ShoppingBasket /> Café</button>
@@ -264,23 +285,6 @@ export function HomeNext() {
           <span>© 2026 PreçoCerto <i aria-hidden="true">·</i> Desenvolvido por Franc Denis</span><span>Feito em Feijó, Acre</span>
         </div>
       </footer>
-
-      {searchDialogOpen && hasSearchQuery && typeof document !== "undefined" && createPortal(
-        <div className="pcn-search-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSearchDialogOpen(false); }}>
-          <section className="pcn-search-dialog__panel" role="dialog" aria-modal="true" aria-label="Pesquisar produtos">
-            <header><span>Produtos encontrados</span><button type="button" onClick={() => setSearchDialogOpen(false)} aria-label="Fechar pesquisa"><X /></button></header>
-            <form onSubmit={submitSearch}>
-              <Search aria-hidden="true" />
-              <input ref={searchDialogInput} value={query} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Digite um produto, marca ou loja" aria-label="Pesquisar produtos" />
-              <button className="pcn-search-dialog__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa" title="Limpar pesquisa"><X aria-hidden="true" /></button>
-              <button className="pcn-search-dialog__submit" type="submit">Buscar <ArrowRight /></button>
-            </form>
-            <div className="pcn-search-dialog__results" role="listbox">
-              {suggestions.length ? suggestions.map((product) => <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)}><span className="pcn-search-dialog__thumb"><ProductImage product={product} /></span><span><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span><strong>{money(product.minPrice)}</strong><ArrowRight /></button>) : <p>Nenhum produto corresponde a “{query.trim()}”. Tente outro nome.</p>}
-            </div>
-            <footer><span>Pressione Esc para fechar</span><span className="pcn-search-dialog__count">{suggestions.length} {suggestions.length === 1 ? "produto encontrado" : "produtos encontrados"}</span></footer>
-          </section>
-        </div>, document.body)}
 
       {selectedProduct && typeof document !== "undefined" && createPortal(<div className="pcn-product-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><section role="dialog" aria-modal="true" aria-labelledby="pcn-product-dialog-title"><button className="pcn-product-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X /></button><span className="pcn-product-dialog__image"><ProductImage product={selectedProduct} /></span><div><small>{selectedProduct.brand || "Produto local"}</small><h2 id="pcn-product-dialog-title">{selectedProduct.name}</h2><p><Store /> {selectedProduct.establishment || "Comércio local"}</p><div className="pcn-product-dialog__price"><span>a partir de</span><strong>{money(selectedProduct.minPrice)}</strong><small>até {money(selectedProduct.maxPrice)}</small></div><button type="button" onClick={() => setSelectedProduct(null)}>Fechar <X /></button></div></section></div>, document.body)}
     </div>

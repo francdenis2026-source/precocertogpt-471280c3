@@ -12,6 +12,7 @@ import "./HomeNext.css";
 import "./HomeWebChrome2026.css";
 import "./HomeSearchPremium2026.css";
 import "./HomeReceiptRealistic2026.css";
+import "./HomeUnified2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -48,321 +49,59 @@ export function HomeNext() {
   const [query, setQuery] = useState("");
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [catalog, setCatalog] = useState<CatalogPayload>({
-    products: initialCatalog.products,
-    stores: initialCatalog.stores,
-    metrics: verifiedDatasetMetrics,
-    updatedAt: initialCatalog.updatedAt,
-  });
+  const [catalog, setCatalog] = useState<CatalogPayload>({ products: initialCatalog.products, stores: initialCatalog.stores, metrics: verifiedDatasetMetrics, updatedAt: initialCatalog.updatedAt });
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-    window.localStorage.setItem("theme", theme);
-  }, [theme]);
+  useEffect(() => { document.documentElement.dataset.theme = theme; document.documentElement.style.colorScheme = theme; window.localStorage.setItem("theme", theme); }, [theme]);
+  useEffect(() => { let active = true; fetchCatalog().then((result) => { if (active) setCatalog(result); }).catch(() => undefined); return () => { active = false; }; }, []);
+  useEffect(() => { const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchDialogOpen(false); }; window.addEventListener("keydown", onKeyDown); return () => window.removeEventListener("keydown", onKeyDown); }, []);
+  useEffect(() => { const updateHeader = () => setHeaderScrolled(window.scrollY > 54); window.addEventListener("scroll", updateHeader, { passive: true }); return () => window.removeEventListener("scroll", updateHeader); }, []);
 
-  useEffect(() => {
-    let active = true;
-    fetchCatalog().then((result) => { if (active) setCatalog(result); }).catch(() => undefined);
-    return () => { active = false; };
-  }, []);
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSearchDialogOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const updateHeader = () => setHeaderScrolled(window.scrollY > 54);
-    window.addEventListener("scroll", updateHeader, { passive: true });
-    return () => window.removeEventListener("scroll", updateHeader);
-  }, []);
-
-  const featuredProducts = useMemo(() => [...catalog.products]
-    .filter((product) => product.minPrice > 0)
-    .sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice))
-    .slice(0, 5), [catalog.products]);
-
-  const featuredStores = useMemo(() => [...catalog.stores]
-    .sort((a, b) => b.products - a.products)
-    .slice(0, 5), [catalog.stores]);
-
+  const featuredProducts = useMemo(() => [...catalog.products].filter((product) => product.minPrice > 0).sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 5), [catalog.products]);
+  const featuredStores = useMemo(() => [...catalog.stores].sort((a, b) => b.products - a.products).slice(0, 5), [catalog.stores]);
   const heroProduct = featuredProducts[0] ?? catalog.products[0];
   const heroSaving = heroProduct ? Math.max(0, heroProduct.maxPrice - heroProduct.minPrice) : 0;
   const normalizedQuery = normalizeSearch(query);
   const hasSearchQuery = normalizedQuery.length > 0;
   const suggestions = useMemo(() => {
-    const term = normalizeSearch(query);
-    if (!term) return [];
-    const tokens = term.split(/\s+/).filter(Boolean);
-
-    return catalog.products
-      .map((product) => {
-        const name = normalizeSearch(product.name);
-        const brand = normalizeSearch(product.brand || "");
-        const category = normalizeSearch(product.category || "");
-        const store = normalizeSearch(product.establishment || "");
-        const size = normalizeSearch(product.size || "");
-        const haystack = `${name} ${brand} ${category} ${store} ${size}`;
-        const allTokensMatch = tokens.every((token) => haystack.includes(token));
-        if (!allTokensMatch) return null;
-
-        let score = 100;
-        if (name === term) score = 0;
-        else if (name.startsWith(term)) score = 10;
-        else if (name.includes(term)) score = 20;
-        else if (brand.startsWith(term)) score = 30;
-        else if (brand.includes(term)) score = 40;
-        else if (category.includes(term)) score = 50;
-        else if (store.includes(term)) score = 60;
-
-        return { product, score };
-      })
-      .filter((entry): entry is { product: Product; score: number } => Boolean(entry))
-      .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
-      .slice(0, 12)
-      .map((entry) => entry.product);
+    const term = normalizeSearch(query); if (!term) return []; const tokens = term.split(/\s+/).filter(Boolean);
+    return catalog.products.map((product) => {
+      const name = normalizeSearch(product.name), brand = normalizeSearch(product.brand || ""), category = normalizeSearch(product.category || ""), store = normalizeSearch(product.establishment || ""), size = normalizeSearch(product.size || "");
+      const haystack = `${name} ${brand} ${category} ${store} ${size}`; if (!tokens.every((token) => haystack.includes(token))) return null;
+      let score = 100; if (name === term) score = 0; else if (name.startsWith(term)) score = 10; else if (name.includes(term)) score = 20; else if (brand.startsWith(term)) score = 30; else if (brand.includes(term)) score = 40; else if (category.includes(term)) score = 50; else if (store.includes(term)) score = 60;
+      return { product, score };
+    }).filter((entry): entry is { product: Product; score: number } => Boolean(entry)).sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR")).slice(0, 12).map((entry) => entry.product);
   }, [catalog.products, query]);
 
-  const submitSearch = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!hasSearchQuery) {
-      setSearchDialogOpen(false);
-      return;
-    }
-    setSelectedProduct(null);
-    setSearchDialogOpen(true);
-  };
+  const submitSearch = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); if (!hasSearchQuery) { setSearchDialogOpen(false); return; } setSelectedProduct(null); setSearchDialogOpen(true); };
+  const updateSearchQuery = (value: string) => { setQuery(value); setSelectedProduct(null); setSearchDialogOpen(normalizeSearch(value).length > 0); };
+  const clearSearch = () => { setQuery(""); setSearchDialogOpen(false); setSelectedProduct(null); };
+  const searchCategory = (term: string) => { setQuery(term); setSelectedProduct(null); setSearchDialogOpen(true); };
+  const chooseSuggestion = (product: Product) => { setSearchDialogOpen(false); setQuery(product.name); setSelectedProduct(product); };
 
-  const updateSearchQuery = (value: string) => {
-    setQuery(value);
-    setSelectedProduct(null);
-    setSearchDialogOpen(normalizeSearch(value).length > 0);
-  };
-
-  const clearSearch = () => {
-    setQuery("");
-    setSearchDialogOpen(false);
-    setSelectedProduct(null);
-  };
-
-  const searchCategory = (term: string) => {
-    setQuery(term);
-    setSelectedProduct(null);
-    setSearchDialogOpen(true);
-  };
-
-  const chooseSuggestion = (product: Product) => {
-    setSearchDialogOpen(false);
-    setQuery(product.name);
-    setSelectedProduct(product);
-  };
-
-  return (
-    <div className="pcn-home">
-      <header className={`pcn-header ${headerScrolled ? "pcn-header--scrolled" : ""}`}>
-        <div className="pcn-utility">
-          <div className="pcn-shell">
-            <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
-            <span><i aria-hidden="true" /> Catálogo local em atualização contínua</span>
-            <Link to="/colaborar">Viu um preço diferente? Colabore</Link>
-          </div>
-        </div>
-        <div className="pcn-shell pcn-header__inner">
-          <Link className="pcn-brand" to="/" aria-label="PreçoCerto — página inicial">
-            <span className="pcn-brand__mark"><TrendingDown aria-hidden="true" /></span>
-            <span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span>
-          </Link>
-          <nav className="pcn-nav" aria-label="Navegação principal">
-            <Link to="/buscar">Comparar</Link>
-            <Link to="/estabelecimentos">Lojas</Link>
-            <Link to="/farmacias">Farmácias</Link>
-            <Link to="/cesta-basica">Cesta inteligente</Link>
-            <Link to="/lojista">Para lojistas</Link>
-          </nav>
-          <div className="pcn-actions">
-            <Link className="pcn-icon-link" to="/favoritos" aria-label="Favoritos"><Heart aria-hidden="true" /></Link>
-            <button className="pcn-theme" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label="Alternar tema">
-              <Sun aria-hidden="true" /><Moon aria-hidden="true" />
-            </button>
-            <Link className="pcn-login" to="/login"><LogIn aria-hidden="true" /> Entrar</Link>
-            <button className="pcn-menu" type="button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="pcn-mobile-navigation" onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X /> : <Menu />}</button>
-          </div>
-        </div>
-        {menuOpen && <nav className="pcn-mobile-nav" id="pcn-mobile-navigation" aria-label="Navegação móvel">
-          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Pesquisar</Link>
-          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
-          <Link to="/farmacias" onClick={() => setMenuOpen(false)}>Categorias</Link>
-          <Link to="/favoritos" onClick={() => setMenuOpen(false)}>Favoritos</Link>
-          <Link to="/lojista" onClick={() => setMenuOpen(false)}>Para lojistas</Link>
-        </nav>}
-      </header>
-
-      <main>
-        <section className="pcn-hero">
-          <div className="pcn-hero__photo" aria-hidden="true" />
-          <div className="pcn-hero__veil" aria-hidden="true" />
-          <div className="pcn-shell pcn-hero__content">
-            <div className="pcn-hero__copy">
-              <h1>O mesmo produto.<br /><span>Outro preço.</span></h1>
-              <p>Compare os comércios da cidade antes de sair de casa e escolha onde sua compra realmente vale mais.</p>
-              <div className="pcn-search-shell">
-                <form className="pcn-search" onSubmit={submitSearch} role="search">
-                  <Search aria-hidden="true" />
-                  <input id="pcn-home-search" value={query} onFocus={() => hasSearchQuery && setSearchDialogOpen(true)} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Busque produto, marca ou loja" aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />
-                  {hasSearchQuery && <button className="pcn-search__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa" title="Limpar pesquisa"><X aria-hidden="true" /></button>}
-                  <button className="pcn-search__submit" type="submit">Buscar <ArrowRight aria-hidden="true" /></button>
-                </form>
-
-                {searchDialogOpen && hasSearchQuery && (
-                  <div className="pcn-search-dropdown" role="listbox" aria-label="Produtos encontrados">
-                    <div className="pcn-search-dropdown__head">
-                      <span>Resultados para <b>“{query.trim()}”</b></span>
-                      <small>{suggestions.length} {suggestions.length === 1 ? "produto" : "produtos"}</small>
-                    </div>
-                    <div className="pcn-search-dropdown__list">
-                      {suggestions.length ? suggestions.map((product) => (
-                        <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)} aria-label={`Abrir ${product.name}`}>
-                          <span className="pcn-search-dropdown__thumb"><ProductImage product={product} /></span>
-                          <span className="pcn-search-dropdown__info"><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span>
-                          <strong>{money(product.minPrice)}</strong>
-                          <ArrowRight aria-hidden="true" />
-                        </button>
-                      )) : <p>Nenhum produto relacionado a “{query.trim()}” foi encontrado.</p>}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="pcn-quick">
-                <button type="button" onClick={() => searchCategory("arroz")}><Tag /> Arroz</button>
-                <button type="button" onClick={() => searchCategory("café")}><ShoppingBasket /> Café</button>
-                <button type="button" onClick={() => searchCategory("carne")}><TrendingDown /> Carnes</button>
-              </div>
-            </div>
-
-            {heroProduct && (
-              <aside className="pcn-receipt" aria-label="Resumo de economia do produto em destaque">
-                <div className="pcn-receipt__top">
-                  <span>PreçoCerto · Feijó-AC</span>
-                  <BadgePercent aria-hidden="true" />
-                </div>
-                <small>Economia encontrada agora</small>
-                <strong className="pcn-receipt__saving">{money(heroSaving)}</strong>
-                <p>{heroProduct.name}</p>
-                <div className="pcn-receipt__rows">
-                  <span>Menor preço <b>{money(heroProduct.minPrice)}</b></span>
-                  <span>Maior preço <b>{money(heroProduct.maxPrice)}</b></span>
-                </div>
-                <button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(heroProduct.name)}`)}>
-                  Ver comparação <ArrowRight aria-hidden="true" />
-                </button>
-              </aside>
-            )}
-          </div>
-        </section>
-
-        <section className="pcn-metrics-wrap" aria-label="Resumo do catálogo">
-          <div className="pcn-shell pcn-metrics">
-            <div><span className="pcn-metric-icon is-blue"><Tag /></span><strong>{catalog.metrics.prices.toLocaleString("pt-BR")}</strong><small>Preços verificados</small></div>
-            <div><span className="pcn-metric-icon is-amber"><ShoppingBasket /></span><strong>{catalog.metrics.products.toLocaleString("pt-BR")}</strong><small>Produtos cadastrados</small></div>
-            <div><span className="pcn-metric-icon is-green"><BadgePercent /></span><strong>{heroSaving > 0 ? money(heroSaving) : "—"}</strong><small>Diferença encontrada agora</small></div>
-            <div><span className="pcn-metric-icon is-violet"><Store /></span><strong>{catalog.metrics.stores}</strong><small>Lojas parceiras</small></div>
-            <div><span className="pcn-metric-icon is-amber"><CheckCircle2 /></span><strong>Feijó-AC</strong><small>Nossa cidade</small></div>
-          </div>
-        </section>
-
-        <section className="pcn-section pcn-shell">
-          <div className="pcn-section__head"><div><h2>O comércio de Feijó, lado a lado.</h2><p>Abra uma loja para ver catálogo, atualização e preços disponíveis.</p></div><Link to="/estabelecimentos">Ver todas as lojas <ArrowRight /></Link></div>
-          <div className="pcn-stores">
-            {featuredStores.map((store) => <Link className="pcn-store" key={store.id} to={`/estabelecimento/${store.slug}`}>
-              <span className="pcn-store__mark" style={{ background: store.color }}>{store.name.slice(0, 1)}</span>
-              <strong>{store.name}</strong><small>{store.neighborhood || "Feijó"}</small><b>{store.products} produtos</b>
-            </Link>)}
-            <Link className="pcn-store pcn-store--all" to="/estabelecimentos"><span>+</span><strong>Ver todas</strong><small>{catalog.metrics.stores} lojas</small></Link>
-          </div>
-        </section>
-
-        <section className="pcn-section pcn-shell">
-          <div className="pcn-section__head"><div><h2>Comece pelo que está na sua lista.</h2></div><Link to="/buscar">Ver todos os produtos <ArrowRight /></Link></div>
-          <div className="pcn-categories">
-            {categoryItems.map((item) => {
-              const Icon = item.icon;
-              const content = <><span className="pcn-category__icon"><Icon /></span><strong>{item.label}</strong><small>Encontrar preços</small></>;
-              return "href" in item ? <Link className="pcn-category" key={item.label} to={item.href}>{content}</Link> : <button className="pcn-category" key={item.label} type="button" onClick={() => searchCategory(item.query)}>{content}</button>;
-            })}
-          </div>
-        </section>
-
-        <section className="pcn-smart pcn-shell">
-          <div className="pcn-smart__copy"><h2>Uma lista. Várias lojas. A rota que pesa menos no bolso.</h2><p>Adicione os itens da semana e deixe o PreçoCerto organizar os melhores preços disponíveis.</p><Link to="/cesta-basica">Montar minha cesta <ArrowRight /></Link></div>
-          <div className="pcn-smart__image" aria-hidden="true" />
-        </section>
-
-        <section className="pcn-section pcn-shell">
-          <div className="pcn-section__head"><div><h2>Diferenças que merecem comparação.</h2><p>O mesmo item pode custar bem diferente pela cidade.</p></div><Link to="/buscar">Comparar mais <ArrowRight /></Link></div>
-          <div className="pcn-products">
-            {featuredProducts.map((product) => <article className="pcn-product" key={product.id}>
-              <button className="pcn-product__open" type="button" onClick={() => setSelectedProduct(product)} aria-label={`Ver detalhes de ${product.name}`}>
-                <span className="pcn-product__saving">Economize {money(Math.max(0, product.maxPrice - product.minPrice))}</span>
-                <span className="pcn-product__media"><ProductImage product={product} /></span>
-                <small>{product.brand || "Produto local"}</small><strong>{product.name}</strong>
-                <div><span><small>a partir de</small><b>{money(product.minPrice)}</b></span><ArrowRight /></div>
-              </button>
-            </article>)}
-          </div>
-        </section>
-
-        <section className="pcn-how pcn-shell">
-          <div className="pcn-section__head"><div><h2>Da busca à escolha em quatro passos.</h2></div></div>
-          <div className="pcn-how__grid">
-            <div><b>01</b><Search /><h3>Pesquise</h3><p>Digite o produto que você quer comprar.</p></div>
-            <div><b>02</b><Store /><h3>Compare</h3><p>Veja preços em diferentes estabelecimentos.</p></div>
-            <div><b>03</b><ShoppingBasket /><h3>Monte sua cesta</h3><p>Organize sua lista de compras em um só lugar.</p></div>
-            <div><b>04</b><BadgePercent /><h3>Economize</h3><p>Escolha onde seu dinheiro rende mais.</p></div>
-          </div>
-        </section>
-
-        <section className="pcn-merchant pcn-shell">
-          <div><h2>Seu comércio no momento em que Feijó decide onde comprar.</h2><p>Publique catálogo, atualize preços e transforme intenção em visita.</p></div>
-          <Link to="/lojista">Quero ser parceiro <ArrowRight /></Link>
-        </section>
-      </main>
-
-      <footer className="pcn-footer">
-        <div className="pcn-shell pcn-footer__top">
-          <Link className="pcn-brand" to="/"><span className="pcn-brand__mark"><TrendingDown /></span><span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span></Link>
-          <p>Preços locais para escolhas mais inteligentes.</p>
-          <nav aria-label="Links do rodapé"><Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/colaborar">Colaborar</Link><Link to="/fale-conosco">Contato</Link><Link to="/lojista">Sou lojista</Link></nav>
-        </div>
-        <div className="pcn-shell pcn-footer__bottom">
-          <span>© 2026 PreçoCerto <i aria-hidden="true">·</i> Desenvolvido por Franc Denis</span><span>Feito em Feijó, Acre</span>
-        </div>
-      </footer>
-
-      {selectedProduct && typeof document !== "undefined" && createPortal(
-        <div className="pcn-product-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedProduct(null); }}>
-          <section role="dialog" aria-modal="true" aria-labelledby="pcn-product-dialog-title">
-            <button className="pcn-product-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X /></button>
-            <span className="pcn-product-dialog__image"><ProductImage product={selectedProduct} /></span>
-            <div>
-              <small>{selectedProduct.brand || "Produto local"} · {selectedProduct.category || "Categoria não informada"}</small>
-              <h2 id="pcn-product-dialog-title">{selectedProduct.name}</h2>
-              <p><Store /> {selectedProduct.establishment || "Comércio local"}</p>
-              <p>{selectedProduct.size ? `Tamanho: ${selectedProduct.size}` : ""}{selectedProduct.unit ? ` · Unidade: ${selectedProduct.unit}` : ""}</p>
-              {selectedProduct.barcode && <p>Código de barras: <b>{selectedProduct.barcode}</b></p>}
-              <div className="pcn-product-dialog__price">
-                <span>menor preço</span><strong>{money(selectedProduct.minPrice)}</strong><small>Média {money(selectedProduct.avgPrice)} · Maior {money(selectedProduct.maxPrice)}</small>
-              </div>
-              <button type="button" onClick={() => setSelectedProduct(null)}>Fechar <X /></button>
-            </div>
-          </section>
-        </div>,
-        document.body
-      )}
-    </div>
-  );
+  return <div className="pcn-home pc-next">
+    <header className={`pcn-header ${headerScrolled ? "pcn-header--scrolled" : ""}`}>
+      <div className="pcn-utility"><div className="pcn-shell"><span><MapPin aria-hidden="true" /> Feijó, Acre</span><span><i aria-hidden="true" /> Catálogo local em atualização contínua</span><Link to="/colaborar">Viu um preço diferente? Colabore</Link></div></div>
+      <div className="pcn-shell pcn-header__inner"><Link className="pcn-brand" to="/" aria-label="PreçoCerto — página inicial"><span className="pcn-brand__mark"><TrendingDown aria-hidden="true" /></span><span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span></Link>
+        <nav className="pcn-nav" aria-label="Navegação principal"><Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/farmacias">Farmácias</Link><Link to="/cesta-basica">Cesta inteligente</Link><Link to="/lojista">Para lojistas</Link></nav>
+        <div className="pcn-actions"><Link className="pcn-icon-link" to="/favoritos" aria-label="Favoritos"><Heart aria-hidden="true" /></Link><button className="pcn-theme" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label="Alternar tema"><Sun aria-hidden="true" /><Moon aria-hidden="true" /></button><Link className="pcn-login" to="/login"><LogIn aria-hidden="true" /> Entrar</Link><button className="pcn-menu" type="button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="pcn-mobile-navigation" onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X /> : <Menu />}</button></div>
+      </div>
+      {menuOpen && <nav className="pcn-mobile-nav" id="pcn-mobile-navigation" aria-label="Navegação móvel"><Link to="/buscar" onClick={() => setMenuOpen(false)}>Pesquisar</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Categorias</Link><Link to="/favoritos" onClick={() => setMenuOpen(false)}>Favoritos</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Para lojistas</Link></nav>}
+    </header>
+    <main>
+      <section className="pcn-hero"><div className="pcn-hero__photo" aria-hidden="true" /><div className="pcn-hero__veil" aria-hidden="true" /><div className="pcn-shell pcn-hero__content"><div className="pcn-hero__copy"><h1>O mesmo produto.<br /><span>Outro preço.</span></h1><p>Compare os comércios da cidade antes de sair de casa e escolha onde sua compra realmente vale mais.</p>
+        <div className="pcn-search-shell"><form className="pcn-search" onSubmit={submitSearch} role="search"><Search aria-hidden="true" /><input id="pcn-home-search" value={query} onFocus={() => hasSearchQuery && setSearchDialogOpen(true)} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Busque produto, marca ou loja" aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />{hasSearchQuery && <button className="pcn-search__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa"><X aria-hidden="true" /></button>}<button className="pcn-search__submit" type="submit">Buscar <ArrowRight aria-hidden="true" /></button></form>
+          {searchDialogOpen && hasSearchQuery && <div className="pcn-search-dropdown" role="listbox" aria-label="Produtos encontrados"><div className="pcn-search-dropdown__head"><span>Resultados para <b>“{query.trim()}”</b></span><small>{suggestions.length} {suggestions.length === 1 ? "produto" : "produtos"}</small></div><div className="pcn-search-dropdown__list">{suggestions.length ? suggestions.map((product) => <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)} aria-label={`Abrir ${product.name}`}><span className="pcn-search-dropdown__thumb"><ProductImage product={product} /></span><span className="pcn-search-dropdown__info"><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span><strong>{money(product.minPrice)}</strong><ArrowRight aria-hidden="true" /></button>) : <p>Nenhum produto relacionado a “{query.trim()}” foi encontrado.</p>}</div></div>}
+        </div><div className="pcn-quick"><button type="button" onClick={() => searchCategory("arroz")}><Tag /> Arroz</button><button type="button" onClick={() => searchCategory("café")}><ShoppingBasket /> Café</button><button type="button" onClick={() => searchCategory("carne")}><TrendingDown /> Carnes</button></div></div>
+        {heroProduct && <aside className="pcn-receipt" aria-label="Resumo de economia do produto em destaque"><div className="pcn-receipt__top"><span>PreçoCerto · Feijó-AC</span><BadgePercent aria-hidden="true" /></div><small>Economia encontrada agora</small><strong className="pcn-receipt__saving">{money(heroSaving)}</strong><p>{heroProduct.name}</p><div className="pcn-receipt__rows"><span>Menor preço <b>{money(heroProduct.minPrice)}</b></span><span>Maior preço <b>{money(heroProduct.maxPrice)}</b></span></div><button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(heroProduct.name)}`)}>Ver comparação <ArrowRight aria-hidden="true" /></button></aside>}
+      </div></section>
+      <section className="pcn-metrics-wrap" aria-label="Resumo do catálogo"><div className="pcn-shell pcn-metrics"><div><span className="pcn-metric-icon is-blue"><Tag /></span><strong>{catalog.metrics.prices.toLocaleString("pt-BR")}</strong><small>Preços verificados</small></div><div><span className="pcn-metric-icon is-amber"><ShoppingBasket /></span><strong>{catalog.metrics.products.toLocaleString("pt-BR")}</strong><small>Produtos cadastrados</small></div><div><span className="pcn-metric-icon is-green"><BadgePercent /></span><strong>{heroSaving > 0 ? money(heroSaving) : "—"}</strong><small>Diferença encontrada agora</small></div><div><span className="pcn-metric-icon is-violet"><Store /></span><strong>{catalog.metrics.stores}</strong><small>Lojas parceiras</small></div><div><span className="pcn-metric-icon is-amber"><CheckCircle2 /></span><strong>Feijó-AC</strong><small>Nossa cidade</small></div></div></section>
+      <section className="pcn-section pcn-shell"><div className="pcn-section__head"><div><h2>O comércio de Feijó, lado a lado.</h2><p>Abra uma loja para ver catálogo, atualização e preços disponíveis.</p></div><Link to="/estabelecimentos">Ver todas as lojas <ArrowRight /></Link></div><div className="pcn-stores">{featuredStores.map((store) => <Link className="pcn-store" key={store.id} to={`/estabelecimento/${store.slug}`}><span className="pcn-store__mark" style={{ background: store.color }}>{store.name.slice(0, 1)}</span><strong>{store.name}</strong><small>{store.neighborhood || "Feijó"}</small><span>{store.products} produtos <ArrowRight /></span></Link>)}</div></section>
+      <section className="pcn-section pcn-products-section"><div className="pcn-shell"><div className="pcn-section__head"><div><h2>Onde a diferença aparece.</h2><p>Produtos reais do catálogo com variação de preço entre estabelecimentos.</p></div><Link to="/buscar">Explorar catálogo <ArrowRight /></Link></div><div className="pcn-products">{featuredProducts.map((product) => <article className="pcn-product" key={product.id}><button className="pcn-product__open" type="button" onClick={() => setSelectedProduct(product)} aria-label={`Abrir detalhes de ${product.name}`}><span className="pcn-product__image"><ProductImage product={product} /></span><span className="pcn-product__copy"><small>{product.category}</small><strong>{product.name}</strong><span>{product.size || product.brand}</span></span><span className="pcn-product__price"><small>a partir de</small><b>{money(product.minPrice)}</b>{product.maxPrice > product.minPrice && <em>até {money(product.maxPrice)}</em>}</span></button></article>)}</div></div></section>
+      <section className="pcn-section pcn-shell"><div className="pcn-section__head"><div><h2>Comece pelo que você precisa.</h2><p>Atalhos diretos para categorias frequentes.</p></div></div><div className="pcn-categories">{categoryItems.map(({ label, icon: Icon, ...item }) => "href" in item ? <Link className="pcn-category" key={label} to={item.href}><Icon /><strong>{label}</strong><ArrowRight /></Link> : <button className="pcn-category" key={label} type="button" onClick={() => searchCategory(item.query)}><Icon /><strong>{label}</strong><ArrowRight /></button>)}</div></section>
+      <section className="pcn-basket"><div className="pcn-shell pcn-basket__inner"><div><span className="pcn-eyebrow"><ShoppingBasket /> Cesta inteligente</span><h2>Uma lista. Várias lojas.<br />A melhor combinação de preços.</h2><p>Monte sua cesta e deixe o PreçoCerto indicar onde cada item custa menos.</p><Link to="/cesta-basica">Montar minha cesta <ArrowRight /></Link></div><div className="pcn-basket__visual" aria-hidden="true"><span><ShoppingBasket /></span><div><small>Economia potencial</small><strong>{heroSaving > 0 ? money(heroSaving * 2) : "Compare sua cesta"}</strong><em>comparando itens do catálogo</em></div></div></div></section>
+      <section className="pcn-merchant"><div className="pcn-shell pcn-merchant__inner"><div><span className="pcn-eyebrow"><Store /> Você tem um comércio em Feijó?</span><h2>Coloque seus preços onde o cliente já está comparando.</h2><p>Cadastre sua loja, mantenha o catálogo atualizado e transforme pesquisa em visita e venda.</p></div><Link to="/lojista">Conhecer área do lojista <ArrowRight /></Link></div></section>
+    </main>
+    <footer className="pcn-footer"><div className="pcn-shell pcn-footer__top"><div><Link className="pcn-brand pcn-brand--footer" to="/"><span className="pcn-brand__mark"><TrendingDown /></span><span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span></Link><p>Compare antes. Economize de verdade.</p></div><div><strong>Comparar</strong><Link to="/buscar">Buscar produtos</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/farmacias">Farmácias</Link></div><div><strong>PreçoCerto</strong><Link to="/sobre">Sobre</Link><Link to="/colaborar">Colaborar</Link><Link to="/fale-conosco">Fale conosco</Link></div><div><strong>Parceiros</strong><Link to="/lojista">Cadastrar comércio</Link><Link to="/painel-lojista">Painel do lojista</Link></div></div><div className="pcn-shell pcn-footer__bottom"><span>© 2026 PreçoCerto · Feijó, Acre</span><span>Feito para o comércio local.</span></div></footer>
+    {selectedProduct && createPortal(<div className="pcn-modal" role="dialog" aria-modal="true" aria-label={`Detalhes de ${selectedProduct.name}`}><button className="pcn-modal__backdrop" type="button" aria-label="Fechar detalhes" onClick={() => setSelectedProduct(null)} /><article className="pcn-modal__card"><button className="pcn-modal__close" type="button" aria-label="Fechar" onClick={() => setSelectedProduct(null)}><X /></button><div className="pcn-modal__media"><ProductImage product={selectedProduct} /></div><div className="pcn-modal__body"><small>{selectedProduct.category}</small><h2>{selectedProduct.name}</h2><p>{selectedProduct.size || selectedProduct.brand}</p><div className="pcn-modal__prices"><span><small>Menor preço</small><strong>{money(selectedProduct.minPrice)}</strong></span><span><small>Maior preço</small><strong>{money(selectedProduct.maxPrice)}</strong></span></div><button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(selectedProduct.name)}`)}>Comparar este produto <ArrowRight /></button></div></article></div>, document.body)}
+  </div>;
 }

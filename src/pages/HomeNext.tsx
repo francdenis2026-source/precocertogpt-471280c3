@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  ArrowRight, BadgePercent, CheckCircle2, Heart, LogIn, Menu, Moon, PackageSearch,
+  ArrowRight, BadgePercent, CheckCircle2, Heart, LogIn, MapPin, Menu, Moon, PackageSearch,
   Search, ShieldCheck, ShoppingBasket, Store, Sun, Tag, TrendingDown, X,
 } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
@@ -24,17 +24,17 @@ const categoryItems = [
 ] as const;
 
 function ProductImage({ product }: { product: Product }) {
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const src = resolveProductImage(product);
-  useEffect(() => setFailed(false), [src]);
-  if (!src || failed) return <PackageSearch aria-hidden="true" />;
-  return <img src={src} alt={product.name} loading="lazy" onError={() => setFailed(true)} />;
+  if (!src || failedSrc === src) return <PackageSearch aria-hidden="true" />;
+  return <img src={src} alt={product.name} width="220" height="180" loading="lazy" onError={() => setFailedSrc(src)} />;
 }
 
 export function HomeNext() {
   const navigate = useNavigate();
   const [theme, setTheme] = useState<Theme>(readTheme);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 54);
   const [query, setQuery] = useState("");
   const [catalog, setCatalog] = useState<CatalogPayload>({
     products: initialCatalog.products,
@@ -55,10 +55,16 @@ export function HomeNext() {
     return () => { active = false; };
   }, []);
 
+  useEffect(() => {
+    const updateHeader = () => setHeaderScrolled(window.scrollY > 54);
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
+
   const featuredProducts = useMemo(() => [...catalog.products]
     .filter((product) => product.minPrice > 0)
     .sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice))
-    .slice(0, 4), [catalog.products]);
+    .slice(0, 5), [catalog.products]);
 
   const featuredStores = useMemo(() => [...catalog.stores]
     .sort((a, b) => b.products - a.products)
@@ -76,17 +82,24 @@ export function HomeNext() {
 
   return (
     <div className="pcn-home">
-      <header className="pcn-header">
+      <header className={`pcn-header ${headerScrolled ? "pcn-header--scrolled" : ""}`}>
+        <div className="pcn-utility">
+          <div className="pcn-shell">
+            <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
+            <span><i aria-hidden="true" /> Catálogo local em atualização contínua</span>
+            <Link to="/colaborar">Viu um preço diferente? Colabore</Link>
+          </div>
+        </div>
         <div className="pcn-shell pcn-header__inner">
           <Link className="pcn-brand" to="/" aria-label="PreçoCerto — página inicial">
             <span className="pcn-brand__mark"><TrendingDown aria-hidden="true" /></span>
             <span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span>
           </Link>
           <nav className="pcn-nav" aria-label="Navegação principal">
-            <Link to="/buscar">Pesquisar</Link>
-            <Link to="/estabelecimentos">Estabelecimentos</Link>
-            <Link to="/farmacias">Categorias</Link>
-            <Link to="/favoritos">Favoritos</Link>
+            <Link to="/buscar">Comparar</Link>
+            <Link to="/estabelecimentos">Lojas</Link>
+            <Link to="/farmacias">Farmácias</Link>
+            <Link to="/cesta-basica">Cesta inteligente</Link>
             <Link to="/lojista">Para lojistas</Link>
           </nav>
           <div className="pcn-actions">
@@ -95,10 +108,10 @@ export function HomeNext() {
               <Sun aria-hidden="true" /><Moon aria-hidden="true" />
             </button>
             <Link className="pcn-login" to="/login"><LogIn aria-hidden="true" /> Entrar</Link>
-            <button className="pcn-menu" type="button" aria-label="Abrir menu" onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X /> : <Menu />}</button>
+            <button className="pcn-menu" type="button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="pcn-mobile-navigation" onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X /> : <Menu />}</button>
           </div>
         </div>
-        {menuOpen && <nav className="pcn-mobile-nav">
+        {menuOpen && <nav className="pcn-mobile-nav" id="pcn-mobile-navigation" aria-label="Navegação móvel">
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Pesquisar</Link>
           <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
           <Link to="/farmacias" onClick={() => setMenuOpen(false)}>Categorias</Link>
@@ -113,27 +126,26 @@ export function HomeNext() {
           <div className="pcn-hero__veil" aria-hidden="true" />
           <div className="pcn-shell pcn-hero__content">
             <div className="pcn-hero__copy">
-              <div className="pcn-eyebrow"><BadgePercent aria-hidden="true" /> Comparador local de preços em Feijó-AC</div>
-              <h1>Compare preços.<br /><span>Compre melhor.</span><br />Viva mais.</h1>
-              <p>Encontre os menores preços, descubra onde comprar e economize de verdade nos comércios de Feijó.</p>
+              <h1>O mesmo produto.<br /><span>Outro preço.</span></h1>
+              <p>Compare os comércios da cidade antes de sair de casa e escolha onde sua compra realmente vale mais.</p>
               <form className="pcn-search" onSubmit={submitSearch} role="search">
                 <Search aria-hidden="true" />
-                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar produto, marca ou estabelecimento..." aria-label="Buscar produto, marca ou estabelecimento" />
-                <button type="submit">Buscar <ArrowRight aria-hidden="true" /></button>
+                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Digite arroz, café, carne..." aria-label="Buscar produto, marca ou estabelecimento" />
+                <button type="submit">Comparar <ArrowRight aria-hidden="true" /></button>
               </form>
               <div className="pcn-quick">
-                <button type="button" onClick={() => searchCategory("ofertas")}><Tag /> Ofertas</button>
-                <button type="button" onClick={() => navigate("/buscar")}><ShoppingBasket /> Monte sua cesta</button>
-                <button type="button" onClick={() => searchCategory("carne")}><TrendingDown /> Açougues</button>
+                <button type="button" onClick={() => searchCategory("arroz")}><Tag /> Arroz</button>
+                <button type="button" onClick={() => searchCategory("café")}><ShoppingBasket /> Café</button>
+                <button type="button" onClick={() => searchCategory("carne")}><TrendingDown /> Carnes</button>
               </div>
             </div>
 
             <aside className="pcn-receipt" aria-label="Resumo de economia">
-              <div className="pcn-receipt__top"><span>RECIBO DE ECONOMIA</span><BadgePercent aria-hidden="true" /></div>
+              <div className="pcn-receipt__top"><span>Recibo de economia</span><BadgePercent aria-hidden="true" /></div>
               {heroProduct ? <>
                 <small>Sua economia pode chegar a</small>
                 <strong className="pcn-receipt__saving">{money(heroSaving)}</strong>
-                <p>comparando o mesmo produto entre lojas</p>
+                <p>ao comparar o mesmo produto entre lojas</p>
                 <div className="pcn-receipt__rows">
                   <span>Menor preço <b>{money(heroProduct.minPrice)}</b></span>
                   <span>Preço médio <b>{money(heroProduct.avgPrice)}</b></span>
@@ -145,18 +157,18 @@ export function HomeNext() {
           </div>
         </section>
 
-        <section className="pcn-metrics-wrap">
+        <section className="pcn-metrics-wrap" aria-label="Resumo do catálogo">
           <div className="pcn-shell pcn-metrics">
             <div><span className="pcn-metric-icon is-blue"><Tag /></span><strong>{catalog.metrics.prices.toLocaleString("pt-BR")}</strong><small>Preços verificados</small></div>
             <div><span className="pcn-metric-icon is-amber"><ShoppingBasket /></span><strong>{catalog.metrics.products.toLocaleString("pt-BR")}</strong><small>Produtos cadastrados</small></div>
-            <div><span className="pcn-metric-icon is-green"><BadgePercent /></span><strong>{heroSaving > 0 ? money(heroSaving) : "Economia"}</strong><small>Diferença encontrada</small></div>
+            <div><span className="pcn-metric-icon is-green"><BadgePercent /></span><strong>{heroSaving > 0 ? money(heroSaving) : "—"}</strong><small>Diferença encontrada agora</small></div>
             <div><span className="pcn-metric-icon is-violet"><Store /></span><strong>{catalog.metrics.stores}</strong><small>Lojas parceiras</small></div>
             <div><span className="pcn-metric-icon is-amber"><CheckCircle2 /></span><strong>Feijó-AC</strong><small>Nossa cidade</small></div>
           </div>
         </section>
 
         <section className="pcn-section pcn-shell">
-          <div className="pcn-section__head"><div><span>COMÉRCIO LOCAL</span><h2>Estabelecimentos em destaque</h2></div><Link to="/estabelecimentos">Ver todas as lojas <ArrowRight /></Link></div>
+          <div className="pcn-section__head"><div><h2>O comércio de Feijó, lado a lado.</h2><p>Abra uma loja para ver catálogo, atualização e preços disponíveis.</p></div><Link to="/estabelecimentos">Ver todas as lojas <ArrowRight /></Link></div>
           <div className="pcn-stores">
             {featuredStores.map((store) => <Link className="pcn-store" key={store.id} to={`/estabelecimento/${store.slug}`}>
               <span className="pcn-store__mark" style={{ background: store.color }}>{store.name.slice(0, 1)}</span>
@@ -167,7 +179,7 @@ export function HomeNext() {
         </section>
 
         <section className="pcn-section pcn-shell">
-          <div className="pcn-section__head"><div><span>EXPLORE</span><h2>Compre por categorias</h2></div><Link to="/buscar">Ver todos os produtos <ArrowRight /></Link></div>
+          <div className="pcn-section__head"><div><h2>Comece pelo que está na sua lista.</h2></div><Link to="/buscar">Ver todos os produtos <ArrowRight /></Link></div>
           <div className="pcn-categories">
             {categoryItems.map((item) => {
               const Icon = item.icon;
@@ -178,12 +190,12 @@ export function HomeNext() {
         </section>
 
         <section className="pcn-smart pcn-shell">
-          <div className="pcn-smart__copy"><span>CESTA INTELIGENTE</span><h2>Monte sua cesta e descubra onde comprar gastando menos.</h2><p>Adicione produtos, compare lojas e veja rapidamente onde sua lista pesa menos no bolso.</p><Link to="/buscar">Montar minha cesta <ArrowRight /></Link></div>
+          <div className="pcn-smart__copy"><h2>Uma lista. Várias lojas. A rota que pesa menos no bolso.</h2><p>Adicione os itens da semana e deixe o PreçoCerto organizar os melhores preços disponíveis.</p><Link to="/cesta-basica">Montar minha cesta <ArrowRight /></Link></div>
           <div className="pcn-smart__image" aria-hidden="true" />
         </section>
 
         <section className="pcn-section pcn-shell">
-          <div className="pcn-section__head"><div><span>OPORTUNIDADES</span><h2>Produtos com maior diferença de preço</h2></div><Link to="/buscar">Comparar mais <ArrowRight /></Link></div>
+          <div className="pcn-section__head"><div><h2>Diferenças que merecem comparação.</h2><p>O mesmo item pode custar bem diferente pela cidade.</p></div><Link to="/buscar">Comparar mais <ArrowRight /></Link></div>
           <div className="pcn-products">
             {featuredProducts.map((product) => <Link className="pcn-product" key={product.id} to={`/buscar?q=${encodeURIComponent(product.name)}`}>
               <span className="pcn-product__saving">Economize {money(Math.max(0, product.maxPrice - product.minPrice))}</span>
@@ -195,7 +207,7 @@ export function HomeNext() {
         </section>
 
         <section className="pcn-how pcn-shell">
-          <div className="pcn-section__head"><div><span>SIMPLES E RÁPIDO</span><h2>Como funciona?</h2></div></div>
+          <div className="pcn-section__head"><div><h2>Da busca à escolha em quatro passos.</h2></div></div>
           <div className="pcn-how__grid">
             <div><b>01</b><Search /><h3>Pesquise</h3><p>Digite o produto que você quer comprar.</p></div>
             <div><b>02</b><Store /><h3>Compare</h3><p>Veja preços em diferentes estabelecimentos.</p></div>
@@ -205,17 +217,19 @@ export function HomeNext() {
         </section>
 
         <section className="pcn-merchant pcn-shell">
-          <div><span>PARA COMERCIANTES</span><h2>Seja encontrado por quem já quer comprar.</h2><p>Apresente seu catálogo, atualize seus preços e transforme intenção em venda.</p></div>
+          <div><h2>Seu comércio no momento em que Feijó decide onde comprar.</h2><p>Publique catálogo, atualize preços e transforme intenção em visita.</p></div>
           <Link to="/lojista">Quero ser parceiro <ArrowRight /></Link>
         </section>
       </main>
 
       <footer className="pcn-footer">
-        <div className="pcn-shell pcn-footer__grid">
-          <div><Link className="pcn-brand" to="/"><span className="pcn-brand__mark"><TrendingDown /></span><span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span></Link><p>Compare preços locais e compre com mais informação.</p></div>
-          <nav><strong>PreçoCerto</strong><Link to="/buscar">Pesquisar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/favoritos">Favoritos</Link></nav>
-          <nav><strong>Ajuda</strong><Link to="/colaborar">Colaborar</Link><Link to="/fale-conosco">Fale conosco</Link><Link to="/farmacias">Farmácias</Link></nav>
-          <div><strong>Para lojistas</strong><p>Faça seu comércio aparecer para mais clientes de Feijó.</p><Link className="pcn-footer__cta" to="/lojista">Conhecer área do lojista</Link></div>
+        <div className="pcn-shell pcn-footer__top">
+          <Link className="pcn-brand" to="/"><span className="pcn-brand__mark"><TrendingDown /></span><span className="pcn-brand__word">Preço<span>Certo</span><small>Feijó-AC</small></span></Link>
+          <p>Preços locais para escolhas mais inteligentes.</p>
+          <nav aria-label="Links do rodapé"><Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/colaborar">Colaborar</Link><Link to="/fale-conosco">Contato</Link><Link to="/lojista">Sou lojista</Link></nav>
+        </div>
+        <div className="pcn-shell pcn-footer__bottom">
+          <span>© 2026 PreçoCerto</span><span>Feito em Feijó, Acre</span>
         </div>
       </footer>
     </div>

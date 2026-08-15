@@ -135,6 +135,15 @@ html:not([data-theme="dark"]) .pcx-hero__copy > p { color: #4d5c72 !important; }
 html:not([data-theme="dark"]) .pcx-hero h1 { color: #14213a !important; }
 html:not([data-theme="dark"]) .pcx-hero h1 em { color: #2d58d3 !important; }
 
+/* Remove decorative halo/ring from the main hero in dark mode only. */
+html[data-theme="dark"] .pcx-hero::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
 /* Search should be the visual anchor of the landing page. */
 html:not([data-theme="dark"]) .pcx-search {
   border-color: #cbd7e7 !important;

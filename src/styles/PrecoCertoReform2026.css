@@ -1,0 +1,276 @@
+/* PreçoCerto 2026 — sistema visual consolidado, aplicado por último. */
+:root {
+  --pc-color-primary: #0f766e;
+  --pc-color-primary-hover: #0b5f58;
+  --pc-color-primary-foreground: #ffffff;
+  --pc-color-accent: #a3e635;
+  --pc-color-accent-hover: #84cc16;
+  --pc-color-accent-foreground: #102a2e;
+  --pc-color-background: #f3f7f3;
+  --pc-color-surface: #ffffff;
+  --pc-card-bg: #ffffff;
+  --pc-dialog-bg: #ffffff;
+  --pc-color-foreground: #102a2e;
+  --pc-color-muted: #526b69;
+  --pc-color-border: #d6e2de;
+  --pc-color-success: #16875f;
+  --pc-color-positive: #16875f;
+  --pc-color-danger: #bd2f46;
+  --pc-color-focus: #f59e0b;
+  --pc-color-local: #f59e0b;
+  --pc-shadow-card: 0 12px 36px rgb(7 59 76 / 9%);
+  --pc-shadow-dialog: 0 28px 90px rgb(3 28 35 / 36%);
+  --pc-radius-control: 12px;
+  --pc-radius-card: 18px;
+  --pc-radius-panel: 24px;
+  --pc-motion-fast: 160ms cubic-bezier(.2,.8,.2,1);
+  --pc-motion-normal: 240ms cubic-bezier(.2,.8,.2,1);
+  --blue: var(--pc-color-primary);
+  --blue-hover: var(--pc-color-primary-hover);
+  --gold: var(--pc-color-local);
+  --green: var(--pc-color-success);
+  --bg: var(--pc-color-background);
+  --surface: var(--pc-color-surface);
+  --navy: var(--pc-color-foreground);
+  --muted: var(--pc-color-muted);
+  --border: var(--pc-color-border);
+}
+
+[data-theme="dark"] {
+  --pc-color-primary: #5eead4;
+  --pc-color-primary-hover: #99f6e4;
+  --pc-color-primary-foreground: #042f2e;
+  --pc-color-accent: #bef264;
+  --pc-color-accent-hover: #d9f99d;
+  --pc-color-accent-foreground: #1a2e05;
+  --pc-color-background: #06171a;
+  --pc-color-surface: #0c2428;
+  --pc-card-bg: #0c2428;
+  --pc-dialog-bg: #0c2428;
+  --pc-color-foreground: #f3f8f5;
+  --pc-color-muted: #b1c5c0;
+  --pc-color-border: #2b4a4b;
+  --pc-color-success: #6ee7b7;
+  --pc-color-positive: #6ee7b7;
+  --pc-color-danger: #fda4af;
+  --pc-color-focus: #fbbf24;
+  --pc-color-local: #fbbf24;
+  --pc-shadow-card: 0 14px 42px rgb(0 0 0 / 28%);
+  --pc-shadow-dialog: 0 30px 100px rgb(0 0 0 / 58%);
+  --bg: var(--pc-color-background);
+  --surface: var(--pc-color-surface);
+  --navy: var(--pc-color-foreground);
+  --muted: var(--pc-color-muted);
+  --border: var(--pc-color-border);
+}
+
+html { color-scheme: light; background: var(--pc-color-background); }
+html[data-theme="dark"] { color-scheme: dark; }
+body {
+  min-width: 320px;
+  color: var(--pc-color-foreground);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pc-color-background) 93%, transparent), var(--pc-color-background)),
+    url("/hero-precocerto-market-2026.webp") center top / cover fixed no-repeat;
+  font-family: "Manrope Variable", Manrope, Inter, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgb(15 118 110 / 10%), transparent 28rem),
+    radial-gradient(circle at 88% 56%, rgb(163 230 53 / 8%), transparent 30rem);
+}
+
+:where(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid var(--pc-color-focus) !important;
+  outline-offset: 3px;
+}
+
+:where(button, a, [role="button"]) { touch-action: manipulation; }
+:where(button:not(:disabled), a[href], [role="button"]:not([aria-disabled="true"])) { cursor: pointer; }
+
+/* Home: identidade única, hero compacto e leitura segura. */
+.pcn-home {
+  --pcn-bg: var(--pc-color-background);
+  --pcn-paper: var(--pc-color-surface);
+  --pcn-ink: var(--pc-color-foreground);
+  --pcn-muted: var(--pc-color-muted);
+  --pcn-line: var(--pc-color-border);
+  --pcn-blue: #0f766e;
+  --pcn-violet: #14b8a6;
+  --pcn-amber: #bef264;
+  --pcn-green: #22c55e;
+  background: color-mix(in srgb, var(--pc-color-background) 94%, transparent);
+}
+[data-theme="dark"] .pcn-home { --pcn-blue: #5eead4; --pcn-violet: #2dd4bf; --pcn-amber: #bef264; }
+.pcn-header { position: absolute; background: linear-gradient(180deg, rgb(2 29 35 / 92%), rgb(2 29 35 / 45%)); }
+.pcn-utility { min-height: 28px; background: rgb(3 47 52 / 72%); border-bottom: 1px solid rgb(255 255 255 / 9%); }
+.pcn-header__inner { min-height: 64px; }
+.pcn-brand__mark, .pcn-login, .pcn-search__submit {
+  background: linear-gradient(135deg, #0f766e, #14b8a6) !important;
+  box-shadow: 0 10px 28px rgb(15 118 110 / 28%) !important;
+}
+.pcn-brand__word > span { color: #bef264; }
+.pcn-brand__word small { color: #fbbf24; }
+.pcn-nav { gap: 18px; }
+.pcn-hero { min-height: 640px; background: #042f36; }
+.pcn-hero__photo {
+  background-image: url("/hero-precocerto-market-2026.webp") !important;
+  background-position: center center !important;
+  filter: saturate(1.04) contrast(1.04) brightness(.88) !important;
+}
+.pcn-hero__veil {
+  background:
+    linear-gradient(90deg, rgb(2 30 36 / 97%) 0%, rgb(2 39 44 / 91%) 35%, rgb(2 39 44 / 52%) 61%, rgb(2 39 44 / 12%) 100%),
+    linear-gradient(180deg, transparent 46%, rgb(2 24 29 / 78%) 100%) !important;
+}
+.pcn-hero__content { min-height: 640px; padding: 118px 0 84px; gap: 50px; }
+.pcn-hero h1 { max-width: 10ch; margin: 14px 0 14px; font-size: clamp(3.2rem, 5.5vw, 5.25rem); }
+.pcn-hero h1 span { background: linear-gradient(90deg, #bef264, #5eead4 62%, #fbbf24); -webkit-background-clip: text; background-clip: text; }
+.pcn-eyebrow { color: #ecfccb; border-color: rgb(190 242 100 / 35%); background: rgb(6 78 78 / 58%); }
+.pcn-search { min-height: 58px; margin-top: 24px; border-radius: 16px; box-shadow: 0 20px 60px rgb(0 0 0 / 26%); }
+.pcn-search input { height: 44px; }
+.pcn-search button { height: 44px; }
+.pcn-quick button { background: rgb(4 47 46 / 68%); }
+.pcn-quick button svg { color: #bef264; }
+.pcn-receipt { border-color: rgb(94 234 212 / 35%); border-top-color: #bef264; background: linear-gradient(180deg, rgb(4 47 46 / 94%), rgb(3 36 40 / 91%)); }
+.pcn-receipt__saving, .pcn-receipt__rows span:first-child b { color: #bef264; }
+.pcn-receipt button { color: #d9f99d; background: rgb(163 230 53 / 13%); }
+.pcn-metrics-wrap { margin-top: -46px; }
+.pcn-metrics { min-height: 104px; border-color: rgb(94 234 212 / 23%); background: linear-gradient(105deg, #073b4c, #0b5658 54%, #164e3f); }
+.pcn-metrics > div { min-height: 68px; padding: 14px 18px; }
+.pcn-section { padding-top: 50px; }
+.pcn-store, .pcn-category, .pcn-product { box-shadow: var(--pc-shadow-card); }
+.pcn-store:hover, .pcn-category:hover, .pcn-product:hover { border-color: color-mix(in srgb, var(--pc-color-primary) 45%, var(--pc-color-border)); }
+.pcn-category { background: linear-gradient(145deg, var(--pc-color-surface), color-mix(in srgb, var(--pc-color-surface) 88%, var(--pc-color-primary) 12%)); }
+.pcn-basket, .pcn-merchant { background: linear-gradient(120deg, #073b4c, #0f766e 58%, #315f37) !important; border-color: rgb(190 242 100 / 26%) !important; }
+.pcn-basket a, .pcn-merchant a { background: #bef264 !important; color: #1a2e05 !important; }
+.pcn-footer { padding: 34px 0 22px; background: #031f25; }
+.pcn-footer__top { gap: 28px; }
+
+/* Comparador: mesma linguagem visual e modal de produto. */
+.scpm-page { min-height: 100dvh; color: var(--pc-color-foreground); background: color-mix(in srgb, var(--pc-color-background) 94%, transparent); }
+.scpm-header { min-height: 62px; background: color-mix(in srgb, var(--pc-color-surface) 94%, transparent); border-bottom-color: var(--pc-color-border); backdrop-filter: blur(18px); }
+.scpm-brand > span > span { color: var(--pc-color-primary); }
+.scpm-header__tools { display: flex; align-items: center; gap: 8px; }
+.scpm-theme {
+  width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--pc-color-border); border-radius: 12px;
+  color: var(--pc-color-foreground); background: var(--pc-color-surface);
+}
+.scpm-theme svg { width: 18px; }
+.scpm-hero { min-height: 330px; background: #073b4c; }
+.scpm-hero__photo { background-image: url("/hero-precocerto-market-2026.webp") !important; background-position: center 48% !important; }
+.scpm-hero__veil { background: linear-gradient(90deg, rgb(3 37 43 / 96%), rgb(7 59 76 / 77%) 52%, rgb(7 59 76 / 24%)) !important; }
+.scpm-card { border-color: var(--pc-color-border); background: var(--pc-color-surface); box-shadow: var(--pc-shadow-card); }
+.scpm-card__link { width: 100%; padding: 0; border: 0; color: inherit; background: transparent; text-align: left; font: inherit; }
+.scpm-card__action, .scpm-price-row strong, .scpm-card__prices strong { color: var(--pc-color-primary); }
+.scpm-insight { border-color: color-mix(in srgb, var(--pc-color-primary) 40%, var(--pc-color-border)); background: var(--pc-color-surface); }
+
+.scpm-modal, .pcn-modal {
+  position: fixed; inset: 0; z-index: 1200; display: grid; place-items: center; padding: 20px;
+}
+.scpm-modal__backdrop, .pcn-modal__backdrop { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: rgb(1 17 20 / 68%); backdrop-filter: blur(8px); }
+.scpm-modal__card {
+  position: relative; z-index: 1; width: min(880px, 100%); max-height: min(720px, calc(100dvh - 32px)); overflow: auto;
+  display: grid; grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); border: 1px solid var(--pc-color-border);
+  border-radius: 24px; background: var(--pc-dialog-bg); box-shadow: var(--pc-shadow-dialog);
+}
+.scpm-modal__close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--pc-color-border); border-radius: 50%; color: var(--pc-color-foreground); background: var(--pc-color-surface); }
+.scpm-modal__media { min-height: 390px; display: grid; place-items: center; padding: 36px; background: linear-gradient(145deg, color-mix(in srgb, var(--pc-color-primary) 9%, var(--pc-color-surface)), var(--pc-color-surface)); }
+.scpm-modal__media .scpm-thumb { width: 100%; height: 100%; max-height: 330px; border: 0; background: transparent; }
+.scpm-modal__media img { width: 100%; height: 100%; object-fit: contain; }
+.scpm-modal__body { padding: 44px 38px 34px; }
+.scpm-modal__body > small { color: var(--pc-color-primary); font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.scpm-modal__body h2 { margin: 8px 0; font-family: "Outfit Variable", Outfit, sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.02; }
+.scpm-modal__body > p { color: var(--pc-color-muted); }
+.scpm-modal__prices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 24px 0; }
+.scpm-modal__prices span { padding: 14px; border: 1px solid var(--pc-color-border); border-radius: 14px; background: color-mix(in srgb, var(--pc-color-surface) 92%, var(--pc-color-primary) 8%); }
+.scpm-modal__prices small, .scpm-modal__prices strong { display: block; }
+.scpm-modal__prices small { color: var(--pc-color-muted); font-size: .72rem; }
+.scpm-modal__prices strong { margin-top: 4px; font-size: 1.35rem; }
+.scpm-modal__offers { display: grid; gap: 8px; margin: 20px 0; }
+.scpm-modal__offer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 46px; padding: 8px 12px; border-radius: 12px; background: color-mix(in srgb, var(--pc-color-surface) 90%, var(--pc-color-primary) 10%); }
+.scpm-modal__offer span { display: grid; }
+.scpm-modal__offer small { color: var(--pc-color-muted); }
+.scpm-modal__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.scpm-modal__actions a { min-height: 46px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border-radius: 12px; font-weight: 800; }
+.scpm-modal__primary { color: var(--pc-color-primary-foreground); background: var(--pc-color-primary); }
+.scpm-modal__secondary { color: var(--pc-color-foreground); border: 1px solid var(--pc-color-border); background: var(--pc-color-surface); }
+
+/* Páginas herdadas, autenticação e painéis: superfície e densidade consistentes. */
+.site-header, .admin-main > header { backdrop-filter: blur(18px); }
+.site-footer { padding-top: 38px !important; background: #031f25 !important; }
+.footer-bottom { padding-block: 16px !important; }
+.generic-main, .store-page, .est-page, .sf-page { background: color-mix(in srgb, var(--pc-color-background) 95%, transparent) !important; }
+.generic-hero, .store-detail-hero { min-height: 260px; background: linear-gradient(120deg, #073b4c, #0f766e) !important; }
+.auth-page { background: var(--pc-color-background) !important; }
+.auth-brand-panel {
+  background:
+    linear-gradient(120deg, rgb(3 38 44 / 94%), rgb(7 59 76 / 66%)),
+    url("/hero-precocerto-market-2026.webp") center / cover no-repeat !important;
+}
+.auth-form-wrap { background: color-mix(in srgb, var(--pc-color-background) 96%, transparent) !important; }
+.auth-form { border-color: var(--pc-color-border) !important; background: var(--pc-dialog-bg) !important; color: var(--pc-color-foreground) !important; }
+.auth-form h2 { color: var(--pc-color-foreground) !important; }
+.auth-form > p, .auth-form label small { color: var(--pc-color-muted) !important; }
+.auth-form label { color: var(--pc-color-foreground) !important; }
+.auth-form input { border-color: var(--pc-color-border) !important; background: var(--pc-color-surface) !important; color: var(--pc-color-foreground) !important; }
+.auth-form input::placeholder { color: color-mix(in srgb, var(--pc-color-muted) 84%, transparent) !important; }
+.auth-form .button--primary:not(:disabled) { background: var(--pc-color-primary) !important; color: var(--pc-color-primary-foreground) !important; }
+
+.pc-global-signature {
+  min-height: 38px; display: flex; align-items: center; justify-content: center; gap: 18px; padding: 8px 20px;
+  color: #b9cfca; background: #02171b; border-top: 1px solid rgb(255 255 255 / 8%); font-size: .72rem;
+}
+.pc-global-signature > span, .pc-global-signature button { display: inline-flex; align-items: center; gap: 6px; }
+.pc-global-signature svg { width: 14px; height: 14px; }
+.pc-global-signature button { min-height: 30px; padding: 0 9px; border: 1px solid rgb(190 242 100 / 20%); border-radius: 9px; color: #e7f9f1; background: rgb(255 255 255 / 4%); font: inherit; }
+.pc-global-signature strong { color: #bef264; }
+
+.pc-route-loading {
+  min-height: 68dvh; display: grid; place-content: center; justify-items: center; gap: 14px;
+  color: var(--pc-color-foreground); background: color-mix(in srgb, var(--pc-color-background) 94%, transparent);
+}
+.pc-route-loading > span { width: 38px; height: 38px; border: 3px solid var(--pc-color-border); border-top-color: var(--pc-color-primary); border-radius: 50%; animation: pc-route-spin .75s linear infinite; }
+.pc-route-loading strong { font-size: .84rem; }
+@keyframes pc-route-spin { to { transform: rotate(1turn); } }
+
+@media (max-width: 780px) {
+  body { background-attachment: scroll; }
+  .pcn-utility { display: none; }
+  .pcn-header__inner { min-height: 62px; }
+  .pcn-hero__photo { background-position: 62% center !important; }
+  .pcn-hero__veil { background: linear-gradient(180deg, rgb(2 30 36 / 96%), rgb(2 39 44 / 79%) 60%, rgb(2 24 29 / 91%)) !important; }
+  .pcn-hero__content { padding: 96px 0 88px; }
+  .pcn-hero h1 { font-size: clamp(2.75rem, 13vw, 4.2rem); }
+  .pcn-receipt { display: none; }
+  .pcn-metrics-wrap { margin-top: -32px; }
+  .pcn-section { padding-top: 38px; }
+  .pcn-footer { padding-top: 28px; }
+  .scpm-header nav { display: none; }
+  .scpm-header__action { display: none !important; }
+  .scpm-hero { min-height: 300px; }
+  .scpm-hero__photo { background-position: 62% center !important; }
+  .scpm-modal { align-items: end; padding: 0; }
+  .scpm-modal__card { width: 100%; max-height: 91dvh; grid-template-columns: 1fr; border-radius: 24px 24px 0 0; }
+  .scpm-modal__media { min-height: 220px; max-height: 260px; padding: 26px; }
+  .scpm-modal__body { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .pc-global-signature { flex-direction: column; gap: 2px; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 480px) {
+  .pcn-search { grid-template-columns: auto 1fr; padding: 5px 10px; }
+  .pcn-search__submit { grid-column: 1 / -1; width: 100%; justify-content: center; }
+  .pcn-search__clear { position: absolute; right: 12px; top: 8px; }
+  .scpm-modal__prices { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

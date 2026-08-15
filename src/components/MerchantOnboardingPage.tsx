@@ -19,24 +19,28 @@ export function MerchantOnboardingPage() {
 
   async function submitLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError("");
+    const client = supabase;
+    if (!client) { setError("O serviço de acesso está temporariamente indisponível. Tente novamente em instantes."); setBusy(false); return; }
     const data = new FormData(event.currentTarget);
-    const { error: authError } = await supabase.auth.signInWithPassword({ email: String(data.get("email")), password: String(data.get("password")) });
+    const { error: authError } = await client.auth.signInWithPassword({ email: String(data.get("email")), password: String(data.get("password")) });
     if (authError) { setError("Não foi possível entrar. Confira o e-mail e a senha."); setBusy(false); return; }
     const destination = await resolveAuthenticatedHome("/painel-lojista");
-    if (!destination.startsWith("/painel-lojista")) { await supabase.auth.signOut(); setError("Esta conta ainda não está vinculada a um negócio ativo. Solicite o cadastro ao lado."); setBusy(false); return; }
+    if (!destination.startsWith("/painel-lojista")) { await client.auth.signOut(); setError("Esta conta ainda não está vinculada a um negócio ativo. Solicite o cadastro ao lado."); setBusy(false); return; }
     location.assign(destination);
   }
 
   async function submitRegistration(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError(""); setMessage("");
+    const client = supabase;
+    if (!client) { setError("O serviço de cadastro está temporariamente indisponível. Tente novamente em instantes."); setBusy(false); return; }
     const data = new FormData(event.currentTarget);
     const email = String(data.get("email")).trim();
     const password = String(data.get("password"));
     const businessName = String(data.get("business_name")).trim();
-    const { data: auth, error: authError } = await supabase.auth.signUp({ email, password, options: { data: { full_name: String(data.get("owner_name")).trim(), account_type: "merchant" } } });
+    const { data: auth, error: authError } = await client.auth.signUp({ email, password, options: { data: { full_name: String(data.get("owner_name")).trim(), account_type: "merchant" } } });
     if (authError) { setError(authError.message.includes("already") ? "Este e-mail já possui acesso. Use a opção Entrar." : "Não foi possível criar o acesso. Revise os dados e tente novamente."); setBusy(false); return; }
     if (auth.session) {
-      const { error: applicationError } = await supabase.from("merchant_applications").insert({ applicant_user_id: auth.user!.id, business_name: businessName, neighborhood: String(data.get("neighborhood")).trim(), kind: String(data.get("kind")), owner_name: String(data.get("owner_name")).trim(), phone: String(data.get("phone")).trim() || null, email, desired_plan: "professional", establishment_id: null, status: "pending" });
+      const { error: applicationError } = await client.from("merchant_applications").insert({ applicant_user_id: auth.user!.id, business_name: businessName, neighborhood: String(data.get("neighborhood")).trim(), kind: String(data.get("kind")), owner_name: String(data.get("owner_name")).trim(), phone: String(data.get("phone")).trim() || null, email, desired_plan: "professional", establishment_id: null, status: "pending" });
       if (applicationError) { setError("O acesso foi criado, mas não conseguimos enviar o negócio. Entre e tente novamente."); setBusy(false); return; }
     }
     setMessage(auth.session ? "Solicitação enviada. Avisaremos quando o painel estiver liberado." : "Acesso criado. Confirme o e-mail para concluir a solicitação do negócio.");

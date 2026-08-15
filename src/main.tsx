@@ -7,6 +7,7 @@ import "./index.css";
 import "./styles/GlobalTokenBridge.css";
 import "./styles/GlobalScrollbarRefinement.css";
 import "./styles/AuthCompactProfessional.css";
+import "./styles/PrecoCertoReform2026.css";
 import App from "./App";
 import { startPaymentNotifications } from "./lib/paymentNotifications";
 

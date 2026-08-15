@@ -4576,23 +4576,6 @@ function AuthPage({ path, onAdminAuth, onLogin }: { path: string; onAdminAuth: (
     if (isAdminLogin && !showForgot) {
       setError("");
       
-      const adminEmail = "francdenisbr@gmail.com";
-      const adminPass = "125758";
-
-      // MODO DE EMERGÊNCIA: Bypass para o administrador principal.
-      if (user.trim() === adminEmail && pass === adminPass) {
-        onAdminAuth(true);
-        setAttempts(0);
-        localStorage.removeItem("precocerto:admin_blocked_until");
-        addAuditLog("Login administrativo autorizado via bypass de emergência", "warning", user);
-        
-        // Simular autenticação no Supabase se possível, senão apenas redirecionar
-        await signIn(adminEmail, adminPass);
-        
-        window.location.assign("/admin");
-        return;
-      }
-
       const { error: authError } = await signIn(user.trim(), pass);
 
       if (!authError) {
@@ -4764,8 +4747,8 @@ function AuthPage({ path, onAdminAuth, onLogin }: { path: string; onAdminAuth: (
             )
           ) : (
             <>
-              <label>E-mail Administrador<input required type="email" value={user} onChange={e=>setUser(e.target.value)} placeholder="francdenisbr@gmail.com"/></label>
-              <label>Senha Secreta<input required value={pass} onChange={e=>setPass(e.target.value)} type="password" placeholder="franc2015"/></label>
+              <label>E-mail do administrador<input required type="email" value={user} onChange={e=>setUser(e.target.value)} placeholder="seu@email.com" autoComplete="username"/></label>
+              <label>Senha<input required value={pass} onChange={e=>setPass(e.target.value)} type="password" autoComplete="current-password"/></label>
             </>
           )
         ) : merchantLogin ? (

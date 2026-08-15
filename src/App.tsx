@@ -1,40 +1,49 @@
 import "./performance/disableClientImageProcessing";
 import "./performance/tolerantDomMutations";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PrecoCertoApp from "./PrecoCertoApp";
 import { PublicOnlineSalesAvailability } from "./components/PublicOnlineSalesAvailability";
-import { SmartCompareSearchProMax } from "./components/SmartCompareSearchProMax";
 import { DeveloperMarketplaceAbout } from "./components/DeveloperMarketplaceAbout";
 import { ScrollPerformanceGuard } from "./components/ScrollPerformanceGuard";
-import { EstablishmentsMarketplacePage } from "./components/EstablishmentsMarketplacePage";
 import { EstablishmentsNavBridge } from "./components/EstablishmentsNavBridge";
-import { PublicEstablishmentCatalog } from "./components/PublicEstablishmentCatalog";
-import { DorinhaAuthorStoreProMax } from "./components/DorinhaAuthorStoreProMax";
-import { FremixProductionsPage } from "./components/FremixProductionsPage";
 import { FremixDirectoryBridge } from "./components/FremixDirectoryBridge";
 import { FremixCuratedVideos } from "./components/FremixCuratedVideos";
 import { BasketSessionFlow } from "./components/BasketSessionFlow";
 import { AuthorMerchantDashboardWelcome } from "./components/AuthorMerchantDashboardWelcome";
-import { AuthorCatalogEditor } from "./components/AuthorCatalogEditor";
-import { MerchantDashboard } from "./components/MerchantDashboard";
-import { MerchantBusinessSetup } from "./components/MerchantBusinessSetup";
 import { MerchantBusinessSetupShortcut } from "./components/MerchantBusinessSetupShortcut";
 import { MerchantDemoSwitcher } from "./components/MerchantDemoSwitcher";
-import { MerchantCatalogStudio } from "./components/MerchantCatalogStudio";
-import { MerchantManagementCenter } from "./components/MerchantManagementCenter";
-import { MerchantOnlineSalesControl } from "./components/MerchantOnlineSalesControl";
-import { MerchantOnlineStoreRoute } from "./components/MerchantOnlineStoreRoute";
-import { MerchantOnboardingPage } from "./components/MerchantOnboardingPage";
-import { PlatformAdminDashboard } from "./components/PlatformAdminDashboard";
-import { AdminMerchantManagement } from "./components/AdminMerchantManagement";
-import { CustomerOrders } from "./components/CustomerOrders";
-import { MercadoPagoCallback } from "./components/MercadoPagoCallback";
-import { CollaboratePage, ContactPage, PharmaciesPage } from "./components/PublicFooterServicePages";
-import { HomeNext } from "./pages/HomeNext";
 import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
-import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
+import { GlobalDeveloperSignature } from "./components/GlobalDeveloperSignature";
+
+const PrecoCertoApp = lazy(() => import("./PrecoCertoApp"));
+const HomeNext = lazy(() => import("./pages/HomeNext").then(module => ({ default: module.HomeNext })));
+const SmartCompareSearchProMax = lazy(() => import("./components/SmartCompareSearchProMax").then(module => ({ default: module.SmartCompareSearchProMax })));
+const SavedFavoritesPage = lazy(() => import("./features/favorites/SavedFavoritesPage").then(module => ({ default: module.SavedFavoritesPage })));
+const EstablishmentsMarketplacePage = lazy(() => import("./components/EstablishmentsMarketplacePage").then(module => ({ default: module.EstablishmentsMarketplacePage })));
+const PublicEstablishmentCatalog = lazy(() => import("./components/PublicEstablishmentCatalog").then(module => ({ default: module.PublicEstablishmentCatalog })));
+const DorinhaAuthorStoreProMax = lazy(() => import("./components/DorinhaAuthorStoreProMax").then(module => ({ default: module.DorinhaAuthorStoreProMax })));
+const FremixProductionsPage = lazy(() => import("./components/FremixProductionsPage").then(module => ({ default: module.FremixProductionsPage })));
+const MerchantOnboardingPage = lazy(() => import("./components/MerchantOnboardingPage").then(module => ({ default: module.MerchantOnboardingPage })));
+const MerchantOnlineStoreRoute = lazy(() => import("./components/MerchantOnlineStoreRoute").then(module => ({ default: module.MerchantOnlineStoreRoute })));
+const MerchantDashboard = lazy(() => import("./components/MerchantDashboard").then(module => ({ default: module.MerchantDashboard })));
+const AuthorCatalogEditor = lazy(() => import("./components/AuthorCatalogEditor").then(module => ({ default: module.AuthorCatalogEditor })));
+const MerchantManagementCenter = lazy(() => import("./components/MerchantManagementCenter").then(module => ({ default: module.MerchantManagementCenter })));
+const MerchantCatalogStudio = lazy(() => import("./components/MerchantCatalogStudio").then(module => ({ default: module.MerchantCatalogStudio })));
+const MerchantBusinessSetup = lazy(() => import("./components/MerchantBusinessSetup").then(module => ({ default: module.MerchantBusinessSetup })));
+const MerchantOnlineSalesControl = lazy(() => import("./components/MerchantOnlineSalesControl").then(module => ({ default: module.MerchantOnlineSalesControl })));
+const CustomerOrders = lazy(() => import("./components/CustomerOrders").then(module => ({ default: module.CustomerOrders })));
+const MercadoPagoCallback = lazy(() => import("./components/MercadoPagoCallback").then(module => ({ default: module.MercadoPagoCallback })));
+const PlatformAdminDashboard = lazy(() => import("./components/PlatformAdminDashboard").then(module => ({ default: module.PlatformAdminDashboard })));
+const AdminMerchantManagement = lazy(() => import("./components/AdminMerchantManagement").then(module => ({ default: module.AdminMerchantManagement })));
+const CollaboratePage = lazy(() => import("./components/PublicFooterServicePages").then(module => ({ default: module.CollaboratePage })));
+const ContactPage = lazy(() => import("./components/PublicFooterServicePages").then(module => ({ default: module.ContactPage })));
+const PharmaciesPage = lazy(() => import("./components/PublicFooterServicePages").then(module => ({ default: module.PharmaciesPage })));
+
+function RouteLoading() {
+  return <main className="pc-route-loading" aria-live="polite"><span aria-hidden="true" /><strong>Preparando o PreçoCerto…</strong></main>;
+}
 
 export default function App() {
   return (
@@ -52,7 +61,7 @@ export default function App() {
         <BasketSessionFlow />
         <AuthorMerchantDashboardWelcome />
         <RouteHead />
-        <Routes>
+        <Suspense fallback={<RouteLoading />}><Routes>
           <Route path="/" element={<HomeNext />} />
           <Route path="/buscar" element={<SmartCompareSearchProMax />} />
           <Route path="/favoritos" element={<SavedFavoritesPage />} />
@@ -80,7 +89,8 @@ export default function App() {
           <Route path="/fale-conosco" element={<ContactPage />} />
           <Route path="/farmacias" element={<PharmaciesPage />} />
           <Route path="*" element={<PrecoCertoApp />} />
-        </Routes>
+        </Routes></Suspense>
+        <GlobalDeveloperSignature />
       </FavoritesProvider>
     </BrowserRouter>
   );

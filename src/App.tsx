@@ -24,8 +24,6 @@ import { PlansMerchantConversionSafePolish } from "./components/PlansMerchantCon
 import { InternalDashboardsSafePolish } from "./components/InternalDashboardsSafePolish";
 import { InternalDashboardsDeepUiUx } from "./components/InternalDashboardsDeepUiUx";
 import { PublicPagesUiUxAudit } from "./components/PublicPagesUiUxAudit";
-import { VisualRegressionGuard } from "./components/VisualRegressionGuard";
-import { GlobalPremiumExperience } from "./components/GlobalPremiumExperience";
 import { DeveloperMarketplaceAbout } from "./components/DeveloperMarketplaceAbout";
 import { CorePublicPagesUiUx } from "./components/CorePublicPagesUiUx";
 import { ScrollPerformanceGuard } from "./components/ScrollPerformanceGuard";
@@ -65,8 +63,6 @@ export default function App() {
     <BrowserRouter>
       <FavoritesProvider>
         <CommerceIntentBridge />
-        <VisualRegressionGuard />
-        <GlobalPremiumExperience />
         <DeveloperMarketplaceAbout />
         <HomepageSearchKeyboardProMax />
         <HomepageAuditFixes />

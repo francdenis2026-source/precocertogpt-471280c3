@@ -49,6 +49,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <FavoritesProvider>
+        <a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
         <CommerceIntentBridge />
         <DeveloperMarketplaceAbout />
         <ScrollPerformanceGuard />
@@ -61,7 +62,7 @@ export default function App() {
         <BasketSessionFlow />
         <AuthorMerchantDashboardWelcome />
         <RouteHead />
-        <Suspense fallback={<RouteLoading />}><Routes>
+        <div id="conteudo-principal" tabIndex={-1}><Suspense fallback={<RouteLoading />}><Routes>
           <Route path="/" element={<HomeNext />} />
           <Route path="/buscar" element={<SmartCompareSearchProMax />} />
           <Route path="/favoritos" element={<SavedFavoritesPage />} />
@@ -89,7 +90,7 @@ export default function App() {
           <Route path="/fale-conosco" element={<ContactPage />} />
           <Route path="/farmacias" element={<PharmaciesPage />} />
           <Route path="*" element={<PrecoCertoApp />} />
-        </Routes></Suspense>
+        </Routes></Suspense></div>
         <GlobalDeveloperSignature />
       </FavoritesProvider>
     </BrowserRouter>

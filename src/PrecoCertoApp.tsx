@@ -4730,7 +4730,7 @@ function AuthPage({ path, onAdminAuth, onLogin }: { path: string; onAdminAuth: (
           showForgot ? (
             recoveryStep === 1 ? (
               <>
-                <label>E-mail do Administrador<input required type="email" value={recoveryUser} onChange={e=>setRecoveryUser(e.target.value)} placeholder="francdenisbr@gmail.com"/></label>
+                <label>E-mail do Administrador<input required type="email" value={recoveryUser} onChange={e=>setRecoveryUser(e.target.value)} placeholder="admin@empresa.com"/></label>
                 <div style={{ fontSize: '0.75rem', color: 'var(--pc-color-muted)', marginTop: '0.5rem', background: 'var(--pc-card-bg)', padding: '0.5rem', borderRadius: '0.25rem' }}>
                   <ShieldCheck size={12} style={{ verticalAlign: 'middle', marginRight: '4px' }}/>
                   Enviaremos um link seguro de redefinição para este e-mail.

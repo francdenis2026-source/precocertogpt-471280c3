@@ -1,4 +1,5 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight, BadgePercent, CheckCircle2, Heart, LogIn, MapPin, Menu, Moon, PackageSearch,
@@ -36,6 +37,9 @@ export function HomeNext() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 54);
   const [query, setQuery] = useState("");
+  const [searchDialogOpen, setSearchDialogOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const searchDialogInput = useRef<HTMLInputElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload>({
     products: initialCatalog.products,
     stores: initialCatalog.stores,
@@ -56,6 +60,14 @@ export function HomeNext() {
   }, []);
 
   useEffect(() => {
+    if (!searchDialogOpen) return;
+    const timer = window.setTimeout(() => searchDialogInput.current?.focus(), 0);
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchDialogOpen(false); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => { window.clearTimeout(timer); window.removeEventListener("keydown", onKeyDown); };
+  }, [searchDialogOpen]);
+
+  useEffect(() => {
     const updateHeader = () => setHeaderScrolled(window.scrollY > 54);
     window.addEventListener("scroll", updateHeader, { passive: true });
     return () => window.removeEventListener("scroll", updateHeader);
@@ -72,6 +84,11 @@ export function HomeNext() {
 
   const heroProduct = featuredProducts[0] ?? catalog.products[0];
   const heroSaving = heroProduct ? Math.max(0, heroProduct.maxPrice - heroProduct.minPrice) : 0;
+  const suggestions = useMemo(() => {
+    const term = query.trim().toLocaleLowerCase("pt-BR");
+    if (!term) return featuredProducts.slice(0, 5);
+    return catalog.products.filter((product) => `${product.name} ${product.brand || ""} ${product.establishment || ""}`.toLocaleLowerCase("pt-BR").includes(term)).slice(0, 6);
+  }, [catalog.products, featuredProducts, query]);
 
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,6 +96,8 @@ export function HomeNext() {
   };
 
   const searchCategory = (term: string) => navigate(`/buscar?q=${encodeURIComponent(term)}`);
+  const openSearch = () => setSearchDialogOpen(true);
+  const chooseSuggestion = (product: Product) => { setSearchDialogOpen(false); navigate(`/buscar?q=${encodeURIComponent(product.name)}`); };
 
   return (
     <div className="pcn-home">
@@ -130,7 +149,7 @@ export function HomeNext() {
               <p>Compare os comércios da cidade antes de sair de casa e escolha onde sua compra realmente vale mais.</p>
               <form className="pcn-search" onSubmit={submitSearch} role="search">
                 <Search aria-hidden="true" />
-                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Digite arroz, café, carne..." aria-label="Buscar produto, marca ou estabelecimento" />
+                <input id="pcn-home-search" value={query} onFocus={openSearch} onChange={(event) => { setQuery(event.target.value); openSearch(); }} placeholder="Digite arroz, café, carne..." aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />
                 <button type="submit">Comparar <ArrowRight aria-hidden="true" /></button>
               </form>
               <div className="pcn-quick">
@@ -140,20 +159,6 @@ export function HomeNext() {
               </div>
             </div>
 
-            <aside className="pcn-receipt" aria-label="Resumo de economia">
-              <div className="pcn-receipt__top"><span>Recibo de economia</span><BadgePercent aria-hidden="true" /></div>
-              {heroProduct ? <>
-                <small>Sua economia pode chegar a</small>
-                <strong className="pcn-receipt__saving">{money(heroSaving)}</strong>
-                <p>ao comparar o mesmo produto entre lojas</p>
-                <div className="pcn-receipt__rows">
-                  <span>Menor preço <b>{money(heroProduct.minPrice)}</b></span>
-                  <span>Preço médio <b>{money(heroProduct.avgPrice)}</b></span>
-                  <span>Maior preço <b>{money(heroProduct.maxPrice)}</b></span>
-                </div>
-                <button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(heroProduct.name)}`)}>Ver onde comprar <ArrowRight /></button>
-              </> : <p>Carregando oportunidades locais…</p>}
-            </aside>
           </div>
         </section>
 
@@ -166,6 +171,8 @@ export function HomeNext() {
             <div><span className="pcn-metric-icon is-amber"><CheckCircle2 /></span><strong>Feijó-AC</strong><small>Nossa cidade</small></div>
           </div>
         </section>
+
+        {heroProduct && <section className="pcn-shell pcn-economy-proof" aria-label="Resumo de economia"><div><span><BadgePercent aria-hidden="true" /> Economia encontrada</span><strong>{money(heroSaving)}</strong><small>diferença atual em {heroProduct.name}</small></div><p>Menor preço <b>{money(heroProduct.minPrice)}</b><i aria-hidden="true" /> Maior preço <b>{money(heroProduct.maxPrice)}</b></p><button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(heroProduct.name)}`)}>Ver comparação <ArrowRight /></button></section>}
 
         <section className="pcn-section pcn-shell">
           <div className="pcn-section__head"><div><h2>O comércio de Feijó, lado a lado.</h2><p>Abra uma loja para ver catálogo, atualização e preços disponíveis.</p></div><Link to="/estabelecimentos">Ver todas as lojas <ArrowRight /></Link></div>
@@ -197,12 +204,14 @@ export function HomeNext() {
         <section className="pcn-section pcn-shell">
           <div className="pcn-section__head"><div><h2>Diferenças que merecem comparação.</h2><p>O mesmo item pode custar bem diferente pela cidade.</p></div><Link to="/buscar">Comparar mais <ArrowRight /></Link></div>
           <div className="pcn-products">
-            {featuredProducts.map((product) => <Link className="pcn-product" key={product.id} to={`/buscar?q=${encodeURIComponent(product.name)}`}>
+            {featuredProducts.map((product) => <article className="pcn-product" key={product.id}>
+              <button className="pcn-product__open" type="button" onClick={() => setSelectedProduct(product)} aria-label={`Ver detalhes de ${product.name}`}>
               <span className="pcn-product__saving">Economize {money(Math.max(0, product.maxPrice - product.minPrice))}</span>
               <span className="pcn-product__media"><ProductImage product={product} /></span>
               <small>{product.brand || "Produto local"}</small><strong>{product.name}</strong>
               <div><span><small>a partir de</small><b>{money(product.minPrice)}</b></span><ArrowRight /></div>
-            </Link>)}
+              </button>
+            </article>)}
           </div>
         </section>
 
@@ -232,6 +241,8 @@ export function HomeNext() {
           <span>© 2026 PreçoCerto <i aria-hidden="true">·</i> Desenvolvido por Franc Denis</span><span>Feito em Feijó, Acre</span>
         </div>
       </footer>
+      {searchDialogOpen && typeof document !== "undefined" && createPortal(<div className="pcn-search-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSearchDialogOpen(false); }}><section className="pcn-search-dialog__panel" role="dialog" aria-modal="true" aria-label="Pesquisar produtos"><header><span>Pesquisar no PreçoCerto</span><button type="button" onClick={() => setSearchDialogOpen(false)} aria-label="Fechar pesquisa"><X /></button></header><form onSubmit={(event) => { submitSearch(event); setSearchDialogOpen(false); }}><Search aria-hidden="true" /><input ref={searchDialogInput} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Digite um produto, marca ou loja" aria-label="Pesquisar produtos" /><button type="submit">Comparar <ArrowRight /></button></form><div className="pcn-search-dialog__results" role="listbox">{suggestions.length ? suggestions.map((product) => <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)}><span className="pcn-search-dialog__thumb"><ProductImage product={product} /></span><span><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span><strong>{money(product.minPrice)}</strong><ArrowRight /></button>) : <p>Nenhum produto encontrado. Tente outro termo.</p>}</div><footer><span>Pressione Esc para fechar</span><Link to={`/buscar${query.trim() ? `?q=${encodeURIComponent(query.trim())}` : ""}`} onClick={() => setSearchDialogOpen(false)}>Abrir comparador completo <ArrowRight /></Link></footer></section></div>, document.body)}
+      {selectedProduct && typeof document !== "undefined" && createPortal(<div className="pcn-product-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><section role="dialog" aria-modal="true" aria-labelledby="pcn-product-dialog-title"><button className="pcn-product-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X /></button><span className="pcn-product-dialog__image"><ProductImage product={selectedProduct} /></span><div><small>{selectedProduct.brand || "Produto local"}</small><h2 id="pcn-product-dialog-title">{selectedProduct.name}</h2><p><Store /> {selectedProduct.establishment || "Comércio local"}</p><div className="pcn-product-dialog__price"><span>a partir de</span><strong>{money(selectedProduct.minPrice)}</strong><small>até {money(selectedProduct.maxPrice)}</small></div><button type="button" onClick={() => { setSelectedProduct(null); navigate(`/buscar?q=${encodeURIComponent(selectedProduct.name)}`); }}>Comparar em todas as lojas <ArrowRight /></button></div></section></div>, document.body)}
     </div>
   );
 }

@@ -161,6 +161,31 @@ main :where(p,li) > a:not([class]) {
 }
 html[data-theme="dark"] main :where(p,li) > a:not([class]) { color: #9ab0ff; }
 
+/* Keep the main hero and its portrait completely static on pointer hover. */
+.pcx-hero,
+.pcx-hero:hover,
+.pcx-hero__grid,
+.pcx-hero__grid:hover,
+.pcx-hero__visual,
+.pcx-hero__visual:hover,
+.pcx-hero__portrait,
+.pcx-hero__portrait:hover,
+.pcx-hero__portrait img,
+.pcx-hero__portrait:hover img {
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  rotate: 0deg !important;
+}
+
+.pcx-hero,
+.pcx-hero__grid,
+.pcx-hero__visual,
+.pcx-hero__portrait,
+.pcx-hero__portrait img {
+  transition-property: background, background-color, color, border-color, box-shadow, opacity !important;
+}
+
 @media (max-width: 720px) {
   html:not([data-theme="dark"]) body,
   html[data-theme="dark"] body { background-attachment: scroll; }

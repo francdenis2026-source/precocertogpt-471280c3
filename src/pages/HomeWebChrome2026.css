@@ -1,0 +1,255 @@
+/* PreçoCerto — desktop web chrome redesign.
+   Imported by HomeNext immediately after its base CSS so the web homepage
+   has one clear, maintainable header/footer contract. */
+
+/* Header: one clean desktop bar, no stacked utility strip. */
+.pcn-home .pcn-utility {
+  display: none;
+}
+
+.pcn-home .pcn-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 50;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.pcn-home .pcn-header__inner {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 64px;
+  height: 64px;
+  margin: 12px auto 0;
+  padding: 7px 8px 7px 12px;
+  gap: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 16px;
+  background: rgba(12,37,56,.72);
+  box-shadow: 0 10px 32px rgba(4,20,33,.13);
+  backdrop-filter: blur(18px) saturate(135%);
+}
+
+[data-theme="light"] .pcn-home .pcn-header__inner {
+  border-color: rgba(16,42,67,.11);
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 10px 30px rgba(20,47,70,.09);
+}
+
+.pcn-home .pcn-brand {
+  min-height: 46px;
+  gap: 9px;
+}
+
+.pcn-home .pcn-brand__mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(37,99,235,.20);
+}
+
+.pcn-home .pcn-brand__mark svg { width: 19px; }
+.pcn-home .pcn-brand__word { font-size: 1.08rem; }
+.pcn-home .pcn-brand__word small { top: 20px; font-size: .56rem; }
+
+.pcn-home .pcn-nav {
+  margin-left: auto;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 11px;
+  background: rgba(255,255,255,.06);
+}
+
+[data-theme="light"] .pcn-home .pcn-nav {
+  background: rgba(16,42,67,.035);
+}
+
+.pcn-home .pcn-nav a {
+  min-height: 38px;
+  padding: 0 11px;
+  border-radius: 9px;
+  color: rgba(244,248,252,.84);
+  font-size: .78rem;
+  font-weight: 760;
+  transition: background-color .16s ease, color .16s ease;
+}
+
+.pcn-home .pcn-nav a:hover {
+  color: #fff;
+  background: rgba(255,255,255,.09);
+}
+
+[data-theme="light"] .pcn-home .pcn-nav a { color: #40566d; }
+[data-theme="light"] .pcn-home .pcn-nav a:hover {
+  color: #1d4ed8;
+  background: #eaf1fb;
+}
+
+.pcn-home .pcn-actions { gap: 6px; }
+
+.pcn-home :is(.pcn-icon-link,.pcn-menu) {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+.pcn-home .pcn-theme {
+  width: 58px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+.pcn-home .pcn-login {
+  min-height: 38px;
+  height: 38px;
+  padding: 0 13px;
+  border-radius: 10px;
+  font-size: .78rem;
+  box-shadow: 0 7px 18px rgba(37,99,235,.18);
+}
+
+[data-theme="light"] .pcn-home :is(.pcn-icon-link,.pcn-theme,.pcn-menu) {
+  color: #284a68;
+  border-color: #d5e0ea;
+  background: #f8fbfe;
+}
+
+/* The hero now starts closer to the compact header. */
+.pcn-home .pcn-hero__content {
+  padding-top: 104px;
+}
+
+/* Footer: compact, horizontal and visually lighter. */
+.pcn-home .pcn-footer {
+  margin-top: 52px;
+  padding: 0;
+  border-top: 1px solid rgba(179,205,224,.14);
+  background: #102a3d;
+}
+
+[data-theme="light"] .pcn-home .pcn-footer {
+  color: #40566d;
+  border-top-color: #d9e3ec;
+  background: #edf3f8;
+}
+
+.pcn-home .pcn-footer__top {
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: auto minmax(180px,1fr) auto;
+  align-items: center;
+  gap: 22px;
+  padding: 14px 0;
+}
+
+.pcn-home .pcn-footer__top .pcn-brand__mark {
+  width: 34px;
+  height: 34px;
+}
+
+.pcn-home .pcn-footer__top > p {
+  max-width: none;
+  margin: 0;
+  color: #a9becd;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+[data-theme="light"] .pcn-home .pcn-footer__top > p { color: #607388; }
+
+.pcn-home .pcn-footer__top nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 6px;
+}
+
+.pcn-home .pcn-footer__top nav a {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 9px;
+  border-radius: 8px;
+  color: #c5d4df;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.pcn-home .pcn-footer__top nav a:hover { background: rgba(255,255,255,.07); }
+[data-theme="light"] .pcn-home .pcn-footer__top nav a { color: #40566d; }
+[data-theme="light"] .pcn-home .pcn-footer__top nav a:hover { background: #dde8f1; }
+
+.pcn-home .pcn-footer__bottom {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(179,205,224,.10);
+  color: #819aaa;
+  font-size: .68rem;
+}
+
+[data-theme="light"] .pcn-home .pcn-footer__bottom {
+  border-top-color: #d9e3ec;
+  color: #6d8092;
+}
+
+@media (max-width: 1050px) {
+  .pcn-home .pcn-header__inner {
+    width: min(100% - 28px,1180px);
+    min-height: 58px;
+    height: 58px;
+    margin-top: 8px;
+  }
+
+  .pcn-home .pcn-hero__content { padding-top: 92px; }
+
+  .pcn-home .pcn-mobile-nav {
+    width: min(100% - 28px,1180px);
+    margin: 6px auto 0;
+    padding: 8px;
+    border: 1px solid rgba(182,205,222,.16);
+    border-radius: 14px;
+    background: rgba(16,40,58,.96);
+    box-shadow: 0 14px 36px rgba(3,19,31,.22);
+  }
+
+  .pcn-home .pcn-mobile-nav a { padding: 10px 11px; }
+
+  .pcn-home .pcn-footer__top {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px 0 12px;
+  }
+
+  .pcn-home .pcn-footer__top nav { justify-content: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .pcn-home .pcn-header__inner {
+    min-height: 54px;
+    height: 54px;
+    padding: 5px 6px 5px 8px;
+    border-radius: 14px;
+  }
+
+  .pcn-home .pcn-brand__mark { width: 34px; height: 34px; }
+  .pcn-home .pcn-brand__word { font-size: 1rem; }
+  .pcn-home .pcn-brand__word small { top: 18px; }
+  .pcn-home .pcn-theme { width: 54px; height: 36px; }
+  .pcn-home .pcn-menu { width: 36px; height: 36px; }
+  .pcn-home .pcn-hero__content { padding-top: 82px; }
+
+  .pcn-home .pcn-footer { margin-top: 38px; }
+  .pcn-home .pcn-footer__top nav { gap: 2px; }
+  .pcn-home .pcn-footer__top nav a { padding-inline: 7px; font-size: .72rem; }
+  .pcn-home .pcn-footer__bottom {
+    min-height: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 0 10px;
+  }
+}

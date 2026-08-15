@@ -203,6 +203,25 @@ export function HomeNext() {
                 <button type="button" onClick={() => searchCategory("carne")}><TrendingDown /> Carnes</button>
               </div>
             </div>
+
+            {heroProduct && (
+              <aside className="pcn-receipt" aria-label="Resumo de economia do produto em destaque">
+                <div className="pcn-receipt__top">
+                  <span>PreçoCerto · Feijó-AC</span>
+                  <BadgePercent aria-hidden="true" />
+                </div>
+                <small>Economia encontrada agora</small>
+                <strong className="pcn-receipt__saving">{money(heroSaving)}</strong>
+                <p>{heroProduct.name}</p>
+                <div className="pcn-receipt__rows">
+                  <span>Menor preço <b>{money(heroProduct.minPrice)}</b></span>
+                  <span>Maior preço <b>{money(heroProduct.maxPrice)}</b></span>
+                </div>
+                <button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(heroProduct.name)}`)}>
+                  Ver comparação <ArrowRight aria-hidden="true" />
+                </button>
+              </aside>
+            )}
           </div>
         </section>
 
@@ -215,8 +234,6 @@ export function HomeNext() {
             <div><span className="pcn-metric-icon is-amber"><CheckCircle2 /></span><strong>Feijó-AC</strong><small>Nossa cidade</small></div>
           </div>
         </section>
-
-        {heroProduct && <section className="pcn-shell pcn-economy-proof" aria-label="Resumo de economia"><div><span><BadgePercent aria-hidden="true" /> Economia encontrada</span><strong>{money(heroSaving)}</strong><small>diferença atual em {heroProduct.name}</small></div><p>Menor preço <b>{money(heroProduct.minPrice)}</b><i aria-hidden="true" /> Maior preço <b>{money(heroProduct.maxPrice)}</b></p><button type="button" onClick={() => navigate(`/buscar?q=${encodeURIComponent(heroProduct.name)}`)}>Ver comparação <ArrowRight /></button></section>}
 
         <section className="pcn-section pcn-shell">
           <div className="pcn-section__head"><div><h2>O comércio de Feijó, lado a lado.</h2><p>Abra uma loja para ver catálogo, atualização e preços disponíveis.</p></div><Link to="/estabelecimentos">Ver todas as lojas <ArrowRight /></Link></div>

@@ -73,6 +73,7 @@ import "./styles/UnifiedMarketplaceRedesign2026.css";
 import "./pages/HomeNextCompactTheme.css";
 import "./pages/HomeNextKowalski.css";
 import "./pages/HomeCivicEditorial2026.css";
+import "./pages/HomeLightHeroFinal.css";
 
 export default function App() {
   return (

@@ -9,6 +9,7 @@ import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import "./HomeNext.css";
+import "./HomeWebChrome2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();

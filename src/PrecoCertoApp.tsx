@@ -5061,7 +5061,7 @@ function SearchPage({ products, stores, metrics, query, setQuery, addBasket, sav
   }, [reportProduct]);
 
   return (
-    <div className="shell page-shell">
+    <div className={`shell page-shell ${pathname === "/melhores-precos" ? "best-prices-page" : ""}`}>
       {fetchError && (
         <div className="status-banner status-banner--error" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', background: 'color-mix(in srgb,var(--pc-color-danger) 8%,var(--pc-color-surface))', color: 'var(--pc-color-danger)', borderRadius: '8px', border: '1px solid color-mix(in srgb,var(--pc-color-danger) 28%,var(--pc-color-border))', fontSize: '0.9rem' }}>
           <AlertTriangle size={20} />
@@ -5074,12 +5074,12 @@ function SearchPage({ products, stores, metrics, query, setQuery, addBasket, sav
       <section className="search-command">
         <div className="search-command__intro">
           <div>
-            
-            <h1>{pathname === "/melhores-precos" ? "Ofertas que realmente valem a pena" : "Compare antes de comprar"}</h1>
-            <p>{pathname === "/melhores-precos" ? "Produtos ordenados pela queda real de preço e data de verificação." : `Pesquise em ${metrics.products.toLocaleString("pt-BR")} produtos de ${stores.length} estabelecimentos locais.`}</p>
+            <h1>{pathname === "/melhores-precos" ? "Melhores preços, sem ruído." : "Compare antes de comprar"}</h1>
+            <p>{pathname === "/melhores-precos" ? "Veja primeiro os produtos com queda real e coleta recente. Compare, confirme a loja e adicione somente o que faz sentido para a sua compra." : `Pesquise em ${metrics.products.toLocaleString("pt-BR")} produtos de ${stores.length} estabelecimentos locais.`}</p>
           </div>
           <div className="search-command__trust"><ShieldCheck/><span><b>{syncStatus === "online" ? "Dados sincronizados" : "Atualização em andamento"}</b><small>Preços com origem e data de coleta</small></span></div>
         </div>
+        {pathname === "/melhores-precos" && <div className="best-prices-brief" aria-label="Resumo da seleção"><span><TrendingDown/> Ordenado por queda de preço</span><span><Store/> {stores.length} lojas acompanhadas</span><span><PackageSearch/> {filtered.length.toLocaleString("pt-BR")} ofertas na seleção</span></div>}
         <div className="search-command__box"><SearchBox value={query} setValue={setQuery} products={products} /></div>
         <div className="search-command__actions">
           <button className="search-filter-trigger" onClick={() => setFiltersOpen(open => !open)} aria-expanded={filtersOpen}><SlidersHorizontal/> Filtros {activeFilterCount > 0 && <b>{activeFilterCount}</b>}</button>

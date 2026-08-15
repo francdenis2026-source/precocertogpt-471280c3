@@ -2,22 +2,22 @@
 
 ## Visual world
 
-PreçoCerto is a hyperlocal buying companion for Feijó. Its world is the neighborhood market interpreted with editorial restraint: mineral parchment, warm graphite and a single copper signal. The page feels warm and civic, not rustic, futuristic or generic. The homepage persuades through real price evidence; operational areas remain denser and quieter.
+PreçoCerto is a hyperlocal buying companion for Feijó. Its world is the neighborhood market interpreted with editorial restraint: mineral white, carbon black and a single amber signal. The page feels warm and civic, not rustic, futuristic or generic. The homepage persuades through real price evidence; operational areas remain denser and quieter.
 
 The signature object is the **economy receipt**: familiar, factual and connected to live catalog data. Photography provides atmosphere at page scale; UI chrome never competes with it.
 
 ## Color roles
 
-- **Mineral parchment** `#F1EADF`: page canvas.
-- **Paper** `#FBF8F1`: readable and elevated surfaces.
-- **Ink** `#18211C`: primary text.
-- **Evidence gray** `#5D675F`: secondary copy and metadata.
-- **Quiet line** `#D9D0C1`: structural boundaries.
-- **Warm graphite** `#332A27`: primary actions, navigation and structural emphasis.
-- **Copper** `#A84D2C`: the only expressive accent, reserved for primary conversion and meaningful emphasis; dark enough for white action labels.
+- **Mineral parchment** `#F6F7F9`: page canvas.
+- **Paper** `#FFFFFF`: readable and elevated surfaces.
+- **Ink** `#17181C`: primary text.
+- **Evidence gray** `#5F6673`: secondary copy and metadata.
+- **Quiet line** `#D9DDE4`: structural boundaries.
+- **Carbon black** `#17181C`: primary actions, navigation and structural emphasis.
+- **Amber** `#B7791F`: the only expressive accent, reserved for primary conversion and meaningful emphasis; dark enough for white action labels.
 - **Savings green** is semantic only: it signals economy or a verified better price, never the structural identity.
 
-Dark mode uses a softened charcoal canvas, deep espresso surfaces and `#F5EFE5` text. Status colors remain semantic and never become brand decoration.
+Dark mode uses a softened charcoal canvas, deep charcoal surfaces and `#F7F8FA` text. Status colors remain semantic and never become brand decoration.
 
 ## Typography
 

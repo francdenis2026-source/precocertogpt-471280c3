@@ -86,22 +86,37 @@ export function HomeNext() {
 
   const heroProduct = featuredProducts[0] ?? catalog.products[0];
   const heroSaving = heroProduct ? Math.max(0, heroProduct.maxPrice - heroProduct.minPrice) : 0;
+  const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
+  const hasSearchQuery = normalizedQuery.length > 0;
   const suggestions = useMemo(() => {
     const term = query.trim().toLocaleLowerCase("pt-BR");
-    if (!term) return featuredProducts.slice(0, 5);
+    if (!term) return [];
     return catalog.products.filter((product) => `${product.name} ${product.brand || ""} ${product.establishment || ""}`.toLocaleLowerCase("pt-BR").includes(term)).slice(0, 12);
-  }, [catalog.products, featuredProducts, query]);
+  }, [catalog.products, query]);
 
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!query.trim()) {
+      setSearchDialogOpen(false);
+      return;
+    }
     setSearchDialogOpen(true);
+  };
+
+  const updateSearchQuery = (value: string) => {
+    setQuery(value);
+    setSearchDialogOpen(value.trim().length > 0);
+  };
+
+  const clearSearch = () => {
+    setQuery("");
+    setSearchDialogOpen(false);
   };
 
   const searchCategory = (term: string) => {
     setQuery(term);
     setSearchDialogOpen(true);
   };
-  const openSearch = () => setSearchDialogOpen(true);
   const chooseSuggestion = (product: Product) => {
     setSearchDialogOpen(false);
     setSelectedProduct(product);
@@ -157,8 +172,9 @@ export function HomeNext() {
               <p>Compare os comércios da cidade antes de sair de casa e escolha onde sua compra realmente vale mais.</p>
               <form className="pcn-search" onSubmit={submitSearch} role="search">
                 <Search aria-hidden="true" />
-                <input id="pcn-home-search" value={query} onFocus={openSearch} onChange={(event) => { setQuery(event.target.value); openSearch(); }} placeholder="Busque produto, marca ou loja" aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />
-                <button type="submit">Buscar <ArrowRight aria-hidden="true" /></button>
+                <input id="pcn-home-search" value={query} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Busque produto, marca ou loja" aria-label="Buscar produto, marca ou estabelecimento" autoComplete="off" />
+                {hasSearchQuery && <button className="pcn-search__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa" title="Limpar pesquisa"><X aria-hidden="true" /></button>}
+                <button className="pcn-search__submit" type="submit">Buscar <ArrowRight aria-hidden="true" /></button>
               </form>
               <div className="pcn-quick">
                 <button type="button" onClick={() => searchCategory("arroz")}><Tag /> Arroz</button>
@@ -166,7 +182,6 @@ export function HomeNext() {
                 <button type="button" onClick={() => searchCategory("carne")}><TrendingDown /> Carnes</button>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -214,10 +229,10 @@ export function HomeNext() {
           <div className="pcn-products">
             {featuredProducts.map((product) => <article className="pcn-product" key={product.id}>
               <button className="pcn-product__open" type="button" onClick={() => setSelectedProduct(product)} aria-label={`Ver detalhes de ${product.name}`}>
-              <span className="pcn-product__saving">Economize {money(Math.max(0, product.maxPrice - product.minPrice))}</span>
-              <span className="pcn-product__media"><ProductImage product={product} /></span>
-              <small>{product.brand || "Produto local"}</small><strong>{product.name}</strong>
-              <div><span><small>a partir de</small><b>{money(product.minPrice)}</b></span><ArrowRight /></div>
+                <span className="pcn-product__saving">Economize {money(Math.max(0, product.maxPrice - product.minPrice))}</span>
+                <span className="pcn-product__media"><ProductImage product={product} /></span>
+                <small>{product.brand || "Produto local"}</small><strong>{product.name}</strong>
+                <div><span><small>a partir de</small><b>{money(product.minPrice)}</b></span><ArrowRight /></div>
               </button>
             </article>)}
           </div>
@@ -249,7 +264,24 @@ export function HomeNext() {
           <span>© 2026 PreçoCerto <i aria-hidden="true">·</i> Desenvolvido por Franc Denis</span><span>Feito em Feijó, Acre</span>
         </div>
       </footer>
-      {searchDialogOpen && typeof document !== "undefined" && createPortal(<div className="pcn-search-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSearchDialogOpen(false); }}><section className="pcn-search-dialog__panel" role="dialog" aria-modal="true" aria-label="Pesquisar produtos"><header><span>Produtos encontrados</span><button type="button" onClick={() => setSearchDialogOpen(false)} aria-label="Fechar pesquisa"><X /></button></header><form onSubmit={submitSearch}><Search aria-hidden="true" /><input ref={searchDialogInput} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Digite um produto, marca ou loja" aria-label="Pesquisar produtos" /><button type="submit">Buscar <ArrowRight /></button></form><div className="pcn-search-dialog__results" role="listbox">{suggestions.length ? suggestions.map((product) => <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)}><span className="pcn-search-dialog__thumb"><ProductImage product={product} /></span><span><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span><strong>{money(product.minPrice)}</strong><ArrowRight /></button>) : <p>Nenhum produto encontrado. Tente outro termo.</p>}</div><footer><span>Pressione Esc para fechar</span><span className="pcn-search-dialog__count">{suggestions.length} {suggestions.length === 1 ? "produto encontrado" : "produtos encontrados"}</span></footer></section></div>, document.body)}
+
+      {searchDialogOpen && hasSearchQuery && typeof document !== "undefined" && createPortal(
+        <div className="pcn-search-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSearchDialogOpen(false); }}>
+          <section className="pcn-search-dialog__panel" role="dialog" aria-modal="true" aria-label="Pesquisar produtos">
+            <header><span>Produtos encontrados</span><button type="button" onClick={() => setSearchDialogOpen(false)} aria-label="Fechar pesquisa"><X /></button></header>
+            <form onSubmit={submitSearch}>
+              <Search aria-hidden="true" />
+              <input ref={searchDialogInput} value={query} onChange={(event) => updateSearchQuery(event.target.value)} placeholder="Digite um produto, marca ou loja" aria-label="Pesquisar produtos" />
+              <button className="pcn-search-dialog__clear" type="button" onClick={clearSearch} aria-label="Limpar pesquisa" title="Limpar pesquisa"><X aria-hidden="true" /></button>
+              <button className="pcn-search-dialog__submit" type="submit">Buscar <ArrowRight /></button>
+            </form>
+            <div className="pcn-search-dialog__results" role="listbox">
+              {suggestions.length ? suggestions.map((product) => <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)}><span className="pcn-search-dialog__thumb"><ProductImage product={product} /></span><span><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span><strong>{money(product.minPrice)}</strong><ArrowRight /></button>) : <p>Nenhum produto corresponde a “{query.trim()}”. Tente outro nome.</p>}
+            </div>
+            <footer><span>Pressione Esc para fechar</span><span className="pcn-search-dialog__count">{suggestions.length} {suggestions.length === 1 ? "produto encontrado" : "produtos encontrados"}</span></footer>
+          </section>
+        </div>, document.body)}
+
       {selectedProduct && typeof document !== "undefined" && createPortal(<div className="pcn-product-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><section role="dialog" aria-modal="true" aria-labelledby="pcn-product-dialog-title"><button className="pcn-product-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X /></button><span className="pcn-product-dialog__image"><ProductImage product={selectedProduct} /></span><div><small>{selectedProduct.brand || "Produto local"}</small><h2 id="pcn-product-dialog-title">{selectedProduct.name}</h2><p><Store /> {selectedProduct.establishment || "Comércio local"}</p><div className="pcn-product-dialog__price"><span>a partir de</span><strong>{money(selectedProduct.minPrice)}</strong><small>até {money(selectedProduct.maxPrice)}</small></div><button type="button" onClick={() => setSelectedProduct(null)}>Fechar <X /></button></div></section></div>, document.body)}
     </div>
   );

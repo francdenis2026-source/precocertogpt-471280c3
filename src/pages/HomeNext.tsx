@@ -17,6 +17,12 @@ type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
 const money = (value: number) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 const readTheme = (): Theme => typeof window !== "undefined" && window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
+const normalizeSearch = (value: string) => value
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .toLocaleLowerCase("pt-BR")
+  .replace(/[^a-z0-9]+/g, " ")
+  .trim();
 
 const categoryItems = [
   { label: "Alimentos", query: "alimentos", icon: ShoppingBasket },
@@ -86,33 +92,66 @@ export function HomeNext() {
 
   const heroProduct = featuredProducts[0] ?? catalog.products[0];
   const heroSaving = heroProduct ? Math.max(0, heroProduct.maxPrice - heroProduct.minPrice) : 0;
-  const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
+  const normalizedQuery = normalizeSearch(query);
   const hasSearchQuery = normalizedQuery.length > 0;
   const suggestions = useMemo(() => {
-    const term = query.trim().toLocaleLowerCase("pt-BR");
+    const term = normalizeSearch(query);
     if (!term) return [];
+    const tokens = term.split(/\s+/).filter(Boolean);
+
     return catalog.products
-      .filter((product) => `${product.name} ${product.brand || ""} ${product.establishment || ""}`.toLocaleLowerCase("pt-BR").includes(term))
-      .slice(0, 8);
+      .map((product) => {
+        const name = normalizeSearch(product.name);
+        const brand = normalizeSearch(product.brand || "");
+        const category = normalizeSearch(product.category || "");
+        const store = normalizeSearch(product.establishment || "");
+        const size = normalizeSearch(product.size || "");
+        const haystack = `${name} ${brand} ${category} ${store} ${size}`;
+        const allTokensMatch = tokens.every((token) => haystack.includes(token));
+        if (!allTokensMatch) return null;
+
+        let score = 100;
+        if (name === term) score = 0;
+        else if (name.startsWith(term)) score = 10;
+        else if (name.includes(term)) score = 20;
+        else if (brand.startsWith(term)) score = 30;
+        else if (brand.includes(term)) score = 40;
+        else if (category.includes(term)) score = 50;
+        else if (store.includes(term)) score = 60;
+
+        return { product, score };
+      })
+      .filter((entry): entry is { product: Product; score: number } => Boolean(entry))
+      .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
+      .slice(0, 12)
+      .map((entry) => entry.product);
   }, [catalog.products, query]);
 
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSearchDialogOpen(query.trim().length > 0);
+    if (!hasSearchQuery) {
+      setSearchDialogOpen(false);
+      return;
+    }
+    setSelectedProduct(null);
+    setSearchDialogOpen(true);
   };
 
   const updateSearchQuery = (value: string) => {
     setQuery(value);
-    setSearchDialogOpen(value.trim().length > 0);
+    setSelectedProduct(null);
+    setSearchDialogOpen(normalizeSearch(value).length > 0);
   };
 
   const clearSearch = () => {
     setQuery("");
     setSearchDialogOpen(false);
+    setSelectedProduct(null);
   };
 
   const searchCategory = (term: string) => {
     setQuery(term);
+    setSelectedProduct(null);
     setSearchDialogOpen(true);
   };
 
@@ -186,13 +225,13 @@ export function HomeNext() {
                     </div>
                     <div className="pcn-search-dropdown__list">
                       {suggestions.length ? suggestions.map((product) => (
-                        <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)}>
+                        <button key={product.id} type="button" role="option" onClick={() => chooseSuggestion(product)} aria-label={`Abrir ${product.name}`}>
                           <span className="pcn-search-dropdown__thumb"><ProductImage product={product} /></span>
                           <span className="pcn-search-dropdown__info"><b>{product.name}</b><small>{product.establishment || "Comércio local"}</small></span>
                           <strong>{money(product.minPrice)}</strong>
                           <ArrowRight aria-hidden="true" />
                         </button>
-                      )) : <p>Nenhum produto corresponde a “{query.trim()}”.</p>}
+                      )) : <p>Nenhum produto relacionado a “{query.trim()}” foi encontrado.</p>}
                     </div>
                   </div>
                 )}
@@ -304,7 +343,26 @@ export function HomeNext() {
         </div>
       </footer>
 
-      {selectedProduct && typeof document !== "undefined" && createPortal(<div className="pcn-product-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><section role="dialog" aria-modal="true" aria-labelledby="pcn-product-dialog-title"><button className="pcn-product-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X /></button><span className="pcn-product-dialog__image"><ProductImage product={selectedProduct} /></span><div><small>{selectedProduct.brand || "Produto local"}</small><h2 id="pcn-product-dialog-title">{selectedProduct.name}</h2><p><Store /> {selectedProduct.establishment || "Comércio local"}</p><div className="pcn-product-dialog__price"><span>a partir de</span><strong>{money(selectedProduct.minPrice)}</strong><small>até {money(selectedProduct.maxPrice)}</small></div><button type="button" onClick={() => setSelectedProduct(null)}>Fechar <X /></button></div></section></div>, document.body)}
+      {selectedProduct && typeof document !== "undefined" && createPortal(
+        <div className="pcn-product-dialog" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedProduct(null); }}>
+          <section role="dialog" aria-modal="true" aria-labelledby="pcn-product-dialog-title">
+            <button className="pcn-product-dialog__close" type="button" onClick={() => setSelectedProduct(null)} aria-label="Fechar detalhes"><X /></button>
+            <span className="pcn-product-dialog__image"><ProductImage product={selectedProduct} /></span>
+            <div>
+              <small>{selectedProduct.brand || "Produto local"} · {selectedProduct.category || "Categoria não informada"}</small>
+              <h2 id="pcn-product-dialog-title">{selectedProduct.name}</h2>
+              <p><Store /> {selectedProduct.establishment || "Comércio local"}</p>
+              <p>{selectedProduct.size ? `Tamanho: ${selectedProduct.size}` : ""}{selectedProduct.unit ? ` · Unidade: ${selectedProduct.unit}` : ""}</p>
+              {selectedProduct.barcode && <p>Código de barras: <b>{selectedProduct.barcode}</b></p>}
+              <div className="pcn-product-dialog__price">
+                <span>menor preço</span><strong>{money(selectedProduct.minPrice)}</strong><small>Média {money(selectedProduct.avgPrice)} · Maior {money(selectedProduct.maxPrice)}</small>
+              </div>
+              <button type="button" onClick={() => setSelectedProduct(null)}>Fechar <X /></button>
+            </div>
+          </section>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import "@fontsource-variable/outfit";
 import "./index.css";
 import "./styles/GlobalScrollbarRefinement.css";
 import "./styles/AuthCompactProfessional.css";
+import "./styles/HomeLightHeroRefinement.css";
 import App from "./App";
 import { HourlyHomeProductRotation } from "./components/HourlyHomeProductRotation";
 import { HomepageSearchInputPolish } from "./components/HomepageSearchInputPolish";

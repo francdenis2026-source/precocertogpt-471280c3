@@ -1,0 +1,197 @@
+/* Preço Certo — camada final consolidada da HomeNext.
+   Mantém funcionalidades existentes e normaliza hierarquia, densidade e motion. */
+
+.pc-next {
+  --pc-home-ink: #10233f;
+  --pc-home-muted: #5d6c80;
+  --pc-home-blue: #1769e0;
+  --pc-home-blue-strong: #0d4fb8;
+  --pc-home-green: #14845f;
+  --pc-home-amber: #d89414;
+  --pc-home-surface: rgba(255, 255, 255, 0.94);
+  --pc-home-border: rgba(16, 35, 63, 0.10);
+  --pc-home-shadow: 0 16px 44px rgba(16, 35, 63, 0.10);
+  --pc-home-radius: 22px;
+  color: var(--pc-home-ink);
+  background: #f6f8fb;
+}
+
+.pc-next .pcn-container {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+/* Header compacto e previsível */
+.pc-next .pcn-header {
+  min-height: 66px;
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.pc-next .pcn-header-inner { min-height: 66px; gap: 18px; }
+.pc-next .pcn-logo { max-height: 38px; width: auto; }
+.pc-next .pcn-nav { gap: 4px; }
+.pc-next .pcn-nav a,
+.pc-next .pcn-nav button { min-height: 38px; padding: 0 12px; border-radius: 12px; }
+
+/* Hero: ferramenta primeiro, publicidade depois */
+.pc-next .pcn-hero {
+  min-height: 560px;
+  max-height: 650px;
+  overflow: hidden;
+}
+
+.pc-next .pcn-hero-content {
+  min-height: 560px;
+  padding-top: 86px;
+  padding-bottom: 42px;
+  align-items: center;
+}
+
+.pc-next .pcn-hero-copy { max-width: 650px; }
+.pc-next .pcn-hero h1 {
+  max-width: 760px;
+  margin-bottom: 16px;
+  font-size: clamp(2.75rem, 5vw, 4.65rem);
+  line-height: .98;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+
+.pc-next .pcn-hero-subtitle {
+  max-width: 610px;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.55;
+}
+
+.pc-next .pcn-search-wrap { margin-top: 24px; max-width: 680px; }
+.pc-next .pcn-search {
+  min-height: 58px;
+  border-radius: 18px;
+  box-shadow: 0 18px 46px rgba(7, 25, 55, .20);
+}
+.pc-next .pcn-search input { min-height: 56px; font-size: 1rem; }
+.pc-next .pcn-search button { min-height: 46px; border-radius: 14px; }
+
+/* Seções mais densas e alinhadas */
+.pc-next .pcn-section { padding-block: 58px; }
+.pc-next .pcn-section + .pcn-section { padding-top: 22px; }
+.pc-next .pcn-section-head { margin-bottom: 22px; }
+.pc-next .pcn-section-head h2 {
+  font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+.pc-next .pcn-section-head p { color: var(--pc-home-muted); max-width: 680px; }
+
+/* Cards: menos volume, mais leitura */
+.pc-next .pcn-product-card,
+.pc-next .pcn-store-card,
+.pc-next .pcn-category-card,
+.pc-next .pcn-stat-card {
+  border: 1px solid var(--pc-home-border);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(16, 35, 63, .065);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+@media (hover: hover) {
+  .pc-next .pcn-product-card:hover,
+  .pc-next .pcn-store-card:hover,
+  .pc-next .pcn-category-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(23, 105, 224, .22);
+    box-shadow: 0 14px 34px rgba(16, 35, 63, .11);
+  }
+}
+
+.pc-next .pcn-products-grid { gap: 16px; }
+.pc-next .pcn-stores-grid,
+.pc-next .pcn-categories-grid { gap: 14px; }
+.pc-next .pcn-product-card { overflow: hidden; }
+.pc-next .pcn-product-image { aspect-ratio: 4 / 3; min-height: 0; }
+.pc-next .pcn-product-image img { object-fit: contain; padding: 12px; }
+.pc-next .pcn-product-body { padding: 15px 16px 17px; }
+.pc-next .pcn-product-title { line-height: 1.3; }
+
+/* Comparação/economia como componente de produto, não peça cenográfica */
+.pc-next .pcn-receipt {
+  transform: none;
+  border-radius: var(--pc-home-radius);
+  border: 1px solid var(--pc-home-border);
+  box-shadow: var(--pc-home-shadow);
+  overflow: hidden;
+}
+.pc-next .pcn-receipt::before,
+.pc-next .pcn-receipt::after { display: none; }
+
+/* Modais compactos */
+.pc-next .pcn-modal-card {
+  width: min(560px, calc(100vw - 28px));
+  max-height: min(82vh, 680px);
+  border-radius: 22px;
+  box-shadow: 0 28px 80px rgba(7, 25, 55, .26);
+}
+.pc-next .pcn-modal-media { max-height: 230px; }
+.pc-next .pcn-modal-body { padding: 18px 20px 22px; }
+
+/* Dark mode coerente */
+html[data-theme="dark"] .pc-next {
+  --pc-home-ink: #edf4ff;
+  --pc-home-muted: #a8b5c8;
+  --pc-home-surface: rgba(14, 27, 47, .94);
+  --pc-home-border: rgba(183, 205, 234, .13);
+  background: #081322;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .pc-next .pcn-container { width: min(100% - 28px, 760px); }
+  .pc-next .pcn-hero { min-height: 530px; max-height: none; }
+  .pc-next .pcn-hero-content { min-height: 530px; padding-top: 82px; padding-bottom: 36px; }
+  .pc-next .pcn-hero h1 { font-size: clamp(2.45rem, 8vw, 4rem); }
+  .pc-next .pcn-section { padding-block: 46px; }
+}
+
+/* Mobile: primeira dobra focada em busca */
+@media (max-width: 640px) {
+  .pc-next .pcn-container { width: calc(100% - 24px); }
+  .pc-next .pcn-header,
+  .pc-next .pcn-header-inner { min-height: 60px; }
+  .pc-next .pcn-logo { max-height: 32px; }
+  .pc-next .pcn-hero { min-height: 470px; }
+  .pc-next .pcn-hero-content {
+    min-height: 470px;
+    padding-top: 72px;
+    padding-bottom: 26px;
+  }
+  .pc-next .pcn-hero h1 {
+    font-size: clamp(2.15rem, 11vw, 3.15rem);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .pc-next .pcn-hero-subtitle { font-size: .96rem; line-height: 1.48; }
+  .pc-next .pcn-search-wrap { margin-top: 18px; }
+  .pc-next .pcn-search { min-height: 54px; border-radius: 16px; }
+  .pc-next .pcn-search input { min-height: 52px; }
+  .pc-next .pcn-search button { min-height: 42px; padding-inline: 14px; }
+  .pc-next .pcn-section { padding-block: 36px; }
+  .pc-next .pcn-section + .pcn-section { padding-top: 10px; }
+  .pc-next .pcn-section-head { margin-bottom: 16px; }
+  .pc-next .pcn-section-head h2 { font-size: 1.55rem; }
+  .pc-next .pcn-products-grid,
+  .pc-next .pcn-stores-grid,
+  .pc-next .pcn-categories-grid { gap: 12px; }
+  .pc-next .pcn-product-body { padding: 12px 13px 14px; }
+  .pc-next .pcn-modal-card { max-height: 86vh; border-radius: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-next *, .pc-next *::before, .pc-next *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

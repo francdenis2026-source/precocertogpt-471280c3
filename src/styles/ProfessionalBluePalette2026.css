@@ -1,5 +1,6 @@
 /* PreçoCerto — professional blue/petrol palette.
-   Single, editable visual layer loaded last. No !important rules. */
+   Global/public surfaces only. HomeNext owns its visual system locally via
+   HomeNext.css + HomeUnified2026.css, avoiding legacy homepage overrides. */
 
 :root {
   --pc-brand-navy: #102a43;
@@ -87,126 +88,8 @@
   border-bottom-color: rgba(181,198,213,.16);
 }
 
-/* Homepage: remove black-heavy slabs and keep photography visible. */
-.pcn-home {
-  --pcn-bg: #f5f8fc;
-  --pcn-paper: #ffffff;
-  --pcn-ink: #10243a;
-  --pcn-muted: #607388;
-  --pcn-line: rgba(16,36,58,.11);
-  --pcn-navy: #102a43;
-  --pcn-navy-2: #17415f;
-  --pcn-violet: #516fbd;
-  --pcn-violet-2: #6f87ca;
-  --pcn-blue: #2563eb;
-  --pcn-amber: #d99012;
-  --pcn-green: #15966a;
-  background:
-    radial-gradient(circle at 12% 24%, rgba(37,99,235,.07), transparent 28rem),
-    radial-gradient(circle at 88% 46%, rgba(18,59,87,.06), transparent 30rem),
-    var(--pcn-bg);
-}
-
-[data-theme="dark"] .pcn-home {
-  --pcn-bg: #10283a;
-  --pcn-paper: #16354b;
-  --pcn-ink: #f4f8fc;
-  --pcn-muted: #b5c6d5;
-  --pcn-line: rgba(193,214,229,.14);
-  --pcn-navy: #16354b;
-  --pcn-navy-2: #1d4058;
-  --pcn-violet: #8ca6d8;
-  --pcn-violet-2: #a8bce5;
-  --pcn-blue: #74a7ff;
-  --pcn-amber: #f3b84b;
-  --pcn-green: #55c99a;
-  --pcn-shadow: 0 20px 50px rgba(3,19,31,.23);
-  background:
-    radial-gradient(circle at 9% 17%, rgba(116,167,255,.10), transparent 31rem),
-    radial-gradient(circle at 88% 43%, rgba(95,151,184,.09), transparent 34rem),
-    #10283a;
-}
-
-[data-theme="light"] .pcn-hero {
-  color: #10243a;
-  background: #eef4f9;
-}
-
-[data-theme="light"] .pcn-hero__photo {
-  background-image: url('/hero-feijo-real-shopper-2026.webp');
-  background-position: 64% 50%;
-  filter: saturate(.96) contrast(1.03) brightness(1.04);
-}
-
-[data-theme="light"] .pcn-hero__veil {
-  background:
-    linear-gradient(90deg, rgba(247,250,253,.99) 0%, rgba(247,250,253,.95) 28%, rgba(247,250,253,.82) 45%, rgba(247,250,253,.42) 61%, rgba(247,250,253,.08) 80%, rgba(247,250,253,.14) 100%),
-    linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(238,244,249,.08) 64%, rgba(232,240,247,.68) 100%);
-}
-
-[data-theme="light"] .pcn-hero h1 { color: #10243a; }
-[data-theme="light"] .pcn-hero h1 span {
-  background: linear-gradient(90deg,#1f5ea8 5%,#516fbd 68%,#b8750b 112%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-[data-theme="light"] .pcn-hero__copy > p { color: #40566d; }
-[data-theme="light"] .pcn-quick button {
-  border-color: rgba(16,42,67,.16);
-  background: rgba(255,255,255,.90);
-  color: #284a68;
-}
-
-[data-theme="dark"] .pcn-hero {
-  background: #123247;
-  color: #f7fbff;
-}
-
-[data-theme="dark"] .pcn-hero__photo {
-  background-image: url('/marketplace-local-profissional-v2.webp');
-  filter: saturate(.92) contrast(1.02) brightness(.86);
-}
-
-[data-theme="dark"] .pcn-hero__veil {
-  background:
-    linear-gradient(90deg, rgba(16,40,58,.92) 0%, rgba(16,40,58,.82) 29%, rgba(18,50,71,.62) 47%, rgba(18,50,71,.28) 65%, rgba(18,50,71,.06) 83%, rgba(18,50,71,.10) 100%),
-    linear-gradient(180deg, rgba(16,40,58,.02) 0%, rgba(16,40,58,.14) 68%, rgba(16,40,58,.56) 100%);
-}
-
-[data-theme="dark"] .pcn-header {
-  background: linear-gradient(180deg,rgba(16,40,58,.78),rgba(16,40,58,.16));
-  border-bottom-color: rgba(203,221,234,.13);
-}
-
-[data-theme="dark"] .pcn-quick button {
-  border-color: rgba(196,216,231,.18);
-  background: rgba(22,53,75,.66);
-  color: #edf5fb;
-}
-
-[data-theme="dark"] .pcn-receipt {
-  background: linear-gradient(180deg,rgba(22,53,75,.94),rgba(18,49,70,.90));
-  border-color: rgba(116,167,255,.35);
-  border-top-color: rgba(243,184,75,.62);
-  box-shadow: 0 28px 72px rgba(3,19,31,.30), 0 0 0 1px rgba(255,255,255,.035) inset;
-}
-
-.pcn-metrics {
-  background: linear-gradient(105deg,#183c57 0%,#20506d 54%,#2b4f72 100%);
-  box-shadow: 0 22px 60px rgba(16,42,67,.18);
-}
-
-[data-theme="light"] .pcn-metrics {
-  background: linear-gradient(105deg,#183c57 0%,#245a77 54%,#315f8b 100%);
-}
-
-[data-theme="dark"] .pcn-metrics {
-  background: linear-gradient(105deg,#1a4059 0%,#23536e 54%,#2f587c 100%);
-  border-color: rgba(176,205,224,.16);
-}
-
-/* Generic public surfaces: deep petrol instead of near-black. */
+/* Generic public surfaces: deep petrol instead of near-black.
+   Intentionally excludes HomeNext's pcn-* component family. */
 [data-theme="dark"] :is(.card,.panel,.surface-card,.search-command,.price-table-card,.store-card,.visual-product-card,.hero-panel) {
   background-color: #16354b;
   border-color: #31566d;
@@ -225,9 +108,4 @@
 
 [data-theme="dark"] :is(.muted,.text-muted,.subtitle,.description) {
   color: #b5c6d5;
-}
-
-@media (max-width: 760px) {
-  [data-theme="light"] .pcn-hero__photo { background-position: 69% 50%; }
-  [data-theme="dark"] .pcn-hero__photo { background-position: 66% 50%; }
 }

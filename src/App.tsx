@@ -68,6 +68,7 @@ import "./pages/HomeVercelGuidelines2026.css";
 import "./pages/HomeRebuildAllSkills2026.css";
 import "./styles/TotalTheme2026.css";
 import "./styles/ProfessionalContrastPolish2026.css";
+import "./styles/HomePhotoComposition2026.css";
 
 export default function App() {
   return (

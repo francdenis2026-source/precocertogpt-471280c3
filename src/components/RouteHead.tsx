@@ -5,6 +5,11 @@ const SITE = "https://precocerto.live";
 
 type HeadInfo = { title: string; description: string; ogImage?: string; noindex?: boolean };
 
+const contactHead: HeadInfo = {
+  title: "Fale conosco | PreçoCerto",
+  description: "Entre em contato com a equipe do PreçoCerto para dúvidas, correções de preços e parcerias.",
+};
+
 const ROUTE_HEAD: Record<string, HeadInfo> = {
   "/": {
     title: "PreçoCerto | Comparar preços em Feijó (AC)",
@@ -49,10 +54,8 @@ const ROUTE_HEAD: Record<string, HeadInfo> = {
     title: "Colaborar com os preços | PreçoCerto",
     description: "Ajude a manter os preços de Feijó (AC) atualizados enviando informações do comércio local.",
   },
-  "/fale-conosco": {
-    title: "Fale conosco | PreçoCerto",
-    description: "Entre em contato com a equipe do PreçoCerto para dúvidas, correções de preços e parcerias.",
-  },
+  "/fale-conosco": contactHead,
+  "/contato": contactHead,
   "/favoritos": {
     title: "Meus favoritos | PreçoCerto",
     description: "Produtos que você salvou para comparar preços nas lojas de Feijó (AC).",

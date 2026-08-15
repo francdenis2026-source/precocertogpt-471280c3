@@ -161,28 +161,58 @@ main :where(p,li) > a:not([class]) {
 }
 html[data-theme="dark"] main :where(p,li) > a:not([class]) { color: #9ab0ff; }
 
-/* Keep the main hero and its portrait completely static on pointer hover. */
-.pcx-hero,
-.pcx-hero:hover,
-.pcx-hero__grid,
-.pcx-hero__grid:hover,
-.pcx-hero__visual,
-.pcx-hero__visual:hover,
-.pcx-hero__portrait,
-.pcx-hero__portrait:hover,
-.pcx-hero__portrait img,
-.pcx-hero__portrait:hover img {
+/* Hard lock: portrait + savings receipt never move on hover, focus or pointer effects. */
+html body .pcx-home .pcx-hero__visual,
+html body .pcx-home .pcx-hero__portrait,
+html body .pcx-home .pcx-hero__portrait img,
+html body .pcx-home .pcx-receipt,
+html body .pcx-home .pcx-receipt > * {
   transform: none !important;
   translate: none !important;
   scale: 1 !important;
   rotate: 0deg !important;
+  animation: none !important;
+  will-change: auto !important;
 }
 
-.pcx-hero,
-.pcx-hero__grid,
-.pcx-hero__visual,
-.pcx-hero__portrait,
-.pcx-hero__portrait img {
+html body .pcx-home .pcx-hero__visual:hover,
+html body .pcx-home .pcx-hero__visual:focus-within,
+html body .pcx-home .pcx-hero__visual:active,
+html body .pcx-home .pcx-hero__portrait:hover,
+html body .pcx-home .pcx-hero__portrait:focus-within,
+html body .pcx-home .pcx-hero__portrait:active,
+html body .pcx-home .pcx-hero__portrait:hover img,
+html body .pcx-home .pcx-hero__portrait:focus-within img,
+html body .pcx-home .pcx-hero__portrait:active img,
+html body .pcx-home .pcx-receipt:hover,
+html body .pcx-home .pcx-receipt:focus-within,
+html body .pcx-home .pcx-receipt:active,
+html body .pcx-home .pcx-receipt:hover > *,
+html body .pcx-home .pcx-receipt:focus-within > *,
+html body .pcx-home .pcx-receipt:active > * {
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  rotate: 0deg !important;
+  animation: none !important;
+}
+
+html body .pcx-home .pcx-hero__visual,
+html body .pcx-home .pcx-hero__portrait,
+html body .pcx-home .pcx-hero__portrait img,
+html body .pcx-home .pcx-receipt {
+  transition-property: background, background-color, color, border-color, box-shadow, opacity !important;
+}
+
+html body .pcx-home .pcx-hero__portrait::before,
+html body .pcx-home .pcx-hero__portrait::after,
+html body .pcx-home .pcx-receipt::before,
+html body .pcx-home .pcx-receipt::after {
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  rotate: 0deg !important;
+  animation: none !important;
   transition-property: background, background-color, color, border-color, box-shadow, opacity !important;
 }
 

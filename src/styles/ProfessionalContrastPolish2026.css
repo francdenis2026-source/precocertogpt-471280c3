@@ -1,12 +1,12 @@
 /* PreçoCerto — professional contrast + atmospheric surfaces, 2026 */
 
-/* Light mode: avoid a flat white canvas while keeping product imagery readable. */
+/* Light mode: supermarket photography fills the canvas without competing with content. */
 html:not([data-theme="dark"]) body {
   background:
-    radial-gradient(circle at 8% 6%, rgba(53,99,233,.10), transparent 24rem),
-    radial-gradient(circle at 92% 18%, rgba(242,184,75,.11), transparent 22rem),
-    linear-gradient(180deg, #f8faff 0%, #f5f7fb 42%, #eef3f9 100%);
-  background-attachment: fixed;
+    linear-gradient(rgba(247,250,255,.91), rgba(241,246,252,.94)),
+    url("https://images.unsplash.com/photo-1760463921956-b21cfa5cb2ac?auto=format&fit=crop&fm=jpg&q=78&w=2400") center top / cover fixed no-repeat,
+    #f4f7fb;
+  background-attachment: fixed, fixed, fixed;
 }
 
 html:not([data-theme="dark"]) .pcx-home {
@@ -16,25 +16,32 @@ html:not([data-theme="dark"]) .pcx-home {
 html:not([data-theme="dark"]) .pcx-home::before {
   opacity: 1 !important;
   background:
-    radial-gradient(ellipse 48% 32% at 78% 7%, rgba(53,99,233,.13), transparent 72%),
-    radial-gradient(ellipse 38% 28% at 14% 38%, rgba(242,184,75,.09), transparent 72%),
-    linear-gradient(135deg, rgba(255,255,255,.78), rgba(241,246,253,.62)) !important;
+    radial-gradient(ellipse 48% 32% at 78% 7%, rgba(53,99,233,.10), transparent 72%),
+    radial-gradient(ellipse 38% 28% at 14% 38%, rgba(242,184,75,.07), transparent 72%),
+    linear-gradient(135deg, rgba(255,255,255,.56), rgba(241,246,253,.48)) !important;
 }
 
 html:not([data-theme="dark"]) .pcx-home::after {
-  opacity: .72 !important;
+  opacity: .42 !important;
   background-image:
-    linear-gradient(rgba(53,99,233,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(53,99,233,.035) 1px, transparent 1px) !important;
+    linear-gradient(rgba(53,99,233,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53,99,233,.028) 1px, transparent 1px) !important;
   background-size: 56px 56px !important;
-  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.55) 38%, transparent 82%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.42) 38%, transparent 82%);
+}
+
+html:not([data-theme="dark"]) .pcx-home > main,
+html:not([data-theme="dark"]) .pcx-home main {
+  position: relative;
+  z-index: 1;
 }
 
 /* Premium glass surfaces — enough separation without gray boxes everywhere. */
 html:not([data-theme="dark"]) :where(.pcx-category,.pcx-product,.pcx-compare__board,.pcx-dialog,.card,.panel,.surface,.dashboard-card,.catalog-card) {
   border-color: #d8e0eb !important;
-  background-color: rgba(255,255,255,.90) !important;
+  background-color: rgba(255,255,255,.92) !important;
   box-shadow: 0 12px 34px rgba(23,43,77,.075) !important;
+  backdrop-filter: blur(10px) saturate(115%);
 }
 
 html:not([data-theme="dark"]) :where(.pcx-section__head p,.pcx-product__meta,.pcx-product__store,.pcx-compare__hint,.muted,.text-muted,.secondary-text) {
@@ -115,13 +122,13 @@ html:not([data-theme="dark"]) .pcx-nav a { color: #35445d !important; }
 html:not([data-theme="dark"]) .pcx-nav a:hover { color: #274fc7 !important; }
 html[data-theme="dark"] .pcx-nav a { color: #d6deea !important; }
 
-/* Hero gets depth in light mode instead of looking like a blank white sheet. */
+/* Hero: the photo remains visible but receives a calm reading veil. */
 html:not([data-theme="dark"]) .pcx-hero {
   background:
-    radial-gradient(circle at 80% 24%, rgba(53,99,233,.16), transparent 27rem),
-    radial-gradient(circle at 20% 88%, rgba(242,184,75,.12), transparent 23rem),
-    linear-gradient(125deg, rgba(255,255,255,.98) 0%, #eef4ff 52%, #e4edff 100%) !important;
-  border-bottom: 1px solid rgba(53,99,233,.09);
+    linear-gradient(105deg, rgba(250,252,255,.97) 0%, rgba(247,250,255,.91) 43%, rgba(235,243,255,.73) 72%, rgba(228,238,255,.62) 100%),
+    url("https://images.unsplash.com/photo-1760463921956-b21cfa5cb2ac?auto=format&fit=crop&fm=jpg&q=82&w=2400") center 46% / cover no-repeat !important;
+  border-bottom: 1px solid rgba(53,99,233,.11);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.65);
 }
 
 html:not([data-theme="dark"]) .pcx-hero__copy > p { color: #4d5c72 !important; }
@@ -157,8 +164,13 @@ html[data-theme="dark"] main :where(p,li) > a:not([class]) { color: #9ab0ff; }
 @media (max-width: 720px) {
   html:not([data-theme="dark"]) body,
   html[data-theme="dark"] body { background-attachment: scroll; }
-  html:not([data-theme="dark"]) .pcx-home::after { background-size: 42px 42px !important; opacity: .48 !important; }
-  html:not([data-theme="dark"]) .pcx-hero { background-position: center !important; }
+  html:not([data-theme="dark"]) .pcx-home::after { background-size: 42px 42px !important; opacity: .32 !important; }
+  html:not([data-theme="dark"]) .pcx-hero {
+    background-position: 58% center !important;
+    background-image:
+      linear-gradient(180deg, rgba(250,252,255,.97) 0%, rgba(244,249,255,.90) 58%, rgba(235,243,255,.82) 100%),
+      url("https://images.unsplash.com/photo-1760463921956-b21cfa5cb2ac?auto=format&fit=crop&fm=jpg&q=76&w=1400") !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

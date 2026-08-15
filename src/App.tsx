@@ -69,6 +69,7 @@ import "./pages/HomeRebuildAllSkills2026.css";
 import "./styles/TotalTheme2026.css";
 import "./styles/ProfessionalContrastPolish2026.css";
 import "./styles/HomePhotoComposition2026.css";
+import "./styles/UnifiedMarketplaceRedesign2026.css";
 
 export default function App() {
   return (

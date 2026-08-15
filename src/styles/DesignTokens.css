@@ -1,27 +1,27 @@
-/* PreçoCerto — primitives → semantics → components */
+/* PreçoCerto — unified 2026 design system */
 :root {
-  /* Brand primitives */
-  --pc-color-navy-900: #172033;
-  --pc-color-navy-800: #172b4d;
-  --pc-color-blue-600: #3563e9;
-  --pc-color-blue-700: #274fc7;
+  --pc-color-navy-950: #051426;
+  --pc-color-navy-900: #071a33;
+  --pc-color-navy-800: #0b2748;
+  --pc-color-blue-600: #2563eb;
+  --pc-color-blue-700: #1d4ed8;
   --pc-color-amber-500: #f2b84b;
-  --pc-color-amber-600: #d99b22;
-  --pc-color-green-600: #2f855a;
+  --pc-color-amber-600: #d79a27;
+  --pc-color-green-600: #238454;
   --pc-color-coral-500: #d97757;
-  --pc-color-slate-600: #667085;
-  --pc-color-line: #e2e7ee;
-  --pc-color-canvas: #f7f8fa;
+  --pc-color-slate-600: #5f6b7a;
+  --pc-color-line: #dbe3ec;
+  --pc-color-canvas: #f6f7fa;
+  --pc-color-offwhite: #f7f5ef;
   --pc-color-white: #ffffff;
   --pc-color-danger: #b42318;
 
-  /* Backward-compatible aliases for older layers */
   --pc-color-forest-700: var(--pc-color-navy-800);
   --pc-color-forest-800: var(--pc-color-navy-900);
   --pc-color-copper-500: var(--pc-color-amber-500);
   --pc-color-copper-600: var(--pc-color-amber-600);
   --pc-color-parchment-50: var(--pc-color-white);
-  --pc-color-parchment-100: var(--pc-color-canvas);
+  --pc-color-parchment-100: var(--pc-color-offwhite);
   --pc-color-ink-900: var(--pc-color-navy-900);
   --pc-color-ink-600: var(--pc-color-slate-600);
   --pc-color-success: var(--pc-color-green-600);
@@ -35,21 +35,20 @@
   --pc-space-12: 3rem;
   --pc-space-16: 4rem;
 
-  --pc-radius-control: .75rem;
-  --pc-radius-card: 1rem;
-  --pc-radius-panel: 1.35rem;
+  --pc-radius-control: .8rem;
+  --pc-radius-card: 1.15rem;
+  --pc-radius-panel: 1.6rem;
 
-  --pc-shadow-card: 0 14px 36px rgba(23, 32, 51, .08);
-  --pc-shadow-dialog: 0 32px 100px rgba(10, 18, 34, .28);
+  --pc-shadow-card: 0 14px 36px rgba(7, 26, 51, .08);
+  --pc-shadow-dialog: 0 32px 100px rgba(5, 20, 38, .28);
 
   --pc-duration-fast: 150ms;
   --pc-duration-normal: 220ms;
   --pc-duration-slow: 340ms;
   --pc-ease-out: cubic-bezier(.23, 1, .32, 1);
 
-  /* Semantic tokens */
   --pc-color-background: var(--pc-color-canvas);
-  --pc-color-surface: rgba(255, 255, 255, .96);
+  --pc-color-surface: rgba(255, 255, 255, .97);
   --pc-color-foreground: var(--pc-color-navy-900);
   --pc-color-muted: var(--pc-color-slate-600);
   --pc-color-border: var(--pc-color-line);
@@ -59,7 +58,7 @@
   --pc-color-accent: var(--pc-color-amber-500);
   --pc-color-accent-hover: var(--pc-color-amber-600);
   --pc-color-accent-foreground: var(--pc-color-navy-900);
-  --pc-color-focus: #6f8ff2;
+  --pc-color-focus: #7ea0ff;
   --pc-color-positive: var(--pc-color-green-600);
   --pc-color-local: var(--pc-color-coral-500);
 
@@ -70,21 +69,21 @@
 }
 
 [data-theme="dark"] {
-  --pc-color-background: #0e1523;
-  --pc-color-surface: rgba(21, 31, 48, .96);
-  --pc-color-foreground: #f4f7fb;
-  --pc-color-muted: #aab4c3;
-  --pc-color-border: #2a3850;
-  --pc-color-primary: #6f8ff2;
-  --pc-color-primary-hover: #8aa5ff;
-  --pc-color-primary-foreground: #0b1220;
+  --pc-color-background: #081524;
+  --pc-color-surface: rgba(14, 27, 46, .97);
+  --pc-color-foreground: #f5f8fc;
+  --pc-color-muted: #aeb9c9;
+  --pc-color-border: #2c3c55;
+  --pc-color-primary: #7ea0ff;
+  --pc-color-primary-hover: #9ab5ff;
+  --pc-color-primary-foreground: #071426;
   --pc-color-accent: #f2b84b;
   --pc-color-accent-hover: #f6c968;
-  --pc-color-accent-foreground: #111827;
-  --pc-color-focus: #9ab0ff;
-  --pc-color-positive: #58b184;
+  --pc-color-accent-foreground: #071426;
+  --pc-color-focus: #aac0ff;
+  --pc-color-positive: #72c99a;
   --pc-color-local: #ef997b;
-  --pc-dialog-bg: #151f30;
-  --pc-shadow-card: 0 14px 36px rgba(0, 0, 0, .22);
-  --pc-shadow-dialog: 0 32px 100px rgba(0, 0, 0, .48);
+  --pc-dialog-bg: #0e1b2e;
+  --pc-shadow-card: 0 16px 40px rgba(0, 0, 0, .24);
+  --pc-shadow-dialog: 0 32px 100px rgba(0, 0, 0, .5);
 }

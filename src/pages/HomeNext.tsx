@@ -229,7 +229,7 @@ export function HomeNext() {
           <nav aria-label="Links do rodapé"><Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/colaborar">Colaborar</Link><Link to="/fale-conosco">Contato</Link><Link to="/lojista">Sou lojista</Link></nav>
         </div>
         <div className="pcn-shell pcn-footer__bottom">
-          <span>© 2026 PreçoCerto</span><span>Feito em Feijó, Acre</span>
+          <span>© 2026 PreçoCerto <i aria-hidden="true">·</i> Desenvolvido por Franc Denis</span><span>Feito em Feijó, Acre</span>
         </div>
       </footer>
     </div>

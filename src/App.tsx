@@ -2,32 +2,10 @@ import "./performance/disableClientImageProcessing";
 import "./performance/tolerantDomMutations";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrecoCertoApp from "./PrecoCertoApp";
-import { MaxPriceStoreLabels } from "./components/MaxPriceStoreLabels";
-import { SearchUxClarity } from "./components/SearchUxClarity";
-import { SearchSafePolish } from "./components/SearchSafePolish";
-import { ProductInteractionUx } from "./components/ProductInteractionUx";
-import { PublicCatalogUxFixes } from "./components/PublicCatalogUxFixes";
 import { PublicOnlineSalesAvailability } from "./components/PublicOnlineSalesAvailability";
 import { SmartCompareSearchProMax } from "./components/SmartCompareSearchProMax";
-import { HomepageSearchKeyboardProMax } from "./components/HomepageSearchKeyboardProMax";
-import { HomepageAuditFixes } from "./components/HomepageAuditFixes";
-import { ProductMediaClippingProMax } from "./components/ProductMediaClippingProMax";
-import { HomeProductModalProMaxEnhancer } from "./components/HomeProductModalProMaxEnhancer";
-import { FooterCompactUx } from "./components/FooterCompactUx";
-import { GlobalMobileCompactUx } from "./components/GlobalMobileCompactUx";
-import { UiUxProMaxFoundation } from "./components/UiUxProMaxFoundation";
-import { ProductCardsSafePolish } from "./components/ProductCardsSafePolish";
-import { ProductDetailSafePolish } from "./components/ProductDetailSafePolish";
-import { EstablishmentsSafePolish } from "./components/EstablishmentsSafePolish";
-import { BasketFavoritesUserSafePolish } from "./components/BasketFavoritesUserSafePolish";
-import { PlansMerchantConversionSafePolish } from "./components/PlansMerchantConversionSafePolish";
-import { InternalDashboardsSafePolish } from "./components/InternalDashboardsSafePolish";
-import { InternalDashboardsDeepUiUx } from "./components/InternalDashboardsDeepUiUx";
-import { PublicPagesUiUxAudit } from "./components/PublicPagesUiUxAudit";
 import { DeveloperMarketplaceAbout } from "./components/DeveloperMarketplaceAbout";
-import { CorePublicPagesUiUx } from "./components/CorePublicPagesUiUx";
 import { ScrollPerformanceGuard } from "./components/ScrollPerformanceGuard";
-import { PreferredProductPngUpgrade } from "./components/PreferredProductPngUpgrade";
 import { EstablishmentsMarketplacePage } from "./components/EstablishmentsMarketplacePage";
 import { EstablishmentsNavBridge } from "./components/EstablishmentsNavBridge";
 import { PublicEstablishmentCatalog } from "./components/PublicEstablishmentCatalog";
@@ -66,30 +44,8 @@ export default function App() {
       <FavoritesProvider>
         <CommerceIntentBridge />
         <DeveloperMarketplaceAbout />
-        <HomepageSearchKeyboardProMax />
-        <HomepageAuditFixes />
-        <ProductMediaClippingProMax />
-        <HomeProductModalProMaxEnhancer />
-        <CorePublicPagesUiUx />
         <ScrollPerformanceGuard />
-        <MaxPriceStoreLabels />
-        <SearchUxClarity />
-        <SearchSafePolish />
-        <ProductInteractionUx />
-        <PublicCatalogUxFixes />
         <PublicOnlineSalesAvailability />
-        <FooterCompactUx />
-        <GlobalMobileCompactUx />
-        <UiUxProMaxFoundation />
-        <ProductCardsSafePolish />
-        <ProductDetailSafePolish />
-        <EstablishmentsSafePolish />
-        <BasketFavoritesUserSafePolish />
-        <PlansMerchantConversionSafePolish />
-        <InternalDashboardsSafePolish />
-        <InternalDashboardsDeepUiUx />
-        <PublicPagesUiUxAudit />
-        <PreferredProductPngUpgrade />
         <MerchantBusinessSetupShortcut />
         <MerchantDemoSwitcher />
         <EstablishmentsNavBridge />

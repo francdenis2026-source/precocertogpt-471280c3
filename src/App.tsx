@@ -54,7 +54,7 @@ import { AdminMerchantManagement } from "./components/AdminMerchantManagement";
 import { CustomerOrders } from "./components/CustomerOrders";
 import { MercadoPagoCallback } from "./components/MercadoPagoCallback";
 import { CollaboratePage, ContactPage, PharmaciesPage } from "./components/PublicFooterServicePages";
-import { HomePremium } from "./pages/HomePremium";
+import { HomeNext } from "./pages/HomeNext";
 import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
@@ -112,7 +112,7 @@ export default function App() {
         <AuthorMerchantDashboardWelcome />
         <RouteHead />
         <Routes>
-          <Route path="/" element={<HomePremium />} />
+          <Route path="/" element={<HomeNext />} />
           <Route path="/buscar" element={<SmartCompareSearchProMax />} />
           <Route path="/favoritos" element={<SavedFavoritesPage />} />
           <Route path="/estabelecimentos" element={<EstablishmentsMarketplacePage />} />

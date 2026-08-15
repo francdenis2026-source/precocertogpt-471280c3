@@ -71,6 +71,7 @@ import "./styles/ProfessionalContrastPolish2026.css";
 import "./styles/HomePhotoComposition2026.css";
 import "./styles/UnifiedMarketplaceRedesign2026.css";
 import "./pages/HomeNextCompactTheme.css";
+import "./pages/HomeNextKowalski.css";
 
 export default function App() {
   return (

@@ -57,6 +57,7 @@ import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { SavedFavoritesPage } from "./features/favorites/SavedFavoritesPage";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
+import "./styles/ProfessionalBluePalette2026.css";
 
 export default function App() {
   return (

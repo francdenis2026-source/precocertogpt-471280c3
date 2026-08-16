@@ -16,9 +16,9 @@ import { RouteHead } from "./components/RouteHead";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { CommerceIntentBridge } from "./features/favorites/CommerceIntentBridge";
 import { GlobalDeveloperSignature } from "./components/GlobalDeveloperSignature";
+import { ReferenceAdminDashboard, ReferenceAuthPage, ReferenceHome, ReferenceProductPage } from "./reference/ReferenceExperience";
 
 const PrecoCertoApp = lazy(() => import("./PrecoCertoApp"));
-const HomeNext = lazy(() => import("./pages/HomeNext").then(module => ({ default: module.HomeNext })));
 const SmartCompareSearchProMax = lazy(() => import("./components/SmartCompareSearchProMax").then(module => ({ default: module.SmartCompareSearchProMax })));
 const SavedFavoritesPage = lazy(() => import("./features/favorites/SavedFavoritesPage").then(module => ({ default: module.SavedFavoritesPage })));
 const EstablishmentsMarketplacePage = lazy(() => import("./components/EstablishmentsMarketplacePage").then(module => ({ default: module.EstablishmentsMarketplacePage })));
@@ -35,7 +35,6 @@ const MerchantBusinessSetup = lazy(() => import("./components/MerchantBusinessSe
 const MerchantOnlineSalesControl = lazy(() => import("./components/MerchantOnlineSalesControl").then(module => ({ default: module.MerchantOnlineSalesControl })));
 const CustomerOrders = lazy(() => import("./components/CustomerOrders").then(module => ({ default: module.CustomerOrders })));
 const MercadoPagoCallback = lazy(() => import("./components/MercadoPagoCallback").then(module => ({ default: module.MercadoPagoCallback })));
-const PlatformAdminDashboard = lazy(() => import("./components/PlatformAdminDashboard").then(module => ({ default: module.PlatformAdminDashboard })));
 const AdminMerchantManagement = lazy(() => import("./components/AdminMerchantManagement").then(module => ({ default: module.AdminMerchantManagement })));
 const CollaboratePage = lazy(() => import("./components/PublicFooterServicePages").then(module => ({ default: module.CollaboratePage })));
 const ContactPage = lazy(() => import("./components/PublicFooterServicePages").then(module => ({ default: module.ContactPage })));
@@ -63,7 +62,11 @@ export default function App() {
         <AuthorMerchantDashboardWelcome />
         <RouteHead />
         <div id="conteudo-principal" tabIndex={-1}><Suspense fallback={<RouteLoading />}><Routes>
-          <Route path="/" element={<HomeNext />} />
+          <Route path="/" element={<ReferenceHome />} />
+          <Route path="/login" element={<ReferenceAuthPage mode="login" />} />
+          <Route path="/cadastro" element={<ReferenceAuthPage mode="register" />} />
+          <Route path="/registrar" element={<ReferenceAuthPage mode="register" />} />
+          <Route path="/produto/:identifier" element={<ReferenceProductPage />} />
           <Route path="/buscar" element={<SmartCompareSearchProMax />} />
           <Route path="/favoritos" element={<SavedFavoritesPage />} />
           <Route path="/estabelecimentos" element={<EstablishmentsMarketplacePage />} />
@@ -83,7 +86,7 @@ export default function App() {
           <Route path="/painel-lojista/vendas-online" element={<MerchantOnlineSalesControl />} />
           <Route path="/meus-pedidos" element={<CustomerOrders />} />
           <Route path="/integracoes/mercadopago/callback" element={<MercadoPagoCallback />} />
-          <Route path="/admin/plataforma" element={<PlatformAdminDashboard />} />
+          <Route path="/admin/plataforma" element={<ReferenceAdminDashboard />} />
           <Route path="/admin/comercios" element={<AdminMerchantManagement />} />
           <Route path="/colaborar" element={<CollaboratePage />} />
           <Route path="/contato" element={<ContactPage />} />

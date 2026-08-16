@@ -207,13 +207,17 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
         if (!store) return null;
 
         const previous = toNumber(best.previous_value);
+        const normalizedProductName = normalize(product.name || "");
+        const normalizedProductSize = normalize(product.size || "").replace(/\\s+/g, "");
+        const isLimpolPerfumes500ml = normalizedProductName.includes("limpol perfumes")
+          && (normalizedProductName.includes("500ml") || normalizedProductSize === "500ml");
 
         return {
           id: product.id,
           slug: String(product.id),
           name: product.name ?? "Produto sem nome",
           brand: product.brand ?? "—",
-          category: product.category ?? "Geral",
+          category: isLimpolPerfumes500ml ? "Desinfetante" : product.category ?? "Geral",
           size: product.size ?? "—",
           unit: product.unit ?? "un",
           barcode: product.barcode ?? undefined,

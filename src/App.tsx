@@ -16,6 +16,7 @@ import {
   ReferenceStorePage,
   ReferenceStoresPage,
 } from "./reference/ReferenceExperience";
+import { MarketplaceExplorePage, MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
 
 function RouteFocusManager() {
   const location = useLocation();
@@ -39,6 +40,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<ReferenceHome />} />
           <Route path="/buscar" element={<ReferenceSearchPage />} />
+          <Route path="/explorar" element={<MarketplaceExplorePage />} />
+          <Route path="/mercados" element={<MarketplaceSectorLanding sector={marketplaceSectors[0]} />} />
+          <Route path="/farmacias" element={<MarketplaceSectorLanding sector={marketplaceSectors[1]} />} />
+          <Route path="/padarias" element={<MarketplaceSectorLanding sector={marketplaceSectors[2]} />} />
+          <Route path="/livros" element={<MarketplaceSectorLanding sector={marketplaceSectors[3]} />} />
+          <Route path="/servicos" element={<MarketplaceSectorLanding sector={marketplaceSectors[4]} />} />
           <Route path="/produto/:identifier" element={<ReferenceProductPage />} />
           <Route path="/estabelecimentos" element={<ReferenceStoresPage />} />
           <Route path="/estabelecimento/:identifier" element={<ReferenceStorePage />} />
@@ -55,7 +62,6 @@ export default function App() {
           <Route path="/colaborar" element={<ReferenceInfoPage kind="collaborate" />} />
           <Route path="/contato" element={<ReferenceInfoPage kind="contact" />} />
           <Route path="/fale-conosco" element={<ReferenceInfoPage kind="contact" />} />
-          <Route path="/farmacias" element={<ReferenceInfoPage kind="pharmacies" />} />
           <Route path="/meus-pedidos" element={<ReferenceInfoPage kind="orders" />} />
           <Route path="/cultura/*" element={<ReferenceInfoPage kind="culture" />} />
           <Route path="/fremix-producoes" element={<ReferenceInfoPage kind="culture" />} />

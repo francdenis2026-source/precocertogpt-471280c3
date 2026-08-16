@@ -14,6 +14,7 @@ import { loadPlatformSummary } from "../lib/merchantPlatform";
 import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib/roles";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { OnlinePresence } from "../components/OnlinePresence";
+import { SectorNavigator, getMarketplaceSector, inferProductSector, type MarketplaceSectorId } from "./MarketplaceSectors";
 import "./ReferenceExperience.css";
 import "./ReferencePages.css";
 import "./ReferencePagesMore.css";
@@ -224,9 +225,9 @@ function PublicHeader({ current }: { current?: "home" | "search" | "basket" | "s
   return <header className="ref-header"><div className="ref-shell ref-header__inner"><Brand />
     <span className="ref-location"><MapPin /><span><small>Você está em</small><strong>Feijó, AC</strong></span></span>
     {current === "home" && <OnlinePresence />}
-    <nav className="ref-nav" aria-label="Navegação principal"><Link className={current === "home" ? "is-active" : ""} to="/">Início</Link><Link className={current === "search" ? "is-active" : ""} to="/buscar">Comparar preços</Link><Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos">Estabelecimentos</Link><Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link></nav>
+    <nav className="ref-nav" aria-label="Navegação principal"><Link className={current === "home" ? "is-active" : ""} to="/">Início</Link><Link to="/explorar">Explorar setores</Link><Link className={current === "search" ? "is-active" : ""} to="/buscar">Buscar</Link><Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos">Estabelecimentos</Link><Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link></nav>
     <div className="ref-header__actions"><ThemeButton /><Link to="/favoritos" aria-label="Favoritos"><Heart /></Link><Link className="ref-signin" to="/login">Entrar</Link><button type="button" className="ref-menu" aria-label={menu ? "Fechar menu" : "Abrir menu"} aria-expanded={menu} onClick={() => setMenu(value => !value)}>{menu ? <X /> : <Menu />}</button></div>
-  </div>{menu && <nav className="ref-mobile-menu"><Link to="/buscar">Comparar preços</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/cesta-basica">Lista de compras</Link><Link to="/lojista">Para comerciantes</Link></nav>}</header>;
+  </div>{menu && <nav className="ref-mobile-menu"><Link to="/explorar">Explorar setores</Link><Link to="/buscar">Buscar no PreçoCerto</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/cesta-basica">Lista de compras</Link><Link to="/lojista">Para negócios e profissionais</Link></nav>}</header>;
 }
 
 function PublicFooter() {
@@ -456,6 +457,8 @@ export function ReferenceHome() {
 
       <section className="ref-proof"><div className="ref-shell ref-proof__grid"><div><strong>{integer.format(catalog.metrics.prices)}</strong><span>preços verificados</span></div><div><strong>{integer.format(catalog.metrics.products)}</strong><span>produtos monitorados</span></div><div><strong>{integer.format(catalog.metrics.stores)}</strong><span>estabelecimentos locais</span></div><div><strong>Feijó</strong><span>feito para nossa cidade</span></div></div></section>
 
+      <section className="ref-sectors ref-shell" aria-labelledby="ref-sectors-title"><div className="ref-sectors__heading"><div><span>EXPLORE SEM MISTURAR</span><h2 id="ref-sectors-title">Cada busca no lugar certo.</h2></div><p>Escolha um setor para ver produtos, serviços, lojas e profissionais com filtros próprios.</p></div><SectorNavigator compact/><Link className="ref-sectors__all" to="/explorar">Entender todos os setores <ArrowRight /></Link></section>
+
       <section className="ref-section ref-shell"><div className="ref-section__heading"><div><h2>Onde seu dinheiro rende mais.</h2><p className="ref-section__rotation-note">Seleção renovada a cada 60 minutos, com um comércio diferente em cada destaque.</p></div><Link to="/buscar">Ver todos os preços <ArrowRight /></Link></div>
         <div className="ref-price-board">{featured.map((product, index) => <Link to={`/produto/${product.slug || product.id}`} className="ref-price-row" key={product.id}><span className="ref-price-rank">{String(index + 1).padStart(2, "0")}</span><span className="ref-price-image"><ProductVisual product={product} /></span><span className="ref-price-name"><small>{product.category}</small><strong>{product.name}</strong><em>{product.size || product.brand}</em></span><span className="ref-price-store"><small>melhor em</small><strong>{product.establishment}</strong><em>{product.neighborhood}</em></span><span className="ref-price-value"><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong><em>{product.storeCount || product.offers?.length || 1} ofertas</em></span><ArrowRight /></Link>)}</div>
       </section>
@@ -488,25 +491,30 @@ export function ReferenceSearchPage() {
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get("q") || "");
   const deferredQuery = useDeferredValue(query);
+  const sector = getMarketplaceSector(params.get("setor"));
+  const activeSector: MarketplaceSectorId = sector?.id || "all";
   const [category, setCategory] = useState("Todos");
   const [visibleCount, setVisibleCount] = useState(40);
-  const categories = useMemo(() => ["Todos", ...Array.from(new Set(catalog.products.map(item => item.category)))], [catalog.products]);
+  const sectorProducts = useMemo(() => activeSector === "all" ? catalog.products : catalog.products.filter(product => inferProductSector(product.category) === activeSector), [activeSector, catalog]);
+  const categories = useMemo(() => ["Todos", ...Array.from(new Set(sectorProducts.map(item => item.category)))], [sectorProducts]);
+  const effectiveCategory = categories.includes(category) ? category : "Todos";
   const products = useMemo(() => {
     const term = normalizeProductSearch(deferredQuery);
-    return catalog.products
+    return sectorProducts
       .map(product => ({ product, score: productSearchScore(product, term) }))
-      .filter(({ product, score }) => score < 99 && (category === "Todos" || product.category === category))
+      .filter(({ product, score }) => score < 99 && (effectiveCategory === "Todos" || product.category === effectiveCategory))
       .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
       .map(({ product }) => product);
-  }, [catalog.products, category, deferredQuery]);
+  }, [sectorProducts, effectiveCategory, deferredQuery]);
   useEffect(() => setVisibleCount(40), [category, deferredQuery]);
   const visibleProducts = useMemo(() => products.slice(0, visibleCount), [products, visibleCount]);
   const searchUpdating = deferredQuery !== query;
-  const submit = (event: FormEvent) => { event.preventDefault(); setParams(query.trim() ? { q: query.trim() } : {}); };
+  const submit = (event: FormEvent) => { event.preventDefault(); const next:Record<string,string> = {}; if(query.trim()) next.q=query.trim(); if(activeSector!=="all") next.setor=activeSector; setParams(next); };
   return <div className="ref-page ref-directory"><PublicHeader current="search" /><main id="conteudo-principal" className="ref-shell ref-directory__main">
-    <div className="ref-page-title ref-search-hero"><div><span>PREÇOS LOCAIS VERIFICADOS</span><h1>Compare sem adivinhar.</h1><p>Encontre o menor preço entre mercados e mercearias de Feijó.</p></div><div className="ref-update"><BadgeCheck /><span>Base verificada<small>atualizada hoje</small></span></div></div>
-    <form className="ref-directory-search" role="search" onSubmit={submit}><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Produto, marca ou estabelecimento" aria-label="Buscar preços" /><button type="submit">Buscar <ArrowRight /></button></form>
-    <div className="ref-filter-row" aria-label="Filtros de categoria"><SlidersHorizontal /><span>Categorias</span>{categories.map(item => <button type="button" key={item} className={category === item ? "is-active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div>
+    <div className="ref-page-title ref-search-hero"><div><span>{sector ? sector.eyebrow.toLocaleUpperCase("pt-BR") : "BUSCA ORGANIZADA NO PREÇOCERTO"}</span><h1>{sector ? sector.shortLabel : "Encontre sem confundir."}</h1><p>{sector ? sector.description : "Pesquise em todos os setores ou escolha uma área para receber resultados mais precisos."}</p></div><div className="ref-update"><BadgeCheck /><span>{sector ? `Setor: ${sector.shortLabel}` : "Todos os setores"}<small>você pode trocar abaixo</small></span></div></div>
+    <div className="ref-search-sectors"><SectorNavigator active={activeSector} compact/></div>
+    <form className="ref-directory-search" role="search" onSubmit={submit}><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder={sector?.searchHint || "Produto, serviço, profissional ou estabelecimento"} aria-label={sector ? `Buscar em ${sector.label}` : "Buscar em todos os setores"} /><button type="submit">Buscar <ArrowRight /></button></form>
+    <div className="ref-filter-row" aria-label="Filtros de categoria"><SlidersHorizontal /><span>Categorias</span>{categories.map(item => <button type="button" key={item} className={effectiveCategory === item ? "is-active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div>
     <section className={`ref-results${searchUpdating ? " is-updating" : ""}`} aria-busy={searchUpdating}><header><div><span>RESULTADOS EM FEIJÓ</span><h2>{products.length} {products.length === 1 ? "produto encontrado" : "produtos encontrados"}</h2></div><small>{searchUpdating ? "Atualizando resultados…" : "Correspondência do nome primeiro; menor preço como desempate"}</small></header>
       <div className="ref-results-table ref-catalog-grid"><div className="ref-results-table__head"><span>Produto</span><span>Melhor estabelecimento</span><span title="Menor e maior preço encontrados em estabelecimentos diferentes">Menor — maior</span><span>Menor preço</span><span /></div>{visibleProducts.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`} className="ref-result-row ref-catalog-card"><span className="ref-result-product"><i><ProductVisual product={product} /></i><span><small>{product.category} · {product.brand}</small><strong>{product.name}</strong><em>{product.size}</em></span></span><span className="ref-result-store"><i style={{ background: product.storeColor }} /><span><strong>{product.establishment}</strong><small>{product.neighborhood}</small></span></span><span className="ref-result-range"><ProductRangeSummary product={product} /></span><strong className="ref-result-price">{brl.format(product.minPrice)}<small><BadgeCheck /> verificado</small></strong><ArrowRight /></Link>)}</div>
       {visibleCount < products.length && <button className="ref-results-more" type="button" onClick={() => setVisibleCount(count => Math.min(count + 40, products.length))}>Mostrar mais resultados <span>{products.length - visibleCount} restantes</span></button>}
@@ -517,19 +525,26 @@ export function ReferenceSearchPage() {
 
 export function ReferenceStoresPage() {
   const catalog = useCatalog();
+  const [params] = useSearchParams();
+  const activeDirectorySector = getMarketplaceSector(params.get("setor"));
   const [query, setQuery] = useState("");
   const [mapStore, setMapStore] = useState("");
   const [visibleStores, setVisibleStores] = useState(6);
-  const stores = catalog.stores.filter(store => normalize(`${store.name} ${store.neighborhood}`).includes(normalize(query)));
+  const stores = catalog.stores.filter(store => {
+    const matchesQuery = normalize(`${store.name} ${store.neighborhood}`).includes(normalize(query));
+    const matchesSector = !activeDirectorySector || activeDirectorySector.businessKinds.includes(store.kind || "market");
+    return matchesQuery && matchesSector;
+  });
   const listedStores = stores.slice(0, visibleStores);
   useEffect(() => setVisibleStores(6), [query]);
-  const mapLabel = mapStore || "Mercados e mercearias em Feijó";
+  const mapLabel = mapStore || `${activeDirectorySector?.label || "Estabelecimentos"} em Feijó`;
   const mapQuery = encodeURIComponent(`${mapLabel}, Acre, Brasil`);
   return <div className="ref-page ref-directory ref-stores-page"><PublicHeader current="stores" /><main id="conteudo-principal" className="ref-shell ref-directory__main">
-    <section className="ref-stores-hero"><div><span>COMÉRCIO LOCAL VERIFICADO</span><h1>Seu mercado,<br />mais perto.</h1><p>Descubra estabelecimentos de Feijó, consulte catálogos e encontre onde comprar melhor.</p><div><BadgeCheck /> {catalog.metrics.stores} comércios na plataforma</div></div><Link to="/lojista">Cadastrar meu comércio <ArrowRight /></Link></section>
-    <div className="ref-stores-toolbar"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Buscar mercado ou bairro" aria-label="Buscar estabelecimento" /><span>{stores.length} {stores.length === 1 ? "resultado" : "resultados"}</span></div>
+    <section className="ref-stores-hero"><div><span>{activeDirectorySector ? activeDirectorySector.eyebrow.toLocaleUpperCase("pt-BR") : "COMÉRCIO LOCAL VERIFICADO"}</span><h1>{activeDirectorySector ? activeDirectorySector.label : <>Negócios locais,<br />mais perto.</>}</h1><p>{activeDirectorySector?.description || "Descubra estabelecimentos de Feijó, consulte catálogos e encontre onde comprar melhor."}</p><div><BadgeCheck /> {stores.length} {stores.length === 1 ? "cadastro neste setor" : "cadastros neste setor"}</div></div><Link to="/lojista">Cadastrar meu negócio <ArrowRight /></Link></section>
+    <div className="ref-search-sectors"><SectorNavigator active={activeDirectorySector?.id || "all"} compact/></div>
+    <div className="ref-stores-toolbar"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder={activeDirectorySector ? `Buscar em ${activeDirectorySector.shortLabel}` : "Buscar negócio ou bairro"} aria-label="Buscar estabelecimento" /><span>{stores.length} {stores.length === 1 ? "resultado" : "resultados"}</span></div>
     <section className="ref-stores-directory"><div className="ref-store-cards"><header><div><span>ESTABELECIMENTOS</span><h2>Comércios para explorar</h2></div><small>Catálogos e preços locais</small></header>{listedStores.map(store => <article className={`ref-store-card${mapStore === store.name ? " is-map-active" : ""}`} key={store.id}><button className="ref-store-card__select" type="button" onClick={() => setMapStore(store.name)} aria-label={`Mostrar ${store.name} no mapa`}><i style={{ background: store.color }}><StoreLogo name={store.name} /></i><span><small>{store.neighborhood}</small><strong>{store.name}</strong><em>{store.products} produtos no catálogo</em></span><MapPin aria-hidden="true" /></button><footer><button type="button" onClick={() => setMapStore(store.name)}><MapPin /> Localizar</button><Link to={`/estabelecimento/${store.slug}`}>Abrir catálogo <ArrowRight /></Link></footer></article>)}{visibleStores < stores.length && <button className="ref-stores-more" type="button" onClick={() => setVisibleStores(count => Math.min(count + 6, stores.length))}>Mostrar mais estabelecimentos <span>{stores.length - visibleStores} restantes</span></button>}{!stores.length && <div className="ref-empty"><Store /><h2>Nenhum estabelecimento encontrado</h2><p>Tente buscar por outro nome ou bairro.</p></div>}</div>
-      <aside className="ref-stores-map" id="mapa-estabelecimentos"><header><MapIcon /><span><strong>{mapStore || "Mapa do comércio local"}</strong><small>{mapStore ? "Localização pesquisada em Feijó" : "Explore mercados e mercearias de Feijó"}</small></span></header><iframe key={mapQuery} title={`Mapa de ${mapLabel}`} src={`https://www.google.com/maps?q=${mapQuery}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noreferrer">Abrir mapa completo <ArrowRight /></a></aside>
+      <aside className="ref-stores-map" id="mapa-estabelecimentos"><header><MapIcon /><span><strong>{mapStore || "Mapa do comércio local"}</strong><small>{mapStore ? "Localização pesquisada em Feijó" : `Explore ${activeDirectorySector?.shortLabel.toLocaleLowerCase("pt-BR") || "negócios"} de Feijó`}</small></span></header><iframe key={mapQuery} title={`Mapa de ${mapLabel}`} src={`https://www.google.com/maps?q=${mapQuery}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noreferrer">Abrir mapa completo <ArrowRight /></a></aside>
     </section>
   </main><PublicFooter /><AppDock current="stores" /></div>;
 }

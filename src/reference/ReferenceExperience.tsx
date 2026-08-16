@@ -15,6 +15,7 @@ import { resolveProductImage } from "../data/productImageResolver";
 import { loadPlatformSummary } from "../lib/merchantPlatform";
 import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib/roles";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
+import { OnlinePresence } from "../components/OnlinePresence";
 import "./ReferenceExperience.css";
 import "./ReferencePages.css";
 import "./ReferencePagesMore.css";
@@ -105,6 +106,7 @@ function PublicHeader({ current }: { current?: "home" | "search" | "basket" | "s
   const { count } = useBasket();
   return <header className="ref-header"><div className="ref-shell ref-header__inner"><Brand />
     <span className="ref-location"><MapPin /><span><small>Você está em</small><strong>Feijó, AC</strong></span></span>
+    {current === "home" && <OnlinePresence />}
     <nav className="ref-nav" aria-label="Navegação principal"><Link className={current === "home" ? "is-active" : ""} to="/">Início</Link><Link className={current === "search" ? "is-active" : ""} to="/buscar">Comparar preços</Link><Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos">Estabelecimentos</Link><Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link></nav>
     <div className="ref-header__actions"><ThemeButton /><Link to="/favoritos" aria-label="Favoritos"><Heart /></Link><Link className="ref-signin" to="/login">Entrar</Link><button type="button" className="ref-menu" aria-label={menu ? "Fechar menu" : "Abrir menu"} aria-expanded={menu} onClick={() => setMenu(value => !value)}>{menu ? <X /> : <Menu />}</button></div>
   </div>{menu && <nav className="ref-mobile-menu"><Link to="/buscar">Comparar preços</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/cesta-basica">Lista de compras</Link><Link to="/lojista">Para comerciantes</Link></nav>}</header>;

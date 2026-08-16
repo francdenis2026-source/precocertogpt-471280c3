@@ -44,6 +44,10 @@ export type CatalogResult = CatalogPayload & { source: CatalogSource; error?: st
 const round = (value: number) => Math.round(value * 100) / 100;
 const toNumber = (value: number | string | null) => (value === null ? NaN : Number(value));
 const DATABASE_PAGE_SIZE = 1000;
+const CATALOG_CACHE_TTL_MS = 60_000;
+
+let cachedCatalog: { value: CatalogResult; expiresAt: number } | null = null;
+let pendingCatalog: Promise<CatalogResult> | null = null;
 
 export const normalize = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -134,7 +138,7 @@ async function fetchAllRows(
 }
 
 /** Lê establishments/products/prices do Supabase e agrega no formato da UI. */
-export async function fetchCatalog(query = ""): Promise<CatalogResult> {
+async function loadCatalog(query = ""): Promise<CatalogResult> {
   const local = buildCatalog(query);
 
   if (!supabase) {
@@ -164,13 +168,29 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
     }
 
     const q = normalize(query);
-    const productPriceMap = new Map<string, PriceRow[]>();
+    const storesById = new Map(storeRows.map(store => [String(store.id), store]));
+    const pricesByProductId = new Map<string, PriceRow[]>();
+    const productIdsByStore = new Map<string, Set<string>>();
 
+    priceRows.forEach(price => {
+      const productId = String(price.product_id);
+      const storeId = String(price.establishment_id);
+      const productPrices = pricesByProductId.get(productId);
+      if (productPrices) productPrices.push(price);
+      else pricesByProductId.set(productId, [price]);
+
+      const storeProducts = productIdsByStore.get(storeId);
+      if (storeProducts) storeProducts.add(productId);
+      else productIdsByStore.set(storeId, new Set([productId]));
+    });
+
+    const productPriceMap = new Map<string, PriceRow[]>();
     productRows.forEach(product => {
       const key = productIdentity(product);
-      const rows = priceRows.filter(price => String(price.product_id) === String(product.id));
-      if (!productPriceMap.has(key)) productPriceMap.set(key, []);
-      productPriceMap.get(key)!.push(...rows);
+      const rows = pricesByProductId.get(String(product.id)) || [];
+      const groupedRows = productPriceMap.get(key);
+      if (groupedRows) groupedRows.push(...rows);
+      else productPriceMap.set(key, [...rows]);
     });
 
     const uniqueProductRows = Array.from(
@@ -203,7 +223,7 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
         const best = latestByStore.reduce((lowest, row) =>
           toNumber(row.value) < toNumber(lowest.value) ? row : lowest,
         );
-        const store = storeRows.find(item => String(item.id) === String(best.establishment_id));
+        const store = storesById.get(String(best.establishment_id));
         if (!store) return null;
 
         const previous = toNumber(best.previous_value);
@@ -236,7 +256,7 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
           source: "Coleta Manual",
           updated_at: best.captured_at || undefined,
           offers: latestByStore.map(row => {
-            const offerStore = storeRows.find(item => String(item.id) === String(row.establishment_id));
+            const offerStore = storesById.get(String(row.establishment_id));
             const offerPrevious = toNumber(row.previous_value);
             return {
               establishmentId: row.establishment_id,
@@ -273,11 +293,7 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
       name: store.name ?? "Estabelecimento",
       neighborhood: store.neighborhood ?? "—",
       color: store.brand_color ?? "#1473E6",
-      products: new Set(
-        priceRows
-          .filter(row => String(row.establishment_id) === String(store.id))
-          .map(row => row.product_id),
-      ).size,
+      products: productIdsByStore.get(String(store.id))?.size ?? 0,
     }));
 
     const metrics: PlatformMetrics = {
@@ -297,4 +313,31 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
     const message = error instanceof Error ? error.message : "Falha ao consultar o banco.";
     return { ...local, source: "local", error: message };
   }
+}
+
+/**
+ * Reutiliza o catálogo por até 60 segundos e compartilha chamadas simultâneas.
+ * Modais de comparação podem usar `force: true` para consultar preços ao vivo.
+ */
+export function fetchCatalog(
+  query = "",
+  options: { force?: boolean } = {},
+): Promise<CatalogResult> {
+  const canReuse = !query && !options.force;
+
+  if (canReuse && cachedCatalog && cachedCatalog.expiresAt > Date.now()) {
+    return Promise.resolve(cachedCatalog.value);
+  }
+  if (canReuse && pendingCatalog) return pendingCatalog;
+
+  const request = loadCatalog(query);
+  if (!query) {
+    pendingCatalog = request;
+    request.then(value => {
+      cachedCatalog = { value, expiresAt: Date.now() + CATALOG_CACHE_TTL_MS };
+    }).finally(() => {
+      if (pendingCatalog === request) pendingCatalog = null;
+    });
+  }
+  return request;
 }

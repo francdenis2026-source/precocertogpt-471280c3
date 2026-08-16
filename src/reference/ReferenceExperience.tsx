@@ -1,8 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, BarChart3, Bell, Building2,
   Check, CircleDollarSign, Eye, Heart, LayoutDashboard, ListChecks, LockKeyhole, Map as MapIcon,
@@ -28,8 +25,7 @@ import "./TasteRefinement.css";
 import "./DarkThemeRefinement.css";
 import "./ProductCardRefinement.css";
 import "./SearchResultsRefinement.css";
-
-gsap.registerPlugin(ScrollTrigger);
+import "./MobileAppRefinement.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -167,7 +163,6 @@ function AppDock({ current }: { current: "home" | "search" | "basket" | "stores"
 }
 
 export function ReferenceHome() {
-  const homeRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const productDialogRef = useRef<HTMLDivElement>(null);
   const { catalog, loading: catalogLoading } = useCatalogState();
@@ -262,21 +257,7 @@ export function ReferenceHome() {
       searchInputRef.current?.focus();
     };
   }, [selectedProduct]);
-  useGSAP(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    gsap.fromTo(".ref-economy__grid > div:first-child > *",
-      { y: 16, opacity: .72 },
-      { y: 0, opacity: 1, duration: .72, stagger: .06, ease: "power3.out", scrollTrigger: { trigger: ".ref-economy", start: "top 78%", once: true } });
-    gsap.fromTo(".ref-receipt",
-      { y: 22, scale: .94, opacity: .78 },
-      { y: 0, scale: 1, opacity: 1, duration: .9, ease: "power3.out", scrollTrigger: { trigger: ".ref-economy", start: "top 74%", once: true } });
-    gsap.fromTo(".ref-local__actions a",
-      { y: 14, opacity: .76 },
-      { y: 0, opacity: 1, duration: .65, stagger: .09, ease: "power3.out", scrollTrigger: { trigger: ".ref-local", start: "top 82%", once: true } });
-  }, { scope: homeRef });
-
-  return <div className="ref-page ref-home" ref={homeRef}>
+  return <div className="ref-page ref-home">
     <PublicHeader current="home" />
 
     <main id="conteudo-principal">

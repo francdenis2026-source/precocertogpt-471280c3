@@ -1,5 +1,8 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, BarChart3, Bell, Building2,
   Check, CircleDollarSign, Eye, Heart, LayoutDashboard, ListChecks, LockKeyhole, Map,
@@ -20,6 +23,9 @@ import "./CompactShell.css";
 import "./TypographyScale.css";
 import "./HomeStoryRefinement.css";
 import "./InteractionPolish.css";
+import "./TasteRefinement.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -119,6 +125,7 @@ function AppDock({ current }: { current: "home" | "search" | "basket" | "stores"
 }
 
 export function ReferenceHome() {
+  const homeRef = useRef<HTMLDivElement>(null);
   const catalog = useCatalog();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
@@ -126,7 +133,21 @@ export function ReferenceHome() {
   const lead = featured[0] || catalog.products[0];
   const receipt = featured.slice(0, 3);
   const submit = (event: FormEvent) => { event.preventDefault(); navigate(query.trim() ? `/buscar?q=${encodeURIComponent(query.trim())}` : "/buscar"); };
-  return <div className="ref-page ref-home">
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    gsap.fromTo(".ref-economy__grid > div:first-child > *",
+      { y: 16, opacity: .72 },
+      { y: 0, opacity: 1, duration: .72, stagger: .06, ease: "power3.out", scrollTrigger: { trigger: ".ref-economy", start: "top 78%", once: true } });
+    gsap.fromTo(".ref-receipt",
+      { y: 22, scale: .94, opacity: .78 },
+      { y: 0, scale: 1, opacity: 1, duration: .9, ease: "power3.out", scrollTrigger: { trigger: ".ref-economy", start: "top 74%", once: true } });
+    gsap.fromTo(".ref-local__actions a",
+      { y: 14, opacity: .76 },
+      { y: 0, opacity: 1, duration: .65, stagger: .09, ease: "power3.out", scrollTrigger: { trigger: ".ref-local", start: "top 82%", once: true } });
+  }, { scope: homeRef });
+
+  return <div className="ref-page ref-home" ref={homeRef}>
     <PublicHeader current="home" />
 
     <main id="conteudo-principal">
@@ -141,13 +162,13 @@ export function ReferenceHome() {
 
       <section className="ref-proof"><div className="ref-shell ref-proof__grid"><div><strong>{integer.format(catalog.metrics.prices)}</strong><span>preços verificados</span></div><div><strong>{integer.format(catalog.metrics.products)}</strong><span>produtos monitorados</span></div><div><strong>{integer.format(catalog.metrics.stores)}</strong><span>estabelecimentos locais</span></div><div><strong>Feijó</strong><span>feito para nossa cidade</span></div></div></section>
 
-      <section className="ref-section ref-shell"><div className="ref-section__heading"><div><span>COMPARAÇÃO DE HOJE</span><h2>Onde seu dinheiro rende mais.</h2></div><Link to="/buscar">Ver todos os preços <ArrowRight /></Link></div>
+      <section className="ref-section ref-shell"><div className="ref-section__heading"><div><h2>Onde seu dinheiro rende mais.</h2></div><Link to="/buscar">Ver todos os preços <ArrowRight /></Link></div>
         <div className="ref-price-board">{featured.map((product, index) => <Link to={`/produto/${product.slug || product.id}`} className="ref-price-row" key={product.id}><span className="ref-price-rank">{String(index + 1).padStart(2, "0")}</span><span className="ref-price-image"><ProductVisual product={product} /></span><span className="ref-price-name"><small>{product.category}</small><strong>{product.name}</strong><em>{product.size || product.brand}</em></span><span className="ref-price-store"><small>melhor em</small><strong>{product.establishment}</strong><em>{product.neighborhood}</em></span><span className="ref-price-value"><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong><em>{product.storeCount || product.offers?.length || 1} ofertas</em></span><ArrowRight /></Link>)}</div>
       </section>
 
-      <section className="ref-economy"><div className="ref-shell ref-economy__grid"><div><span className="ref-kicker"><TrendingDown /> SUA ECONOMIA</span><h2>Compare sua lista.<br />Sinta a diferença no bolso.</h2><p>Compare a mesma lista em diferentes lojas e veja, em valores reais, quanto pode economizar no seu bolso.</p><div className="ref-economy__signals"><span><BadgeCheck /> {receipt.length} itens comparados</span><span><MapPin /> Preços de Feijó</span></div><Link to="/cesta-basica">Montar lista de compras <ArrowRight /></Link></div><aside className="ref-receipt" aria-label="Simulação de economia da lista"><header className="ref-receipt__top"><div><strong>PREÇO<span>CERTO</span></strong><small>Comparação local</small></div><span>SIMULAÇÃO</span></header><div className="ref-receipt__meta"><span>Feijó · Acre</span><span>Atualizado hoje</span></div>{receipt.map(product => <div className="ref-receipt__item" key={product.id}><div><span>{product.name}</span><small>{product.establishment}</small></div><strong>{brl.format(product.minPrice)}</strong><em>Economia {brl.format(Math.max(0, product.maxPrice - product.minPrice))}</em></div>)}<div className="ref-receipt__summary"><div><span>Total nos menores preços</span><strong>{brl.format(receipt.reduce((sum, item) => sum + item.minPrice, 0))}</strong></div></div><div className="ref-receipt__total"><div><span>Você pode economizar</span><small>nesta lista</small></div><strong>{brl.format(receipt.reduce((sum, item) => sum + Math.max(0, item.maxPrice - item.minPrice), 0))}</strong></div><footer className="ref-receipt__note"><BadgeCheck /><span>Preços locais verificados<small>Consulte antes da compra.</small></span></footer></aside></div></section>
+      <section className="ref-economy"><div className="ref-shell ref-economy__grid"><div><h2>Compare sua lista.<br />Sinta a diferença no bolso.</h2><p>Compare a mesma lista em diferentes lojas e veja, em valores reais, quanto pode economizar no seu bolso.</p><div className="ref-economy__signals"><span><BadgeCheck /> {receipt.length} itens comparados</span><span><MapPin /> Preços de Feijó</span></div><Link to="/cesta-basica">Montar lista de compras <ArrowRight /></Link></div><aside className="ref-receipt" aria-label="Simulação de economia da lista"><header className="ref-receipt__top"><div><strong>PREÇO<span>CERTO</span></strong><small>Comparação local</small></div><span>SIMULAÇÃO</span></header><div className="ref-receipt__meta"><span>Feijó · Acre</span><span>Atualizado hoje</span></div>{receipt.map(product => <div className="ref-receipt__item" key={product.id}><div><span>{product.name}</span><small>{product.establishment}</small></div><strong>{brl.format(product.minPrice)}</strong><em>Economia {brl.format(Math.max(0, product.maxPrice - product.minPrice))}</em></div>)}<div className="ref-receipt__summary"><div><span>Total nos menores preços</span><strong>{brl.format(receipt.reduce((sum, item) => sum + item.minPrice, 0))}</strong></div></div><div className="ref-receipt__total"><div><span>Você pode economizar</span><small>nesta lista</small></div><strong>{brl.format(receipt.reduce((sum, item) => sum + Math.max(0, item.maxPrice - item.minPrice), 0))}</strong></div><footer className="ref-receipt__note"><BadgeCheck /><span>Preços locais verificados<small>Consulte antes da compra.</small></span></footer></aside></div></section>
 
-      <section className="ref-local"><div className="ref-shell ref-local__inner"><div><span>COMÉRCIO LOCAL</span><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
+      <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
     </main>
     <PublicFooter /><AppDock current="home" />
   </div>;

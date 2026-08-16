@@ -1,0 +1,66 @@
+/* Direção taste: hierarquia editorial, superfícies discretas e movimento com propósito. */
+.ref-home > main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.ref-home .ref-hero h1 {
+  max-width: 11ch;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.ref-home > main > .ref-section {
+  position: relative;
+}
+
+.ref-home > main > .ref-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 12%;
+  right: -12%;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,136,34,.075), transparent 68%);
+  pointer-events: none;
+}
+
+.ref-home .ref-section__heading h2,
+.ref-home .ref-economy h2,
+.ref-home .ref-local h2 {
+  margin-top: 0;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.ref-home .ref-price-board {
+  border-color: color-mix(in srgb, var(--ref-line) 82%, var(--ref-gold));
+  box-shadow: 0 18px 52px rgba(7,27,45,.055);
+}
+
+.ref-home .ref-price-row img {
+  transition: transform 700ms cubic-bezier(.23, 1, .32, 1), filter 300ms ease;
+}
+
+.ref-home .ref-local__actions a {
+  overflow: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ref-home .ref-price-row:hover img {
+    transform: scale(1.055);
+    filter: contrast(1.04) saturate(1.04);
+  }
+}
+
+@media (max-width: 680px) {
+  .ref-home .ref-hero h1 { max-width: 10ch; }
+  .ref-home > main > .ref-section::before { width: 22rem; height: 22rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-home .ref-price-row img { transition: none; }
+}

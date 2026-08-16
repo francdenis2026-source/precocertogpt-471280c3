@@ -41,11 +41,6 @@ function writeBasket(items: BasketEntry[]) {
   window.dispatchEvent(new Event("pc:basket-changed"));
 }
 
-function clearBasket() {
-  localStorage.removeItem(BASKET_KEY);
-  window.dispatchEvent(new Event("pc:basket-changed"));
-}
-
 function addBasketItem(productId: string) {
   const current = readBasket();
   const existing = current.find(item => item.productId === productId);

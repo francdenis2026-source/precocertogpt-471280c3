@@ -324,3 +324,249 @@ html[data-theme="dark"] .ref-header__inner {
 @media (prefers-reduced-motion: reduce) {
   .ref-nav a, .ref-footer nav a, .ref-signin { transition: none; }
 }
+
+
+/* Autenticação compacta: login e cadastro dentro da altura útil */
+@media (min-width:981px) {
+  .ref-auth {
+    height: 100dvh;
+    min-height: 620px;
+    overflow: hidden;
+  }
+
+  .ref-auth__story,
+  .ref-auth__form {
+    height: 100dvh;
+    min-height: 620px;
+  }
+
+  .ref-auth__story {
+    padding: clamp(22px,3.5vh,34px) clamp(30px,4.5vw,64px);
+  }
+
+  .ref-auth__story h1 {
+    margin-block: 8px;
+    font-size: clamp(3rem,5vw,4.35rem);
+    line-height: .91;
+  }
+
+  .ref-auth__story > div > p {
+    margin-block: 8px 0;
+    font-size: .9375rem;
+  }
+
+  .ref-auth__comparison {
+    margin-top: clamp(16px,2.6vh,24px);
+  }
+
+  .ref-auth__comparison > div {
+    min-height: 44px;
+    padding: 7px 12px;
+  }
+
+  .ref-auth__comparison > div:first-child img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .ref-auth__comparison footer {
+    padding: 10px 12px;
+  }
+
+  .ref-auth__form {
+    place-items: center;
+    align-content: center;
+    padding: clamp(42px,6vh,56px) 28px 34px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .ref-auth__back {
+    top: 18px;
+    left: 28px;
+  }
+
+  .ref-auth__card {
+    width: min(440px,100%);
+  }
+
+  .ref-auth__card h2 {
+    margin: 5px 0;
+    font-size: clamp(1.75rem,2.4vw,2rem);
+    line-height: 1.04;
+  }
+
+  .ref-auth__card > p {
+    margin-bottom: 15px;
+    font-size: .8125rem;
+    line-height: 1.4;
+  }
+
+  .ref-account-tabs {
+    gap: 7px;
+    margin-bottom: 14px;
+  }
+
+  .ref-account-tabs button {
+    min-height: 62px;
+    padding: 9px 11px;
+  }
+
+  .ref-auth__card form {
+    gap: 9px;
+  }
+
+  .ref-auth__card label {
+    gap: 4px;
+  }
+
+  .ref-auth__card input {
+    height: 42px;
+  }
+
+  .ref-auth__submit {
+    min-height: 44px;
+  }
+
+  .ref-auth__recover {
+    margin-top: 8px;
+  }
+
+  .ref-auth__switch {
+    margin-top: 14px;
+    padding-top: 13px;
+  }
+
+  .ref-auth__safe {
+    margin-top: 11px !important;
+  }
+
+  .ref-auth__signature {
+    bottom: 9px;
+  }
+}
+
+@media (min-width:681px) and (max-width:980px) {
+  .ref-auth {
+    display: block;
+    min-height: 100dvh;
+  }
+
+  .ref-auth__story {
+    display: none;
+  }
+
+  .ref-auth__form {
+    min-height: 100dvh;
+    padding: 58px 24px 34px;
+  }
+}
+
+@media (max-width:680px) {
+  .ref-auth {
+    display: block;
+    min-height: 100dvh;
+    padding-bottom: 66px;
+  }
+
+  .ref-auth__story {
+    display: none;
+  }
+
+  .ref-auth__form {
+    min-height: calc(100dvh - 66px);
+    place-items: start stretch;
+    align-content: center;
+    padding: 58px 18px 28px;
+  }
+
+  .ref-auth__back {
+    top: 17px;
+    left: 18px;
+  }
+
+  .ref-auth__card {
+    width: min(440px,100%);
+    margin-inline: auto;
+  }
+
+  .ref-auth__card h2 {
+    margin-block: 5px;
+    font-size: 1.85rem;
+  }
+
+  .ref-auth__card > p {
+    margin-bottom: 14px;
+  }
+
+  .ref-account-tabs {
+    margin-bottom: 13px;
+  }
+
+  .ref-account-tabs button {
+    min-height: 62px;
+    padding: 9px;
+  }
+
+  .ref-auth__card form {
+    gap: 9px;
+  }
+
+  .ref-auth__card label {
+    gap: 4px;
+  }
+
+  .ref-auth__card input {
+    height: 44px;
+  }
+
+  .ref-auth__submit {
+    min-height: 44px;
+  }
+
+  .ref-auth__recover {
+    margin-top: 8px;
+  }
+
+  .ref-auth__switch {
+    margin-top: 13px;
+    padding-top: 12px;
+  }
+
+  .ref-auth__safe {
+    margin-top: 10px !important;
+  }
+
+  .ref-auth__signature {
+    position: static;
+    margin: 12px auto 0;
+  }
+}
+
+@media (min-width:981px) and (max-height:700px) {
+  .ref-auth__story h1 {
+    font-size: clamp(2.65rem,4.4vw,3.65rem);
+  }
+
+  .ref-auth__comparison {
+    margin-top: 12px;
+  }
+
+  .ref-auth__comparison > div {
+    min-height: 39px;
+    padding-block: 5px;
+  }
+
+  .ref-auth__comparison > div:first-child img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .ref-auth__form {
+    padding-block: 42px 24px;
+  }
+
+  .ref-auth__signature {
+    display: none;
+  }
+}

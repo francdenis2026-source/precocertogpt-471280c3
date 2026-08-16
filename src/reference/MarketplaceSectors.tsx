@@ -1,93 +1,23 @@
-import { ArrowRight, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, Pill, ShoppingBasket, type LucideIcon } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, MapPin, Pill, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./MarketplaceSectors.css";
 
 export type MarketplaceSectorId = "all" | "markets" | "pharmacies" | "bakery" | "books" | "services";
-
-export type MarketplaceSector = {
-  id: MarketplaceSectorId;
-  label: string;
-  shortLabel: string;
-  eyebrow: string;
-  title: string;
-  description: string;
-  searchHint: string;
-  href: string;
-  icon: LucideIcon;
-  productCategories: string[];
-  businessKinds: string[];
-};
+export type MarketplaceSector = { id: MarketplaceSectorId; label: string; shortLabel: string; eyebrow: string; title: string; description: string; searchHint: string; href: string; icon: LucideIcon; productCategories: string[]; businessKinds: string[]; highlights: string[] };
 
 export const marketplaceSectors: MarketplaceSector[] = [
-  {
-    id: "markets", label: "Mercados e mercearias", shortLabel: "Mercados", eyebrow: "Compras do dia a dia",
-    title: "Compare alimentos, limpeza e itens para casa.",
-    description: "Preços locais de mercados, supermercados e mercearias, organizados para uma comparação direta.",
-    searchHint: "Arroz, café, limpeza ou mercado…", href: "/mercados", icon: ShoppingBasket,
-    productCategories: ["mercearia", "acougue", "laticinios", "limpeza", "hortifruti", "bebidas", "higiene", "congelados"],
-    businessKinds: ["market", "grocery", "supermarket", "beverage"],
-  },
-  {
-    id: "pharmacies", label: "Farmácias e saúde", shortLabel: "Farmácias", eyebrow: "Saúde e cuidados",
-    title: "Encontre farmácias e itens de cuidado pessoal.",
-    description: "Uma área própria para farmácias, perfumaria, higiene e produtos de saúde, sem misturar com o supermercado.",
-    searchHint: "Farmácia, higiene ou produto de saúde…", href: "/farmacias", icon: Pill,
-    productCategories: ["farmacia", "medicamentos", "saude", "higiene", "perfumaria", "cuidados pessoais"],
-    businessKinds: ["pharmacy", "health"],
-  },
-  {
-    id: "bakery", label: "Padarias e alimentação", shortLabel: "Padarias", eyebrow: "Feito perto de você",
-    title: "Cardápios, encomendas e alimentação local.",
-    description: "Padarias, lanchonetes e restaurantes com cardápio, horários, retirada e entrega em uma área dedicada.",
-    searchHint: "Pão, bolo, lanche ou padaria…", href: "/padarias", icon: Croissant,
-    productCategories: ["padaria", "alimentos preparados", "lanches", "refeicoes", "doces", "salgados"],
-    businessKinds: ["bakery", "restaurant", "pizzeria", "snack_bar", "food"],
-  },
-  {
-    id: "books", label: "Livros e autores", shortLabel: "Livros", eyebrow: "Cultura e conhecimento",
-    title: "Descubra livros, autores e projetos editoriais.",
-    description: "Obras, perfis de autores e espaços culturais reunidos em uma vitrine editorial própria.",
-    searchHint: "Título, autora, autor ou gênero…", href: "/livros", icon: BookOpen,
-    productCategories: ["livros", "literatura", "cultura", "educacao"],
-    businessKinds: ["books_author", "bookstore", "publisher", "culture"],
-  },
-  {
-    id: "services", label: "Serviços e profissionais", shortLabel: "Serviços", eyebrow: "Profissionais locais",
-    title: "Encontre quem pode resolver o que você precisa.",
-    description: "Autônomos e prestadores com especialidades, portfólio, área atendida e formas de contato claras.",
-    searchHint: "Serviço, profissão ou especialidade…", href: "/servicos", icon: BriefcaseBusiness,
-    productCategories: ["servicos", "profissionais", "autonomos"],
-    businessKinds: ["services", "professional", "freelancer"],
-  },
+  { id:"markets",label:"Mercados e mercearias",shortLabel:"Mercados",eyebrow:"Compras do dia a dia",title:"Compare alimentos, limpeza e itens para casa.",description:"Preços locais de mercados, supermercados e mercearias, organizados para uma comparação direta.",searchHint:"Arroz, café, limpeza ou mercado…",href:"/mercados",icon:ShoppingBasket,productCategories:["mercearia","acougue","laticinios","limpeza","hortifruti","bebidas","higiene","congelados"],businessKinds:["market","grocery","supermarket","beverage"],highlights:["Compare preços locais","Monte sua lista","Veja lojas próximas"] },
+  { id:"pharmacies",label:"Farmácias e saúde",shortLabel:"Farmácias",eyebrow:"Saúde e cuidados",title:"Encontre farmácias e itens de cuidado pessoal.",description:"Uma área própria para farmácias, perfumaria, higiene e produtos de saúde, sem misturar com o supermercado.",searchHint:"Farmácia, higiene ou produto de saúde…",href:"/farmacias",icon:Pill,productCategories:["farmacia","medicamentos","saude","higiene","perfumaria","cuidados pessoais"],businessKinds:["pharmacy","health"],highlights:["Farmácias verificadas","Cuidados pessoais","Consulte disponibilidade"] },
+  { id:"bakery",label:"Padarias e alimentação",shortLabel:"Padarias",eyebrow:"Feito perto de você",title:"Cardápios, encomendas e alimentação local.",description:"Padarias, lanchonetes e restaurantes com cardápio, horários, retirada e entrega em uma área dedicada.",searchHint:"Pão, bolo, lanche ou padaria…",href:"/padarias",icon:Croissant,productCategories:["padaria","alimentos preparados","lanches","refeicoes","doces","salgados"],businessKinds:["bakery","restaurant","pizzeria","snack_bar","food"],highlights:["Veja o cardápio","Faça encomendas","Escolha retirada ou entrega"] },
+  { id:"books",label:"Livros e autores",shortLabel:"Livros",eyebrow:"Cultura e conhecimento",title:"Descubra livros, autores e projetos editoriais.",description:"Obras, perfis de autores e espaços culturais reunidos em uma vitrine editorial própria.",searchHint:"Título, autora, autor ou gênero…",href:"/livros",icon:BookOpen,productCategories:["livros","literatura","cultura","educacao"],businessKinds:["books_author","bookstore","publisher","culture"],highlights:["Descubra novas obras","Conheça autores","Compre direto da vitrine"] },
+  { id:"services",label:"Serviços e profissionais",shortLabel:"Serviços",eyebrow:"Profissionais locais",title:"Encontre quem pode resolver o que você precisa.",description:"Autônomos e prestadores com especialidades, portfólio, área atendida e formas de contato claras.",searchHint:"Serviço, profissão ou especialidade…",href:"/servicos",icon:BriefcaseBusiness,productCategories:["servicos","profissionais","autonomos"],businessKinds:["services","professional","freelancer"],highlights:["Compare especialidades","Veja a área atendida","Fale com o profissional"] },
 ];
 
-export function getMarketplaceSector(value: string | null | undefined) {
-  return marketplaceSectors.find(sector => sector.id === value) || null;
-}
+export function getMarketplaceSector(value:string|null|undefined){return marketplaceSectors.find(s=>s.id===value)||null}
+export function inferProductSector(category:string):MarketplaceSectorId{const n=category.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");return marketplaceSectors.find(s=>s.productCategories.some(i=>n.includes(i)))?.id||"markets"}
+export function SectorNavigator({active="all",compact=false}:{active?:MarketplaceSectorId;compact?:boolean}){return <nav className={`sector-nav${compact?" sector-nav--compact":""}`} aria-label="Explorar por setor"><Link className={active==="all"?"is-active":""} to="/explorar"><Grid2X2/><span><strong>Todos os setores</strong><small>Escolha o que procura</small></span></Link>{marketplaceSectors.map(s=><Link key={s.id} className={active===s.id?"is-active":""} to={s.href}><s.icon/><span><strong>{s.shortLabel}</strong><small>{s.eyebrow}</small></span></Link>)}</nav>}
+function Header({back=false}:{back?:boolean}){return <header className="sector-header"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/></Link><Link to={back?"/":"/explorar"}>{back?"Voltar ao início":"Todos os setores"} <ArrowRight/></Link></div></header>}
+function Footer(){return <footer className="sector-footer"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/></Link><span>Feito em Feijó para aproximar pessoas e negócios locais.</span><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight/></Link></div></footer>}
 
-export function inferProductSector(category: string): MarketplaceSectorId {
-  const normalized = category.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
-  return marketplaceSectors.find(sector => sector.productCategories.some(item => normalized.includes(item)))?.id || "markets";
-}
-
-export function SectorNavigator({ active = "all", compact = false }: { active?: MarketplaceSectorId; compact?: boolean }) {
-  return <nav className={`sector-nav${compact ? " sector-nav--compact" : ""}`} aria-label="Explorar por setor">
-    <Link className={active === "all" ? "is-active" : ""} to="/explorar"><Grid2X2 aria-hidden="true" /><span><strong>Todos os setores</strong><small>Escolha o que procura</small></span></Link>
-    {marketplaceSectors.map(sector => <Link key={sector.id} className={active === sector.id ? "is-active" : ""} to={sector.href}><sector.icon aria-hidden="true" /><span><strong>{sector.shortLabel}</strong><small>{sector.eyebrow}</small></span></Link>)}
-  </nav>;
-}
-
-export function MarketplaceSectorLanding({ sector }: { sector: MarketplaceSector }) {
-  const Icon = sector.icon;
-  return <div className={`sector-page sector-page--${sector.id}`}>
-    <header className="sector-header"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link><Link to="/explorar">Todos os setores <Grid2X2 /></Link></div></header>
-    <main id="conteudo-principal">
-      <section className="sector-hero"><div className="sector-shell sector-hero__grid"><div><span className="sector-eyebrow"><Icon /> {sector.eyebrow}</span><h1>{sector.title}</h1><p>{sector.description}</p><form action="/buscar" role="search"><input type="hidden" name="setor" value={sector.id}/><label><span className="sr-only">Pesquisar em {sector.label}</span><input name="q" placeholder={sector.searchHint}/></label><button type="submit">Pesquisar neste setor <ArrowRight /></button></form></div><aside><span>Você está explorando</span><Icon /><strong>{sector.label}</strong><p>Os resultados desta área priorizam somente negócios e itens relacionados a este setor.</p></aside></div></section>
-      <section className="sector-content sector-shell"><div className="sector-content__heading"><div><span>NAVEGAÇÃO ORGANIZADA</span><h2>Procure sem misturar assuntos.</h2></div><p>Pesquise pelo nome do item, estabelecimento ou profissional. Você poderá trocar de setor a qualquer momento.</p></div><SectorNavigator active={sector.id} compact/><div className="sector-next"><div><strong>Vitrines próprias para cada negócio</strong><p>Catálogo, cardápio, portfólio ou obras aparecem no formato adequado a cada atividade.</p></div><Link to={`/estabelecimentos?setor=${sector.id}`}>Ver estabelecimentos <ArrowRight /></Link></div></section>
-    </main>
-  </div>;
-}
-
-export function MarketplaceExplorePage() {
-  return <div className="sector-page sector-page--all"><header className="sector-header"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link><Link to="/">Voltar ao início <ArrowRight /></Link></div></header><main id="conteudo-principal"><section className="sector-hero"><div className="sector-shell"><span className="sector-eyebrow"><Grid2X2 /> PREÇOCERTO PARA TODA A CIDADE</span><h1>O que você procura hoje?</h1><p>Escolha uma área para ver resultados, lojas e profissionais sem misturar categorias diferentes.</p><SectorNavigator /></div></section></main></div>;
-}
+export function MarketplaceSectorLanding({sector}:{sector:MarketplaceSector}){const Icon=sector.icon;return <div className={`sector-page sector-page--${sector.id}`}><Header/><main id="conteudo-principal" className="sector-main"><section className="sector-hero"><div className="sector-shell sector-hero__grid"><div className="sector-hero__copy"><span className="sector-eyebrow"><Icon/>{sector.eyebrow}</span><h1>{sector.title}</h1><p>{sector.description}</p><form action="/buscar" role="search"><input type="hidden" name="setor" value={sector.id}/><label><Search/><span className="sr-only">Pesquisar em {sector.label}</span><input name="q" placeholder={sector.searchHint}/></label><button type="submit">Pesquisar <ArrowRight/></button></form></div><aside><span>ÁREA SELECIONADA</span><Icon/><strong>{sector.label}</strong><p>Resultados filtrados para você encontrar o que procura com mais clareza.</p><Link to={`/estabelecimentos?setor=${sector.id}`}>Ver estabelecimentos <ArrowRight/></Link></aside></div></section><section className="sector-content sector-shell"><div className="sector-highlights">{sector.highlights.map((h,i)=><div key={h}><span>0{i+1}</span><BadgeCheck/><strong>{h}</strong></div>)}</div><div className="sector-content__heading"><div><span>OUTROS CAMINHOS</span><h2>Continue explorando.</h2></div><p>Troque de área sem perder o contexto. Cada setor tem pesquisa, vitrines e estabelecimentos próprios.</p></div><SectorNavigator active={sector.id} compact/></section></main><Footer/></div>}
+export function MarketplaceExplorePage(){return <div className="sector-page sector-page--all"><Header back/><main id="conteudo-principal" className="sector-main"><section className="sector-hero sector-hero--explore"><div className="sector-shell sector-hero__grid"><div className="sector-hero__copy"><span className="sector-eyebrow"><Grid2X2/>PREÇOCERTO PARA TODA A CIDADE</span><h1>Encontre o que precisa, sem misturar resultados.</h1><p>Produtos, comida, livros e serviços locais em espaços próprios — mais fácil de buscar, comparar e escolher.</p><Link className="sector-primary-link" to="/estabelecimentos">Explorar estabelecimentos <ArrowRight/></Link></div><aside><span>GUIA LOCAL</span><MapPin/><strong>Feijó, Acre</strong><p>Negócios e profissionais da cidade reunidos com organização e contexto.</p><div className="sector-trust"><BadgeCheck/> Informações locais verificadas</div></aside></div></section><section className="sector-content sector-shell"><div className="sector-content__heading"><div><span>ESCOLHA POR SETOR</span><h2>Por onde você quer começar?</h2></div><p>Cada área abre uma experiência própria, com filtros e vitrines adequados ao que você procura.</p></div><SectorNavigator compact/><div className="sector-how"><div><Search/><span><small>01 · PESQUISE</small><strong>Digite o que procura</strong></span></div><div><Store/><span><small>02 · COMPARE</small><strong>Conheça as opções locais</strong></span></div><div><MapPin/><span><small>03 · ESCOLHA</small><strong>Abra a vitrine ou localização</strong></span></div></div></section></main><Footer/></div>}

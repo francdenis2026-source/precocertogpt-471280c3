@@ -126,6 +126,7 @@ export function ProductDetailProfessional() {
   const image = resolveProductImage(product);
   const quantity = basket.find(item => item.productId === String(product.id))?.quantity || 0;
   const bestOffer = offers[0];
+  const updatedAt = formatDate(product.updated_at || product.capturedAt);
 
   return <div className="pdp-page">
     <header className="pdp-topbar"><Link to="/buscar" className="pdp-back"><ArrowLeft /> <span>Voltar</span></Link><Link className="pdp-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link><nav aria-label="Ações"><Link to="/buscar" aria-label="Buscar"><Search /></Link><Link to="/favoritos" aria-label="Favoritos"><Heart /></Link><Link to="/cesta-basica" className="pdp-bag" aria-label="Lista de compras"><ShoppingBasket />{basket.length > 0 && <b>{basket.reduce((sum,item)=>sum+item.quantity,0)}</b>}</Link></nav></header>
@@ -140,7 +141,7 @@ export function ProductDetailProfessional() {
         </div>
 
         <section className="pdp-primary">
-          <span className="pdp-eyebrow">{product.category}</span><h1>{product.name}</h1><p className="pdp-unit">{product.size || product.unit || product.brand}</p>
+          <span className="pdp-eyebrow">{product.category}</span><h1>{product.name}</h1><p className="pdp-unit">{product.size || product.unit || product.brand}</p><p className="pdp-updated"><CalendarDays /> Última atualização: <strong>{updatedAt}</strong></p>
           <div className="pdp-price-card"><span>PREÇO VERIFICADO <BadgeCheck /></span><strong>{brl.format(product.minPrice)}</strong><small>{offers.length} {offers.length === 1 ? "loja consultada" : "lojas comparadas"}{offers.length === 1 ? " · comparação ainda indisponível" : product.maxPrice > product.minPrice ? ` · diferença de ${brl.format(product.maxPrice - product.minPrice)}` : " · mesmo preço encontrado"}</small></div>
           <div className="pdp-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"} />{favorite ? "Favoritado" : "Favoritar"}</button><button type="button" className="pdp-add" onClick={() => void addToBasket(product)}><ShoppingBasket />{quantity ? `Adicionar mais um (${quantity})` : "Adicionar à lista"}</button></div>
           <section className="pdp-where"><header><div><span>ONDE ENCONTRAR</span><h2>{offers.length > 1 ? "Compare em Feijó" : "Mais barato em Feijó"}</h2></div><Link to="/estabelecimentos"><MapPin /> Ver no mapa</Link></header><div>{offers.slice(0,3).map((offer,index)=><Link className={index === 0 ? "is-best" : ""} to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.value}`}><b>{index+1}</b><span><strong>{offer.establishment}</strong><small>{offer.neighborhood || "Feijó"} · atualizado hoje</small></span>{index===0&&<em>MENOR PREÇO</em>}<strong>{brl.format(offer.value)}</strong><ArrowRight /></Link>)}</div><Link className="pdp-history-link" to={`/buscar?q=${encodeURIComponent(product.name)}`}><BarChart3 /> Ver histórico de preços e produtos similares <ArrowRight /></Link></section>
@@ -149,7 +150,7 @@ export function ProductDetailProfessional() {
         <aside className="pdp-meta">
           <div><Layers3 /><span><small>Categoria</small><strong>{product.category}</strong></span></div>
           <div><Tag /><span><small>Unidade</small><strong>{product.unit || product.size || "un"}</strong></span></div>
-          <div><CalendarDays /><span><small>Preço verificado em</small><strong>{formatDate(product.updated_at || product.capturedAt)}</strong></span></div>
+          <div><CalendarDays /><span><small>Preço verificado em</small><strong>{updatedAt}</strong></span></div>
           <div><BadgeCheck /><span><small>Atualizado por</small><strong>PreçoCerto</strong></span></div>
           <footer><ShieldCheck /><span><strong>Informação confiável</strong><small>Preços coletados e organizados para ajudar você a economizar.</small></span></footer>
         </aside>

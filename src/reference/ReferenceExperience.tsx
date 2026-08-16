@@ -154,14 +154,29 @@ export function ReferenceHome() {
   const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [featuredHour, setFeaturedHour] = useState(() => Math.floor(Date.now() / 3_600_000));
-  const featured = useMemo(() => [...catalog.products].filter(p => p.minPrice > 0).sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 4), [catalog.products]);
+  const featured = useMemo(() => {
+    const eligible = catalog.products.filter(product => product.minPrice > 0 && Boolean(resolveProductImage(product)));
+    const byStore = new Map<string, Product[]>();
+    eligible.forEach(product => {
+      const storeKey = String(product.establishmentId || product.establishmentSlug || product.establishment).toLocaleLowerCase("pt-BR");
+      if (!storeKey) return;
+      byStore.set(storeKey, [...(byStore.get(storeKey) || []), product]);
+    });
+    const daySeed = Math.floor(featuredHour / 24);
+    const hash = (value: string) => Array.from(value).reduce((total, character) => Math.imul(total ^ character.charCodeAt(0), 16777619) >>> 0, daySeed >>> 0);
+    const stores = [...byStore.entries()].sort(([a], [b]) => hash(a) - hash(b));
+    if (!stores.length) return [];
+    const start = (featuredHour * 4) % stores.length;
+    return Array.from({ length: Math.min(4, stores.length) }, (_, index) => stores[(start + index) % stores.length])
+      .map(([storeKey, products], index) => products[hash(`${storeKey}:${featuredHour}:${index}`) % products.length]);
+  }, [catalog.products, featuredHour]);
   const lead = useMemo(() => {
     const productsWithImage = catalog.products.filter(product => product.minPrice > 0 && Boolean(resolveProductImage(product)));
     if (!productsWithImage.length) return undefined;
     const seed = Math.imul(featuredHour ^ (featuredHour >>> 16), 2246822519) >>> 0;
     return productsWithImage[seed % productsWithImage.length];
   }, [catalog.products, featuredHour]);
-  const receipt = featured.slice(0, 3);
+  const receipt = useMemo(() => [...catalog.products].filter(product => product.minPrice > 0).sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 3), [catalog.products]);
   const searchResults = useMemo(() => {
     const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
     const term = normalize(query);
@@ -259,7 +274,7 @@ export function ReferenceHome() {
 
       <section className="ref-proof"><div className="ref-shell ref-proof__grid"><div><strong>{integer.format(catalog.metrics.prices)}</strong><span>preços verificados</span></div><div><strong>{integer.format(catalog.metrics.products)}</strong><span>produtos monitorados</span></div><div><strong>{integer.format(catalog.metrics.stores)}</strong><span>estabelecimentos locais</span></div><div><strong>Feijó</strong><span>feito para nossa cidade</span></div></div></section>
 
-      <section className="ref-section ref-shell"><div className="ref-section__heading"><div><h2>Onde seu dinheiro rende mais.</h2></div><Link to="/buscar">Ver todos os preços <ArrowRight /></Link></div>
+      <section className="ref-section ref-shell"><div className="ref-section__heading"><div><h2>Onde seu dinheiro rende mais.</h2><p className="ref-section__rotation-note">Seleção renovada a cada 60 minutos, com um comércio diferente em cada destaque.</p></div><Link to="/buscar">Ver todos os preços <ArrowRight /></Link></div>
         <div className="ref-price-board">{featured.map((product, index) => <Link to={`/produto/${product.slug || product.id}`} className="ref-price-row" key={product.id}><span className="ref-price-rank">{String(index + 1).padStart(2, "0")}</span><span className="ref-price-image"><ProductVisual product={product} /></span><span className="ref-price-name"><small>{product.category}</small><strong>{product.name}</strong><em>{product.size || product.brand}</em></span><span className="ref-price-store"><small>melhor em</small><strong>{product.establishment}</strong><em>{product.neighborhood}</em></span><span className="ref-price-value"><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong><em>{product.storeCount || product.offers?.length || 1} ofertas</em></span><ArrowRight /></Link>)}</div>
       </section>
 

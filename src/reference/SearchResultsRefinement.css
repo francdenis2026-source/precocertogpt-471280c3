@@ -189,6 +189,9 @@ html[data-theme="dark"] .ref-live-card--loading :is(.ref-live-card__skeleton i,.
 html[data-theme="dark"] .ref-live-card__skeleton-prices { border-color: #466377; }
 @media (prefers-reduced-motion:reduce) { .ref-live-card--loading :is(.ref-live-card__skeleton i,.ref-live-card__skeleton-prices i) { animation: none; } }
 
+.ref-section__rotation-note { max-width: 62ch; margin: 7px 0 0; color: var(--ref-muted); font-size: .75rem; line-height: 1.45; }
+html[data-theme="dark"] .ref-section__rotation-note { color: #b8c6cd; }
+
 .ref-product-dialog-backdrop { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(5,18,30,.72); backdrop-filter: blur(8px); }
 .ref-product-dialog { position: relative; width: min(680px,100%); max-height: calc(100dvh - 40px); overflow: auto; display: grid; grid-template-columns: minmax(210px,.75fr) minmax(0,1.25fr); border: 1px solid rgba(255,255,255,.22); border-radius: 18px; background: var(--ref-paper); color: var(--ref-ink); box-shadow: 0 34px 100px rgba(0,0,0,.38); animation: ref-dialog-in 220ms var(--ref-ease-out) both; }
 .ref-product-dialog__close { position: absolute; z-index: 2; top: 12px; right: 12px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 1px solid var(--ref-line); border-radius: 50%; background: var(--ref-paper); color: var(--ref-ink); cursor: pointer; }

@@ -671,3 +671,410 @@ html[data-theme="dark"] .ref-filter-row:focus-within {
     border-radius: 13px;
   }
 }
+
+
+/* Diretório de estabelecimentos — hero, cards e mapa funcional */
+.ref-stores-page .ref-directory__main {
+  padding-top: 18px;
+}
+
+.ref-stores-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  overflow: hidden;
+  padding: clamp(28px,4vw,46px);
+  border: 1px solid #d2d9d5;
+  border-radius: 16px;
+  background: #e8e7df;
+  box-shadow: 0 18px 46px rgba(7,27,45,.08);
+}
+
+.ref-stores-hero::before,
+.ref-stores-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ref-stores-hero::before {
+  z-index: -2;
+  background: url('/mercado-bairro-feijo-v1.webp') 74% 50% / cover no-repeat;
+  filter: saturate(1.10) contrast(1.06);
+}
+
+.ref-stores-hero::after {
+  z-index: -1;
+  background: linear-gradient(90deg,rgba(248,247,242,.99) 0%,rgba(248,247,242,.96) 38%,rgba(248,247,242,.58) 59%,rgba(248,247,242,.10) 100%);
+}
+
+.ref-stores-hero > div {
+  max-width: 610px;
+}
+
+.ref-stores-hero > div > span,
+.ref-store-cards > header span {
+  color: #176d3d;
+  font-size: .625rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+}
+
+.ref-stores-hero h1 {
+  max-width: 10ch;
+  margin: 8px 0 9px;
+  color: #0b2233;
+  font-family: "Outfit Variable",Outfit,sans-serif;
+  font-size: clamp(3rem,5.6vw,5rem);
+  line-height: .88;
+  letter-spacing: -.05em;
+}
+
+.ref-stores-hero p {
+  max-width: 520px;
+  color: #354d5c;
+  line-height: 1.55;
+}
+
+.ref-stores-hero > div > div {
+  width: fit-content;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  padding: 0 11px;
+  border: 1px solid rgba(24,112,64,.20);
+  border-radius: 999px;
+  background: rgba(255,255,255,.70);
+  color: #195d39;
+  font-size: .6875rem;
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+}
+
+.ref-stores-hero > div > div svg {
+  width: 14px;
+}
+
+.ref-stores-hero > a {
+  align-self: flex-end;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 16px;
+  border-radius: 9px;
+  background: #0b3049;
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 850;
+  box-shadow: 0 12px 28px rgba(7,27,45,.22);
+}
+
+.ref-stores-hero > a svg {
+  width: 16px;
+}
+
+.ref-stores-toolbar {
+  min-height: 54px;
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+  padding: 0 16px;
+  border: 1px solid var(--ref-line);
+  border-radius: 11px;
+  background: var(--ref-paper);
+  box-shadow: 0 8px 22px rgba(7,27,45,.05);
+}
+
+.ref-stores-toolbar > svg {
+  width: 17px;
+  color: #217a4b;
+}
+
+.ref-stores-toolbar input {
+  min-width: 0;
+  height: 50px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ref-ink);
+}
+
+.ref-stores-toolbar > span {
+  color: var(--ref-muted);
+  font-size: .6875rem;
+  font-weight: 750;
+}
+
+.ref-stores-directory {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 330px;
+  align-items: start;
+  gap: 14px;
+  padding-bottom: 34px;
+}
+
+.ref-store-cards {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+}
+
+.ref-store-cards > header {
+  grid-column: 1/-1;
+  min-height: 54px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 4px 2px 2px;
+}
+
+.ref-store-cards > header h2 {
+  margin: 4px 0 0;
+  color: var(--ref-ink);
+  font-family: "Outfit Variable",Outfit,sans-serif;
+  font-size: 1.45rem;
+}
+
+.ref-store-cards > header small {
+  color: var(--ref-muted);
+  font-size: .625rem;
+}
+
+.ref-store-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--ref-line);
+  border-radius: 11px;
+  background: var(--ref-paper);
+  box-shadow: 0 7px 20px rgba(7,27,45,.045);
+  transition: transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+
+.ref-store-card > a {
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: 42px minmax(0,1fr) 18px;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px 8px;
+}
+
+.ref-store-card > a > i {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+.ref-store-card > a > i svg {
+  width: 19px;
+}
+
+.ref-store-card > a > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.ref-store-card > a small {
+  color: #8b641f;
+  font-size: .5625rem;
+  font-weight: 850;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.ref-store-card > a strong {
+  overflow: hidden;
+  color: var(--ref-ink);
+  font-size: .75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ref-store-card > a em {
+  color: var(--ref-muted);
+  font-size: .625rem;
+  font-style: normal;
+}
+
+.ref-store-card > a > svg {
+  width: 16px;
+  color: #24814e;
+}
+
+.ref-store-card > button {
+  width: 100%;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-top: 1px solid var(--ref-line);
+  background: color-mix(in srgb,var(--ref-bg) 65%,var(--ref-paper));
+  color: #176d3d;
+  font-size: .625rem;
+  font-weight: 850;
+}
+
+.ref-store-card > button svg {
+  width: 13px;
+}
+
+.ref-stores-map {
+  position: sticky;
+  top: 70px;
+  overflow: hidden;
+  border: 1px solid var(--ref-line);
+  border-radius: 12px;
+  background: var(--ref-paper);
+  box-shadow: 0 12px 30px rgba(7,27,45,.08);
+}
+
+.ref-stores-map > header {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px;
+}
+
+.ref-stores-map > header > svg {
+  width: 30px;
+  height: 30px;
+  padding: 7px;
+  border-radius: 8px;
+  background: #eaf5ed;
+  color: #187342;
+}
+
+.ref-stores-map > header > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.ref-stores-map > header strong {
+  overflow: hidden;
+  color: var(--ref-ink);
+  font-size: .75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ref-stores-map > header small {
+  color: var(--ref-muted);
+  font-size: .5625rem;
+}
+
+.ref-stores-map iframe {
+  width: 100%;
+  height: 230px;
+  display: block;
+  border: 0;
+  border-block: 1px solid var(--ref-line);
+  background: #e9e6dd;
+}
+
+.ref-stores-map > a {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  color: #176d3d;
+  font-size: .6875rem;
+  font-weight: 850;
+}
+
+.ref-stores-map > a svg {
+  width: 14px;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ref-store-card:hover {
+    transform: translateY(-2px);
+    border-color: #8ba999;
+    box-shadow: 0 13px 28px rgba(7,27,45,.09);
+  }
+
+  .ref-store-card > button:hover {
+    background: #e8f3eb;
+  }
+}
+
+@media (max-width:900px) {
+  .ref-stores-directory {
+    grid-template-columns: 1fr;
+  }
+
+  .ref-stores-map {
+    position: relative;
+    top: auto;
+    grid-row: 1;
+  }
+
+  .ref-stores-map iframe {
+    height: 210px;
+  }
+}
+
+@media (max-width:680px) {
+  .ref-stores-hero {
+    min-height: 330px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 28px 22px;
+  }
+
+  .ref-stores-hero::before {
+    background-position: 65% 50%;
+  }
+
+  .ref-stores-hero::after {
+    background: linear-gradient(180deg,rgba(248,247,242,.98) 0%,rgba(248,247,242,.91) 62%,rgba(248,247,242,.46) 100%);
+  }
+
+  .ref-stores-hero h1 {
+    font-size: clamp(3rem,14vw,4.1rem);
+  }
+
+  .ref-stores-hero > a {
+    align-self: flex-start;
+  }
+
+  .ref-stores-toolbar {
+    grid-template-columns: 18px 1fr;
+  }
+
+  .ref-stores-toolbar > span {
+    display: none;
+  }
+
+  .ref-store-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .ref-store-cards > header small {
+    display: none;
+  }
+
+  .ref-stores-map iframe {
+    height: 190px;
+  }
+}

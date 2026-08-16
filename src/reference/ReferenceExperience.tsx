@@ -234,10 +234,8 @@ export function ReferenceHome() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const selectedComparison = useMemo(
-    () => compareProductAcrossStores(catalog.products, selectedProduct),
-    [catalog.products, selectedProduct],
-  );
+  const [selectedComparison, setSelectedComparison] = useState<ReturnType<typeof compareProductAcrossStores>>(null);
+  const [comparisonLoading, setComparisonLoading] = useState(false);
   const [featuredHour, setFeaturedHour] = useState(() => Math.floor(Date.now() / 3_600_000));
   const featured = useMemo(() => {
     const eligible = catalog.products.filter(product => product.minPrice > 0 && Boolean(resolveProductImage(product)));
@@ -274,6 +272,29 @@ export function ReferenceHome() {
       .map(item => item.product);
   }, [catalog.products, query]);
   useEffect(() => setActiveSearchIndex(-1), [query]);
+  useEffect(() => {
+    let cancelled = false;
+    if (!selectedProduct) {
+      setSelectedComparison(null);
+      setComparisonLoading(false);
+      return;
+    }
+
+    setSelectedComparison(null);
+    setComparisonLoading(true);
+    void fetchCatalog()
+      .then(freshCatalog => {
+        if (!cancelled) setSelectedComparison(compareProductAcrossStores(freshCatalog.products, selectedProduct));
+      })
+      .catch(() => {
+        if (!cancelled) setSelectedComparison(null);
+      })
+      .finally(() => {
+        if (!cancelled) setComparisonLoading(false);
+      });
+
+    return () => { cancelled = true; };
+  }, [selectedProduct]);
   useEffect(() => {
     let intervalId = 0;
     const remaining = 3_600_000 - (Date.now() % 3_600_000);
@@ -391,7 +412,7 @@ export function ReferenceHome() {
       <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
     </main>
     <PublicFooter /><AppDock current="home" />
-    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={() => setSelectedProduct(null)}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices"><div><small>Menor preço</small><strong>{brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={(selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{(selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{(selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={() => setSelectedProduct(null)}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
+    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={() => setSelectedProduct(null)}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices" aria-busy={comparisonLoading}><div className={comparisonLoading ? "is-loading" : ""}><small>Menor preço ao vivo</small><strong>{comparisonLoading ? "Consultando…" : brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{comparisonLoading ? "Buscando estabelecimentos" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={comparisonLoading ? "is-loading" : (selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{comparisonLoading ? "Atualizando preços…" : (selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{comparisonLoading ? "Comparando o mesmo produto em lojas distintas" : (selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{comparisonLoading ? "Atualizando estabelecimento…" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{comparisonLoading ? "Consulta ao vivo em andamento" : selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={() => setSelectedProduct(null)}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
   </div>;
 }
 

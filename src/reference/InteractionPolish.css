@@ -11,6 +11,7 @@
 .ref-admin :is(a, button) {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  transform-origin: center;
 }
 
 .ref-search,
@@ -71,7 +72,7 @@
   }
 
   .ref-price-row:hover {
-    transform: translateX(3px);
+    transform: translateX(2px);
     border-color: color-mix(in srgb, var(--ref-gold) 25%, var(--ref-line));
   }
 

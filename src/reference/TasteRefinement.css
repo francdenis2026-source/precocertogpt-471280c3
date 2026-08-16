@@ -42,7 +42,7 @@
 }
 
 .ref-home .ref-price-row img {
-  transition: transform 700ms cubic-bezier(.23, 1, .32, 1), filter 300ms ease;
+  transition: transform 220ms cubic-bezier(.23, 1, .32, 1), filter 180ms ease;
 }
 
 .ref-home .ref-local__actions a {

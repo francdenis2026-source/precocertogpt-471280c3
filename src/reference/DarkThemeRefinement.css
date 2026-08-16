@@ -119,7 +119,6 @@ html[data-theme="dark"] .ref-section__heading>a { color: #f2c36f; }
 html[data-theme="dark"] .ref-price-board { border-color: var(--ref-line); background: linear-gradient(145deg,#0e2638,#0b2132); box-shadow: 0 20px 56px rgba(0,0,0,.22); }
 html[data-theme="dark"] .ref-price-row { border-color: var(--ref-line); background: rgba(255,255,255,.008); }
 html[data-theme="dark"] .ref-price-row:nth-child(even) { background: rgba(255,255,255,.022); }
-html[data-theme="dark"] .ref-price-row:hover { background: #142f43; box-shadow: inset 0 0 0 1px rgba(240,189,100,.14); }
 html[data-theme="dark"] .ref-price-rank { color: #aebdc5; }
 html[data-theme="dark"] .ref-price-row :is(small,em) { color: #b6c4cb; }
 html[data-theme="dark"] .ref-price-row strong { color: #edf3f5; }
@@ -153,6 +152,7 @@ html[data-theme="dark"] .ref-dock a.is-active { color: #f2c36f; }
 html[data-theme="dark"] .ref-page :focus-visible { outline-color: #f2c36f; }
 
 @media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] .ref-price-row:hover { background: #142f43; box-shadow: inset 0 0 0 1px rgba(240,189,100,.14); }
   html[data-theme="dark"] :is(.ref-search button,.ref-live-card>button,.ref-economy__grid>div>a,.ref-signin):hover {
     background: var(--ref-accent-surface-hover);
     color: var(--ref-accent-foreground);

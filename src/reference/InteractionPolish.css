@@ -214,3 +214,264 @@ html[data-theme="dark"] .ref-filter-row:focus-within {
     margin-inline: 10px;
   }
 }
+
+
+/* Página de comparação — hero editorial e cardápio visual de produtos */
+.ref-search-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 238px;
+  align-items: center;
+  overflow: hidden;
+  margin: 18px 0 18px;
+  padding: clamp(26px,4vw,42px);
+  border: 1px solid #d2d9d5;
+  border-radius: 16px;
+  background: #e9e8df;
+  box-shadow: 0 18px 46px rgba(7,27,45,.08);
+}
+
+.ref-search-hero::before,
+.ref-search-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ref-search-hero::before {
+  z-index: -2;
+  background: url('/mercado-bairro-feijo-v1.webp') 76% 47% / cover no-repeat;
+  filter: saturate(1.09) contrast(1.06);
+}
+
+.ref-search-hero::after {
+  z-index: -1;
+  background: linear-gradient(90deg,rgba(248,247,242,.99) 0%,rgba(248,247,242,.96) 38%,rgba(248,247,242,.62) 58%,rgba(248,247,242,.14) 100%);
+}
+
+.ref-search-hero > div:first-child {
+  max-width: 650px;
+}
+
+.ref-search-hero h1 {
+  max-width: 13ch;
+  margin-block: 8px 7px;
+  font-size: clamp(2.7rem,5vw,4.6rem);
+  line-height: .92;
+  text-wrap: balance;
+}
+
+.ref-search-hero p {
+  max-width: 520px;
+  color: #354d5c;
+  font-weight: 550;
+}
+
+.ref-search-hero .ref-update {
+  border-color: rgba(255,255,255,.88);
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 14px 36px rgba(7,27,45,.16);
+  backdrop-filter: blur(12px) saturate(125%);
+}
+
+.ref-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 12px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.ref-catalog-grid > .ref-results-table__head {
+  display: none;
+}
+
+.ref-catalog-grid .ref-catalog-card {
+  position: relative;
+  min-width: 0;
+  min-height: 318px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  overflow: hidden;
+  padding: 12px;
+  border: 1px solid var(--ref-line);
+  border-radius: 12px;
+  background: var(--ref-paper);
+  box-shadow: 0 8px 24px rgba(7,27,45,.055);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.ref-catalog-grid .ref-result-product {
+  display: grid;
+  gap: 8px;
+}
+
+.ref-catalog-grid .ref-result-product > i {
+  width: 100%;
+  height: 142px;
+  border-radius: 9px;
+  background: linear-gradient(145deg,#f6f3eb,#ece9e1);
+}
+
+.ref-catalog-grid .ref-result-product > i img {
+  width: 100%;
+  height: 130px;
+  object-fit: contain;
+  padding: 8px;
+  transition: transform .22s ease;
+}
+
+.ref-catalog-grid .ref-result-product > span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.ref-catalog-grid .ref-result-product small {
+  color: #8a641f;
+  font-size: .625rem;
+  font-weight: 850;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.ref-catalog-grid .ref-result-product strong {
+  min-height: 2.5em;
+  overflow: hidden;
+  color: var(--ref-ink);
+  font-size: .8125rem;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ref-catalog-grid .ref-result-product em {
+  color: var(--ref-muted);
+  font-size: .6875rem;
+}
+
+.ref-catalog-grid .ref-result-store {
+  display: flex;
+  min-height: 38px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  background: color-mix(in srgb,var(--ref-bg) 70%,var(--ref-paper));
+}
+
+.ref-catalog-grid .ref-result-store strong {
+  overflow: hidden;
+  font-size: .6875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ref-catalog-grid .ref-result-range {
+  min-height: 34px;
+  font-size: .6875rem;
+}
+
+.ref-catalog-grid .ref-result-price {
+  margin-top: auto;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding-top: 9px;
+  border-top: 1px solid var(--ref-line);
+  color: #167345;
+  font-size: 1.125rem;
+}
+
+.ref-catalog-grid .ref-result-price small {
+  font-size: .5625rem;
+}
+
+.ref-catalog-grid .ref-catalog-card > svg {
+  position: absolute;
+  right: 12px;
+  bottom: 15px;
+  width: 15px;
+  color: var(--ref-muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ref-catalog-grid .ref-catalog-card:hover {
+    transform: translateY(-3px);
+    border-color: #8aa99a;
+    box-shadow: 0 16px 34px rgba(7,27,45,.11);
+  }
+
+  .ref-catalog-grid .ref-catalog-card:hover .ref-result-product > i img {
+    transform: scale(1.045);
+  }
+
+  .ref-catalog-grid .ref-catalog-card:hover > svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width:1080px) {
+  .ref-catalog-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+}
+
+@media (max-width:760px) {
+  .ref-search-hero {
+    min-height: 270px;
+    align-items: flex-start;
+    padding: 26px 22px;
+  }
+
+  .ref-search-hero::before {
+    background-position: 66% 50%;
+  }
+
+  .ref-search-hero::after {
+    background: linear-gradient(180deg,rgba(248,247,242,.98) 0%,rgba(248,247,242,.91) 58%,rgba(248,247,242,.48) 100%);
+  }
+
+  .ref-search-hero h1 {
+    font-size: clamp(2.45rem,11vw,3.6rem);
+  }
+
+  .ref-search-hero .ref-update {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .ref-catalog-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 9px;
+  }
+}
+
+@media (max-width:480px) {
+  .ref-search-hero {
+    min-height: 286px;
+    border-radius: 12px;
+  }
+
+  .ref-search-hero .ref-update {
+    left: 18px;
+    right: auto;
+  }
+
+  .ref-catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ref-catalog-grid .ref-catalog-card {
+    min-height: 300px;
+  }
+}

@@ -130,17 +130,21 @@ html[data-theme="dark"] .ref-search-results__price small,
 html[data-theme="dark"] .ref-search-results__empty span { color: #b8c6cd; }
 html[data-theme="dark"] .ref-search-results__copy strong { color: #f1f5f7; }
 html[data-theme="dark"] .ref-search-results__price strong { color: #73db98; }
-html[data-theme="dark"] .ref-search-results__list>button { border-color: #365367; }
+html[data-theme="dark"] .ref-search .ref-search-results__list>button { border-color: #365367; background: #0c2233; color: #f4f8fb; box-shadow: none; }
 html[data-theme="dark"] .ref-search-results__list>button.is-keyboard-active,
-html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"] { position: relative; z-index: 1; background: #173b55; box-shadow: inset 4px 0 0 #83c9f7, inset 0 0 0 1px #497995; }
+html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"],
+html[data-theme="dark"] .ref-search .ref-search-results__list>button.is-keyboard-active,
+html[data-theme="dark"] .ref-search .ref-search-results__list>button[aria-selected="true"] { position: relative; z-index: 1; background: #173b55; color: #fff; box-shadow: inset 4px 0 0 #83c9f7, inset 0 0 0 1px #497995; }
 html[data-theme="dark"] .ref-search-results kbd { border-color: #466377; background: #132f43; color: #f1f5f7; }
 html[data-theme="dark"] .ref-search-submit { color: #f1f5f7 !important; }
 html[data-theme="dark"] .ref-search-results>footer button { background: #67b5e8; color: #071b2a; }
 
 @media (hover:hover) and (pointer:fine) {
-  html[data-theme="dark"] .ref-search-results__list>button:hover { background: #153247; }
+  html[data-theme="dark"] .ref-search .ref-search-results__list>button:hover { background: #153247; color: #fff; box-shadow: none; }
   html[data-theme="dark"] .ref-search-results__list>button.is-keyboard-active:hover,
-  html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"]:hover { background: #173b55; }
+  html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"]:hover,
+  html[data-theme="dark"] .ref-search .ref-search-results__list>button.is-keyboard-active:hover,
+  html[data-theme="dark"] .ref-search .ref-search-results__list>button[aria-selected="true"]:hover { background: #173b55; box-shadow: inset 4px 0 0 #83c9f7, inset 0 0 0 1px #497995; }
 }
 
 @media (max-width:680px) {

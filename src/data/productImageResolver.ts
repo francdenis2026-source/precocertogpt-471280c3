@@ -53,9 +53,11 @@ const publicFallbacks = [
 
 export function resolveProductImage(product: Product): string | undefined {
   const identity = normalize([product.name, product.brand, product.size].filter(Boolean).join(" "));
+  // A imagem vinculada ao cadastro do produto é sempre a fonte principal.
+  // Os arquivos locais existem apenas como contingência para cadastros sem foto.
+  if (product.image_url) return product.image_url;
   const publicFallback = publicFallbacks.find(item => item.terms.every(term => identity.includes(term)));
   if (publicFallback) return publicFallback.url;
-  if (product.image_url) return product.image_url;
 
   const candidates = [
     product.slug ? normalize(String(product.slug)) : "",

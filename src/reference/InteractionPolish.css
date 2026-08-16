@@ -475,3 +475,199 @@ html[data-theme="dark"] .ref-filter-row:focus-within {
     min-height: 300px;
   }
 }
+
+
+/* Autenticação premium — narrativa visual e formulário */
+.ref-auth__story {
+  border-right: 1px solid rgba(103,214,138,.42);
+  background: #061b2c;
+}
+
+.ref-auth__story::before {
+  opacity: 1;
+  background:
+    linear-gradient(90deg,rgba(4,18,30,.84),rgba(4,18,30,.48)),
+    linear-gradient(0deg,rgba(4,18,30,.96) 0%,rgba(4,18,30,.24) 64%),
+    url('/auth-market-hero-v2.webp') 58% 50% / cover no-repeat;
+  filter: saturate(1.06) contrast(1.08);
+}
+
+.ref-auth__story::after {
+  content: "";
+  position: absolute;
+  inset: auto -18% -32% 28%;
+  height: 58%;
+  border-radius: 50%;
+  background: radial-gradient(circle,rgba(59,190,104,.17),transparent 66%);
+  pointer-events: none;
+}
+
+.ref-auth__story > .ref-brand {
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 10px;
+  background: rgba(4,20,32,.40);
+  backdrop-filter: blur(10px);
+}
+
+.ref-auth__hero-copy {
+  max-width: 600px;
+}
+
+.ref-auth__hero-copy h1 {
+  max-width: 10ch;
+  text-wrap: balance;
+}
+
+.ref-auth__hero-copy > p {
+  max-width: 480px;
+  color: #d7e3e7 !important;
+  line-height: 1.55;
+  text-shadow: 0 2px 12px rgba(0,0,0,.36);
+}
+
+.ref-auth__trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 9px;
+  margin-top: clamp(18px,3vh,28px);
+}
+
+.ref-auth__trust-grid article {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid rgba(164,202,218,.24);
+  border-radius: 10px;
+  background: linear-gradient(145deg,rgba(9,37,54,.78),rgba(5,25,39,.68));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055), 0 10px 28px rgba(0,0,0,.16);
+  backdrop-filter: blur(12px) saturate(120%);
+}
+
+.ref-auth__trust-grid article > svg {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  padding: 8px;
+  border-radius: 9px;
+  background: rgba(91,216,128,.13);
+  color: #70dd91;
+}
+
+.ref-auth__trust-grid article > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.ref-auth__trust-grid strong {
+  color: #f4f8f9;
+  font-size: .75rem;
+}
+
+.ref-auth__trust-grid small {
+  color: #adbec6;
+  font-size: .625rem;
+  line-height: 1.3;
+}
+
+.ref-auth__form {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(41,151,83,.09),transparent 20rem),
+    linear-gradient(145deg,#fafbf8,#f1f3ee);
+}
+
+.ref-auth__form::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: .30;
+  background-image:
+    linear-gradient(rgba(8,42,69,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(8,42,69,.045) 1px,transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(135deg,transparent 4%,#000 66%);
+  pointer-events: none;
+}
+
+.ref-auth__card {
+  position: relative;
+  padding: 25px 27px 22px;
+  border: 1px solid #d9dfda;
+  border-radius: 16px;
+  background: rgba(255,255,255,.90);
+  box-shadow: 0 24px 64px rgba(7,27,45,.11), inset 0 1px 0 #fff;
+  backdrop-filter: blur(14px) saturate(120%);
+}
+
+.ref-auth__eyebrow {
+  color: #176d3d;
+}
+
+.ref-account-tabs button {
+  border-radius: 10px;
+  background: #f8faf7;
+}
+
+.ref-account-tabs button.is-active {
+  border-color: #278653;
+  background: #edf7f0;
+  box-shadow: 0 0 0 3px rgba(39,134,83,.10);
+}
+
+.ref-account-tabs svg {
+  color: #217a4b;
+}
+
+.ref-auth__card input {
+  border-color: #cbd4ce;
+  background: #fff;
+  color: #102738;
+  box-shadow: inset 0 1px 2px rgba(7,27,45,.045);
+}
+
+.ref-auth__card input:hover {
+  border-color: #98aaa0;
+}
+
+.ref-auth__card input:focus {
+  border-color: #278653;
+  box-shadow: 0 0 0 3px rgba(39,134,83,.12);
+}
+
+.ref-auth__submit {
+  border-radius: 9px;
+  background: linear-gradient(135deg,#0b3049,#0c405b);
+  box-shadow: 0 10px 24px rgba(7,27,45,.18);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ref-auth__submit:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg,#10425e,#12607a);
+    box-shadow: 0 14px 28px rgba(7,27,45,.24);
+  }
+}
+
+@media (min-width:981px) and (max-height:700px) {
+  .ref-auth__card {
+    padding: 18px 22px 16px;
+  }
+
+  .ref-auth__trust-grid article {
+    min-height: 58px;
+    padding-block: 8px;
+  }
+}
+
+@media (max-width:680px) {
+  .ref-auth__card {
+    padding: 20px 17px 18px;
+    border-radius: 13px;
+  }
+}

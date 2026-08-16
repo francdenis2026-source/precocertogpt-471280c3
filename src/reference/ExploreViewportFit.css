@@ -1,274 +1,215 @@
-/* Explore page — desktop viewport-fit without clipping content.
-   Keeps the light editorial hero while reducing vertical waste. */
+/* Explore page — balanced one-window composition without stretching cards. */
 @media (min-width: 901px) {
   .sector-page--all {
-    min-height: 100dvh;
-    height: 100dvh;
-    display: grid;
-    grid-template-rows: 42px minmax(0, 1fr) 38px;
-    overflow: clip;
+    min-height:100dvh;
+    height:100dvh;
+    display:grid;
+    grid-template-rows:38px minmax(0,1fr) 30px;
+    overflow:hidden;
   }
 
   .sector-page--all .sector-header {
-    height: 42px !important;
-    min-height: 42px;
+    height:38px!important;
+    min-height:38px!important;
   }
-
-  .sector-page--all .sector-header .sector-brand img {
-    width: 96px;
-    height: 24px;
-  }
-
-  .sector-page--all .sector-header a {
-    font-size: 10px;
-  }
+  .sector-page--all .sector-header .sector-shell { height:100%; }
+  .sector-page--all .sector-header .sector-brand img { width:88px;height:22px; }
+  .sector-page--all .sector-header a { font-size:9px; }
 
   .sector-page--all .sector-main {
-    min-height: 0;
-    display: grid !important;
-    grid-template-rows: minmax(214px, 40%) minmax(0, 60%) !important;
-    overflow: hidden;
+    min-height:0;
+    display:grid!important;
+    grid-template-rows:minmax(182px,34%) minmax(0,66%)!important;
+    overflow:hidden;
   }
 
+  /* Hero: compact editorial block, never oversized. */
   .sector-page--all .sector-hero--explore {
-    min-height: 0 !important;
-    height: 100% !important;
-    padding: 14px 0 !important;
+    min-height:0!important;
+    height:100%!important;
+    padding:12px 0!important;
   }
-
   .sector-page--all .sector-hero__grid {
-    height: 100%;
-    min-height: 0;
-    grid-template-columns: minmax(0, 1.65fr) minmax(230px, .55fr);
-    align-items: center;
-    gap: clamp(22px, 4vw, 56px);
+    height:100%;
+    min-height:0;
+    grid-template-columns:minmax(0,1.7fr) minmax(210px,.48fr);
+    align-items:center;
+    gap:clamp(24px,4vw,52px);
   }
-
-  .sector-page--all .sector-hero__copy {
-    max-width: 690px;
-  }
-
-  .sector-page--all .sector-eyebrow {
-    gap: 6px;
-    font-size: 8px;
-    letter-spacing: .1em;
-  }
-
-  .sector-page--all .sector-eyebrow svg {
-    width: 13px;
-    height: 13px;
-  }
-
+  .sector-page--all .sector-hero__copy { max-width:650px; }
+  .sector-page--all .sector-eyebrow { gap:5px;font-size:7.5px;letter-spacing:.1em; }
+  .sector-page--all .sector-eyebrow svg { width:12px;height:12px; }
   .sector-page--all .sector-hero h1 {
-    max-width: 680px;
-    margin: 7px 0 7px;
-    font-size: clamp(2rem, 3.25vw, 3.35rem) !important;
-    line-height: .94;
-    letter-spacing: -.048em;
+    min-height:0!important;
+    max-width:650px;
+    margin:6px 0;
+    font-size:clamp(1.85rem,3vw,3rem)!important;
+    line-height:.95;
+    letter-spacing:-.045em;
   }
-
-  .sector-page--all .sector-hero p {
-    max-width: 620px;
-    margin: 0;
-    font-size: 10px;
-    line-height: 1.42;
+  .sector-page--all .sector-hero__copy>p {
+    min-height:0!important;
+    max-width:590px;
+    margin:0;
+    font-size:9px;
+    line-height:1.4;
   }
-
   .sector-page--all .sector-primary-link {
-    min-height: 32px;
-    margin-top: 10px;
-    padding: 0 12px;
-    border-radius: 6px;
-    font-size: 9px;
+    min-height:29px;
+    margin-top:8px;
+    padding:0 11px;
+    border-radius:6px;
+    font-size:8px;
   }
-
-  .sector-page--all .sector-primary-link svg {
-    width: 12px;
-  }
+  .sector-page--all .sector-primary-link svg { width:11px; }
 
   .sector-page--all .sector-hero aside {
-    gap: 5px;
-    padding: 13px 14px !important;
-    border-radius: 9px;
+    align-self:center!important;
+    min-height:0!important;
+    height:auto!important;
+    gap:4px;
+    padding:11px 12px!important;
+    border-radius:8px;
   }
+  .sector-page--all .sector-hero aside>span { font-size:6.5px; }
+  .sector-page--all .sector-hero aside>svg { width:26px;height:26px;padding:6px;border-radius:6px; }
+  .sector-page--all .sector-hero aside strong { font-size:14px; }
+  .sector-page--all .sector-hero aside p { font-size:7.5px;line-height:1.3; }
+  .sector-page--all .sector-trust { gap:4px;margin-top:2px;font-size:6.5px; }
+  .sector-page--all .sector-trust svg { width:10px; }
 
-  .sector-page--all .sector-hero aside > span {
-    font-size: 7px;
-  }
-
-  .sector-page--all .sector-hero aside > svg {
-    width: 28px;
-    height: 28px;
-    padding: 7px;
-    border-radius: 7px;
-  }
-
-  .sector-page--all .sector-hero aside strong {
-    font-size: 15px;
-  }
-
-  .sector-page--all .sector-hero aside p {
-    font-size: 8px;
-    line-height: 1.35;
-  }
-
-  .sector-page--all .sector-trust {
-    gap: 5px;
-    margin-top: 2px;
-    font-size: 7px;
-  }
-
-  .sector-page--all .sector-trust svg {
-    width: 11px;
-  }
-
+  /* Content: natural heights. Nothing stretches to fill the viewport. */
   .sector-page--all .sector-content {
-    min-height: 0;
-    height: 100%;
-    padding: 12px 0 10px !important;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    align-content: stretch;
-    row-gap: 8px;
+    min-height:0;
+    height:100%;
+    display:grid;
+    grid-template-rows:auto auto auto;
+    align-content:center;
+    row-gap:8px;
+    padding:10px 0 8px!important;
   }
-
   .sector-page--all .sector-content__heading {
-    grid-template-columns: minmax(0, 1fr) minmax(300px, .72fr);
-    align-items: end;
-    gap: 22px;
+    min-height:0!important;
+    grid-template-columns:minmax(0,1fr) minmax(280px,.72fr);
+    align-items:end;
+    gap:20px;
   }
-
-  .sector-page--all .sector-content__heading span {
-    font-size: 7px;
-  }
-
+  .sector-page--all .sector-content__heading span { font-size:6.5px; }
   .sector-page--all .sector-content__heading h2 {
-    margin-top: 3px;
-    font-size: clamp(1.35rem, 2vw, 1.8rem) !important;
-    line-height: 1;
+    margin-top:2px;
+    font-size:clamp(1.2rem,1.65vw,1.55rem)!important;
+    line-height:1;
   }
-
   .sector-page--all .sector-content__heading p {
-    margin: 0;
-    font-size: 8px;
-    line-height: 1.4;
+    margin:0;
+    max-width:420px;
+    justify-self:end;
+    font-size:7.5px;
+    line-height:1.35;
   }
 
+  /* Sector cards: fixed compact geometry instead of viewport stretching. */
   .sector-page--all .sector-nav--compact {
-    align-self: stretch;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    grid-auto-rows: minmax(48px, 1fr);
-    gap: 6px;
-    margin-top: 0 !important;
+    align-self:auto;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-auto-rows:54px!important;
+    gap:6px;
+    margin-top:0!important;
   }
-
-  .sector-page--all .sector-nav--compact > a {
-    min-height: 0 !important;
-    height: 100%;
-    display: grid !important;
-    grid-template-columns: 28px minmax(0, 1fr) !important;
-    grid-template-rows: 1fr !important;
-    align-items: center !important;
-    gap: 8px !important;
-    padding: 7px 9px !important;
-    border-radius: 7px;
+  .sector-page--all .sector-nav--compact>a {
+    min-height:54px!important;
+    height:54px!important;
+    display:grid!important;
+    grid-template-columns:26px minmax(0,1fr)!important;
+    grid-template-rows:1fr!important;
+    align-items:center!important;
+    gap:8px!important;
+    padding:6px 9px!important;
+    border-radius:7px;
   }
-
-  .sector-page--all .sector-nav--compact > a > svg {
-    width: 27px !important;
-    height: 27px !important;
-    padding: 6px !important;
-    border-radius: 6px;
+  .sector-page--all .sector-nav--compact>a>svg {
+    width:25px!important;
+    height:25px!important;
+    padding:5.5px!important;
+    border-radius:6px;
   }
-
-  .sector-page--all .sector-nav--compact span {
-    gap: 1px;
-    min-width: 0;
-  }
-
-  .sector-page--all .sector-nav--compact strong {
-    font-size: 8.5px;
-    line-height: 1.1;
-  }
-
+  .sector-page--all .sector-nav--compact span { gap:1px;min-width:0; }
+  .sector-page--all .sector-nav--compact strong { font-size:8.5px;line-height:1.08; }
   .sector-page--all .sector-nav--compact small {
-    font-size: 6.5px;
-    line-height: 1.15;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    min-height:0!important;
+    font-size:6.5px;
+    line-height:1.1;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
   .sector-page--all .sector-how {
-    min-height: 0;
-    margin-top: 0 !important;
-    border-radius: 7px;
+    min-height:34px;
+    height:34px;
+    margin-top:0!important;
+    border-radius:7px;
   }
-
-  .sector-page--all .sector-how > div {
-    min-height: 38px !important;
-    gap: 8px;
-    padding: 6px 10px !important;
+  .sector-page--all .sector-how>div {
+    min-height:34px!important;
+    height:34px;
+    gap:7px;
+    padding:4px 9px!important;
   }
-
-  .sector-page--all .sector-how svg {
-    width: 14px;
-  }
-
-  .sector-page--all .sector-how span {
-    gap: 1px;
-  }
-
-  .sector-page--all .sector-how small {
-    font-size: 6px;
-  }
-
-  .sector-page--all .sector-how strong {
-    font-size: 7.5px;
-  }
+  .sector-page--all .sector-how svg { width:13px; }
+  .sector-page--all .sector-how span { gap:0; }
+  .sector-page--all .sector-how small { font-size:5.5px;line-height:1; }
+  .sector-page--all .sector-how strong { font-size:7px;line-height:1.1; }
 
   .sector-page--all .sector-footer {
-    min-height: 38px !important;
-    height: 38px;
-    padding: 0 !important;
+    min-height:30px!important;
+    height:30px!important;
+    padding:0!important;
   }
-
-  .sector-page--all .sector-footer .sector-brand img {
-    width: 82px;
-  }
-
+  .sector-page--all .sector-footer .sector-shell { height:100%; }
+  .sector-page--all .sector-footer .sector-brand img { width:76px; }
   .sector-page--all .sector-footer span,
-  .sector-page--all .sector-footer .sector-shell > a:last-child {
-    font-size: 7px;
-  }
+  .sector-page--all .sector-footer .sector-shell>a:last-child { font-size:6.5px; }
 }
 
-/* Extra compression for common 1366×768 / 1280×720 notebook viewports. */
+/* Typical compact notebook windows (roughly 1280×600–760). */
 @media (min-width: 901px) and (max-height: 760px) {
-  .sector-page--all {
-    grid-template-rows: 38px minmax(0, 1fr) 32px;
-  }
-  .sector-page--all .sector-header { height: 38px !important; min-height: 38px; }
-  .sector-page--all .sector-main { grid-template-rows: minmax(188px, 39%) minmax(0, 61%) !important; }
-  .sector-page--all .sector-hero--explore { padding: 10px 0 !important; }
-  .sector-page--all .sector-hero h1 { font-size: clamp(1.8rem, 3vw, 2.8rem) !important; }
-  .sector-page--all .sector-primary-link { min-height: 29px; margin-top: 8px; }
-  .sector-page--all .sector-hero aside { padding: 10px 12px !important; }
-  .sector-page--all .sector-content { padding: 8px 0 7px !important; row-gap: 6px; }
-  .sector-page--all .sector-content__heading h2 { font-size: 1.35rem !important; }
-  .sector-page--all .sector-nav--compact { grid-auto-rows: minmax(42px, 1fr); }
-  .sector-page--all .sector-nav--compact > a { padding: 5px 8px !important; }
-  .sector-page--all .sector-how > div { min-height: 32px !important; padding: 4px 9px !important; }
-  .sector-page--all .sector-footer { min-height: 32px !important; height: 32px; }
+  .sector-page--all { grid-template-rows:34px minmax(0,1fr) 26px; }
+  .sector-page--all .sector-header { height:34px!important;min-height:34px!important; }
+  .sector-page--all .sector-main { grid-template-rows:minmax(166px,35%) minmax(0,65%)!important; }
+  .sector-page--all .sector-hero--explore { padding:8px 0!important; }
+  .sector-page--all .sector-hero h1 { font-size:clamp(1.7rem,2.75vw,2.55rem)!important; }
+  .sector-page--all .sector-primary-link { min-height:27px;margin-top:7px; }
+  .sector-page--all .sector-hero aside { padding:8px 10px!important; }
+  .sector-page--all .sector-content { row-gap:6px;padding:7px 0 6px!important; }
+  .sector-page--all .sector-content__heading h2 { font-size:1.15rem!important; }
+  .sector-page--all .sector-nav--compact { grid-auto-rows:47px!important; }
+  .sector-page--all .sector-nav--compact>a { min-height:47px!important;height:47px!important;padding:5px 8px!important; }
+  .sector-page--all .sector-nav--compact>a>svg { width:23px!important;height:23px!important;padding:5px!important; }
+  .sector-page--all .sector-how,.sector-page--all .sector-how>div { min-height:30px!important;height:30px; }
+  .sector-page--all .sector-footer { min-height:26px!important;height:26px!important; }
 }
 
-/* Smaller screens keep natural document flow — nothing is clipped. */
-@media (max-width: 900px) {
+/* Very short desktop windows: keep hierarchy, trim secondary copy instead of distorting cards. */
+@media (min-width:901px) and (max-height:620px) {
+  .sector-page--all .sector-main { grid-template-rows:158px minmax(0,1fr)!important; }
+  .sector-page--all .sector-hero h1 { font-size:1.75rem!important; }
+  .sector-page--all .sector-hero__copy>p { font-size:7.5px; }
+  .sector-page--all .sector-content__heading p { display:none; }
+  .sector-page--all .sector-content__heading { grid-template-columns:1fr; }
+  .sector-page--all .sector-nav--compact { grid-auto-rows:44px!important; }
+  .sector-page--all .sector-nav--compact>a { min-height:44px!important;height:44px!important; }
+  .sector-page--all .sector-how,.sector-page--all .sector-how>div { height:28px;min-height:28px!important; }
+}
+
+/* Tablet/mobile return to natural document flow. */
+@media (max-width:900px) {
   .sector-page--all,
   .sector-page--all .sector-main,
   .sector-page--all .sector-content {
-    height: auto;
-    min-height: 0;
-    overflow: visible;
+    height:auto;
+    min-height:0;
+    overflow:visible;
   }
+  .sector-page--all .sector-nav--compact>a { height:auto!important; }
 }

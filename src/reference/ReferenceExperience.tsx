@@ -25,6 +25,7 @@ import "./TypographyScale.css";
 import "./HomeStoryRefinement.css";
 import "./InteractionPolish.css";
 import "./TasteRefinement.css";
+import "./DarkThemeRefinement.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,7 +41,9 @@ function useCatalog() {
 
 function Brand({ inverse = false }: { inverse?: boolean }) {
   return <Link className="ref-brand" to="/" aria-label="PreçoCerto — início">
-    <img src={inverse ? "/logo-preco-certo-inversa.svg" : "/logo-preco-certo.svg"} alt="PreçoCerto" />
+    {inverse
+      ? <img className="ref-brand__inverse" src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" />
+      : <><img className="ref-brand__light" src="/logo-preco-certo.svg" alt="PreçoCerto" /><img className="ref-brand__dark" src="/logo-preco-certo-inversa.svg" alt="" aria-hidden="true" /></>}
     <span>FEIJÓ · ACRE</span>
   </Link>;
 }

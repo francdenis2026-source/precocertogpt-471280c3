@@ -334,3 +334,54 @@ html[data-theme="dark"] .ref-product-dialog section>a { background: #f0bd64; col
   .ref-product-dialog,
   .ref-product-dialog__prices>div.is-loading strong::after { animation: none; }
 }
+
+
+/* Pesquisa do catálogo: digitação imediata e montagem progressiva dos resultados. */
+.ref-results .ref-results-table {
+  transition: opacity 140ms ease;
+}
+.ref-results.is-updating .ref-results-table {
+  opacity: .68;
+  pointer-events: none;
+}
+.ref-results-more {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  border: 1px solid var(--ref-line);
+  border-radius: 9px;
+  background: var(--ref-paper);
+  color: var(--ref-ink);
+  font-size: .75rem;
+  font-weight: 850;
+}
+.ref-results-more span {
+  color: var(--ref-muted);
+  font-size: .6875rem;
+  font-weight: 650;
+}
+@media (hover:hover) and (pointer:fine) {
+  .ref-results-more:hover {
+    border-color: #8eab9d;
+    background: #eef4f0;
+  }
+}
+html[data-theme="dark"] .ref-results-more {
+  border-color: #3d5d70;
+  background: #102b3d;
+  color: #edf3f5;
+}
+html[data-theme="dark"] .ref-results-more span { color: #b8c7ce; }
+@media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] .ref-results-more:hover {
+    border-color: #66889b;
+    background: #17384d;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ref-results .ref-results-table { transition: none; }
+}

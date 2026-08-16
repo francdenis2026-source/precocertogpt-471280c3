@@ -4,7 +4,6 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/outfit";
 import "./styles/AppReset.css";
 import App from "./App";
-import { startPaymentNotifications } from "./lib/paymentNotifications";
 
 const savedTheme = localStorage.getItem("theme");
 const initialTheme = savedTheme === "dark" ? "dark" : "light";
@@ -12,7 +11,14 @@ localStorage.setItem("theme", initialTheme);
 document.documentElement.dataset.theme = initialTheme;
 document.documentElement.style.colorScheme = initialTheme;
 
-startPaymentNotifications();
+// Notificações não fazem parte do caminho crítico da primeira pintura.
+window.setTimeout(() => {
+  void import("./lib/paymentNotifications")
+    .then(({ startPaymentNotifications }) => startPaymentNotifications())
+    .catch(() => {
+      // A interface continua disponível mesmo se o serviço de notificações falhar.
+    });
+}, 1_500);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -159,3 +159,84 @@
 @media (prefers-reduced-motion: reduce) {
   .ref-receipt { transform: none; }
 }
+
+
+/* Direção de arte — protagonismo fotográfico e contraste no tema claro */
+html:not([data-theme="dark"]) .ref-local {
+  border-block: 1px solid rgba(8,42,69,.12);
+  background: #e8e5dc;
+}
+
+html:not([data-theme="dark"]) .ref-local::before {
+  background-position: 70% 48%;
+  filter: saturate(1.12) contrast(1.08) brightness(.96);
+  transform: scale(1.012);
+}
+
+html:not([data-theme="dark"]) .ref-local::after {
+  background:
+    linear-gradient(90deg,
+      rgba(247,245,239,.99) 0%,
+      rgba(247,245,239,.97) 30%,
+      rgba(247,245,239,.86) 41%,
+      rgba(247,245,239,.38) 54%,
+      rgba(247,245,239,.08) 68%,
+      rgba(7,27,45,.08) 100%),
+    linear-gradient(0deg, rgba(7,27,45,.12), transparent 52%);
+}
+
+html:not([data-theme="dark"]) .ref-local h2 {
+  color: #0b2233;
+  text-shadow: 0 1px 0 rgba(255,255,255,.55);
+}
+
+html:not([data-theme="dark"]) .ref-local p {
+  color: #344c5b;
+}
+
+html:not([data-theme="dark"]) .ref-local__actions {
+  border-color: rgba(255,255,255,.88);
+  background: rgba(250,251,249,.88);
+  box-shadow: 0 22px 54px rgba(7,27,45,.22), 0 2px 8px rgba(7,27,45,.10);
+  backdrop-filter: blur(14px) saturate(135%);
+}
+
+html:not([data-theme="dark"]) .ref-local__actions a {
+  border-color: #c8d1d3;
+  background: rgba(255,255,255,.95);
+  color: #102738;
+  box-shadow: 0 1px 0 rgba(255,255,255,.9);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+html:not([data-theme="dark"]) .ref-local__actions a svg:first-child {
+  background: #edf3ef;
+  color: #16763d;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html:not([data-theme="dark"]) .ref-local__actions a:hover {
+    transform: translateX(3px);
+    border-color: #77958a;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(7,27,45,.12);
+  }
+}
+
+@media (max-width:680px) {
+  html:not([data-theme="dark"]) .ref-local::before {
+    background-position: 64% 50%;
+  }
+
+  html:not([data-theme="dark"]) .ref-local::after {
+    background: linear-gradient(180deg,
+      rgba(247,245,239,.98) 0%,
+      rgba(247,245,239,.92) 34%,
+      rgba(247,245,239,.48) 60%,
+      rgba(7,27,45,.18) 100%);
+  }
+
+  html:not([data-theme="dark"]) .ref-local__actions {
+    background: rgba(250,251,249,.92);
+  }
+}

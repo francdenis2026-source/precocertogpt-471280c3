@@ -12,11 +12,11 @@ import {
   ReferenceMerchantDashboard,
   ReferenceMerchantPage,
   ReferenceNotFound,
-  ReferenceProductPage,
   ReferenceSearchPage,
   ReferenceStorePage,
   ReferenceStoresPage,
 } from "./reference/ReferenceExperience";
+import { ProductDetailProfessional } from "./reference/ProductDetailProfessional";
 import { MarketplaceExplorePage, MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
 
 function RouteFocusManager() {
@@ -48,7 +48,7 @@ export default function App() {
           <Route path="/padarias" element={<MarketplaceSectorLanding sector={marketplaceSectors[2]} />} />
           <Route path="/livros" element={<MarketplaceSectorLanding sector={marketplaceSectors[3]} />} />
           <Route path="/servicos" element={<MarketplaceSectorLanding sector={marketplaceSectors[4]} />} />
-          <Route path="/produto/:identifier" element={<ReferenceProductPage />} />
+          <Route path="/produto/:identifier" element={<ProductDetailProfessional />} />
           <Route path="/estabelecimentos" element={<ReferenceStoresPage />} />
           <Route path="/estabelecimento/:identifier" element={<ReferenceStorePage />} />
           <Route path="/loja/:identifier" element={<ReferenceStorePage />} />

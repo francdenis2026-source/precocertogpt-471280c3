@@ -1,0 +1,105 @@
+/* Polimento de interação inspirado na filosofia de design engineering de Emil Kowalski. */
+.ref-page,
+.ref-auth,
+.ref-admin {
+  --ref-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ref-ease-in-out: cubic-bezier(.77, 0, .175, 1);
+}
+
+.ref-page :is(a, button),
+.ref-auth :is(a, button),
+.ref-admin :is(a, button) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.ref-search,
+.ref-directory-search {
+  transition: border-color 180ms ease, box-shadow 220ms var(--ref-ease-out), transform 160ms var(--ref-ease-out);
+}
+
+.ref-search:focus-within,
+.ref-directory-search:focus-within {
+  border-color: color-mix(in srgb, var(--ref-gold) 72%, #fff);
+  box-shadow: 0 0 0 4px rgba(196,136,34,.16), 0 22px 58px rgba(0,0,0,.24);
+}
+
+.ref-search button,
+.ref-live-card > button,
+.ref-economy__grid > div > a,
+.ref-local__actions a,
+.ref-signin,
+.ref-section__heading > a {
+  transition: transform 150ms var(--ref-ease-out), box-shadow 200ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.ref-price-row,
+.ref-live-card,
+.ref-receipt,
+.ref-local__actions {
+  transition: transform 220ms var(--ref-ease-out), box-shadow 240ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.ref-price-row > svg,
+.ref-section__heading > a svg,
+.ref-search button svg,
+.ref-live-card > button svg,
+.ref-economy__grid > div > a svg,
+.ref-local__actions a > svg:last-child {
+  transition: transform 180ms var(--ref-ease-out);
+}
+
+.ref-page :is(button, .ref-signin, .ref-search button, .ref-live-card > button, .ref-economy__grid > div > a, .ref-local__actions a):active,
+.ref-auth :is(button, a):active,
+.ref-admin :is(button, a):active {
+  transform: scale(.97);
+  transition-duration: 100ms;
+}
+
+.ref-price-row:active { transform: scale(.995); }
+
+@media (hover: hover) and (pointer: fine) {
+  .ref-search button:hover,
+  .ref-economy__grid > div > a:hover,
+  .ref-signin:hover {
+    transform: translateY(-1px);
+  }
+
+  .ref-search button:hover,
+  .ref-economy__grid > div > a:hover {
+    box-shadow: 0 9px 24px rgba(0,0,0,.18);
+  }
+
+  .ref-price-row:hover {
+    transform: translateX(3px);
+    border-color: color-mix(in srgb, var(--ref-gold) 25%, var(--ref-line));
+  }
+
+  .ref-price-row:hover > svg,
+  .ref-section__heading > a:hover svg,
+  .ref-search button:hover svg,
+  .ref-live-card > button:hover svg,
+  .ref-economy__grid > div > a:hover svg,
+  .ref-local__actions a:hover > svg:last-child {
+    transform: translateX(3px);
+  }
+
+  .ref-live-card:hover { transform: translateY(-2px); box-shadow: 18px 28px 0 rgba(0,0,0,.18); }
+  .ref-receipt:hover { transform: rotate(0) translateY(-2px); box-shadow: 0 28px 62px rgba(0,0,0,.34), 8px 12px 0 rgba(3,15,25,.30); }
+  .ref-local__actions:hover { border-color: rgba(196,136,34,.38); box-shadow: 0 22px 58px rgba(7,27,45,.17); }
+}
+
+@media (hover: none) {
+  .ref-price-row:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-price-row,
+  .ref-live-card,
+  .ref-receipt,
+  .ref-local__actions,
+  .ref-page :is(a, button) {
+    transition-duration: 0ms;
+    transform: none;
+  }
+}

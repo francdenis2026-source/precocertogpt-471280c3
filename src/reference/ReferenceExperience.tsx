@@ -19,6 +19,7 @@ import "./ReferenceResponsive.css";
 import "./CompactShell.css";
 import "./TypographyScale.css";
 import "./HomeStoryRefinement.css";
+import "./InteractionPolish.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });

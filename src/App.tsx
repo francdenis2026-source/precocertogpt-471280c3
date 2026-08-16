@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { FooterDeveloperInfo } from "./components/FooterDeveloperInfo";
 import { ProductCardQuickActions } from "./components/ProductCardQuickActions";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import {
@@ -40,6 +41,7 @@ export default function App() {
         <a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
         <RouteFocusManager />
         <ProductCardQuickActions />
+        <FooterDeveloperInfo />
         <Routes>
           <Route path="/" element={<ReferenceHome />} />
           <Route path="/buscar" element={<ReferenceSearchPage />} />

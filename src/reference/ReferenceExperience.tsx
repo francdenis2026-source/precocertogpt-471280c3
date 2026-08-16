@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, BarChart3, Bell, Building2,
-  Check, CircleDollarSign, Eye, Heart, LayoutDashboard, ListChecks, LockKeyhole, Map,
+  Check, CircleDollarSign, Eye, Heart, LayoutDashboard, ListChecks, LockKeyhole, Map as MapIcon,
   MapPin, Menu, Minus, Moon, PackageSearch, Plus, Search, ShieldCheck, ShoppingBasket,
   SlidersHorizontal, Store, Sun, Tag, Trash2, TrendingDown, UserRound, UsersRound, X,
 } from "lucide-react";
@@ -332,7 +332,7 @@ export function ReferenceStoresPage() {
   return <div className="ref-page ref-directory"><PublicHeader current="stores" /><main id="conteudo-principal" className="ref-shell ref-directory__main">
     <div className="ref-page-title"><div><span>COMÉRCIO DE FEIJÓ</span><h1>Mercados perto de você.</h1><p>Compare cobertura, catálogos e preços atualizados de cada estabelecimento.</p></div><div className="ref-update"><Store /><span>{catalog.metrics.stores} parceiros<small>em bairros de Feijó</small></span></div></div>
     <div className="ref-directory-search"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Buscar mercado ou bairro" aria-label="Buscar estabelecimento" /><Link to="/lojista">Cadastrar comércio <ArrowRight /></Link></div>
-    <div className="ref-store-layout"><section className="ref-store-list"><header><span>ESTABELECIMENTOS VERIFICADOS</span><strong>{stores.length} resultados</strong></header>{stores.map((store, index) => <Link to={`/estabelecimento/${store.slug}`} key={store.id} className="ref-store-row"><span className="ref-store-index">{String(index + 1).padStart(2, "0")}</span><i style={{ background: store.color }}><Store /></i><span><small>{store.neighborhood}</small><strong>{store.name}</strong><em>{store.products} produtos no catálogo</em></span><span className="ref-store-badge"><BadgeCheck /> verificado</span><ArrowRight /></Link>)}</section><aside className="ref-map-card"><div className="ref-map-grid" aria-hidden="true"><MapPin /><span className="p1" /><span className="p2" /><span className="p3" /><span className="p4" /></div><div><Map /><span><strong>Feijó, Acre</strong><small>{stores.length} estabelecimentos visíveis</small></span></div></aside></div>
+    <div className="ref-store-layout"><section className="ref-store-list"><header><span>ESTABELECIMENTOS VERIFICADOS</span><strong>{stores.length} resultados</strong></header>{stores.map((store, index) => <Link to={`/estabelecimento/${store.slug}`} key={store.id} className="ref-store-row"><span className="ref-store-index">{String(index + 1).padStart(2, "0")}</span><i style={{ background: store.color }}><Store /></i><span><small>{store.neighborhood}</small><strong>{store.name}</strong><em>{store.products} produtos no catálogo</em></span><span className="ref-store-badge"><BadgeCheck /> verificado</span><ArrowRight /></Link>)}</section><aside className="ref-map-card"><div className="ref-map-grid" aria-hidden="true"><MapPin /><span className="p1" /><span className="p2" /><span className="p3" /><span className="p4" /></div><div><MapIcon /><span><strong>Feijó, Acre</strong><small>{stores.length} estabelecimentos visíveis</small></span></div></aside></div>
   </main><PublicFooter /><AppDock current="stores" /></div>;
 }
 

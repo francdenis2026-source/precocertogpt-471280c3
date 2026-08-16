@@ -165,6 +165,7 @@ function AppDock({ current }: { current: "home" | "search" | "basket" | "stores"
 export function ReferenceHome() {
   const searchFormRef = useRef<HTMLFormElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchPointerActiveRef = useRef(false);
   const productDialogRef = useRef<HTMLDivElement>(null);
   const { catalog, loading: catalogLoading } = useCatalogState();
   const navigate = useNavigate();
@@ -227,17 +228,37 @@ export function ReferenceHome() {
       setSearchOpen(false);
       setActiveSearchIndex(-1);
     };
+    const isInsideSearch = (event: PointerEvent) => {
+      if (searchFormRef.current?.contains(event.target as Node)) return true;
+      const panel = document.getElementById("resultados-busca-home");
+      if (!panel) return false;
+      const bounds = panel.getBoundingClientRect();
+      return event.clientX >= bounds.left && event.clientX <= bounds.right
+        && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+    };
     const handlePointerDown = (event: PointerEvent) => {
-      if (!searchFormRef.current?.contains(event.target as Node)) closeSearch();
+      if (isInsideSearch(event)) {
+        searchPointerActiveRef.current = true;
+        return;
+      }
+      closeSearch();
+    };
+    const handlePointerEnd = () => {
+      window.requestAnimationFrame(() => { searchPointerActiveRef.current = false; });
     };
     const handleFocusIn = (event: FocusEvent) => {
-      if (!searchFormRef.current?.contains(event.target as Node)) closeSearch();
+      if (!searchPointerActiveRef.current && !searchFormRef.current?.contains(event.target as Node)) closeSearch();
     };
     document.addEventListener("pointerdown", handlePointerDown, true);
+    document.addEventListener("pointerup", handlePointerEnd, true);
+    document.addEventListener("pointercancel", handlePointerEnd, true);
     document.addEventListener("focusin", handleFocusIn);
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown, true);
+      document.removeEventListener("pointerup", handlePointerEnd, true);
+      document.removeEventListener("pointercancel", handlePointerEnd, true);
       document.removeEventListener("focusin", handleFocusIn);
+      searchPointerActiveRef.current = false;
     };
   }, [searchOpen]);
   const clearSearch = () => {

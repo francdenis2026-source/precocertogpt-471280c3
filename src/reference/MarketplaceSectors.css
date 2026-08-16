@@ -70,3 +70,15 @@
   .sector-footer{min-height:44px;padding:0}.sector-footer .sector-shell{align-items:center;flex-direction:row}.sector-footer .sector-brand img{width:90px}.sector-footer .sector-shell>a:last-child{font-size:9px}
 }
 @media(max-width:390px){.sector-nav--compact{grid-template-columns:repeat(2,1fr)}.sector-footer{display:none}.sector-hero{padding:22px 0}.sector-hero h1{font-size:clamp(1.85rem,9vw,2.45rem)}.sector-content{padding-block:14px}.sector-content__heading h2{font-size:1.35rem}}
+
+/* Estados ativos legíveis em todas as navegações de setores. */
+[data-theme="dark"] .ref-sectors .sector-nav--compact>a.is-active,
+[data-theme="dark"] .ref-search-sectors .sector-nav--compact>a.is-active,
+[data-theme="dark"] .sector-page .sector-nav--compact>a.is-active{
+  border-color:#e0aa50;
+  background:#e0aa50;
+  color:#10202b;
+}
+[data-theme="dark"] .ref-sectors .sector-nav--compact>a.is-active small,
+[data-theme="dark"] .ref-search-sectors .sector-nav--compact>a.is-active small,
+[data-theme="dark"] .sector-page .sector-nav--compact>a.is-active small{color:#253947}

@@ -52,6 +52,11 @@ let pendingCatalog: Promise<CatalogResult> | null = null;
 export const normalize = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
+// Vocabulário equivalente para descoberta e comparação. Mantemos o nome do rótulo
+// na interface, mas agrupamos a denominação popular solicitada quando marca e tamanho coincidem.
+const normalizeCatalogTerm = (value: string) => normalize(value)
+  .replace(/\bmistura lactea condensada\b/g, "leite condensado");
+
 const normalizeUnit = (value: string | null | undefined) => {
   const unit = normalize(value || "").replace(/[^a-z]/g, "");
   if (["un", "und", "unid", "unidade", "unidades"].includes(unit)) return "un";
@@ -87,7 +92,7 @@ const extractSpecification = (product: ProductRow) => {
   return size && size !== "-" ? `size:${size}` : `unit:${normalizeUnit(product.unit)}`;
 };
 
-const baseProductName = (value: string | null) => normalize(value || "")
+const baseProductName = (value: string | null) => normalizeCatalogTerm(value || "")
   .replace(/\b\d+\s*x\s*\d+(?:[.,]\d+)?\s*(?:kg|g|gr|l|lt|ml|un|und|unid|unidade|unidades)\b/g, " ")
   .replace(/\b\d+(?:[.,]\d+)?\s*(?:kg|g|gr|grama|gramas|l|lt|litro|litros|ml|mililitro|mililitros|un|und|unid|unidade|unidades)\b/g, " ")
   .replace(/[^a-z0-9]+/g, " ")
@@ -169,7 +174,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       return { ...local, source: "local", error: "Banco conectado, porém sem dados de preços." };
     }
 
-    const q = normalize(query);
+    const q = normalizeCatalogTerm(query);
     const storesById = new Map(storeRows.map(store => [String(store.id), store]));
     const pricesByProductId = new Map<string, PriceRow[]>();
     const productIdsByStore = new Map<string, Set<string>>();
@@ -281,7 +286,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       .filter(product => {
         if (!q) return true;
         const searchFields = [product.name, product.category, product.brand, product.barcode, product.size].filter(Boolean) as string[];
-        return searchFields.some(field => normalize(field).includes(q));
+        return searchFields.some(field => normalizeCatalogTerm(field).includes(q));
       })
       // Ordenação determinística: preço, nome e, por fim, o id (único) como desempate.
       .sort((a, b) =>

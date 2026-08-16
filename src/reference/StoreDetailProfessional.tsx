@@ -1,12 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, BadgeCheck, CalendarDays, Clock3, Heart, Info, MapPin, PackageSearch, ShieldCheck, Store } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, Info, MapPin, PackageSearch, Search, ShieldCheck, SlidersHorizontal, Store } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import "./StoreDetailProfessional.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const PAGE_SIZE = 18;
+
+function normalize(value: string) {
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
+}
 
 function ProductImage({ product }: { product: Product }) {
   const source = resolveProductImage(product);
@@ -20,6 +25,10 @@ export function StoreDetailProfessional() {
   const { identifier = "" } = useParams();
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("Todos");
+  const [sort, setSort] = useState<"name" | "price-asc" | "price-desc">("name");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     let active = true;
@@ -30,49 +39,84 @@ export function StoreDetailProfessional() {
   }, []);
 
   const store = useMemo(() => catalog?.stores.find(item => String(item.id) === identifier || item.slug === identifier), [catalog, identifier]);
-  const products = useMemo(() => {
+  const allProducts = useMemo(() => {
     if (!catalog || !store) return [];
     const matching = catalog.products.filter(item => item.offers?.some(offer => String(offer.establishmentId) === String(store.id)) || String(item.establishmentId) === String(store.id));
-    return (matching.length ? matching : catalog.products).slice(0, 12);
+    return matching.length ? matching : [];
   }, [catalog, store]);
+
+  const categories = useMemo(() => ["Todos", ...Array.from(new Set(allProducts.map(product => product.category).filter(Boolean))).sort((a, b) => a.localeCompare(b, "pt-BR"))], [allProducts]);
+  const filteredProducts = useMemo(() => {
+    const term = normalize(query);
+    const filtered = allProducts.filter(product => {
+      const matchesCategory = category === "Todos" || product.category === category;
+      const matchesQuery = !term || normalize(`${product.name} ${product.brand || ""} ${product.category || ""} ${product.size || ""}`).includes(term);
+      return matchesCategory && matchesQuery;
+    });
+    return [...filtered].sort((a, b) => {
+      if (sort === "price-asc") return a.minPrice - b.minPrice || a.name.localeCompare(b.name, "pt-BR");
+      if (sort === "price-desc") return b.minPrice - a.minPrice || a.name.localeCompare(b.name, "pt-BR");
+      return a.name.localeCompare(b.name, "pt-BR");
+    });
+  }, [allProducts, query, category, sort]);
+
+  const pageCount = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
+  const safePage = Math.min(page, pageCount);
+  const visibleProducts = useMemo(() => filteredProducts.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE), [filteredProducts, safePage]);
+  useEffect(() => setPage(1), [query, category, sort]);
+  useEffect(() => { if (page > pageCount) setPage(pageCount); }, [page, pageCount]);
 
   if (loading) return <main className="store-pro-state"><span className="store-pro-loader" /><h1>Carregando estabelecimento…</h1></main>;
   if (!store || !catalog) return <main className="store-pro-state"><Store /><h1>Estabelecimento não encontrado</h1><Link to="/estabelecimentos">Voltar aos estabelecimentos</Link></main>;
 
+  const startResult = filteredProducts.length ? (safePage - 1) * PAGE_SIZE + 1 : 0;
+  const endResult = Math.min(safePage * PAGE_SIZE, filteredProducts.length);
+
   return <div className="ref-page store-pro-page">
     <main id="conteudo-principal" className="store-pro-shell">
-      <Link className="store-pro-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
+      <div className="store-pro-topline"><Link className="store-pro-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link><span><MapPin /> Feijó · Acre</span></div>
 
       <section className="store-pro-hero" aria-labelledby="store-title">
         <div className="store-pro-hero__overlay" />
         <div className="store-pro-hero__content">
           <div className="store-pro-logo" style={{ background: store.color }}><Store /></div>
           <div className="store-pro-copy">
-            <span>CATÁLOGO LOCAL · INFORMAÇÕES DE PREÇO</span>
+            <span>CATÁLOGO LOCAL</span>
             <h1 id="store-title">{store.name}</h1>
-            <div className="store-pro-meta-line"><b><BadgeCheck /> {store.products} produtos monitorados</b><b><Clock3 /> Preços atualizados hoje</b><em>Catálogo verificado</em></div>
+            <div className="store-pro-meta-line"><b><BadgeCheck /> {allProducts.length || store.products} produtos no catálogo</b><b><Clock3 /> preços organizados pelo PreçoCerto</b></div>
           </div>
-          <div className="store-pro-place"><MapPin /> Feijó - AC</div>
+          <div className="store-pro-status"><BadgeCheck /><span><strong>Catálogo verificado</strong><small>Informações locais organizadas</small></span></div>
           <div className="store-pro-notice"><Info /><span><strong>Catálogo informativo</strong><small>Este estabelecimento ainda não oferece vendas diretas pelo PreçoCerto.</small></span></div>
         </div>
       </section>
 
-      <section className="store-pro-signals" aria-label="Informações do catálogo">
-        <article><span><Clock3 /></span><div><strong>Monitoramento diário</strong><small>Preços organizados todos os dias</small></div></article>
-        <article><span><ShieldCheck /></span><div><strong>Informações confiáveis</strong><small>Dados para ajudar você a comparar</small></div></article>
-        <article><span><Heart /></span><div><strong>Feito para Feijó</strong><small>Projeto independente e local</small></div></article>
-        <article><span><CalendarDays /></span><div><strong>Atualização recente</strong><small>Catálogo revisado hoje</small></div></article>
+      <section className="store-pro-summary" aria-label="Resumo do estabelecimento">
+        <article><strong>{allProducts.length}</strong><span>produtos encontrados</span></article>
+        <article><strong>{Math.max(1, categories.length - 1)}</strong><span>categorias</span></article>
+        <article><ShieldCheck /><span><b>Informação clara</b><small>Compare antes de comprar</small></span></article>
       </section>
 
-      <section className="store-pro-catalog">
-        <header><div><span>CATÁLOGO LOCAL</span><h2>Preços deste estabelecimento</h2></div><small>Compare antes de sair</small></header>
-        <div className="ref-product-grid store-pro-grid">{products.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`}>
+      <section className="store-pro-catalog" aria-labelledby="store-catalog-title">
+        <header className="store-pro-catalog-head"><div><span>CATÁLOGO</span><h2 id="store-catalog-title">Produtos deste estabelecimento</h2><p>{filteredProducts.length} {filteredProducts.length === 1 ? "resultado" : "resultados"}{query || category !== "Todos" ? " com os filtros atuais" : " disponíveis"}</p></div></header>
+
+        <div className="store-pro-toolbar">
+          <label className="store-pro-search"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Buscar produto, marca ou categoria" aria-label="Buscar no catálogo do estabelecimento" /></label>
+          <label className="store-pro-select"><SlidersHorizontal /><select value={category} onChange={event => setCategory(event.target.value)} aria-label="Filtrar por categoria">{categories.map(item => <option key={item}>{item}</option>)}</select></label>
+          <label className="store-pro-select"><select value={sort} onChange={event => setSort(event.target.value as typeof sort)} aria-label="Ordenar produtos"><option value="name">Ordenar: A–Z</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option></select></label>
+        </div>
+
+        {visibleProducts.length ? <div className="ref-product-grid store-pro-grid">{visibleProducts.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`}>
           <div><ProductImage product={product} /></div>
           <small>{product.category}</small>
           <strong>{product.name}</strong>
-          <span>{product.size || product.unit}</span>
+          <span>{product.size || product.unit || product.brand}</span>
           <footer><em>menor preço</em><b>{brl.format(product.minPrice)}</b></footer>
-        </Link>)}</div>
+        </Link>)}</div> : <div className="store-pro-empty"><PackageSearch /><h3>Nenhum produto encontrado</h3><p>Tente outro nome ou remova algum filtro.</p><button type="button" onClick={() => { setQuery(""); setCategory("Todos"); }}>Limpar filtros</button></div>}
+
+        {pageCount > 1 && <nav className="store-pro-pagination" aria-label="Paginação do catálogo">
+          <span>Mostrando {startResult}–{endResult} de {filteredProducts.length}</span>
+          <div><button type="button" disabled={safePage === 1} onClick={() => setPage(value => Math.max(1, value - 1))} aria-label="Página anterior"><ChevronLeft /></button>{Array.from({ length: pageCount }, (_, index) => index + 1).filter(number => number === 1 || number === pageCount || Math.abs(number - safePage) <= 1).map((number, index, list) => <span key={number}>{index > 0 && number - list[index - 1] > 1 && <i>…</i>}<button type="button" className={number === safePage ? "is-active" : ""} aria-current={number === safePage ? "page" : undefined} onClick={() => setPage(number)}>{number}</button></span>)}<button type="button" disabled={safePage === pageCount} onClick={() => setPage(value => Math.min(pageCount, value + 1))} aria-label="Próxima página"><ChevronRight /></button></div>
+        </nav>}
       </section>
 
       <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Catálogo informativo</strong><span>Consulte disponibilidade e condições diretamente com o estabelecimento enquanto a venda direta pelo PreçoCerto não estiver habilitada.</span><Link to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>

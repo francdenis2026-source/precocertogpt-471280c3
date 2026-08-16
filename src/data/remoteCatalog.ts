@@ -208,7 +208,7 @@ export async function fetchCatalog(query = ""): Promise<CatalogResult> {
 
         const previous = toNumber(best.previous_value);
         const normalizedProductName = normalize(product.name || "");
-        const normalizedProductSize = normalize(product.size || "").replace(/\\s+/g, "");
+        const normalizedProductSize = normalize(product.size || "").replace(/\s+/g, "");
         const isLimpolPerfumes500ml = normalizedProductName.includes("limpol perfumes")
           && (normalizedProductName.includes("500ml") || normalizedProductSize === "500ml");
 

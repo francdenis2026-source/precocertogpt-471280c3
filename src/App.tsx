@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import {
   ReferenceAdminDashboard,
@@ -16,11 +17,25 @@ import {
   ReferenceStoresPage,
 } from "./reference/ReferenceExperience";
 
+function RouteFocusManager() {
+  const location = useLocation();
+  useEffect(() => {
+    const main = document.querySelector<HTMLElement>("#conteudo-principal, main");
+    if (!main) return;
+    if (!main.id) main.id = "conteudo-principal";
+    main.setAttribute("tabindex", "-1");
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    window.requestAnimationFrame(() => main.focus({ preventScroll: true }));
+  }, [location.pathname]);
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <FavoritesProvider>
         <a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+        <RouteFocusManager />
         <Routes>
           <Route path="/" element={<ReferenceHome />} />
           <Route path="/buscar" element={<ReferenceSearchPage />} />

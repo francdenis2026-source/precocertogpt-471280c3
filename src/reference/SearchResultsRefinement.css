@@ -1,5 +1,6 @@
 /* Busca instantânea da homepage: sobreposição sem deslocar o conteúdo. */
-.ref-search { position: relative; overflow: visible; }
+.ref-home .ref-hero { overflow: visible; }
+.ref-search { position: relative; z-index: 30; overflow: visible; }
 .ref-search.has-query { grid-template-columns: auto minmax(0,1fr) auto auto; }
 .ref-search:focus-within {
   border-color: transparent;
@@ -32,14 +33,14 @@
 .ref-search-clear svg { width: 16px; }
 
 .ref-search-results {
-  position: fixed;
+  position: absolute;
   z-index: 70;
-  top: 78px;
-  right: auto;
-  bottom: auto;
-  left: max(16px, calc((100vw - 1180px) / 2));
-  width: min(690px, calc(100vw - 32px));
-  max-height: calc(100dvh - 96px);
+  top: auto;
+  right: 0;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 100%;
+  max-height: min(360px, calc(100dvh - 112px));
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -136,7 +137,7 @@ html[data-theme="dark"] .ref-search-results>footer button { background: #f0bd64;
   .ref-search>.ref-search-clear { width: 40px; height: 40px; padding: 0; border-radius: 50%; }
   .ref-search>.ref-search-clear span { display: none; }
   .ref-search-submit { min-width: 44px; padding: 0 !important; }
-  .ref-search-results { top: 68px; left: 13px; width: calc(100vw - 26px); max-height: calc(100dvh - 84px); border-radius: 10px; }
+  .ref-search-results { top: auto; right: 0; bottom: calc(100% + 9px); left: 0; width: 100%; max-height: min(310px, calc(100dvh - 96px)); border-radius: 10px; }
   .ref-search-results__list>button { grid-template-columns: 42px minmax(0,1fr) auto; min-height: 62px; padding: 6px 9px; }
   .ref-search-results__image { width: 40px; height: 46px; }
   .ref-search-results__image img { width: 37px; height: 41px; }

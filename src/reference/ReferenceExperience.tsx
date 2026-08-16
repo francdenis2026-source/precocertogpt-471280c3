@@ -27,6 +27,7 @@ import "./InteractionPolish.css";
 import "./TasteRefinement.css";
 import "./DarkThemeRefinement.css";
 import "./ProductCardRefinement.css";
+import "./SearchResultsRefinement.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -134,12 +135,31 @@ function AppDock({ current }: { current: "home" | "search" | "basket" | "stores"
 
 export function ReferenceHome() {
   const homeRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const catalog = useCatalog();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const featured = useMemo(() => [...catalog.products].filter(p => p.minPrice > 0).sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 4), [catalog.products]);
   const lead = featured[0] || catalog.products[0];
   const receipt = featured.slice(0, 3);
+  const searchResults = useMemo(() => {
+    const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
+    const term = normalize(query);
+    if (!term) return [];
+    const words = term.split(/\s+/).filter(Boolean);
+    return catalog.products
+      .filter(product => product.minPrice > 0)
+      .map(product => {
+        const name = normalize(product.name);
+        const score = name === term ? 0 : name.startsWith(term) ? 1 : name.includes(term) ? 2 : words.every(word => name.includes(word)) ? 3 : words.some(word => name.includes(word)) ? 4 : 99;
+        return { product, score };
+      })
+      .filter(item => item.score < 99)
+      .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
+      .slice(0, 5)
+      .map(item => item.product);
+  }, [catalog.products, query]);
   const submit = (event: FormEvent) => { event.preventDefault(); navigate(query.trim() ? `/buscar?q=${encodeURIComponent(query.trim())}` : "/buscar"); };
   useGSAP(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -162,7 +182,7 @@ export function ReferenceHome() {
       <section className="ref-hero"><div className="ref-shell ref-hero__grid"><div className="ref-hero__copy">
         <span className="ref-kicker"><i /> AO VIVO EM FEIJÓ</span><h1>Compare antes<br /><em>de comprar.</em></h1>
         <p>Encontre os menores preços em mercados e mercearias de Feijó. Informação local para economizar todos os dias.</p>
-        <form className="ref-search" onSubmit={submit} role="search"><Search /><input name="busca" autoComplete="off" value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" /><button type="submit">Comparar <ArrowRight /></button></form>
+        <form className="ref-search" onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSearchOpen(false); }}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "Escape") setSearchOpen(false); }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" onClick={() => { setQuery(""); setSearchOpen(false); searchInputRef.current?.focus(); }}><X aria-hidden="true" /></button>}<button type="submit">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="region" aria-label="Resultados da pesquisa"><header><span>Resultados mais baratos</span><small>{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`} onClick={() => setSearchOpen(false)}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></Link>)}</div> : <div className="ref-search-results__empty"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form>
         <div className="ref-trust"><span><BadgeCheck /> Preços verificados</span><span><MapPin /> Hiperlocal</span><span><ShieldCheck /> Dados protegidos</span></div>
       </div>
       {lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizado hoje</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}

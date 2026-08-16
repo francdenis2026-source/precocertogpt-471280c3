@@ -27,6 +27,9 @@
 .ref-local > div > span { font-size: var(--ref-type-label); line-height: 1.35; }
 .ref-hero h1 { font-size: clamp(3.4rem, 6.5vw, 5.75rem); line-height: 0.88; }
 .ref-hero__copy > p { font-size: var(--ref-type-lead); line-height: 1.55; }
+.ref-hero__copy > p,
+.ref-economy p,
+.ref-local p { max-width: 68ch; }
 .ref-search input { font-size: var(--ref-type-body); }
 .ref-search button,
 .ref-live-card > button { font-size: var(--ref-type-ui); }

@@ -1,0 +1,209 @@
+/* Explore/Sector layout repair.
+   Keeps the pages compact without hard viewport clipping. */
+.sector-page{
+  min-height:100dvh;
+  height:auto!important;
+  overflow-x:hidden!important;
+  overflow-y:visible!important;
+}
+.sector-main{
+  min-height:0;
+  display:block!important;
+  overflow:visible!important;
+}
+.sector-header,.sector-footer{flex-shrink:0}
+.sector-hero{
+  height:auto!important;
+  min-height:0!important;
+  overflow:clip;
+  padding:clamp(30px,4.2vw,54px) 0!important;
+}
+.sector-hero__grid{
+  height:auto!important;
+  min-height:0!important;
+  grid-template-columns:minmax(0,1.45fr) minmax(250px,.55fr)!important;
+  gap:clamp(22px,4vw,52px)!important;
+  align-items:center;
+}
+.sector-hero__copy,.sector-hero aside,.sector-content__heading>*{min-width:0}
+.sector-hero h1{
+  max-width:760px;
+  margin:10px 0 10px!important;
+  font-size:clamp(2.2rem,4.7vw,4.2rem)!important;
+  line-height:.96!important;
+  text-wrap:balance;
+}
+.sector-hero p{
+  max-width:64ch;
+  margin:0;
+  font-size:clamp(12px,1.15vw,15px)!important;
+  line-height:1.5!important;
+}
+.sector-primary-link{margin-top:18px!important;min-height:40px!important;padding-inline:14px!important}
+.sector-hero form{margin-top:18px!important;min-width:0}
+.sector-hero form label{min-width:0}
+.sector-hero form input{min-width:0}
+.sector-hero aside{
+  align-self:stretch;
+  align-content:center;
+  padding:18px!important;
+  overflow:visible!important;
+}
+.sector-hero aside strong{font-size:20px!important;line-height:1.1}
+.sector-hero aside p{font-size:11px!important;line-height:1.45!important}
+
+.sector-content{
+  padding-block:28px 36px!important;
+  overflow:visible!important;
+}
+.sector-content__heading{
+  grid-template-columns:minmax(0,1fr) minmax(260px,.65fr)!important;
+  gap:24px!important;
+  align-items:end;
+}
+.sector-content__heading h2{
+  margin-top:5px!important;
+  font-size:clamp(1.65rem,2.6vw,2.45rem)!important;
+  line-height:1!important;
+  text-wrap:balance;
+}
+.sector-content__heading p{
+  margin:0;
+  max-width:58ch;
+  font-size:12px;
+  line-height:1.5!important;
+}
+
+.sector-content .sector-nav--compact,
+.sector-page--all .sector-nav--compact{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;
+  gap:9px!important;
+  margin-top:18px!important;
+  overflow:visible!important;
+  padding:0!important;
+}
+.sector-nav--compact>a{
+  min-width:0!important;
+  min-height:82px!important;
+  height:auto!important;
+  padding:11px!important;
+  gap:8px!important;
+  overflow:hidden;
+}
+.sector-nav--compact>a>svg{
+  flex:0 0 auto;
+  width:32px!important;
+  height:32px!important;
+  padding:7px!important;
+}
+.sector-nav--compact span{min-width:0}
+.sector-nav--compact strong{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:11px!important;
+}
+.sector-nav--compact small{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:8px!important;
+}
+
+.sector-highlights{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin-bottom:26px!important;
+}
+.sector-highlights>div{
+  min-width:0;
+  min-height:58px!important;
+  padding:10px 12px!important;
+  overflow:hidden;
+}
+.sector-highlights strong{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:11px!important;
+}
+
+.sector-how{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  margin-top:14px!important;
+  overflow:hidden!important;
+}
+.sector-how>div{
+  min-width:0;
+  min-height:58px!important;
+  padding:10px 14px!important;
+}
+.sector-how span{min-width:0}
+.sector-how strong{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:10px!important;
+}
+.sector-how small{font-size:7.5px!important}
+
+.sector-footer{
+  min-height:52px!important;
+  height:auto!important;
+}
+
+/* Laptop heights: compact, but never hide content. */
+@media (min-width:901px) and (max-height:760px){
+  .sector-header{height:46px!important}
+  .sector-hero{padding:22px 0!important}
+  .sector-hero h1{font-size:clamp(2rem,4vw,3.45rem)!important}
+  .sector-hero p{font-size:12px!important}
+  .sector-hero aside{padding:14px!important}
+  .sector-content{padding-block:20px 28px!important}
+  .sector-content__heading h2{font-size:1.8rem!important}
+  .sector-content .sector-nav--compact,.sector-page--all .sector-nav--compact{margin-top:13px!important}
+  .sector-nav--compact>a{min-height:70px!important;padding:9px!important}
+  .sector-how>div{min-height:50px!important}
+  .sector-footer{min-height:46px!important}
+}
+
+@media (max-width:900px){
+  .sector-hero__grid{grid-template-columns:1fr!important}
+  .sector-hero aside{display:grid!important;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;margin-top:4px}
+  .sector-hero aside>span,.sector-hero aside>strong,.sector-hero aside>p,.sector-hero aside>a,.sector-hero aside>.sector-trust{grid-column:2}
+  .sector-hero aside>svg{grid-row:1/5;align-self:start}
+  .sector-content__heading{grid-template-columns:1fr!important;gap:8px!important}
+  .sector-content .sector-nav--compact,.sector-page--all .sector-nav--compact{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .sector-highlights{grid-template-columns:1fr!important}
+}
+
+@media (max-width:680px){
+  .sector-shell{width:min(100% - 24px,1180px)!important}
+  .sector-hero{padding:26px 0!important}
+  .sector-hero h1{font-size:clamp(2rem,10vw,3rem)!important}
+  .sector-hero aside{grid-template-columns:38px 1fr;padding:13px!important}
+  .sector-hero aside>svg{width:36px!important;height:36px!important;padding:8px!important}
+  .sector-content{padding-block:22px 30px!important}
+  .sector-content .sector-nav--compact,.sector-page--all .sector-nav--compact{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    overflow:visible!important;
+  }
+  .sector-nav--compact>a{min-height:76px!important}
+  .sector-how{grid-template-columns:1fr!important}
+  .sector-how>div{border-right:0!important;border-bottom:1px solid #d8d5cc}
+  .sector-how>div:last-child{border-bottom:0}
+  .sector-footer{padding:12px 0!important}
+}
+
+@media (max-width:390px){
+  .sector-content .sector-nav--compact,.sector-page--all .sector-nav--compact{grid-template-columns:1fr!important}
+  .sector-nav--compact strong,.sector-nav--compact small{white-space:normal}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .sector-page *{scroll-behavior:auto!important;transition:none!important}
+}

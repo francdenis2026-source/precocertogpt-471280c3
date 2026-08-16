@@ -30,8 +30,9 @@
 .ref-home .ref-proof__grid > div { padding: 15px 22px; }
 .ref-home .ref-proof strong { font-size: 1.4rem; }
 
-.ref-home .ref-sectors,
+.ref-home .ref-sectors { padding-block: var(--home-section-space) 14px; }
 .ref-home > main > .ref-section { padding-block: var(--home-section-space); }
+.ref-home .ref-sectors + .ref-section { padding-top: 24px; }
 .ref-home .ref-sectors__heading { gap: var(--home-content-gap); }
 .ref-home .ref-sectors .sector-nav--compact { margin-top: 18px; gap: 8px; }
 .ref-home .ref-sectors .sector-nav--compact > a {
@@ -85,6 +86,8 @@
   .ref-home .ref-hero h1 { margin-block: 11px 12px; font-size: clamp(2.8rem,13.5vw,3.85rem); }
   .ref-home .ref-hero__copy > p { margin-bottom: 17px; }
   .ref-home .ref-proof__grid > div { padding: 12px 13px; }
+  .ref-home .ref-sectors { padding-block: 32px 10px; }
+  .ref-home .ref-sectors + .ref-section { padding-top: 22px; }
   .ref-home .ref-sectors__heading { gap: 10px; }
   .ref-home .ref-sectors__heading p { margin: 0; }
   .ref-home .ref-sectors .sector-nav--compact { margin-top: 14px; }

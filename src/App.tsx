@@ -18,6 +18,7 @@ import {
 } from "./reference/ReferenceExperience";
 import { ProductDetailProfessional } from "./reference/ProductDetailProfessional";
 import { StoreDetailProfessional } from "./reference/StoreDetailProfessional";
+import { CulturalProfilePage } from "./reference/CulturalProfilePage";
 import { MarketplaceExplorePage, MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
 import "./reference/FooterSignatureRefinement.css";
 
@@ -69,9 +70,9 @@ export default function App() {
           <Route path="/fale-conosco" element={<ReferenceInfoPage kind="contact" />} />
           <Route path="/meus-pedidos" element={<ReferenceInfoPage kind="orders" />} />
           <Route path="/cultura/*" element={<ReferenceInfoPage kind="culture" />} />
-          <Route path="/fremix-producoes" element={<ReferenceInfoPage kind="culture" />} />
-          <Route path="/autora/*" element={<ReferenceInfoPage kind="culture" />} />
-          <Route path="/dorinha-barroso" element={<ReferenceInfoPage kind="culture" />} />
+          <Route path="/fremix-producoes" element={<CulturalProfilePage kind="fremix" />} />
+          <Route path="/autora/*" element={<CulturalProfilePage kind="dorinha" />} />
+          <Route path="/dorinha-barroso" element={<CulturalProfilePage kind="dorinha" />} />
           <Route path="*" element={<ReferenceNotFound />} />
         </Routes>
       </FavoritesProvider>

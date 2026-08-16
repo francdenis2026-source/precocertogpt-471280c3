@@ -37,6 +37,65 @@ function normalizeProductSearch(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").replace(/[^a-z0-9]+/g, " ").trim();
 }
 
+type ProductComparisonOffer = {
+  establishment: string;
+  neighborhood: string;
+  value: number;
+};
+
+function compareProductAcrossStores(products: Product[], selected: Product | null) {
+  if (!selected) return null;
+
+  const selectedName = normalizeProductSearch(selected.name);
+  const selectedSize = normalizeProductSearch(selected.size || "");
+  const selectedBarcode = normalizeProductSearch(selected.barcode || "");
+  const matchingProducts = products.filter(product => {
+    const barcode = normalizeProductSearch(product.barcode || "");
+    if (selectedBarcode && barcode) return barcode === selectedBarcode;
+    return normalizeProductSearch(product.name) === selectedName
+      && normalizeProductSearch(product.size || "") === selectedSize;
+  });
+
+  const offers: ProductComparisonOffer[] = [];
+  matchingProducts.forEach(product => {
+    if (product.offers?.length) {
+      product.offers.forEach(offer => {
+        if (Number.isFinite(offer.value) && offer.value > 0) offers.push({
+          establishment: offer.establishment || "Comércio local",
+          neighborhood: offer.neighborhood || "Feijó",
+          value: offer.value,
+        });
+      });
+      return;
+    }
+    if (Number.isFinite(product.minPrice) && product.minPrice > 0) offers.push({
+      establishment: product.establishment || "Comércio local",
+      neighborhood: product.neighborhood || "Feijó",
+      value: product.minPrice,
+    });
+  });
+
+  const uniqueByStore = new Map<string, ProductComparisonOffer>();
+  offers.forEach(offer => {
+    const storeKey = normalizeProductSearch(offer.establishment);
+    const current = uniqueByStore.get(storeKey);
+    if (!current || offer.value < current.value) uniqueByStore.set(storeKey, offer);
+  });
+
+  const ranked = [...uniqueByStore.values()].sort((a, b) => a.value - b.value);
+  if (!ranked.length) return null;
+  const lowest = ranked[0];
+  const highest = ranked[ranked.length - 1];
+  const difference = Math.max(0, highest.value - lowest.value);
+  return {
+    lowest,
+    highest,
+    difference,
+    percentage: highest.value > 0 ? (difference / highest.value) * 100 : 0,
+    storeCount: ranked.length,
+  };
+}
+
 function productSearchScore(product: Product, rawQuery: string) {
   const term = normalizeProductSearch(rawQuery);
   if (!term) return 0;
@@ -175,6 +234,10 @@ export function ReferenceHome() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const selectedComparison = useMemo(
+    () => compareProductAcrossStores(catalog.products, selectedProduct),
+    [catalog.products, selectedProduct],
+  );
   const [featuredHour, setFeaturedHour] = useState(() => Math.floor(Date.now() / 3_600_000));
   const featured = useMemo(() => {
     const eligible = catalog.products.filter(product => product.minPrice > 0 && Boolean(resolveProductImage(product)));
@@ -328,7 +391,7 @@ export function ReferenceHome() {
       <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
     </main>
     <PublicFooter /><AppDock current="home" />
-    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={() => setSelectedProduct(null)}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices"><div><small>Menor preço</small><strong>{brl.format(selectedProduct.minPrice)}</strong><span>{selectedProduct.establishment || "Comércio local"}</span></div><div className={selectedProduct.maxPrice > selectedProduct.minPrice ? "has-savings" : "no-savings"}><small>Economia possível</small><strong>{selectedProduct.maxPrice > selectedProduct.minPrice ? brl.format(selectedProduct.maxPrice - selectedProduct.minPrice) : "Sem diferença ainda"}</strong><span>{selectedProduct.maxPrice > selectedProduct.minPrice ? `${percentage.format(((selectedProduct.maxPrice - selectedProduct.minPrice) / selectedProduct.maxPrice) * 100)}% · de ${brl.format(selectedProduct.maxPrice)} para ${brl.format(selectedProduct.minPrice)}` : `${selectedProduct.storeCount || selectedProduct.offers?.length || 1} ${(selectedProduct.storeCount || selectedProduct.offers?.length || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{selectedProduct.establishment || "Comércio local"}</strong><em>{selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={() => setSelectedProduct(null)}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
+    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={() => setSelectedProduct(null)}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices"><div><small>Menor preço</small><strong>{brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={(selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{(selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{(selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={() => setSelectedProduct(null)}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
   </div>;
 }
 

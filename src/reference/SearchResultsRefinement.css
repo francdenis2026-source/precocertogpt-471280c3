@@ -276,6 +276,10 @@ html[data-theme="dark"] .ref-product-loading p { color: #b8c6cd; }
 .ref-product-dialog__prices small,.ref-product-dialog__prices span { display: block; color: var(--ref-muted); font-size: .6875rem; }
 .ref-product-dialog__prices strong { display: block; margin: 5px 0; color: var(--ref-green); font-size: 1.2rem; font-variant-numeric: tabular-nums; }
 .ref-product-dialog__prices>div+div strong { color: var(--ref-ink); font-size: .875rem; }
+.ref-product-dialog__prices>div.has-savings strong { color: #176b45; font-size: 1.2rem; }
+.ref-product-dialog__prices>div.has-savings span { color: #46645a; font-weight: 650; }
+.ref-product-dialog__prices>div.no-savings strong { color: #4f6068; font-size: .875rem; }
+.ref-product-dialog__prices>div.no-savings span { color: #6a7880; }
 .ref-product-dialog__store { display: flex; align-items: center; gap: 12px; margin: 18px 0; padding: 13px; border-radius: 10px; background: color-mix(in srgb,var(--ref-green) 7%,var(--ref-paper)); }
 .ref-product-dialog__store>svg { width: 20px; color: var(--ref-green); }
 .ref-product-dialog__store>span { display: grid; gap: 2px; }
@@ -289,6 +293,10 @@ html[data-theme="dark"] .ref-product-dialog { border-color: #466377; background:
 html[data-theme="dark"] .ref-product-dialog__close { border-color: #466377; background: #132f43; color: #f1f5f7; }
 html[data-theme="dark"] .ref-product-dialog__visual { background: #0a1d2c; }
 html[data-theme="dark"] .ref-product-dialog h2,html[data-theme="dark"] .ref-product-dialog__prices>div+div strong { color: #f1f5f7; }
+html[data-theme="dark"] .ref-product-dialog__prices>div.has-savings strong { color: #7fe0a3; }
+html[data-theme="dark"] .ref-product-dialog__prices>div.has-savings span { color: #bed4c6; }
+html[data-theme="dark"] .ref-product-dialog__prices>div.no-savings strong { color: #d0dce1; }
+html[data-theme="dark"] .ref-product-dialog__prices>div.no-savings span { color: #aebdc5; }
 html[data-theme="dark"] .ref-product-dialog section>p,html[data-theme="dark"] .ref-product-dialog__prices small,html[data-theme="dark"] .ref-product-dialog__prices span,html[data-theme="dark"] .ref-product-dialog__store small,html[data-theme="dark"] .ref-product-dialog__store em { color: #b8c6cd; }
 html[data-theme="dark"] .ref-product-dialog__prices { border-color: #365367; }
 html[data-theme="dark"] .ref-product-dialog__prices>div+div { border-color: #365367; }

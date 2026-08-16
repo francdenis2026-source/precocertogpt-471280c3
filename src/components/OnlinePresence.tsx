@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Wifi } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
@@ -16,6 +16,7 @@ function getDeviceId() {
 
 export function OnlinePresence() {
   const [count, setCount] = useState<number | null>(null);
+  const countRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!supabase || typeof BroadcastChannel === "undefined") return;
@@ -29,16 +30,19 @@ export function OnlinePresence() {
 
     const publish = (value: number) => {
       if (!active) return;
+      countRef.current = value;
       setCount(value);
       coordinator.postMessage({ type: "count", value });
     };
 
     coordinator.onmessage = event => {
       if (event.data?.type === "count" && Number.isInteger(event.data.value)) {
-        setCount(Math.max(0, event.data.value));
+        const nextCount = Math.max(0, event.data.value);
+        countRef.current = nextCount;
+        setCount(nextCount);
       }
-      if (leader && event.data?.type === "request-count" && count !== null) {
-        coordinator.postMessage({ type: "count", value: count });
+      if (leader && event.data?.type === "request-count" && countRef.current !== null) {
+        coordinator.postMessage({ type: "count", value: countRef.current });
       }
     };
 

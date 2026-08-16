@@ -168,6 +168,23 @@ html[data-theme="dark"] .ref-search-results>footer button { background: #f0bd64;
 html[data-theme="dark"] :is(.ref-page,.ref-auth,.ref-admin) :is(a,button,input,select,textarea,[tabindex]):focus-visible { outline-color: #73db98 !important; }
 main[tabindex="-1"]:focus { outline: none; }
 
+/* O card principal só revela o produto depois do catálogo definitivo. */
+.ref-live-card--loading { min-height: 356px; display: flex; flex-direction: column; }
+.ref-live-card__skeleton { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 15px; padding: 20px 0; }
+.ref-live-card__skeleton>i { width: 92px; height: 92px; border-radius: 10px; background: #e7e5df; }
+.ref-live-card__skeleton>div { display: grid; gap: 9px; }
+.ref-live-card__skeleton>div i { width: 72%; height: 10px; border-radius: 999px; background: #e7e5df; }
+.ref-live-card__skeleton>div i:nth-child(2) { width: 94%; height: 17px; }
+.ref-live-card__skeleton>div i:nth-child(3) { width: 52%; }
+.ref-live-card__skeleton-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-block: 15px; border-block: 1px dashed #c8c2b5; }
+.ref-live-card__skeleton-prices i { height: 42px; border-radius: 8px; background: #e7e5df; }
+.ref-live-card__loading-label { margin-top: auto; padding-top: 18px; color: var(--ref-muted); font-size: .6875rem; line-height: 1.4; text-align: center; }
+.ref-live-card--loading :is(.ref-live-card__skeleton i,.ref-live-card__skeleton-prices i) { background: linear-gradient(90deg,#e6e3dc 25%,#f5f3ee 50%,#e6e3dc 75%); background-size: 220% 100%; animation: ref-catalog-shimmer 1.25s ease-in-out infinite; }
+@keyframes ref-catalog-shimmer { to { background-position: -220% 0; } }
+html[data-theme="dark"] .ref-live-card--loading :is(.ref-live-card__skeleton i,.ref-live-card__skeleton-prices i) { background: linear-gradient(90deg,#173448 25%,#284b60 50%,#173448 75%); background-size: 220% 100%; }
+html[data-theme="dark"] .ref-live-card__skeleton-prices { border-color: #466377; }
+@media (prefers-reduced-motion:reduce) { .ref-live-card--loading :is(.ref-live-card__skeleton i,.ref-live-card__skeleton-prices i) { animation: none; } }
+
 .ref-product-dialog-backdrop { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(5,18,30,.72); backdrop-filter: blur(8px); }
 .ref-product-dialog { position: relative; width: min(680px,100%); max-height: calc(100dvh - 40px); overflow: auto; display: grid; grid-template-columns: minmax(210px,.75fr) minmax(0,1.25fr); border: 1px solid rgba(255,255,255,.22); border-radius: 18px; background: var(--ref-paper); color: var(--ref-ink); box-shadow: 0 34px 100px rgba(0,0,0,.38); animation: ref-dialog-in 220ms var(--ref-ease-out) both; }
 .ref-product-dialog__close { position: absolute; z-index: 2; top: 12px; right: 12px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 1px solid var(--ref-line); border-radius: 50%; background: var(--ref-paper); color: var(--ref-ink); cursor: pointer; }

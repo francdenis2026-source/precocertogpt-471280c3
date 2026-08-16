@@ -35,11 +35,21 @@ const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const integer = new Intl.NumberFormat("pt-BR");
 
-function useCatalog() {
+function useCatalogState() {
   const [catalog, setCatalog] = useState<CatalogPayload>({ ...initialCatalog, metrics: verifiedDatasetMetrics });
-  useEffect(() => { let active = true; fetchCatalog().then(value => active && setCatalog(value)).catch(() => undefined); return () => { active = false; }; }, []);
-  return catalog;
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let active = true;
+    fetchCatalog()
+      .then(value => { if (active) setCatalog(value); })
+      .catch(() => undefined)
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
+  return { catalog, loading };
 }
+
+function useCatalog() { return useCatalogState().catalog; }
 
 function Brand({ inverse = false }: { inverse?: boolean }) {
   return <Link className="ref-brand" to="/" aria-label="PreçoCerto — início">
@@ -137,7 +147,7 @@ export function ReferenceHome() {
   const homeRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const productDialogRef = useRef<HTMLDivElement>(null);
-  const catalog = useCatalog();
+  const { catalog, loading: catalogLoading } = useCatalogState();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -229,7 +239,7 @@ export function ReferenceHome() {
         <form className={`ref-search${query ? " has-query" : ""}`} onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) { setSearchOpen(false); setActiveSearchIndex(-1); } }}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "ArrowDown" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => Math.min(index + 1, searchResults.length - 1)); } else if (event.key === "ArrowUp" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => index <= 0 ? searchResults.length - 1 : index - 1); } else if (event.key === "Home" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(0); } else if (event.key === "End" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(searchResults.length - 1); } else if (event.key === "Enter" && searchOpen && activeSearchIndex >= 0 && searchResults[activeSearchIndex]) { event.preventDefault(); setSearchOpen(false); setSelectedProduct(searchResults[activeSearchIndex]); } else if (event.key === "Escape") { event.preventDefault(); setSearchOpen(false); setActiveSearchIndex(-1); } }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" aria-activedescendant={activeSearchIndex >= 0 ? `resultado-busca-${activeSearchIndex}` : undefined} />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa" onPointerDown={event => event.preventDefault()} onClick={clearSearch}><X aria-hidden="true" /><span>Limpar</span></button>}<button className="ref-search-submit" type="submit" aria-label="Ver todos os resultados">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="listbox" aria-label="Resultados da pesquisa"><header><span>Resultados mais baratos</span><small aria-live="polite">{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map((product, index) => <button id={`resultado-busca-${index}`} key={product.id} type="button" role="option" aria-selected={activeSearchIndex === index} tabIndex={-1} className={activeSearchIndex === index ? "is-keyboard-active" : ""} onMouseEnter={() => setActiveSearchIndex(index)} onClick={() => { setSearchOpen(false); setActiveSearchIndex(-1); setSelectedProduct(product); }} aria-label={`Ver detalhes de ${product.name}, menor preço ${brl.format(product.minPrice)}`}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></button>)}</div> : <div className="ref-search-results__empty" role="status"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><small><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</small><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form>
         <div className="ref-trust"><span><BadgeCheck /> Preços verificados</span><span><MapPin /> Hiperlocal</span><span><ShieldCheck /> Dados protegidos</span></div>
       </div>
-      {lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizado hoje</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}
+      {catalogLoading ? <div className="ref-live-card ref-live-card--loading" aria-busy="true" aria-label="Carregando preço verificado"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizando dados…</small></div><div className="ref-live-card__skeleton"><i /><div><i /><i /><i /></div></div><div className="ref-live-card__skeleton-prices"><i /><i /></div><span className="ref-live-card__loading-label">Consultando os preços mais recentes de Feijó…</span></div> : lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizado hoje</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}
       </div></section>
 
       <section className="ref-proof"><div className="ref-shell ref-proof__grid"><div><strong>{integer.format(catalog.metrics.prices)}</strong><span>preços verificados</span></div><div><strong>{integer.format(catalog.metrics.products)}</strong><span>produtos monitorados</span></div><div><strong>{integer.format(catalog.metrics.stores)}</strong><span>estabelecimentos locais</span></div><div><strong>Feijó</strong><span>feito para nossa cidade</span></div></div></section>

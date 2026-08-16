@@ -18,6 +18,7 @@ import {
 } from "./reference/ReferenceExperience";
 import { ProductDetailProfessional } from "./reference/ProductDetailProfessional";
 import { MarketplaceExplorePage, MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
+import "./reference/FooterSignatureRefinement.css";
 
 function RouteFocusManager() {
   const location = useLocation();

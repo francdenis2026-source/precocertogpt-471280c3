@@ -11,6 +11,7 @@ type FavoriteContextValue = {
 };
 
 type PendingFavorite = { productId: string; returnTo: string; createdAt: number };
+type ToggleFavoriteEvent = CustomEvent<{ productId: string | number; returnTo?: string }>;
 
 const FavoritesContext = createContext<FavoriteContextValue | null>(null);
 const PENDING_KEY = "pc:pending_favorite";
@@ -142,6 +143,16 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     }));
     return true;
   }, [favoriteIds, loadForUser]);
+
+  useEffect(() => {
+    const handleExternalToggle = (event: Event) => {
+      const { productId, returnTo } = (event as ToggleFavoriteEvent).detail || {};
+      if (productId === undefined || productId === null) return;
+      void toggleFavorite(productId, returnTo);
+    };
+    window.addEventListener("pc:toggle-favorite", handleExternalToggle);
+    return () => window.removeEventListener("pc:toggle-favorite", handleExternalToggle);
+  }, [toggleFavorite]);
 
   const value = useMemo<FavoriteContextValue>(() => ({
     favoriteIds,

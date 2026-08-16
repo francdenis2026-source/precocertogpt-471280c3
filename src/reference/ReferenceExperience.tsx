@@ -17,6 +17,7 @@ import "./ReferencePages.css";
 import "./ReferencePagesMore.css";
 import "./ReferenceResponsive.css";
 import "./CompactShell.css";
+import "./TypographyScale.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });

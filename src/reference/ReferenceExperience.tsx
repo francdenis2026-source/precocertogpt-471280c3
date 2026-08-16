@@ -306,10 +306,11 @@ export function ReferenceHome() {
 
 export function ReferenceProductPage() {
   const { identifier = "" } = useParams();
-  const catalog = useCatalog();
+  const { catalog, loading: catalogLoading } = useCatalogState();
   const { isFavorite, toggleFavorite } = useFavorites();
   const basket = useBasket();
-  const product = useMemo(() => catalog.products.find(item => String(item.id) === identifier || item.slug === identifier) || catalog.products[0], [catalog.products, identifier]);
+  const product = useMemo(() => catalog.products.find(item => String(item.id) === identifier || item.slug === identifier), [catalog.products, identifier]);
+  if (catalogLoading) return <div className="ref-page ref-product-page"><header className="ref-product-header"><Link to="/buscar" aria-label="Voltar"><ArrowLeft /></Link><Brand /><span /></header><main id="conteudo-principal" className="ref-product-loading" aria-busy="true" aria-live="polite"><span className="ref-spinner" /><h1>Carregando o produto correto…</h1><p>Confirmando imagem, preços e estabelecimento no catálogo.</p></main></div>;
   if (!product) return <main className="ref-empty">Produto não encontrado.</main>;
   const offers = product.offers?.length ? [...product.offers].sort((a, b) => a.value - b.value) : [{ establishment: product.establishment, neighborhood: product.neighborhood, value: product.minPrice, capturedAt: product.capturedAt, establishmentId: product.establishmentId, establishmentSlug: product.establishmentSlug, storeColor: product.storeColor }];
   const favorite = isFavorite(product.id);

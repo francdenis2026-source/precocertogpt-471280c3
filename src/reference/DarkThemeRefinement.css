@@ -348,3 +348,93 @@ html[data-theme="dark"] .ref-receipt {
     max-width: 12ch;
   }
 }
+
+
+/* Comparação — hero e cardápio no tema escuro */
+html[data-theme="dark"] .ref-search-hero {
+  border-color: #355367;
+  background: #071a28;
+  box-shadow: 0 20px 52px rgba(0,0,0,.28);
+}
+
+html[data-theme="dark"] .ref-search-hero::before {
+  filter: saturate(1.06) contrast(1.12) brightness(.70);
+}
+
+html[data-theme="dark"] .ref-search-hero::after {
+  background: linear-gradient(90deg,rgba(5,18,29,.99) 0%,rgba(5,18,29,.96) 38%,rgba(5,18,29,.66) 58%,rgba(5,18,29,.18) 100%);
+}
+
+html[data-theme="dark"] .ref-search-hero h1 {
+  color: #f5f9fa;
+  text-shadow: 0 3px 22px rgba(0,0,0,.42);
+}
+
+html[data-theme="dark"] .ref-search-hero p {
+  color: #cbd8de;
+}
+
+html[data-theme="dark"] .ref-search-hero .ref-update {
+  border-color: rgba(126,172,194,.38);
+  background: rgba(8,31,47,.86);
+  color: #eff5f7;
+  box-shadow: 0 16px 38px rgba(0,0,0,.34);
+}
+
+html[data-theme="dark"] .ref-catalog-grid {
+  border: 0;
+  background: transparent;
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-catalog-card {
+  border-color: #355267;
+  background: linear-gradient(155deg,#102a3d,#0c2334);
+  box-shadow: 0 10px 28px rgba(0,0,0,.18);
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-product > i {
+  background: linear-gradient(145deg,#17384d,#102d40);
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-product small {
+  color: #f1c677;
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-product strong {
+  color: #f1f6f7;
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-product em {
+  color: #b8c8cf;
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-store {
+  background: rgba(5,20,31,.46);
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-store strong {
+  color: #e8f0f3;
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-result-price {
+  border-color: #3c596b;
+  color: #75dc98;
+}
+
+html[data-theme="dark"] .ref-catalog-grid .ref-catalog-card > svg {
+  color: #82d99e;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] .ref-catalog-grid .ref-catalog-card:hover {
+    border-color: #6590a7;
+    background: linear-gradient(155deg,#15354a,#102b3e);
+    box-shadow: 0 18px 40px rgba(0,0,0,.30);
+  }
+}
+
+@media (max-width:760px) {
+  html[data-theme="dark"] .ref-search-hero::after {
+    background: linear-gradient(180deg,rgba(5,18,29,.99) 0%,rgba(5,18,29,.92) 58%,rgba(5,18,29,.48) 100%);
+  }
+}

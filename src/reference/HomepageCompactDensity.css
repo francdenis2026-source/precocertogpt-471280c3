@@ -1,0 +1,110 @@
+/* Homepage compacta — fonte final de verdade para ritmo vertical e densidade. */
+.ref-home {
+  --home-section-space: clamp(38px, 4.25vw, 54px);
+  --home-content-gap: clamp(18px, 2.2vw, 28px);
+}
+
+.ref-home .ref-header__inner { height: 60px; }
+.ref-home .ref-nav a { min-height: 38px; padding-inline: 9px; }
+.ref-home .ref-location { min-height: 36px; padding-inline: 11px; }
+
+.ref-home .ref-hero__grid {
+  min-height: 500px;
+  gap: clamp(32px,5vw,62px);
+  padding-block: 46px;
+}
+
+.ref-home .ref-hero h1 {
+  margin-block: 12px 13px;
+  font-size: clamp(3.35rem,6.2vw,5.55rem);
+  line-height: .88;
+}
+
+.ref-home .ref-hero__copy > p { margin-bottom: 19px; }
+.ref-home .ref-trust { margin-top: 12px; }
+.ref-home .ref-live-card { padding: 17px; box-shadow: 12px 16px 0 rgba(0,0,0,.17); }
+.ref-home .ref-live-card__product { padding-block: 13px; }
+.ref-home .ref-live-card__prices > div { padding-block: 11px; }
+.ref-home .ref-live-card > button { margin-top: 11px; }
+
+.ref-home .ref-proof__grid > div { padding: 15px 22px; }
+.ref-home .ref-proof strong { font-size: 1.4rem; }
+
+.ref-home .ref-sectors,
+.ref-home > main > .ref-section { padding-block: var(--home-section-space); }
+.ref-home .ref-sectors__heading { gap: var(--home-content-gap); }
+.ref-home .ref-sectors .sector-nav--compact { margin-top: 18px; gap: 8px; }
+.ref-home .ref-sectors .sector-nav--compact > a {
+  min-height: 88px;
+  gap: 8px;
+  padding: 12px;
+}
+.ref-home .ref-sectors .sector-nav--compact > a > svg { width: 34px; height: 34px; padding: 8px; }
+.ref-home .ref-sectors__all { margin-top: 10px; }
+
+.ref-home .ref-section__heading { margin-bottom: 17px; }
+.ref-home .ref-price-row {
+  min-height: 80px;
+  grid-template-columns: 42px 60px minmax(180px,1.4fr) minmax(150px,1fr) minmax(120px,.7fr) 26px;
+  gap: 10px;
+  padding: 7px 14px;
+}
+.ref-home .ref-price-image { width: 56px; height: 60px; }
+.ref-home .ref-price-image img { width: 50px; height: 52px; }
+.ref-home .ref-price-rank { font-size: 19px; }
+
+.ref-home .ref-economy { padding-block: 38px; }
+.ref-home .ref-economy__grid { gap: clamp(30px,5vw,60px); }
+.ref-home .ref-economy h2 { margin-bottom: 12px; }
+.ref-home .ref-economy p { margin-block: 0 12px; }
+.ref-home .ref-economy__signals { margin-top: 12px; }
+
+.ref-home .ref-local,
+.ref-home .ref-local__inner { min-height: 290px; }
+.ref-home .ref-local__inner { gap: 34px; padding-block: 36px; }
+.ref-home .ref-local h2 { margin-bottom: 10px; }
+.ref-home .ref-local p { margin-block: 0; }
+.ref-home .ref-local__actions { gap: 8px; padding: 9px; }
+.ref-home .ref-local__actions a { min-height: 54px; }
+
+.ref-home .ref-footer { padding-block: 7px; }
+
+@media (max-width: 900px) {
+  .ref-home .ref-hero__grid { min-height: 480px; gap: 26px; }
+  .ref-home .ref-live-card { width: min(320px,100%); }
+  .ref-home .ref-sectors .sector-nav--compact { grid-template-columns: repeat(3,1fr); }
+}
+
+@media (max-width: 680px) {
+  .ref-home { --home-section-space: 34px; }
+  .ref-home .ref-header__inner { height: 56px; }
+  .ref-home .ref-hero__grid {
+    min-height: 500px;
+    padding-block: 42px 58px;
+  }
+  .ref-home .ref-hero h1 { margin-block: 11px 12px; font-size: clamp(2.8rem,13.5vw,3.85rem); }
+  .ref-home .ref-hero__copy > p { margin-bottom: 17px; }
+  .ref-home .ref-proof__grid > div { padding: 12px 13px; }
+  .ref-home .ref-sectors__heading { gap: 10px; }
+  .ref-home .ref-sectors__heading p { margin: 0; }
+  .ref-home .ref-sectors .sector-nav--compact { margin-top: 14px; }
+  .ref-home .ref-sectors .sector-nav--compact > a { min-height: 84px; min-width: 138px; }
+  .ref-home .ref-section__heading { gap: 10px; margin-bottom: 14px; }
+  .ref-home .ref-price-row { min-height: 76px; grid-template-columns: 44px 1fr auto 16px; padding: 7px 9px; }
+  .ref-home .ref-price-image { width: 42px; height: 54px; }
+  .ref-home .ref-price-image img { width: 40px; height: 48px; }
+  .ref-home .ref-economy { padding-block: 34px; }
+  .ref-home .ref-receipt { margin-top: 0; }
+  .ref-home .ref-local,
+  .ref-home .ref-local__inner { min-height: 390px; }
+  .ref-home .ref-local__inner { justify-content: center; gap: 18px; padding-block: 34px 54px; }
+  .ref-home .ref-local__actions { gap: 7px; }
+  .ref-home .ref-footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 420px) {
+  .ref-home .ref-hero__grid { min-height: 470px; padding-top: 34px; }
+  .ref-home .ref-trust { gap: 8px; }
+  .ref-home .ref-local,
+  .ref-home .ref-local__inner { min-height: 360px; }
+}

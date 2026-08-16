@@ -29,6 +29,7 @@ import "./ProductCardRefinement.css";
 import "./SearchResultsRefinement.css";
 import "./MobileAppRefinement.css";
 import "./ProductComparisonRefinement.css";
+import "./HomepageCompactDensity.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });

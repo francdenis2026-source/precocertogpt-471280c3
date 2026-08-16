@@ -35,6 +35,29 @@ const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const integer = new Intl.NumberFormat("pt-BR");
 
+function normalizeProductSearch(value: string) {
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function productSearchScore(product: Product, rawQuery: string) {
+  const term = normalizeProductSearch(rawQuery);
+  if (!term) return 0;
+  const name = normalizeProductSearch(product.name);
+  const queryWords = term.split(/\s+/).filter(Boolean);
+  const nameWords = name.split(/\s+/).filter(Boolean);
+  if (name === term) return 0;
+  if (name.startsWith(`${term} `)) return 1;
+  if (name === term || name.endsWith(` ${term}`) || name.includes(` ${term} `)) return 2;
+  if (name.includes(term)) return 3;
+  if (queryWords.every(word => nameWords.includes(word))) return 4;
+  if (queryWords.every(word => nameWords.some(nameWord => nameWord.startsWith(word)))) return 5;
+  const context = normalizeProductSearch(`${product.brand} ${product.category} ${product.establishment}`);
+  if (context.includes(term)) return 10;
+  if (queryWords.every(word => context.includes(word))) return 11;
+  if (queryWords.some(word => context.includes(word))) return 12;
+  return 99;
+}
+
 function useCatalogState() {
   const [catalog, setCatalog] = useState<CatalogPayload>({ ...initialCatalog, metrics: verifiedDatasetMetrics });
   const [loading, setLoading] = useState(true);
@@ -178,17 +201,11 @@ export function ReferenceHome() {
   }, [catalog.products, featuredHour]);
   const receipt = useMemo(() => [...catalog.products].filter(product => product.minPrice > 0).sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 3), [catalog.products]);
   const searchResults = useMemo(() => {
-    const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
-    const term = normalize(query);
+    const term = normalizeProductSearch(query);
     if (!term) return [];
-    const words = term.split(/\s+/).filter(Boolean);
     return catalog.products
       .filter(product => product.minPrice > 0)
-      .map(product => {
-        const name = normalize(product.name);
-        const score = name === term ? 0 : name.startsWith(term) ? 1 : name.includes(term) ? 2 : words.every(word => name.includes(word)) ? 3 : words.some(word => name.includes(word)) ? 4 : 99;
-        return { product, score };
-      })
+      .map(product => ({ product, score: productSearchScore(product, term) }))
       .filter(item => item.score < 99)
       .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
       .slice(0, 5)
@@ -266,7 +283,7 @@ export function ReferenceHome() {
       <section className="ref-hero"><div className="ref-shell ref-hero__grid"><div className="ref-hero__copy">
         <span className="ref-kicker"><i /> AO VIVO EM FEIJÓ</span><h1>Compare antes<br /><em>de comprar.</em></h1>
         <p>Encontre os menores preços em mercados e mercearias de Feijó. Informação local para economizar todos os dias.</p>
-        <form className={`ref-search${query ? " has-query" : ""}`} onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) { setSearchOpen(false); setActiveSearchIndex(-1); } }}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "ArrowDown" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => Math.min(index + 1, searchResults.length - 1)); } else if (event.key === "ArrowUp" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => index <= 0 ? searchResults.length - 1 : index - 1); } else if (event.key === "Home" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(0); } else if (event.key === "End" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(searchResults.length - 1); } else if (event.key === "Enter" && searchOpen && activeSearchIndex >= 0 && searchResults[activeSearchIndex]) { event.preventDefault(); setSearchOpen(false); setSelectedProduct(searchResults[activeSearchIndex]); } else if (event.key === "Escape") { event.preventDefault(); setSearchOpen(false); setActiveSearchIndex(-1); } }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" aria-activedescendant={activeSearchIndex >= 0 ? `resultado-busca-${activeSearchIndex}` : undefined} />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa" onPointerDown={event => event.preventDefault()} onClick={clearSearch}><X aria-hidden="true" /><span>Limpar</span></button>}<button className="ref-search-submit" type="submit" aria-label="Ver todos os resultados">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="listbox" aria-label="Resultados da pesquisa"><header><span>Resultados mais baratos</span><small aria-live="polite">{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map((product, index) => <button id={`resultado-busca-${index}`} key={product.id} type="button" role="option" aria-selected={activeSearchIndex === index} tabIndex={-1} className={activeSearchIndex === index ? "is-keyboard-active" : ""} onMouseEnter={() => setActiveSearchIndex(index)} onClick={() => { setSearchOpen(false); setActiveSearchIndex(-1); setSelectedProduct(product); }} aria-label={`Ver detalhes de ${product.name}, menor preço ${brl.format(product.minPrice)}`}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></button>)}</div> : <div className="ref-search-results__empty" role="status"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><small><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</small><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form>
+        <form className={`ref-search${query ? " has-query" : ""}`} onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) { setSearchOpen(false); setActiveSearchIndex(-1); } }}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "ArrowDown" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => Math.min(index + 1, searchResults.length - 1)); } else if (event.key === "ArrowUp" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => index <= 0 ? searchResults.length - 1 : index - 1); } else if (event.key === "Home" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(0); } else if (event.key === "End" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(searchResults.length - 1); } else if (event.key === "Enter" && searchOpen && activeSearchIndex >= 0 && searchResults[activeSearchIndex]) { event.preventDefault(); setSearchOpen(false); setSelectedProduct(searchResults[activeSearchIndex]); } else if (event.key === "Escape") { event.preventDefault(); setSearchOpen(false); setActiveSearchIndex(-1); } }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" aria-activedescendant={activeSearchIndex >= 0 ? `resultado-busca-${activeSearchIndex}` : undefined} />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa" onPointerDown={event => event.preventDefault()} onClick={clearSearch}><X aria-hidden="true" /><span>Limpar</span></button>}<button className="ref-search-submit" type="submit" aria-label="Ver todos os resultados">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="listbox" aria-label="Resultados da pesquisa"><header><span>Melhores correspondências</span><small aria-live="polite">{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map((product, index) => <button id={`resultado-busca-${index}`} key={product.id} type="button" role="option" aria-selected={activeSearchIndex === index} tabIndex={-1} className={activeSearchIndex === index ? "is-keyboard-active" : ""} onMouseEnter={() => setActiveSearchIndex(index)} onClick={() => { setSearchOpen(false); setActiveSearchIndex(-1); setSelectedProduct(product); }} aria-label={`Ver detalhes de ${product.name}, menor preço ${brl.format(product.minPrice)}`}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></button>)}</div> : <div className="ref-search-results__empty" role="status"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><small><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</small><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form>
         <div className="ref-trust"><span><BadgeCheck /> Preços verificados</span><span><MapPin /> Hiperlocal</span><span><ShieldCheck /> Dados protegidos</span></div>
       </div>
       {catalogLoading ? <div className="ref-live-card ref-live-card--loading" aria-busy="true" aria-label="Carregando preço verificado"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizando dados…</small></div><div className="ref-live-card__skeleton"><i /><div><i /><i /><i /></div></div><div className="ref-live-card__skeleton-prices"><i /><i /></div><span className="ref-live-card__loading-label">Consultando os preços mais recentes de Feijó…</span></div> : lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Novo destaque a cada 60 min</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}
@@ -307,18 +324,19 @@ export function ReferenceSearchPage() {
   const [category, setCategory] = useState("Todos");
   const categories = useMemo(() => ["Todos", ...Array.from(new Set(catalog.products.map(item => item.category)))], [catalog.products]);
   const products = useMemo(() => {
-    const term = query.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-    return catalog.products.filter(item => {
-      const haystack = `${item.name} ${item.brand} ${item.category} ${item.establishment}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      return (!term || haystack.includes(term)) && (category === "Todos" || item.category === category);
-    });
+    const term = normalizeProductSearch(query);
+    return catalog.products
+      .map(product => ({ product, score: productSearchScore(product, term) }))
+      .filter(({ product, score }) => score < 99 && (category === "Todos" || product.category === category))
+      .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
+      .map(({ product }) => product);
   }, [catalog.products, category, query]);
   const submit = (event: FormEvent) => { event.preventDefault(); setParams(query.trim() ? { q: query.trim() } : {}); };
   return <div className="ref-page ref-directory"><PublicHeader current="search" /><main id="conteudo-principal" className="ref-shell ref-directory__main">
     <div className="ref-page-title"><div><span>PREÇOS LOCAIS VERIFICADOS</span><h1>Compare sem adivinhar.</h1><p>Encontre o menor preço entre mercados e mercearias de Feijó.</p></div><div className="ref-update"><BadgeCheck /><span>Base verificada<small>atualizada hoje</small></span></div></div>
     <form className="ref-directory-search" role="search" onSubmit={submit}><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Produto, marca ou estabelecimento" aria-label="Buscar preços" /><button type="submit">Buscar <ArrowRight /></button></form>
     <div className="ref-filter-row" aria-label="Filtros de categoria"><SlidersHorizontal /><span>Categorias</span>{categories.map(item => <button type="button" key={item} className={category === item ? "is-active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div>
-    <section className="ref-results"><header><div><span>RESULTADOS EM FEIJÓ</span><h2>{products.length} {products.length === 1 ? "produto encontrado" : "produtos encontrados"}</h2></div><small>Ordenados pelo menor preço</small></header>
+    <section className="ref-results"><header><div><span>RESULTADOS EM FEIJÓ</span><h2>{products.length} {products.length === 1 ? "produto encontrado" : "produtos encontrados"}</h2></div><small>Correspondência do nome primeiro; menor preço como desempate</small></header>
       <div className="ref-results-table"><div className="ref-results-table__head"><span>Produto</span><span>Melhor estabelecimento</span><span>Faixa verificada</span><span>Menor preço</span><span /></div>{products.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`} className="ref-result-row"><span className="ref-result-product"><i><ProductVisual product={product} /></i><span><small>{product.category} · {product.brand}</small><strong>{product.name}</strong><em>{product.size}</em></span></span><span className="ref-result-store"><i style={{ background: product.storeColor }} /><span><strong>{product.establishment}</strong><small>{product.neighborhood}</small></span></span><span className="ref-result-range">{brl.format(product.minPrice)} — {brl.format(product.maxPrice)}<small>{product.storeCount} ofertas</small></span><strong className="ref-result-price">{brl.format(product.minPrice)}<small><BadgeCheck /> verificado</small></strong><ArrowRight /></Link>)}</div>
       {!products.length && <div className="ref-empty"><PackageSearch /><h2>Nenhum produto encontrado</h2><p>Tente outro nome, marca ou categoria.</p></div>}
     </section>

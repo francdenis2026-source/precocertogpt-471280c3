@@ -61,7 +61,7 @@
   border-bottom: 1px solid var(--ref-line);
   background: color-mix(in srgb,var(--ref-bg) 72%,var(--ref-paper));
 }
-.ref-search-results>header span { color: var(--ref-gold-deep); font-size: .6875rem; font-weight: 900; }
+.ref-search-results>header span { color: #155f8f; font-size: .6875rem; font-weight: 900; }
 .ref-search-results>header small { color: var(--ref-muted); font-size: .6875rem; }
 .ref-search-results__list { min-height: 0; display: grid; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
 .ref-search-results__list>button {
@@ -83,22 +83,22 @@
 }
 .ref-search-results__list>button:last-child { border-bottom: 0; }
 .ref-search-results__list>button.is-keyboard-active,
-.ref-search-results__list>button[aria-selected="true"] { background: color-mix(in srgb,var(--ref-green) 9%,var(--ref-paper)); box-shadow: inset 3px 0 0 var(--ref-green); }
+.ref-search-results__list>button[aria-selected="true"] { position: relative; z-index: 1; background: #e4f1fa; box-shadow: inset 4px 0 0 #0369a1, inset 0 0 0 1px #9bc6df; }
 .ref-search-results__image { width: 46px; height: 52px; display: grid; place-items: center; overflow: hidden; border-radius: 8px; background: #f4f1ea; }
 .ref-search-results__image img { width: 42px; height: 46px; object-fit: contain; }
 .ref-search-results__image .ref-product-fallback { min-height: 0; padding: 3px; }
 .ref-search-results__image .ref-product-fallback__mark { width: 28px; height: 28px; border-radius: 8px; }
 .ref-search-results__image .ref-product-fallback small { display: none; }
 .ref-search-results__copy { min-width: 0; display: grid; gap: 2px; }
-.ref-search-results__copy small { color: var(--ref-gold-deep); font-size: .625rem; font-weight: 850; text-transform: uppercase; }
+.ref-search-results__copy small { color: #245f83; font-size: .625rem; font-weight: 850; text-transform: uppercase; }
 .ref-search-results__copy strong { overflow: hidden; color: var(--ref-ink); font-size: .8125rem; text-overflow: ellipsis; white-space: nowrap; }
 .ref-search-results__copy em { overflow: hidden; color: var(--ref-muted); font-size: .6875rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
 .ref-search-results__price { display: grid; justify-items: end; gap: 2px; }
 .ref-search-results__price small { color: var(--ref-muted); font-size: .625rem; }
 .ref-search-results__price strong { color: var(--ref-green); font-size: .9375rem; font-variant-numeric: tabular-nums; }
-.ref-search-results__list>button>svg { width: 14px; color: var(--ref-gold-deep); }
+.ref-search-results__list>button>svg { width: 14px; color: #176b9e; }
 .ref-search-results__empty { min-height: 118px; display: flex; align-items: center; justify-content: center; gap: 13px; padding: 22px; text-align: left; }
-.ref-search-results__empty>svg { width: 30px; color: var(--ref-gold-deep); }
+.ref-search-results__empty>svg { width: 30px; color: #176b9e; }
 .ref-search-results__empty>div { display: grid; gap: 4px; }
 .ref-search-results__empty strong { font-size: .875rem; }
 .ref-search-results__empty span { max-width: 46ch; color: var(--ref-muted); font-size: .75rem; line-height: 1.45; }
@@ -111,17 +111,19 @@
 @media (hover:hover) and (pointer:fine) {
   .ref-search-clear:hover { background: color-mix(in srgb,var(--ref-line) 45%,transparent); color: var(--ref-ink); }
   .ref-search-results__list>button:hover { background: color-mix(in srgb,var(--ref-gold) 7%,var(--ref-paper)); transform: translateX(2px); }
+  .ref-search-results__list>button.is-keyboard-active:hover,
+  .ref-search-results__list>button[aria-selected="true"]:hover { background: #e4f1fa; }
 }
 
 html[data-theme="dark"] .ref-search:focus-within { border-color: #4a687b; box-shadow: 0 20px 54px rgba(0,0,0,.32); }
 html[data-theme="dark"] .ref-search>.ref-search-clear { background: transparent !important; color: #c2d0d6; box-shadow: none !important; }
-html[data-theme="dark"] .ref-search-results { border-color: #466377; background: #0d2435; color: #f1f5f7; box-shadow: 0 28px 74px rgba(0,0,0,.44); }
+html[data-theme="dark"] .ref-search-results { border-color: #3f6178; background: #0c2233; color: #f4f8fb; box-shadow: 0 28px 74px rgba(0,0,0,.44); }
 html[data-theme="dark"] .ref-search-results>header,
 html[data-theme="dark"] .ref-search-results>footer { border-color: #365367; background: #0a1d2c; }
 html[data-theme="dark"] .ref-search-results>header span,
 html[data-theme="dark"] .ref-search-results__copy small,
 html[data-theme="dark"] .ref-search-results__list>button>svg,
-html[data-theme="dark"] .ref-search-results__empty>svg { color: #ffd487; }
+html[data-theme="dark"] .ref-search-results__empty>svg { color: #8dccf4; }
 html[data-theme="dark"] .ref-search-results>header small,
 html[data-theme="dark"] .ref-search-results__copy em,
 html[data-theme="dark"] .ref-search-results__price small,
@@ -130,13 +132,15 @@ html[data-theme="dark"] .ref-search-results__copy strong { color: #f1f5f7; }
 html[data-theme="dark"] .ref-search-results__price strong { color: #73db98; }
 html[data-theme="dark"] .ref-search-results__list>button { border-color: #365367; }
 html[data-theme="dark"] .ref-search-results__list>button.is-keyboard-active,
-html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"] { background: #153b3c; box-shadow: inset 3px 0 0 #73db98; }
+html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"] { position: relative; z-index: 1; background: #173b55; box-shadow: inset 4px 0 0 #83c9f7, inset 0 0 0 1px #497995; }
 html[data-theme="dark"] .ref-search-results kbd { border-color: #466377; background: #132f43; color: #f1f5f7; }
 html[data-theme="dark"] .ref-search-submit { color: #f1f5f7 !important; }
-html[data-theme="dark"] .ref-search-results>footer button { background: #f0bd64; color: #10202b; }
+html[data-theme="dark"] .ref-search-results>footer button { background: #67b5e8; color: #071b2a; }
 
 @media (hover:hover) and (pointer:fine) {
   html[data-theme="dark"] .ref-search-results__list>button:hover { background: #153247; }
+  html[data-theme="dark"] .ref-search-results__list>button.is-keyboard-active:hover,
+  html[data-theme="dark"] .ref-search-results__list>button[aria-selected="true"]:hover { background: #173b55; }
 }
 
 @media (max-width:680px) {

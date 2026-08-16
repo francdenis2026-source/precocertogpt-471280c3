@@ -26,6 +26,7 @@ import "./HomeStoryRefinement.css";
 import "./InteractionPolish.css";
 import "./TasteRefinement.css";
 import "./DarkThemeRefinement.css";
+import "./ProductCardRefinement.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,9 +51,11 @@ function Brand({ inverse = false }: { inverse?: boolean }) {
 
 function ProductVisual({ product, eager = false }: { product: Product; eager?: boolean }) {
   const source = resolveProductImage(product);
-  return source
-    ? <img src={source} alt={product.name} width="280" height="240" loading={eager ? "eager" : "lazy"} />
-    : <PackageSearch aria-hidden="true" />;
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [source]);
+  return source && !failed
+    ? <img src={source} alt={product.name} width="280" height="240" loading={eager ? "eager" : "lazy"} onError={() => setFailed(true)} />
+    : <span className="ref-product-fallback" role="img" aria-label={`Imagem de ${product.name} em atualização`}><span className="ref-product-fallback__mark"><PackageSearch aria-hidden="true" /></span><small>{product.category || "Produto local"}<em>Imagem em atualização</em></small></span>;
 }
 
 type BasketEntry = { productId: string; quantity: number };

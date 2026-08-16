@@ -44,7 +44,7 @@ html[data-theme="dark"] .ref-nav a { color: #dce5e9; }
 html[data-theme="dark"] .ref-nav a.is-active { border-color: rgba(240,189,100,.42); background: rgba(240,189,100,.12); color: #ffd487; }
 
 html[data-theme="dark"] :is(.ref-theme,.ref-header__actions>a:first-of-type,.ref-menu) { border-color: var(--ref-line); background: var(--ref-dark-surface); color: #eaf0f3; }
-html[data-theme="dark"] .ref-signin { border-color: #446276; background: #f0bd64; color: #10202b; box-shadow: 0 8px 20px rgba(0,0,0,.22); }
+html[data-theme="dark"] .ref-signin { border-color: #4e9f6b; background: #123b2a; color: #e4f8ea; box-shadow: 0 8px 20px rgba(0,0,0,.22); }
 html[data-theme="dark"] .ref-online { --online-bg: rgba(58,176,92,.12); --online-border: rgba(102,208,139,.34); --online-fg: #83e5a4; --online-muted: #c4d2d8; }
 
 html[data-theme="dark"] .ref-kicker { color: var(--ref-accent-text); }
@@ -153,10 +153,11 @@ html[data-theme="dark"] .ref-page :focus-visible { outline-color: #f2c36f; }
 
 @media (hover:hover) and (pointer:fine) {
   html[data-theme="dark"] .ref-price-row:hover { background: #142f43; box-shadow: inset 0 0 0 1px rgba(240,189,100,.14); }
-  html[data-theme="dark"] :is(.ref-search button,.ref-live-card>button,.ref-economy__grid>div>a,.ref-signin):hover {
+  html[data-theme="dark"] :is(.ref-search button,.ref-live-card>button,.ref-economy__grid>div>a):hover {
     background: var(--ref-accent-surface-hover);
     color: var(--ref-accent-foreground);
   }
+  html[data-theme="dark"] .ref-signin:hover { border-color: #70c78e; background: #195238; color: #f1fff5; box-shadow: 0 10px 24px rgba(0,0,0,.28); }
   html[data-theme="dark"] .ref-section__heading>a:hover { color: #ffe0a6; }
   html[data-theme="dark"] .ref-live-card:hover { border-color: #58768a; }
   html[data-theme="dark"] .ref-local__actions a:hover { border-color: rgba(240,189,100,.46); background: #153449; }

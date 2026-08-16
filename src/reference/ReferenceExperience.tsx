@@ -29,7 +29,8 @@ import "./MobileAppRefinement.css";
 import "./ProductComparisonRefinement.css";
 
 const initialCatalog = buildCatalog();
-const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });\nconst percentage = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
+const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const percentage = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
 const integer = new Intl.NumberFormat("pt-BR");
 
 function normalizeProductSearch(value: string) {

@@ -158,7 +158,9 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
     }
 
     const storeRows = (establishments.data ?? []) as unknown as EstablishmentRow[];
-    const productRows = (products.data ?? []) as unknown as ProductRow[];
+    const productRows = ((products.data ?? []) as unknown as ProductRow[]).filter(product =>
+      normalize(product.name || "") !== "test product",
+    );
     const priceRows = ((prices.data ?? []) as unknown as PriceRow[]).filter(row =>
       Number.isFinite(toNumber(row.value)),
     );

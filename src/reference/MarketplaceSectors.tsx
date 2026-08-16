@@ -1,6 +1,7 @@
 import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, MapPin, Pill, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./MarketplaceSectors.css";
+import "./MarketplaceSectorsLayoutFix.css";
 
 export type MarketplaceSectorId = "all" | "markets" | "pharmacies" | "bakery" | "books" | "services";
 export type MarketplaceSector = { id: MarketplaceSectorId; label: string; shortLabel: string; eyebrow: string; title: string; description: string; searchHint: string; href: string; icon: LucideIcon; productCategories: string[]; businessKinds: string[]; highlights: string[] };

@@ -76,7 +76,7 @@ function upgradeImages(root: ParentNode = document) {
 }
 
 /**
- * Faz o catálogo preferir automaticamente os PNGs enviados ao Lovable.
+ * Faz o catálogo preferir automaticamente os PNGs enviados ao projeto.
  * A substituição ocorre apenas quando o nome normalizado do PNG corresponde
  * ao nome da imagem já aplicada ao produto. Imagens sem PNG equivalente
  * continuam usando a fonte atual.

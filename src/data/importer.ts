@@ -2,7 +2,7 @@ import { supabase } from "../lib/supabase";
 
 /**
  * Função utilitária para disparar o seed a partir do frontend (área Admin).
- * Importante: Como o SQL direto é restrito via rede no sandbox Lovable para o Supabase externo,
+ * Importante: como o SQL direto é restrito via rede no ambiente de desenvolvimento para o Supabase externo,
  * esta função usa a REST API com a Service Key para popular as tabelas.
  */
 export type ImportResult = {
@@ -215,4 +215,3 @@ export async function sendAdminResetEmail(email: string, user: string): Promise<
     };
   }
 }
-

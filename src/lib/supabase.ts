@@ -1,4 +1,4 @@
-// Cliente Supabase do PreçoCerto — projeto próprio do usuário (não Lovable Cloud).
+// Cliente Supabase do PreçoCerto — projeto externo e independente.
 // A URL e a chave publicável são valores públicos por design (a proteção real é RLS).
 // A senha do banco / service_role NUNCA devem aparecer no frontend.
 

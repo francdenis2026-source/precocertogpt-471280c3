@@ -22,6 +22,7 @@ import { CulturalProfilePage } from "./reference/CulturalProfilePage";
 import { MarketplaceExplorePage, MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
 import "./reference/FooterSignatureRefinement.css";
 import "./reference/FavoritesAndSectorStability.css";
+import "./reference/ExploreViewportFit.css";
 
 function RouteFocusManager() {
   const location = useLocation();

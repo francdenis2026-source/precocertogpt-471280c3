@@ -1,0 +1,112 @@
+/* Explore + sector layout refinements.
+   The base stylesheet keeps the dark editorial treatment; this layer makes the
+   light theme genuinely light without changing the dark theme. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .sector-page .sector-primary-link,
+  .sector-page .sector-hero aside,
+  .sector-page .sector-nav--compact > a {
+    transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+}
+
+/* Light theme — brighter editorial hero, restrained image and strong readable type. */
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore,
+html[data-theme="light"] .sector-page--all .sector-hero--explore {
+  color:#102833;
+  background:
+    linear-gradient(90deg,rgba(247,249,246,.98) 0%,rgba(244,248,244,.95) 48%,rgba(239,246,241,.82) 72%,rgba(235,243,238,.68) 100%),
+    url('/hero-feijo-real-shopper-2026.webp') 66% 43%/cover no-repeat;
+  border-bottom:1px solid #d9e4de;
+  box-shadow:inset 0 -1px 0 rgba(18,62,47,.04);
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore::after,
+html[data-theme="light"] .sector-page--all .sector-hero--explore::after {
+  height:2px;
+  background:linear-gradient(90deg,var(--sector-accent) 0%,rgba(47,155,103,.34) 38%,transparent 78%);
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore .sector-eyebrow,
+html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-eyebrow {
+  color:#287653;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore h1,
+html[data-theme="light"] .sector-page--all .sector-hero--explore h1 {
+  color:#102833;
+  text-shadow:none;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore .sector-hero__copy > p,
+html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-hero__copy > p {
+  color:#536871;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore .sector-primary-link,
+html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-primary-link {
+  background:#217a51;
+  color:#fff;
+  box-shadow:0 8px 22px rgba(31,112,74,.16);
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore .sector-primary-link:hover,
+html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-primary-link:hover {
+  background:#196541;
+  transform:translateY(-1px);
+  box-shadow:0 10px 26px rgba(31,112,74,.2);
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore aside,
+html[data-theme="light"] .sector-page--all .sector-hero--explore aside {
+  border-color:rgba(74,105,92,.18);
+  background:rgba(255,255,255,.74);
+  color:#17313b;
+  box-shadow:0 16px 38px rgba(32,61,50,.09);
+  backdrop-filter:blur(14px) saturate(112%);
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore aside > span,
+html[data-theme="light"] .sector-page--all .sector-hero--explore aside > span {
+  color:#73868d;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore aside > svg,
+html[data-theme="light"] .sector-page--all .sector-hero--explore aside > svg {
+  background:#e3f2e9;
+  color:#217a51;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore aside p,
+html[data-theme="light"] .sector-page--all .sector-hero--explore aside p {
+  color:#61747c;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore .sector-trust,
+html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-trust {
+  color:#45665a;
+}
+
+html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore .sector-trust svg,
+html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-trust svg {
+  color:#217a51;
+}
+
+/* Keep the visual hierarchy comfortable on smaller screens without re-darkening the hero. */
+@media (max-width:900px) {
+  html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore,
+  html[data-theme="light"] .sector-page--all .sector-hero--explore {
+    background:
+      linear-gradient(90deg,rgba(247,249,246,.985) 0%,rgba(244,248,244,.94) 64%,rgba(238,245,240,.82) 100%),
+      url('/hero-feijo-real-shopper-2026.webp') 72% center/cover no-repeat;
+  }
+}
+
+@media (max-width:680px) {
+  html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore,
+  html[data-theme="light"] .sector-page--all .sector-hero--explore {
+    background:
+      linear-gradient(90deg,rgba(248,250,247,.99),rgba(241,247,243,.94)),
+      url('/hero-feijo-real-shopper-2026.webp') 70% center/cover no-repeat;
+  }
+}

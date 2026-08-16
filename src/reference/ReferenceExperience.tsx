@@ -238,6 +238,7 @@ export function ReferenceHome() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchPointerActiveRef = useRef(false);
   const productDialogRef = useRef<HTMLDivElement>(null);
+  const productDialogHistoryRef = useRef<string | null>(null);
   const { catalog, loading: catalogLoading } = useCatalogState();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
@@ -292,7 +293,7 @@ export function ReferenceHome() {
 
     setSelectedComparison(null);
     setComparisonLoading(true);
-    void fetchCatalog()
+    void fetchCatalog("", { force: true })
       .then(freshCatalog => {
         if (!cancelled) setSelectedComparison(compareProductAcrossStores(freshCatalog.products, selectedProduct));
       })
@@ -305,6 +306,38 @@ export function ReferenceHome() {
 
     return () => { cancelled = true; };
   }, [selectedProduct]);
+  useEffect(() => {
+    if (!selectedProduct) return;
+
+    const marker = `product-dialog-${Date.now()}-${String(selectedProduct.id)}`;
+    window.history.pushState({ ...window.history.state, productDialog: marker }, "", window.location.href);
+    productDialogHistoryRef.current = marker;
+
+    const handlePopState = () => {
+      if (productDialogHistoryRef.current !== marker) return;
+      productDialogHistoryRef.current = null;
+      setSelectedProduct(null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [selectedProduct?.id]);
+
+  const closeProductDialog = () => {
+    if (productDialogHistoryRef.current) window.history.back();
+    else setSelectedProduct(null);
+  };
+
+  const leaveProductDialog = () => {
+    if (productDialogHistoryRef.current) {
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.productDialog;
+      window.history.replaceState(nextState, "", window.location.href);
+      productDialogHistoryRef.current = null;
+    }
+    setSelectedProduct(null);
+  };
+
   useEffect(() => {
     let intervalId = 0;
     const remaining = 3_600_000 - (Date.now() % 3_600_000);
@@ -377,7 +410,7 @@ export function ReferenceHome() {
     const focusable = () => Array.from(dialog?.querySelectorAll<HTMLElement>('button, a[href], [tabindex]:not([tabindex="-1"])') || []);
     focusable()[0]?.focus();
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedProduct(null);
+      if (event.key === "Escape") closeProductDialog();
       if (event.key !== "Tab") return;
       const items = focusable();
       if (!items.length) return;
@@ -422,7 +455,7 @@ export function ReferenceHome() {
       <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
     </main>
     <PublicFooter /><AppDock current="home" />
-    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={() => setSelectedProduct(null)}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices" aria-busy={comparisonLoading}><div className={comparisonLoading ? "is-loading" : ""}><small>Menor preço ao vivo</small><strong>{comparisonLoading ? "Consultando…" : brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{comparisonLoading ? "Buscando estabelecimentos" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={comparisonLoading ? "is-loading" : (selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{comparisonLoading ? "Atualizando preços…" : (selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{comparisonLoading ? "Comparando o mesmo produto em lojas distintas" : (selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{comparisonLoading ? "Atualizando estabelecimento…" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{comparisonLoading ? "Consulta ao vivo em andamento" : selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={() => setSelectedProduct(null)}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
+    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) closeProductDialog(); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={closeProductDialog}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices" aria-busy={comparisonLoading}><div className={comparisonLoading ? "is-loading" : ""}><small>Menor preço ao vivo</small><strong>{comparisonLoading ? "Consultando…" : brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{comparisonLoading ? "Buscando estabelecimentos" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={comparisonLoading ? "is-loading" : (selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{comparisonLoading ? "Atualizando preços…" : (selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{comparisonLoading ? "Comparando o mesmo produto em lojas distintas" : (selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{comparisonLoading ? "Atualizando estabelecimento…" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{comparisonLoading ? "Consulta ao vivo em andamento" : selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={leaveProductDialog}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
   </div>;
 }
 

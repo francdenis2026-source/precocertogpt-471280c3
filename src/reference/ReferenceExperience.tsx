@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, BarChart3, Bell, Building2,
@@ -434,23 +434,29 @@ export function ReferenceSearchPage() {
   const catalog = useCatalog();
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get("q") || "");
+  const deferredQuery = useDeferredValue(query);
   const [category, setCategory] = useState("Todos");
+  const [visibleCount, setVisibleCount] = useState(40);
   const categories = useMemo(() => ["Todos", ...Array.from(new Set(catalog.products.map(item => item.category)))], [catalog.products]);
   const products = useMemo(() => {
-    const term = normalizeProductSearch(query);
+    const term = normalizeProductSearch(deferredQuery);
     return catalog.products
       .map(product => ({ product, score: productSearchScore(product, term) }))
       .filter(({ product, score }) => score < 99 && (category === "Todos" || product.category === category))
       .sort((a, b) => a.score - b.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
       .map(({ product }) => product);
-  }, [catalog.products, category, query]);
+  }, [catalog.products, category, deferredQuery]);
+  useEffect(() => setVisibleCount(40), [category, deferredQuery]);
+  const visibleProducts = useMemo(() => products.slice(0, visibleCount), [products, visibleCount]);
+  const searchUpdating = deferredQuery !== query;
   const submit = (event: FormEvent) => { event.preventDefault(); setParams(query.trim() ? { q: query.trim() } : {}); };
   return <div className="ref-page ref-directory"><PublicHeader current="search" /><main id="conteudo-principal" className="ref-shell ref-directory__main">
     <div className="ref-page-title"><div><span>PREÇOS LOCAIS VERIFICADOS</span><h1>Compare sem adivinhar.</h1><p>Encontre o menor preço entre mercados e mercearias de Feijó.</p></div><div className="ref-update"><BadgeCheck /><span>Base verificada<small>atualizada hoje</small></span></div></div>
     <form className="ref-directory-search" role="search" onSubmit={submit}><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Produto, marca ou estabelecimento" aria-label="Buscar preços" /><button type="submit">Buscar <ArrowRight /></button></form>
     <div className="ref-filter-row" aria-label="Filtros de categoria"><SlidersHorizontal /><span>Categorias</span>{categories.map(item => <button type="button" key={item} className={category === item ? "is-active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div>
-    <section className="ref-results"><header><div><span>RESULTADOS EM FEIJÓ</span><h2>{products.length} {products.length === 1 ? "produto encontrado" : "produtos encontrados"}</h2></div><small>Correspondência do nome primeiro; menor preço como desempate</small></header>
-      <div className="ref-results-table"><div className="ref-results-table__head"><span>Produto</span><span>Melhor estabelecimento</span><span>Faixa verificada</span><span>Menor preço</span><span /></div>{products.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`} className="ref-result-row"><span className="ref-result-product"><i><ProductVisual product={product} /></i><span><small>{product.category} · {product.brand}</small><strong>{product.name}</strong><em>{product.size}</em></span></span><span className="ref-result-store"><i style={{ background: product.storeColor }} /><span><strong>{product.establishment}</strong><small>{product.neighborhood}</small></span></span><span className="ref-result-range">{brl.format(product.minPrice)} — {brl.format(product.maxPrice)}<small>{product.storeCount} ofertas</small></span><strong className="ref-result-price">{brl.format(product.minPrice)}<small><BadgeCheck /> verificado</small></strong><ArrowRight /></Link>)}</div>
+    <section className={`ref-results${searchUpdating ? " is-updating" : ""}`} aria-busy={searchUpdating}><header><div><span>RESULTADOS EM FEIJÓ</span><h2>{products.length} {products.length === 1 ? "produto encontrado" : "produtos encontrados"}</h2></div><small>{searchUpdating ? "Atualizando resultados…" : "Correspondência do nome primeiro; menor preço como desempate"}</small></header>
+      <div className="ref-results-table"><div className="ref-results-table__head"><span>Produto</span><span>Melhor estabelecimento</span><span>Faixa verificada</span><span>Menor preço</span><span /></div>{visibleProducts.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`} className="ref-result-row"><span className="ref-result-product"><i><ProductVisual product={product} /></i><span><small>{product.category} · {product.brand}</small><strong>{product.name}</strong><em>{product.size}</em></span></span><span className="ref-result-store"><i style={{ background: product.storeColor }} /><span><strong>{product.establishment}</strong><small>{product.neighborhood}</small></span></span><span className="ref-result-range">{brl.format(product.minPrice)} — {brl.format(product.maxPrice)}<small>{product.storeCount} ofertas</small></span><strong className="ref-result-price">{brl.format(product.minPrice)}<small><BadgeCheck /> verificado</small></strong><ArrowRight /></Link>)}</div>
+      {visibleCount < products.length && <button className="ref-results-more" type="button" onClick={() => setVisibleCount(count => Math.min(count + 40, products.length))}>Mostrar mais resultados <span>{products.length - visibleCount} restantes</span></button>}
       {!products.length && <div className="ref-empty"><PackageSearch /><h2>Nenhum produto encontrado</h2><p>Tente outro nome, marca ou categoria.</p></div>}
     </section>
   </main><PublicFooter /><AppDock current="search" /></div>;

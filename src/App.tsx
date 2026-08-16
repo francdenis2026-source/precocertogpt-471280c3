@@ -14,10 +14,10 @@ import {
   ReferenceMerchantPage,
   ReferenceNotFound,
   ReferenceSearchPage,
-  ReferenceStorePage,
   ReferenceStoresPage,
 } from "./reference/ReferenceExperience";
 import { ProductDetailProfessional } from "./reference/ProductDetailProfessional";
+import { StoreDetailProfessional } from "./reference/StoreDetailProfessional";
 import { MarketplaceExplorePage, MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
 import "./reference/FooterSignatureRefinement.css";
 
@@ -53,8 +53,8 @@ export default function App() {
           <Route path="/servicos" element={<MarketplaceSectorLanding sector={marketplaceSectors[4]} />} />
           <Route path="/produto/:identifier" element={<ProductDetailProfessional />} />
           <Route path="/estabelecimentos" element={<ReferenceStoresPage />} />
-          <Route path="/estabelecimento/:identifier" element={<ReferenceStorePage />} />
-          <Route path="/loja/:identifier" element={<ReferenceStorePage />} />
+          <Route path="/estabelecimento/:identifier" element={<StoreDetailProfessional />} />
+          <Route path="/loja/:identifier" element={<StoreDetailProfessional />} />
           <Route path="/cesta" element={<ReferenceBasketPage />} />
           <Route path="/cesta-basica" element={<ReferenceBasketPage />} />
           <Route path="/favoritos" element={<ReferenceFavoritesPage />} />

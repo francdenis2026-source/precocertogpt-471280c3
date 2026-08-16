@@ -92,7 +92,35 @@
 .ref-search-results__copy { min-width: 0; display: grid; gap: 2px; }
 .ref-search-results__copy small { color: #245f83; font-size: .625rem; font-weight: 850; text-transform: uppercase; }
 .ref-search-results__copy strong { overflow: hidden; color: var(--ref-ink); font-size: .8125rem; text-overflow: ellipsis; white-space: nowrap; }
-.ref-search-results__copy em { overflow: hidden; color: var(--ref-muted); font-size: .6875rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.ref-search-results__copy em {
+  width: fit-content;
+  max-width: 100%;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  padding: 2px 8px 2px 6px;
+  border: 1px solid #b9d6e4;
+  border-radius: 999px;
+  background: #e8f3f8;
+  color: #174f6b;
+  font-size: .6875rem;
+  font-style: normal;
+  font-weight: 750;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ref-search-results__copy em::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #176b9e;
+  box-shadow: 0 0 0 3px rgba(23,107,158,.12);
+}
 .ref-search-results__price { display: grid; justify-items: end; gap: 2px; }
 .ref-search-results__price small { color: var(--ref-muted); font-size: .625rem; }
 .ref-search-results__price strong { color: var(--ref-green); font-size: .9375rem; font-variant-numeric: tabular-nums; }
@@ -125,9 +153,17 @@ html[data-theme="dark"] .ref-search-results__copy small,
 html[data-theme="dark"] .ref-search-results__list>button>svg,
 html[data-theme="dark"] .ref-search-results__empty>svg { color: #8dccf4; }
 html[data-theme="dark"] .ref-search-results>header small,
-html[data-theme="dark"] .ref-search-results__copy em,
 html[data-theme="dark"] .ref-search-results__price small,
 html[data-theme="dark"] .ref-search-results__empty span { color: #b8c6cd; }
+html[data-theme="dark"] .ref-search-results__copy em {
+  border-color: #376b88;
+  background: #12374e;
+  color: #c5eaff;
+}
+html[data-theme="dark"] .ref-search-results__copy em::before {
+  background: #7dc8f5;
+  box-shadow: 0 0 0 3px rgba(125,200,245,.14);
+}
 html[data-theme="dark"] .ref-search-results__copy strong { color: #f1f5f7; }
 html[data-theme="dark"] .ref-search-results__price strong { color: #73db98; }
 html[data-theme="dark"] .ref-search .ref-search-results__list>button { border-color: #365367; background: #0c2233; color: #f4f8fb; box-shadow: none; }

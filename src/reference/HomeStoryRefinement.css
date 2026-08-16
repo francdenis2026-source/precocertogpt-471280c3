@@ -240,3 +240,112 @@ html:not([data-theme="dark"]) .ref-local__actions a svg:first-child {
     background: rgba(250,251,249,.92);
   }
 }
+
+
+/* Remodelagem editorial da faixa de economia — tema claro */
+html:not([data-theme="dark"]) .ref-economy {
+  border-block: 1px solid rgba(8,42,69,.14);
+  background: #e9e5da;
+  color: #0b2233;
+}
+
+html:not([data-theme="dark"]) .ref-economy::before {
+  opacity: .88;
+  background-position: 62% 50%;
+  filter: saturate(1.08) contrast(1.07) brightness(.98);
+  transform: scale(1.01);
+}
+
+html:not([data-theme="dark"]) .ref-economy::after {
+  background:
+    linear-gradient(90deg,
+      rgba(247,244,236,.99) 0%,
+      rgba(247,244,236,.96) 31%,
+      rgba(247,244,236,.76) 45%,
+      rgba(247,244,236,.24) 61%,
+      rgba(7,27,45,.08) 100%),
+    linear-gradient(0deg, rgba(7,27,45,.14), transparent 46%);
+}
+
+.ref-economy__grid > div:first-child {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+}
+
+html:not([data-theme="dark"]) .ref-economy__grid > div:first-child::before {
+  content: "ECONOMIA NA VIDA REAL";
+  display: block;
+  width: fit-content;
+  margin-bottom: 10px;
+  color: #176d3d;
+  font-size: .625rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+}
+
+html:not([data-theme="dark"]) .ref-economy h2 {
+  max-width: 13ch;
+  margin-top: 0;
+  color: #0b2233;
+  text-shadow: 0 1px 0 rgba(255,255,255,.7);
+}
+
+html:not([data-theme="dark"]) .ref-economy p {
+  max-width: 570px;
+  color: #344d5c;
+  font-weight: 540;
+}
+
+html:not([data-theme="dark"]) .ref-economy__signals span {
+  border-color: rgba(8,42,69,.20);
+  background: rgba(255,255,255,.72);
+  color: #173344;
+  box-shadow: 0 1px 0 rgba(255,255,255,.8);
+  backdrop-filter: blur(8px);
+}
+
+html:not([data-theme="dark"]) .ref-economy__signals svg {
+  color: #16733e;
+}
+
+html:not([data-theme="dark"]) .ref-economy__grid > div > a {
+  border: 1px solid #0a3854;
+  background: #0b3049;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(7,27,45,.18);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+html:not([data-theme="dark"]) .ref-receipt {
+  border-color: rgba(255,255,255,.92);
+  box-shadow: 0 24px 58px rgba(7,27,45,.26), 5px 7px 0 rgba(7,27,45,.13);
+  transform: rotate(-.25deg);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html:not([data-theme="dark"]) .ref-economy__grid > div > a:hover {
+    transform: translateY(-2px);
+    background: #125171;
+    box-shadow: 0 14px 30px rgba(7,27,45,.24);
+  }
+}
+
+@media (max-width:680px) {
+  html:not([data-theme="dark"]) .ref-economy::before {
+    opacity: .64;
+    background-position: 68% 50%;
+  }
+
+  html:not([data-theme="dark"]) .ref-economy::after {
+    background: linear-gradient(180deg,
+      rgba(247,244,236,.98) 0%,
+      rgba(247,244,236,.92) 40%,
+      rgba(247,244,236,.58) 66%,
+      rgba(7,27,45,.16) 100%);
+  }
+
+  html:not([data-theme="dark"]) .ref-economy h2 {
+    max-width: 12ch;
+  }
+}

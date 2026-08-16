@@ -9,6 +9,7 @@ import {
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog, normalize } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
+import { getStoreLogoUrl } from "../data/storeLogos";
 import { loadPlatformSummary } from "../lib/merchantPlatform";
 import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib/roles";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
@@ -148,6 +149,15 @@ function Brand({ inverse = false }: { inverse?: boolean }) {
       : <><img className="ref-brand__light" src="/logo-preco-certo.svg" alt="PreçoCerto" /><img className="ref-brand__dark" src="/logo-preco-certo-inversa.svg" alt="" aria-hidden="true" /></>}
     <span>FEIJÓ · ACRE</span>
   </Link>;
+}
+
+function StoreLogo({ name }: { name: string }) {
+  const source = getStoreLogoUrl(name);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [source]);
+  return source && !failed
+    ? <img src={source} alt={`Logomarca de ${name}`} loading="lazy" onError={() => setFailed(true)} />
+    : <Store aria-hidden="true" />;
 }
 
 function ProductVisual({ product, eager = false }: { product: Product; eager?: boolean }) {
@@ -509,13 +519,16 @@ export function ReferenceStoresPage() {
   const catalog = useCatalog();
   const [query, setQuery] = useState("");
   const [mapStore, setMapStore] = useState("");
+  const [visibleStores, setVisibleStores] = useState(8);
   const stores = catalog.stores.filter(store => normalize(`${store.name} ${store.neighborhood}`).includes(normalize(query)));
+  const listedStores = stores.slice(0, visibleStores);
+  useEffect(() => setVisibleStores(8), [query]);
   const mapLabel = mapStore || "Mercados e mercearias em Feijó";
   const mapQuery = encodeURIComponent(`${mapLabel}, Acre, Brasil`);
   return <div className="ref-page ref-directory ref-stores-page"><PublicHeader current="stores" /><main id="conteudo-principal" className="ref-shell ref-directory__main">
     <section className="ref-stores-hero"><div><span>COMÉRCIO LOCAL VERIFICADO</span><h1>Seu mercado,<br />mais perto.</h1><p>Descubra estabelecimentos de Feijó, consulte catálogos e encontre onde comprar melhor.</p><div><BadgeCheck /> {catalog.metrics.stores} comércios na plataforma</div></div><Link to="/lojista">Cadastrar meu comércio <ArrowRight /></Link></section>
     <div className="ref-stores-toolbar"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Buscar mercado ou bairro" aria-label="Buscar estabelecimento" /><span>{stores.length} {stores.length === 1 ? "resultado" : "resultados"}</span></div>
-    <section className="ref-stores-directory"><div className="ref-store-cards"><header><div><span>ESTABELECIMENTOS</span><h2>Comércios para explorar</h2></div><small>Catálogos e preços locais</small></header>{stores.map(store => <article className="ref-store-card" key={store.id}><Link to={`/estabelecimento/${store.slug}`}><i style={{ background: store.color }}><Store /></i><span><small>{store.neighborhood}</small><strong>{store.name}</strong><em>{store.products} produtos no catálogo</em></span><BadgeCheck aria-label="Estabelecimento verificado" /></Link><button type="button" onClick={() => { setMapStore(store.name); document.getElementById("mapa-estabelecimentos")?.scrollIntoView({ behavior: "smooth", block: "nearest" }); }}><MapPin /> Ver no mapa</button></article>)}{!stores.length && <div className="ref-empty"><Store /><h2>Nenhum estabelecimento encontrado</h2><p>Tente buscar por outro nome ou bairro.</p></div>}</div>
+    <section className="ref-stores-directory"><div className="ref-store-cards"><header><div><span>ESTABELECIMENTOS</span><h2>Comércios para explorar</h2></div><small>Catálogos e preços locais</small></header>{listedStores.map(store => <article className={`ref-store-card${mapStore === store.name ? " is-map-active" : ""}`} key={store.id}><button className="ref-store-card__select" type="button" onClick={() => setMapStore(store.name)} aria-label={`Mostrar ${store.name} no mapa`}><i style={{ background: store.color }}><StoreLogo name={store.name} /></i><span><small>{store.neighborhood}</small><strong>{store.name}</strong><em>{store.products} produtos no catálogo</em></span><MapPin aria-hidden="true" /></button><footer><button type="button" onClick={() => setMapStore(store.name)}><MapPin /> Localizar</button><Link to={`/estabelecimento/${store.slug}`}>Abrir catálogo <ArrowRight /></Link></footer></article>)}{visibleStores < stores.length && <button className="ref-stores-more" type="button" onClick={() => setVisibleStores(count => Math.min(count + 8, stores.length))}>Mostrar mais estabelecimentos <span>{stores.length - visibleStores} restantes</span></button>}{!stores.length && <div className="ref-empty"><Store /><h2>Nenhum estabelecimento encontrado</h2><p>Tente buscar por outro nome ou bairro.</p></div>}</div>
       <aside className="ref-stores-map" id="mapa-estabelecimentos"><header><MapIcon /><span><strong>{mapStore || "Mapa do comércio local"}</strong><small>{mapStore ? "Localização pesquisada em Feijó" : "Explore mercados e mercearias de Feijó"}</small></span></header><iframe key={mapQuery} title={`Mapa de ${mapLabel}`} src={`https://www.google.com/maps?q=${mapQuery}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noreferrer">Abrir mapa completo <ArrowRight /></a></aside>
     </section>
   </main><PublicFooter /><AppDock current="stores" /></div>;

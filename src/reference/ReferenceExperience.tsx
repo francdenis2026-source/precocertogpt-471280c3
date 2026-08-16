@@ -136,10 +136,12 @@ function AppDock({ current }: { current: "home" | "search" | "basket" | "stores"
 export function ReferenceHome() {
   const homeRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const productDialogRef = useRef<HTMLDivElement>(null);
   const catalog = useCatalog();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const featured = useMemo(() => [...catalog.products].filter(p => p.minPrice > 0).sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 4), [catalog.products]);
   const lead = featured[0] || catalog.products[0];
   const receipt = featured.slice(0, 3);
@@ -161,6 +163,36 @@ export function ReferenceHome() {
       .map(item => item.product);
   }, [catalog.products, query]);
   const submit = (event: FormEvent) => { event.preventDefault(); navigate(query.trim() ? `/buscar?q=${encodeURIComponent(query.trim())}` : "/buscar"); };
+  useEffect(() => {
+    if (!selectedProduct) return;
+    const body = document.body;
+    const previousOverflow = body.style.overflow;
+    const previousPaddingRight = body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+
+    const dialog = productDialogRef.current;
+    const focusable = () => Array.from(dialog?.querySelectorAll<HTMLElement>('button, a[href], [tabindex]:not([tabindex="-1"])') || []);
+    focusable()[0]?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProduct(null);
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      body.style.overflow = previousOverflow;
+      body.style.paddingRight = previousPaddingRight;
+      searchInputRef.current?.focus();
+    };
+  }, [selectedProduct]);
   useGSAP(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -182,7 +214,7 @@ export function ReferenceHome() {
       <section className="ref-hero"><div className="ref-shell ref-hero__grid"><div className="ref-hero__copy">
         <span className="ref-kicker"><i /> AO VIVO EM FEIJÓ</span><h1>Compare antes<br /><em>de comprar.</em></h1>
         <p>Encontre os menores preços em mercados e mercearias de Feijó. Informação local para economizar todos os dias.</p>
-        <form className="ref-search" onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSearchOpen(false); }}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "Escape") setSearchOpen(false); }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" onClick={() => { setQuery(""); setSearchOpen(false); searchInputRef.current?.focus(); }}><X aria-hidden="true" /></button>}<button type="submit">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="region" aria-label="Resultados da pesquisa"><header><span>Resultados mais baratos</span><small>{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`} onClick={() => setSearchOpen(false)}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></Link>)}</div> : <div className="ref-search-results__empty"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form>
+        <form className="ref-search" onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSearchOpen(false); }}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "Escape") setSearchOpen(false); }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" onClick={() => { setQuery(""); setSearchOpen(false); searchInputRef.current?.focus(); }}><X aria-hidden="true" /></button>}<button className="ref-search-submit" type="submit" aria-label="Ver todos os resultados">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="region" aria-label="Resultados da pesquisa"><header><span>Resultados mais baratos</span><small>{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map(product => <button key={product.id} type="button" onClick={() => { setSearchOpen(false); setSelectedProduct(product); }} aria-label={`Ver detalhes de ${product.name}`}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></button>)}</div> : <div className="ref-search-results__empty" role="status"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form>
         <div className="ref-trust"><span><BadgeCheck /> Preços verificados</span><span><MapPin /> Hiperlocal</span><span><ShieldCheck /> Dados protegidos</span></div>
       </div>
       {lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizado hoje</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}
@@ -199,6 +231,7 @@ export function ReferenceHome() {
       <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
     </main>
     <PublicFooter /><AppDock current="home" />
+    {selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedProduct(null); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={() => setSelectedProduct(null)}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices"><div><small>Menor preço</small><strong>{brl.format(selectedProduct.minPrice)}</strong><span>{selectedProduct.establishment || "Comércio local"}</span></div><div><small>Faixa verificada</small><strong>{brl.format(selectedProduct.minPrice)} — {brl.format(selectedProduct.maxPrice)}</strong><span>{selectedProduct.storeCount || selectedProduct.offers?.length || 1} lojas consultadas</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{selectedProduct.establishment || "Comércio local"}</strong><em>{selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={() => setSelectedProduct(null)}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}
   </div>;
 }
 

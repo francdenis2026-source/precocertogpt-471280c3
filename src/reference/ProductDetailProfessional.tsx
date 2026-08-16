@@ -11,6 +11,7 @@ import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
 import "./ProductDetailProfessional.css";
+import "./ProductDetailViewportFit.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const BASKET_KEY = "precocerto:active_basket_items";

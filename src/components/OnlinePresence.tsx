@@ -47,8 +47,11 @@ export function OnlinePresence() {
     };
 
     const startRealtime = async () => {
-      const channel = supabase.channel(CHANNEL_NAME, { config: { presence: { key: deviceId } } });
+      const client = supabase;
+      if (!client) return;
+      const channel = client.channel(CHANNEL_NAME, { config: { presence: { key: deviceId } } });
       const syncCount = () => publish(Object.keys(channel.presenceState()).length);
+
 
       channel.on("presence", { event: "sync" }, syncCount);
       channel.subscribe(async status => {

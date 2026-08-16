@@ -12,6 +12,7 @@ import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
 import "./ProductDetailProfessional.css";
 import "./ProductDetailViewportFit.css";
+import "./ProductDetailVisualRefinement.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const BASKET_KEY = "precocerto:active_basket_items";
@@ -79,24 +80,22 @@ export function ProductDetailProfessional() {
   const { isFavorite, toggleFavorite } = useFavorites();
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   const [loading, setLoading] = useState(true);
-  const [basket, setBasket] = useState<BasketEntry[]>(readBasket);
+  const [basket, setBasket] = useState<BasketEntry[]>([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     let active = true;
-    fetchCatalog("", { force: true }).then(data => { if (active) setCatalog(data); }).finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, []);
-
-  useEffect(() => {
-    const refresh = () => setBasket(readBasket());
-    window.addEventListener("pc:basket-changed", refresh);
-    window.addEventListener("storage", refresh);
-    return () => { window.removeEventListener("pc:basket-changed", refresh); window.removeEventListener("storage", refresh); };
+    fetchCatalog("", { force: true })
+      .then(data => { if (active) setCatalog(data); })
+      .finally(() => { if (active) setLoading(false); });
+    setBasket(readBasket());
+    const sync = () => setBasket(readBasket());
+    window.addEventListener("pc:basket-changed", sync);
+    return () => { active = false; window.removeEventListener("pc:basket-changed", sync); };
   }, []);
 
   const product = useMemo(() => catalog?.products.find(item => String(item.id) === identifier || item.slug === identifier), [catalog, identifier]);
-  const offers = useMemo(() => product ? (product.offers?.length ? [...product.offers].sort((a, b) => a.value - b.value) : [{ establishment: product.establishment, neighborhood: product.neighborhood, value: product.minPrice, capturedAt: product.capturedAt, establishmentId: product.establishmentId, establishmentSlug: product.establishmentSlug, storeColor: product.storeColor }]) : [], [product]);
+  const offers = useMemo(() => product ? (product.offers?.length ? [...product.offers] : [{ establishmentId: product.establishmentId, establishmentSlug: product.establishmentSlug, establishment: product.establishment, neighborhood: product.neighborhood, storeColor: product.storeColor, value: product.minPrice, capturedAt: product.capturedAt }]).sort((a,b)=>a.value-b.value) : [], [product]);
   const similar = useMemo(() => !product || !catalog ? [] : catalog.products.filter(item => String(item.id) !== String(product.id) && item.category === product.category).sort((a,b) => a.minPrice - b.minPrice).slice(0, 3), [catalog, product]);
   const basketRows = useMemo(() => !catalog ? [] : basket.map(entry => ({ entry, product: catalog.products.find(item => String(item.id) === entry.productId) })).filter(row => row.product), [basket, catalog]);
   const basketTotal = basketRows.reduce((sum, row) => sum + (row.product?.minPrice || 0) * row.entry.quantity, 0);
@@ -125,7 +124,6 @@ export function ProductDetailProfessional() {
   const favorite = isFavorite(product.id);
   const image = resolveProductImage(product);
   const quantity = basket.find(item => item.productId === String(product.id))?.quantity || 0;
-  const bestOffer = offers[0];
   const updatedAt = formatDate(product.updated_at || product.capturedAt);
 
   return <div className="pdp-page">

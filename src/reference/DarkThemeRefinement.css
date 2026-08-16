@@ -784,3 +784,56 @@ html[data-theme="dark"] .ref-basket-page .ref-basket-summary {
     background: linear-gradient(180deg,rgba(5,18,29,.99) 0%,rgba(5,18,29,.92) 61%,rgba(5,18,29,.44) 100%);
   }
 }
+
+
+/* Diretório compacto — logos e ações no tema escuro */
+html[data-theme="dark"] .ref-store-card__select strong {
+  color: #eef5f7;
+}
+
+html[data-theme="dark"] .ref-store-card__select small {
+  color: #efc779;
+}
+
+html[data-theme="dark"] .ref-store-card__select em {
+  color: #b6c7ce;
+}
+
+html[data-theme="dark"] .ref-store-card__select > svg {
+  color: #7add99;
+}
+
+html[data-theme="dark"] .ref-store-card > footer {
+  border-color: #3b586b;
+}
+
+html[data-theme="dark"] .ref-store-card > footer > :is(button,a) {
+  background: rgba(5,20,31,.48);
+  color: #80dea0;
+}
+
+html[data-theme="dark"] .ref-store-card > footer > :first-child {
+  border-color: #3b586b;
+}
+
+html[data-theme="dark"] .ref-store-card.is-map-active {
+  border-color: #72d491;
+  box-shadow: 0 0 0 3px rgba(114,212,145,.12),0 14px 30px rgba(0,0,0,.24);
+}
+
+html[data-theme="dark"] .ref-stores-more {
+  border-color: #3b586b;
+  background: #0d2638;
+  color: #83dfa2;
+}
+
+html[data-theme="dark"] .ref-stores-more span {
+  color: #b6c7ce;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] .ref-store-card__select:hover,
+  html[data-theme="dark"] .ref-store-card > footer > :is(button,a):hover {
+    background: #123b35;
+  }
+}

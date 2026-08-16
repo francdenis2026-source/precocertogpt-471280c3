@@ -7,7 +7,7 @@ import {
   SlidersHorizontal, Store, Sun, Tag, Trash2, TrendingDown, UserRound, UsersRound, X,
 } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
-import { fetchCatalog } from "../data/remoteCatalog";
+import { fetchCatalog, normalize } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { loadPlatformSummary } from "../lib/merchantPlatform";
 import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib/roles";

@@ -13,6 +13,47 @@
   max-width: 100%;
 }
 
+.ref-evolution-badge {
+  position: fixed;
+  z-index: 75;
+  right: 18px;
+  bottom: 18px;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--ref-gold) 36%, var(--ref-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ref-paper) 94%, transparent);
+  color: var(--ref-ink);
+  box-shadow: 0 8px 24px rgba(7,27,45,.14);
+  backdrop-filter: blur(12px) saturate(130%);
+  pointer-events: none;
+}
+
+.ref-evolution-badge > span {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--ref-gold-deep);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ref-gold) 16%, transparent);
+}
+
+.ref-evolution-badge strong {
+  font-size: .6875rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+html[data-theme="dark"] .ref-evolution-badge {
+  border-color: rgba(240,189,100,.34);
+  background: rgba(8,27,42,.92);
+  color: #edf3f5;
+  box-shadow: 0 10px 28px rgba(0,0,0,.32);
+}
+
 @media (max-width: 1024px) {
   .ref-hero__grid {
     min-height: 520px;
@@ -41,6 +82,18 @@
   .ref-page {
     padding-bottom: calc(64px + env(safe-area-inset-bottom));
     font-size: 16px;
+  }
+
+  .ref-evolution-badge {
+    z-index: 95;
+    right: 10px;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    min-height: 30px;
+    padding-inline: 10px;
+  }
+
+  .ref-evolution-badge strong {
+    font-size: .625rem;
   }
 
   .ref-shell {

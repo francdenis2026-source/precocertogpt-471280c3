@@ -37,6 +37,30 @@ html[data-theme="dark"] :is(.ref-theme,.ref-header__actions>a:first-of-type,.ref
 html[data-theme="dark"] .ref-signin { border-color: #446276; background: #f0bd64; color: #10202b; box-shadow: 0 8px 20px rgba(0,0,0,.22); }
 html[data-theme="dark"] .ref-online { --online-bg: rgba(58,176,92,.12); --online-border: rgba(102,208,139,.34); --online-fg: #83e5a4; --online-muted: #c4d2d8; }
 
+html[data-theme="dark"] .ref-live-card {
+  border-color: #45657a;
+  background: linear-gradient(155deg,#122d40,#0c2233 72%);
+  color: #f2f6f7;
+  box-shadow: 18px 24px 0 rgba(0,0,0,.28), 0 24px 60px rgba(0,0,0,.24);
+}
+html[data-theme="dark"] .ref-live-card__top { border-color: #4b6879; }
+html[data-theme="dark"] .ref-live-card__top span { color: #83e5a4; }
+html[data-theme="dark"] .ref-live-card__top small { color: #becbd1; }
+html[data-theme="dark"] .ref-live-card__product small { color: #f2c36f; }
+html[data-theme="dark"] .ref-live-card__product h2 { color: #f5f8f9; }
+html[data-theme="dark"] .ref-live-card__product p { color: #becbd1; }
+html[data-theme="dark"] .ref-live-card__prices { border-color: #4b6879; }
+html[data-theme="dark"] .ref-live-card__prices>div+div { border-color: #4b6879; }
+html[data-theme="dark"] .ref-live-card__prices :is(small,span) { color: #bdcbd2; }
+html[data-theme="dark"] .ref-live-card__prices strong { color: #7de0a0; }
+html[data-theme="dark"] .ref-live-card__prices>div+div strong { color: #f2c36f; }
+html[data-theme="dark"] .ref-live-card>button {
+  border: 1px solid rgba(255,255,255,.12);
+  background: #f0bd64;
+  color: #10202b;
+  box-shadow: 0 10px 24px rgba(0,0,0,.20);
+}
+
 html[data-theme="dark"] .ref-proof { background: var(--ref-dark-surface); border-color: var(--ref-line); color: var(--ref-dark-text); }
 html[data-theme="dark"] .ref-proof__grid>div { border-color: var(--ref-line); }
 html[data-theme="dark"] .ref-proof strong { color: #f4f7f8; }

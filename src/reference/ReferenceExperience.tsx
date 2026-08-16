@@ -441,9 +441,9 @@ export function ReferenceHome() {
   }, [selectedProduct]);
   return <div className="ref-page ref-home">
     <PublicHeader current="home" />
-    <div className="ref-evolution-badge" role="status" aria-label="Este site está em evolução contínua">
+    <div className="ref-evolution-badge" role="status" aria-label="Aviso: site em construção">
       <span aria-hidden="true" />
-      <strong>Site em evolução</strong>
+      <strong>Site em construção</strong>
     </div>
 
     <main id="conteudo-principal">

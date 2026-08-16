@@ -527,3 +527,135 @@ html[data-theme="dark"] .ref-auth__switch {
     background: linear-gradient(135deg,#48b96e,#6bd28a);
   }
 }
+
+
+/* Diretório de estabelecimentos — tema escuro */
+html[data-theme="dark"] .ref-stores-hero {
+  border-color: #355367;
+  background: #071a28;
+  box-shadow: 0 20px 52px rgba(0,0,0,.28);
+}
+
+html[data-theme="dark"] .ref-stores-hero::before {
+  filter: saturate(1.08) contrast(1.12) brightness(.70);
+}
+
+html[data-theme="dark"] .ref-stores-hero::after {
+  background: linear-gradient(90deg,rgba(5,18,29,.99) 0%,rgba(5,18,29,.96) 38%,rgba(5,18,29,.65) 59%,rgba(5,18,29,.16) 100%);
+}
+
+html[data-theme="dark"] .ref-stores-hero > div > span {
+  color: #75dc98;
+}
+
+html[data-theme="dark"] .ref-stores-hero h1 {
+  color: #f5f9fa;
+  text-shadow: 0 3px 22px rgba(0,0,0,.42);
+}
+
+html[data-theme="dark"] .ref-stores-hero p {
+  color: #cbd8de;
+}
+
+html[data-theme="dark"] .ref-stores-hero > div > div {
+  border-color: rgba(117,220,152,.27);
+  background: rgba(7,30,46,.72);
+  color: #8fe2aa;
+}
+
+html[data-theme="dark"] .ref-stores-hero > a {
+  background: #6fd28f;
+  color: #09231b;
+  box-shadow: 0 14px 30px rgba(0,0,0,.30);
+}
+
+html[data-theme="dark"] .ref-stores-toolbar {
+  border-color: #355267;
+  background: #0d2638;
+  box-shadow: 0 9px 24px rgba(0,0,0,.17);
+}
+
+html[data-theme="dark"] .ref-stores-toolbar > svg {
+  color: #73da95;
+}
+
+html[data-theme="dark"] .ref-stores-toolbar input {
+  color: #eff5f7;
+}
+
+html[data-theme="dark"] .ref-store-cards > header span {
+  color: #75dc98;
+}
+
+html[data-theme="dark"] .ref-store-card {
+  border-color: #355267;
+  background: linear-gradient(155deg,#102a3d,#0c2334);
+  box-shadow: 0 8px 22px rgba(0,0,0,.16);
+}
+
+html[data-theme="dark"] .ref-store-card > a small {
+  color: #efc779;
+}
+
+html[data-theme="dark"] .ref-store-card > a strong {
+  color: #eef5f7;
+}
+
+html[data-theme="dark"] .ref-store-card > a em {
+  color: #b6c7ce;
+}
+
+html[data-theme="dark"] .ref-store-card > a > svg {
+  color: #7add99;
+}
+
+html[data-theme="dark"] .ref-store-card > button {
+  border-color: #3b586b;
+  background: rgba(5,20,31,.48);
+  color: #80dea0;
+}
+
+html[data-theme="dark"] .ref-stores-map {
+  border-color: #3a586b;
+  background: #0d2638;
+  box-shadow: 0 14px 34px rgba(0,0,0,.24);
+}
+
+html[data-theme="dark"] .ref-stores-map > header > svg {
+  background: rgba(103,214,138,.13);
+  color: #79dc99;
+}
+
+html[data-theme="dark"] .ref-stores-map > header strong {
+  color: #eef5f7;
+}
+
+html[data-theme="dark"] .ref-stores-map > header small {
+  color: #b6c7ce;
+}
+
+html[data-theme="dark"] .ref-stores-map iframe {
+  border-color: #3b586b;
+  filter: saturate(.86) contrast(1.03) brightness(.84);
+}
+
+html[data-theme="dark"] .ref-stores-map > a {
+  color: #83dfa2;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] .ref-store-card:hover {
+    border-color: #668ca1;
+    background: linear-gradient(155deg,#15354a,#102b3e);
+  }
+
+  html[data-theme="dark"] .ref-store-card > button:hover {
+    background: #123b35;
+  }
+}
+
+@media (max-width:680px) {
+  html[data-theme="dark"] .ref-stores-hero::after {
+    background: linear-gradient(180deg,rgba(5,18,29,.99) 0%,rgba(5,18,29,.92) 62%,rgba(5,18,29,.45) 100%);
+  }
+}

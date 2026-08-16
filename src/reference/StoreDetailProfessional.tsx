@@ -7,7 +7,7 @@ import { resolveProductImage } from "../data/productImageResolver";
 import "./StoreDetailProfessional.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-const PAGE_SIZE = 18;
+const PAGE_SIZE = 20;
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
@@ -41,8 +41,7 @@ export function StoreDetailProfessional() {
   const store = useMemo(() => catalog?.stores.find(item => String(item.id) === identifier || item.slug === identifier), [catalog, identifier]);
   const allProducts = useMemo(() => {
     if (!catalog || !store) return [];
-    const matching = catalog.products.filter(item => item.offers?.some(offer => String(offer.establishmentId) === String(store.id)) || String(item.establishmentId) === String(store.id));
-    return matching.length ? matching : [];
+    return catalog.products.filter(item => item.offers?.some(offer => String(offer.establishmentId) === String(store.id)) || String(item.establishmentId) === String(store.id));
   }, [catalog, store]);
 
   const categories = useMemo(() => ["Todos", ...Array.from(new Set(allProducts.map(product => product.category).filter(Boolean))).sort((a, b) => a.localeCompare(b, "pt-BR"))], [allProducts]);

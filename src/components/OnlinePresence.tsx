@@ -63,7 +63,7 @@ export function OnlinePresence() {
 
       realtimeCleanup = async () => {
         await channel.untrack();
-        await supabase.removeChannel(channel);
+        await client.removeChannel(channel);
       };
     };
 

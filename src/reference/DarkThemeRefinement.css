@@ -837,3 +837,13 @@ html[data-theme="dark"] .ref-stores-more span {
     background: #123b35;
   }
 }
+
+/* Contraste WCAG dos estados ativos no shell público. */
+html[data-theme="dark"] .ref-nav a.is-active,
+html[data-theme="dark"] .ref-mobile-menu a.is-active{
+  background:#e0aa50;
+  color:#10202b;
+  box-shadow:0 0 0 1px rgba(255,212,135,.42);
+}
+html[data-theme="dark"] .ref-nav a.is-active:hover,
+html[data-theme="dark"] .ref-nav a.is-active:focus-visible{background:#ffd487;color:#10202b}

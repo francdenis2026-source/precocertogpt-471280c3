@@ -13,13 +13,22 @@ button, input, select, textarea { font: inherit; }
 img, svg { display: block; max-width: 100%; }
 #root { min-height: 100vh; }
 
-/* Oculta exclusivamente o badge de atribuição injetado pela hospedagem Lovable. */
+/* Oculta o badge de atribuição injetado pela hospedagem Lovable. */
 #lovable-badge,
-[data-lovable-badge] {
+[data-lovable-badge],
+.lovable-badge,
+iframe[src*="lovable.app/badge"],
+a[href*="lovable.app"][target="_blank"]:has(img[src*="lovable"]) {
   display: none !important;
   visibility: hidden !important;
+  opacity: 0 !important;
   pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
+
 
 * { box-sizing: border-box; }
 

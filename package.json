@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=22"
-  },
+  "engines": { "node": ">=22" },
   "scripts": {
     "dev": "vite",
-    "build": "vite build --configLoader runner && node scripts/prepare-sites-artifact.mjs",
+    "build": "vite build --configLoader runner && node scripts/prepare-sites-artifact.mjs && node scripts/prerender-seo.mjs",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint . --ignore-pattern dist",
@@ -53,7 +51,7 @@
     "eslint": "9.39.4",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-hooks": "6.1.1",
     "globals": "16.4.0",
     "jsdom": "^30.0.1",
     "sharp": "^0.34.3",

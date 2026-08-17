@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/outfit";
 import "./styles/AppReset.css";
+import "./reference/DesignSystem2.css";
 import App from "./App";
 
 const savedTheme = localStorage.getItem("theme");

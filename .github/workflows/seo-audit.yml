@@ -1,0 +1,55 @@
+name: SEO Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL pública para auditar'
+        required: true
+        type: string
+      mode:
+        description: 'Modo da auditoria'
+        required: true
+        default: 'html'
+        type: choice
+        options:
+          - fast
+          - html
+          - full
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Run SEO audit
+        env:
+          SEO_AUDIT_URL: ${{ inputs.url }}
+        run: |
+          if [ "${{ inputs.mode }}" = "fast" ]; then
+            npm run seo:audit:fast
+          elif [ "${{ inputs.mode }}" = "full" ]; then
+            npm run seo:audit:full
+          else
+            npm run seo:audit:html
+          fi
+
+      - name: Upload SEO reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-audit-${{ github.run_number }}
+          path: reports/seo/
+          if-no-files-found: ignore

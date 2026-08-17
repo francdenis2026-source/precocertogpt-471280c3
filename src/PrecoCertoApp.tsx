@@ -412,16 +412,24 @@ function ProductImage({ product, size = "default", eager = false }: { product: P
   );
 }
 
-function Brand({ compact = false, inverse = false, className = "" }: { compact?: boolean; inverse?: boolean; className?: string }) {
+function Brand({ compact = false, inverse = false, className = "", onClick }: { compact?: boolean; inverse?: boolean; className?: string; onClick?: () => void }) {
   return (
     <div 
       className={`brand ${className} ${inverse ? "brand--inverse" : ""} ${compact ? "brand--compact" : ""}`} 
-      onClick={() => window.location.href = "/"}
+      onClick={() => {
+        if (onClick) onClick();
+        window.location.href = "/";
+      }}
       style={{ cursor: 'pointer' }}
       role="link"
       tabIndex={0}
       aria-label="PreçoCerto — página inicial"
-      onKeyDown={(e) => e.key === 'Enter' && (window.location.href = "/")}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          if (onClick) onClick();
+          window.location.href = "/";
+        }
+      }}
     >
       <img 
         className="brand__logo-img"

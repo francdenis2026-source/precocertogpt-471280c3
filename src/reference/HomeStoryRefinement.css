@@ -1,351 +1,131 @@
-/* Narrativa visual da homepage: fotografia discreta e recibo de economia realista. */
-.ref-economy {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: #061a2a;
-  padding: 42px 0;
+/* Homepage story art direction — imagery remains editorial; UI values come from Design System 2.0. */
+.ref-economy,
+.ref-local{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
 }
 
-.ref-economy::before {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  background: url('/economia-recibo-bg-v1.webp') 58% 50% / cover no-repeat;
-  opacity: .38;
+/* Economy story */
+.ref-economy{
+  padding:clamp(36px,5vw,52px) 0;
+  border-block:1px solid color-mix(in srgb,var(--pc-border) 72%,transparent);
+  background:var(--pc-surface-soft);
+  color:var(--pc-ink);
+}
+.ref-economy::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  inset:0;
+  background:url('/economia-recibo-bg-v1.webp') 62% 50%/cover no-repeat;
+  opacity:.82;
+  filter:saturate(1.05) contrast(1.05);
+}
+.ref-economy::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:linear-gradient(90deg,
+    color-mix(in srgb,var(--pc-canvas) 98%,transparent) 0%,
+    color-mix(in srgb,var(--pc-canvas) 95%,transparent) 30%,
+    color-mix(in srgb,var(--pc-canvas) 76%,transparent) 46%,
+    color-mix(in srgb,var(--pc-canvas) 24%,transparent) 63%,
+    color-mix(in srgb,var(--pc-navy) 9%,transparent) 100%);
+}
+.ref-economy__grid{gap:clamp(32px,5vw,68px);align-items:center}
+.ref-economy__grid>div:first-child{position:relative;z-index:1;max-width:620px}
+.ref-economy__grid>div:first-child::before{
+  content:"ECONOMIA NA VIDA REAL";
+  display:block;
+  width:fit-content;
+  margin-bottom:10px;
+  color:var(--pc-green);
+  font-size:var(--pc-text-xs);
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.ref-economy h2{max-width:13ch;margin-top:0;color:var(--pc-ink);text-wrap:balance;text-shadow:0 1px 0 color-mix(in srgb,var(--pc-surface) 72%,transparent)}
+.ref-economy p{max-width:570px;color:var(--pc-muted);font-size:var(--pc-text-body);line-height:var(--pc-leading-body);font-weight:540}
+.ref-economy__signals{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.ref-economy__signals span{min-height:32px;display:flex;align-items:center;gap:6px;padding:0 10px;border:1px solid color-mix(in srgb,var(--pc-border) 82%,transparent);border-radius:999px;background:color-mix(in srgb,var(--pc-surface) 78%,transparent);color:var(--pc-ink);font-size:var(--pc-text-sm);font-weight:700;box-shadow:0 1px 0 color-mix(in srgb,var(--pc-surface) 88%,transparent)}
+.ref-economy__signals svg{width:14px;color:var(--pc-green)}
+.ref-economy__signals+a{margin-top:16px}
+
+/* Receipt keeps a paper identity on both themes because it represents a physical receipt. */
+.ref-receipt{
+  position:relative;
+  width:min(326px,100%);
+  padding:17px 18px 16px;
+  border:1px solid rgba(255,255,255,.82);
+  border-radius:4px 4px 2px 2px;
+  background:linear-gradient(180deg,#fffef9,#f5f1e6);
+  color:#132534;
+  box-shadow:var(--pc-shadow-lg),6px 8px 0 rgba(3,15,25,.20);
+  font-variant-numeric:tabular-nums;
+  transform:rotate(.25deg);
+}
+.ref-receipt::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.14;background-image:repeating-linear-gradient(0deg,transparent 0 3px,rgba(7,27,45,.035) 3px 4px);mix-blend-mode:multiply}
+.ref-receipt::after{content:"";position:absolute;right:0;bottom:-10px;left:0;height:18px;background:linear-gradient(135deg,transparent 9px,#f5f1e6 0) 0 0/18px 18px repeat-x}
+.ref-receipt__top{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:9px;border-bottom:2px solid #152a38}
+.ref-receipt__top>div{display:grid;gap:2px}
+.ref-receipt__top strong{color:#071b2d;font-family:"Outfit Variable",Outfit,sans-serif;font-size:15px;letter-spacing:-.025em}
+.ref-receipt__top strong span{color:#2f8a4d}
+.ref-receipt__top small,.ref-receipt__meta,.ref-receipt__item small,.ref-receipt__total small,.ref-receipt__note small{color:#586771;font-size:11px;line-height:1.35}
+.ref-receipt__top>span{padding:4px 6px;border:1px solid #9aa59f;border-radius:4px;color:#315e42;font-size:11px;font-weight:850;letter-spacing:.08em}
+.ref-receipt__meta,.ref-receipt__summary>div{display:flex;justify-content:space-between;gap:12px}
+.ref-receipt__meta{padding:7px 0;border-bottom:1px dashed #a9aaa2}
+.ref-receipt__item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:7px 0 6px;border-bottom:1px dashed #c1c0b7}
+.ref-receipt__item>div{display:grid;gap:2px;min-width:0}
+.ref-receipt__item span{color:#172a38;font-size:12px;font-weight:760;line-height:1.3}
+.ref-receipt__item strong{color:#0e2230;font-size:13px}
+.ref-receipt__item em{grid-column:1/-1;width:fit-content;margin-top:1px;color:#24663b;font-size:11px;font-style:normal;font-weight:780}
+.ref-receipt__summary{padding:8px 0;border-bottom:2px solid #152a38}
+.ref-receipt__summary span{color:#53626c;font-size:11px}
+.ref-receipt__summary strong{color:#263844;font-size:12px}
+.ref-receipt__total{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 0 8px}
+.ref-receipt__total>div{display:grid;gap:2px}
+.ref-receipt__total span{color:#132534;font-size:13px;font-weight:850}
+.ref-receipt__total strong{color:#156532;font-family:"Outfit Variable",Outfit,sans-serif;font-size:24px;line-height:1;letter-spacing:-.03em}
+.ref-receipt__note{display:flex;align-items:center;gap:7px;padding-top:8px;border-top:1px dashed #a9aaa2}
+.ref-receipt__note>svg{width:16px;color:#19733a}
+.ref-receipt__note>span{display:grid;color:#263844;font-size:11px;font-weight:750}
+
+/* Local commerce story */
+.ref-local{min-height:350px;border-block:1px solid color-mix(in srgb,var(--pc-border) 74%,transparent);background:var(--pc-surface-soft)}
+.ref-local::before{content:"";position:absolute;z-index:-2;inset:0;background:url('/mercado-bairro-feijo-v1.webp') 70% 48%/cover no-repeat;filter:saturate(1.08) contrast(1.06) brightness(.97);transform:scale(1.01)}
+.ref-local::after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,
+  color-mix(in srgb,var(--pc-canvas) 99%,transparent) 0%,
+  color-mix(in srgb,var(--pc-canvas) 97%,transparent) 30%,
+  color-mix(in srgb,var(--pc-canvas) 84%,transparent) 42%,
+  color-mix(in srgb,var(--pc-canvas) 38%,transparent) 55%,
+  color-mix(in srgb,var(--pc-canvas) 9%,transparent) 69%,
+  color-mix(in srgb,var(--pc-navy) 8%,transparent) 100%)}
+.ref-local__inner{min-height:350px;display:flex;align-items:center;justify-content:space-between;gap:48px;padding-block:52px}
+.ref-local__inner>div:first-child{max-width:590px}
+.ref-local h2{color:var(--pc-ink);text-shadow:0 1px 0 color-mix(in srgb,var(--pc-surface) 58%,transparent)}
+.ref-local p{max-width:510px;color:var(--pc-muted);font-size:var(--pc-text-body);line-height:var(--pc-leading-body)}
+.ref-local__actions{padding:12px;border:1px solid color-mix(in srgb,var(--pc-border) 76%,transparent);border-radius:var(--pc-radius-card);background:color-mix(in srgb,var(--pc-surface) 88%,transparent);box-shadow:var(--pc-shadow-lg);backdrop-filter:blur(12px) saturate(120%)}
+.ref-local__actions a{border-color:var(--pc-border);background:color-mix(in srgb,var(--pc-surface) 94%,transparent);color:var(--pc-ink);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background-color .18s ease}
+.ref-local__actions a svg:first-child{background:var(--pc-green-soft);color:var(--pc-green)}
+
+@media(hover:hover) and (pointer:fine){
+  .ref-local__actions a:hover{transform:translateX(2px);border-color:color-mix(in srgb,var(--pc-green) 42%,var(--pc-border));background:var(--pc-surface);box-shadow:var(--pc-shadow-sm)}
 }
 
-.ref-economy::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(5,24,40,.98) 0%, rgba(5,24,40,.94) 42%, rgba(5,24,40,.76) 72%, rgba(5,24,40,.84) 100%);
+@media(max-width:680px){
+  .ref-economy{padding:32px 0}
+  .ref-economy::before{background-position:70% 50%;opacity:.58}
+  .ref-economy::after{background:linear-gradient(180deg,color-mix(in srgb,var(--pc-canvas) 97%,transparent) 0%,color-mix(in srgb,var(--pc-canvas) 88%,transparent) 56%,color-mix(in srgb,var(--pc-canvas) 66%,transparent) 100%)}
+  .ref-economy__grid{gap:24px}
+  .ref-receipt{width:min(310px,100%);padding:15px 16px;transform:none}
+  .ref-receipt__total strong{font-size:22px}
+  .ref-local{min-height:430px}
+  .ref-local::before{background-position:64% 50%}
+  .ref-local::after{background:linear-gradient(180deg,color-mix(in srgb,var(--pc-canvas) 98%,transparent) 0%,color-mix(in srgb,var(--pc-canvas) 92%,transparent) 34%,color-mix(in srgb,var(--pc-canvas) 48%,transparent) 62%,color-mix(in srgb,var(--pc-navy) 18%,transparent) 100%)}
+  .ref-local__inner{min-height:430px;align-items:flex-start;flex-direction:column;justify-content:center;gap:22px;padding-block:40px 64px}
+  .ref-local__actions{width:100%}
 }
 
-.ref-economy__grid { gap: clamp(40px, 6vw, 78px); }
-.ref-economy h2 { text-wrap: balance; text-shadow: 0 2px 20px rgba(0,0,0,.24); }
-.ref-economy p { color: #d2dce1; }
-.ref-economy__signals { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 17px; }
-.ref-economy__signals span { min-height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 10px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; background: rgba(255,255,255,.07); color: #dce6ea; font-size: .75rem; font-weight: 700; }
-.ref-economy__signals svg { width: 13px; color: #e0aa50; }
-.ref-economy__signals + a { margin-top: 16px; }
-
-.ref-receipt {
-  width: min(320px, 100%);
-  padding: 15px 17px 14px;
-  border: 1px solid rgba(255,255,255,.72);
-  border-radius: 3px 3px 1px 1px;
-  background: linear-gradient(180deg, rgba(255,254,249,.985), rgba(246,242,231,.985));
-  color: #132534;
-  box-shadow: 0 18px 44px rgba(0,0,0,.30), 6px 8px 0 rgba(3,15,25,.28);
-  font-variant-numeric: tabular-nums;
-  transform: rotate(.35deg);
-}
-
-.ref-receipt::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .18;
-  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(7,27,45,.035) 3px 4px);
-  mix-blend-mode: multiply;
-}
-
-.ref-receipt::after {
-  bottom: -10px;
-  height: 18px;
-  background: linear-gradient(135deg, transparent 9px, #f6f2e7 0) 0 0 / 18px 18px repeat-x;
-}
-
-.ref-receipt__top {
-  position: relative;
-  align-items: flex-start;
-  padding-bottom: 9px;
-  border-bottom: 2px solid #152a38;
-}
-
-.ref-receipt__top > div { display: grid; gap: 2px; }
-.ref-receipt__top strong { color: #071b2d; font-family: "Outfit Variable", Outfit, sans-serif; font-size: .9375rem; letter-spacing: -.025em; }
-.ref-receipt__top strong span { color: #2f8a4d; }
-.ref-receipt__top small { color: #52616b; font-size: .625rem; font-weight: 650; }
-.ref-receipt__top > span { padding: 4px 6px; border: 1px solid #9aa59f; border-radius: 3px; color: #315e42; font-size: .5625rem; font-weight: 850; letter-spacing: .1em; }
-
-.ref-receipt__meta,
-.ref-receipt__summary > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.ref-receipt__meta { padding: 7px 0; border-bottom: 1px dashed #a9aaa2; color: #53626c; font-size: .625rem; }
-
-.ref-receipt__item {
-  position: relative;
-  grid-template-columns: minmax(0,1fr) auto;
-  gap: 2px 12px;
-  padding: 6px 0 5px;
-  border-bottom-color: #c1c0b7;
-}
-
-.ref-receipt__item > div { display: grid; gap: 2px; min-width: 0; }
-.ref-receipt__item span { color: #172a38; font-size: .75rem; font-weight: 760; line-height: 1.25; }
-.ref-receipt__item strong { color: #0e2230; font-size: .8125rem; }
-.ref-receipt__item small { grid-column: auto; color: #53626c; font-size: .625rem; }
-.ref-receipt__item em { grid-column: 1 / -1; width: fit-content; margin-top: 1px; color: #24663b; font-size: .5625rem; font-style: normal; font-weight: 780; }
-
-.ref-receipt__summary { padding: 7px 0; border-bottom: 2px solid #152a38; }
-.ref-receipt__summary > div + div { margin-top: 4px; }
-.ref-receipt__summary span { color: #53626c; font-size: .6875rem; }
-.ref-receipt__summary strong { color: #263844; font-size: .75rem; }
-
-.ref-receipt__total { align-items: center; padding: 8px 0 7px; }
-.ref-receipt__total > div { display: grid; gap: 2px; }
-.ref-receipt__total span { color: #132534; font-size: .8125rem; font-weight: 850; }
-.ref-receipt__total small { color: #53626c; font-size: .625rem; }
-.ref-receipt__total strong { color: #156532; font-family: "Outfit Variable", Outfit, sans-serif; font-size: 1.5rem; line-height: 1; letter-spacing: -.03em; }
-
-.ref-receipt__note { display: flex; align-items: center; gap: 7px; padding-top: 7px; border-top: 1px dashed #a9aaa2; }
-.ref-receipt__note > svg { width: 16px; color: #19733a; }
-.ref-receipt__note > span { display: grid; color: #263844; font-size: .6875rem; font-weight: 750; }
-.ref-receipt__note small { color: #64717a; font-size: .625rem; font-weight: 500; }
-
-.ref-local {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: 350px;
-  padding: 0;
-  background: #f3f0e8;
-}
-
-.ref-local::before {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  background: url('/mercado-bairro-feijo-v1.webp') 72% 50% / cover no-repeat;
-}
-
-.ref-local::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(247,245,239,.99) 0%, rgba(247,245,239,.97) 38%, rgba(247,245,239,.72) 60%, rgba(247,245,239,.20) 100%);
-}
-
-.ref-local__inner { min-height: 350px; display: flex; align-items: center; justify-content: space-between; gap: 48px; padding-block: 52px; }
-.ref-local__inner > div:first-child { max-width: 590px; }
-.ref-local p { max-width: 510px; color: #435562; }
-.ref-local__actions { padding: 12px; border: 1px solid rgba(255,255,255,.7); border-radius: 10px; background: rgba(255,255,255,.80); box-shadow: 0 18px 50px rgba(7,27,45,.14); backdrop-filter: blur(12px); }
-.ref-local__actions a { border-color: #d4d0c6; background: rgba(255,255,255,.93); }
-
-@media (max-width: 680px) {
-  .ref-economy::before { background-position: 70% 50%; opacity: .25; }
-  .ref-economy::after { background: rgba(5,24,40,.9); }
-  .ref-economy { padding: 38px 0; }
-  .ref-receipt { width: min(310px, 100%); padding: 14px 15px; transform: none; }
-  .ref-receipt__total strong { font-size: 1.375rem; }
-  .ref-local { min-height: 480px; }
-  .ref-local::before { background-position: 62% 50%; }
-  .ref-local::after { background: linear-gradient(180deg, rgba(247,245,239,.98) 0%, rgba(247,245,239,.94) 55%, rgba(247,245,239,.72) 100%); }
-  .ref-local__inner { min-height: 480px; align-items: flex-start; flex-direction: column; justify-content: center; gap: 24px; padding-block: 46px 72px; }
-  .ref-local__actions { width: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ref-receipt { transform: none; }
-}
-
-
-/* Direção de arte — protagonismo fotográfico e contraste no tema claro */
-html:not([data-theme="dark"]) .ref-local {
-  border-block: 1px solid rgba(8,42,69,.12);
-  background: #e8e5dc;
-}
-
-html:not([data-theme="dark"]) .ref-local::before {
-  background-position: 70% 48%;
-  filter: saturate(1.12) contrast(1.08) brightness(.96);
-  transform: scale(1.012);
-}
-
-html:not([data-theme="dark"]) .ref-local::after {
-  background:
-    linear-gradient(90deg,
-      rgba(247,245,239,.99) 0%,
-      rgba(247,245,239,.97) 30%,
-      rgba(247,245,239,.86) 41%,
-      rgba(247,245,239,.38) 54%,
-      rgba(247,245,239,.08) 68%,
-      rgba(7,27,45,.08) 100%),
-    linear-gradient(0deg, rgba(7,27,45,.12), transparent 52%);
-}
-
-html:not([data-theme="dark"]) .ref-local h2 {
-  color: #0b2233;
-  text-shadow: 0 1px 0 rgba(255,255,255,.55);
-}
-
-html:not([data-theme="dark"]) .ref-local p {
-  color: #344c5b;
-}
-
-html:not([data-theme="dark"]) .ref-local__actions {
-  border-color: rgba(255,255,255,.88);
-  background: rgba(250,251,249,.88);
-  box-shadow: 0 22px 54px rgba(7,27,45,.22), 0 2px 8px rgba(7,27,45,.10);
-  backdrop-filter: blur(14px) saturate(135%);
-}
-
-html:not([data-theme="dark"]) .ref-local__actions a {
-  border-color: #c8d1d3;
-  background: rgba(255,255,255,.95);
-  color: #102738;
-  box-shadow: 0 1px 0 rgba(255,255,255,.9);
-  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
-}
-
-html:not([data-theme="dark"]) .ref-local__actions a svg:first-child {
-  background: #edf3ef;
-  color: #16763d;
-}
-
-@media (hover:hover) and (pointer:fine) {
-  html:not([data-theme="dark"]) .ref-local__actions a:hover {
-    transform: translateX(3px);
-    border-color: #77958a;
-    background: #fff;
-    box-shadow: 0 8px 22px rgba(7,27,45,.12);
-  }
-}
-
-@media (max-width:680px) {
-  html:not([data-theme="dark"]) .ref-local::before {
-    background-position: 64% 50%;
-  }
-
-  html:not([data-theme="dark"]) .ref-local::after {
-    background: linear-gradient(180deg,
-      rgba(247,245,239,.98) 0%,
-      rgba(247,245,239,.92) 34%,
-      rgba(247,245,239,.48) 60%,
-      rgba(7,27,45,.18) 100%);
-  }
-
-  html:not([data-theme="dark"]) .ref-local__actions {
-    background: rgba(250,251,249,.92);
-  }
-}
-
-
-/* Remodelagem editorial da faixa de economia — tema claro */
-html:not([data-theme="dark"]) .ref-economy {
-  border-block: 1px solid rgba(8,42,69,.14);
-  background: #e9e5da;
-  color: #0b2233;
-}
-
-html:not([data-theme="dark"]) .ref-economy::before {
-  opacity: .88;
-  background-position: 62% 50%;
-  filter: saturate(1.08) contrast(1.07) brightness(.98);
-  transform: scale(1.01);
-}
-
-html:not([data-theme="dark"]) .ref-economy::after {
-  background:
-    linear-gradient(90deg,
-      rgba(247,244,236,.99) 0%,
-      rgba(247,244,236,.96) 31%,
-      rgba(247,244,236,.76) 45%,
-      rgba(247,244,236,.24) 61%,
-      rgba(7,27,45,.08) 100%),
-    linear-gradient(0deg, rgba(7,27,45,.14), transparent 46%);
-}
-
-.ref-economy__grid > div:first-child {
-  position: relative;
-  z-index: 1;
-  max-width: 620px;
-}
-
-html:not([data-theme="dark"]) .ref-economy__grid > div:first-child::before {
-  content: "ECONOMIA NA VIDA REAL";
-  display: block;
-  width: fit-content;
-  margin-bottom: 10px;
-  color: #176d3d;
-  font-size: .625rem;
-  font-weight: 900;
-  letter-spacing: .15em;
-}
-
-html:not([data-theme="dark"]) .ref-economy h2 {
-  max-width: 13ch;
-  margin-top: 0;
-  color: #0b2233;
-  text-shadow: 0 1px 0 rgba(255,255,255,.7);
-}
-
-html:not([data-theme="dark"]) .ref-economy p {
-  max-width: 570px;
-  color: #344d5c;
-  font-weight: 540;
-}
-
-html:not([data-theme="dark"]) .ref-economy__signals span {
-  border-color: rgba(8,42,69,.20);
-  background: rgba(255,255,255,.72);
-  color: #173344;
-  box-shadow: 0 1px 0 rgba(255,255,255,.8);
-  backdrop-filter: blur(8px);
-}
-
-html:not([data-theme="dark"]) .ref-economy__signals svg {
-  color: #16733e;
-}
-
-html:not([data-theme="dark"]) .ref-economy__grid > div > a {
-  border: 1px solid #0a3854;
-  background: #0b3049;
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(7,27,45,.18);
-  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
-}
-
-html:not([data-theme="dark"]) .ref-receipt {
-  border-color: rgba(255,255,255,.92);
-  box-shadow: 0 24px 58px rgba(7,27,45,.26), 5px 7px 0 rgba(7,27,45,.13);
-  transform: rotate(-.25deg);
-}
-
-@media (hover:hover) and (pointer:fine) {
-  html:not([data-theme="dark"]) .ref-economy__grid > div > a:hover {
-    transform: translateY(-2px);
-    background: #125171;
-    box-shadow: 0 14px 30px rgba(7,27,45,.24);
-  }
-}
-
-@media (max-width:680px) {
-  html:not([data-theme="dark"]) .ref-economy::before {
-    opacity: .64;
-    background-position: 68% 50%;
-  }
-
-  html:not([data-theme="dark"]) .ref-economy::after {
-    background: linear-gradient(180deg,
-      rgba(247,244,236,.98) 0%,
-      rgba(247,244,236,.92) 40%,
-      rgba(247,244,236,.58) 66%,
-      rgba(7,27,45,.16) 100%);
-  }
-
-  html:not([data-theme="dark"]) .ref-economy h2 {
-    max-width: 12ch;
-  }
-}
+@media(prefers-reduced-motion:reduce){.ref-receipt{transform:none}.ref-local::before{transform:none}}

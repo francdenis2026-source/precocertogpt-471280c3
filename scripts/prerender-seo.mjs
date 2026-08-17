@@ -31,6 +31,10 @@ const nav = [
 const esc = (v='') => String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const xml = (v='') => esc(v).replace(/'/g,'&apos;');
 const absolute = p => `${BASE}${p === '/' ? '/' : p}`;
+const meaningful = value => {
+  const text = String(value ?? '').trim();
+  return text && !['-', '--', 'n/a', 'na', 'null', 'undefined'].includes(text.toLowerCase()) ? text : '';
+};
 
 function replaceMeta(html, {pathname,title,description,h1,image='/og.png',jsonLd}) {
   const canonical = absolute(pathname);
@@ -77,22 +81,25 @@ async function rest(table, select, limit=5000) {
 const sitemapPaths = routes.map(([pathname])=>pathname);
 const products = await rest('products','id,name,brand,category,size,unit,slug,image_url',10000);
 for (const p of products) {
-  const identifier = p.slug || p.id; if(!identifier || !p.name) continue;
+  const identifier = meaningful(p.slug) || p.id; if(!identifier || !meaningful(p.name)) continue;
+  const name = meaningful(p.name);
+  const brand = meaningful(p.brand); const size = meaningful(p.size); const unit = meaningful(p.unit); const category = meaningful(p.category);
   const pathname = `/produto/${encodeURIComponent(identifier)}`;
-  const detail = [p.brand,p.size,p.unit,p.category].filter(Boolean).join(' · ');
-  const description = `${p.name}${detail ? ` — ${detail}` : ''}. Compare preços e disponibilidade no comércio local de Feijó (AC).`;
-  const schema = {'@context':'https://schema.org','@type':'Product',name:p.name,brand:p.brand?{'@type':'Brand',name:p.brand}:undefined,category:p.category||undefined,image:p.image_url||undefined,url:absolute(pathname),description};
-  await writeRoute(pathname, replaceMeta(template,{pathname,title:`${p.name} | PreçoCerto`,description,h1:p.name,image:p.image_url||'/og.png',jsonLd:schema}));
+  const detail = [brand,size,unit,category].filter(Boolean).join(' · ');
+  const description = `${name}${detail ? ` — ${detail}` : ''}. Compare preços e disponibilidade no comércio local de Feijó (AC).`;
+  const schema = {'@context':'https://schema.org','@type':'Product',name,brand:brand?{'@type':'Brand',name:brand}:undefined,category:category||undefined,image:meaningful(p.image_url)||undefined,url:absolute(pathname),description};
+  await writeRoute(pathname, replaceMeta(template,{pathname,title:`${name} | PreçoCerto`,description,h1:name,image:meaningful(p.image_url)||'/og.png',jsonLd:schema}));
   sitemapPaths.push(pathname);
 }
 
 const stores = await rest('establishments','id,name,slug,kind,neighborhood,short_description,logo_url,is_demo',5000);
 for (const s of stores) {
-  const identifier = s.slug || s.id; if(!identifier || !s.name || s.is_demo) continue;
+  const identifier = meaningful(s.slug) || s.id; const name=meaningful(s.name); if(!identifier || !name || s.is_demo) continue;
   const pathname = `/estabelecimento/${encodeURIComponent(identifier)}`;
-  const description = s.short_description || `${s.name}${s.neighborhood?` em ${s.neighborhood}`:''}. Consulte catálogo, produtos e preços no PreçoCerto.`;
-  const schema = {'@context':'https://schema.org','@type':'Store',name:s.name,url:absolute(pathname),description,image:s.logo_url||undefined,address:s.neighborhood?{'@type':'PostalAddress',addressLocality:'Feijó',addressRegion:'AC',addressCountry:'BR',addressDistrict:s.neighborhood}:undefined};
-  await writeRoute(pathname, replaceMeta(template,{pathname,title:`${s.name} | PreçoCerto`,description,h1:s.name,image:s.logo_url||'/og.png',jsonLd:schema}));
+  const neighborhood=meaningful(s.neighborhood); const customDescription=meaningful(s.short_description);
+  const description = customDescription || `${name}${neighborhood?` em ${neighborhood}`:''}. Consulte catálogo, produtos e preços no PreçoCerto.`;
+  const schema = {'@context':'https://schema.org','@type':'Store',name,url:absolute(pathname),description,image:meaningful(s.logo_url)||undefined,address:neighborhood?{'@type':'PostalAddress',addressLocality:'Feijó',addressRegion:'AC',addressCountry:'BR',addressDistrict:neighborhood}:undefined};
+  await writeRoute(pathname, replaceMeta(template,{pathname,title:`${name} | PreçoCerto`,description,h1:name,image:meaningful(s.logo_url)||'/og.png',jsonLd:schema}));
   sitemapPaths.push(pathname);
 }
 

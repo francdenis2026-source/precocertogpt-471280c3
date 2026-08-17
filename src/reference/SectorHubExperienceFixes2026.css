@@ -1,23 +1,18 @@
 /* Explore 2026 — parity with the public app shell, search and theme. */
 .sector-hub :is(a,h1,h2,h3,strong,small,span,p,em,b){text-decoration:none;text-decoration-line:none;text-decoration-thickness:0;font-synthesis:none}
 .sector-hub{background:var(--pc-canvas);color:var(--pc-ink)}
-
-/* Header follows the user's persisted theme instead of being permanently dark. */
 .sector-hub__top{background:color-mix(in srgb,var(--pc-surface) 96%,transparent);border-bottom:1px solid var(--pc-border-strong);box-shadow:0 7px 22px color-mix(in srgb,var(--pc-navy) 7%,transparent);backdrop-filter:blur(14px)}
 .sector-hub__brand .sector-hub__logo-light{display:block}.sector-hub__brand .sector-hub__logo-dark{display:none}
-.sector-hub__top nav a{color:var(--pc-ink)}
-.sector-hub__top nav a:hover{background:var(--pc-surface-2);color:var(--pc-green-strong)}
-.sector-hub__theme{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--pc-border);border-radius:10px;background:var(--pc-surface);color:var(--pc-ink);cursor:pointer}
-.sector-hub__theme svg{width:19px;height:19px}
+.sector-hub__top nav a{color:var(--pc-ink)}.sector-hub__top nav a:hover{background:var(--pc-surface-2);color:var(--pc-green-strong)}
+.sector-hub__theme{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--pc-border);border-radius:10px;background:var(--pc-surface);color:var(--pc-ink);cursor:pointer}.sector-hub__theme svg{width:19px;height:19px}
 
-/* Search: same interaction contract as the homepage, including suggestions. */
-.sector-hub__search-wrap{position:relative;z-index:5;max-width:740px;margin-top:24px}
-.sector-hub__hero form.sector-hub__search{position:relative;z-index:3;max-width:none;margin:0}
-.sector-hub__search-clear{min-width:42px!important;width:42px!important;padding:0!important;justify-content:center!important;background:transparent!important;color:#52656e!important}
-.sector-hub__search-clear svg{width:18px!important}
-.sector-hub__search-submit{white-space:nowrap}
-/* Results are in normal flow: they never cover hero copy, actions or adjacent content. */
-.sector-hub__search-results{position:relative;z-index:2;top:auto;left:auto;right:auto;width:100%;max-height:390px;margin-top:8px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;border:1px solid var(--pc-border-strong);border-radius:14px;background:var(--pc-surface);color:var(--pc-ink);box-shadow:0 16px 42px rgba(2,18,28,.22);scrollbar-width:none}
+/* Desktop search is a persistent anchored panel; only the result list scrolls. */
+.sector-hub__hero{overflow:visible}
+.sector-hub__hero-grid,.sector-hub__hero-copy{position:relative;z-index:3}
+.sector-hub__search-wrap{position:relative;z-index:50;max-width:740px;margin-top:24px}
+.sector-hub__hero form.sector-hub__search{position:relative;z-index:52;max-width:none;margin:0}
+.sector-hub__search-clear{min-width:42px!important;width:42px!important;padding:0!important;justify-content:center!important;background:transparent!important;color:#52656e!important}.sector-hub__search-clear svg{width:18px!important}.sector-hub__search-submit{white-space:nowrap}
+.sector-hub__search-results{position:absolute;z-index:51;top:calc(100% + 8px);left:0;right:0;width:100%;max-height:min(52vh,430px);margin:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;border:1px solid var(--pc-border-strong);border-radius:14px;background:var(--pc-surface);color:var(--pc-ink);box-shadow:0 26px 70px rgba(2,18,28,.34);scrollbar-width:none}
 .sector-hub__search-results::-webkit-scrollbar{display:none;width:0;height:0}
 .sector-hub__search-results>header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border-bottom:1px solid var(--pc-border);background:var(--pc-surface-2)}
 .sector-hub__search-results>header span{font-size:11px;font-weight:850;color:var(--pc-muted);letter-spacing:.04em}.sector-hub__search-results>header small{font-size:10px;color:var(--pc-muted)}
@@ -26,30 +21,18 @@
 .sector-hub__search-results a>i{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--pc-surface-2);color:var(--pc-green-strong)}.sector-hub__search-results a>i svg{width:18px}
 .sector-hub__search-results a>span{min-width:0;display:grid;gap:2px}.sector-hub__search-results a strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;line-height:1.25}.sector-hub__search-results a small{color:var(--pc-muted);font-size:11px}.sector-hub__search-results a>b{color:var(--pc-green-strong);font-size:12px;white-space:nowrap}
 .sector-hub__search-empty{padding:15px!important;display:flex!important;gap:10px!important;color:var(--pc-muted)!important}.sector-hub__search-empty svg{width:19px}
-.sector-hub__search-wrap:has(.sector-hub__search-results)+.sector-hub__hero-actions{margin-top:12px}
 
-/* Refined type hierarchy. Removes the aggressive display treatment that looked struck/underlined. */
 .sector-hub__section-head span,.sector-hub__tools-copy>span,.sector-hub__stores header span{display:block;color:var(--pc-green-strong);font-family:var(--pc-font-body);font-size:11px;font-weight:800;letter-spacing:.075em;text-transform:none}
 .sector-hub__section-head h2,.sector-hub__tools h2,.sector-hub__stores h2{margin-top:7px;font-family:var(--pc-font-display);font-size:clamp(1.85rem,3vw,2.55rem);font-weight:720;line-height:1.06;letter-spacing:-.025em;text-decoration:none!important}
-.sector-hub__section-head p{font-size:15px;line-height:1.65}
-.sector-hub__sector-copy>small{font-size:10px;font-weight:800;letter-spacing:.055em;text-transform:none}.sector-hub__sector-copy>strong{font-family:var(--pc-font-body);font-size:18px;font-weight:780;line-height:1.24;letter-spacing:-.012em}.sector-hub__sector-copy>p{font-size:13px;line-height:1.55}
-.sector-hub__store-grid strong{font-size:14px;font-weight:780;line-height:1.25}.sector-hub__store-grid small,.sector-hub__store-grid em{font-size:11px;line-height:1.35}
-
-/* Sponsored inventory is opt-in and visibly disclosed. Organic cards remain neutral. */
+.sector-hub__section-head p{font-size:15px;line-height:1.65}.sector-hub__sector-copy>small{font-size:10px;font-weight:800;letter-spacing:.055em;text-transform:none}.sector-hub__sector-copy>strong{font-family:var(--pc-font-body);font-size:18px;font-weight:780;line-height:1.24;letter-spacing:-.012em}.sector-hub__sector-copy>p{font-size:13px;line-height:1.55}.sector-hub__store-grid strong{font-size:14px;font-weight:780;line-height:1.25}.sector-hub__store-grid small,.sector-hub__store-grid em{font-size:11px;line-height:1.35}
 .sector-hub__store-grid>a.is-sponsored{position:relative;border-color:color-mix(in srgb,var(--pc-gold) 58%,var(--pc-border));background:linear-gradient(145deg,color-mix(in srgb,var(--pc-gold-soft) 58%,var(--pc-surface)),var(--pc-surface) 62%);box-shadow:0 12px 30px color-mix(in srgb,var(--pc-gold) 11%,transparent)}
-.sector-hub__sponsor-badge{position:absolute;top:8px;right:8px;display:inline-flex!important;align-items:center;gap:4px!important;width:auto!important;padding:4px 7px!important;border:1px solid color-mix(in srgb,var(--pc-gold) 42%,var(--pc-border));border-radius:999px;background:var(--pc-surface)!important;color:var(--pc-gold)!important;font-size:9px!important;font-style:normal!important;font-weight:850!important;letter-spacing:.04em!important;text-transform:none!important}
-.sector-hub__sponsor-badge svg{width:11px!important;height:11px!important}
-.sector-hub__sponsor-note{display:flex;align-items:flex-start;gap:7px;margin:9px 0 0;color:var(--pc-muted);font-size:10.5px;line-height:1.45}.sector-hub__sponsor-note svg{flex:0 0 auto;width:14px;color:var(--pc-gold)}
-
-html[data-theme="dark"] .sector-hub__top{background:color-mix(in srgb,var(--pc-surface) 97%,transparent)}
-html[data-theme="dark"] .sector-hub__brand .sector-hub__logo-light{display:none}html[data-theme="dark"] .sector-hub__brand .sector-hub__logo-dark{display:block}
-html[data-theme="dark"] .sector-hub__hero form.sector-hub__search{background:var(--pc-surface)}
-html[data-theme="dark"] .sector-hub__hero form.sector-hub__search input{color:var(--pc-ink)}html[data-theme="dark"] .sector-hub__hero form.sector-hub__search input::placeholder{color:var(--pc-muted)}
-html[data-theme="dark"] .sector-hub__search-clear{color:var(--pc-muted)!important}
+.sector-hub__sponsor-badge{position:absolute;top:8px;right:8px;display:inline-flex!important;align-items:center;gap:4px!important;width:auto!important;padding:4px 7px!important;border:1px solid color-mix(in srgb,var(--pc-gold) 42%,var(--pc-border));border-radius:999px;background:var(--pc-surface)!important;color:var(--pc-gold)!important;font-size:9px!important;font-style:normal!important;font-weight:850!important;letter-spacing:.04em!important;text-transform:none!important}.sector-hub__sponsor-badge svg{width:11px!important;height:11px!important}.sector-hub__sponsor-note{display:flex;align-items:flex-start;gap:7px;margin:9px 0 0;color:var(--pc-muted);font-size:10.5px;line-height:1.45}.sector-hub__sponsor-note svg{flex:0 0 auto;width:14px;color:var(--pc-gold)}
+html[data-theme="dark"] .sector-hub__top{background:color-mix(in srgb,var(--pc-surface) 97%,transparent)}html[data-theme="dark"] .sector-hub__brand .sector-hub__logo-light{display:none}html[data-theme="dark"] .sector-hub__brand .sector-hub__logo-dark{display:block}html[data-theme="dark"] .sector-hub__hero form.sector-hub__search{background:var(--pc-surface)}html[data-theme="dark"] .sector-hub__hero form.sector-hub__search input{color:var(--pc-ink)}html[data-theme="dark"] .sector-hub__hero form.sector-hub__search input::placeholder{color:var(--pc-muted)}html[data-theme="dark"] .sector-hub__search-clear{color:var(--pc-muted)!important}
 
 @media(max-width:680px){
+ .sector-hub__hero{overflow:hidden}
  .sector-hub__top>.sector-hub__shell{min-height:56px}.sector-hub__brand img{width:104px}.sector-hub__top nav{gap:3px}.sector-hub__top nav a{width:40px;height:40px;min-height:40px;justify-content:center;padding:0;font-size:0;border:1px solid var(--pc-border);background:var(--pc-surface)}.sector-hub__top nav svg{width:20px}.sector-hub__theme{width:40px;height:40px}
  .sector-hub__section-head{display:block}.sector-hub__section-head p{margin-top:10px;font-size:14px;line-height:1.55}.sector-hub__section-head h2,.sector-hub__tools h2,.sector-hub__stores h2{font-size:1.85rem;line-height:1.08}
  .sector-hub__hero form.sector-hub__search{grid-template-columns:24px minmax(0,1fr) auto;grid-template-rows:auto auto;gap:6px;padding:8px}.sector-hub__search-clear{grid-column:3;grid-row:1}.sector-hub__search-submit{grid-column:1/-1;grid-row:2;width:100%;justify-content:center}
- .sector-hub__search-results{max-height:min(42dvh,360px);margin-top:7px}.sector-hub__search-results a{grid-template-columns:36px minmax(0,1fr);padding:9px 10px}.sector-hub__search-results a>b{grid-column:2}.sector-hub__sector-copy>strong{font-size:17px}.sector-hub__store-grid strong{font-size:13px}
+ .sector-hub__search-results{position:relative;z-index:2;top:auto;left:auto;right:auto;max-height:min(42dvh,360px);margin-top:7px;box-shadow:0 16px 42px rgba(2,18,28,.22)}.sector-hub__search-results a{grid-template-columns:36px minmax(0,1fr);padding:9px 10px}.sector-hub__search-results a>b{grid-column:2}.sector-hub__sector-copy>strong{font-size:17px}.sector-hub__store-grid strong{font-size:13px}
 }

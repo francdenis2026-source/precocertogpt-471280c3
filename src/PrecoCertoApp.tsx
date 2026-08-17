@@ -532,7 +532,7 @@ function Header({ basketCount, favoritesCount, user, onLogout, products, favorit
   return <header className={headerClass} role="banner">
     <div className="shell header-inner">
       <div className="header-brand-zone">
-        <Brand compact className="header-logo-container" />
+        <Brand compact className="header-logo-container" onClick={() => localStorage.removeItem("precocerto:last_writer_store")} />
         <div className="header-location-wrapper">
           <button 
             type="button" 

@@ -7,9 +7,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
-
 permissions:
   contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -33,12 +33,15 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Validate build artifacts
         run: |
           ls -R dist/
           test -f dist/index.html
           test -d dist/social
+          test -f dist/explorar/index.html
+          test -f dist/estabelecimentos/index.html
 
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

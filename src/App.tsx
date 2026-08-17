@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { FooterDeveloperInfo } from "./components/FooterDeveloperInfo";
 import { ProductCardQuickActions } from "./components/ProductCardQuickActions";
+import { UserAccountHub, UserAccountPage } from "./components/UserAccountExperience";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import {
   ReferenceAdminDashboard,
@@ -45,6 +46,7 @@ export default function App() {
         <RouteFocusManager />
         <ProductCardQuickActions />
         <FooterDeveloperInfo />
+        <UserAccountHub />
         <Routes>
           <Route path="/" element={<ReferenceHome />} />
           <Route path="/buscar" element={<ReferenceSearchPage />} />
@@ -61,6 +63,7 @@ export default function App() {
           <Route path="/cesta" element={<ReferenceBasketPage />} />
           <Route path="/cesta-basica" element={<ReferenceBasketPage />} />
           <Route path="/favoritos" element={<ReferenceFavoritesPage />} />
+          <Route path="/minha-conta" element={<UserAccountPage />} />
           <Route path="/login" element={<ReferenceAuthPage mode="login" />} />
           <Route path="/cadastro" element={<ReferenceAuthPage mode="register" />} />
           <Route path="/registrar" element={<ReferenceAuthPage mode="register" />} />

@@ -3,7 +3,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://precocerto.live";
+const BASE_URL = "https://www.precocerto.live";
 
 interface SitemapEntry {
   path: string;
@@ -26,7 +26,6 @@ const entries: SitemapEntry[] = [
   { path: "/lojista", changefreq: "monthly", priority: "0.6" },
   { path: "/colaborar", changefreq: "monthly", priority: "0.5" },
   { path: "/fale-conosco", changefreq: "monthly", priority: "0.5" },
-  { path: "/favoritos", changefreq: "monthly", priority: "0.3" },
 ];
 
 function generateSitemap(list: SitemapEntry[]) {

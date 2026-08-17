@@ -5534,6 +5534,16 @@ export default function PrecoCertoApp() {
     setUndoAction(null);
   }
 
+  function addBasket(p: Product) {
+    // Persistir a loja de origem se for Dorinha Barroso
+    if (window.location.pathname === "/dorinha" || window.location.pathname === "/escritora") {
+      localStorage.setItem("pc:origin_store", "dorinha");
+      localStorage.setItem("pc:post_checkout_redirect", window.location.pathname);
+    }
+    setCart(current => [...current, { ...p, quantity: 1 }]);
+    setToast(`${p.name} adicionado à cesta.`);
+  }
+
   function removeBasket(id: number | string) {
     const itemToRemove = cart.find(i => String(i.id) === String(id));
     if (!itemToRemove) return;

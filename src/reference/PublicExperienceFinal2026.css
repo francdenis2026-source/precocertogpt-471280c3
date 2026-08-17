@@ -1,0 +1,17 @@
+/* Final public-surface cleanup: no decorative underlines/strikes, hidden scrollbars, reliable filter contrast. */
+:where(.ref-page,.sector-hub,.sector-page,.search26-page,.pdp-page) :is(a,h1,h2,h3,h4,strong,small,span,p,em,b,label,button){text-decoration:none!important;text-decoration-line:none!important;text-decoration-thickness:0!important;text-decoration-color:transparent!important}
+:where(.ref-page,.sector-hub,.sector-page,.search26-page,.pdp-page) a{text-decoration:none!important}
+
+/* Keep wheel/touch scrolling while removing visible browser rails on Explore and Establishments. */
+html:has(.sector-hub),body:has(.sector-hub),html:has(.ref-stores-page),body:has(.ref-stores-page){scrollbar-width:none!important;-ms-overflow-style:none!important}
+html:has(.sector-hub)::-webkit-scrollbar,body:has(.sector-hub)::-webkit-scrollbar,html:has(.ref-stores-page)::-webkit-scrollbar,body:has(.ref-stores-page)::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+.sector-hub,.ref-stores-page{overflow-x:clip!important}
+
+/* Search filters must remain readable in native select menus on both themes. */
+.search26-page{color-scheme:light}.search26-quick label{border-color:var(--pc-border-strong)!important;background:var(--pc-surface)!important}.search26-quick select,.search26-advanced select,.search26-advanced input{border:1px solid var(--pc-border-strong)!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;-webkit-text-fill-color:var(--pc-ink)!important;opacity:1!important}.search26-quick select{height:36px;padding:0 28px 0 8px;border-radius:8px!important}.search26-page select option{background:#fff!important;color:#10232c!important}.search26-page input::placeholder{color:color-mix(in srgb,var(--pc-muted) 88%,var(--pc-ink))!important;opacity:1}.search26-advanced label{color:var(--pc-ink)!important}.search26-filterbar>button:first-child{border-color:var(--pc-border-strong)!important;background:var(--pc-surface)!important}.search26-filterbar>button:first-child.is-active{background:var(--pc-green-soft)!important;color:var(--pc-ink)!important}.search26-reset{color:var(--pc-ink)!important}.search26-advanced footer button{background:var(--pc-navy)!important;color:#fff!important}
+html[data-theme="dark"] .search26-page{color-scheme:dark}html[data-theme="dark"] .search26-page select option{background:#102733!important;color:#f2f7f8!important}html[data-theme="dark"] .search26-quick label,html[data-theme="dark"] .search26-quick select,html[data-theme="dark"] .search26-advanced select,html[data-theme="dark"] .search26-advanced input{background:var(--pc-surface-2)!important;color:var(--pc-ink)!important;-webkit-text-fill-color:var(--pc-ink)!important}html[data-theme="dark"] .search26-advanced footer button{background:var(--pc-green)!important;color:#062319!important}
+
+/* Establishment directory keeps internal horizontal content constrained. */
+.ref-stores-page :is(.ref-stores-directory,.ref-store-cards,.ref-store-card,.ref-stores-toolbar){min-width:0;max-width:100%}.ref-stores-page{max-width:100vw}
+
+@media(max-width:680px){.search26-quick{scrollbar-width:none!important}.search26-quick::-webkit-scrollbar{display:none!important}.search26-quick select{max-width:210px}.search26-advanced select,.search26-advanced input{font-size:16px!important}}

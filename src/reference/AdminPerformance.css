@@ -1,0 +1,6 @@
+/* Performance containment for large administrative datasets. */
+.acw-product-grid>article,.acw-store-grid>article,.acw-gap-list>article,.acc-table tbody>tr{content-visibility:auto;contain-intrinsic-size:220px 300px}
+.acc-table tbody>tr{contain-intrinsic-size:44px 1000px}
+.acw-main,.acc-main{contain:layout style;min-height:100dvh}
+.acw-product-grid,.acw-store-grid,.acw-gap-list,.acc-table-wrap{contain:layout style}
+@media (prefers-reduced-motion:no-preference){.acw-main,.acc-main{scroll-behavior:smooth}}

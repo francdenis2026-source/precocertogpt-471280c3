@@ -1,0 +1,186 @@
+/* Mobile product search stability — persistent search, isolated overlay, no page reflow. */
+@media (max-width: 680px) {
+  .ref-home .ref-search {
+    position: relative;
+    z-index: 80;
+    width: 100%;
+    max-width: 100%;
+    transform: translateZ(0);
+    contain: layout paint;
+  }
+
+  /* When the search owns focus, promote it to an app-like persistent layer. */
+  .ref-home .ref-search:focus-within {
+    position: fixed !important;
+    top: calc(56px + env(safe-area-inset-top));
+    left: 12px;
+    right: 12px;
+    z-index: 220;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 5px 6px 5px 12px !important;
+    border: 1px solid color-mix(in srgb,#168657 38%,rgba(255,255,255,.28));
+    border-radius: 14px !important;
+    background: rgba(250,253,251,.985) !important;
+    box-shadow: 0 14px 44px rgba(3,22,34,.24),0 0 0 1px rgba(255,255,255,.4) inset;
+    backdrop-filter: blur(20px) saturate(145%);
+  }
+
+  .ref-home .ref-search:focus-within > svg {
+    color: #168657;
+  }
+
+  .ref-home .ref-search:focus-within input {
+    height: 46px !important;
+    min-width: 0;
+    color: #102736 !important;
+    caret-color: #168657;
+  }
+
+  .ref-home .ref-search:focus-within input::placeholder {
+    color: #71828b !important;
+  }
+
+  .ref-home .ref-search:focus-within .ref-search-clear {
+    display: grid !important;
+    place-items: center;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px;
+    border-radius: 10px !important;
+    color: #53666f;
+  }
+
+  /* Results are detached from document flow and never resize the page. */
+  .ref-home .ref-search-results {
+    position: fixed !important;
+    z-index: 215 !important;
+    top: calc(116px + env(safe-area-inset-top)) !important;
+    right: 12px !important;
+    bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+    left: 12px !important;
+    width: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    display: grid;
+    grid-template-rows: auto minmax(0,1fr) auto;
+    overflow: hidden !important;
+    border: 1px solid rgba(127,157,148,.28);
+    border-radius: 16px !important;
+    background: rgba(252,254,253,.99) !important;
+    color: #102736;
+    box-shadow: 0 22px 60px rgba(3,22,34,.28);
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .ref-home .ref-search-results__list {
+    min-height: 0;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  .ref-home .ref-search-results > header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    min-height: 42px;
+    padding: 10px 12px;
+    background: rgba(252,254,253,.98);
+    border-bottom: 1px solid rgba(127,157,148,.18);
+  }
+
+  .ref-home .ref-search-results__list > button {
+    min-height: 70px !important;
+    padding: 8px 10px !important;
+    background: transparent;
+  }
+
+  .ref-home .ref-search-results__list > button:active,
+  .ref-home .ref-search-results__list > button.is-keyboard-active {
+    background: #edf8f2 !important;
+  }
+
+  .ref-home .ref-search-results > footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    padding: 8px !important;
+    background: rgba(252,254,253,.985);
+    border-top: 1px solid rgba(127,157,148,.18);
+  }
+
+  .ref-home .ref-search-results > footer button {
+    min-height: 42px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Lock the background while the search overlay is active. Modern mobile browsers support :has(). */
+  html:has(.ref-home .ref-search:focus-within),
+  body:has(.ref-home .ref-search:focus-within) {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+  }
+
+  body:has(.ref-home .ref-search:focus-within) .ref-page > main,
+  body:has(.ref-home .ref-search:focus-within) .ref-dock {
+    overscroll-behavior: none;
+  }
+
+  /* Keep header visually stable and above the dimmed page, below the search field. */
+  body:has(.ref-home .ref-search:focus-within) .ref-header {
+    z-index: 219 !important;
+  }
+
+  /* A quiet backdrop improves focus without causing any layout shift. */
+  body:has(.ref-home .ref-search:focus-within)::after {
+    content: "";
+    position: fixed;
+    inset: calc(56px + env(safe-area-inset-top)) 0 0;
+    z-index: 205;
+    background: rgba(3,18,28,.38);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+  }
+
+  html[data-theme="dark"] .ref-home .ref-search:focus-within {
+    border-color: rgba(104,221,152,.34);
+    background: rgba(9,33,43,.985) !important;
+    box-shadow: 0 18px 50px rgba(0,0,0,.44);
+  }
+
+  html[data-theme="dark"] .ref-home .ref-search:focus-within input {
+    color: #edf8f3 !important;
+  }
+
+  html[data-theme="dark"] .ref-home .ref-search:focus-within input::placeholder {
+    color: #93aab2 !important;
+  }
+
+  html[data-theme="dark"] .ref-home .ref-search-results,
+  html[data-theme="dark"] .ref-home .ref-search-results > header,
+  html[data-theme="dark"] .ref-home .ref-search-results > footer {
+    background: rgba(8,29,39,.99) !important;
+    color: #edf8f3;
+    border-color: #294855;
+  }
+
+  html[data-theme="dark"] .ref-home .ref-search-results__list > button:active,
+  html[data-theme="dark"] .ref-home .ref-search-results__list > button.is-keyboard-active {
+    background: #10372c !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .ref-home .ref-search:focus-within { left: 8px; right: 8px; }
+  .ref-home .ref-search-results { left: 8px !important; right: 8px !important; }
+  .ref-home .ref-search-results__price strong { font-size: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-home .ref-search:focus-within,
+  .ref-home .ref-search-results { transition: none !important; }
+}

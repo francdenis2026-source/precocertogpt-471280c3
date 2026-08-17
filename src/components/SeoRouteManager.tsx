@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const BASE='https://www.precocerto.live';
+const INITIAL_PATH=typeof window!=='undefined'?window.location.pathname:'/';
+const INITIAL_TITLE=typeof document!=='undefined'?document.title:'';
+const INITIAL_DESCRIPTION=typeof document!=='undefined'?document.querySelector<HTMLMetaElement>('meta[name="description"]')?.content||'':'';
 const routeMeta:Record<string,{title:string;description:string;index?:boolean}>={
   '/':{title:'PreçoCerto | Compare preços e compre em Feijó (AC)',description:'Compare preços, descubra estabelecimentos e encontre opções de compra no comércio local de Feijó, Acre.'},
   '/buscar':{title:'Buscar produtos e preços em Feijó | PreçoCerto',description:'Pesquise produtos, compare preços e encontre onde comprar em Feijó (AC).'},
@@ -36,8 +39,10 @@ function upsertCanonical(url:string){let el=document.head.querySelector<HTMLLink
 export function SeoRouteManager(){const {pathname}=useLocation();useEffect(()=>{
   const privateRoute=pathname.startsWith('/admin')||pathname.startsWith('/painel-lojista');
   const product=pathname.startsWith('/produto/'); const store=pathname.startsWith('/estabelecimento/')||pathname.startsWith('/loja/');
+  const dynamic=product||store;
+  const initialDynamicPrerender=dynamic&&pathname===INITIAL_PATH&&INITIAL_TITLE&&INITIAL_TITLE!=='PreçoCerto | Compare preços e compre em Feijó (AC)';
   const culturalDorinha=pathname.startsWith('/autora/'); const culturalFremix=pathname.startsWith('/cultura/');
-  const meta=routeMeta[pathname] || (product?{title:'Produto | PreçoCerto',description:'Consulte informações, preços e disponibilidade deste produto no PreçoCerto.'}:store?{title:'Estabelecimento | PreçoCerto',description:'Consulte catálogo, produtos e preços deste estabelecimento no PreçoCerto.'}:culturalDorinha?routeMeta['/dorinha-barroso']:culturalFremix?routeMeta['/fremix-producoes']:{title:'PreçoCerto',description:'Marketplace local e comparação de preços em Feijó, Acre.'});
+  const meta=initialDynamicPrerender?{title:INITIAL_TITLE,description:INITIAL_DESCRIPTION}:(routeMeta[pathname] || (product?{title:'Produto | PreçoCerto',description:'Consulte informações, preços e disponibilidade deste produto no PreçoCerto.'}:store?{title:'Estabelecimento | PreçoCerto',description:'Consulte catálogo, produtos e preços deste estabelecimento no PreçoCerto.'}:culturalDorinha?routeMeta['/dorinha-barroso']:culturalFremix?routeMeta['/fremix-producoes']:{title:'PreçoCerto',description:'Marketplace local e comparação de preços em Feijó, Acre.'}));
   const canonical=`${BASE}${pathname==='/'?'/':pathname}`;
   document.title=meta.title; upsertCanonical(canonical);
   upsertMeta('meta[name="description"]',{name:'description',content:meta.description});

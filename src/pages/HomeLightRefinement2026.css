@@ -1,0 +1,129 @@
+/* PreçoCerto 2026 — Light Mode Refinement
+   Focus: Warm, professional, high-contrast light mode with editorial-grade product imagery effects.
+   Target: Correcting "ugly" light mode images and dull colors. */
+
+:root {
+  --pc-light-bg: #fdfcf9;
+  --pc-light-surface: #ffffff;
+  --pc-light-paper: #f9f7f2;
+  --pc-light-ink: #1a1c1b;
+  --pc-light-muted: #5c635f;
+  --pc-light-border: rgba(26,28,27,0.08);
+  --pc-light-accent: #a94b2a;
+  --pc-light-primary: #173d30;
+  --pc-light-success: #2d6a4f;
+  
+  /* Refined Product Clipping Glow (Light Mode) */
+  --pc-product-glow-light: 0 12px 32px rgba(23, 61, 48, 0.08);
+  --pc-product-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+html:not([data-theme="dark"]) .pcx-home {
+  --pcx-bg: var(--pc-light-bg);
+  --pcx-surface: var(--pc-light-surface);
+  --pcx-ink: var(--pc-light-ink);
+  --pcx-muted: var(--pc-light-muted);
+  --pcx-line: var(--pc-light-border);
+  --pcx-primary: var(--pc-light-primary);
+  --pcx-accent: var(--pc-light-accent);
+}
+
+/* Background Refinement: Remove muddy gradients */
+html:not([data-theme="dark"]) .pcx-home::before {
+  background: 
+    radial-gradient(circle at 90% 10%, rgba(169, 75, 42, 0.04), transparent 30%),
+    radial-gradient(circle at 10% 40%, rgba(23, 61, 48, 0.03), transparent 25%),
+    linear-gradient(180deg, #ffffff 0%, #fdfcf9 40%, #f9f7f2 100%);
+}
+
+/* Header Polish (Light Mode) */
+html:not([data-theme="dark"]) .pcx-header {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(26, 28, 27, 0.06);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+/* HERO Visual Refinement */
+html:not([data-theme="dark"]) .pcx-hero {
+  background: #f9f7f2;
+  color: var(--pc-light-ink);
+}
+
+html:not([data-theme="dark"]) .pcx-hero::before {
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(169, 75, 42, 0.08), transparent 35%),
+    linear-gradient(125deg, #ffffff 0%, #f9f7f2 50%, #f0ede6 100%);
+}
+
+/* Product Card Image Refinement (The "Ugly" fix) */
+html:not([data-theme="dark"]) .pcx-product__media {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+/* Apply professional "Product Silhouette" glow to PNGs in light mode */
+html:not([data-theme="dark"]) .pcx-product__media img {
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.06)) drop-shadow(0 2px 4px rgba(0,0,0,0.02));
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.4s ease;
+}
+
+html:not([data-theme="dark"]) .pcx-product:hover .pcx-product__media img {
+  filter: drop-shadow(0 12px 24px rgba(23, 61, 48, 0.12)) saturate(1.05);
+  transform: scale(1.06) translateY(-4px);
+}
+
+/* Card Typography & Contrast */
+html:not([data-theme="dark"]) .pcx-product__body strong {
+  color: #1a1c1b;
+  font-weight: 750;
+}
+
+html:not([data-theme="dark"]) .pcx-product__price b {
+  color: var(--pc-light-primary);
+  font-weight: 850;
+}
+
+/* Essentials Category Cards */
+html:not([data-theme="dark"]) .pcx-category {
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+html:not([data-theme="dark"]) .pcx-category:hover {
+  background: #fdfcf9;
+  color: var(--pc-light-accent);
+}
+
+html:not([data-theme="dark"]) .pcx-category:hover small {
+  color: var(--pc-light-muted);
+}
+
+/* Story/Banner Sections Contrast */
+html:not([data-theme="dark"]) .pcx-story::after {
+  background: linear-gradient(90deg, rgba(23, 61, 48, 0.92) 0%, rgba(23, 61, 48, 0.75) 50%, transparent 100%);
+}
+
+/* Footer Polish */
+html:not([data-theme="dark"]) .pcx-footer {
+  background: #173d30;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Receipt Component Enhancement */
+html:not([data-theme="dark"]) .pcx-receipt {
+  background: #ffffff;
+  border-color: rgba(23, 61, 48, 0.15);
+  box-shadow: 0 20px 50px rgba(23, 61, 48, 0.1), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+html:not([data-theme="dark"]) .pcx-receipt__total {
+  background: #f4fbf8;
+  border-color: rgba(45, 106, 79, 0.2);
+}
+
+/* Search Input Polish */
+html:not([data-theme="dark"]) .pcx-search {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 32px rgba(23, 61, 48, 0.06);
+}

@@ -12,6 +12,7 @@ import { resolveProductImage } from "../data/productImageResolver";
 import { suggestProducts } from "../lib/productSearch";
 import { JsonLd } from "../components/JsonLd";
 import "./HomePremium.css";
+import "./HomeLightRefinement2026.css";
 
 type Theme = "light" | "dark";
 

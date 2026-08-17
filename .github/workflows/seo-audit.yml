@@ -1,16 +1,26 @@
 name: SEO Audit
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/seo-audit.yml'
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - 'index.html'
+      - 'vite.config.*'
   workflow_dispatch:
     inputs:
       url:
         description: 'URL pública para auditar'
-        required: true
+        required: false
+        default: 'https://www.precocerto.live'
         type: string
       mode:
         description: 'Modo da auditoria'
         required: true
-        default: 'html'
+        default: 'full'
         type: choice
         options:
           - fast
@@ -20,7 +30,7 @@ on:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,14 +46,15 @@ jobs:
 
       - name: Run SEO audit
         env:
-          SEO_AUDIT_URL: ${{ inputs.url }}
+          SEO_AUDIT_URL: ${{ github.event.inputs.url || 'https://www.precocerto.live' }}
+          SEO_AUDIT_MODE: ${{ github.event.inputs.mode || 'full' }}
         run: |
-          if [ "${{ inputs.mode }}" = "fast" ]; then
+          if [ "$SEO_AUDIT_MODE" = "fast" ]; then
             npm run seo:audit:fast
-          elif [ "${{ inputs.mode }}" = "full" ]; then
-            npm run seo:audit:full
-          else
+          elif [ "$SEO_AUDIT_MODE" = "html" ]; then
             npm run seo:audit:html
+          else
+            npm run seo:audit:full
           fi
 
       - name: Upload SEO reports

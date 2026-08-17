@@ -1,6 +1,6 @@
 /* Impeccable global refinement — hierarchy, rhythm, interaction and responsive clarity. */
 :root{--pc-focus:var(--pc-green,#168657);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(7,27,45,.08));--pc-card-radius:var(--pc-radius-card,12px)}
-:where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-focus) 34%,transparent);outline-offset:2px}
+:where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-focus) 42%,transparent);outline-offset:3px}
 :where(button,a){-webkit-tap-highlight-color:transparent}
 
 /* Homepage: editorial hierarchy without decorative noise. */
@@ -22,6 +22,32 @@
 .ref-home .ref-economy__grid{align-items:center}
 .ref-home .ref-local__actions a{overflow:hidden}
 @media(hover:hover) and (pointer:fine){.ref-home .ref-price-row:hover img{transform:scale(1.045);filter:contrast(1.03) saturate(1.03)}}
+
+/* Homepage contrast audit — clearer type, stronger surfaces, calmer accents. */
+.ref-home .ref-section__heading p,.ref-home .ref-sectors__heading p,.ref-home .ref-price-name em,.ref-home .ref-price-store em,.ref-home .ref-price-value em{color:color-mix(in srgb,var(--pc-ink) 72%,var(--pc-surface))}
+.ref-home .ref-section__heading>a,.ref-home .ref-sectors__all{color:color-mix(in srgb,var(--pc-gold) 82%,var(--pc-ink));font-weight:800}
+.ref-home .ref-price-board{border:1px solid var(--pc-border-strong)}
+.ref-home .ref-price-row:hover{background:color-mix(in srgb,var(--pc-green-soft) 36%,var(--pc-surface));border-color:color-mix(in srgb,var(--pc-green) 34%,var(--pc-border))}
+.ref-home .ref-price-name strong,.ref-home .ref-price-store strong{color:var(--pc-ink)}
+.ref-home .ref-price-value strong{color:var(--pc-green-strong)}
+.ref-home .ref-proof{background:var(--pc-surface);border-color:var(--pc-border-strong)}
+.ref-home .ref-proof strong{color:var(--pc-ink)}
+.ref-home .ref-proof span{color:color-mix(in srgb,var(--pc-ink) 68%,var(--pc-surface))}
+.ref-home .ref-economy p,.ref-home .ref-local p{max-width:48ch}
+.ref-home .ref-economy__signals span{border-color:color-mix(in srgb,#fff 24%,transparent);background:color-mix(in srgb,#fff 8%,transparent);color:#f1f6f4}
+.ref-home .ref-receipt{border-color:color-mix(in srgb,var(--pc-border-strong) 86%,transparent)}
+
+html[data-theme="dark"] .ref-home .ref-section__heading p,
+html[data-theme="dark"] .ref-home .ref-sectors__heading p,
+html[data-theme="dark"] .ref-home .ref-price-name em,
+html[data-theme="dark"] .ref-home .ref-price-store em,
+html[data-theme="dark"] .ref-home .ref-price-value em{color:color-mix(in srgb,#fff 72%,var(--pc-surface))}
+html[data-theme="dark"] .ref-home .ref-section__heading>a,
+html[data-theme="dark"] .ref-home .ref-sectors__all{color:color-mix(in srgb,var(--pc-gold) 88%,#fff)}
+html[data-theme="dark"] .ref-home .ref-price-board{box-shadow:0 18px 54px rgba(0,0,0,.22)}
+html[data-theme="dark"] .ref-home .ref-price-row:hover{background:color-mix(in srgb,var(--pc-green-soft) 48%,var(--pc-surface));border-color:color-mix(in srgb,var(--pc-green) 42%,var(--pc-border))}
+html[data-theme="dark"] .ref-home .ref-proof span{color:color-mix(in srgb,#fff 70%,var(--pc-surface))}
+html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#062319!important}
 
 /* Desktop editorial bridge: remove the dead zone between sectors and price board. */
 @media(min-width:681px){
@@ -61,6 +87,33 @@ html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#061721)}
 .ref-directory__main,.marketplace-explore,.marketplace-sector,.pc-smart-basket,.pc-basket-page{scroll-padding-top:76px}
 .ref-product-grid>a,.ref-product-grid>article,.marketplace-sector article{border-radius:var(--pc-radius-card,12px)}
 .ref-auth__card,.ref-info-card,.culture-card{border-radius:var(--pc-radius-block,16px)}
+
+/* Site-wide contrast and interaction pass. */
+.ref-page,.pc-account-page,.smart-basket-page,.pro-basket-page,.pdp-page,.store-pro-page,.marketplace-explore,.sector-page{color:var(--pc-ink)}
+.ref-page :is(p,small,em),.pc-account-page :is(p,small),.smart-basket-page :is(p,small,em),.pro-basket-page :is(p,small,em),.pdp-page :is(p,small,em),.store-pro-page :is(p,small,em){text-rendering:optimizeLegibility}
+.ref-page :is(input,select,textarea),.pc-account-page :is(input,select,textarea),.smart-basket-page :is(input,select,textarea),.pro-basket-page :is(input,select,textarea){color:var(--pc-ink);background-color:var(--pc-surface);border-color:var(--pc-border-strong)}
+.ref-page :is(input,select,textarea)::placeholder,.smart-basket-page :is(input,textarea)::placeholder{color:color-mix(in srgb,var(--pc-muted) 84%,var(--pc-ink))}
+.ref-page :is(button,a),.pc-account-page :is(button,a),.smart-basket-page :is(button,a),.pro-basket-page :is(button,a),.pdp-page :is(button,a),.store-pro-page :is(button,a){transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease,transform 160ms ease,box-shadow 180ms ease}
+.ref-page :is(button,a):focus-visible,.pc-account-page :is(button,a):focus-visible,.smart-basket-page :is(button,a):focus-visible,.pro-basket-page :is(button,a):focus-visible,.pdp-page :is(button,a):focus-visible,.store-pro-page :is(button,a):focus-visible{outline-color:color-mix(in srgb,var(--pc-green) 58%,transparent)!important}
+
+html[data-theme="dark"] .ref-page :is(input,select,textarea),
+html[data-theme="dark"] .pc-account-page :is(input,select,textarea),
+html[data-theme="dark"] .smart-basket-page :is(input,select,textarea),
+html[data-theme="dark"] .pro-basket-page :is(input,select,textarea){background:var(--pc-surface-2);border-color:var(--pc-border-strong);color:var(--pc-ink)}
+html[data-theme="dark"] .ref-page :is(input,select,textarea)::placeholder,
+html[data-theme="dark"] .smart-basket-page :is(input,textarea)::placeholder{color:color-mix(in srgb,#fff 62%,var(--pc-surface))}
+html[data-theme="dark"] :is(.ref-results-table__head,.pro-basket-table-head,.store-pro-pagination,.pc-account-details,.smart-basket-page .smart-plan-summary){border-color:var(--pc-border-strong)}
+
+/* Ensure green actions remain readable in both themes. */
+.ref-page :is(.ref-search-submit,.ref-auth__submit),.smart-basket-page :is(.smart-primary,.smart-cta),.pro-basket-page .pro-basket-primary,.pdp-page .pdp-add{font-weight:850}
+html[data-theme="light"] .ref-page :is(.ref-search-submit,.ref-auth__submit),
+html[data-theme="light"] .smart-basket-page :is(.smart-primary,.smart-cta),
+html[data-theme="light"] .pro-basket-page .pro-basket-primary,
+html[data-theme="light"] .pdp-page .pdp-add{color:#fff}
+html[data-theme="dark"] .ref-page :is(.ref-search-submit,.ref-auth__submit),
+html[data-theme="dark"] .smart-basket-page :is(.smart-primary,.smart-cta),
+html[data-theme="dark"] .pro-basket-page .pro-basket-primary,
+html[data-theme="dark"] .pdp-page .pdp-add{color:#062319!important}
 
 @media(max-width:680px){
   .ref-home .ref-shell,.pc-account-shell{width:min(100% - 24px,620px)}

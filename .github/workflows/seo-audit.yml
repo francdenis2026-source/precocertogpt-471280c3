@@ -20,9 +20,10 @@ on:
       mode:
         description: 'Modo da auditoria'
         required: true
-        default: 'full'
+        default: 'site'
         type: choice
         options:
+          - site
           - fast
           - html
           - full
@@ -47,9 +48,11 @@ jobs:
       - name: Run SEO audit
         env:
           SEO_AUDIT_URL: ${{ github.event.inputs.url || 'https://www.precocerto.live' }}
-          SEO_AUDIT_MODE: ${{ github.event.inputs.mode || 'full' }}
+          SEO_AUDIT_MODE: ${{ github.event.inputs.mode || 'site' }}
         run: |
-          if [ "$SEO_AUDIT_MODE" = "fast" ]; then
+          if [ "$SEO_AUDIT_MODE" = "site" ]; then
+            node scripts/run-seo-route-audit.mjs
+          elif [ "$SEO_AUDIT_MODE" = "fast" ]; then
             npm run seo:audit:fast
           elif [ "$SEO_AUDIT_MODE" = "html" ]; then
             npm run seo:audit:html

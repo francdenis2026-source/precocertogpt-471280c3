@@ -1,15 +1,9 @@
 name: SEO Audit
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/seo-audit.yml'
-      - 'src/**'
-      - 'public/**'
-      - 'scripts/**'
-      - 'index.html'
-      - 'vite.config.*'
+  workflow_run:
+    workflows: ["GitHub CI/CD"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       url:
@@ -30,6 +24,7 @@ on:
 
 jobs:
   audit:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:

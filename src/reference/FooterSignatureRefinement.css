@@ -1,1 +1,61 @@
-/* Footer signature intentionally empty: location already appears in the brand/context. */
+/* Footer refinement — compact, useful and without repeated location labels. */
+.ref-footer .ref-brand>span{display:none!important}
+.ref-footer nav a:last-child::after{content:none!important;display:none!important}
+
+@media(min-width:681px){
+  .ref-footer{min-height:52px!important;padding:6px 0!important}
+  .ref-footer>.ref-footer__inner{gap:14px!important}
+  .ref-footer .ref-brand img{width:92px!important}
+  .ref-footer nav a{min-height:30px!important;padding-inline:7px!important}
+  .ref-footer__meta{gap:2px!important}
+}
+
+@media(max-width:680px){
+  html body .ref-page .ref-footer{
+    min-height:0!important;
+    padding:18px 0 calc(var(--pc-mobile-dock,72px) + 12px + env(safe-area-inset-bottom))!important;
+  }
+  html body .ref-page .ref-footer>.ref-footer__inner{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    justify-items:center!important;
+    gap:12px!important;
+    text-align:center!important;
+  }
+  html body .ref-page .ref-footer__identity{gap:4px!important}
+  html body .ref-page .ref-footer .ref-brand img{width:104px!important}
+  html body .ref-page .ref-footer p{max-width:25ch!important;font-size:12px!important;line-height:1.35!important}
+  html body .ref-page .ref-footer nav{
+    width:min(100%,560px)!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    align-items:start!important;
+    gap:8px!important;
+  }
+  html body .ref-page .ref-footer nav>div{
+    width:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:2px!important;
+  }
+  html body .ref-page .ref-footer nav strong{margin-bottom:2px!important;font-size:11px!important}
+  html body .ref-page .ref-footer nav a{
+    min-height:26px!important;
+    padding:2px 4px!important;
+    justify-content:center!important;
+    text-align:center!important;
+    font-size:11px!important;
+    line-height:1.2!important;
+  }
+  html body .ref-page .ref-footer__meta{gap:2px!important}
+  html body .ref-page .ref-footer__meta span{display:none!important}
+  html body .ref-page .ref-footer__meta small{font-size:11px!important}
+}
+
+@media(max-width:390px){
+  html body .ref-page .ref-footer{padding-top:15px!important}
+  html body .ref-page .ref-footer nav{gap:5px!important}
+  html body .ref-page .ref-footer nav a{font-size:10.5px!important}
+}

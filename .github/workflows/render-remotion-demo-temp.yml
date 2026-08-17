@@ -1,0 +1,28 @@
+name: Render Remotion Demo Temporary
+on:
+  push:
+    paths:
+      - .github/workflows/render-remotion-demo-temp.yml
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Render MP4
+        run: npm run video:render
+      - name: Verify video
+        run: test -s out/precocerto-ofertas-vertical.mp4 && ls -lh out/precocerto-ofertas-vertical.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: precocerto-ofertas-vertical
+          path: out/precocerto-ofertas-vertical.mp4
+          retention-days: 7

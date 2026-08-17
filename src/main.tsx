@@ -5,6 +5,7 @@ import "@fontsource-variable/outfit";
 import "./styles/AppReset.css";
 import App from "./App";
 import "./reference/DesignSystem2.css";
+import "./reference/DesignSystem2Experience.css";
 
 const savedTheme = localStorage.getItem("theme");
 const initialTheme = savedTheme === "dark" ? "dark" : "light";

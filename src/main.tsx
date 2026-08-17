@@ -11,27 +11,38 @@ localStorage.setItem("theme", initialTheme);
 document.documentElement.dataset.theme = initialTheme;
 document.documentElement.style.colorScheme = initialTheme;
 
-// Notificações não fazem parte do caminho crítico da primeira pintura.
-window.setTimeout(() => {
-  void import("./lib/paymentNotifications")
-    .then(({ startPaymentNotifications }) => startPaymentNotifications())
-    .catch(() => {
-      // A interface continua disponível mesmo se o serviço de notificações falhar.
-    });
-}, 1_500);
+const boot = document.getElementById("pc-boot-screen");
+const showOffline = () => {
+  document.documentElement.classList.add("pc-boot-offline-mode");
+  boot?.classList.remove("is-done");
+};
+const hideOffline = () => {
+  document.documentElement.classList.remove("pc-boot-offline-mode");
+  boot?.classList.add("is-done");
+};
+window.addEventListener("offline", showOffline);
+window.addEventListener("online", hideOffline);
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+if (navigator.onLine) {
+  // Notificações não fazem parte do caminho crítico da primeira pintura.
+  window.setTimeout(() => {
+    void import("./lib/paymentNotifications")
+      .then(({ startPaymentNotifications }) => startPaymentNotifications())
+      .catch(() => {
+        // A interface continua disponível mesmo se o serviço de notificações falhar.
+      });
+  }, 1_500);
 
-// Remove a experiência de inicialização somente depois que o React assumiu a página.
-window.requestAnimationFrame(() => {
+  createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+
+  // Oculta a tela de inicialização somente depois que o React assumiu a página.
   window.requestAnimationFrame(() => {
-    const boot = document.getElementById("pc-boot-screen");
-    if (!boot) return;
-    boot.classList.add("is-done");
-    window.setTimeout(() => boot.remove(), 260);
+    window.requestAnimationFrame(() => boot?.classList.add("is-done"));
   });
-});
+} else {
+  showOffline();
+}

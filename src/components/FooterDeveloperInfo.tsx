@@ -47,7 +47,7 @@ export function FooterDeveloperInfo() {
       <button className="pc-footer-developer" type="button" onClick={() => setOpen("developer")} aria-haspopup="dialog">
         <UserRound aria-hidden="true" /> <span>Desenvolvedor</span>
       </button>
-      <span className="pc-footer-location"><MapPin aria-hidden="true" /> Feito em Feijó-AC</span>
+      <span className="pc-footer-location"><MapPin aria-hidden="true" /> Feijó-AC</span>
     </>, nav)}
 
     {mobileMenu && createPortal(

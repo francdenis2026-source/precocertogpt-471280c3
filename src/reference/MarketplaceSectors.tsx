@@ -68,7 +68,7 @@ export function SectorNavigator({active="all",compact=false,counts}:{active?:Mar
 }
 
 function Header({back=false}:{back?:boolean}){return <header className="sector-header"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/></Link><Link to={back?"/":"/explorar"}>{back?"Voltar ao início":"Todos os setores"} <ArrowRight/></Link></div></header>}
-function Footer(){return <footer className="sector-footer"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/></Link><span>Feito em Feijó para aproximar pessoas e negócios locais.</span><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight/></Link></div></footer>}
+function Footer(){return <footer className="sector-footer"><div className="sector-shell"><Link className="sector-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/></Link><span>Aproximando pessoas e negócios em Feijó.</span><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight/></Link></div></footer>}
 
 function LocalStorePreview({catalog,sector}:{catalog:CatalogPayload|null;sector:MarketplaceSector}) {
   const matches = useMemo(() => storesForSector(catalog, sector), [catalog, sector]);

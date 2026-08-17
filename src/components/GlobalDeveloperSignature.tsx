@@ -9,7 +9,7 @@ export function GlobalDeveloperSignature() {
         onClick={() => window.dispatchEvent(new Event("precocerto:developer-about"))}
         aria-label="Conhecer o desenvolvedor Franc D'nis"
       >
-        <Code2 aria-hidden="true" /> Desenvolvido por <strong>Franc D&apos;nis</strong>
+        <Code2 aria-hidden="true" /> <strong>Franc D&apos;nis</strong>
       </button>
     </div>
   );

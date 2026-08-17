@@ -5540,7 +5540,6 @@ export default function PrecoCertoApp() {
     setUndoAction(null);
   }
 
-  }
 
   function removeBasket(id: number | string) {
     const itemToRemove = cart.find(i => String(i.id) === String(id));

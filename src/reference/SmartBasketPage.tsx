@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, BadgeCheck, Building2, CheckCircle2, LoaderCircle, PiggyBank, Save, ShoppingBasket, Sparkles, Store, WalletCards } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product, ProductOffer } from "../data/catalog";
@@ -34,39 +34,24 @@ function candidateFor(products:Product[], essential:Essential){
   const matches=products.filter(product=>{const text=normalize(`${product.name} ${product.category} ${product.brand}`);return essential.keywords.some(k=>text.includes(normalize(k))) && product.minPrice>0;});
   return matches.sort((a,b)=>a.minPrice-b.minPrice || a.name.localeCompare(b.name,"pt-BR"))[0] || null;
 }
-
 function desiredItems(products:Product[], people:number){return ESSENTIALS.map(essential=>({essential,product:candidateFor(products,essential),quantity:essential.quantity(people)}));}
-
 function cheapestOffer(product:Product):ProductOffer|null { return product.offers?.filter(o=>o.value>0).sort((a,b)=>a.value-b.value)[0] || (product.minPrice>0?{establishmentId:product.establishmentId,establishmentSlug:product.establishmentSlug,establishment:product.establishment,neighborhood:product.neighborhood,storeColor:product.storeColor,value:product.minPrice,capturedAt:product.capturedAt}:null); }
+function buildMulti(products:Product[],people:number,budget:number):Plan{const desired=desiredItems(products,people);const items:PlannedItem[]=[];const missing:string[]=[];let total=0;for(const row of desired){if(!row.product){missing.push(row.essential.label);continue;}const offer=cheapestOffer(row.product);if(!offer){missing.push(row.essential.label);continue;}let added=0;for(let i=0;i<row.quantity;i++){if(total+offer.value>budget)break;total+=offer.value;added++;}if(added)items.push({product:row.product,quantity:added,offer,subtotal:offer.value*added,essential:row.essential.label});else missing.push(row.essential.label);}const stores=[...new Set(items.map(i=>i.offer.establishment))];return{strategy:"multi_store",total,items,stores,missing,savings:0,label:"Menor preço em várias lojas"};}
+function buildSingle(products:Product[],people:number,budget:number):Plan{const desired=desiredItems(products,people).filter(r=>r.product) as Array<{essential:Essential;product:Product;quantity:number}>;const storeNames=new Set<string>();desired.forEach(r=>r.product.offers?.forEach(o=>storeNames.add(o.establishment)));let best:Plan|null=null;for(const storeName of storeNames){const items:PlannedItem[]=[];const missing:string[]=[];let total=0;let coveredPriority=0;for(const row of desired){const offer=row.product.offers?.find(o=>o.establishment===storeName);if(!offer){missing.push(row.essential.label);continue;}let added=0;for(let i=0;i<row.quantity;i++){if(total+offer.value>budget)break;total+=offer.value;added++;}if(added){items.push({product:row.product,quantity:added,offer,subtotal:offer.value*added,essential:row.essential.label});coveredPriority+=100-row.essential.priority;}else missing.push(row.essential.label);}const candidate:Plan={strategy:"single_store",total,items,stores:items.length?[storeName]:[],missing,savings:0,label:"Melhor cesta em uma loja",storeName};const score=coveredPriority*1000+items.reduce((s,i)=>s+i.quantity,0);const bestScore=best?best.items.reduce((s,i)=>s+(100-(ESSENTIALS.find(e=>e.label===i.essential)?.priority||99))*1000+i.quantity,0):-1;if(!best||score>bestScore||(score===bestScore&&total<best.total))best=candidate;}return best||{strategy:"single_store",total:0,items:[],stores:[],missing:ESSENTIALS.map(e=>e.label),savings:0,label:"Melhor cesta em uma loja"};}
 
-function buildMulti(products:Product[],people:number,budget:number):Plan{
-  const desired=desiredItems(products,people); const items:PlannedItem[]=[]; const missing:string[]=[]; let total=0;
-  for(const row of desired){ if(!row.product){missing.push(row.essential.label);continue;} const offer=cheapestOffer(row.product); if(!offer){missing.push(row.essential.label);continue;} let added=0; for(let i=0;i<row.quantity;i++){if(total+offer.value>budget)break; total+=offer.value; added++;} if(added)items.push({product:row.product,quantity:added,offer,subtotal:offer.value*added,essential:row.essential.label}); else missing.push(row.essential.label); }
-  const stores=[...new Set(items.map(i=>i.offer.establishment))]; return {strategy:"multi_store",total,items,stores,missing,savings:0,label:"Menor preço em várias lojas"};
-}
-
-function buildSingle(products:Product[],people:number,budget:number):Plan{
-  const desired=desiredItems(products,people).filter(r=>r.product) as Array<{essential:Essential;product:Product;quantity:number}>;
-  const storeNames=new Set<string>(); desired.forEach(r=>r.product.offers?.forEach(o=>storeNames.add(o.establishment)));
-  let best:Plan|null=null;
-  for(const storeName of storeNames){ const items:PlannedItem[]=[]; const missing:string[]=[]; let total=0; let coveredPriority=0;
-    for(const row of desired){ const offer=row.product.offers?.find(o=>o.establishment===storeName); if(!offer){missing.push(row.essential.label);continue;} let added=0; for(let i=0;i<row.quantity;i++){if(total+offer.value>budget)break; total+=offer.value; added++;} if(added){items.push({product:row.product,quantity:added,offer,subtotal:offer.value*added,essential:row.essential.label});coveredPriority+=100-row.essential.priority;} else missing.push(row.essential.label); }
-    const candidate:Plan={strategy:"single_store",total,items,stores:items.length?[storeName]:[],missing,savings:0,label:"Melhor cesta em uma loja",storeName};
-    const score=coveredPriority*1000+items.reduce((s,i)=>s+i.quantity,0); const bestScore=best?best.items.reduce((s,i)=>s+(100-(ESSENTIALS.find(e=>e.label===i.essential)?.priority||99))*1000+i.quantity,0):-1;
-    if(!best || score>bestScore || (score===bestScore&&total<best.total)) best=candidate;
-  }
-  return best || {strategy:"single_store",total:0,items:[],stores:[],missing:ESSENTIALS.map(e=>e.label),savings:0,label:"Melhor cesta em uma loja"};
-}
+function readStoredPrefill(){try{const raw=sessionStorage.getItem("precocerto:smart-basket-prefill");return raw?JSON.parse(raw) as {budget?:number;people?:number}:{};}catch{return{};}}
 
 export function SmartBasketPage(){
-  const navigate=useNavigate(); const[profile,setProfile]=useState<SessionProfile|null>(null); const[authLoading,setAuthLoading]=useState(true); const[products,setProducts]=useState<Product[]>([]); const[loading,setLoading]=useState(true);
-  const[budget,setBudget]=useState(350); const[income,setIncome]=useState<number|"">(""); const[people,setPeople]=useState(2); const[selected,setSelected]=useState<"multi_store"|"single_store">("multi_store"); const[saving,setSaving]=useState(false); const[message,setMessage]=useState("");
-  useEffect(()=>{loadSessionProfile().then(p=>{setProfile(p);setAuthLoading(false);if(!p)navigate("/login?redirect=/cesta-inteligente",{replace:true});});},[navigate]);
+  const navigate=useNavigate();const[searchParams]=useSearchParams();const stored=useMemo(readStoredPrefill,[]);const initialBudget=Math.max(50,Number(searchParams.get("budget")||stored.budget||350));const initialPeople=Math.min(8,Math.max(1,Number(searchParams.get("people")||stored.people||2)));
+  const[profile,setProfile]=useState<SessionProfile|null>(null);const[authLoading,setAuthLoading]=useState(true);const[products,setProducts]=useState<Product[]>([]);const[loading,setLoading]=useState(true);
+  const[budget,setBudget]=useState(initialBudget);const[income,setIncome]=useState<number|"">("");const[people,setPeople]=useState(initialPeople);const[selected,setSelected]=useState<"multi_store"|"single_store">("multi_store");const[saving,setSaving]=useState(false);const[message,setMessage]=useState("");
+  useEffect(()=>{loadSessionProfile().then(p=>{setProfile(p);setAuthLoading(false);if(!p)navigate(`/login?redirect=${encodeURIComponent(`/cesta-inteligente?budget=${budget}&people=${people}`)}`,{replace:true});});},[navigate,budget,people]);
   useEffect(()=>{fetchCatalog().then(c=>setProducts(c.products)).finally(()=>setLoading(false));},[]);
+  useEffect(()=>{sessionStorage.setItem("precocerto:smart-basket-prefill",JSON.stringify({budget,people}));},[budget,people]);
   const suggestedBudget=useMemo(()=>income?Math.max(50,Math.round(Number(income)*0.25)):null,[income]);
   const multi=useMemo(()=>buildMulti(products,people,Math.max(0,budget)),[products,people,budget]);
   const single=useMemo(()=>buildSingle(products,people,Math.max(0,budget)),[products,people,budget]);
-  const baseline=Math.max(multi.total,single.total); multi.savings=Math.max(0,baseline-multi.total); single.savings=Math.max(0,baseline-single.total); const active=selected==="multi_store"?multi:single;
+  const baseline=Math.max(multi.total,single.total);multi.savings=Math.max(0,baseline-multi.total);single.savings=Math.max(0,baseline-single.total);const active=selected==="multi_store"?multi:single;
   async function savePlan(){if(!profile||!supabase||!active.items.length)return;setSaving(true);setMessage("");const payload={user_id:profile.userId,name:`Cesta ${new Date().toLocaleDateString("pt-BR")}`,budget,household_income:income||null,household_size:people,strategy:active.strategy,total:active.total,savings:active.savings,store_count:active.stores.length,items:active.items.map(i=>({product_id:i.product.id,name:i.product.name,quantity:i.quantity,unit_price:i.offer.value,subtotal:i.subtotal,establishment:i.offer.establishment,establishment_id:i.offer.establishmentId}))};const{error}=await supabase.from("smart_basket_plans").insert(payload);setSaving(false);setMessage(error?`Não foi possível salvar: ${error.message}`:"Cesta salva na sua conta.");}
   if(authLoading||loading)return <main className="smart-basket-state"><LoaderCircle className="spin"/><strong>Preparando sua cesta inteligente…</strong></main>;
   if(!profile)return null;

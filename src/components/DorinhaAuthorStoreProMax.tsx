@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import { ArrowRight, BookOpen, CheckCircle2, CreditCard, ExternalLink, Feather, MapPin, MessageCircle, Moon, QrCode, Share2, Sparkles, Store, Sun } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, ChevronRight, CreditCard, ExternalLink, Feather, MapPin, MessageCircle, Moon, QrCode, Share2, Sparkles, Store, Sun } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import imagimacaoAsset from "../assets/uma-viagem-ao-mundo-da-imaginacao.png.asset.json";
 import mentePerversaAsset from "../assets/mente-perversa.png.asset.json";

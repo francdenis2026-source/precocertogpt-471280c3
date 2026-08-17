@@ -30,16 +30,16 @@ const ROUTE_HEAD: Record<string, HeadInfo> = {
     title: "Farmácias em Feijó (AC) | PreçoCerto",
     description: "Farmácias de Feijó (AC): endereços, contatos e produtos disponíveis para comparação de preços.",
   },
-  "/autora/dorinha-barroso": {
+  "/dorinha": {
     title: "Dorinha Barroso · Livros acreanos | PreçoCerto",
     description:
-      "Conheça as obras da escritora acreana Dorinha Barroso e compre exemplares diretamente com a autora.",
+      "Conheça as obras da escritora acreana Dorinha Barroso, historiadora e pedagoga. Compre livros diretamente com a autora no espaço oficial.",
     ogImage: `${SITE}/dorinha-author-portrait-v2.webp`,
   },
-  "/dorinha-barroso": {
-    title: "Dorinha Barroso · Livros acreanos | PreçoCerto",
+  "/escritora": {
+    title: "Dorinha Barroso · Espaço Literário | PreçoCerto",
     description:
-      "Conheça as obras da escritora acreana Dorinha Barroso e compre exemplares diretamente com a autora.",
+      "Explore a biblioteca de Dorinha Barroso. Literatura feita no Acre com memória e imaginação.",
     ogImage: `${SITE}/dorinha-author-portrait-v2.webp`,
   },
   "/cultura/fremix-producoes": {

@@ -526,7 +526,7 @@ function Header({ basketCount, favoritesCount, user, onLogout, products, favorit
     { label: "Cesta inteligente", href: "/cesta-basica" },
     { label: "Estabelecimentos", href: "/estabelecimentos" },
     { label: "Planos", href: "/planos" },
-    { label: "Dorinha Barroso", href: "/dorinha" }
+    { label: "Dorinha Barroso", href: "/dorinha", special: true }
   ];
 
   return <header className={headerClass} role="banner">
@@ -547,12 +547,16 @@ function Header({ basketCount, favoritesCount, user, onLogout, products, favorit
       <nav className="desktop-nav desktop-nav--premium" aria-label="Navegação principal">
         {navLinks.map(link => {
           const isActive = currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href));
+          const isDorinhaActive = (link.href === "/dorinha" || link.href === "/escritora") && (currentPath === "/dorinha" || currentPath === "/escritora");
+          const finalActive = isActive || isDorinhaActive;
+          
           return (
             <a 
               key={link.href} 
               href={link.href} 
-              className={isActive ? "active" : ""} 
-              aria-current={isActive ? "page" : undefined}
+              className={`${finalActive ? "active" : ""} ${link.special ? "nav-link--special" : ""}`} 
+              aria-current={finalActive ? "page" : undefined}
+              style={link.special && finalActive ? { borderColor: 'var(--pc-color-primary)', color: 'var(--pc-color-primary)' } : {}}
             >
               {link.label}
             </a>
@@ -1948,6 +1952,9 @@ function BasketPage({ products, addBasket, cart: initialCart, removeBasket, clea
                         onClick={() => {
                           if (!user) {
                             localStorage.setItem("pc:pending_save_basket", "true");
+                            // Guarda a origem se estiver em uma loja de autor para voltar depois
+                            const lastStore = localStorage.getItem("precocerto:last_writer_store");
+                            if (lastStore) localStorage.setItem("pc:post_login_redirect", "/cesta");
                             window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
                             return;
                           }
@@ -5631,9 +5638,19 @@ export default function PrecoCertoApp() {
     // Verifica se havia um salvamento de cesta pendente
     if (localStorage.getItem("pc:pending_save_basket") === "true") {
       localStorage.removeItem("pc:pending_save_basket");
-      // O redirect cuidará de levar o usuário de volta para /cesta onde ele poderá clicar em Salvar
     }
 
+    // Lógica de redirecionamento pós-login (ex: voltar para Dorinha se veio de lá)
+    const postLoginRedirect = localStorage.getItem("pc:post_login_redirect");
+    const lastStore = localStorage.getItem("precocerto:last_writer_store");
+    
+    if (postLoginRedirect) {
+      localStorage.removeItem("pc:post_login_redirect");
+      window.location.href = postLoginRedirect;
+    } else if (lastStore && pathname === "/login") {
+       // Se o usuário completou uma ação (como checkout) e precisa voltar
+       // Esta lógica pode ser expandida conforme necessário
+    }
   };
 
 

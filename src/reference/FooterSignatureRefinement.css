@@ -1,1 +1,1 @@
-.ref-footer nav a:last-child::after{content:"Feijó-AC";padding-left:10px;border-left:1px solid color-mix(in srgb,#fff 16%,transparent);color:color-mix(in srgb,#fff 58%,var(--pc-muted));font-size:var(--pc-text-xs);font-weight:600;letter-spacing:.01em;pointer-events:none}
+/* Footer signature intentionally empty: location already appears in the brand/context. */

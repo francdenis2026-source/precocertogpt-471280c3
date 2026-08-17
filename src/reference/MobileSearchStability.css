@@ -1,28 +1,32 @@
 /* Mobile product search stability — persistent search, isolated results, no page reflow or dimming. */
 @media (max-width:680px){
-  .ref-home .ref-search{position:relative;z-index:80;width:100%;max-width:100%;transform:none!important;contain:none!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .ref-home .ref-search{position:relative;z-index:80;width:100%;max-width:100%;overflow:hidden;transform:none!important;contain:none!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 
-  .ref-home .ref-search:focus-within{position:fixed!important;top:calc(56px + env(safe-area-inset-top));right:12px;left:12px;z-index:220;width:auto!important;max-width:none!important;margin:0!important;padding:5px 6px 5px 12px!important;border:1px solid color-mix(in srgb,var(--pc-green) 38%,var(--pc-border));border-radius:var(--pc-radius-card)!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;box-shadow:var(--pc-shadow-lg);filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;opacity:1!important}
+  .ref-home .ref-search:focus-within{position:fixed!important;top:calc(56px + env(safe-area-inset-top));right:12px;left:12px;z-index:220;width:auto!important;max-width:none!important;margin:0!important;padding:5px 6px 5px 12px!important;overflow:hidden!important;border:1px solid color-mix(in srgb,var(--pc-green) 38%,var(--pc-border));border-radius:var(--pc-radius-card)!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;box-shadow:var(--pc-shadow-lg);filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;opacity:1!important}
   .ref-home .ref-search:focus-within>svg{color:var(--pc-green-strong)}
-  .ref-home .ref-search:focus-within input{height:46px!important;min-width:0;color:var(--pc-ink)!important;caret-color:var(--pc-green);opacity:1!important;filter:none!important}
+  .ref-home .ref-search:focus-within input{height:46px!important;min-width:0;max-width:100%;overflow:hidden;color:var(--pc-ink)!important;caret-color:var(--pc-green);opacity:1!important;filter:none!important}
   .ref-home .ref-search:focus-within input::placeholder{color:var(--pc-muted)!important}
   .ref-home .ref-search:focus-within .ref-search-clear{display:grid!important;place-items:center;width:40px!important;height:40px!important;min-width:40px;border-radius:var(--pc-radius-control)!important;color:var(--pc-muted)}
 
-  .ref-home .ref-search-results{position:fixed!important;z-index:215!important;top:calc(116px + env(safe-area-inset-top))!important;right:12px!important;bottom:calc(72px + env(safe-area-inset-bottom))!important;left:12px!important;width:auto!important;max-height:none!important;margin:0!important;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden!important;border:1px solid var(--pc-border);border-radius:var(--pc-radius-block)!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;box-shadow:var(--pc-shadow-lg);overscroll-behavior:contain;scrollbar-gutter:stable;opacity:1!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important}
-  .ref-home .ref-search-results *,.ref-home .ref-search-results *::before,.ref-home .ref-search-results *::after{filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-  .ref-home .ref-search-results__list{min-height:0;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;background:var(--pc-surface)}
-  .ref-home .ref-search-results>header{position:sticky;top:0;z-index:2;min-height:42px;padding:10px 12px;border-bottom:1px solid var(--pc-border);background:var(--pc-surface-2)!important;color:var(--pc-ink)!important}
-  .ref-home .ref-search-results__list>button{min-height:70px!important;padding:8px 10px!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;opacity:1!important}
+  .ref-home .ref-search-results{position:fixed!important;z-index:215!important;top:calc(116px + env(safe-area-inset-top))!important;right:12px!important;bottom:calc(72px + env(safe-area-inset-bottom))!important;left:12px!important;width:auto!important;max-width:none!important;max-height:none!important;margin:0!important;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden!important;border:1px solid var(--pc-border);border-radius:var(--pc-radius-block)!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;box-shadow:var(--pc-shadow-lg);overscroll-behavior:contain;opacity:1!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important}
+  .ref-home .ref-search-results *,.ref-home .ref-search-results *::before,.ref-home .ref-search-results *::after{box-sizing:border-box;max-width:100%;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .ref-home .ref-search-results__list{min-width:0;min-height:0;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;background:var(--pc-surface);scrollbar-width:none!important}
+  .ref-home .ref-search-results__list::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+  .ref-home .ref-search-results>header{position:sticky;top:0;z-index:2;min-width:0;min-height:42px;padding:10px 12px;overflow:hidden;border-bottom:1px solid var(--pc-border);background:var(--pc-surface-2)!important;color:var(--pc-ink)!important}
+  .ref-home .ref-search-results__list>button{width:100%!important;min-width:0!important;min-height:70px!important;padding:8px 10px!important;overflow:hidden!important;background:var(--pc-surface)!important;color:var(--pc-ink)!important;opacity:1!important}
   .ref-home .ref-search-results__list>button+button{border-top-color:var(--pc-border)!important}
+  .ref-home .ref-search-results__copy{min-width:0;overflow:hidden}
+  .ref-home .ref-search-results__copy strong,.ref-home .ref-search-results__copy em,.ref-home .ref-search-results__copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ref-home .ref-search-results__copy strong{color:var(--pc-ink)!important;opacity:1!important}
+  .ref-home .ref-search-results__price{min-width:0;flex:0 0 auto}
   .ref-home .ref-search-results__price strong{color:var(--pc-green-strong)!important;opacity:1!important}
   .ref-home .ref-search-results__copy small{color:var(--pc-green-strong)!important}
   .ref-home .ref-search-results__copy em,.ref-home .ref-search-results__price small{color:var(--pc-muted)!important;opacity:1!important}
-  .ref-home .ref-search-results__image{background:var(--pc-surface-2)!important;opacity:1!important}
-  .ref-home .ref-search-results__image img{opacity:1!important;filter:none!important}
+  .ref-home .ref-search-results__image{flex:0 0 auto;background:var(--pc-surface-2)!important;opacity:1!important}
+  .ref-home .ref-search-results__image img{max-width:100%;opacity:1!important;filter:none!important}
   .ref-home .ref-search-results__list>button:active,.ref-home .ref-search-results__list>button.is-keyboard-active{background:var(--pc-green-soft)!important}
-  .ref-home .ref-search-results>footer{position:sticky;bottom:0;z-index:2;padding:8px!important;border-top:1px solid var(--pc-border);background:var(--pc-surface-2)!important}
-  .ref-home .ref-search-results>footer button{min-height:42px!important;border-radius:var(--pc-radius-control)!important}
+  .ref-home .ref-search-results>footer{position:sticky;bottom:0;z-index:2;min-width:0;padding:8px!important;overflow:hidden;border-top:1px solid var(--pc-border);background:var(--pc-surface-2)!important}
+  .ref-home .ref-search-results>footer button{width:100%;min-width:0;min-height:42px!important;border-radius:var(--pc-radius-control)!important}
 
   html:has(.ref-home .ref-search:focus-within),body:has(.ref-home .ref-search:focus-within){overflow:hidden!important;overscroll-behavior:none!important}
   body:has(.ref-home .ref-search:focus-within) .ref-page>main,body:has(.ref-home .ref-search:focus-within) .ref-dock{overscroll-behavior:none}

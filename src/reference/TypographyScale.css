@@ -1,205 +1,53 @@
-/* Escala tipográfica da experiência reconstruída.
-   Mantém o escopo local: nenhuma regra é aplicada fora de .ref-page/.ref-auth/.ref-admin. */
-.ref-page,
-.ref-auth,
-.ref-admin {
-  --ref-type-label: 0.75rem;
-  --ref-type-small: 0.8125rem;
-  --ref-type-ui: 0.875rem;
-  --ref-type-body: 1rem;
-  --ref-type-lead: 1.125rem;
-  font-size: var(--ref-type-body);
-  line-height: 1.5;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+/* Transitional typography bridge. All sizes derive from Design System 2.0 tokens. */
+.ref-page,.ref-auth,.ref-admin{
+  --ref-type-label:var(--pc-text-xs,11px);
+  --ref-type-small:var(--pc-text-sm,12px);
+  --ref-type-ui:var(--pc-text-meta,13px);
+  --ref-type-body:var(--pc-text-body,15px);
+  --ref-type-lead:var(--pc-text-lg,17px);
+  font-size:var(--ref-type-body);
+  line-height:var(--pc-leading-body,1.55);
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* Header compacto, agora legível. */
-.ref-location small { font-size: 0.625rem; line-height: 1.2; }
-.ref-location strong { font-size: var(--ref-type-label); line-height: 1.2; }
-.ref-nav a,
-.ref-signin { font-size: var(--ref-type-small); }
-.ref-nav b { font-size: 0.625rem; }
+/* Shared labels and metadata: no microscopic text. */
+.ref-page :is(.ref-kicker,.ref-section__heading span,.ref-local>div>span,.ref-backline,.ref-page-title>div:first-child>span,.ref-results>header span,.ref-store-list>header span,.ref-basket-list>header span,.ref-product-content>span,.ref-offers>span,.ref-info>span,.ref-status),
+.ref-auth :is(.ref-auth__eyebrow,.ref-auth__story>small),
+.ref-admin :is(.ref-admin__sidebar nav>span,.ref-admin__main>header span,.ref-admin__panel header span,.ref-admin__cards small){font-size:var(--ref-type-label);line-height:1.35}
 
-/* Homepage. */
-.ref-kicker,
-.ref-section__heading span,
-.ref-local > div > span { font-size: var(--ref-type-label); line-height: 1.35; }
-.ref-hero h1 { font-size: clamp(3.4rem, 6.5vw, 5.75rem); line-height: 0.88; }
-.ref-hero__copy > p { font-size: var(--ref-type-lead); line-height: 1.55; }
-.ref-hero__copy > p,
-.ref-economy p,
-.ref-local p { max-width: 68ch; }
-.ref-search input { font-size: var(--ref-type-body); }
-.ref-search button,
-.ref-live-card > button { font-size: var(--ref-type-ui); }
-.ref-trust span { font-size: var(--ref-type-small); }
-.ref-live-card__top span,
-.ref-live-card__top small,
-.ref-live-card__product small { font-size: var(--ref-type-label); }
-.ref-live-card__product h2 { font-size: 1.125rem; }
-.ref-live-card__product p { font-size: var(--ref-type-small); line-height: 1.45; }
-.ref-live-card__prices small,
-.ref-live-card__prices span { font-size: var(--ref-type-label); }
-.ref-live-card__prices strong { font-size: 1.5rem; }
-.ref-proof strong { font-size: 1.625rem; line-height: 1.1; }
-.ref-proof span { font-size: var(--ref-type-label); line-height: 1.35; }
-.ref-section__heading h2,
-.ref-economy h2,
-.ref-local h2 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; }
-.ref-section__heading > a { font-size: var(--ref-type-ui); }
-.ref-price-name small,
-.ref-price-store small,
-.ref-price-value small { font-size: var(--ref-type-label); }
-.ref-price-name strong,
-.ref-price-store strong { font-size: var(--ref-type-ui); }
-.ref-price-name em,
-.ref-price-store em { font-size: var(--ref-type-small); line-height: 1.4; }
-.ref-price-value strong { font-size: 1.25rem; }
-.ref-economy p,
-.ref-local p { font-size: var(--ref-type-body); line-height: 1.6; }
-.ref-economy a,
-.ref-local a { font-size: var(--ref-type-ui); }
+.ref-page :is(small,em),.ref-auth :is(small,.ref-auth__message,.ref-auth__recover,.ref-auth__switch,.ref-auth__safe),.ref-admin :is(small,.ref-admin__sidebar nav a,.ref-admin__sidebar nav button,.ref-admin__panel li){font-size:var(--ref-type-small)}
 
-/* Listagens, produtos, lojas e cesta. */
-.ref-backline,
-.ref-page-title > div:first-child > span,
-.ref-results > header span,
-.ref-store-list > header span,
-.ref-basket-list > header span,
-.ref-merchant-table > header span { font-size: var(--ref-type-label); }
-.ref-page-title h1 { font-size: clamp(2.6rem, 4.6vw, 4.25rem); }
-.ref-page-title p { font-size: var(--ref-type-body); line-height: 1.6; }
-.ref-update > span,
-.ref-update small { font-size: var(--ref-type-label); }
-.ref-directory-search input { font-size: var(--ref-type-body); }
-.ref-directory-search > button,
-.ref-directory-search > a,
-.ref-filter-row > span,
-.ref-filter-row button { font-size: var(--ref-type-small); }
-.ref-results > header h2,
-.ref-merchant-table h2 { font-size: 1.5rem; }
-.ref-results > header > small { font-size: var(--ref-type-label); }
-.ref-results-table__head { font-size: 0.6875rem; }
-.ref-result-product small,
-.ref-result-product em,
-.ref-result-store small,
-.ref-result-range small,
-.ref-result-price small { font-size: var(--ref-type-label); }
-.ref-result-product strong,
-.ref-result-store strong { font-size: var(--ref-type-ui); }
-.ref-result-range { font-size: var(--ref-type-small); }
-.ref-result-price { font-size: 1.125rem; }
-.ref-empty p { font-size: var(--ref-type-body); line-height: 1.55; }
-.ref-empty a,
-.ref-info a { font-size: var(--ref-type-ui); }
-.ref-store-list > header strong,
-.ref-store-row small,
-.ref-store-row em,
-.ref-store-badge,
-.ref-map-card small { font-size: var(--ref-type-label); }
-.ref-store-row strong,
-.ref-map-card strong { font-size: var(--ref-type-ui); }
-.ref-store-hero span { font-size: var(--ref-type-label); }
-.ref-store-hero h1 { font-size: 2.5rem; }
-.ref-store-hero p { font-size: var(--ref-type-ui); line-height: 1.5; }
-.ref-product-grid a > small,
-.ref-product-grid a > span,
-.ref-product-grid footer em { font-size: var(--ref-type-label); }
-.ref-product-grid a > strong { font-size: var(--ref-type-ui); line-height: 1.35; }
-.ref-product-grid footer b { font-size: 1.125rem; }
-.ref-basket-list > header strong,
-.ref-basket-product small,
-.ref-basket-product em,
-.ref-basket-price small,
-.ref-basket-price em { font-size: var(--ref-type-label); }
-.ref-basket-product strong,
-.ref-quantity strong { font-size: var(--ref-type-ui); }
-.ref-basket-price strong { font-size: 1.125rem; }
-.ref-basket-summary > span,
-.ref-basket-summary > div span,
-.ref-basket-summary footer span,
-.ref-basket-summary footer small { font-size: var(--ref-type-label); }
-.ref-basket-summary > div strong { font-size: var(--ref-type-ui); }
-.ref-basket-summary > a { font-size: var(--ref-type-ui); }
+/* Display hierarchy. */
+.ref-hero h1{font-size:var(--pc-display,clamp(48px,6.2vw,78px));line-height:.9}
+.ref-page-title h1{font-size:var(--pc-h1,clamp(32px,4vw,44px));line-height:1}
+.ref-section__heading h2,.ref-economy h2,.ref-local h2{font-size:var(--pc-h2,clamp(24px,2.5vw,32px));line-height:1}
+.ref-results>header h2,.ref-merchant-table h2,.ref-store-hero h1{font-size:var(--pc-h3,20px)}
+.ref-auth__card h2{font-size:clamp(28px,3vw,36px);line-height:1.05}
+.ref-info h1,.ref-merchant-hero h1{font-size:var(--pc-display,clamp(48px,6.2vw,78px));line-height:.94}
 
-/* Página de produto, estabelecimentos e informativas. */
-.ref-product-content > span,
-.ref-offers > span,
-.ref-merchant-cta > div > span,
-.ref-info > span { font-size: var(--ref-type-label); }
-.ref-product-content > p,
-.ref-merchant-hero p,
-.ref-info p { font-size: var(--ref-type-body); line-height: 1.6; }
-.ref-offers small,
-.ref-offers em,
-.ref-merchant-cta li small { font-size: var(--ref-type-label); }
-.ref-offers strong,
-.ref-merchant-cta li strong { font-size: var(--ref-type-ui); }
-.ref-merchant-hero h1 { font-size: clamp(3.4rem, 6.4vw, 5.75rem); }
-.ref-merchant-hero a,
-.ref-merchant-table > header button,
-.ref-merchant-table .ref-result-row > button { font-size: var(--ref-type-ui); }
-.ref-merchant-benefits h2 { font-size: 1.25rem; }
-.ref-merchant-benefits p { font-size: var(--ref-type-ui); line-height: 1.6; }
-.ref-status { font-size: var(--ref-type-label); }
-.ref-info h1 { font-size: clamp(3rem, 6.3vw, 5.4rem); }
+/* Body and controls. */
+.ref-hero__copy>p,.ref-economy p,.ref-local p,.ref-page-title p,.ref-product-content>p,.ref-merchant-hero p,.ref-info p,.ref-auth__card>p{font-size:var(--ref-type-body);line-height:var(--pc-leading-body,1.55)}
+.ref-hero__copy>p{font-size:var(--ref-type-lead)}
+.ref-page :is(input,select,textarea){font-size:var(--ref-type-body)}
+.ref-page :is(button,a),.ref-auth :is(button,a,label),.ref-admin :is(button,a){font-size:var(--ref-type-ui)}
 
-/* Autenticação e painel. */
-.ref-auth__eyebrow,
-.ref-auth__story > small { font-size: var(--ref-type-label); }
-.ref-auth__card h2 { font-size: 2.25rem; line-height: 1.05; }
-.ref-auth__card > p { font-size: var(--ref-type-body); line-height: 1.55; }
-.ref-account-tabs button,
-.ref-auth__submit { font-size: var(--ref-type-ui); }
-.ref-account-tabs small,
-.ref-auth__comparison small,
-.ref-auth__comparison em { font-size: var(--ref-type-label); }
-.ref-auth__card label { font-size: var(--ref-type-ui); }
-.ref-auth__card input { font-size: var(--ref-type-body); }
-.ref-auth__message,
-.ref-auth__recover,
-.ref-auth__switch,
-.ref-auth__safe { font-size: var(--ref-type-small); }
-.ref-auth__signature { font-size: 0.6875rem; }
-.ref-admin__sidebar nav > span,
-.ref-admin__main > header span,
-.ref-admin__panel header span,
-.ref-admin__cards small { font-size: var(--ref-type-label); }
-.ref-admin__sidebar nav a,
-.ref-admin__sidebar nav button,
-.ref-admin__main > header p,
-.ref-admin__cards span,
-.ref-admin__panel li { font-size: var(--ref-type-small); }
-.ref-admin__sidebar > small { font-size: 0.6875rem; }
-.ref-admin__main > header button,
-.ref-admin__main > header a { font-size: var(--ref-type-small); }
-.ref-admin__cards strong { font-size: 1.5rem; }
-.ref-admin__panel h2 { font-size: 1rem; }
-.ref-admin__quality > span { font-size: var(--ref-type-small); }
+/* Data-heavy surfaces remain compact but readable. */
+.ref-result-product strong,.ref-result-store strong,.ref-product-grid a>strong,.ref-basket-product strong,.ref-quantity strong,.ref-offers strong,.ref-merchant-cta li strong{font-size:var(--ref-type-ui)}
+.ref-result-price,.ref-product-grid footer b,.ref-basket-price strong{font-size:17px}
+.ref-live-card__prices strong,.ref-proof strong,.ref-admin__cards strong{font-size:clamp(20px,2vw,26px)}
+.ref-results-table__head{font-size:var(--ref-type-label)}
 
-/* Footer continua compacto; a tipografia deixa de ser microscópica. */
-.ref-footer nav a { font-size: var(--ref-type-label); }
-.ref-footer__meta small { font-size: 0.6875rem; line-height: 1.25; }
+/* Footer is compact, never unreadable. */
+.ref-footer nav a,.ref-footer__meta small{font-size:var(--ref-type-label);line-height:1.3}
 
-@media (max-width: 680px) {
-  .ref-page,
-  .ref-auth,
-  .ref-admin { --ref-type-body: 1rem; --ref-type-lead: 1rem; }
-
-  .ref-mobile-menu a { min-height: 44px; font-size: var(--ref-type-ui); }
-  .ref-hero h1 { font-size: clamp(2.75rem, 13.5vw, 3.75rem); line-height: 0.92; }
-  .ref-hero__copy > p { font-size: var(--ref-type-body); }
-  .ref-search input,
-  .ref-directory-search input,
-  .ref-auth__card input { font-size: 1rem; }
-  .ref-proof strong { font-size: 1.375rem; }
-  .ref-section__heading h2 { font-size: clamp(1.85rem, 9vw, 2.35rem); }
-  .ref-dock a { min-height: 56px; font-size: 0.6875rem; }
-  .ref-result-product strong { font-size: var(--ref-type-small); }
-  .ref-result-price { font-size: 1rem; }
-  .ref-store-hero h1 { font-size: 2rem; }
-  .ref-merchant-hero h1 { font-size: clamp(3rem, 14vw, 4rem); }
-  .ref-info h1 { font-size: clamp(2.75rem, 14vw, 3.75rem); }
-  .ref-auth__card h2 { font-size: 2rem; }
+@media(max-width:680px){
+  .ref-page,.ref-auth,.ref-admin{--ref-type-body:15px;--ref-type-lead:15px}
+  .ref-mobile-menu a{min-height:44px;font-size:var(--ref-type-ui)}
+  .ref-hero h1{font-size:clamp(42px,13vw,60px);line-height:.92}
+  .ref-section__heading h2{font-size:var(--pc-h2,clamp(22px,6.5vw,27px))}
+  .ref-page :is(input,select,textarea),.ref-auth input{font-size:16px}
+  .ref-dock a{min-height:56px;font-size:var(--ref-type-label)}
+  .ref-info h1,.ref-merchant-hero h1{font-size:clamp(40px,12vw,58px)}
+  .ref-auth__card h2{font-size:28px}
 }

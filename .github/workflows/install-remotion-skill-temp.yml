@@ -1,16 +1,15 @@
-name: Install Remotion Skill (temporary)
+name: Install Remotion Skill Temporary
 
 on:
   push:
     paths:
-      - '.github/workflows/install-remotion-skill-temp.yml'
+      - .github/workflows/install-remotion-skill-temp.yml
 
 permissions:
   contents: write
 
 jobs:
   install-remotion-skill:
-    if: github.event.head_commit.message == 'chore(skills): temporary Remotion installer'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -29,17 +28,17 @@ jobs:
 
       - name: Show installed skill files
         run: |
-          echo 'Installed files:'
-          find .agents/skills -maxdepth 4 -type f -print | sort
+          echo "Installed files:"
+          find .agents/skills -maxdepth 5 -type f -print | sort
 
       - name: Commit installed skill
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .agents/skills
           if git diff --cached --quiet; then
-            echo 'No skill changes to commit.'
+            echo "No skill changes to commit."
             exit 0
           fi
-          git commit -m 'chore(skills): install Remotion agent skill'
+          git commit -m "chore(skills): install Remotion agent skill"
           git push origin HEAD:main

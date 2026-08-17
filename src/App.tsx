@@ -10,7 +10,7 @@ import { HomeSmartBasketSpotlight } from "./components/HomeSmartBasketSpotlight"
 import { MobileQuickNav } from "./components/MobileQuickNav";
 import { AdminMaintenanceControl, PlatformMaintenanceGate } from "./components/PlatformMaintenance";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
-import { ReferenceAuthPage, ReferenceFavoritesPage, ReferenceHome, ReferenceInfoPage, ReferenceMerchantDashboard, ReferenceNotFound, ReferenceStoresPage } from "./reference/ReferenceExperience";
+import { ReferenceAuthPage, ReferenceFavoritesPage, ReferenceHome, ReferenceInfoPage, ReferenceMerchantDashboard, ReferenceNotFound, ReferenceSearchPage, ReferenceStoresPage } from "./reference/ReferenceExperience";
 import { SearchDiscovery2026 } from "./reference/SearchDiscovery2026";
 import { ProductDetailProfessional } from "./reference/ProductDetailProfessional";
 import { StoreDetailProfessional } from "./reference/StoreDetailProfessional";
@@ -34,6 +34,9 @@ import "./reference/MobileHomepageCompactFinal.css";
 import "./reference/HomeVisualIdentity2026.css";
 import "./reference/MobileProMax2026.css";
 import "./reference/MobileVisualRefresh2026.css";
+import "./reference/SectorProfessional2026.css";
+import "./reference/ProductDetailProfessional2026.css";
+import "./reference/PublicExperienceFinal2026.css";
 
 function RouteFocusManager(){const location=useLocation();useEffect(()=>{if(location.pathname.startsWith('/admin'))return;const main=document.querySelector<HTMLElement>("#conteudo-principal, main");if(!main)return;if(!main.id)main.id="conteudo-principal";main.setAttribute("tabindex","-1");window.scrollTo({top:0,left:0,behavior:"auto"});window.requestAnimationFrame(()=>main.focus({preventScroll:true}));},[location.pathname]);return null;}
 export default function App(){return <BrowserRouter><FavoritesProvider><a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a><SeoRouteManager/><RouteFocusManager/><AdminLoginRedirect/><AdminProductEditorOverlay/><AdminMaintenanceControl/><ProductCardQuickActions/><FooterDeveloperInfo/><UserAccountHub/><HomeSmartBasketSpotlight/><MobileQuickNav/><PlatformMaintenanceGate><Routes>

@@ -1,0 +1,61 @@
+/* Homepage — refinamento profissional de imagem editorial e paleta (2026). */
+
+:root{
+  /* Paleta refinada: petróleo profundo + âmbar sóbrio + verde institucional */
+  --pc-canvas:#f4f7f6;
+  --pc-surface-2:#eaf0ee;
+  --pc-surface-3:#e1eae7;
+  --pc-ink:#0d222d;
+  --pc-muted:#5d6f77;
+  --pc-border:#d5dfdb;
+  --pc-navy:#061d28;
+  --pc-navy-2:#0b3040;
+  --pc-green-strong:#0b7a4f;
+  --pc-gold:#8a5d13;
+  --pc-gold-soft:#f7efdd;
+  --pc-shadow-lg:0 24px 64px rgba(6,29,40,.18);
+}
+
+/* ---------- HERO: imagem editorial nova ---------- */
+.ref-home .ref-hero{background:var(--ref-navy)}
+.ref-home .ref-hero::before{
+  background:
+    linear-gradient(90deg,rgba(6,29,40,.97) 0%,rgba(6,29,40,.9) 38%,rgba(6,29,40,.55) 66%,rgba(6,29,40,.28) 100%),
+    url('/hero-precocerto-editorial-2026.jpg') 78% 46%/cover no-repeat;
+}
+/* Vinheta inferior para transição suave até a faixa de métricas */
+.ref-home .ref-hero::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:120px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,29,40,0),rgba(6,29,40,.85));
+}
+.ref-home .ref-hero__grid{z-index:1}
+.ref-home .ref-hero__copy>p{color:#d6e0e4}
+.ref-home .ref-hero h1 em{color:#e6b45c}
+.ref-home .ref-kicker{color:#e6b45c}
+.ref-home .ref-trust span{color:#c3d0d6;font-size:11.5px;letter-spacing:.01em}
+.ref-home .ref-trust svg{color:#e6b45c}
+.ref-home .ref-search{box-shadow:0 26px 60px rgba(3,18,26,.42)}
+.ref-home .ref-search button.ref-search-submit{background:var(--pc-green-strong)}
+
+@media(max-width:680px){
+  .ref-home .ref-hero::before{
+    background:
+      linear-gradient(180deg,rgba(6,29,40,.72) 0%,rgba(6,29,40,.9) 52%,rgba(6,29,40,.98) 100%),
+      url('/hero-precocerto-editorial-2026.jpg') 70% 40%/cover no-repeat;
+  }
+  .ref-home .ref-hero::after{display:none}
+}
+
+/* ---------- Faixa de prova social ---------- */
+.ref-home .ref-proof{background:var(--pc-surface);border-bottom:1px solid var(--ref-line)}
+.ref-home .ref-proof strong{color:var(--pc-navy)}
+.ref-home .ref-proof span{color:var(--pc-muted)}
+
+/* ---------- Blocos de conteúdo: contraste mais sóbrio ---------- */
+.ref-home .ref-section__heading h2,
+.ref-home .ref-sectors__heading h2{color:var(--pc-ink);letter-spacing:-.03em}
+.ref-home .ref-section__heading p,
+.ref-home .ref-sectors__heading p{color:var(--pc-muted)}
+.ref-home .ref-economy{background:var(--pc-navy);color:#fff}
+.ref-home .ref-economy h2{color:#fff}
+.ref-home .ref-economy p{color:#cfdbe0}

@@ -1,0 +1,45 @@
+name: Install Remotion Skill (temporary)
+
+on:
+  push:
+    paths:
+      - '.github/workflows/install-remotion-skill-temp.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install-remotion-skill:
+    if: github.event.head_commit.message == 'chore(skills): temporary Remotion installer'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Remotion agent skill
+        run: npx --yes skills add remotion-dev/skills --agent universal --copy --yes
+
+      - name: Show installed skill files
+        run: |
+          echo 'Installed files:'
+          find .agents/skills -maxdepth 4 -type f -print | sort
+
+      - name: Commit installed skill
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .agents/skills
+          if git diff --cached --quiet; then
+            echo 'No skill changes to commit.'
+            exit 0
+          fi
+          git commit -m 'chore(skills): install Remotion agent skill'
+          git push origin HEAD:main

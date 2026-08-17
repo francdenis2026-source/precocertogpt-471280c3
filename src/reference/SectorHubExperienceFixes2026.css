@@ -11,19 +11,22 @@
 .sector-hub__theme svg{width:19px;height:19px}
 
 /* Search: same interaction contract as the homepage, including suggestions. */
-.sector-hub__search-wrap{position:relative;max-width:740px;margin-top:24px}
+.sector-hub__search-wrap{position:relative;z-index:5;max-width:740px;margin-top:24px}
 .sector-hub__hero form.sector-hub__search{position:relative;z-index:3;max-width:none;margin:0}
 .sector-hub__search-clear{min-width:42px!important;width:42px!important;padding:0!important;justify-content:center!important;background:transparent!important;color:#52656e!important}
 .sector-hub__search-clear svg{width:18px!important}
 .sector-hub__search-submit{white-space:nowrap}
-.sector-hub__search-results{position:absolute;z-index:10;top:calc(100% + 8px);left:0;right:0;overflow:hidden;border:1px solid var(--pc-border-strong);border-radius:14px;background:var(--pc-surface);color:var(--pc-ink);box-shadow:0 22px 58px rgba(2,18,28,.28)}
-.sector-hub__search-results>header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border-bottom:1px solid var(--pc-border);background:var(--pc-surface-2)}
+/* Results are in normal flow: they never cover hero copy, actions or adjacent content. */
+.sector-hub__search-results{position:relative;z-index:2;top:auto;left:auto;right:auto;width:100%;max-height:390px;margin-top:8px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;border:1px solid var(--pc-border-strong);border-radius:14px;background:var(--pc-surface);color:var(--pc-ink);box-shadow:0 16px 42px rgba(2,18,28,.22);scrollbar-width:none}
+.sector-hub__search-results::-webkit-scrollbar{display:none;width:0;height:0}
+.sector-hub__search-results>header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border-bottom:1px solid var(--pc-border);background:var(--pc-surface-2)}
 .sector-hub__search-results>header span{font-size:11px;font-weight:850;color:var(--pc-muted);letter-spacing:.04em}.sector-hub__search-results>header small{font-size:10px;color:var(--pc-muted)}
 .sector-hub__search-results a{min-height:66px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--pc-border);color:var(--pc-ink)}
 .sector-hub__search-results a:last-child{border-bottom:0}.sector-hub__search-results a:hover,.sector-hub__search-results a.is-active{background:var(--pc-green-soft)}
 .sector-hub__search-results a>i{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--pc-surface-2);color:var(--pc-green-strong)}.sector-hub__search-results a>i svg{width:18px}
 .sector-hub__search-results a>span{min-width:0;display:grid;gap:2px}.sector-hub__search-results a strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;line-height:1.25}.sector-hub__search-results a small{color:var(--pc-muted);font-size:11px}.sector-hub__search-results a>b{color:var(--pc-green-strong);font-size:12px;white-space:nowrap}
 .sector-hub__search-empty{padding:15px!important;display:flex!important;gap:10px!important;color:var(--pc-muted)!important}.sector-hub__search-empty svg{width:19px}
+.sector-hub__search-wrap:has(.sector-hub__search-results)+.sector-hub__hero-actions{margin-top:12px}
 
 /* Refined type hierarchy. Removes the aggressive display treatment that looked struck/underlined. */
 .sector-hub__section-head span,.sector-hub__tools-copy>span,.sector-hub__stores header span{display:block;color:var(--pc-green-strong);font-family:var(--pc-font-body);font-size:11px;font-weight:800;letter-spacing:.075em;text-transform:none}
@@ -48,5 +51,5 @@ html[data-theme="dark"] .sector-hub__search-clear{color:var(--pc-muted)!importan
  .sector-hub__top>.sector-hub__shell{min-height:56px}.sector-hub__brand img{width:104px}.sector-hub__top nav{gap:3px}.sector-hub__top nav a{width:40px;height:40px;min-height:40px;justify-content:center;padding:0;font-size:0;border:1px solid var(--pc-border);background:var(--pc-surface)}.sector-hub__top nav svg{width:20px}.sector-hub__theme{width:40px;height:40px}
  .sector-hub__section-head{display:block}.sector-hub__section-head p{margin-top:10px;font-size:14px;line-height:1.55}.sector-hub__section-head h2,.sector-hub__tools h2,.sector-hub__stores h2{font-size:1.85rem;line-height:1.08}
  .sector-hub__hero form.sector-hub__search{grid-template-columns:24px minmax(0,1fr) auto;grid-template-rows:auto auto;gap:6px;padding:8px}.sector-hub__search-clear{grid-column:3;grid-row:1}.sector-hub__search-submit{grid-column:1/-1;grid-row:2;width:100%;justify-content:center}
- .sector-hub__search-results{max-height:min(48dvh,410px);overflow:auto}.sector-hub__search-results a{grid-template-columns:36px minmax(0,1fr);padding:9px 10px}.sector-hub__search-results a>b{grid-column:2}.sector-hub__sector-copy>strong{font-size:17px}.sector-hub__store-grid strong{font-size:13px}
+ .sector-hub__search-results{max-height:min(42dvh,360px);margin-top:7px}.sector-hub__search-results a{grid-template-columns:36px minmax(0,1fr);padding:9px 10px}.sector-hub__search-results a>b{grid-column:2}.sector-hub__sector-copy>strong{font-size:17px}.sector-hub__store-grid strong{font-size:13px}
 }

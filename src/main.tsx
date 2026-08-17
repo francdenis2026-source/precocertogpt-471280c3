@@ -25,3 +25,13 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>,
 );
+
+// Remove a experiência de inicialização somente depois que o React assumiu a página.
+window.requestAnimationFrame(() => {
+  window.requestAnimationFrame(() => {
+    const boot = document.getElementById("pc-boot-screen");
+    if (!boot) return;
+    boot.classList.add("is-done");
+    window.setTimeout(() => boot.remove(), 260);
+  });
+});

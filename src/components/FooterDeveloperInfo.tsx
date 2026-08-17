@@ -7,10 +7,14 @@ type OpenPanel = "developer" | "contact" | null;
 
 export function FooterDeveloperInfo() {
   const [nav, setNav] = useState<HTMLElement | null>(null);
+  const [mobileMenu, setMobileMenu] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState<OpenPanel>(null);
 
   useEffect(() => {
-    const locate = () => setNav(document.querySelector<HTMLElement>(".ref-footer nav[aria-label='Navegação do rodapé']"));
+    const locate = () => {
+      setNav(document.querySelector<HTMLElement>(".ref-footer nav[aria-label='Navegação do rodapé']"));
+      setMobileMenu(document.querySelector<HTMLElement>(".ref-mobile-menu"));
+    };
     locate();
     const observer = new MutationObserver(locate);
     observer.observe(document.body, { childList: true, subtree: true });
@@ -29,6 +33,12 @@ export function FooterDeveloperInfo() {
     };
   }, [open]);
 
+  const openDeveloperFromMobile = () => {
+    setOpen("developer");
+    const menuButton = document.querySelector<HTMLButtonElement>(".ref-menu[aria-expanded='true']");
+    menuButton?.click();
+  };
+
   return <>
     {nav && createPortal(<>
       <button className="pc-footer-contact" type="button" onClick={() => setOpen("contact")} aria-haspopup="dialog">
@@ -39,6 +49,14 @@ export function FooterDeveloperInfo() {
       </button>
       <span className="pc-footer-location"><MapPin aria-hidden="true" /> Feito em Feijó-AC</span>
     </>, nav)}
+
+    {mobileMenu && createPortal(
+      <button className="pc-mobile-developer" type="button" onClick={openDeveloperFromMobile} aria-haspopup="dialog">
+        <UserRound aria-hidden="true" />
+        <span><strong>Sobre o desenvolvedor</strong><small>Conheça o projeto e quem criou o PreçoCerto</small></span>
+      </button>,
+      mobileMenu,
+    )}
 
     {open === "contact" && createPortal(
       <div className="pc-dev-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(null); }}>

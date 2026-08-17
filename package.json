@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build --configLoader runner && node scripts/prepare-sites-artifact.mjs && node scripts/prerender-seo.mjs && node scripts/create-seo-404.mjs",
@@ -43,6 +45,7 @@
     "@eslint/js": "9.39.4",
     "@next/eslint-plugin-next": "^16.3.1",
     "@playwright/test": "^1.62.1",
+    "@remotion/cli": "4.0.512",
     "@tailwindcss/vite": "^4.0.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
@@ -57,6 +60,7 @@
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "16.4.0",
     "jsdom": "^30.0.1",
+    "remotion": "4.0.512",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.0.0",
     "typescript": "5.9.3",

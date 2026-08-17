@@ -17,6 +17,9 @@
     "seo:audit:html": "node scripts/run-seo-audit.mjs --html",
     "seo:audit:full": "node scripts/run-seo-audit.mjs --full",
     "seo:doctor": "npx --yes @seomator/seo-audit@3.0.1 self doctor -v",
+    "video:studio": "remotion studio src/remotion/index.ts --no-open",
+    "video:render": "remotion render src/remotion/index.ts PrecoCertoOfertasVertical out/precocerto-ofertas-vertical.mp4",
+    "video:still": "remotion still src/remotion/index.ts PrecoCertoOfertasVertical out/precocerto-ofertas-preview.png --frame=180",
     "predev": "node scripts/generate-sitemap.ts",
     "prebuild": "node scripts/generate-sitemap.ts"
   },

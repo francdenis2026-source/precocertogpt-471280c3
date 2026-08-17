@@ -8,8 +8,10 @@ let catalogRequest:Promise<AdminCatalogSnapshot>|null=null;
 let overviewCache:{value:AdminCatalogOverview;at:number}|null=null;
 const storeCache=new Map<string,{value:any[];at:number}>();
 export function invalidateAdminCatalog(){catalogCache=null;overviewCache=null;storeCache.clear();}
-export async function loadAdminCatalog(force=false):Promise<AdminCatalogSnapshot>{
+export async function loadAdminCatalog(force=false,full?:boolean):Promise<AdminCatalogSnapshot>{
  if(!supabase)return{products:[],establishments:[],coverageGaps:[]};
+ const wantsFull=full??(typeof window!=='undefined'&&window.location.pathname.startsWith('/admin/catalogo'));
+ if(!wantsFull){const o=await loadAdminCatalogOverview(force);return{products:[],establishments:o.establishments||[],coverageGaps:[]};}
  if(!force&&catalogCache&&Date.now()-catalogCache.at<TTL)return catalogCache.value;
  if(!force&&catalogRequest)return catalogRequest;
  catalogRequest=(async()=>{const{data,error}=await supabase.rpc('admin_catalog_snapshot');if(error)throw error;const value=(data||{products:[],establishments:[],coverageGaps:[]}) as AdminCatalogSnapshot;catalogCache={value,at:Date.now()};return value;})();
@@ -31,8 +33,4 @@ export async function saveAdminEstablishment(input:{id?:string|null;name:string;
 export async function deleteAdminEstablishment(id:string,name:string,deleteDemoOperation=false){const r=await rpcMutation('admin_delete_establishment',{_establishment_id:id,_confirm_name:name,_delete_demo_operation:deleteDemoOperation});return{error:r.error};}
 export async function setAdminProductPrice(productId:string,establishmentId:string,value:number){const r=await rpcMutation('admin_set_product_price',{_product_id:productId,_establishment_id:establishmentId,_value:value});return{error:r.error};}
 export async function deleteAdminProductPrice(productId:string,establishmentId:string){const r=await rpcMutation('admin_delete_product_price',{_product_id:productId,_establishment_id:establishmentId});return{error:r.error};}
-export async function uploadAdminProductImage(file:File,productKey:string){
- if(!supabase)return{url:null,error:'Supabase indisponível'};if(!file.type.startsWith('image/'))return{url:null,error:'Selecione um arquivo de imagem.'};if(file.size>5*1024*1024)return{url:null,error:'A imagem deve ter no máximo 5 MB.'};
- const ext=(file.name.split('.').pop()||'webp').toLowerCase().replace(/[^a-z0-9]/g,'');const safe=(productKey||'produto').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'produto';const path=`admin/${safe}-${Date.now()}.${ext}`;
- const{error}=await supabase.storage.from('products').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(error)return{url:null,error:error.message};const{data}=supabase.storage.from('products').getPublicUrl(path);return{url:data.publicUrl,error:null};
-}
+export async function uploadAdminProductImage(file:File,productKey:string){if(!supabase)return{url:null,error:'Supabase indisponível'};if(!file.type.startsWith('image/'))return{url:null,error:'Selecione um arquivo de imagem.'};if(file.size>5*1024*1024)return{url:null,error:'A imagem deve ter no máximo 5 MB.'};const ext=(file.name.split('.').pop()||'webp').toLowerCase().replace(/[^a-z0-9]/g,'');const safe=(productKey||'produto').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'produto';const path=`admin/${safe}-${Date.now()}.${ext}`;const{error}=await supabase.storage.from('products').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(error)return{url:null,error:error.message};const{data}=supabase.storage.from('products').getPublicUrl(path);return{url:data.publicUrl,error:null};}

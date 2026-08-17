@@ -15,6 +15,15 @@
 .ref-home .ref-proof__grid>div{align-content:center}
 .ref-home .ref-economy__grid{align-items:center}
 
+/* Desktop editorial bridge: remove the dead zone between sectors and price board. */
+@media(min-width:681px){
+  .ref-home .ref-sectors{padding-bottom:16px}
+  .ref-home .ref-sectors__all{margin-top:8px;padding-bottom:14px}
+  .ref-home .ref-sectors + .ref-section{position:relative;padding-top:26px!important}
+  .ref-home .ref-sectors + .ref-section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ref-line,#315064) 58%,transparent) 14%,color-mix(in srgb,var(--ref-line,#315064) 58%,transparent) 86%,transparent)}
+  .ref-home .ref-sectors + .ref-section .ref-section__heading{margin-bottom:16px}
+}
+
 /* Customer area: clear tool hierarchy and calmer account surface. */
 .pc-account-page{background:linear-gradient(180deg,#f7faf8 0,#eef5f1 100%)}
 .pc-account-shell{width:min(1120px,calc(100% - 36px));margin:auto;padding:28px 0 48px}

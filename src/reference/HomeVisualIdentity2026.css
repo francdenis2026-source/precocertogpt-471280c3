@@ -59,3 +59,9 @@
 .ref-home .ref-economy{background:var(--pc-navy);color:#fff}
 .ref-home .ref-economy h2{color:#fff}
 .ref-home .ref-economy p{color:#cfdbe0}
+
+/* Correção: a segunda linha do título do hero estava herdando um tamanho pequeno */
+.ref-home .ref-hero h1 em{
+  display:inline;font-style:normal;font-size:inherit;line-height:inherit;
+  font-weight:inherit;letter-spacing:inherit;color:#e6b45c;
+}

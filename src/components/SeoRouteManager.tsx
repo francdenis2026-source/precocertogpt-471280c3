@@ -29,6 +29,7 @@ const routeMeta:Record<string,{title:string;description:string;index?:boolean}>=
   '/favoritos':{title:'Meus favoritos | PreçoCerto',description:'Produtos favoritos da sua conta.',index:false},
   '/cesta':{title:'Minha cesta | PreçoCerto',description:'Itens da sua cesta no PreçoCerto.',index:false},
   '/cesta-basica':{title:'Minha lista de compras | PreçoCerto',description:'Itens da sua lista de compras no PreçoCerto.',index:false},
+  '/cesta-inteligente':{title:'Cesta inteligente | PreçoCerto',description:'Ferramenta privada para montar uma cesta dentro do orçamento e comparar estratégias de compra.',index:false},
   '/minha-conta':{title:'Minha conta | PreçoCerto',description:'Área da conta PreçoCerto.',index:false},
   '/meus-pedidos':{title:'Meus pedidos | PreçoCerto',description:'Acompanhe seus pedidos no PreçoCerto.',index:false},
 };

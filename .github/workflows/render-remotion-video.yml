@@ -1,0 +1,41 @@
+name: Render PreçoCerto Video
+
+on:
+  workflow_dispatch:
+    inputs:
+      props:
+        description: 'JSON de propriedades da composição'
+        required: false
+        default: '{}'
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Render vertical video
+        shell: bash
+        env:
+          VIDEO_PROPS: ${{ inputs.props }}
+        run: |
+          mkdir -p out
+          if [ "$VIDEO_PROPS" = "{}" ] || [ -z "$VIDEO_PROPS" ]; then
+            npm run video:render
+          else
+            npx remotion render src/remotion/index.ts PrecoCertoOfertasVertical out/precocerto-ofertas-vertical.mp4 --props="$VIDEO_PROPS"
+          fi
+      - name: Validate MP4
+        run: test -s out/precocerto-ofertas-vertical.mp4 && ls -lh out/precocerto-ofertas-vertical.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: precocerto-video-${{ github.run_number }}
+          path: out/precocerto-ofertas-vertical.mp4
+          retention-days: 14

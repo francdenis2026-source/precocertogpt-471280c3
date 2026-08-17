@@ -101,18 +101,19 @@ html[data-theme="dark"] .ref-evolution-badge {
   }
 
   .ref-header {
-    z-index: 110;
+    z-index: 200;
   }
-
+  
   .ref-header__inner {
-    min-height: 58px;
-    height: 58px;
-    gap: 8px;
+    min-height: 64px;
+    height: 64px;
+    gap: 12px;
+  }
+  
+  .ref-header .ref-brand img {
+    width: 120px;
   }
 
-  .ref-header .ref-brand img {
-    width: 112px;
-  }
 
   .ref-online {
     width: auto;
@@ -313,8 +314,26 @@ html[data-theme="dark"] .ref-evolution-badge {
   }
 
   .ref-footer {
-    display: none !important;
+    display: block !important;
+    padding: 40px 0 100px;
   }
+  
+  .ref-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .ref-footer nav {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .ref-footer__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
 
   .ref-dock {
     min-height: 64px;

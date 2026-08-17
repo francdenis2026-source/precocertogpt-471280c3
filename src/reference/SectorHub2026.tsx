@@ -30,6 +30,17 @@ export function SectorHub2026(){
   const [activeSearchIndex,setActiveSearchIndex]=useState(-1);
   const navigate=useNavigate();
   useEffect(()=>{let active=true;void fetchCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined);return()=>{active=false}},[]);
+  useEffect(()=>{
+    const desktop=window.matchMedia("(min-width: 681px)").matches;
+    if(!desktop||!searchOpen||!query.trim())return;
+    const body=document.body;
+    const previousOverflow=body.style.overflow;
+    const previousPaddingRight=body.style.paddingRight;
+    const scrollbarWidth=window.innerWidth-document.documentElement.clientWidth;
+    body.style.overflow="hidden";
+    if(scrollbarWidth>0)body.style.paddingRight=`${scrollbarWidth}px`;
+    return()=>{body.style.overflow=previousOverflow;body.style.paddingRight=previousPaddingRight};
+  },[searchOpen,query]);
 
   const sectorData=useMemo(()=>marketplaceSectors.map(sector=>({sector,stores:matchesFor(catalog,sector),products:catalog?.products.filter(product=>belongs(product,sector)).length||0})),[catalog]);
   const featuredStores=useMemo(()=>{if(!catalog)return[];return [...catalog.stores].sort((a,b)=>Number(isSponsored(b))-Number(isSponsored(a))||(b.products||0)-(a.products||0)||a.name.localeCompare(b.name,"pt-BR")).slice(0,8)},[catalog]);

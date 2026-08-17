@@ -595,18 +595,19 @@ function Header({ basketCount, favoritesCount, user, onLogout, products, favorit
               </div>
               <div className="favorites-dropdown-list">
                 {products.filter(p => favorites.includes(String(p.id))).slice(0, 5).map(p => (
-                  <div key={p.id} className="fav-menu-item">
+                  <div key={p.id} className="fav-menu-item" onClick={() => window.dispatchEvent(new CustomEvent('pc:open-product-details', { detail: p }))} style={{ cursor: 'pointer' }}>
                     <ProductImage product={p} size="compact" />
                     <div className="fav-menu-info">
                       <span className="name">{p.name}</span>
                       <span className="price">{money(p.minPrice)}</span>
+                      <span className="store-tag" style={{ fontSize: '0.7rem', color: 'var(--muted)', display: 'block' }}>{p.establishment}</span>
                     </div>
-                    <button className="add-mini" onClick={(e) => { e.preventDefault(); addBasket(p); }} title="Adicionar à cesta"><Plus size={14}/></button>
+                    <button className="add-mini" onClick={(e) => { e.stopPropagation(); e.preventDefault(); addBasket(p); }} title="Adicionar à cesta"><Plus size={14}/></button>
                   </div>
                 ))}
               </div>
               <div className="favorites-dropdown-footer">
-                <a href="/favoritos" className="button button--ghost button--small w-full">Gerenciar Favoritos</a>
+                <a href="/favoritos" className="button button--primary button--small w-full" style={{ justifyContent: 'center' }}>Gerenciar Lista Completa</a>
               </div>
             </div>
           )}

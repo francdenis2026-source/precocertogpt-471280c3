@@ -14,6 +14,10 @@
 /coverage
 /test-results/
 
+# SEO audit generated reports
+/reports/seo/
+/.seomator/
+
 # Python caches created by local design tooling
 __pycache__/
 *.pyc

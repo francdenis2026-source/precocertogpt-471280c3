@@ -14,6 +14,11 @@
     "lint": "eslint . --ignore-pattern dist",
     "test": "vitest run",
     "uipro:codex": "npx --yes ui-ux-pro-max-cli init --ai codex",
+    "seo:audit": "node scripts/run-seo-audit.mjs",
+    "seo:audit:fast": "node scripts/run-seo-audit.mjs --fast",
+    "seo:audit:html": "node scripts/run-seo-audit.mjs --html",
+    "seo:audit:full": "node scripts/run-seo-audit.mjs --full",
+    "seo:doctor": "npx --yes @seomator/seo-audit@3.0.1 self doctor -v",
     "predev": "node scripts/generate-sitemap.ts",
     "prebuild": "node scripts/generate-sitemap.ts"
   },

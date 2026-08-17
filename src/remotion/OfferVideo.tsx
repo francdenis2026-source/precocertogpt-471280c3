@@ -41,6 +41,7 @@ const palette = {
 };
 
 const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const mediaSrc = (src: string) => /^https?:\/\//i.test(src) ? src : staticFile(src.replace(/^\/+/, ""));
 
 const FadeUp: React.FC<React.PropsWithChildren<{ from?: number; style?: React.CSSProperties }>> = ({ from = 0, style, children }) => {
   const frame = useCurrentFrame();
@@ -128,7 +129,7 @@ const OfferScene: React.FC<{ offer: OfferVideoItem; index: number; total: number
       </div>
       <FadeUp from={0.12 * fps} style={{ marginTop: 68 }}>
         <div style={{ height: 640, display: "grid", placeItems: "center", borderRadius: 46, backgroundColor: palette.white, border: "2px solid rgba(16,33,45,.08)", boxShadow: "0 30px 70px rgba(7,28,42,.10)", overflow: "hidden" }}>
-          <Img src={staticFile(offer.image)} style={{ width: "82%", height: "82%", objectFit: "contain", scale: interpolate(frame, [0, 0.8 * fps], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) }) }} />
+          <Img src={mediaSrc(offer.image)} style={{ width: "82%", height: "82%", objectFit: "contain", scale: interpolate(frame, [0, 0.8 * fps], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) }) }} />
         </div>
       </FadeUp>
       <FadeUp from={0.32 * fps} style={{ marginTop: 48 }}>

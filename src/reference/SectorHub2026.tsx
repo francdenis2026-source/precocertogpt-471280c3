@@ -1,65 +1,61 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Grid2X2, Heart, ListChecks, MapPin, Megaphone, Moon, PackageSearch, Search, ShoppingBasket, Sparkles, Store, Sun, TrendingDown, X } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  BookOpen,
+  BriefcaseBusiness,
+  Grid2X2,
+  Heart,
+  ListChecks,
+  MapPin,
+  Megaphone,
+  Moon,
+  PackageSearch,
+  Search,
+  ShoppingBasket,
+  Sparkles,
+  Store,
+  Sun,
+  TrendingDown,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product, StoreRow } from "../data/catalog";
 import { marketplaceSectors, type MarketplaceSector } from "./MarketplaceSectors";
 import "./SectorHub2026.css";
 import "./SectorHubExperienceFixes2026.css";
 
-const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").trim();
-function belongs(product:Product,sector:MarketplaceSector){const text=normalize(`${product.category||""} ${product.name||""}`);return sector.productCategories.some(term=>text.includes(normalize(term)))}
-function storeCount(store:StoreRow,products:Product[],sector:MarketplaceSector){return products.filter(product=>belongs(product,sector)&&(String(product.establishmentId)===String(store.id)||product.offers?.some(offer=>String(offer.establishmentId)===String(store.id)))).length}
-function matchesFor(catalog:CatalogPayload|null,sector:MarketplaceSector){if(!catalog)return[];return catalog.stores.map(store=>({store,count:storeCount(store,catalog.products,sector)})).filter(({store,count})=>count>0||Boolean(store.kind&&sector.businessKinds.includes(store.kind))).sort((a,b)=>b.count-a.count||a.store.name.localeCompare(b.store.name,"pt-BR"))}
-function productScore(product:Product,raw:string){const q=normalize(raw);if(!q)return 99;const name=normalize(product.name);const context=normalize(`${product.brand||""} ${product.category||""} ${product.establishment||""}`);if(name===q)return 0;if(name.startsWith(q))return 1;if(name.includes(q))return 2;if(context.includes(q))return 5;const words=q.split(/\s+/).filter(Boolean);if(words.every(word=>`${name} ${context}`.includes(word)))return 7;return 99}
+const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
+function belongs(product: Product, sector: MarketplaceSector) { const text = normalize(`${product.category || ""} ${product.name || ""}`); return sector.productCategories.some(term => text.includes(normalize(term))); }
+function storeCount(store: StoreRow, products: Product[], sector: MarketplaceSector) { return products.filter(product => belongs(product, sector) && (String(product.establishmentId) === String(store.id) || product.offers?.some(offer => String(offer.establishmentId) === String(store.id)))).length; }
+function matchesFor(catalog: CatalogPayload | null, sector: MarketplaceSector) { if (!catalog) return []; return catalog.stores.map(store => ({ store, count: storeCount(store, catalog.products, sector) })).filter(({ store, count }) => count > 0 || Boolean(store.kind && sector.businessKinds.includes(store.kind))).sort((a, b) => b.count - a.count || a.store.name.localeCompare(b.store.name, "pt-BR")); }
 
-function ExploreThemeButton(){
-  const [dark,setDark]=useState(()=>document.documentElement.dataset.theme==="dark");
-  useEffect(()=>{const sync=()=>setDark(document.documentElement.dataset.theme==="dark");window.addEventListener("storage",sync);return()=>window.removeEventListener("storage",sync)},[]);
-  const toggle=()=>{const next=!dark;const theme=next?"dark":"light";setDark(next);document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;localStorage.setItem("theme",theme);window.dispatchEvent(new Event("pc:theme-changed"))};
-  return <button className="sector-hub__theme" type="button" onClick={toggle} aria-label={dark?"Usar tema claro":"Usar tema escuro"} title={dark?"Tema claro":"Tema escuro"}>{dark?<Sun/>:<Moon/>}</button>
+function ExploreThemeButton() {
+  const [dark, setDark] = useState(() => document.documentElement.dataset.theme === "dark");
+  useEffect(() => { const sync = () => setDark(document.documentElement.dataset.theme === "dark"); window.addEventListener("storage", sync); window.addEventListener("pc:theme-changed", sync); return () => { window.removeEventListener("storage", sync); window.removeEventListener("pc:theme-changed", sync); }; }, []);
+  const toggle = () => { const next = !dark; const theme = next ? "dark" : "light"; setDark(next); document.documentElement.dataset.theme = theme; document.documentElement.style.colorScheme = theme; localStorage.setItem("theme", theme); window.dispatchEvent(new Event("pc:theme-changed")); };
+  return <button className="sector-hub__theme" type="button" onClick={toggle} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"} title={dark ? "Tema claro" : "Tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
 }
 
-const sponsoredIds=new Set(String(import.meta.env.VITE_SPONSORED_STORE_IDS||"").split(",").map((value:string)=>normalize(value)).filter(Boolean));
-function isSponsored(store:StoreRow){return [store.id,store.slug,store.name].some(value=>sponsoredIds.has(normalize(String(value||""))))}
+const sponsoredIds = new Set(String(import.meta.env.VITE_SPONSORED_STORE_IDS || "").split(",").map((value: string) => normalize(value)).filter(Boolean));
+function isSponsored(store: StoreRow) { return [store.id, store.slug, store.name].some(value => sponsoredIds.has(normalize(String(value || "")))); }
 
-export function SectorHub2026(){
-  const [catalog,setCatalog]=useState<CatalogPayload|null>(null);
-  const [query,setQuery]=useState("");
-  const [searchOpen,setSearchOpen]=useState(false);
-  const [activeSearchIndex,setActiveSearchIndex]=useState(-1);
-  const navigate=useNavigate();
-  useEffect(()=>{let active=true;void fetchCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined);return()=>{active=false}},[]);
-  useEffect(()=>{
-    const desktop=window.matchMedia("(min-width: 681px)").matches;
-    if(!desktop||!searchOpen||!query.trim())return;
-    const body=document.body;
-    const previousOverflow=body.style.overflow;
-    const previousPaddingRight=body.style.paddingRight;
-    const scrollbarWidth=window.innerWidth-document.documentElement.clientWidth;
-    body.style.overflow="hidden";
-    if(scrollbarWidth>0)body.style.paddingRight=`${scrollbarWidth}px`;
-    return()=>{body.style.overflow=previousOverflow;body.style.paddingRight=previousPaddingRight};
-  },[searchOpen,query]);
+export function SectorHub2026() {
+  const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
+  useEffect(() => { let active = true; void fetchCatalog().then(data => { if (active) setCatalog(data); }).catch(() => undefined); return () => { active = false; }; }, []);
 
-  const sectorData=useMemo(()=>marketplaceSectors.map(sector=>({sector,stores:matchesFor(catalog,sector),products:catalog?.products.filter(product=>belongs(product,sector)).length||0})),[catalog]);
-  const featuredStores=useMemo(()=>{if(!catalog)return[];return [...catalog.stores].sort((a,b)=>Number(isSponsored(b))-Number(isSponsored(a))||(b.products||0)-(a.products||0)||a.name.localeCompare(b.name,"pt-BR")).slice(0,8)},[catalog]);
-  const totalSectorStores=sectorData.reduce((sum,item)=>sum+item.stores.length,0);
-  const searchResults=useMemo(()=>{if(!catalog||!query.trim())return[];return catalog.products.map(product=>({product,score:productScore(product,query)})).filter(item=>item.score<99).sort((a,b)=>a.score-b.score||a.product.minPrice-b.product.minPrice||a.product.name.localeCompare(b.product.name,"pt-BR")).slice(0,5).map(item=>item.product)},[catalog,query]);
-  const submit=(event:FormEvent)=>{event.preventDefault();const term=query.trim();setSearchOpen(false);navigate(term?`/buscar?q=${encodeURIComponent(term)}`:"/buscar")};
-  const sponsoredVisible=featuredStores.some(isSponsored);
+  const sectorData = useMemo(() => marketplaceSectors.map(sector => ({ sector, stores: matchesFor(catalog, sector), products: catalog?.products.filter(product => belongs(product, sector)).length || 0 })), [catalog]);
+  const featuredStores = useMemo(() => { if (!catalog) return []; return [...catalog.stores].sort((a, b) => Number(isSponsored(b)) - Number(isSponsored(a)) || (b.products || 0) - (a.products || 0) || a.name.localeCompare(b.name, "pt-BR")).slice(0, 8); }, [catalog]);
+  const totalSectorStores = sectorData.reduce((sum, item) => sum + item.stores.length, 0);
+  const sponsoredVisible = featuredStores.some(isSponsored);
 
   return <div className="sector-hub">
     <header className="sector-hub__top"><div className="sector-hub__shell"><Link to="/" className="sector-hub__brand" aria-label="PreçoCerto — início"><img className="sector-hub__logo-light" src="/logo-preco-certo.svg" alt="PreçoCerto"/><img className="sector-hub__logo-dark" src="/logo-preco-certo-inversa.svg" alt="" aria-hidden="true"/></Link><nav aria-label="Ações rápidas"><Link to="/buscar"><Search/>Buscar</Link><Link to="/cesta-basica"><ListChecks/>Minha lista</Link><Link to="/favoritos"><Heart/>Favoritos</Link><ExploreThemeButton/></nav></div></header>
 
     <main id="conteudo-principal">
-      <section className="sector-hub__hero"><div className="sector-hub__shell sector-hub__hero-grid"><div className="sector-hub__hero-copy"><span className="sector-hub__eyebrow"><Grid2X2/>EXPLORAR FEIJÓ POR SETOR</span><h1>Tudo o que a plataforma reúne, <em>organizado para encontrar rápido.</em></h1><p>Produtos, mercados, açougues, farmácias, alimentação, cultura e serviços locais em uma central única. Entre pelo que você precisa e veja somente opções relacionadas.</p>
-        <div className="sector-hub__search-wrap"><form className="sector-hub__search" role="search" onSubmit={submit} onFocus={()=>setSearchOpen(true)}><Search/><input name="q" autoComplete="off" value={query} onChange={event=>{setQuery(event.target.value);setSearchOpen(true)}} onKeyDown={event=>{if(event.key==="ArrowDown"&&searchResults.length){event.preventDefault();setActiveSearchIndex(index=>Math.min(index+1,searchResults.length-1))}else if(event.key==="ArrowUp"&&searchResults.length){event.preventDefault();setActiveSearchIndex(index=>index<=0?searchResults.length-1:index-1)}else if(event.key==="Enter"&&activeSearchIndex>=0&&searchResults[activeSearchIndex]){event.preventDefault();navigate(`/produto/${searchResults[activeSearchIndex].slug||searchResults[activeSearchIndex].id}`);setSearchOpen(false)}else if(event.key==="Escape"){setSearchOpen(false);setActiveSearchIndex(-1)}}} aria-label="Pesquisar na plataforma" placeholder="Busque produto, estabelecimento, serviço ou categoria…" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen&&Boolean(query.trim())} aria-controls="resultados-busca-explorar"/>{query&&<button className="sector-hub__search-clear" type="button" aria-label="Limpar pesquisa" onClick={()=>{setQuery("");setActiveSearchIndex(-1);setSearchOpen(true)}}><X/></button>}<button className="sector-hub__search-submit" type="submit">Pesquisar <ArrowRight/></button></form>
-        {searchOpen&&query.trim()&&<div className="sector-hub__search-results" id="resultados-busca-explorar" role="listbox"><header><span>Melhores correspondências</span><small>{searchResults.length?`${searchResults.length} ${searchResults.length===1?"resultado":"resultados"}`:"Nenhum resultado"}</small></header>{searchResults.length?searchResults.map((product,index)=><Link key={product.id} role="option" aria-selected={activeSearchIndex===index} className={activeSearchIndex===index?"is-active":""} to={`/produto/${product.slug||product.id}`} onMouseEnter={()=>setActiveSearchIndex(index)} onClick={()=>setSearchOpen(false)}><i><PackageSearch/></i><span><strong>{product.name}</strong><small>{product.brand||product.category} · {product.establishment}</small></span><b>{product.minPrice>0?product.minPrice.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"Ver produto"}</b></Link>):<div className="sector-hub__search-empty"><Search/><span>Não encontramos correspondência imediata. Pressione “Pesquisar” para ampliar a busca.</span></div>}</div>}</div>
-        <div className="sector-hub__hero-actions"><Link to="/estabelecimentos"><Store/>Todos os estabelecimentos</Link><Link to="/cesta-inteligente"><Sparkles/>Cesta Inteligente</Link></div></div><aside className="sector-hub__summary"><span>VISÃO GERAL</span><strong>PreçoCerto local</strong><p>Uma plataforma para descobrir, comparar e acessar negócios e conteúdos locais sem misturar categorias diferentes.</p><div><article><b>{catalog?.metrics.stores??"—"}</b><small>estabelecimentos</small></article><article><b>{catalog?.metrics.products??"—"}</b><small>produtos</small></article><article><b>{totalSectorStores||"—"}</b><small>opções por setor</small></article></div><small className="sector-hub__catalog-note"><BadgeCheck/> Catálogos também aparecem quando a venda direta ainda não está habilitada.</small></aside></div></section>
+      <section className="sector-hub__hero"><div className="sector-hub__shell sector-hub__hero-grid"><div className="sector-hub__hero-copy"><span className="sector-hub__eyebrow"><Grid2X2/>EXPLORAR FEIJÓ POR SETOR</span><h1>Tudo o que a plataforma reúne, <em>organizado para encontrar rápido.</em></h1><p>Produtos, mercados, açougues, farmácias, alimentação, cultura e serviços locais em uma central única. Escolha um setor e veja somente opções relacionadas.</p><div className="sector-hub__hero-actions sector-hub__hero-actions--primary"><a href="#setores"><Grid2X2/>Ver setores</a><Link to="/estabelecimentos"><Store/>Todos os estabelecimentos</Link><Link to="/cesta-inteligente"><Sparkles/>Cesta Inteligente</Link></div></div><aside className="sector-hub__summary"><span>VISÃO GERAL</span><strong>PreçoCerto local</strong><p>Uma plataforma para descobrir, comparar e acessar negócios e conteúdos locais sem misturar categorias diferentes.</p><div><article><b>{catalog?.metrics.stores??"—"}</b><small>estabelecimentos</small></article><article><b>{catalog?.metrics.products??"—"}</b><small>produtos</small></article><article><b>{totalSectorStores||"—"}</b><small>opções por setor</small></article></div><small className="sector-hub__catalog-note"><BadgeCheck/> Catálogos também aparecem quando a venda direta ainda não está habilitada.</small></aside></div></section>
 
-      <section className="sector-hub__content sector-hub__shell">
-        <header className="sector-hub__section-head"><div><span>Setores da plataforma</span><h2>Escolha pela sua necessidade.</h2></div><p>Cada setor concentra estabelecimentos, produtos ou perfis relacionados. Assim açougues aparecem junto dos mercados, enquanto autores e projetos culturais ficam em uma experiência própria.</p></header>
+      <section className="sector-hub__content sector-hub__shell"><header id="setores" className="sector-hub__section-head"><div><span>Setores da plataforma</span><h2>Escolha pela sua necessidade.</h2></div><p>Cada setor concentra estabelecimentos, produtos ou perfis relacionados. Açougues aparecem junto dos mercados, enquanto autores e projetos culturais ficam em uma experiência própria.</p></header>
 
         <div className="sector-hub__sectors">{sectorData.map(({sector,stores,products})=>{const Icon=sector.icon;return <Link key={sector.id} to={sector.href} className={`sector-hub__sector sector-hub__sector--${sector.id}`}><div className="sector-hub__sector-icon"><Icon/></div><div className="sector-hub__sector-copy"><small>{sector.eyebrow}</small><strong>{sector.label}</strong><p>{sector.description}</p><div className="sector-hub__sector-meta"><span><Store/>{stores.length} {stores.length===1?"opção":"opções"}</span>{products>0&&<span><PackageSearch/>{products} produtos</span>}</div></div><ArrowRight className="sector-hub__arrow"/></Link>})}</div>
 
@@ -74,5 +70,5 @@ export function SectorHub2026(){
     </main>
 
     <footer className="sector-hub__footer"><div className="sector-hub__shell"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/><span>Comércio, preços, cultura e serviços locais em uma plataforma.</span><Link to="/">Voltar ao início <ArrowRight/></Link></div></footer>
-  </div>
+  </div>;
 }

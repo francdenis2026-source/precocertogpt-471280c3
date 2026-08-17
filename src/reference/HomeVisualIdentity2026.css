@@ -4,25 +4,37 @@
 .ref-home .ref-hero{background:var(--pc-navy)}
 .ref-home .ref-hero::before{
   background:
-    linear-gradient(90deg,color-mix(in srgb,var(--pc-navy) 97%,transparent) 0%,color-mix(in srgb,var(--pc-navy) 90%,transparent) 38%,color-mix(in srgb,var(--pc-navy) 55%,transparent) 66%,color-mix(in srgb,var(--pc-navy) 28%,transparent) 100%),
+    linear-gradient(90deg,color-mix(in srgb,var(--pc-navy) 94%,transparent) 0%,color-mix(in srgb,var(--pc-navy) 84%,transparent) 36%,color-mix(in srgb,var(--pc-navy) 46%,transparent) 64%,color-mix(in srgb,var(--pc-navy) 14%,transparent) 100%),
     url('/hero-precocerto-editorial-2026.jpg') 78% 46%/cover no-repeat;
+  filter:saturate(1.06) contrast(1.08) brightness(1.02);
 }
 .ref-home .ref-hero::after{
-  content:"";position:absolute;inset:auto 0 0;height:120px;pointer-events:none;
-  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--pc-navy) 86%,transparent));
+  content:"";position:absolute;inset:auto 0 0;height:110px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--pc-navy) 78%,transparent));
 }
 .ref-home .ref-hero__grid{z-index:1}
-.ref-home .ref-hero__copy>p{color:color-mix(in srgb,#fff 82%,var(--pc-muted))}
+.ref-home .ref-hero__copy>p{color:#eaf1f3;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+.ref-home .ref-hero h1{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.18)}
 .ref-home .ref-hero h1 em,.ref-home .ref-kicker,.ref-home .ref-trust svg{color:var(--pc-gold)}
-.ref-home .ref-trust span{color:color-mix(in srgb,#fff 76%,var(--pc-muted));font-size:var(--pc-text-sm);letter-spacing:.01em}
+.ref-home .ref-trust span{color:#dde7ea;font-size:var(--pc-text-sm);letter-spacing:.01em;text-shadow:0 1px 2px rgba(0,0,0,.18)}
 .ref-home .ref-search{box-shadow:var(--pc-shadow-lg)}
 .ref-home .ref-search button.ref-search-submit{background:var(--pc-green)}
+
+/* Light mode: show the photography instead of washing it out. */
+html[data-theme="light"] .ref-home .ref-hero::before{
+  background:
+    linear-gradient(90deg,rgba(5,31,43,.93) 0%,rgba(5,31,43,.82) 33%,rgba(5,31,43,.42) 62%,rgba(5,31,43,.08) 100%),
+    url('/hero-precocerto-editorial-2026.jpg') 78% 46%/cover no-repeat;
+  filter:saturate(1.12) contrast(1.1) brightness(1.04);
+}
+html[data-theme="light"] .ref-home .ref-hero::after{background:linear-gradient(180deg,transparent,rgba(5,31,43,.58))}
 
 @media(max-width:680px){
   .ref-home .ref-hero::before{
     background:
-      linear-gradient(180deg,color-mix(in srgb,var(--pc-navy) 72%,transparent) 0%,color-mix(in srgb,var(--pc-navy) 90%,transparent) 52%,color-mix(in srgb,var(--pc-navy) 98%,transparent) 100%),
-      url('/hero-precocerto-editorial-2026.jpg') 70% 40%/cover no-repeat;
+      linear-gradient(180deg,rgba(5,31,43,.48) 0%,rgba(5,31,43,.78) 54%,rgba(5,31,43,.96) 100%),
+      url('/hero-precocerto-editorial-2026.jpg') 68% 40%/cover no-repeat;
+    filter:saturate(1.08) contrast(1.08) brightness(1.03);
   }
   .ref-home .ref-hero::after{display:none}
 }

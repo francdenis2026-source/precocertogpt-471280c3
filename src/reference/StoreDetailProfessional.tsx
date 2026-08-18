@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, I
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
+import { getStoreLogoUrl } from "../data/storeLogos";
 import "./StoreDetailProfessional.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -76,47 +77,63 @@ export function StoreDetailProfessional() {
 
   const startResult = filteredProducts.length ? (safePage - 1) * PAGE_SIZE + 1 : 0;
   const endResult = Math.min(safePage * PAGE_SIZE, filteredProducts.length);
+  const logoUrl = getStoreLogoUrl(store.name);
+  const isBonsAmigos = normalize(store.name).includes("bons amigos");
 
-  return <div className="ref-page store-pro-page">
+  return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <main id="conteudo-principal" className="store-pro-shell">
-      <div className="store-pro-topline"><Link className="store-pro-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link><span><MapPin /> Feijó · Acre</span></div>
+      <div className="store-pro-topline">
+        <Link className="store-pro-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
+        <span><MapPin /> Feijó · Acre</span>
+      </div>
 
-      <section className="store-pro-hero" aria-labelledby="store-title">
+      <section className={`store-pro-hero${isBonsAmigos ? " store-pro-hero--bons-amigos" : ""}`} aria-labelledby="store-title">
         <div className="store-pro-hero__overlay" />
+        {isBonsAmigos && <div className="store-pro-brand-art" aria-hidden="true"><img src="/branding/bons-amigos-hero.jpg?v=20260818" alt="" /></div>}
         <div className="store-pro-hero__content">
-          <div className="store-pro-logo" style={{ background: store.color }}><Store /></div>
-          <div className="store-pro-copy">
-            <span>CATÁLOGO LOCAL</span>
-            <h1 id="store-title">{store.name}</h1>
-            <div className="store-pro-meta-line"><b><BadgeCheck /> {allProducts.length || store.products} produtos no catálogo</b><b><Clock3 /> preços organizados pelo PreçoCerto</b></div>
+          <div className={`store-pro-logo${logoUrl ? " has-image" : ""}`} style={!logoUrl ? { background: store.color } : undefined}>
+            {logoUrl ? <img src={logoUrl} alt={`Logomarca ${store.name}`} /> : <Store />}
           </div>
-          <div className="store-pro-status"><BadgeCheck /><span><strong>Catálogo verificado</strong><small>Informações locais organizadas</small></span></div>
-          <div className="store-pro-notice"><Info /><span><strong>Catálogo informativo</strong><small>Este estabelecimento ainda não oferece vendas diretas pelo PreçoCerto.</small></span></div>
+          <div className="store-pro-copy">
+            <span>CATÁLOGO LOCAL · PREÇOS EM FEIJÓ</span>
+            <h1 id="store-title">{store.name}</h1>
+            <p>Consulte produtos, marcas e preços organizados para comparar antes de comprar.</p>
+            <div className="store-pro-meta-line">
+              <b><BadgeCheck /> {allProducts.length || store.products} produtos no catálogo</b>
+              <b><Clock3 /> informações organizadas pelo PreçoCerto</b>
+            </div>
+          </div>
+          <div className="store-pro-status"><BadgeCheck /><span><strong>Catálogo verificado</strong><small>Dados locais organizados</small></span></div>
         </div>
       </section>
 
+      <div className="store-pro-notice"><Info /><span><strong>Catálogo informativo</strong><small>O PreçoCerto exibe informações de produtos e preços. Este espaço ainda não representa venda direta ou canal oficial do estabelecimento.</small></span></div>
+
       <section className="store-pro-summary" aria-label="Resumo do estabelecimento">
         <article><strong>{allProducts.length}</strong><span>produtos encontrados</span></article>
-        <article><strong>{Math.max(1, categories.length - 1)}</strong><span>categorias</span></article>
-        <article><ShieldCheck /><span><b>Informação clara</b><small>Compare antes de comprar</small></span></article>
+        <article><strong>{Math.max(1, categories.length - 1)}</strong><span>categorias disponíveis</span></article>
+        <article><ShieldCheck /><span><b>Compare com clareza</b><small>Marca, embalagem e preço visíveis</small></span></article>
       </section>
 
       <section className="store-pro-catalog" aria-labelledby="store-catalog-title">
-        <header className="store-pro-catalog-head"><div><span>CATÁLOGO</span><h2 id="store-catalog-title">Produtos deste estabelecimento</h2><p>{filteredProducts.length} {filteredProducts.length === 1 ? "resultado" : "resultados"}{query || category !== "Todos" ? " com os filtros atuais" : " disponíveis"}</p></div></header>
+        <header className="store-pro-catalog-head">
+          <div><span>CATÁLOGO</span><h2 id="store-catalog-title">Produtos deste estabelecimento</h2><p>{filteredProducts.length} {filteredProducts.length === 1 ? "resultado" : "resultados"}{query || category !== "Todos" ? " com os filtros atuais" : " disponíveis"}</p></div>
+          <span className="store-pro-catalog-hint"><Search /> Pesquise por nome, marca ou categoria</span>
+        </header>
 
         <div className="store-pro-toolbar">
-          <label className="store-pro-search"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Buscar produto, marca ou categoria" aria-label="Buscar no catálogo do estabelecimento" /></label>
+          <label className="store-pro-search"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Ex.: refresco, Brassuk, leite em pó…" aria-label="Buscar no catálogo do estabelecimento" /></label>
           <label className="store-pro-select"><SlidersHorizontal /><select value={category} onChange={event => setCategory(event.target.value)} aria-label="Filtrar por categoria">{categories.map(item => <option key={item}>{item}</option>)}</select></label>
           <label className="store-pro-select"><select value={sort} onChange={event => setSort(event.target.value as typeof sort)} aria-label="Ordenar produtos"><option value="name">Ordenar: A–Z</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option></select></label>
         </div>
 
         {visibleProducts.length ? <div className="ref-product-grid store-pro-grid">{visibleProducts.map(product => <Link key={product.id} to={`/produto/${product.slug || product.id}`}>
-          <div><ProductImage product={product} /></div>
-          <small>{product.category}</small>
+          <div className="store-pro-product-image"><ProductImage product={product} /></div>
+          <small className="store-pro-category">{product.category}</small>
           <strong>{product.name}</strong>
-          <span className="store-pro-brand"><Tag aria-hidden="true"/><b>Marca:</b> {cleanBrand(product.brand)}</span>
+          <span className="store-pro-brand"><Tag aria-hidden="true"/><b>Marca</b> {cleanBrand(product.brand)}</span>
           <span className="store-pro-spec">{product.size || product.unit || "Unidade não informada"}</span>
-          <footer><em>menor preço</em><b>{brl.format(product.minPrice)}</b></footer>
+          <footer><em>preço cadastrado</em><b>{brl.format(product.minPrice)}</b></footer>
         </Link>)}</div> : <div className="store-pro-empty"><PackageSearch /><h3>Nenhum produto encontrado</h3><p>Tente outro nome ou remova algum filtro.</p><button type="button" onClick={() => { setQuery(""); setCategory("Todos"); }}>Limpar filtros</button></div>}
 
         {pageCount > 1 && <nav className="store-pro-pagination" aria-label="Paginação do catálogo">
@@ -125,7 +142,7 @@ export function StoreDetailProfessional() {
         </nav>}
       </section>
 
-      <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Catálogo informativo</strong><span>Consulte disponibilidade e condições diretamente com o estabelecimento enquanto a venda direta pelo PreçoCerto não estiver habilitada.</span><Link to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
+      <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
     </main>
   </div>;
 }

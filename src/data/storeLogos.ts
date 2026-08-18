@@ -1,6 +1,6 @@
 const STORE_LOGO_BASE_URL =
   "https://kqueiohjadwzxafdrrxk.supabase.co/storage/v1/object/public/products/establishments";
-const STORE_LOGO_VERSION = "20260809-2";
+const STORE_LOGO_VERSION = "20260818-1";
 
 const normalizeStoreName = (name: string) => name
   .normalize("NFD")
@@ -10,6 +10,8 @@ const normalizeStoreName = (name: string) => name
   .trim();
 
 const STORE_LOGOS = [
+  { aliases: ["comercio bons amigos", "bons amigos", "comercio ba bons amigos", "ba comercio bons amigos"], file: "bons-amigos-logo.png" },
+  { aliases: ["panificadora bandeira", "padaria bandeira", "bandeira"], file: "panificadora-bandeira.png" },
   { aliases: ["drogaria pague pouco", "pague pouco"], file: "drogaria-pague-pouco.webp" },
   { aliases: ["doceria doce dia", "doce dia"], file: "doce-dia.webp" },
   { aliases: ["central super"], file: "central-super.webp" },

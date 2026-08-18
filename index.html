@@ -63,6 +63,10 @@
       #seo-prerender{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
       #pc-boot-screen{position:fixed;inset:0;z-index:2147483646;background:#061c28;color:#fff;display:grid;place-items:center;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:opacity .22s ease,visibility .22s ease}
       #pc-boot-screen.is-done{opacity:0;visibility:hidden;pointer-events:none}
+      /* Encerra a animação e a pintura da tela de boot: mantê-la viva custava
+         CPU/GPU continuamente (animação infinita + imagem de fundo + blur). */
+      #pc-boot-screen.is-done .pc-boot-progress i{animation:none!important}
+      #pc-boot-screen.is-removed{display:none!important}
       .pc-boot-loading{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:#061c28}
       .pc-boot-loading::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,24,34,.92),rgba(3,24,34,.55)),url('/auth-market-hero-v2.webp') center/cover no-repeat;filter:saturate(.78)}
       .pc-boot-loading__card{position:relative;z-index:1;display:grid;justify-items:center;gap:18px;padding:34px 38px;border:1px solid rgba(255,255,255,.14);border-radius:24px;background:rgba(4,28,39,.72);box-shadow:0 24px 70px rgba(0,0,0,.28);backdrop-filter:blur(14px);text-align:center;max-width:min(440px,calc(100vw - 40px))}

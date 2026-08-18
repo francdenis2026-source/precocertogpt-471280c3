@@ -14,13 +14,25 @@ document.documentElement.dataset.theme = initialTheme;
 document.documentElement.style.colorScheme = initialTheme;
 
 const boot = document.getElementById("pc-boot-screen");
+// A tela de boot precisa sair completamente do fluxo de pintura depois do
+// primeiro render. Mantida apenas com opacity/visibility, o navegador continua
+// animando a barra de progresso e compondo a imagem de fundo com blur, o que
+// consome CPU/GPU e memória durante toda a sessão.
+let bootRemovalTimer = 0;
+const retireBoot = () => {
+  window.clearTimeout(bootRemovalTimer);
+  bootRemovalTimer = window.setTimeout(() => boot?.classList.add("is-removed"), 400);
+};
 const showOffline = () => {
+  window.clearTimeout(bootRemovalTimer);
   document.documentElement.classList.add("pc-boot-offline-mode");
+  boot?.classList.remove("is-removed");
   boot?.classList.remove("is-done");
 };
 const hideOffline = () => {
   document.documentElement.classList.remove("pc-boot-offline-mode");
   boot?.classList.add("is-done");
+  retireBoot();
 };
 window.addEventListener("offline", showOffline);
 window.addEventListener("online", hideOffline);

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, Info, MapPin, PackageSearch, Search, ShieldCheck, SlidersHorizontal, Store } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, Info, MapPin, PackageSearch, Search, ShieldCheck, SlidersHorizontal, Store, Tag } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
@@ -11,6 +11,12 @@ const PAGE_SIZE = 20;
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
+}
+
+function cleanBrand(value?: string | null) {
+  const brand = (value || "").trim();
+  if (!brand || brand === "-" || brand === "—" || normalize(brand) === "nao identificada") return "Marca não informada";
+  return brand;
 }
 
 function ProductImage({ product }: { product: Product }) {
@@ -108,7 +114,8 @@ export function StoreDetailProfessional() {
           <div><ProductImage product={product} /></div>
           <small>{product.category}</small>
           <strong>{product.name}</strong>
-          <span>{product.size || product.unit || product.brand}</span>
+          <span className="store-pro-brand"><Tag aria-hidden="true"/><b>Marca:</b> {cleanBrand(product.brand)}</span>
+          <span className="store-pro-spec">{product.size || product.unit || "Unidade não informada"}</span>
           <footer><em>menor preço</em><b>{brl.format(product.minPrice)}</b></footer>
         </Link>)}</div> : <div className="store-pro-empty"><PackageSearch /><h3>Nenhum produto encontrado</h3><p>Tente outro nome ou remova algum filtro.</p><button type="button" onClick={() => { setQuery(""); setCategory("Todos"); }}>Limpar filtros</button></div>}
 

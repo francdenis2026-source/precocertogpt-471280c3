@@ -1,0 +1,24 @@
+.ref-store-card__select>i img,
+.ref-store-card>a>i img,
+.store-logo.has-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+.ref-store-card__select>i img,
+.ref-store-card>a>i img {
+  padding: 4px;
+  background: var(--pc-surface);
+}
+
+.store-logo.has-image {
+  overflow: hidden;
+  background: var(--pc-surface) !important;
+}
+
+.store-logo.has-image img {
+  padding: 3px;
+}

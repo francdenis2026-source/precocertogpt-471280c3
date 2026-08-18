@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/outfit";
 import "./styles/AppReset.css";
+import "./styles/StoreLogoFix.css";
 import App from "./App";
 import "./reference/DesignSystem2.css";
 import "./reference/DesignSystem2Experience.css";

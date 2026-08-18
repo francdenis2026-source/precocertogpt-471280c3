@@ -52,8 +52,6 @@ let pendingCatalog: Promise<CatalogResult> | null = null;
 export const normalize = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
-// Vocabulário equivalente para descoberta e comparação. Mantemos o nome do rótulo
-// na interface, mas agrupamos a denominação popular solicitada quando marca e tamanho coincidem.
 const normalizeCatalogTerm = (value: string) => normalize(value)
   .replace(/\bmistura lactea condensada\b/g, "leite condensado");
 
@@ -99,10 +97,6 @@ const baseProductName = (value: string | null) => normalizeCatalogTerm(value || 
   .replace(/\s+/g, " ")
   .trim();
 
-// Barcode é a identidade mais segura. Sem barcode, só agrupamos produtos que
-// compartilham nome-base, marca, categoria e a MESMA especificação física
-// (peso, volume, quantidade ou tamanho). Isso evita comparar, por exemplo,
-// 500 g com 1 kg ou 6 unidades com 12 unidades.
 const productIdentity = (product: ProductRow) => product.barcode
   ? `barcode:${normalize(product.barcode)}`
   : [
@@ -112,14 +106,6 @@ const productIdentity = (product: ProductRow) => product.barcode
       `spec:${extractSpecification(product)}`,
     ].join("|");
 
-/**
- * O PostgREST limita o número de linhas devolvidas por requisição. Lemos em
- * páginas para que produtos e preços acima desse limite também apareçam.
- *
- * A paginação exige uma ordenação estável: sem um ORDER BY único o banco pode
- * devolver as mesmas linhas em ordens diferentes entre chamadas, causando
- * variação no conjunto exibido. Por isso ordenamos sempre por uma coluna única.
- */
 async function fetchAllRows(
   table: "establishments" | "products" | "prices",
   columns: string,
@@ -142,7 +128,6 @@ async function fetchAllRows(
   }
 }
 
-/** Lê establishments/products/prices do Supabase e agrega no formato da UI. */
 async function loadCatalog(query = ""): Promise<CatalogResult> {
   const local = buildCatalog(query);
 
@@ -204,7 +189,6 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       productRows.reduce((map, product) => {
         const key = productIdentity(product);
         const current = map.get(key);
-        // Prefere a ocorrência que possui imagem; em seguida mantém a primeira.
         if (!current || (!current.image_url && product.image_url)) map.set(key, product);
         return map;
       }, new Map<string, ProductRow>()).values(),
@@ -288,20 +272,27 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
         const searchFields = [product.name, product.category, product.brand, product.barcode, product.size].filter(Boolean) as string[];
         return searchFields.some(field => normalizeCatalogTerm(field).includes(q));
       })
-      // Ordenação determinística: preço, nome e, por fim, o id (único) como desempate.
       .sort((a, b) =>
         a.minPrice - b.minPrice ||
         a.name.localeCompare(b.name, "pt-BR") ||
         String(a.id).localeCompare(String(b.id)));
 
-    const stores: StoreRow[] = storeRows.map(store => ({
-      id: store.id,
-      slug: String(store.id),
-      name: store.name ?? "Estabelecimento",
-      neighborhood: store.neighborhood ?? "—",
-      color: store.brand_color ?? "#1473E6",
-      products: productIdsByStore.get(String(store.id))?.size ?? 0,
-    }));
+    const stores: StoreRow[] = storeRows
+      .map(store => ({
+        id: store.id,
+        slug: String(store.id),
+        name: store.name ?? "Estabelecimento",
+        neighborhood: store.neighborhood ?? "—",
+        color: store.brand_color ?? "#1473E6",
+        products: productIdsByStore.get(String(store.id))?.size ?? 0,
+      }))
+      .sort((a, b) => {
+        const aHasCatalog = a.products > 0 ? 1 : 0;
+        const bHasCatalog = b.products > 0 ? 1 : 0;
+        if (aHasCatalog !== bHasCatalog) return bHasCatalog - aHasCatalog;
+        if (aHasCatalog && bHasCatalog && a.products !== b.products) return b.products - a.products;
+        return a.name.localeCompare(b.name, "pt-BR");
+      });
 
     const metrics: PlatformMetrics = {
       products: productRows.length || verifiedDatasetMetrics.products,
@@ -322,10 +313,6 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
   }
 }
 
-/**
- * Reutiliza o catálogo por até 60 segundos e compartilha chamadas simultâneas.
- * Modais de comparação podem usar `force: true` para consultar preços ao vivo.
- */
 export function fetchCatalog(
   query = "",
   options: { force?: boolean } = {},

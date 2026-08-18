@@ -178,10 +178,15 @@ export function EstablishmentsMarketplacePage(){
                         <span className="est-badges">
                           {item.sponsored&&<span className="est-badge est-badge--premium"><Sparkles size={11}/> Patrocinado</span>}
                           {item.partner_tier==="premium"&&<span className="est-badge est-badge--premium">Premium</span>}
-                          {item.is_verified&&<span className="est-badge est-badge--verified"><BadgeCheck size={11}/> Verificado</span>}
+                          {item.is_verified ? (
+                            <span className="est-badge est-badge--verified"><BadgeCheck size={11}/> Verificado</span>
+                          ) : (
+                            <span className="est-badge est-badge--registered">Cadastrado</span>
+                          )}
                           {(item.online||item.direct)&&<span className="est-badge est-badge--online"><ShoppingBag size={11}/> Compra</span>}
                         </span>
                       </span>
+
                       <span className="est-meta">
                         <span className="est-type">{labels[segment]??"Comércio local"}</span>
                         {item.neighborhood&&<span><MapPin size={12}/>{item.neighborhood}</span>}

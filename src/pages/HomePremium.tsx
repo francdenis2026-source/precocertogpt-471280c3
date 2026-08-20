@@ -50,7 +50,7 @@ function ProductVisual({ product, eager = false }: { product: Product; eager?: b
   const image = resolveProductImage(product) ?? trustedProductImage(product);
   useEffect(() => setFailed(false), [image]);
   if (!image || failed) return <PackageSearch aria-hidden="true" />;
-  return <img src={image} alt={product.name} width="220" height="180" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => setFailed(true)} />;
+  return <img src={image} alt={product.name} width="220" height="180" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" onError={() => setFailed(true)} />;
 }
 
 const readTheme = (): Theme => typeof window !== "undefined" && window.localStorage.getItem("theme") === "dark" ? "dark" : "light";

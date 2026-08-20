@@ -84,15 +84,25 @@ html:not([data-theme="dark"]) .pcx-product__price b {
   font-size: 1.15rem;
 }
 
-/* Color Contrast Fix for Hero Secondary Text */
+/* Color Contrast Fix for Hero Secondary Text and Popular Searches */
 html:not([data-theme="dark"]) .pcx-hero__copy > p {
-  color: #2c3531; /* WCAG AAA for normal text */
+  color: #1a1c1b; /* WCAG AAA - High Contrast */
   font-weight: 600;
 }
 
 html:not([data-theme="dark"]) .pcx-quick span {
-  color: #3e4b44;
+  color: #1a1c1b; /* WCAG AAA */
   font-weight: 700;
+}
+
+html:not([data-theme="dark"]) .pcx-quick button {
+  color: #0b2b22;
+  border-bottom-color: rgba(11, 43, 34, 0.3);
+}
+
+html:not([data-theme="dark"]) .pcx-quick button:hover {
+  color: #a34827;
+  border-bottom-color: #a34827;
 }
 
 /* Essentials Category Cards */

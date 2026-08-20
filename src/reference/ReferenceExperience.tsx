@@ -32,7 +32,8 @@ import "./Chrome2026.css";
 import "./HomeSmartBasket.css";
 import "./Home2026.css";
 import "./Stores2026.css";
-
+import "./HomepageRedesign2026.css";
+import "./HomepageEnhancements.css";
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const brlWhole = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });

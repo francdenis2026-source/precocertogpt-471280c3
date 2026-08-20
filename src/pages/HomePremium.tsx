@@ -50,7 +50,7 @@ function ProductVisual({ product, eager = false }: { product: Product; eager?: b
   const image = resolveProductImage(product) ?? trustedProductImage(product);
   useEffect(() => setFailed(false), [image]);
   if (!image || failed) return <PackageSearch aria-hidden="true" />;
-  return <img src={image} alt={product.name} width="220" height="180" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => setFailed(true)} />;
+  return <img src={image} alt={product.name} width="220" height="180" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" onError={() => setFailed(true)} />;
 }
 
 const readTheme = (): Theme => typeof window !== "undefined" && window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
@@ -311,6 +311,16 @@ export function HomePremium() {
             <div className="pcx-hero__copy">
               <h1 id="pcx-title">Comparação de preços em Feijó: <em>saiba antes</em> onde comprar.</h1>
               <p>Em Feijó, compare o mesmo produto nas lojas da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
+              
+              <div className="pcx-hero__actions">
+                <Link to="/buscar" className="pcx-cta pcx-cta--primary">
+                  Ver catálogo completo <ArrowRight aria-hidden="true" />
+                </Link>
+                <Link to="/melhores-precos" className="pcx-cta pcx-cta--secondary">
+                  Destaques do dia
+                </Link>
+              </div>
+
               <div className="pcx-search-area" ref={searchAreaRef}>
                 <form className={`pcx-search${searchPinned ? " is-pinned" : ""}${resultsVisible ? " is-results-open" : ""}`} role="search" onSubmit={submitSearch}>
                   <label htmlFor="pcx-search-input">O que você quer comprar?</label>

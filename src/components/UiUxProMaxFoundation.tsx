@@ -584,9 +584,34 @@ function installFoundationStyles() {
       font-size: .95rem;
     }
 
-    /* Footer principal */
+    /* Footer principal: High contrast accessibility update */
     .site-footer {
-      color: rgba(255,255,255,.82);
+      background: #081a14 !important;
+      color: #dce9e2 !important;
+    }
+
+    .site-footer a {
+      color: #ffffff !important;
+      opacity: 0.82 !important;
+      font-weight: 600 !important;
+    }
+
+    .site-footer a:hover {
+      opacity: 1 !important;
+      color: var(--green) !important;
+    }
+
+    .site-footer h3 {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+    }
+
+    .site-footer p {
+      color: #dce9e2 !important;
+    }
+
+    .footer-bottom, .footer-place, .footer-tagline {
+      color: rgba(255,255,255,0.7) !important;
     }
 
     .footer-grid > div:first-child p {

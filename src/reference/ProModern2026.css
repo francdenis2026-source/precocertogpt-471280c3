@@ -7,31 +7,31 @@
    A rota publica usa o namespace hp-*; estes estilos traduzem a direcao
    visual moderna para o componente realmente montado em /. */
 .hp-home{
-  --hp-bg:#f6f7f3;
+  --hp-bg:#f8f5fa;
   --hp-surface:#ffffff;
-  --hp-surface-2:#eef3ef;
-  --hp-ink:#10231d;
-  --hp-muted:#596c64;
-  --hp-line:#d9e3dd;
-  --hp-brand:#08755a;
-  --hp-brand-2:#064b3c;
+  --hp-surface-2:#f2edf5;
+  --hp-ink:#201625;
+  --hp-muted:#74647d;
+  --hp-line:#e5dce9;
+  --hp-brand:#68139a;
+  --hp-brand-2:#3f0c5d;
   --hp-accent:#f6b73c;
-  --hp-shadow:0 22px 55px rgba(7,55,42,.13);
+  --hp-shadow:0 22px 55px rgba(58,16,82,.14);
 }
 html[data-theme="dark"] .hp-home{
-  --hp-bg:#091310;
-  --hp-surface:#101f1a;
-  --hp-surface-2:#172b24;
-  --hp-ink:#f4faf7;
-  --hp-muted:#abc0b7;
-  --hp-line:#29423a;
-  --hp-brand:#63dfb4;
-  --hp-brand-2:#8aebc9;
+  --hp-bg:#100817;
+  --hp-surface:#1b1023;
+  --hp-surface-2:#281633;
+  --hp-ink:#faf5fc;
+  --hp-muted:#c6b5cf;
+  --hp-line:#432d50;
+  --hp-brand:#c57aeb;
+  --hp-brand-2:#d79af3;
   --hp-accent:#ffd166;
 }
 .hp-header{
   background:color-mix(in srgb,var(--hp-surface) 82%,transparent);
-  box-shadow:0 8px 30px rgba(6,42,32,.06);
+  box-shadow:0 8px 30px rgba(47,12,66,.08);
 }
 .hp-header__inner{height:68px}
 .hp-header nav a{position:relative}
@@ -40,18 +40,18 @@ html[data-theme="dark"] .hp-home{
   border-radius:999px;background:var(--hp-brand);transition:left .2s ease,right .2s ease;
 }
 .hp-header nav a:hover::after{left:18%;right:18%}
-.hp-login{background:var(--hp-brand-2);box-shadow:0 8px 22px rgba(6,75,60,.2)}
-.hp-hero{min-height:520px;background:#062d24}
+.hp-login{background:var(--hp-brand-2);box-shadow:0 8px 22px rgba(63,12,93,.24)}
+.hp-hero{min-height:520px;background:#1a0925}
 .hp-hero__media{background-position:center 34%;filter:saturate(.92) contrast(1.04)}
 .hp-hero__veil{
   background:
-    radial-gradient(55% 85% at 68% 38%,rgba(19,125,94,.12),transparent 70%),
-    linear-gradient(90deg,rgba(4,31,24,.98) 0%,rgba(4,31,24,.91) 45%,rgba(4,31,24,.42) 74%,rgba(4,31,24,.24) 100%);
+    radial-gradient(55% 85% at 68% 38%,rgba(144,62,187,.18),transparent 70%),
+    linear-gradient(90deg,rgba(24,7,34,.98) 0%,rgba(24,7,34,.91) 45%,rgba(24,7,34,.46) 74%,rgba(24,7,34,.27) 100%);
 }
 .hp-hero__grid{min-height:520px;gap:clamp(30px,4vw,58px);padding-block:48px}
 .hp-eyebrow{
   padding:7px 11px;border:1px solid rgba(181,241,218,.2);border-radius:999px;
-  background:rgba(7,70,53,.42);backdrop-filter:blur(10px);color:#70e2ba;
+  background:rgba(75,20,105,.45);backdrop-filter:blur(10px);color:#d79af3;
 }
 .hp-hero h1{
   max-width:720px;font-size:clamp(44px,5.25vw,70px);line-height:1.01;
@@ -64,16 +64,16 @@ html[data-theme="dark"] .hp-home{
   box-shadow:0 3px 8px rgba(0,0,0,.14),0 24px 54px rgba(0,0,0,.3);
   transition:transform .2s ease,box-shadow .2s ease;
 }
-.hp-search:focus-within{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(94,234,212,.3),0 26px 58px rgba(0,0,0,.34)}
-.hp-search__submit{background:#08755a;transition:filter .18s ease,transform .18s ease}
+.hp-search:focus-within{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(197,122,235,.32),0 26px 58px rgba(0,0,0,.34)}
+.hp-search__submit{background:#68139a;transition:filter .18s ease,transform .18s ease}
 .hp-search__submit:hover{filter:brightness(1.09)}
 .hp-search__submit:active{transform:translateY(1px)}
 .hp-quick-searches a{border-color:rgba(255,255,255,.17);background:rgba(255,255,255,.075);backdrop-filter:blur(8px)}
 .hp-spotlight{
   padding:16px;border-radius:22px;border-color:rgba(255,255,255,.16);
-  background:rgba(6,35,27,.76);box-shadow:0 28px 70px rgba(0,0,0,.32);
+  background:rgba(29,10,40,.78);box-shadow:0 28px 70px rgba(0,0,0,.32);
 }
-.hp-spotlight__product{border:1px solid rgba(9,80,61,.1);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.hp-spotlight__product{border:1px solid rgba(104,19,154,.12);box-shadow:0 12px 32px rgba(0,0,0,.12)}
 .hp-spotlight>a{background:#ffd166;transition:transform .18s ease,filter .18s ease}
 .hp-spotlight>a:hover{transform:translateY(-2px);filter:brightness(1.04)}
 .hp-sectors,.hp-offers{padding-block:52px}
@@ -82,20 +82,20 @@ html[data-theme="dark"] .hp-home{
 .hp-section-head h2{font-size:clamp(28px,2.8vw,38px);text-wrap:balance}
 .hp-sector-grid{gap:10px}
 .hp-sector-grid>a{
-  min-height:104px;border-radius:16px;box-shadow:0 8px 24px rgba(10,54,42,.045);
+  min-height:104px;border-radius:16px;box-shadow:0 8px 24px rgba(62,19,82,.055);
 }
 .hp-sector-grid i{background:color-mix(in srgb,var(--hp-brand) 9%,var(--hp-surface));transition:transform .2s ease}
 .hp-sector-grid>a:hover i{transform:scale(1.06) rotate(-2deg)}
 .hp-product-grid{gap:12px}
-.hp-product-card{border-radius:18px;box-shadow:0 10px 28px rgba(10,54,42,.055)}
+.hp-product-card{border-radius:18px;box-shadow:0 10px 28px rgba(62,19,82,.065)}
 .hp-product-card__media{height:164px;background:linear-gradient(145deg,color-mix(in srgb,var(--hp-brand) 7%,var(--hp-surface)),var(--hp-surface-2))}
 .hp-product-card__body{padding:14px}
 .hp-product-card__body>div strong{letter-spacing:-.025em}
 .hp-story{min-height:430px}
 .hp-story__content{min-height:430px;padding-block:48px}
-.hp-story::after{background:linear-gradient(90deg,#0a261e 0%,rgba(10,38,30,.95) 45%,rgba(10,38,30,.4) 74%,rgba(10,38,30,.18))}
-.hp-local{margin-block:50px;padding:30px;border-radius:22px;box-shadow:0 16px 45px rgba(10,54,42,.06)}
-.hp-footer{background:#061d17}
+.hp-story::after{background:linear-gradient(90deg,#1c1124 0%,rgba(28,17,36,.95) 45%,rgba(28,17,36,.42) 74%,rgba(28,17,36,.2))}
+.hp-local{margin-block:50px;padding:30px;border-radius:22px;box-shadow:0 16px 45px rgba(62,19,82,.07)}
+.hp-footer{background:#180b22}
 
 @media(max-width:640px){
   .hp-header__inner{height:62px}

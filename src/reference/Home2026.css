@@ -12,12 +12,14 @@
    --------------------------------------------------------------------- */
 .ref-hero{
   position:relative;overflow:hidden;color:#fff;isolation:isolate;
-  background:var(--pc-navy) url("/hero-feijo-real-shopper-2026.webp") center/cover no-repeat;
+  background:linear-gradient(135deg,#1a3a52 0%,#2d5a7b 50%,#1e5a7d 100%);
   border-top:none;
 }
 .ref-hero::before{
   content:"";position:absolute;inset:0;z-index:0;
-  background:linear-gradient(100deg,rgba(6,17,25,.94) 0%,rgba(6,17,25,.82) 42%,rgba(6,17,25,.42) 78%,rgba(6,17,25,.2) 100%);
+  background:linear-gradient(135deg,rgba(26,58,82,.04) 0%,rgba(45,90,123,.08) 50%,rgba(30,90,125,.04) 100%),
+    radial-gradient(circle at 85% 15%, rgba(217,119,6,.08) 0%, transparent 50%);
+  opacity:0.8;
 }
 .ref-hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(48px,8vw,96px)}
 .ref-hero__copy{max-width:620px}

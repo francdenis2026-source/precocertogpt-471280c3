@@ -20,11 +20,11 @@ function injectStyles() {
 
     .site-header {
       height: var(--pc-header-height) !important;
-      background: color-mix(in srgb, var(--surface) 82%, transparent) !important;
-      backdrop-filter: blur(18px) saturate(165%) !important;
-      -webkit-backdrop-filter: blur(18px) saturate(165%) !important;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 78%, transparent) !important;
-      box-shadow: 0 1px 0 rgba(15,23,42,.03);
+      background: color-mix(in srgb, var(--surface) 90%, transparent) !important;
+      backdrop-filter: blur(20px) saturate(1.4) !important;
+      -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent) !important;
+      box-shadow: 0 1px 0 rgba(2,16,12,.04);
     }
 
     .site-header--scrolled {

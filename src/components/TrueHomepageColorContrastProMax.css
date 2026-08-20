@@ -7,8 +7,8 @@
 .true-home .th-button--brand:hover,.true-home .th-search button:hover{background:#27d39a}
 
 .true-home .th-hero{background:#041824}
-.true-home .th-hero__image{filter:saturate(1.02) contrast(1.07) brightness(.88);background-position:center 48%}
-.true-home .th-hero__overlay{background:linear-gradient(90deg,rgba(2,15,24,.97) 0%,rgba(3,23,34,.91) 46%,rgba(3,23,34,.55) 100%),linear-gradient(180deg,rgba(1,13,20,.05),rgba(1,13,20,.5))}
+.true-home .th-hero__image{filter:saturate(1.02) contrast(1.07) brightness(.92);background-position:center 48%}
+.true-home .th-hero__overlay{background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.92) 46%,rgba(255,255,255,.4) 100%),linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.6))}
 .true-home .th-kicker,.true-home .th-eyebrow{color:#8cf1c9}
 .true-home .th-hero h1{color:#f8fbfd;text-shadow:0 2px 20px rgba(0,0,0,.2)}
 .true-home .th-hero h1 strong{color:#7ce8bc}

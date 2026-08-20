@@ -61,8 +61,8 @@ html:not([data-theme="dark"]) .pcx-hero {
 
 html:not([data-theme="dark"]) .pcx-hero::before {
   background: 
-    radial-gradient(circle at 80% 20%, rgba(169, 75, 42, 0.06), transparent 35%),
-    linear-gradient(125deg, #ffffff 0%, #fdfcf9 70%, #f4f1ea 100%);
+    radial-gradient(circle at 80% 20%, rgba(169, 75, 42, 0.05), transparent 45%),
+    linear-gradient(125deg, #ffffff 0%, #fdfcf9 60%, #f9f7f2 100%);
 }
 
 /* Product Card Image Refinement (The "Ugly" fix) */

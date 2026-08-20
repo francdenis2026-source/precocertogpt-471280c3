@@ -1,8 +1,8 @@
 /* UI UX Pro Max — homepage color, hero and contrast audit */
 .true-home{--navy:#061b2b;--green:#0fb981;--ink:#102033;--muted:#52677a;--line:#d6e1e7;--soft:#f3f8f6;--surface:#fff;--surface-2:#f8fbfa;--brand-deep:#075e4b;--brand-text:#064e3b}
-.true-home .th-header{background:rgba(5,25,39,.97);border-bottom-color:rgba(255,255,255,.12);backdrop-filter:none}
-.true-home .th-brand span{color:#e0edf3;border-left-color:rgba(255,255,255,.22)}
-.true-home .th-nav a,.true-home .th-login{color:#e7f0f4}
+.true-home .th-header{background:rgba(255,255,255,.98);border-bottom:2px solid #0c1813;backdrop-filter:none}
+.true-home .th-brand span{color:#0c1813;border-left-color:rgba(0,0,0,.22)}
+.true-home .th-nav a,.true-home .th-login{color:#0c1813;font-weight:800}
 .true-home .th-button--brand,.true-home .th-search button{background:#10c58a;color:#032d24}
 .true-home .th-button--brand:hover,.true-home .th-search button:hover{background:#27d39a}
 

@@ -132,16 +132,16 @@ html[data-theme="dark"] .pcx-quick button:hover { color: #fff; border-color: var
 .pcx-results__empty { display: flex; align-items: center; gap: 12px; padding: 18px; }
 .pcx-results__empty svg { width: 24px; }
 
-.pcx-receipt { --pcx-receipt-bg: var(--pc-color-parchment-50); --pcx-receipt-ink: var(--pc-color-ink-900); --pcx-receipt-muted: var(--pc-color-ink-600); --pcx-receipt-line: var(--pc-color-line); --pcx-receipt-primary: var(--pc-color-forest-700); --pcx-receipt-accent: var(--pc-color-copper-500); --pcx-receipt-image: var(--pc-color-white); position: relative; z-index: 2; width: min(100%, 338px); align-self: end; justify-self: start; border: 1px solid color-mix(in srgb, var(--pcx-receipt-primary) 32%, transparent); border-radius: 12px 12px 4px 4px; background: var(--pcx-receipt-bg); color: var(--pcx-receipt-ink); padding: 18px; box-shadow: 0 28px 80px rgba(3,17,11,.38), 0 1px 0 rgba(255,255,255,.8) inset; transform: translate(-4px, 8px) rotate(-1deg); }
+.pcx-receipt { --pcx-receipt-bg: #fff; --pcx-receipt-ink: #0f1a15; --pcx-receipt-muted: #4a544f; --pcx-receipt-line: rgba(15,26,21,.12); --pcx-receipt-primary: #0b2b22; --pcx-receipt-accent: #a34827; --pcx-receipt-image: #fff; position: relative; z-index: 2; width: min(100%, 338px); align-self: end; justify-self: start; border: 1px solid rgba(11,43,34,.15); border-radius: 12px 12px 4px 4px; background: var(--pcx-receipt-bg); color: var(--pcx-receipt-ink); padding: 18px; box-shadow: 0 28px 80px rgba(2,16,12,.24), 0 1px 0 rgba(255,255,255,.9) inset; transform: translate(-4px, 8px) rotate(-1deg); }
 html[data-theme="dark"] .pcx-receipt {
-  --pcx-receipt-bg: color-mix(in srgb, var(--pc-color-background) 76%, var(--pc-color-surface));
-  --pcx-receipt-ink: var(--pc-color-foreground);
-  --pcx-receipt-muted: var(--pc-color-muted);
-  --pcx-receipt-line: var(--pc-color-border);
-  --pcx-receipt-primary: var(--pc-color-primary);
-  --pcx-receipt-accent: var(--pc-color-accent);
-  --pcx-receipt-image: color-mix(in srgb, var(--pc-color-surface) 82%, var(--pc-color-background));
-  box-shadow: 0 28px 80px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.05) inset;
+  --pcx-receipt-bg: #0b2b22;
+  --pcx-receipt-ink: #fff;
+  --pcx-receipt-muted: rgba(255,255,255,.6);
+  --pcx-receipt-line: rgba(255,255,255,.1);
+  --pcx-receipt-primary: #a34827;
+  --pcx-receipt-accent: #f2a17f;
+  --pcx-receipt-image: #061a14;
+  box-shadow: 0 28px 80px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.05) inset;
 }
 .pcx-receipt::after { content: ""; position: absolute; inset: auto 0 -7px; height: 8px; background: linear-gradient(135deg, transparent 5px, var(--pcx-receipt-bg) 0) 0 0/10px 10px repeat-x; }
 .pcx-receipt__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px dashed var(--pcx-receipt-line); padding-bottom: 13px; font-family: "Manrope Variable", Manrope, sans-serif; font-size: .75rem; font-weight: 900; letter-spacing: .11em; color: var(--pcx-receipt-primary); }

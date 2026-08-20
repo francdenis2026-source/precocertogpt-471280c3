@@ -1,118 +1,110 @@
 # Design System: PreçoCerto
 
-## Direction and provenance
+This document describes the design system as it actually exists in the codebase after the
+2026 professional redesign. It replaces an earlier version of this file that described a
+token file and color palette that were never implemented.
 
-PreçoCerto is a hyperlocal buying companion for Feijó. The final 2026 redesign follows the deterministic concept seed **`3859b976`** and is built around a live economy receipt rather than a generic, card-heavy marketplace. Its world is the neighborhood market interpreted with editorial restraint: mineral paper, charcoal ink, one amber action color and documentary local photography.
+## Direction
 
-The product remains evidence-led. Real catalog data, store names, price ranges and collection context do the persuasive work; unsupported savings and decorative metrics do not. Public shopping, authentication, establishment, merchant and administration routes share the same visual vocabulary without changing their business flows.
+PreçoCerto is a hyperlocal price-comparison marketplace for Feijó, Acre. The visual language
+is editorial and evidence-led: real catalog data, real store names, and real price ranges do
+the persuasive work. The redesign's job was to replace roughly two dozen layered "polish"
+CSS files — several of them contradicting each other — with one coherent system, and to
+rebuild every page's markup on top of it.
 
 ## Tokens
 
-The canonical global tokens live in `PrecoCertoReform2026.css`. Compatibility aliases (`--blue`, `--gold`, `--green`, `--bg`, `--surface`, `--navy`, `--muted`, `--border`) resolve to these roles so inherited screens remain coherent.
+The canonical token file is `src/reference/DesignSystem2.css`, imported once in `src/main.tsx`.
+All tokens live under a `--pc-*` namespace and flip automatically for dark mode via
+`html[data-theme="dark"]`. Legacy `--ref-*` variable names used throughout older page CSS are
+bridged onto the same tokens by a single rule scoped to `.ref-page, .ref-auth, .ref-admin`, so
+older files did not all need to be rewritten by hand to benefit from the real tokens.
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#F3F4F2` | `#111214` |
-| Surface / card | `#FFFFFF` | `#191A1E` |
-| Dialog | `#FFFFFF` | `#1D1E22` |
-| Foreground | `#17181C` | `#F5F3EC` |
-| Muted text | `#60656F` | `#B6B8BF` |
-| Border | `#D9DCE1` | `#35373D` |
-| Primary action amber | `#8A570F` | `#D69A43` |
-| Expressive amber | `#B7791F` | `#D69A43` |
-| Primary hover | `#6F4309` | `#E7AD58` |
-| Primary foreground | `#FFFFFF` | `#17130D` |
-| Success / verified saving | `#19733D` | `#61C184` |
-| Danger | `#B42335` | `#FF8B98` |
-| Focus | `#8A570F` | `#EFB251` |
+| Canvas | `#f5f7f4` | `#061721` |
+| Surface | `#ffffff` | `#0b2430` |
+| Surface 2 | `#edf2ee` | `#102e3b` |
+| Ink | `#102631` | `#f1f6f4` |
+| Muted | `#64767d` | `#a8bbc1` |
+| Border | `#d8e1dc` | `#294753` |
+| Green (action / verified price) | `#168657` | `#68db98` |
+| Green strong (text-on-light) | `#087a4d` | `#7ce5a7` |
+| Gold (accent) | `#946514` | `#e8b85d` |
+| Navy (institutional / admin) | `#082532` | `#061721` |
 
-- Shadows: card `0 12px 32px rgb(23 24 28 / 7%)`, dialog `0 32px 100px rgb(0 0 0 / 35%)`; dark variants increase opacity for separation.
-- Radii: controls 8px, cards 10px and panels 14px. Receipt paper intentionally stays nearly square.
-- Motion tokens: fast 150ms and normal 240ms, both `cubic-bezier(.2,.8,.2,1)`.
-- The browser theme color is charcoal `#17181C`.
+Typography is Outfit Variable for display/headings and Inter Variable for body copy, both
+loaded via `@fontsource-variable` in `main.tsx`. There is no Manrope anywhere in the app.
 
-## Typography and imagery
+## Primitives (Fase 1)
 
-- Display: Outfit Variable for headings and brand wordmarks, normally with tight tracking and balanced lines.
-- Interface and body: Manrope Variable, with Inter/system UI fallbacks.
-- Prices, comparisons and admin KPIs use tabular numerals.
-- Product names clamp where needed; metadata remains legible and secondary.
-- The home hero uses `/hero-feijo-real-shopper-2026.webp`; the comparison hero uses `/hero-precocerto-comparacao-v2.webp`; establishments use `/marketplace-local-profissional-v2.webp`; authentication uses `/auth-market-hero-v2.webp`.
-- The shared canvas uses the lightweight 56 KB `/banners/feijo-marketplace-bg.webp` as a soft-light background layer; the former 2.1 MB PNG is not loaded globally.
-- Photography is darkened and desaturated beneath directional charcoal overlays. It supplies locality and atmosphere while preserving foreground contrast.
-- Product images declare intrinsic `220 × 180` dimensions, load lazily and fall back to a package icon when unavailable on the home.
+`DesignSystem2.css` also defines reusable primitive classes so new pages mostly need JSX, not
+bespoke CSS: `.pc-shell` (page width), `.pc-section`, `.pc-btn` (primary/secondary/ghost/
+danger/gold, with size variants), `.pc-field`/`.pc-input`/`.pc-select`/`.pc-textarea`,
+`.pc-badge`/`.pc-chip`, `.pc-card`, `.pc-hero` (editorial image+scrim+content pattern),
+`.pc-product-card`, `.pc-store-card`, `.pc-kpi-grid`/`.pc-kpi`, and a `.pc-chart` family
+(line/area/bar) built to the house dataviz rules (single-hue magnitude/time encodings, no
+decorative metrics, always paired with real numbers).
 
-## Home and hero
+## Global chrome
 
-The desktop shell is capped at 1180px with 20px side gutters. The header begins absolute over the hero, includes a compact local-status utility row, and becomes a fixed, blurred charcoal surface after 54px of scroll.
+`src/reference/ReferenceExperience.tsx` exports the header, footer and mobile dock used by
+every public and account-facing page: `PublicHeader` (sticky, blurred, search/theme/account/
+favorites actions, `.ref-header__actions` is a stable portal target for the authenticated
+account menu), `PublicFooter`, and `AppDock` (a five-destination bottom bar — Início, Buscar,
+Cesta, Lojas, Favoritos — shown only under 680px). Their styling lives in `Chrome2026.css`.
+Product-detail and store-detail pages keep a persistent mobile action bar instead of the dock,
+since a single conversion-focused CTA outperforms navigation chrome on a detail page.
 
-The hero is a 720px editorial field with an asymmetric two-column composition. Its primary copy is the two-line promise **“Compare antes / de comprar.”**, followed by a single decisive search field, live suggestions and quick queries for arroz, café and carnes. The search matches normalized tokens across product name, brand, category, establishment and size, ranks up to 12 suggestions, and exposes results as a labeled listbox.
+## Page inventory and treatment
 
-The right column contains the signature **economy receipt**, populated from the featured product with the largest current price spread. It shows the real saving (`maxPrice - minPrice`), minimum and maximum price, a real offer count when offers exist (otherwise the known establishment), a route to the full comparison and the caveat “Coleta local · verifique antes de sair”. Monospace metadata, dashed rules, a torn-paper edge, a slight desktop rotation and semantic green distinguish it from ordinary cards. On mobile the receipt remains visible, loses the rotation and uses a smaller hard shadow.
+Public shopping pages (home, search, product detail, establishments, cesta, cesta inteligente,
+favoritos, setores, institucional) share `PublicHeader`/`PublicFooter` and the primitives above,
+and are fully theme-aware (light/dark). Home's hero, search results, product detail, the
+establishment directory and the smart-basket planner were rebuilt on `Home2026.css`,
+`SearchDiscovery2026.css`, `ProductDetailUltimate2026.css` and `Stores2026.css` respectively —
+each page's CSS was consolidated from what was previously 3–5 competing files into one.
 
-Below the hero, verified catalog metrics, leading establishments, products with visible price variation, category shortcuts, the smart-basket story and the merchant invitation continue the same evidence-first narrative. Metrics come from the catalog payload rather than presentation-only constants.
+Authentication (`ReferenceAuthPage`), the merchant onboarding flow (`MerchantOnboarding`), and
+the video-generation studio (`AdminVideoStudio`) use an intentional fixed-dark editorial
+treatment rather than toggling with the site theme — the same pattern as the auth page's
+photographic story panel. This is a deliberate choice for focused, conversion-oriented flows,
+not a bug.
 
-## Search and comparison
+Admin (`AdminControlCenter`, `AdminCatalogWorkspace`) and the merchant dashboard
+(`ReferenceMerchantDashboard`) use a navy sidebar with a gold active state, tokenized cards and
+tabular KPIs. The admin *shell* is intentionally fixed-light for now (not dark-mode toggled):
+these are internal operational tools, not the public storefront, and a partial dark-mode pass
+that left cards white with light text would be worse than a consistent light theme. Full
+dark-mode support for admin is a scoped follow-up, not attempted here.
 
-The comparison route is denser than the home and focuses on proportional value: price per kilogram, liter or unit is compared only for compatible measures. Search state uses the `q` URL parameter.
+## Business logic (unchanged)
 
-Directly under the search field, a horizontally scrollable filter rail presents **Todos** plus up to seven categories derived from the current product catalog. The active category is an `aria-pressed` chip and is synchronized to the `c` URL parameter; selecting Todos removes `c`. The rail also includes a direct **Minha cesta** action. Results are filtered by both query and category, exclude invalid/non-positive prices, and are capped at 48 items.
+The redesign only touched markup and CSS. All real logic was preserved exactly: Supabase-backed
+auth and roles (`lib/roles.ts`), the product/store catalog with local fallback
+(`data/remoteCatalog.ts`), localStorage-backed basket and smart-basket planner, favorites,
+merchant application review, admin price/order/user management, and the Remotion video-export
+pipeline. The merchant dashboard's KPI numbers are intentionally mocked, as they were before —
+reconnecting them to real metrics is a functionality change outside this redesign's scope.
 
-Cards remain compact, use quiet borders and reveal amber emphasis and shadow on hover. Value groups display compatible package variants, the best proportional offer and calculated saving. Favorites, establishment links and the add-to-basket path remain available.
+## Accessibility
 
-## Responsive navigation
+- A skip link targets `#conteudo-principal`.
+- Icon-only controls carry `aria-label`s; decorative icons are hidden from assistive tech where
+  appropriate.
+- Theme choice persists in `localStorage`, applied via `data-theme` and mirrored to
+  `color-scheme`.
+- `prefers-reduced-motion: reduce` is respected by the shared motion layer
+  (`InteractionPolish.css`) and by page-specific animations.
+- Status is never conveyed by color alone.
 
-At 680px and below, the home becomes app-like:
+## Known follow-ups
 
-- the utility row and desktop login action are hidden;
-- the hero stacks, the search submit becomes an icon action and quick queries scroll horizontally;
-- metrics, stores, products and categories become touch-friendly horizontal rails with scroll snapping;
-- a fixed 69px bottom dock appears with five destinations: **Início, Buscar, Cesta, Lojas, Favoritos**;
-- safe-area insets are respected and only the home reserves 70px of bottom space for its dock;
-- the footer reserves additional clearance for the dock.
-
-The mobile menu remains a separate compact navigation path for secondary destinations. At 900px the hero stacks and operational sidebars collapse into the document flow.
-
-## Modals and overlays
-
-Home product details and comparison details render in a portal on `document.body` with `role="dialog"`, `aria-modal="true"` and a product-specific accessible label. The page prevents body scrolling while a product dialog is open. Opening moves focus to the first dialog control, Tab and Shift+Tab remain within it, Escape closes it, and closing restores the previous focus.
-
-Desktop dialog cards are capped at 920px wide and `min(720px, 100dvh - 32px)` high, with contained overscroll, a blurred dark backdrop and a two-column media/detail layout. At 680px and below they become full-width bottom sheets, capped at 88dvh, with a 14px rounded top and a single-column layout.
-
-The hero search suggestions are an anchored listbox, not a modal. Escape closes both suggestions and product details.
-
-## Motion
-
-Home entrance and reveal motion uses GSAP scoped to the home root:
-
-- hero copy rises 22px and fades in over 650ms with a 70ms stagger;
-- the receipt enters 30px from the right with a small rotation over 800ms;
-- content sections, basket and merchant bands rise 26px and fade once when their top reaches 88% of the viewport, via ScrollTrigger.
-
-CSS interactions use the fast/normal motion tokens and explicit properties. Hover lift is modest and reserved for pointer feedback. When `prefers-reduced-motion: reduce` is active, the GSAP sequence is not created; smooth scrolling is disabled and home/comparison CSS animations and transitions collapse to 0.01ms.
-
-## Shared public and operational surfaces
-
-- **Establishments:** charcoal editorial hero with local market photography, amber kicker/action, compact filters, 8px cards and quiet default shadows. Store cards gain border and shadow only on hover.
-- **Authentication:** full-height split surface with photographic brand panel, mineral/charcoal form side, tokenized inputs and restrained 7–10px radii. Login, recovery and role-specific flows are preserved; recovery uses a neutral example address rather than personal data.
-- **Merchant and basket:** dense bordered modules, reduced gaps and amber primary actions. Basket steps, summaries and item rows use the same compact surface system.
-- **Administration:** charcoal sidebar, amber active state, tokenized cards/dialogs/inputs and tabular KPI, price and positive values. At narrow widths the sidebar returns to normal flow and the main padding tightens.
-- **Global chrome:** inherited public headers use translucent tokenized surfaces and blur; footers and the global signature use charcoal with amber emphasis.
-
-## Accessibility and interaction rules
-
-- A visible-on-focus skip link targets `#conteudo-principal`, which is programmatically focusable.
-- Keyboard focus uses a 3px tokenized outline with 3px offset.
-- Icon-only controls have accessible labels; decorative icons are hidden where appropriate.
-- Theme choice is stored in `localStorage`, applied through `data-theme` and mirrored to `color-scheme`.
-- Pressable controls use touch manipulation; principal navigation and modal controls preserve comfortable touch geometry.
-- Status is never conveyed by color alone, and monetary green remains semantic rather than structural.
-
-## Bans
-
-- No navy/lime legacy theme, neon, glow or gradient text.
-- No fake metrics, generic benefit cards or unsupported savings.
-- No decorative kicker above every heading.
-- No repeated entrance animation, `transition: all`, `scale(0)` or motion on keyboard actions.
-- No image without intrinsic dimensions, unlabeled icon action or color-only state.
-- Do not describe aspirational accessibility behavior as shipped behavior; document the implementation that exists.
+- Admin/merchant-dashboard dark-mode support (see above).
+- A handful of small, low-traffic surfaces (e.g. the account dropdown menu, error-message
+  backgrounds on the auth form) intentionally keep a couple of hardcoded colors because they
+  sit on an always-dark or always-neutral surface; this is documented in code rather than
+  silently left inconsistent.
+- Several now-unreachable CSS rules (from replaced bespoke headers/footers) were removed during
+  the rewrite; a handful of very large, rarely-touched files (e.g. full admin CSS) were not
+  audited rule-by-rule for leftover dead selectors, since they don't affect what renders.

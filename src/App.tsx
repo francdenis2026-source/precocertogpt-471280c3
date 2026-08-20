@@ -1,15 +1,11 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { FooterDeveloperInfo } from "./components/FooterDeveloperInfo";
 import { ProductCardQuickActions } from "./components/ProductCardQuickActions";
-import { ProductBrandIdentity } from "./components/ProductBrandIdentity";
 import { UserAccountHub, UserAccountPage } from "./components/UserAccountExperience";
 import { AdminLoginRedirect } from "./components/AdminLoginRedirect";
 import { AdminProductEditorOverlay } from "./components/AdminProductEditorOverlay";
 import { AdminVideoQuickAccess } from "./components/AdminVideoQuickAccess";
 import { SeoRouteManager } from "./components/SeoRouteManager";
-import { HomeSmartBasketSpotlight } from "./components/HomeSmartBasketSpotlight";
-import { MobileQuickNav } from "./components/MobileQuickNav";
 import { AdminMaintenanceControl, PlatformMaintenanceGate } from "./components/PlatformMaintenance";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
 import { ReferenceAuthPage, ReferenceFavoritesPage, ReferenceHome, ReferenceInfoPage, ReferenceMerchantDashboard, ReferenceNotFound, ReferenceStoresPage } from "./reference/ReferenceExperience";
@@ -38,12 +34,11 @@ import "./reference/HomeVisualIdentity2026.css";
 import "./reference/MobileProMax2026.css";
 import "./reference/MobileVisualRefresh2026.css";
 import "./reference/SectorProfessional2026.css";
-import "./reference/ProductDetailProfessional2026.css";
 import "./reference/PublicExperienceFinal2026.css";
 import "./reference/SearchMobileRequest2026.css";
 
 function RouteFocusManager(){const location=useLocation();useEffect(()=>{if(location.pathname.startsWith('/admin'))return;const main=document.querySelector<HTMLElement>("#conteudo-principal, main");if(!main)return;if(!main.id)main.id="conteudo-principal";main.setAttribute("tabindex","-1");window.scrollTo({top:0,left:0,behavior:"auto"});window.requestAnimationFrame(()=>main.focus({preventScroll:true}));},[location.pathname]);return null;}
-export default function App(){return <BrowserRouter><FavoritesProvider><a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a><SeoRouteManager/><RouteFocusManager/><AdminLoginRedirect/><AdminProductEditorOverlay/><AdminMaintenanceControl/><AdminVideoQuickAccess/><ProductCardQuickActions/><ProductBrandIdentity/><FooterDeveloperInfo/><UserAccountHub/><HomeSmartBasketSpotlight/><MobileQuickNav/><PlatformMaintenanceGate><Routes>
+export default function App(){return <BrowserRouter><FavoritesProvider><a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a><SeoRouteManager/><RouteFocusManager/><AdminLoginRedirect/><AdminProductEditorOverlay/><AdminMaintenanceControl/><AdminVideoQuickAccess/><ProductCardQuickActions/><UserAccountHub/><PlatformMaintenanceGate><Routes>
 <Route path="/" element={<ReferenceHome/>}/><Route path="/buscar" element={<SearchDiscovery2026/>}/><Route path="/explorar" element={<SectorHub2026/>}/><Route path="/mercados" element={<MarketplaceSectorLanding sector={marketplaceSectors[0]}/>}/><Route path="/farmacias" element={<MarketplaceSectorLanding sector={marketplaceSectors[1]}/>}/><Route path="/padarias" element={<MarketplaceSectorLanding sector={marketplaceSectors[2]}/>}/><Route path="/livros" element={<MarketplaceSectorLanding sector={marketplaceSectors[3]}/>}/><Route path="/servicos" element={<MarketplaceSectorLanding sector={marketplaceSectors[4]}/>}/>
 <Route path="/produto/:identifier" element={<ProductDetailProfessional/>}/><Route path="/estabelecimentos" element={<ReferenceStoresPage/>}/><Route path="/estabelecimento/:identifier" element={<StoreDetailProfessional/>}/><Route path="/loja/:identifier" element={<StoreDetailProfessional/>}/><Route path="/cesta" element={<ProfessionalBasketPage/>}/><Route path="/cesta-basica" element={<ProfessionalBasketPage/>}/><Route path="/cesta-inteligente" element={<SmartBasketPage/>}/><Route path="/favoritos" element={<ReferenceFavoritesPage/>}/><Route path="/minha-conta" element={<UserAccountPage/>}/>
 <Route path="/login" element={<ReferenceAuthPage mode="login"/>}/><Route path="/cadastro" element={<ReferenceAuthPage mode="register"/>}/><Route path="/registrar" element={<ReferenceAuthPage mode="register"/>}/><Route path="/lojista" element={<MerchantOnboarding/>}/><Route path="/cadastro-lojista" element={<MerchantOnboarding/>}/><Route path="/quero-vender" element={<MerchantOnboarding/>}/><Route path="/painel-lojista/*" element={<ReferenceMerchantDashboard/>}/><Route path="/admin/catalogo" element={<AdminCatalogWorkspace/>}/><Route path="/admin/ambientes" element={<AdminEnvironmentsPage/>}/><Route path="/admin/videos" element={<AdminVideoStudio/>}/><Route path="/admin/*" element={<AdminControlCenter/>}/>

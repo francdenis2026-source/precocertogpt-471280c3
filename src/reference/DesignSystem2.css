@@ -39,32 +39,6 @@ body{font-family:var(--pc-font-body)}
 .ref-home .ref-price-image{background:var(--pc-surface-2);border-radius:var(--pc-radius-control)}
 .ref-home .ref-price-value strong{color:var(--pc-green-strong)}
 
-/* Product page: same app, true light/dark modes. */
-.pdp-page{background:var(--pc-canvas);color:var(--pc-ink);font-family:var(--pc-font-body)}
-.pdp-topbar{background:color-mix(in srgb,var(--pc-navy) 96%,transparent);border-color:color-mix(in srgb,var(--pc-border) 72%,transparent)}
-.pdp-primary h1{color:var(--pc-ink);font-family:var(--pc-font-display)}
-.pdp-eyebrow{color:var(--pc-green-strong);font-size:var(--pc-text-sm)}
-.pdp-unit,.pdp-breadcrumb{color:var(--pc-muted)}
-.pdp-main-image{background:var(--pc-surface-2);border-color:var(--pc-border);border-radius:var(--pc-radius-block)}
-.pdp-main-image>img{object-fit:contain;padding:clamp(14px,2.5vw,28px)}
-.pdp-price-card{border-color:color-mix(in srgb,var(--pc-green) 42%,var(--pc-border));background:var(--pc-green-soft);box-shadow:none}
-.pdp-price-card span,.pdp-price-card small{color:color-mix(in srgb,var(--pc-ink) 74%,var(--pc-green-strong))}
-.pdp-price-card strong{color:var(--pc-green-strong)}
-.pdp-actions button{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);border-radius:var(--pc-radius-control)}
-.pdp-actions .pdp-add{border-color:var(--pc-green);background:var(--pc-green);color:#fff}
-.pdp-where,.pdp-meta,.pdp-panel,.pdp-catalog-note{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);box-shadow:none}
-.pdp-where>header>a,.pdp-meta>div>svg,.pdp-meta footer>svg{background:var(--pc-surface-2);color:var(--pc-info)}
-.pdp-where>div>a,.pdp-similar>div>a,.pdp-basket-row{border-color:var(--pc-border)}
-.pdp-where>div>a.is-best{background:var(--pc-green-soft);border-left-color:var(--pc-green)}
-.pdp-where>div>a span small,.pdp-panel>header span,.pdp-similar small,.pdp-similar em,.pdp-basket>p,.pdp-meta small{color:var(--pc-muted);font-size:var(--pc-text-xs)}
-.pdp-where>div>a span strong,.pdp-meta strong,.pdp-panel h2,.pdp-similar strong,.pdp-basket-row strong{color:var(--pc-ink)}
-.pdp-where>div>a>strong,.pdp-similar b,.pdp-basket>footer strong{color:var(--pc-green-strong)}
-.pdp-chart-grid{stroke:var(--pc-border)}
-.pdp-chart-line{stroke:var(--pc-green)}
-.pdp-chart-dot{fill:var(--pc-green)}
-.pdp-history-empty,.pdp-chart-labels{color:var(--pc-muted)}
-.pdp-history-empty strong{color:var(--pc-ink)}
-
 /* Store/catalog: remove microscopic UI and unify themes. */
 .store-pro-page{background:var(--pc-canvas);color:var(--pc-ink);font-family:var(--pc-font-body)}
 .store-pro-shell{width:min(1380px,calc(100% - 40px))}
@@ -267,3 +241,235 @@ html[data-theme="dark"] .ref-header{background:color-mix(in srgb,var(--pc-surfac
 }
 @media(max-width:370px){.store-pro-grid{grid-template-columns:1fr!important}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* =========================================================================
+   PreçoCerto Design System 2026 — Fundação
+   ---------------------------------------------------------------------
+   Esta seção é o sistema canônico para a remodelação completa do site.
+   Tudo acima desta linha é a camada legada, mantida página a página
+   enquanto cada rota é reconstruída (ver plano de remodelação) — não
+   remover regras legadas até que a página correspondente já tenha sido
+   reescrita para usar apenas os primitivos abaixo.
+   ========================================================================= */
+:root{
+  /* Motion */
+  --pc-ease:cubic-bezier(.2,.8,.2,1);
+  --pc-duration-fast:150ms;
+  --pc-duration-base:240ms;
+  --pc-duration-slow:400ms;
+
+  /* Elevation extra */
+  --pc-shadow-md:0 12px 32px rgba(8,37,50,.10);
+  --pc-shadow-focus:0 0 0 3px color-mix(in srgb,var(--pc-green) 34%,transparent);
+  --pc-scrim:linear-gradient(180deg,rgba(6,23,33,.15),rgba(6,23,33,.78));
+  --pc-scrim-strong:linear-gradient(115deg,rgba(6,23,33,.92),rgba(6,23,33,.55) 60%,rgba(6,23,33,.28));
+
+  /* Layout */
+  --pc-shell-width:1200px;
+  --pc-shell-gutter:20px;
+  --pc-header-height:72px;
+  --pc-dock-height:64px;
+
+  /* Z-index scale */
+  --pc-z-sticky:40;
+  --pc-z-dropdown:45;
+  --pc-z-overlay:55;
+  --pc-z-modal:60;
+  --pc-z-toast:70;
+
+  /* Font weights (Outfit/Inter variable axes) */
+  --pc-weight-body:440;
+  --pc-weight-medium:560;
+  --pc-weight-semibold:640;
+  --pc-weight-display:560;
+}
+html[data-theme="dark"]{
+  --pc-shadow-md:0 14px 36px rgba(0,0,0,.28);
+  --pc-scrim:linear-gradient(180deg,rgba(2,10,15,.25),rgba(2,10,15,.86));
+  --pc-scrim-strong:linear-gradient(115deg,rgba(2,10,15,.94),rgba(2,10,15,.62) 60%,rgba(2,10,15,.32));
+}
+
+/* Breakpoints used consistently across every rebuilt page (documented, not
+   computable in plain CSS): 480 · 680 · 900 · 1180 · 1440. */
+
+/* -------------------------------------------------------------------------
+   Layout primitives
+   ------------------------------------------------------------------------- */
+.pc-shell{width:min(var(--pc-shell-width),100% - (var(--pc-shell-gutter) * 2));margin-inline:auto}
+.pc-shell--narrow{width:min(760px,100% - (var(--pc-shell-gutter) * 2));margin-inline:auto}
+.pc-shell--wide{width:min(1380px,100% - (var(--pc-shell-gutter) * 2));margin-inline:auto}
+
+.pc-section{padding-block:clamp(40px,6vw,88px)}
+.pc-section--tight{padding-block:clamp(28px,4vw,56px)}
+.pc-section__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--pc-space-4);margin-bottom:var(--pc-space-6)}
+.pc-section__head h2{font-family:var(--pc-font-display);font-size:var(--pc-h2);letter-spacing:-.02em;color:var(--pc-ink);margin:0}
+.pc-section__head p{color:var(--pc-muted);font-size:var(--pc-text-body);margin:var(--pc-space-1) 0 0;max-width:60ch}
+.pc-section__link{font-size:var(--pc-text-sm);font-weight:var(--pc-weight-medium);color:var(--pc-green-strong);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.pc-section__link:hover{text-decoration:underline}
+.pc-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:var(--pc-text-xs);font-weight:var(--pc-weight-semibold);letter-spacing:.08em;text-transform:uppercase;color:var(--pc-green-strong)}
+
+/* -------------------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------------------- */
+.pc-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 20px;border-radius:var(--pc-radius-control);
+  font-family:var(--pc-font-body);font-size:var(--pc-text-body);font-weight:var(--pc-weight-medium);
+  border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:background var(--pc-duration-fast) var(--pc-ease),border-color var(--pc-duration-fast) var(--pc-ease),color var(--pc-duration-fast) var(--pc-ease),transform var(--pc-duration-fast) var(--pc-ease);
+  touch-action:manipulation;
+}
+.pc-btn svg{width:18px;height:18px;flex:none}
+.pc-btn:active{transform:translateY(1px)}
+.pc-btn:disabled,.pc-btn[aria-disabled="true"]{opacity:.5;cursor:not-allowed;transform:none}
+.pc-btn:focus-visible{outline:3px solid color-mix(in srgb,var(--pc-green) 40%,transparent);outline-offset:2px}
+
+.pc-btn--primary{background:var(--pc-green-strong);border-color:var(--pc-green-strong);color:#fff}
+.pc-btn--primary:hover:not(:disabled){background:var(--pc-green);border-color:var(--pc-green)}
+
+.pc-btn--secondary{background:var(--pc-surface);border-color:var(--pc-border-strong);color:var(--pc-ink)}
+.pc-btn--secondary:hover:not(:disabled){border-color:var(--pc-green);color:var(--pc-green-strong);background:var(--pc-green-soft)}
+
+.pc-btn--ghost{background:transparent;border-color:transparent;color:var(--pc-ink)}
+.pc-btn--ghost:hover:not(:disabled){background:var(--pc-surface-2)}
+
+.pc-btn--danger{background:transparent;border-color:var(--pc-danger);color:var(--pc-danger)}
+.pc-btn--danger:hover:not(:disabled){background:var(--pc-danger-soft)}
+
+.pc-btn--gold{background:var(--pc-gold);border-color:var(--pc-gold);color:#fff}
+.pc-btn--gold:hover:not(:disabled){filter:brightness(1.06)}
+
+.pc-btn--sm{min-height:36px;padding:0 14px;font-size:var(--pc-text-meta);border-radius:calc(var(--pc-radius-control) - 2px)}
+.pc-btn--lg{min-height:52px;padding:0 26px;font-size:var(--pc-text-lg)}
+.pc-btn--icon{min-height:40px;min-width:40px;padding:0;border-radius:var(--pc-radius-control)}
+.pc-btn--block{width:100%}
+
+/* -------------------------------------------------------------------------
+   Form controls
+   ------------------------------------------------------------------------- */
+.pc-field{display:flex;flex-direction:column;gap:6px}
+.pc-field__label{font-size:var(--pc-text-sm);font-weight:var(--pc-weight-medium);color:var(--pc-ink)}
+.pc-field__hint{font-size:var(--pc-text-xs);color:var(--pc-muted)}
+.pc-field__error{font-size:var(--pc-text-xs);color:var(--pc-danger)}
+
+.pc-input,.pc-select,.pc-textarea{
+  width:100%;min-height:46px;padding:0 14px;border-radius:var(--pc-radius-control);
+  border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);
+  font-family:var(--pc-font-body);font-size:var(--pc-text-body);
+  transition:border-color var(--pc-duration-fast) var(--pc-ease),box-shadow var(--pc-duration-fast) var(--pc-ease);
+}
+.pc-textarea{min-height:110px;padding-block:12px;resize:vertical}
+.pc-input::placeholder,.pc-textarea::placeholder{color:var(--pc-subtle)}
+.pc-input:focus-visible,.pc-select:focus-visible,.pc-textarea:focus-visible{outline:none;border-color:var(--pc-green);box-shadow:var(--pc-shadow-focus)}
+.pc-input[aria-invalid="true"],.pc-textarea[aria-invalid="true"]{border-color:var(--pc-danger)}
+
+/* -------------------------------------------------------------------------
+   Badges & chips
+   ------------------------------------------------------------------------- */
+.pc-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:var(--pc-text-xs);font-weight:var(--pc-weight-semibold);letter-spacing:.02em}
+.pc-badge svg{width:13px;height:13px}
+.pc-badge--neutral{background:var(--pc-surface-2);color:var(--pc-muted)}
+.pc-badge--green{background:var(--pc-green-soft);color:var(--pc-green-strong)}
+.pc-badge--gold{background:var(--pc-gold-soft);color:var(--pc-gold)}
+.pc-badge--danger{background:var(--pc-danger-soft);color:var(--pc-danger)}
+
+.pc-chip{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);font-size:var(--pc-text-sm);font-weight:var(--pc-weight-medium);cursor:pointer;white-space:nowrap;transition:border-color var(--pc-duration-fast) var(--pc-ease),background var(--pc-duration-fast) var(--pc-ease),color var(--pc-duration-fast) var(--pc-ease)}
+.pc-chip:hover{border-color:var(--pc-green)}
+.pc-chip.is-active,.pc-chip[aria-pressed="true"]{border-color:var(--pc-green);background:var(--pc-green-soft);color:var(--pc-green-strong)}
+.pc-chip:focus-visible{outline:3px solid color-mix(in srgb,var(--pc-green) 34%,transparent);outline-offset:2px}
+
+/* -------------------------------------------------------------------------
+   Surfaces: card, hero
+   ------------------------------------------------------------------------- */
+.pc-card{background:var(--pc-surface);border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);box-shadow:var(--pc-shadow-sm)}
+.pc-card--flat{box-shadow:none}
+.pc-card--interactive{transition:border-color var(--pc-duration-fast) var(--pc-ease),box-shadow var(--pc-duration-fast) var(--pc-ease),transform var(--pc-duration-fast) var(--pc-ease)}
+.pc-card--interactive:hover{border-color:color-mix(in srgb,var(--pc-green) 45%,var(--pc-border));box-shadow:var(--pc-shadow-md);transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.pc-card--interactive:hover{transform:none}}
+
+.pc-hero{position:relative;overflow:hidden;border-radius:0;color:#fff;isolation:isolate}
+.pc-hero__media{position:absolute;inset:0;z-index:-2}
+.pc-hero__media img{width:100%;height:100%;object-fit:cover;object-position:center}
+.pc-hero__scrim{position:absolute;inset:0;z-index:-1;background:var(--pc-scrim-strong)}
+.pc-hero__content{position:relative;padding-block:clamp(48px,9vw,104px);display:flex;flex-direction:column;gap:var(--pc-space-4);max-width:680px}
+.pc-hero__eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:var(--pc-text-xs);font-weight:var(--pc-weight-semibold);letter-spacing:.09em;text-transform:uppercase;color:var(--pc-gold)}
+.pc-hero h1{font-family:var(--pc-font-display);font-size:var(--pc-display);line-height:var(--pc-leading-tight);letter-spacing:-.03em;margin:0}
+.pc-hero p{font-size:var(--pc-text-lg);color:rgba(255,255,255,.86);max-width:56ch;margin:0}
+.pc-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+
+/* -------------------------------------------------------------------------
+   Product & store card primitives
+   Convention: every product-card anchor MUST also carry the class
+   "ref-catalog-card" (consumed by ProductCardQuickActions for the
+   favorite/basket quick actions — do not rename that selector).
+   ------------------------------------------------------------------------- */
+.pc-product-card{display:flex;flex-direction:column;background:var(--pc-surface);border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);overflow:hidden;color:inherit;text-decoration:none;position:relative;transition:border-color var(--pc-duration-fast) var(--pc-ease),box-shadow var(--pc-duration-fast) var(--pc-ease),transform var(--pc-duration-fast) var(--pc-ease)}
+.pc-product-card:hover{border-color:color-mix(in srgb,var(--pc-green) 45%,var(--pc-border));box-shadow:var(--pc-shadow-md);transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.pc-product-card:hover{transform:none}}
+.pc-product-card__media{aspect-ratio:1/1;background:var(--pc-surface-2);display:grid;place-items:center;overflow:hidden}
+.pc-product-card__media img{width:100%;height:100%;object-fit:contain;padding:12%}
+.pc-product-card__body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pc-product-card__brand{font-size:var(--pc-text-xs);color:var(--pc-green-strong);font-weight:var(--pc-weight-semibold)}
+.pc-product-card__name{font-size:var(--pc-text-sm);font-weight:var(--pc-weight-medium);color:var(--pc-ink);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}
+.pc-product-card__meta{font-size:var(--pc-text-xs);color:var(--pc-muted)}
+.pc-product-card__footer{margin-top:auto;padding-top:8px;border-top:1px solid var(--pc-border);display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.pc-price{font-variant-numeric:tabular-nums;font-family:var(--pc-font-display);font-weight:var(--pc-weight-semibold);color:var(--pc-green-strong)}
+.pc-price--lg{font-size:var(--pc-h3)}
+.pc-price--sm{font-size:var(--pc-text-body)}
+.pc-price-range{font-variant-numeric:tabular-nums;font-size:var(--pc-text-xs);color:var(--pc-muted)}
+
+.pc-store-card{display:flex;flex-direction:column;gap:10px;background:var(--pc-surface);border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);padding:18px;color:inherit;text-decoration:none;transition:border-color var(--pc-duration-fast) var(--pc-ease),box-shadow var(--pc-duration-fast) var(--pc-ease)}
+.pc-store-card:hover{border-color:color-mix(in srgb,var(--pc-green) 45%,var(--pc-border));box-shadow:var(--pc-shadow-md)}
+.pc-store-card__head{display:flex;align-items:center;gap:12px}
+.pc-store-card__logo{width:48px;height:48px;border-radius:var(--pc-radius-control);background:var(--pc-surface-2);display:grid;place-items:center;overflow:hidden;flex:none}
+.pc-store-card__logo img{width:100%;height:100%;object-fit:contain;padding:6px}
+.pc-store-card__name{font-family:var(--pc-font-display);font-size:var(--pc-text-lg);font-weight:var(--pc-weight-semibold);color:var(--pc-ink)}
+.pc-store-card__meta{font-size:var(--pc-text-xs);color:var(--pc-muted)}
+
+/* -------------------------------------------------------------------------
+   KPI / stat tiles — real numbers only (no decorative metrics).
+   ------------------------------------------------------------------------- */
+.pc-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.pc-kpi{background:var(--pc-surface);border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);padding:16px}
+.pc-kpi small{display:block;font-size:var(--pc-text-xs);color:var(--pc-muted);text-transform:uppercase;letter-spacing:.05em}
+.pc-kpi strong{display:block;margin-top:4px;font-family:var(--pc-font-display);font-size:var(--pc-h3);font-variant-numeric:tabular-nums;color:var(--pc-ink)}
+.pc-kpi span{display:block;margin-top:2px;font-size:var(--pc-text-xs);color:var(--pc-muted)}
+
+/* -------------------------------------------------------------------------
+   Charts — single-hue, magnitude/time encodings only (no categorical
+   multi-color series exist in this product's data). Price-history line
+   and ranked magnitude bars share the same accent + neutral grid.
+   ------------------------------------------------------------------------- */
+.pc-chart{position:relative}
+.pc-chart__svg{width:100%;height:auto;overflow:visible}
+.pc-chart__grid{stroke:var(--pc-border);stroke-width:1}
+.pc-chart__axis{fill:var(--pc-muted);font-size:11px;font-variant-numeric:tabular-nums}
+.pc-chart__line{fill:none;stroke:var(--pc-green);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-chart__area{fill:color-mix(in srgb,var(--pc-green) 14%,transparent)}
+.pc-chart__dot{fill:var(--pc-surface);stroke:var(--pc-green);stroke-width:2}
+.pc-chart__dot--current{fill:var(--pc-green)}
+.pc-chart__crosshair{stroke:var(--pc-border-strong);stroke-width:1;stroke-dasharray:3 3}
+.pc-chart__tooltip{position:absolute;pointer-events:none;background:var(--pc-navy);color:#fff;font-size:var(--pc-text-xs);font-variant-numeric:tabular-nums;padding:6px 10px;border-radius:8px;box-shadow:var(--pc-shadow-md);transform:translate(-50%,calc(-100% - 10px));white-space:nowrap;z-index:var(--pc-z-dropdown)}
+.pc-chart__empty{display:grid;place-items:center;min-height:120px;color:var(--pc-muted);font-size:var(--pc-text-sm)}
+
+.pc-bar-list{display:flex;flex-direction:column;gap:10px}
+.pc-bar-list__row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;font-size:var(--pc-text-sm)}
+.pc-bar-list__track{grid-column:1/-1;height:8px;border-radius:999px;background:var(--pc-surface-2);overflow:hidden}
+.pc-bar-list__fill{height:100%;border-radius:inherit;background:var(--pc-green);transition:width var(--pc-duration-slow) var(--pc-ease)}
+@media(prefers-reduced-motion:reduce){.pc-bar-list__fill{transition:none}}
+
+/* -------------------------------------------------------------------------
+   Empty / loading states — a visible status, never a silent blank screen.
+   ------------------------------------------------------------------------- */
+.pc-state{display:grid;place-items:center;gap:10px;padding:clamp(48px,8vw,96px) 20px;text-align:center;color:var(--pc-muted)}
+.pc-state h2{font-family:var(--pc-font-display);color:var(--pc-ink);font-size:var(--pc-h2);margin:0}
+.pc-state p{max-width:48ch;margin:0}
+.pc-skeleton{background:linear-gradient(90deg,var(--pc-surface-2) 25%,var(--pc-surface-3) 37%,var(--pc-surface-2) 63%);background-size:400% 100%;animation:pc-skeleton-shine 1.4s ease infinite;border-radius:var(--pc-radius-control)}
+@keyframes pc-skeleton-shine{0%{background-position:100% 50%}100%{background-position:0 50%}}
+@media(prefers-reduced-motion:reduce){.pc-skeleton{animation:none}}
+
+@media(max-width:680px){
+  .pc-hero__content{max-width:100%}
+  .pc-section{padding-block:clamp(28px,7vw,48px)}
+  .pc-btn--lg{min-height:48px}
+}

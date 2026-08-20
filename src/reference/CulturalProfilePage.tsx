@@ -1,5 +1,6 @@
-import { ArrowLeft, ArrowRight, BookOpen, Building2, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Building2, MapPin, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./CulturalProfilePage.css";
 
 type CulturalProfileKind = "dorinha" | "fremix";
@@ -31,7 +32,7 @@ export function CulturalProfilePage({ kind }: { kind: CulturalProfileKind }) {
   const profile = profiles[kind];
   const Icon = profile.icon;
   return <div className="culture-profile-page">
-    <header className="culture-profile-top"><div><Link to="/livros"><ArrowLeft /> Livros e cultura</Link><Link to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link></div></header>
+    <PublicHeader/>
     <main id="conteudo-principal" className="culture-profile-shell">
       <section className="culture-profile-hero">
         <div className="culture-profile-icon"><Icon /></div>
@@ -42,5 +43,6 @@ export function CulturalProfilePage({ kind }: { kind: CulturalProfileKind }) {
       </section>
       <aside className="culture-profile-note"><BookOpen /><div><strong>Área cultural do PreçoCerto</strong><span>Perfis editoriais são organizados separadamente de lojas, mercados e estabelecimentos comerciais.</span></div><Link to="/livros">Explorar cultura <ArrowRight /></Link></aside>
     </main>
+    <PublicFooter/>
   </div>;
 }

@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, BadgeCheck, ChevronLeft, Minus, PackageSearch, PiggyBank, Plus, ShoppingBasket, Sparkles, Store, Trash2 } from "lucide-react";
+import { ArrowRight, BadgeCheck, Minus, PackageSearch, PiggyBank, Plus, ShoppingBasket, Sparkles, Store, Trash2 } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
+import { AppDock, PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProfessionalBasketPage.css";
 
 type BasketEntry = { productId: string; quantity: number };
@@ -69,11 +70,7 @@ export function ProfessionalBasketPage() {
   }
 
   return <div className="pro-basket-page">
-    <header className="pro-basket-topbar">
-      <Link to="/"><ChevronLeft /> Voltar</Link>
-      <Link className="pro-basket-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link>
-      <Link className="pro-basket-smart-link" to="/cesta-inteligente"><Sparkles /> Cesta inteligente</Link>
-    </header>
+    <PublicHeader current="basket"/>
 
     <main id="conteudo-principal" className="pro-basket-shell">
       <section className="pro-basket-hero">
@@ -109,5 +106,8 @@ export function ProfessionalBasketPage() {
         </aside>
       </section>}
     </main>
+
+    <PublicFooter/>
+    <AppDock current="basket"/>
   </div>;
 }

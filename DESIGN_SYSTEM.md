@@ -1,34 +1,14 @@
-# PreçoCerto Design System
+# PreçoCerto Design System — quick reference
 
-## Architecture
+See `DESIGN.md` for the full write-up. This file is a short pointer so both don't drift again.
 
-`src/styles/DesignTokens.css` uses primitive, semantic and component layers. Components consume semantic roles; hard-coded colors are limited to authored imagery overlays and the receipt artifact.
-
-## Core system
-
-| Role | Value | Use |
-|---|---|---|
-| Canvas | `#F1EADF` | page atmosphere |
-| Surface | `#FBF8F1` | controls, products, dialog |
-| Ink | `#18211C` | main copy |
-| Primary | `#17493A` | action and verified best price |
-| Accent | `#A84D2C` | primary conversion and emphasis |
-| Border | `#D9D0C1` | structure |
-
-Display uses Outfit Variable; interface copy uses Manrope Variable. Prices use tabular numerals. Touch targets are at least 44×44px.
-
-## Responsive contract
-
-- 360–520px: single-column content, 3 compact product rows, modal becomes bottom sheet.
-- 768px: 2-column product grid and stacked hero.
-- 1024px: 4 products, mobile navigation, split hero.
-- 1440px: 1180px shell and 5 products.
-
-All headings use balanced wrapping. Long product names clamp to 2 lines. No viewport may introduce horizontal page scrolling.
-
-## Interaction contract
-
-- Search keeps a visible programmatic label, keyboard listbox behavior and URL-backed navigation.
-- Dialog traps focus, closes on Escape or backdrop and restores focus.
-- Loading has a polite live status and skeletons matching the final cards.
-- Focus is visible, dark mode maps semantic tokens and reduced motion removes displacement.
+- Tokens: `src/reference/DesignSystem2.css` (`--pc-*` namespace, light/dark via
+  `html[data-theme="dark"]`). Legacy `--ref-*` names are bridged onto the same tokens.
+- Typography: Outfit Variable (display) + Inter Variable (body). No Manrope.
+- Chrome: `PublicHeader` / `PublicFooter` / `AppDock` in `src/reference/ReferenceExperience.tsx`.
+- Primitives: `.pc-shell`, `.pc-btn`, `.pc-field`/`.pc-input`, `.pc-card`, `.pc-hero`,
+  `.pc-product-card`, `.pc-store-card`, `.pc-kpi-grid`, `.pc-chart` — all in `DesignSystem2.css`.
+- Touch targets ≥44×44px; long product names clamp to 2 lines; no viewport introduces
+  horizontal page scroll.
+- Search keeps a visible label, keyboard listbox behavior and URL-backed state; dialogs trap
+  focus, close on Escape/backdrop, and restore focus on close.

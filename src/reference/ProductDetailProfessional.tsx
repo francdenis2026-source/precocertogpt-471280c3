@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
+  ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
   ChevronRight, Factory, Heart, Home, Info, Layers3, MapPin, Package,
-  PackageSearch, Search, ShieldCheck, ShoppingBasket, Store, Tag, TrendingDown,
+  PackageSearch, ShieldCheck, ShoppingBasket, Store, Tag, TrendingDown,
 } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -141,9 +142,7 @@ export function ProductDetailProfessional() {
   const savingVsPrevious = previousPrice > product.minPrice ? previousPrice - product.minPrice : 0;
 
   return <div className="pdx-page">
-    <header className="pdx-header">
-      <div className="pdx-header__inner"><Link to="/buscar" className="pdx-back"><ArrowLeft/><span>Voltar</span></Link><Link to="/" className="pdx-logo"><img src="/logo-preco-certo.svg" alt="PreçoCerto"/></Link><nav aria-label="Ações rápidas"><Link to="/buscar" aria-label="Buscar produtos"><Search/></Link><Link to="/favoritos" aria-label="Favoritos"><Heart/></Link><Link to="/cesta-basica" className="pdx-basket-link" aria-label="Lista de compras"><ShoppingBasket/>{basket.length > 0 && <b>{basket.reduce((sum,item)=>sum+item.quantity,0)}</b>}</Link></nav></div>
-    </header>
+    <PublicHeader/>
 
     <main id="conteudo-principal" className="pdx-shell">
       <nav className="pdx-breadcrumb" aria-label="Navegação estrutural"><Link to="/"><Home/><span>Início</span></Link><ChevronRight/><Link to={`/buscar?q=${encodeURIComponent(product.category)}`}>{product.category}</Link><ChevronRight/><span>{product.name}</span></nav>
@@ -201,6 +200,8 @@ export function ProductDetailProfessional() {
 
       <aside className="pdx-disclaimer"><Info/><div><strong>Catálogo informativo</strong><span>Preços e disponibilidade podem mudar. O PreçoCerto organiza as informações para facilitar sua comparação; a confirmação final deve ser feita com o estabelecimento.</span></div></aside>
     </main>
+
+    <PublicFooter/>
 
     <div className="pdx-mobile-bar"><div><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></div><button type="button" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar (${quantity})` : "Adicionar à lista"}</button></div>
     {message && <div className="pdx-toast" role="status" aria-live="polite">{message}</div>}

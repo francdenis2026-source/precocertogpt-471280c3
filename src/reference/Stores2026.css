@@ -1,0 +1,67 @@
+/* Estabelecimentos — diretório (/estabelecimentos). Consolidado de DesignSystem2Experience.css,
+   PublicExperienceFinal2026.css e StoreLogoFix.css (antes espalhado em 3 arquivos globais). */
+html:has(.ref-stores-page),body:has(.ref-stores-page){scrollbar-width:none!important;-ms-overflow-style:none!important}
+html:has(.ref-stores-page)::-webkit-scrollbar,body:has(.ref-stores-page)::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+.ref-stores-page{overflow-x:clip!important;max-width:100vw}
+.ref-stores-page .ref-directory__main{padding-top:18px}
+.ref-stores-hero{position:relative;isolation:isolate;min-height:230px;display:flex;align-items:center;justify-content:space-between;gap:28px;overflow:hidden;padding:clamp(28px,4vw,42px);border:1px solid var(--pc-border);border-radius:var(--pc-radius-block);background:var(--pc-surface-2);box-shadow:none}
+.ref-stores-hero::before,.ref-stores-hero::after{content:"";position:absolute;inset:0;pointer-events:none}
+.ref-stores-hero::before{z-index:-2;background:url('/mercado-bairro-feijo-v1.webp') 74% 50%/cover no-repeat;filter:saturate(1.06) contrast(1.04)}
+.ref-stores-hero::after{z-index:-1;background:linear-gradient(90deg,color-mix(in srgb,var(--pc-surface) 99%,transparent) 0%,color-mix(in srgb,var(--pc-surface) 96%,transparent) 38%,color-mix(in srgb,var(--pc-surface) 60%,transparent) 59%,transparent 100%)}
+.ref-stores-hero>div{max-width:610px}
+.ref-stores-hero>div>span,.ref-store-cards>header span{color:var(--pc-green-strong);font-size:var(--pc-text-xs);font-weight:900;letter-spacing:.12em}
+.ref-stores-hero h1{max-width:11ch;margin:8px 0 9px;color:var(--pc-ink);font-family:var(--pc-font-display);font-size:clamp(2.7rem,4.7vw,4.2rem);line-height:.9;letter-spacing:-.05em}
+.ref-stores-hero p{max-width:520px;color:var(--pc-muted);font-size:var(--pc-text-body);line-height:1.55}
+.ref-stores-hero>div>div{width:fit-content;min-height:32px;display:flex;align-items:center;gap:7px;margin-top:12px;padding:0 11px;border:1px solid color-mix(in srgb,var(--pc-green) 22%,var(--pc-border));border-radius:999px;background:color-mix(in srgb,var(--pc-surface) 82%,transparent);color:var(--pc-green-strong);font-size:var(--pc-text-xs);font-weight:800}
+.ref-stores-hero>div>div svg{width:14px}
+.ref-stores-hero>a{align-self:flex-end;min-height:42px;display:flex;align-items:center;gap:9px;padding:0 16px;border-radius:var(--pc-radius-control);background:var(--pc-navy);color:#fff;font-size:var(--pc-text-sm);font-weight:850;box-shadow:var(--pc-shadow-sm)}
+.ref-stores-toolbar{min-height:50px;display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:10px;margin:12px 0;padding:0 16px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);background:var(--pc-surface);box-shadow:none}
+.ref-stores-toolbar>svg{width:17px;color:var(--pc-green-strong)}
+.ref-stores-toolbar input{min-width:0;height:46px;border:0;outline:0;background:transparent;color:var(--pc-ink);font-size:var(--pc-text-body)}
+.ref-stores-toolbar>span{color:var(--pc-muted);font-size:var(--pc-text-xs);font-weight:750}
+.ref-stores-directory{display:grid;grid-template-columns:minmax(0,1fr) 330px;align-items:start;gap:14px;padding-bottom:34px;min-width:0;max-width:100%}
+.ref-store-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0;max-width:100%}
+.ref-store-cards>header{grid-column:1/-1;min-height:54px;display:flex;align-items:end;justify-content:space-between;padding:4px 2px 2px}
+.ref-store-cards>header h2{margin:4px 0 0;color:var(--pc-ink);font-family:var(--pc-font-display);font-size:var(--pc-h3)}
+.ref-store-cards>header small{color:var(--pc-muted);font-size:var(--pc-text-xs)}
+.ref-store-card{min-width:0;max-width:100%;overflow:hidden;border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);background:var(--pc-surface);box-shadow:none}
+.ref-store-card>.ref-store-card__select,.ref-store-card>a{width:100%;min-height:76px;display:grid;grid-template-columns:44px minmax(0,1fr) 18px;align-items:center;gap:10px;padding:9px 11px 7px;border:0;background:transparent;color:inherit;text-align:left}
+.ref-store-card__select>i,.ref-store-card>a>i{width:44px;height:44px;display:grid;place-items:center;overflow:hidden;border-radius:var(--pc-radius-control);color:#fff;background:var(--pc-surface-2)}
+.ref-store-card__select>i img,.ref-store-card>a>i img{width:100%;height:100%;display:block;padding:4px;object-fit:contain;object-position:center;background:var(--pc-surface)}
+.ref-store-card__select>span,.ref-store-card>a>span{min-width:0;display:grid;gap:2px}
+.ref-store-card__select small,.ref-store-card>a small{color:var(--pc-gold);font-size:var(--pc-text-xs);font-weight:850;letter-spacing:.05em;text-transform:uppercase}
+.ref-store-card__select strong,.ref-store-card>a strong{overflow:hidden;color:var(--pc-ink);font-size:var(--pc-text-sm);text-overflow:ellipsis;white-space:nowrap}
+.ref-store-card__select em,.ref-store-card>a em{color:var(--pc-muted);font-size:var(--pc-text-xs);font-style:normal}
+.ref-store-card__select>svg,.ref-store-card>a>svg{width:16px;color:var(--pc-green-strong)}
+.ref-store-card>footer{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--pc-border)}
+.ref-store-card>footer>:is(button,a),.ref-store-card>button{min-height:36px;display:flex;align-items:center;justify-content:center;gap:5px;border:0;background:var(--pc-surface-2);color:var(--pc-green-strong);font-size:var(--pc-text-xs);font-weight:850}
+.ref-store-card>footer>:first-child{border-right:1px solid var(--pc-border)}
+.ref-store-card.is-map-active{border-color:var(--pc-green);box-shadow:0 0 0 3px color-mix(in srgb,var(--pc-green) 11%,transparent)}
+.store-logo.has-image{overflow:hidden;background:var(--pc-surface)!important}
+.store-logo.has-image img{padding:3px}
+.ref-stores-map{position:sticky;top:80px;overflow:hidden;border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);background:var(--pc-surface);box-shadow:none}
+.ref-stores-map>header{min-height:58px;display:flex;align-items:center;gap:9px;padding:10px 12px}
+.ref-stores-map>header>svg{width:30px;height:30px;padding:7px;border-radius:var(--pc-radius-control);background:var(--pc-green-soft);color:var(--pc-green-strong)}
+.ref-stores-map>header strong{color:var(--pc-ink);font-size:var(--pc-text-sm)}
+.ref-stores-map>header small{color:var(--pc-muted);font-size:var(--pc-text-xs)}
+.ref-stores-map iframe{width:100%;height:230px;display:block;border:0;border-block:1px solid var(--pc-border);background:var(--pc-surface-2)}
+.ref-stores-map>a,.ref-stores-more{color:var(--pc-green-strong);font-size:var(--pc-text-xs);font-weight:850}
+.ref-stores-map>a{min-height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+.ref-stores-more{grid-column:1/-1;min-height:42px;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-control);background:var(--pc-surface)}
+.ref-stores-more span{color:var(--pc-muted);font-size:var(--pc-text-xs)}
+
+@media(hover:hover) and (pointer:fine){
+  .ref-store-card:hover{border-color:color-mix(in srgb,var(--pc-green) 45%,var(--pc-border));box-shadow:var(--pc-shadow-sm)}
+  .ref-store-card>:is(button,footer button,footer a):hover{background:var(--pc-green-soft)}
+}
+
+@media(max-width:900px){.ref-stores-directory{grid-template-columns:1fr}.ref-stores-map{position:relative;top:auto;grid-row:1}}
+@media(max-width:680px){
+  .ref-stores-hero{min-height:286px;align-items:flex-start;flex-direction:column;justify-content:center;padding:24px 20px}
+  .ref-stores-hero h1{font-size:clamp(2.55rem,12.5vw,3.55rem)}
+  .ref-stores-toolbar{grid-template-columns:18px 1fr}
+  .ref-stores-toolbar>span{display:none}
+  .ref-store-cards{grid-template-columns:1fr}
+  .ref-store-cards>header small{display:none}
+  .ref-stores-map iframe{height:190px}
+}

@@ -5,6 +5,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -81,6 +82,7 @@ export function StoreDetailProfessional() {
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
+    <PublicHeader current="stores"/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline">
         <Link className="store-pro-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
@@ -144,5 +146,6 @@ export function StoreDetailProfessional() {
 
       <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
     </main>
+    <PublicFooter/>
   </div>;
 }

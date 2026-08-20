@@ -81,6 +81,18 @@ html:not([data-theme="dark"]) .pcx-product__body strong {
 html:not([data-theme="dark"]) .pcx-product__price b {
   color: var(--pc-light-primary);
   font-weight: 850;
+  font-size: 1.15rem;
+}
+
+/* Color Contrast Fix for Hero Secondary Text */
+html:not([data-theme="dark"]) .pcx-hero__copy > p {
+  color: #2c3531; /* WCAG AAA for normal text */
+  font-weight: 600;
+}
+
+html:not([data-theme="dark"]) .pcx-quick span {
+  color: #3e4b44;
+  font-weight: 700;
 }
 
 /* Essentials Category Cards */
@@ -103,10 +115,25 @@ html:not([data-theme="dark"]) .pcx-story::after {
   background: linear-gradient(90deg, rgba(23, 61, 48, 0.92) 0%, rgba(23, 61, 48, 0.75) 50%, transparent 100%);
 }
 
-/* Footer Polish */
+/* Footer Polish: High contrast text on dark background */
 html:not([data-theme="dark"]) .pcx-footer {
   background: #081a14;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #dce9e2; /* WCAG 4.5:1 on #081a14 */
+}
+
+html:not([data-theme="dark"]) .pcx-footer a {
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+html:not([data-theme="dark"]) .pcx-footer a:hover {
+  color: var(--pc-light-accent);
+  opacity: 1;
+}
+
+html:not([data-theme="dark"]) .pcx-footer small {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Receipt Component Enhancement */

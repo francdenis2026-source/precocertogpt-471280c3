@@ -1,0 +1,610 @@
+/* PreçoCerto Homepage Redesign 2026 - Advanced Animations & 3D Effects */
+/* Parallax, 3D Transforms, Glassmorphism, Scroll Effects */
+
+/* ============================================
+   HERO SECTION - Parallax & Gradient
+   ============================================ */
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--pc-canvas) 0%, var(--pc-surface) 100%);
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(212, 122, 61, 0.15) 0%, rgba(13, 47, 76, 0.4) 100%);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.hero-parallax-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: translateZ(0) translateY(0);
+  will-change: transform;
+}
+
+/* Parallax scroll effect - Hero image moves slower */
+.hero-parallax-layer.active {
+  animation: parallax-scroll 20s ease-out forwards;
+}
+
+@keyframes parallax-scroll {
+  0% {
+    transform: translateZ(0) translateY(0);
+  }
+  50% {
+    transform: translateZ(0) translateY(-40px);
+  }
+  100% {
+    transform: translateZ(0) translateY(-80px);
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  animation: fade-in-up 800ms ease-out;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   HERO PRICE CARD - Floating & Glow
+   ============================================ */
+
+.hero-price-card {
+  position: relative;
+  background: var(--pc-glass);
+  border: 1px solid rgba(212, 122, 61, 0.3);
+  border-radius: var(--pc-radius-xl);
+  padding: 28px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(212, 122, 61, 0.1);
+  animation: float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateZ(0);
+    box-shadow: 0 8px 32px rgba(212, 122, 61, 0.1);
+  }
+  50% {
+    transform: translateY(-12px) translateZ(20px);
+    box-shadow: 0 16px 48px rgba(212, 122, 61, 0.2);
+  }
+}
+
+.hero-price-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--pc-radius-xl);
+  background: radial-gradient(circle at 30% 30%, rgba(212, 122, 61, 0.2), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--pc-transition-base);
+  pointer-events: none;
+}
+
+.hero-price-card:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   PROOF STRIP - 3D Card Grid with Glow
+   ============================================ */
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  perspective: 1200px;
+}
+
+.proof-card {
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-lg);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: all var(--pc-transition-base);
+  will-change: transform;
+}
+
+.proof-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(212, 122, 61, 0.15), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--pc-transition-base);
+  pointer-events: none;
+}
+
+.proof-card:hover {
+  border-color: var(--pc-accent);
+  box-shadow: var(--pc-shadow-md), 0 0 20px rgba(212, 122, 61, 0.25);
+  transform: translateY(-8px) rotateX(5deg) rotateZ(2deg);
+}
+
+.proof-card:hover::before {
+  opacity: 1;
+}
+
+.proof-number {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  color: var(--pc-accent);
+  display: block;
+  animation: counter-pulse 2s ease-in-out infinite;
+}
+
+@keyframes counter-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.proof-card:hover .proof-number {
+  animation: glow-pulse 400ms ease-out;
+  text-shadow: 0 0 20px rgba(212, 122, 61, 0.4);
+}
+
+@keyframes glow-pulse {
+  0% {
+    transform: scale(1);
+    text-shadow: none;
+  }
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 30px rgba(212, 122, 61, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 20px rgba(212, 122, 61, 0.4);
+  }
+}
+
+/* ============================================
+   SECTORS - 3D Perspective Hover
+   ============================================ */
+
+.sectors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  perspective: 1000px;
+}
+
+.sector-card {
+  position: relative;
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-lg);
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: all var(--pc-transition-base);
+  will-change: transform;
+}
+
+.sector-card-inner {
+  position: relative;
+  z-index: 2;
+  transition: transform var(--pc-transition-base);
+}
+
+.sector-card:hover {
+  border-color: var(--pc-accent);
+  box-shadow: 0 0 16px rgba(212, 122, 61, 0.3);
+  transform: rotateX(-8deg) rotateY(8deg) translateZ(20px);
+}
+
+.sector-card:hover .sector-card-inner {
+  transform: translateZ(30px);
+}
+
+.sector-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+  transition: transform var(--pc-transition-base), filter var(--pc-transition-base);
+  filter: drop-shadow(0 0 0px rgba(212, 122, 61, 0));
+}
+
+.sector-card:hover .sector-icon {
+  transform: scale(1.15) rotateY(-15deg);
+  filter: drop-shadow(0 0 12px rgba(212, 122, 61, 0.4));
+}
+
+/* ============================================
+   PRICE BOARD - Rotating & Dynamic Shadows
+   ============================================ */
+
+.price-board {
+  perspective: 1200px;
+}
+
+.price-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.price-item {
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-lg);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: all var(--pc-transition-base);
+  will-change: transform, box-shadow;
+}
+
+.price-item::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(45deg, transparent 30%, rgba(212, 122, 61, 0.1) 50%, transparent 70%);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.price-item:hover {
+  border-color: var(--pc-accent);
+  box-shadow: var(--pc-shadow-md), 0 0 20px rgba(212, 122, 61, 0.2);
+  transform: translateY(-8px) rotateX(3deg);
+}
+
+.price-item-image {
+  width: 100%;
+  height: 180px;
+  background: var(--pc-surface-light);
+  border-radius: var(--pc-radius-md);
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.price-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--pc-transition-base);
+}
+
+.price-item:hover .price-item-image img {
+  transform: scale(1.08) rotate(2deg);
+}
+
+/* ============================================
+   SMART BASKET - Glassmorphism & Anims
+   ============================================ */
+
+.smart-basket {
+  position: relative;
+  background: var(--pc-glass);
+  border: 1px solid rgba(212, 122, 61, 0.3);
+  border-radius: var(--pc-radius-xl);
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 12px 40px rgba(212, 122, 61, 0.1);
+  animation: fade-in-up 1s ease-out 0.2s both;
+}
+
+.smart-basket::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--pc-radius-xl);
+  background: radial-gradient(circle at 100% 0%, rgba(212, 122, 61, 0.1), transparent 50%);
+  pointer-events: none;
+}
+
+.smart-basket-content {
+  position: relative;
+  z-index: 1;
+}
+
+.basket-input-group {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.basket-input {
+  position: relative;
+}
+
+.basket-input label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pc-ink-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.basket-input input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 122, 61, 0.3);
+  color: var(--pc-ink);
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: var(--pc-radius-md);
+  transition: all var(--pc-transition-base);
+}
+
+.basket-input input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--pc-accent);
+  box-shadow: 0 0 0 3px rgba(212, 122, 61, 0.2);
+}
+
+.basket-cta {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--pc-accent), var(--pc-accent-dark));
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: var(--pc-radius-md);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--pc-transition-base);
+  box-shadow: 0 8px 24px rgba(212, 122, 61, 0.3);
+  letter-spacing: 0.02em;
+}
+
+.basket-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.basket-cta:hover {
+  box-shadow: 0 12px 32px rgba(212, 122, 61, 0.4);
+  transform: translateY(-2px);
+}
+
+.basket-cta:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   ECONOMY SECTION - Data Showcase
+   ============================================ */
+
+.economy-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.economy-content {
+  animation: fade-in-left 800ms ease-out;
+}
+
+.economy-receipt {
+  background: var(--pc-glass);
+  border: 1px solid rgba(212, 122, 61, 0.3);
+  border-radius: var(--pc-radius-xl);
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  animation: fade-in-right 800ms ease-out;
+  box-shadow: 0 12px 40px rgba(212, 122, 61, 0.1);
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================
+   SECTION REVEAL - Scroll Animation
+   ============================================ */
+
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fade-in-up 600ms ease-out forwards;
+}
+
+/* Stagger children */
+.section-reveal > * {
+  opacity: 0;
+  animation: fade-in-up 600ms ease-out forwards;
+}
+
+.section-reveal > :nth-child(1) { animation-delay: 0ms; }
+.section-reveal > :nth-child(2) { animation-delay: 100ms; }
+.section-reveal > :nth-child(3) { animation-delay: 200ms; }
+.section-reveal > :nth-child(4) { animation-delay: 300ms; }
+.section-reveal > :nth-child(5) { animation-delay: 400ms; }
+.section-reveal > :nth-child(6) { animation-delay: 500ms; }
+
+/* ============================================
+   FOOTER & CHROME - Subtle Gradient
+   ============================================ */
+
+footer, .footer-chrome {
+  background: linear-gradient(180deg, var(--pc-surface) 0%, var(--pc-canvas) 100%);
+  border-top: 1px solid var(--pc-border);
+}
+
+.nav-link {
+  position: relative;
+  color: var(--pc-accent);
+  transition: color var(--pc-transition-base);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--pc-accent);
+  transition: width var(--pc-transition-base);
+}
+
+.nav-link:hover {
+  color: var(--pc-accent-light);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .economy-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .basket-input-group {
+    grid-template-columns: 1fr;
+  }
+
+  .basket-cta {
+    grid-column: auto;
+  }
+
+  .hero-price-card {
+    animation: none;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .smart-basket {
+    padding: 24px 16px;
+  }
+
+  .proof-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .sectors-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-parallax-layer {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .hero-price-card,
+  .proof-number,
+  .hero-parallax-layer {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   DARK MODE ADJUSTMENTS
+   ============================================ */
+
+html[data-theme="dark"] .economy-receipt,
+html[data-theme="dark"] .smart-basket,
+html[data-theme="dark"] .hero-price-card {
+  background: rgba(19, 47, 76, 0.6);
+  backdrop-filter: blur(20px);
+}
+
+html[data-theme="light"] .economy-receipt,
+html[data-theme="light"] .smart-basket,
+html[data-theme="light"] .hero-price-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+}

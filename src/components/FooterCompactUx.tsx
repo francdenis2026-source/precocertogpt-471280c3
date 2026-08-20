@@ -12,6 +12,26 @@ function installStyles() {
       padding-bottom: 6px !important;
       min-height: 0 !important;
       background: #081a14 !important;
+      color: #dce9e2 !important;
+    }
+
+    body.pc-footer-compact .site-footer a {
+      color: #ffffff !important;
+      opacity: 0.8 !important;
+    }
+
+    body.pc-footer-compact .site-footer a:hover {
+      opacity: 1 !important;
+      color: #a34827 !important;
+    }
+
+    body.pc-footer-compact .site-footer p {
+      color: #dce9e2 !important;
+      opacity: 0.9 !important;
+    }
+
+    body.pc-footer-compact .site-footer .footer-bottom {
+      color: rgba(255,255,255,0.6) !important;
     }
 
     body.pc-footer-compact .site-footer .footer-grid {

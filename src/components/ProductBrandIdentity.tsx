@@ -89,6 +89,7 @@ export function ProductBrandIdentity() {
       observer.observe(document.body, { childList: true, subtree: true });
     }
     const loadBrand = async () => {
+      if (!supabase) return;
       const query = supabase.from("products").select("brand");
       const result = isUuid(identifier)
         ? await query.eq("id", identifier).maybeSingle()

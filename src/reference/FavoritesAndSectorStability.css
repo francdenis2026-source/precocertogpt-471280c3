@@ -6,15 +6,15 @@
   .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title{
     min-height:118px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;margin:0 0 10px;padding:17px 20px;overflow:hidden;
     border:1px solid color-mix(in srgb,var(--pc-border) 42%,var(--pc-navy-2));border-radius:var(--pc-radius-block);
-    background:radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--pc-green) 18%,transparent),transparent 27%),linear-gradient(120deg,var(--pc-navy),var(--pc-navy-2));color:#eef5f7;
+    background:radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--pc-green) 18%,transparent),transparent 27%),linear-gradient(120deg,var(--pc-navy),var(--pc-navy-2));color:#f4eef7;
   }
   .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title>div:first-child>span{color:color-mix(in srgb,var(--pc-green) 84%,#fff);font-size:var(--pc-text-xs);font-weight:900;letter-spacing:.12em}
   .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title h1{max-width:720px;margin:4px 0 3px;font-family:var(--pc-font-display);font-size:clamp(1.8rem,2.4vw,2.45rem);line-height:.98;letter-spacing:-.04em}
-  .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title p{max-width:650px;margin:0;color:#b8c8cf;font-size:var(--pc-text-sm);line-height:1.45}
+  .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title p{max-width:650px;margin:0;color:#c5bacd;font-size:var(--pc-text-sm);line-height:1.45}
   .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title .ref-update{min-width:190px;min-height:58px;display:grid;grid-template-columns:32px 1fr;align-items:center;gap:9px;padding:9px 11px;border:1px solid color-mix(in srgb,#fff 16%,transparent);border-radius:var(--pc-radius-card);background:color-mix(in srgb,#fff 6%,transparent)}
   .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title .ref-update>svg{width:30px;height:30px;padding:6px;border-radius:var(--pc-radius-control);background:color-mix(in srgb,var(--pc-green) 18%,var(--pc-navy));color:color-mix(in srgb,var(--pc-green) 84%,#fff)}
-  .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title .ref-update span{display:grid;gap:1px;color:#eef5f7;font-size:var(--pc-text-sm);font-weight:800}
-  .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title .ref-update small{color:#a9bbc3;font-size:var(--pc-text-xs);font-weight:650}
+  .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title .ref-update span{display:grid;gap:1px;color:#f4eef7;font-size:var(--pc-text-sm);font-weight:800}
+  .ref-directory__main:has(>.ref-page-title):not(:has(>.ref-directory-search)):not(:has(>.ref-stores-hero))>.ref-page-title .ref-update small{color:#b8abc1;font-size:var(--pc-text-xs);font-weight:650}
 
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid>article{min-height:210px;padding:9px;border-radius:var(--pc-radius-card)}

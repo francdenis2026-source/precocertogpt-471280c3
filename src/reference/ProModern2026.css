@@ -114,9 +114,9 @@ html[data-theme="dark"] .hp-home{
 .ref-hero,
 .ref-auth__story{
   --pc-on-dark:#f4f8fb;
-  --pc-on-dark-muted:#b9c9d6;
+  --pc-on-dark-muted:#cabbd4;
   --pc-accent-warm:#fbbf24;
-  --pc-accent-cool:#5eead4;
+  --pc-accent-cool:#b464e4;
 }
 
 /* ============================================================

@@ -22,7 +22,7 @@
 .true-home .th-product{box-shadow:0 7px 22px rgba(15,23,42,.055)!important}
 .true-home .th-product__price strong{letter-spacing:-.025em!important}
 .true-home .th-mid-hero__panel{backdrop-filter:none!important;background:rgba(6,23,35,.92)!important}
-.true-home .th-basket-mini{box-shadow:0 16px 38px rgba(7,56,47,.13)!important}
+.true-home .th-basket-mini{box-shadow:0 16px 38px rgba(37,9,54,.13)!important}
 .true-home :where(.th-search button,.th-button,.th-header__cta,.th-product-modal__actions a):disabled{opacity:.52;cursor:not-allowed;transform:none!important;filter:none!important}
 
 /* ---------- Dorinha: Persuade / editorial ---------- */

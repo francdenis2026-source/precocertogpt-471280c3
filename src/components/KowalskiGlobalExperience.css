@@ -3,7 +3,7 @@
 :root{--kw-ease-out:cubic-bezier(.23,1,.32,1);--kw-ease-in-out:cubic-bezier(.77,0,.175,1);--kw-press:140ms;--kw-ui:190ms}
 
 /* Global focus: precise, visible, not oversized. */
-:where(main,header,footer,nav) :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid rgba(16,185,129,.34);outline-offset:3px}
+:where(main,header,footer,nav) :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid rgba(112,23,178,.34);outline-offset:3px}
 
 /* Press feedback only on genuinely pressable controls. */
 :where(main,header,footer,nav) :where(button,[role="button"],a.button,a[class*="button"],a[class*="cta"],a[class*="action"]){transition-property:transform,background-color,border-color,color,box-shadow,filter;transition-duration:var(--kw-press),var(--kw-ui),var(--kw-ui),var(--kw-ui),var(--kw-ui),var(--kw-ui);transition-timing-function:var(--kw-ease-out),ease,ease,ease,ease,ease;touch-action:manipulation}

@@ -11,12 +11,12 @@
   --pc-line: #dedde0;
   --pc-structure: #24112d;
   --pc-structure-2: #351640;
-  --pc-action: #0f9f9b;
-  --pc-action-2: #087c7a;
-  --pc-action-soft: #dff5f3;
+  --pc-action: #6d1599;
+  --pc-action-2: #540d77;
+  --pc-action-soft: #ede0f4;
   --pc-value: #f2b33f;
   --pc-value-soft: #fff1cb;
-  --pc-success: #19724c;
+  --pc-success: #491d6e;
   --pc-danger: #b43c45;
   --pc-radius-xs: 7px;
   --pc-radius-sm: 10px;
@@ -36,7 +36,7 @@
   --pc-ink: #f7f3f8;
   --pc-muted: #b9aebe;
   --pc-line: #3c3040;
-  --pc-action-soft: #123b3a;
+  --pc-action-soft: #2d1439;
   --pc-value-soft: #473515;
   --pc-shadow: 0 14px 32px rgba(0,0,0,.24);
   --pc-shadow-hover: 0 18px 38px rgba(0,0,0,.32);
@@ -45,8 +45,8 @@
 .pc-home main { background: var(--pc-bg); }
 .pc-home .pc-shell { width: min(var(--pc-container), calc(100% - 36px)); }
 .pc-home .pc-section { padding-block: 34px; }
-.pc-home :is(a,button,input) { -webkit-tap-highlight-color: rgba(15,159,155,.16); }
-.pc-home :is(a,button,input):focus-visible { outline: 3px solid rgba(15,159,155,.40); outline-offset: 3px; }
+.pc-home :is(a,button,input) { -webkit-tap-highlight-color: rgba(109,21,153,.16); }
+.pc-home :is(a,button,input):focus-visible { outline: 3px solid rgba(109,21,153,.40); outline-offset: 3px; }
 
 /* ---------- compact utility bar + header ---------- */
 .pc-home .pc-header {
@@ -104,7 +104,7 @@
   padding-inline: 13px;
   border-radius: 9px;
   background: var(--pc-action);
-  color: #071c1c;
+  color: #15081b;
   font-size: .78rem;
   font-weight: 900;
   box-shadow: none;
@@ -183,7 +183,7 @@
   background: #fff;
   box-shadow: 0 16px 34px rgba(16,7,20,.22);
 }
-.pc-home .pc-search:focus-within { border-color: #5fd1cd; box-shadow: 0 0 0 4px rgba(15,159,155,.20), 0 16px 34px rgba(16,7,20,.22); }
+.pc-home .pc-search:focus-within { border-color: #a964cc; box-shadow: 0 0 0 4px rgba(109,21,153,.20), 0 16px 34px rgba(16,7,20,.22); }
 .pc-home .pc-search > svg { width: 19px; color: #756d78; }
 .pc-home .pc-search input { height: 44px; color: #17141b; font-size: 1rem; }
 .pc-home .pc-search input::placeholder { color: #807782; }
@@ -192,12 +192,12 @@
   height: 44px;
   border-radius: 8px;
   background: var(--pc-action);
-  color: #061f1e;
+  color: #16071e;
   font-size: .8rem;
   font-weight: 900;
   box-shadow: none;
 }
-.pc-home .pc-search button:hover { background: #27b6b1; }
+.pc-home .pc-search button:hover { background: #842db0; }
 .pc-home .pc-quick { margin-top: 8px; gap: 6px; color: #cfc0d5; font-size: .72rem; }
 .pc-home .pc-quick button { min-height: 31px; padding-inline: 9px; border-radius: 7px; border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.05); color: #f0e7f2; font-size: .7rem; }
 
@@ -213,7 +213,7 @@
   backdrop-filter: blur(8px);
   box-shadow: none;
 }
-.pc-home .pc-hero-side > div > svg { width: 34px; height: 34px; padding: 8px; border-radius: 8px; background: rgba(15,159,155,.17); color: #7ee1dd; }
+.pc-home .pc-hero-side > div > svg { width: 34px; height: 34px; padding: 8px; border-radius: 8px; background: rgba(109,21,153,.17); color: #be82dd; }
 .pc-home .pc-hero-side strong { color: #fff; font-size: .78rem; }
 .pc-home .pc-hero-side small { color: #c8b9cd; font-size: .68rem; line-height: 1.3; }
 
@@ -265,7 +265,7 @@
   color: var(--pc-ink);
   box-shadow: none;
 }
-.pc-home .pc-category:hover { border-color: rgba(15,159,155,.48); background: var(--pc-action-soft); transform: none; }
+.pc-home .pc-category:hover { border-color: rgba(109,21,153,.48); background: var(--pc-action-soft); transform: none; }
 .pc-home .pc-category-icon { width: 34px; height: 34px; border-radius: 8px; background: var(--pc-action-soft); color: var(--pc-action-2); }
 .pc-home .pc-category strong { font-size: .79rem; }
 .pc-home .pc-category small { margin-top: 2px; color: var(--pc-muted); font-size: .66rem; }
@@ -280,7 +280,7 @@
   overflow: hidden;
   transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
-.pc-home .pc-product-card:hover { border-color: rgba(15,159,155,.48); box-shadow: var(--pc-shadow); transform: translateY(-1px); }
+.pc-home .pc-product-card:hover { border-color: rgba(109,21,153,.48); box-shadow: var(--pc-shadow); transform: translateY(-1px); }
 .pc-home .pc-product-card.is-featured { border-color: rgba(242,179,63,.65); }
 .pc-home .pc-product-media { background: #f5f5f1; min-height: 132px; }
 [data-theme="dark"] .pc-home .pc-product-media { background: #171219; }
@@ -303,13 +303,13 @@
 .pc-home .pc-compare-section {
   margin-block: 10px;
   padding-block: 32px;
-  background: linear-gradient(110deg, #1a0c21 0%, #2e1338 58%, #1e2830 100%);
+  background: linear-gradient(110deg, #1a0c21 0%, #2e1338 58%, #281f2f 100%);
   border-block: 1px solid rgba(255,255,255,.06);
 }
 .pc-home .pc-compare-copy .pc-kicker { color: #e8d8ec; }
 .pc-home .pc-compare-copy h2 { color: #fff; font-size: clamp(1.65rem,2.4vw,2.15rem); }
 .pc-home .pc-compare-copy p { color: #cdbfd1; font-size: .82rem; }
-.pc-home .pc-compare-copy button { min-height: 41px; border-radius: 8px; background: var(--pc-action); color: #071c1c; font-weight: 900; }
+.pc-home .pc-compare-copy button { min-height: 41px; border-radius: 8px; background: var(--pc-action); color: #15081b; font-weight: 900; }
 .pc-home .pc-compare-product { border: 1px solid rgba(255,255,255,.09); border-radius: 12px; background: rgba(255,255,255,.96); color: #17141b; box-shadow: none; }
 .pc-home .pc-compare-badge { background: var(--pc-value); color: #382100; }
 
@@ -323,7 +323,7 @@
   background: var(--pc-surface);
   box-shadow: none;
 }
-.pc-home .pc-store-card:hover { border-color: rgba(15,159,155,.45); background: var(--pc-action-soft); transform: none; }
+.pc-home .pc-store-card:hover { border-color: rgba(109,21,153,.45); background: var(--pc-action-soft); transform: none; }
 .pc-home .pc-store-avatar { width: 38px; height: 38px; border-radius: 9px; }
 .pc-home .pc-store-card strong { color: var(--pc-ink); font-size: .77rem; }
 .pc-home .pc-store-card small,
@@ -333,17 +333,17 @@
 .pc-home .pc-basket-section {
   margin-block: 8px;
   padding-block: 30px;
-  background: #dff5f3;
-  border-block: 1px solid #c6e5e2;
+  background: #ede0f4;
+  border-block: 1px solid #dac7e4;
 }
-[data-theme="dark"] .pc-home .pc-basket-section { background: #113332; border-color: #244a48; }
-.pc-home .pc-basket-copy .pc-kicker { color: #136b69; border-color: rgba(15,159,155,.25); background: rgba(255,255,255,.45); }
-[data-theme="dark"] .pc-home .pc-basket-copy .pc-kicker { color: #8fe1dd; background: rgba(255,255,255,.04); }
+[data-theme="dark"] .pc-home .pc-basket-section { background: #271232; border-color: #3d2648; }
+.pc-home .pc-basket-copy .pc-kicker { color: #4c1767; border-color: rgba(109,21,153,.25); background: rgba(255,255,255,.45); }
+[data-theme="dark"] .pc-home .pc-basket-copy .pc-kicker { color: #c492de; background: rgba(255,255,255,.04); }
 .pc-home .pc-basket-copy h2 { font-size: clamp(1.65rem,2.4vw,2.15rem); }
 .pc-home .pc-basket-copy p { color: var(--pc-muted); font-size: .83rem; }
 .pc-home .pc-basket-copy > a { min-height: 41px; border-radius: 8px; background: var(--pc-structure); color: #fff; }
-.pc-home .pc-basket-points span { min-height: 38px; border-radius: 8px; border: 1px solid rgba(15,159,155,.22); background: rgba(255,255,255,.64); color: #28403f; font-size: .72rem; }
-[data-theme="dark"] .pc-home .pc-basket-points span { background: rgba(255,255,255,.04); color: #d9efed; }
+.pc-home .pc-basket-points span { min-height: 38px; border-radius: 8px; border: 1px solid rgba(109,21,153,.22); background: rgba(255,255,255,.64); color: #38293f; font-size: .72rem; }
+[data-theme="dark"] .pc-home .pc-basket-points span { background: rgba(255,255,255,.04); color: #e7daee; }
 
 /* ---------- how it works ---------- */
 .pc-home .pc-how-head { margin-bottom: 13px; }
@@ -364,7 +364,7 @@
   background: var(--pc-structure);
   border-block: 1px solid rgba(255,255,255,.07);
 }
-.pc-home .pc-commercial-copy > span { color: #85dcd7; font-size: .69rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; }
+.pc-home .pc-commercial-copy > span { color: #bd88d9; font-size: .69rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; }
 .pc-home .pc-commercial h2 { color: #fff; font-size: clamp(1.7rem,2.8vw,2.35rem); max-width: 760px; }
 .pc-home .pc-commercial p { color: #d0c2d4; max-width: 700px; font-size: .82rem; }
 .pc-home .pc-commercial-features { gap: 6px; }

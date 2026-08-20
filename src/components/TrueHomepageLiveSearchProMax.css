@@ -2,41 +2,41 @@
 /* UI UX Pro Max — assisted live search on homepage */
 .true-home .th-search-wrap{position:relative;max-width:700px;z-index:12}
 .true-home .th-search-wrap .th-search{max-width:none}
-.true-home .th-search-results{position:absolute;left:0;right:0;top:calc(100% + 10px);overflow:hidden;border:1px solid #d7e3e7;border-radius:16px;background:#fff;box-shadow:0 20px 48px rgba(2,18,29,.24);color:#102033}
-.true-home .th-search-result{min-height:66px;padding:8px 12px;display:grid;grid-template-columns:48px minmax(0,1fr) auto 18px;align-items:center;gap:11px;border-bottom:1px solid #edf2f4;color:#102033;transition:background-color .18s ease,transform .18s ease}
+.true-home .th-search-results{position:absolute;left:0;right:0;top:calc(100% + 10px);overflow:hidden;border:1px solid #e3d8e6;border-radius:16px;background:#fff;box-shadow:0 20px 48px rgba(2,18,29,.24);color:#102033}
+.true-home .th-search-result{min-height:66px;padding:8px 12px;display:grid;grid-template-columns:48px minmax(0,1fr) auto 18px;align-items:center;gap:11px;border-bottom:1px solid #f2edf4;color:#102033;transition:background-color .18s ease,transform .18s ease}
 .true-home .th-search-result:last-of-type{border-bottom:0}
-.true-home .th-search-result__thumb{width:48px;height:48px;border-radius:12px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(180deg,#f7fbf9,#edf4f1);border:1px solid #e0e9e5;color:#60756f}
+.true-home .th-search-result__thumb{width:48px;height:48px;border-radius:12px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(180deg,#f9f7fb,#f1edf4);border:1px solid #e5e0e9;color:#6c6174}
 .true-home .th-search-result__thumb img{width:100%;height:100%;object-fit:contain;background:#fff}
 .true-home .th-search-result__thumb svg{width:20px}
 .true-home .th-search-result__copy{min-width:0}
 .true-home .th-search-result__copy strong,.true-home .th-search-result__copy small{display:block}
 .true-home .th-search-result__copy strong{font-size:14px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.true-home .th-search-result__copy small{margin-top:4px;color:#5b7082;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.true-home .th-search-result__price{color:#08785c;font-size:14px;font-weight:900;font-variant-numeric:tabular-nums}
-.true-home .th-search-result>svg{width:17px;color:#8ca0ac;transition:transform .18s ease,color .18s ease}
-.true-home .th-search-results__all{min-height:48px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f3faf7;color:#06624e;font-size:12px;font-weight:850;border-top:1px solid #dbe9e3}
+.true-home .th-search-result__copy small{margin-top:4px;color:#715e7f;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.true-home .th-search-result__price{color:#4a0c74;font-size:14px;font-weight:900;font-variant-numeric:tabular-nums}
+.true-home .th-search-result>svg{width:17px;color:#9e8eaa;transition:transform .18s ease,color .18s ease}
+.true-home .th-search-results__all{min-height:48px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f7f3fa;color:#3d0a5e;font-size:12px;font-weight:850;border-top:1px solid #e3dce8}
 .true-home .th-search-results__all svg{width:16px}
 .true-home .th-search-results__empty{min-height:78px;padding:15px;display:flex;align-items:center;gap:12px}
-.true-home .th-search-results__empty>svg{width:22px;color:#718695}
+.true-home .th-search-results__empty>svg{width:22px;color:#867492}
 .true-home .th-search-results__empty strong,.true-home .th-search-results__empty span{display:block}
 .true-home .th-search-results__empty strong{font-size:13px}
-.true-home .th-search-results__empty span{margin-top:3px;color:#607384;font-size:11px}
+.true-home .th-search-results__empty span{margin-top:3px;color:#756381;font-size:11px}
 @media(hover:hover) and (pointer:fine){
- .true-home .th-search-result:hover{background:#f4faf7;transform:translateX(2px)}
- .true-home .th-search-result:hover>svg{transform:translateX(3px);color:#08785c}
- .true-home .th-search-results__all:hover{background:#eaf6f0}
+ .true-home .th-search-result:hover{background:#f7f4fa;transform:translateX(2px)}
+ .true-home .th-search-result:hover>svg{transform:translateX(3px);color:#4a0c74}
+ .true-home .th-search-results__all:hover{background:#f0eaf6}
 }
-html[data-theme="dark"] .true-home .th-search-results{background:#0d2029;border-color:#31505c;color:#f0f7f4;box-shadow:0 20px 48px rgba(0,0,0,.42)}
-html[data-theme="dark"] .true-home .th-search-result{color:#f0f7f4;border-bottom-color:#29434e}
-html[data-theme="dark"] .true-home .th-search-result__thumb{background:linear-gradient(180deg,#17313a,#10242d);border-color:#35515d;color:#b8c9d0}
+html[data-theme="dark"] .true-home .th-search-results{background:#0d2029;border-color:#51335a;color:#f4f0f7;box-shadow:0 20px 48px rgba(0,0,0,.42)}
+html[data-theme="dark"] .true-home .th-search-result{color:#f4f0f7;border-bottom-color:#442a4d}
+html[data-theme="dark"] .true-home .th-search-result__thumb{background:linear-gradient(180deg,#311839,#10242d);border-color:#53375b;color:#cab9cf}
 html[data-theme="dark"] .true-home .th-search-result__thumb img{background:#fff}
-html[data-theme="dark"] .true-home .th-search-result__copy small{color:#b9c9cf}
-html[data-theme="dark"] .true-home .th-search-result__price{color:#75e3bb}
-html[data-theme="dark"] .true-home .th-search-results__all{background:#103027;border-top-color:#315046;color:#8be7c5}
-html[data-theme="dark"] .true-home .th-search-results__empty span{color:#b9c9cf}
+html[data-theme="dark"] .true-home .th-search-result__copy small{color:#c9bace}
+html[data-theme="dark"] .true-home .th-search-result__price{color:#b379df}
+html[data-theme="dark"] .true-home .th-search-results__all{background:#23112f;border-top-color:#43324f;color:#be8fe3}
+html[data-theme="dark"] .true-home .th-search-results__empty span{color:#c9bace}
 @media(hover:hover) and (pointer:fine){
  html[data-theme="dark"] .true-home .th-search-result:hover{background:#132a34}
- html[data-theme="dark"] .true-home .th-search-results__all:hover{background:#154033}
+ html[data-theme="dark"] .true-home .th-search-results__all:hover{background:#2e173e}
 }
 @media(max-width:640px){
  .true-home .th-search-results{top:calc(100% + 8px);border-radius:14px;max-height:min(58vh,430px);overflow-y:auto}

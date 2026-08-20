@@ -8,9 +8,10 @@ function installStyles() {
   style.id = STYLE_ID;
   style.textContent = `
     body.pc-footer-compact .site-footer {
-      padding-top: 22px !important;
-      padding-bottom: 8px !important;
+      padding-top: 16px !important;
+      padding-bottom: 6px !important;
       min-height: 0 !important;
+      background: #081a14 !important;
     }
 
     body.pc-footer-compact .site-footer .footer-grid {
@@ -68,11 +69,12 @@ function installStyles() {
 
     body.pc-footer-compact .site-footer .footer-bottom {
       min-height: 0 !important;
-      margin-top: 8px !important;
-      padding-top: 8px !important;
-      padding-bottom: 2px !important;
-      font-size: .68rem !important;
+      margin-top: 6px !important;
+      padding-top: 6px !important;
+      padding-bottom: 4px !important;
+      font-size: .65rem !important;
       line-height: 1.25 !important;
+      border-top-color: rgba(255,255,255,.06) !important;
     }
 
     @media (max-width: 820px) {

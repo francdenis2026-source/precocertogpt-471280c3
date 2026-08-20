@@ -3,19 +3,19 @@
    Target: Correcting "ugly" light mode images and dull colors. */
 
 :root {
-  --pc-light-bg: #fdfcf9;
+  --pc-light-bg: #f8f6f2;
   --pc-light-surface: #ffffff;
-  --pc-light-paper: #f9f7f2;
-  --pc-light-ink: #1a1c1b;
-  --pc-light-muted: #5c635f;
-  --pc-light-border: rgba(26,28,27,0.08);
-  --pc-light-accent: #a94b2a;
-  --pc-light-primary: #173d30;
-  --pc-light-success: #2d6a4f;
+  --pc-light-paper: #f4f1ea;
+  --pc-light-ink: #0f1a15;
+  --pc-light-muted: #4a544f;
+  --pc-light-border: rgba(15,26,21,0.12);
+  --pc-light-accent: #a34827;
+  --pc-light-primary: #0b2b22;
+  --pc-light-success: #265942;
   
   /* Refined Product Clipping Glow (Light Mode) */
-  --pc-product-glow-light: 0 12px 32px rgba(23, 61, 48, 0.08);
-  --pc-product-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.04);
+  --pc-product-glow-light: 0 12px 32px rgba(11, 43, 34, 0.12);
+  --pc-product-shadow-light: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 html:not([data-theme="dark"]) .pcx-home {

@@ -5,8 +5,8 @@
   --imp-ui:210ms;
   --imp-ease:cubic-bezier(.2,.8,.2,1);
   --imp-radius:14px;
-  --imp-shadow:0 10px 28px rgba(15,23,42,.07);
-  --imp-shadow-strong:0 18px 46px rgba(15,23,42,.11);
+  --imp-shadow:0 10px 28px rgba(38,19,37,.07);
+  --imp-shadow-strong:0 18px 46px rgba(38,19,37,.11);
 }
 
 /* ---------- Homepage: Persuade ---------- */
@@ -14,14 +14,14 @@
 .true-home .th-hero h1{margin-top:0!important;letter-spacing:-.035em!important;line-height:.98!important;max-width:13ch}
 .true-home .th-heading h2,.true-home .th-basket-mini h2,.true-home .th-merchant h2{letter-spacing:-.03em!important}
 .true-home .th-heading>span{display:none!important}
-.true-home .th-header{backdrop-filter:none!important;background:rgba(6,23,35,.96)!important}
+.true-home .th-header{backdrop-filter:none!important;background:rgba(30,10,31,.96)!important}
 .true-home .th-search{border-radius:var(--imp-radius)!important;box-shadow:0 14px 34px rgba(0,0,0,.2)!important}
-.true-home .th-hero-card{background:rgba(7,29,40,.86)!important;backdrop-filter:none!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:var(--imp-radius)!important;box-shadow:0 16px 38px rgba(0,0,0,.18)!important}
+.true-home .th-hero-card{background:rgba(34,12,35,.86)!important;backdrop-filter:none!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:var(--imp-radius)!important;box-shadow:0 16px 38px rgba(0,0,0,.18)!important}
 .true-home .th-hero-card__stats div{background:transparent!important;border-color:rgba(255,255,255,.1)!important}
 .true-home .th-quick__grid>a,.true-home .th-product,.true-home .th-store{border-radius:var(--imp-radius)!important}
-.true-home .th-product{box-shadow:0 7px 22px rgba(15,23,42,.055)!important}
+.true-home .th-product{box-shadow:0 7px 22px rgba(38,19,37,.055)!important}
 .true-home .th-product__price strong{letter-spacing:-.025em!important}
-.true-home .th-mid-hero__panel{backdrop-filter:none!important;background:rgba(6,23,35,.92)!important}
+.true-home .th-mid-hero__panel{backdrop-filter:none!important;background:rgba(30,10,31,.92)!important}
 .true-home .th-basket-mini{box-shadow:0 16px 38px rgba(51,11,52,.13)!important}
 .true-home :where(.th-search button,.th-button,.th-header__cta,.th-product-modal__actions a):disabled{opacity:.52;cursor:not-allowed;transform:none!important;filter:none!important}
 
@@ -56,7 +56,7 @@ body.pc-public-refined :where(.error-state,[class*="error"]){overflow-wrap:anywh
 :where(.merchant-dashboard,.merchant-page,.merchant-studio,.merchant-management,.merchant-onboarding,.platform-admin,.admin-merchant,.author-catalog) :where(h1,h2),
 body.pc-internal-deep :where(h1,h2){letter-spacing:-.025em!important;text-wrap:balance}
 :where(.merchant-dashboard,.merchant-page,.merchant-studio,.merchant-management,.merchant-onboarding,.platform-admin,.admin-merchant,.author-catalog) :where([class*="card"],[class*="panel"],article),
-body.pc-internal-deep :where(article[style*="borderRadius"],section[style*="borderRadius"],div[style*="borderRadius"]){border-radius:12px!important;box-shadow:0 6px 18px rgba(15,23,42,.045)!important}
+body.pc-internal-deep :where(article[style*="borderRadius"],section[style*="borderRadius"],div[style*="borderRadius"]){border-radius:12px!important;box-shadow:0 6px 18px rgba(38,19,37,.045)!important}
 body.pc-internal-deep :where(table){font-variant-numeric:tabular-nums;border-collapse:separate;border-spacing:0}
 body.pc-internal-deep :where(th){letter-spacing:.04em!important;text-transform:uppercase}
 body.pc-internal-deep :where(td,th){vertical-align:middle}

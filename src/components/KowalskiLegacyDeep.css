@@ -1,5 +1,5 @@
 /* Deep design-engineering pass for legacy PreçoCerto routes, based on Emil Kowalski principles. */
-:root{--kwl-ease-out:cubic-bezier(.23,1,.32,1);--kwl-ease-in-out:cubic-bezier(.77,0,.175,1);--kwl-press:140ms;--kwl-ui:190ms;--kwl-soft-shadow:0 5px 18px rgba(15,23,42,.045);--kwl-hover-shadow:0 9px 26px rgba(15,23,42,.075)}
+:root{--kwl-ease-out:cubic-bezier(.23,1,.32,1);--kwl-ease-in-out:cubic-bezier(.77,0,.175,1);--kwl-press:140ms;--kwl-ui:190ms;--kwl-soft-shadow:0 5px 18px rgba(38,19,37,.045);--kwl-hover-shadow:0 9px 26px rgba(38,19,37,.075)}
 
 /* PUBLIC LEGACY: product detail, basket, favorites, plans, auth, service pages and fallbacks. */
 body.pc-public-refined :where(.generic-hero,.page-hero,.search-hero,.store-hero,.plans-hero,.auth-hero){border-radius:0 0 24px 24px!important}
@@ -21,14 +21,14 @@ body.pc-internal-deep :where(h1){letter-spacing:-.05em!important;text-wrap:balan
 body.pc-internal-deep :where(h2){letter-spacing:-.035em!important;text-wrap:balance}
 body.pc-internal-deep :where(button,a[role="button"],a[style*="padding"]){transition:transform var(--kwl-press) var(--kwl-ease-out),background-color var(--kwl-ui) ease,border-color var(--kwl-ui) ease,color var(--kwl-ui) ease,box-shadow var(--kwl-ui) ease!important;touch-action:manipulation}
 body.pc-internal-deep :where(button,a[role="button"],a[style*="padding"]):active{transform:scale(.98)!important}
-body.pc-internal-deep :where(article[style*="borderRadius"],section[style*="borderRadius"],div[style*="borderRadius"]){box-shadow:0 4px 16px rgba(15,23,42,.04)!important}
+body.pc-internal-deep :where(article[style*="borderRadius"],section[style*="borderRadius"],div[style*="borderRadius"]){box-shadow:0 4px 16px rgba(38,19,37,.04)!important}
 body.pc-internal-deep :where(input,select,textarea){transition:border-color var(--kwl-ui) ease,box-shadow var(--kwl-ui) ease,background-color var(--kwl-ui) ease!important}
 body.pc-internal-deep :where(table){font-variant-numeric:tabular-nums}
 body.pc-internal-deep :where(th){letter-spacing:.055em!important}
 body.pc-internal-deep :where(.badge,[class*="badge"],[class*="status"]){transition:background-color var(--kwl-ui) ease,color var(--kwl-ui) ease,border-color var(--kwl-ui) ease!important}
-body.pc-admin-deep :where(article,section[style*="background"]){box-shadow:0 4px 16px rgba(15,23,42,.035)!important}
+body.pc-admin-deep :where(article,section[style*="background"]){box-shadow:0 4px 16px rgba(38,19,37,.035)!important}
 body.pc-admin-deep :where(strong[style*="fontSize"],.metric-value,[class*="metric"] strong){font-variant-numeric:tabular-nums;letter-spacing:-.025em}
-body.pc-merchant-deep :where(article,section[style*="background"]){box-shadow:0 4px 16px rgba(15,23,42,.035)!important}
+body.pc-merchant-deep :where(article,section[style*="background"]){box-shadow:0 4px 16px rgba(38,19,37,.035)!important}
 
 /* Never make routine UI float. Hover changes surface/border; press carries the motion. */
 @media (hover:hover) and (pointer:fine){
@@ -36,16 +36,16 @@ body.pc-merchant-deep :where(article,section[style*="background"]){box-shadow:0 
  body.pc-public-refined :where(.button,.button--primary,.search-combo__button,.plan-card .button,.auth-card .button,button,[role="button"]):hover{transform:none!important}
  body.pc-public-refined :where(.visual-product-card:hover .visual-product-image img,.store-card:hover img){transform:scale(1.02)!important}
  body.pc-internal-deep :where(button:hover,a[role="button"]:hover,a[style*="padding"]:hover){transform:none!important}
- body.pc-merchant-deep article:hover{transform:none!important;box-shadow:0 7px 22px rgba(15,23,42,.055)!important}
+ body.pc-merchant-deep article:hover{transform:none!important;box-shadow:0 7px 22px rgba(38,19,37,.055)!important}
  body.pc-admin-deep article:hover{transform:none!important}
 }
 
 /* Mobile: keep density useful, controls reachable and typography calm. */
 @media(max-width:620px){
- body.pc-public-refined :where(.visual-product-card,.store-card,.price-table-card,.basket-plan,.benefit-card,.plan-card,.auth-card,.pc-service-card,.order-card,.search-panel,.compare-card){box-shadow:0 4px 14px rgba(15,23,42,.045)!important}
+ body.pc-public-refined :where(.visual-product-card,.store-card,.price-table-card,.basket-plan,.benefit-card,.plan-card,.auth-card,.pc-service-card,.order-card,.search-panel,.compare-card){box-shadow:0 4px 14px rgba(38,19,37,.045)!important}
  body.pc-public-refined :where(.button,.button--primary,.search-combo__button,button){min-height:44px!important}
  body.pc-public-refined :where(.generic-hero h1,.page-title h1,.center-heading h1,.plans-page h1){line-height:1.02!important}
- body.pc-internal-deep :where(article,section[style*="borderRadius"],div[style*="borderRadius"]){box-shadow:0 3px 12px rgba(15,23,42,.035)!important}
+ body.pc-internal-deep :where(article,section[style*="borderRadius"],div[style*="borderRadius"]){box-shadow:0 3px 12px rgba(38,19,37,.035)!important}
 }
 
 /* Reduced motion: retain state/color feedback, remove spatial motion. */

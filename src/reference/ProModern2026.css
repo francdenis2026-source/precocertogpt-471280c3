@@ -113,7 +113,7 @@ html[data-theme="dark"] .hp-home{
    reprovaria no contraste mínimo de texto pequeno. */
 .ref-hero,
 .ref-auth__story{
-  --pc-on-dark:#f4f8fb;
+  --pc-on-dark:#faf5fa;
   --pc-on-dark-muted:#d2bcd3;
   --pc-accent-warm:#fbbf24;
   --pc-accent-cool:#dc6ade;

@@ -10,7 +10,7 @@
 :where(main,header,footer,nav) :where(button,[role="button"],a.button,a[class*="button"],a[class*="cta"],a[class*="action"]):active{transform:scale(.97)}
 
 /* Search / compare page */
-.scpm-page .scpm-card,.scpm-page .scpm-variant,.scpm-page .scpm-insight{box-shadow:0 5px 18px rgba(15,23,42,.045);transition:border-color var(--kw-ui) ease,box-shadow var(--kw-ui) ease,transform var(--kw-press) var(--kw-ease-out)}
+.scpm-page .scpm-card,.scpm-page .scpm-variant,.scpm-page .scpm-insight{box-shadow:0 5px 18px rgba(38,19,37,.045);transition:border-color var(--kw-ui) ease,box-shadow var(--kw-ui) ease,transform var(--kw-press) var(--kw-ease-out)}
 .scpm-page .scpm-card:active,.scpm-page .scpm-variant:active{transform:scale(.992)}
 .scpm-page .scpm-hero h1,.scpm-page .scpm-heading h2{letter-spacing:-.045em;text-wrap:balance}
 .scpm-page .scpm-card__prices strong,.scpm-page .scpm-insight__score strong{font-variant-numeric:tabular-nums;letter-spacing:-.03em}
@@ -24,14 +24,14 @@
 /* Merchant and admin work surfaces: restrained motion, stronger hierarchy. */
 :where(.merchant-dashboard,.merchant-page,.merchant-studio,.merchant-management,.merchant-onboarding,.platform-admin,.admin-merchant,.author-catalog) :where(h1,h2){letter-spacing:-.035em;text-wrap:balance}
 :where(.merchant-dashboard,.merchant-page,.merchant-studio,.merchant-management,.merchant-onboarding,.platform-admin,.admin-merchant,.author-catalog) :where(button,a[class*="button"],a[class*="action"]):active{transform:scale(.98)}
-:where(.merchant-dashboard,.merchant-page,.merchant-studio,.merchant-management,.merchant-onboarding,.platform-admin,.admin-merchant,.author-catalog) :where([class*="card"],[class*="panel"]){box-shadow:0 4px 16px rgba(15,23,42,.04)}
+:where(.merchant-dashboard,.merchant-page,.merchant-studio,.merchant-management,.merchant-onboarding,.platform-admin,.admin-merchant,.author-catalog) :where([class*="card"],[class*="panel"]){box-shadow:0 4px 16px rgba(38,19,37,.04)}
 
 /* Orders, callbacks and utility/public service pages. */
 :where(.orders-page,.customer-orders,.mercadopago-callback,.public-service-page) :where(h1,h2){letter-spacing:-.035em;text-wrap:balance}
 :where(.orders-page,.customer-orders,.mercadopago-callback,.public-service-page) :where(button,a[class*="button"],a[class*="action"]):active{transform:scale(.97)}
 
 @media (hover:hover) and (pointer:fine){
-  .scpm-page .scpm-card:hover,.scpm-page .scpm-variant:hover{transform:none;box-shadow:0 9px 24px rgba(15,23,42,.07)}
+  .scpm-page .scpm-card:hover,.scpm-page .scpm-variant:hover{transform:none;box-shadow:0 9px 24px rgba(38,19,37,.07)}
   :where(.establishments-page,.establishments-marketplace,.public-establishment,.public-store,.fremix-page,.merchant-online-store) :where(article,[class*="card"],[class*="store"]):hover{transform:none}
   :where(main,header,footer,nav) :where(button,a.button,a[class*="button"],a[class*="cta"],a[class*="action"]):hover{transform:none}
 }

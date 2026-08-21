@@ -1,0 +1,152 @@
+@import "@fontsource-variable/manrope";
+
+/* Harmonização de tipografia e cor entre a homepage e as páginas internas.
+   Último arquivo carregado em App.tsx. */
+
+/* ============ FAMÍLIA ============ */
+/* A homepage compunha em Manrope e todas as internas em Inter — duas
+   tipografias no mesmo site, e a diferença aparece na hora em que se navega
+   de uma para outra. A homepage é o padrão, então é a Manrope que passa a
+   valer; a Inter fica como reserva de sistema. */
+:root {
+  --pc-font-body: "Manrope Variable", Manrope, "Inter Variable", Inter, system-ui, sans-serif;
+  --pc-font-display: "Manrope Variable", Manrope, "Inter Variable", Inter, system-ui, sans-serif;
+
+  /* Escala compartilhada. As internas somavam até treze tamanhos distintos
+     por página, escolhidos caso a caso; estes seis cobrem o mesmo território
+     com um degrau perceptível entre cada passo. */
+  --ts-eyebrow: 11px;
+  --ts-meta: 12px;
+  --ts-small: 13px;
+  --ts-body: 15px;
+  --ts-lead: 16px;
+  --ts-h3: 20px;
+}
+
+html .ref-page, html .ref-auth, html .ref-admin, html .ref-directory,
+html .search26-shell, html .sector-hub, html .pro-basket-shell, html .store-pro-page,
+html .culture-profile-page, html .mo-page {
+  font-family: "Manrope Variable", Manrope, "Inter Variable", Inter, system-ui, sans-serif;
+}
+
+/* Duas fontes com papéis definidos, e não uma por página: a Outfit assina os
+   títulos, a Manrope carrega todo o resto. A homepage já fazia isso nos
+   títulos, mas aplicava a Outfit também em nomes de produto de 13px — corpo
+   pequeno demais para uma fonte de display, que existe para tamanhos
+   grandes. As internas, por sua vez, não a usavam em lugar nenhum. */
+html .ref-page :is(h1,h2), html .ref-directory :is(h1,h2),
+html .search26-shell :is(h1,h2), html .sector-hub :is(h1,h2),
+html .store-pro-page :is(h1,h2), html .ref-auth :is(h1,h2),
+html .pro-basket-shell :is(h1,h2), html .culture-profile-page :is(h1,h2) {
+  font-family: "Outfit Variable", Outfit, "Manrope Variable", Manrope, system-ui, sans-serif;
+  font-weight: 700;
+}
+
+/* Nome de produto é leitura, não título: volta para a fonte de texto. */
+html .hp-product-card h3,
+html .ref-product-grid h3,
+html .store-pro-grid strong {
+  font-family: "Manrope Variable", Manrope, "Inter Variable", Inter, system-ui, sans-serif;
+}
+
+/* ============ TÍTULOS ============ */
+/* Os títulos de página mediam 43, 46, 54, 65, 67 e 78px conforme a tela —
+   sete páginas, sete tamanhos, nenhum deles derivado de uma regra. A mesma
+   fórmula fluida da homepage passa a valer em todas. */
+.ref-stores-hero h1,
+.search26-hero h1,
+.sector-hub__hero-copy h1,
+.pro-basket-shell > header h1,
+.ref-auth__card h2,
+.store-pro-copy h1 {
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.06;
+  letter-spacing: -.03em;
+}
+
+/* ============ PISO DE 11px ============ */
+/* Nenhum texto abaixo de 11px. Eram rótulos de apoio em 9 e 10px espalhados
+   pelo explorar, pela cesta e pela página de loja — justamente a informação
+   que alguém em dúvida procura. */
+.sector-hub article small,
+.sector-hub__sector-copy small,
+.pro-basket-empty small,
+.pro-basket-empty div a,
+.store-pro-specialties li b,
+.store-pro-fallback small,
+.store-pro-fallback small em,
+.ref-store-card small,
+.ref-price-row small,
+.ref-offers small {
+  font-size: var(--ts-eyebrow);
+}
+
+.store-pro-fallback small em { font-size: var(--ts-eyebrow); line-height: 1.4; }
+
+/* ============ BOTÕES SOBRE A MARCA ============ */
+/* Tinta quase preta sobre a ameixa da marca rendia 1,77:1: o rótulo
+   praticamente sumia. Quem tem a marca como fundo escreve em claro. */
+.search26-search button,
+.sector-hub__hero-actions > a:first-child,
+.ref-stores-more > a,
+.pro-basket-shell button[type="submit"] {
+  color: #fdfbfe;
+}
+
+.search26-search button svg,
+.sector-hub__hero-actions > a:first-child svg { color: currentColor; }
+
+/* ============ RITMO DE LEITURA ============ */
+/* Corpo de texto em 1,6 e títulos justos. Antes cada página resolvia isso
+   por conta própria, e linhas longas ficavam com entrelinha de parágrafo
+   curto. */
+.ref-page p, .ref-directory p, .search26-shell p,
+.sector-hub p, .store-pro-page p {
+  line-height: 1.6;
+}
+
+.ref-page :is(h1, h2, h3),
+.ref-directory :is(h1, h2, h3),
+.search26-shell :is(h1, h2, h3),
+.sector-hub :is(h1, h2, h3),
+.store-pro-page :is(h1, h2, h3) {
+  line-height: 1.14;
+  letter-spacing: -.02em;
+}
+
+/* Números de preço alinhados em coluna: sem isso os dígitos dançam de linha
+   para linha e a comparação, que é o serviço do site, fica mais difícil. */
+.ref-price-value strong,
+.ref-offer-price,
+.store-pro-grid footer b,
+.pro-basket-shell strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============ CROMO COMPARTILHADO ============ */
+/* Cabeçalho, dock, rodapé e link de acessibilidade declaram a própria fonte,
+   então ficavam em Inter mesmo com o corpo da página já em Manrope — e são
+   justamente as peças que acompanham o usuário de tela em tela. */
+html .ref-header, html .ref-header *,
+html .ref-nav a, html .ref-location, html .ref-location *,
+html .ref-dock, html .ref-dock *,
+html .ref-footer, html .ref-footer *,
+html .pc-skip-link,
+html .sector-hub *, html .search26-shell *, html .pro-basket-shell *,
+html .ref-directory *, html .store-pro-page *, html .ref-auth * {
+  font-family: "Manrope Variable", Manrope, "Inter Variable", Inter, system-ui, sans-serif;
+}
+
+/* ============ EXPLORAR: RÓTULOS ============ */
+/* A página de setores era a única que ainda descia a 10px, em rótulos de
+   apoio dos cartões e dos contadores. */
+html .sector-hub small,
+html .sector-hub__sector-copy small,
+html .sector-hub article small,
+html .sector-hub__tools small,
+html .sector-hub span small {
+  font-size: var(--ts-eyebrow);
+}
+
+/* Último rótulo abaixo do piso: a chamada dos cartões de loja no explorar. */
+html .sector-hub__store-grid a b { font-size: var(--ts-eyebrow); }

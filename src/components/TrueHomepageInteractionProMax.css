@@ -2,7 +2,7 @@
 .true-home .th-header__inner{height:72px;gap:26px}
 .true-home .th-brand{gap:12px;min-height:52px;transition:transform .22s ease,opacity .22s ease}
 .true-home .th-brand img{width:158px;transition:transform .24s cubic-bezier(.2,.7,.2,1),filter .24s ease}
-.true-home .th-brand span{padding-left:12px;color:#d4e3eb;font-size:12px;font-weight:850;letter-spacing:.025em}
+.true-home .th-brand span{padding-left:12px;color:#e7d7e8;font-size:12px;font-weight:850;letter-spacing:.025em}
 .true-home .th-nav{gap:4px}
 .true-home .th-nav a,.true-home .th-login{position:relative;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;color:#f0e6f0;font-size:14px;font-weight:780;letter-spacing:.005em;overflow:hidden;transition:color .2s ease,background-color .2s ease,transform .2s ease}
 .true-home .th-nav a::after,.true-home .th-login::after{content:"";position:absolute;left:14px;right:14px;bottom:7px;height:2px;border-radius:99px;background:#d779dc;transform:scaleX(0);transform-origin:center;transition:transform .22s cubic-bezier(.2,.7,.2,1)}

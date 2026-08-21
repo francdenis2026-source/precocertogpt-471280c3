@@ -14,7 +14,7 @@
 .hero-background {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(212, 122, 61, 0.15) 0%, rgba(13, 47, 76, 0.4) 100%);
+  background: linear-gradient(180deg, rgba(212, 122, 61, 0.15) 0%, rgba(66,22,67, 0.4) 100%);
   transform: translateZ(0);
   will-change: transform;
 }
@@ -598,7 +598,7 @@ footer, .footer-chrome {
 html[data-theme="dark"] .economy-receipt,
 html[data-theme="dark"] .smart-basket,
 html[data-theme="dark"] .hero-price-card {
-  background: rgba(19, 47, 76, 0.6);
+  background: rgba(68,27,68, 0.6);
   backdrop-filter: blur(20px);
 }
 

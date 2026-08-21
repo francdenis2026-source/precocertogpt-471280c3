@@ -9,7 +9,7 @@
   .pdp-main-image>.pdp-image-fallback svg{width:32px}
   .pdp-main-image>.pdp-image-fallback span{font-size:14px;line-height:1.15}.pdp-main-image>.pdp-image-fallback small{font-size:10px;margin-top:3px}
   .pdp-main-image>span{top:9px;left:9px;padding:4px 7px;font-size:7px;border-radius:5px}
-  .pdp-thumbs{min-height:34px;margin-top:6px;gap:7px}.pdp-thumbs button{width:54px;height:38px!important;padding:4px;background:#0b2b3c}.pdp-thumbs img{object-fit:contain!important;background:#eef1ed}.pdp-thumbs svg{width:18px}.pdp-thumbs small{font-size:7.5px;color:#937494}
+  .pdp-thumbs{min-height:34px;margin-top:6px;gap:7px}.pdp-thumbs button{width:54px;height:38px!important;padding:4px;background:#331235}.pdp-thumbs img{object-fit:contain!important;background:#eef1ed}.pdp-thumbs svg{width:18px}.pdp-thumbs small{font-size:7.5px;color:#937494}
 
   .pdp-primary{padding-top:0}.pdp-primary h1{max-width:760px;font-size:clamp(1.55rem,1.9vw,2.25rem);line-height:1;letter-spacing:-.035em}.pdp-eyebrow{margin-bottom:3px}.pdp-unit{margin:3px 0 4px}.pdp-updated{margin-bottom:6px}
   .pdp-price-card{padding:9px 11px}.pdp-price-card strong{font-size:22px}.pdp-price-card small{line-height:1.25}

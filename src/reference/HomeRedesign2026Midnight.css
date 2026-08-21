@@ -3,17 +3,17 @@
 
 :root {
   /* Color Palette */
-  --pc-canvas: #0a1929;
-  --pc-surface: #132f4c;
-  --pc-surface-light: #1a3f5c;
-  --pc-surface-lighter: #203f56;
+  --pc-canvas: #240e25;
+  --pc-surface: #441b44;
+  --pc-surface-light: #512353;
+  --pc-surface-lighter: #4d284e;
   --pc-ink: #e8e8e8;
   --pc-ink-muted: #baabba;
   --pc-accent: #d47a3d;
   --pc-accent-dark: #b85f2a;
   --pc-accent-light: #e89456;
-  --pc-border: #1f4a6b;
-  --pc-border-light: #2a5a7f;
+  --pc-border: #5f2a60;
+  --pc-border-light: #713673;
 
   /* Shadows - Depth & Glow */
   --pc-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -43,7 +43,7 @@ html[data-theme="light"] {
   --pc-surface: #ffffff;
   --pc-surface-light: #f7f3f7;
   --pc-surface-lighter: #efe9ef;
-  --pc-ink: #0a1929;
+  --pc-ink: #240e25;
   --pc-ink-muted: #6a576b;
   --pc-accent: #d47a3d;
   --pc-accent-dark: #b85f2a;
@@ -51,9 +51,9 @@ html[data-theme="light"] {
   --pc-border: #e0d8e1;
   --pc-border-light: #efe9ef;
 
-  --pc-shadow-sm: 0 4px 12px rgba(8, 37, 50, 0.08);
+  --pc-shadow-sm: 0 4px 12px rgba(42,14,44, 0.08);
   --pc-shadow-md: 0 12px 32px rgba(212, 122, 61, 0.1);
-  --pc-shadow-lg: 0 20px 60px rgba(8, 37, 50, 0.12);
+  --pc-shadow-lg: 0 20px 60px rgba(42,14,44, 0.12);
   --pc-shadow-glow: 0 0 24px rgba(212, 122, 61, 0.15);
 }
 
@@ -277,7 +277,7 @@ input::placeholder {
 
 /* Glass Morphism - Backdrop Blur */
 .pc-glass {
-  background: rgba(19, 47, 76, 0.7);
+  background: rgba(68,27,68, 0.7);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 122, 61, 0.2);
   border-radius: var(--pc-radius-lg);

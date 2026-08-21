@@ -81,21 +81,23 @@ export function FooterDeveloperInfo() {
             <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
           </header>
 
-          <p id="pc-dev-description" className="pc-dev-intro">Criado em Feijó-AC, o PreçoCerto aproxima consumidores e negócios locais em um marketplace com comparação de preços, lojas virtuais e gestão de vendas.</p>
+          <div className="pc-dev-content">
+            <p id="pc-dev-description" className="pc-dev-intro">Criado em Feijó-AC, o PreçoCerto aproxima consumidores e negócios locais em um marketplace com comparação de preços, lojas virtuais e gestão de vendas.</p>
 
-          <div className="pc-dev-grid">
-            <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Descoberta, catálogo e comparação em uma só vitrine.</p></div></article>
-            <article><Building2 /><div><strong>Loja virtual própria</strong><p>Produtos, ofertas e vendas gerenciados pelo comerciante.</p></div></article>
-            <article><ShieldCheck /><div><strong>Clareza ao consumidor</strong><p>Catálogos informativos e vendas são identificados com precisão.</p></div></article>
-            <article><Info /><div><strong>Decisão bem informada</strong><p>Preços e lojas organizados para uma comparação simples.</p></div></article>
-            <article><Code2 /><div><strong>Tecnologia moderna</strong><p>React, TypeScript, Vite e Supabase em uma experiência responsiva.</p></div></article>
-            <article><Heart /><div><strong>Feito em Feijó</strong><p>Tecnologia local para fortalecer negócios e consumidores.</p></div></article>
-          </div>
+            <div className="pc-dev-grid">
+              <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Descoberta, catálogo e comparação em uma só vitrine.</p></div></article>
+              <article><Building2 /><div><strong>Loja virtual própria</strong><p>Produtos, ofertas e vendas gerenciados pelo comerciante.</p></div></article>
+              <article><ShieldCheck /><div><strong>Clareza ao consumidor</strong><p>Catálogos informativos e vendas são identificados com precisão.</p></div></article>
+              <article><Info /><div><strong>Decisão bem informada</strong><p>Preços e lojas organizados para uma comparação simples.</p></div></article>
+              <article><Code2 /><div><strong>Tecnologia moderna</strong><p>React, TypeScript, Vite e Supabase em uma experiência responsiva.</p></div></article>
+              <article><Heart /><div><strong>Feito em Feijó</strong><p>Tecnologia local para fortalecer negócios e consumidores.</p></div></article>
+            </div>
 
-          <div className="pc-dev-signature">
-            <span><UserRound /> Desenvolvimento e idealização</span>
-            <strong>Franc D’nis</strong>
-            <small>Assinatura técnica do projeto</small>
+            <div className="pc-dev-signature">
+              <span><UserRound /> Desenvolvimento e idealização</span>
+              <strong>Franc D’nis</strong>
+              <small>Assinatura técnica do projeto</small>
+            </div>
           </div>
 
           <footer className="pc-dev-footer">

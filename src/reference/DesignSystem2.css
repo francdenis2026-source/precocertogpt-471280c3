@@ -1,4 +1,4 @@
-/* PreçoCerto Design System 2.0 — shared semantic tokens for all public and private surfaces. */
+/* PreçoCerto Design System 2.0 — shared semantic tokens and functional color accents for all public and private surfaces. */
 :root{
   color-scheme:light;
   --pc-font-display:"Outfit Variable",Outfit,"Inter Variable",Inter,system-ui,sans-serif;

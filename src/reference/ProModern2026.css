@@ -7,31 +7,31 @@
    A rota publica usa o namespace hp-*; estes estilos traduzem a direcao
    visual moderna para o componente realmente montado em /. */
 .hp-home{
-  --hp-bg:#f6f7f3;
+  --hp-bg:#f6f7f8;
   --hp-surface:#ffffff;
-  --hp-surface-2:#eef3ef;
-  --hp-ink:#10231d;
-  --hp-muted:#596c64;
-  --hp-line:#d9e3dd;
-  --hp-brand:#08755a;
-  --hp-brand-2:#064b3c;
-  --hp-accent:#f6b73c;
-  --hp-shadow:0 22px 55px rgba(7,55,42,.13);
+  --hp-surface-2:#eef1f3;
+  --hp-ink:#131a20;
+  --hp-muted:#5b6570;
+  --hp-line:#dde2e6;
+  --hp-brand:#1f4e6b;
+  --hp-brand-2:#17384c;
+  --hp-accent:#2f74a3;
+  --hp-shadow:0 22px 55px rgba(19,26,32,.13);
 }
 html[data-theme="dark"] .hp-home{
-  --hp-bg:#091310;
-  --hp-surface:#101f1a;
-  --hp-surface-2:#172b24;
-  --hp-ink:#f4faf7;
-  --hp-muted:#abc0b7;
-  --hp-line:#29423a;
-  --hp-brand:#63dfb4;
-  --hp-brand-2:#8aebc9;
-  --hp-accent:#ffd166;
+  --hp-bg:#14191e;
+  --hp-surface:#1b2126;
+  --hp-surface-2:#212930;
+  --hp-ink:#e9eef2;
+  --hp-muted:#9aa5ad;
+  --hp-line:#2a333b;
+  --hp-brand:#9cbed3;
+  --hp-brand-2:#b3cee0;
+  --hp-accent:#7fa8c2;
 }
 .hp-header{
   background:color-mix(in srgb,var(--hp-surface) 82%,transparent);
-  box-shadow:0 8px 30px rgba(6,42,32,.06);
+  box-shadow:0 8px 30px rgba(19,26,32,.06);
 }
 .hp-header__inner{height:68px}
 .hp-header nav a{position:relative}
@@ -40,41 +40,41 @@ html[data-theme="dark"] .hp-home{
   border-radius:999px;background:var(--hp-brand);transition:left .2s ease,right .2s ease;
 }
 @media(hover:hover) and (pointer:fine){.hp-header nav a:hover::after{left:18%;right:18%}}
-.hp-login{background:var(--hp-brand-2);box-shadow:0 8px 22px rgba(6,75,60,.2)}
-.hp-hero{min-height:520px;background:#062d24}
+.hp-login{background:var(--hp-brand-2);box-shadow:0 8px 22px rgba(20, 44, 61,.2)}
+.hp-hero{min-height:520px;background:#10171c}
 .hp-hero__media{background-position:center 34%;filter:saturate(.92) contrast(1.04)}
 .hp-hero__veil{
   background:
-    radial-gradient(55% 85% at 68% 38%,rgba(19,125,94,.12),transparent 70%),
-    linear-gradient(90deg,rgba(4,31,24,.98) 0%,rgba(4,31,24,.91) 45%,rgba(4,31,24,.42) 74%,rgba(4,31,24,.24) 100%);
+    radial-gradient(55% 85% at 68% 38%,rgba(36, 78, 108,.12),transparent 70%),
+    linear-gradient(90deg,rgba(11, 25, 34,.98) 0%,rgba(11, 25, 34,.91) 45%,rgba(11, 25, 34,.42) 74%,rgba(11, 25, 34,.24) 100%);
 }
 .hp-hero__grid{min-height:520px;gap:clamp(30px,4vw,58px);padding-block:48px}
 .hp-eyebrow{
-  padding:7px 11px;border:1px solid rgba(181,241,218,.2);border-radius:999px;
-  background:rgba(7,70,53,.42);backdrop-filter:blur(10px);color:#70e2ba;
+  padding:7px 11px;border:1px solid rgba(169, 195, 214,.2);border-radius:999px;
+  background:rgba(13,34,47,.42);backdrop-filter:blur(10px);color:#9cc0d8;
 }
 .hp-hero h1{
   max-width:720px;font-size:clamp(44px,5.25vw,70px);line-height:1.01;
   letter-spacing:-.045em;text-wrap:balance;text-shadow:0 3px 24px rgba(0,0,0,.28);
 }
-.hp-hero h1 em{color:#ffd166}
-.hp-hero__copy>p{max-width:52ch;margin:18px 0 23px;color:#c8ddd5;font-size:16px;line-height:1.58}
+.hp-hero h1 em{color:#7fa8c2}
+.hp-hero__copy>p{max-width:52ch;margin:18px 0 23px;color:#c3cad0;font-size:16px;line-height:1.58}
 .hp-search{
   border-radius:16px;border-color:rgba(255,255,255,.18);
   box-shadow:0 3px 8px rgba(0,0,0,.14),0 24px 54px rgba(0,0,0,.3);
   transition:transform .2s ease,box-shadow .2s ease;
 }
 .hp-search:focus-within{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(94,234,212,.3),0 26px 58px rgba(0,0,0,.34)}
-.hp-search__submit{background:#08755a;transition:filter .18s ease,transform .18s ease}
+.hp-search__submit{background:#1f4e6b;transition:filter .18s ease,transform .18s ease}
 @media(hover:hover) and (pointer:fine){.hp-search__submit:hover{filter:brightness(1.09)}}
 .hp-search__submit:active{transform:translateY(1px)}
 .hp-quick-searches a{border-color:rgba(255,255,255,.17);background:rgba(255,255,255,.075);backdrop-filter:blur(8px)}
 .hp-spotlight{
   padding:16px;border-radius:22px;border-color:rgba(255,255,255,.16);
-  background:rgba(6,35,27,.76);box-shadow:0 28px 70px rgba(0,0,0,.32);
+  background:rgba(10, 22, 31,.76);box-shadow:0 28px 70px rgba(0,0,0,.32);
 }
-.hp-spotlight__product{border:1px solid rgba(9,80,61,.1);box-shadow:0 12px 32px rgba(0,0,0,.12)}
-.hp-spotlight>a{background:#ffd166;transition:transform .18s ease,filter .18s ease}
+.hp-spotlight__product{border:1px solid rgba(22, 48, 67,.1);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.hp-spotlight>a{background:#7fa8c2;transition:transform .18s ease,filter .18s ease}
 @media(hover:hover) and (pointer:fine){.hp-spotlight>a:hover{transform:translateY(-2px);filter:brightness(1.04)}}
 .hp-sectors,.hp-offers{padding-block:52px}
 .hp-offers{padding-top:10px;padding-bottom:62px}
@@ -82,20 +82,33 @@ html[data-theme="dark"] .hp-home{
 .hp-section-head h2{font-size:clamp(28px,2.8vw,38px);text-wrap:balance}
 .hp-sector-grid{gap:10px}
 .hp-sector-grid>a{
-  min-height:104px;border-radius:16px;box-shadow:0 8px 24px rgba(10,54,42,.045);
+  min-height:104px;border-radius:16px;box-shadow:0 8px 24px rgba(16, 35, 48,.045);
 }
 .hp-sector-grid i{background:color-mix(in srgb,var(--hp-brand) 9%,var(--hp-surface));transition:transform .2s ease}
 @media(hover:hover) and (pointer:fine){.hp-sector-grid>a:hover i{transform:scale(1.06) rotate(-2deg)}}
 .hp-product-grid{gap:12px}
-.hp-product-card{border-radius:18px;box-shadow:0 10px 28px rgba(10,54,42,.055)}
+.hp-product-card{border-radius:18px;box-shadow:0 10px 28px rgba(16, 35, 48,.055)}
 .hp-product-card__media{height:164px;background:linear-gradient(145deg,color-mix(in srgb,var(--hp-brand) 7%,var(--hp-surface)),var(--hp-surface-2))}
 .hp-product-card__body{padding:14px}
 .hp-product-card__body>div strong{letter-spacing:-.025em}
 .hp-story{min-height:430px}
 .hp-story__content{min-height:430px;padding-block:48px}
-.hp-story::after{background:linear-gradient(90deg,#0a261e 0%,rgba(10,38,30,.95) 45%,rgba(10,38,30,.4) 74%,rgba(10,38,30,.18))}
-.hp-local{margin-block:50px;padding:30px;border-radius:22px;box-shadow:0 16px 45px rgba(10,54,42,.06)}
-.hp-footer{background:#061d17}
+/* ::after intentionally NOT redefined here for light mode: HomeLighter2026.css
+   already turns this band into a light, high-contrast veil over the photo,
+   and a dark override at this cascade position was silently winning over it,
+   putting dark text on a dark overlay and flattening the photo. Dark theme
+   needs its own veil though — the light-mode text/veil pair from
+   HomeLighter2026.css is unconditional (not theme-scoped), so without an
+   explicit dark-mode pass here, dark theme rendered a bright white band
+   in the middle of an otherwise dark page. */
+html[data-theme="dark"] .hp-story::after{background:linear-gradient(96deg,rgba(20,25,30,.94) 0%,rgba(20,25,30,.90) 34%,rgba(20,25,30,.75) 48%,rgba(20,25,30,.30) 61%,rgba(20,25,30,.08) 72%,transparent 82%)}
+html[data-theme="dark"] .hp-story h2{color:var(--hp-ink)}
+html[data-theme="dark"] .hp-story>.hp-shell>p{color:var(--hp-muted)}
+html[data-theme="dark"] .hp-story>.hp-shell>span{color:var(--hp-brand)}
+html[data-theme="dark"] .hp-story ol li span small{color:var(--hp-muted)}
+html[data-theme="dark"] .hp-story ol li span strong{color:var(--hp-ink)}
+.hp-local{margin-block:50px;padding:30px;border-radius:22px;box-shadow:0 16px 45px rgba(16, 35, 48,.06)}
+.hp-footer{background:#10171c}
 
 @media(max-width:640px){
   .hp-header__inner{height:62px}
@@ -113,10 +126,10 @@ html[data-theme="dark"] .hp-home{
    reprovaria no contraste mínimo de texto pequeno. */
 .ref-hero,
 .ref-auth__story{
-  --pc-on-dark:#faf5fa;
-  --pc-on-dark-muted:#bcd3c8;
-  --pc-accent-warm:#fbbf24;
-  --pc-accent-cool:#6adea8;
+  --pc-on-dark:#f7f8f9;
+  --pc-on-dark-muted:#c3cad0;
+  --pc-accent-warm:#8fbdd6;
+  --pc-accent-cool:#4a86ab;
 }
 
 /* ============================================================
@@ -310,7 +323,7 @@ html[data-theme="dark"] .hp-home{
 }
 .ref-auth__story .ref-kicker{color:var(--pc-accent-warm)}
 .ref-auth__story .ref-kicker svg{width:15px;height:15px}
-.ref-auth__story>small{color:#b2c4bc}
+.ref-auth__story>small{color:#b4bec5}
 
 /* Provas sociais do painel lateral */
 .ref-auth__trust-grid article{
@@ -480,7 +493,7 @@ html[data-theme="dark"] .hp-home{
 
 /* Rodapé */
 .ref-footer{background:var(--pc-navy);padding:clamp(36px,4vw,52px) 0 88px}
-.ref-footer nav strong{color:var(--pc-accent-warm,#fbbf24);letter-spacing:.1em}
+.ref-footer nav strong{color:var(--pc-accent-warm,#8fbdd6);letter-spacing:.1em}
 .ref-footer nav a{transition:color .18s ease}
 
 /* ============================================================

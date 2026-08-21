@@ -67,7 +67,7 @@ html[data-theme="dark"] .hp-home {
   color: #63e096;
 }
 .hp-home .hp-spotlight > a {
-  background: #63d98d;
+  background: var(--hp-price);
   color: #0b2a19;
 }
 .hp-home .hp-sector-grid > a {
@@ -95,4 +95,27 @@ html[data-theme="dark"] .hp-home {
 }
 .hp-home .hp-product-card__body > div strong {
   color: var(--hp-price);
+}
+.hp-home .hp-story__content > a {
+  background: var(--hp-price);
+  color: #06210f;
+  box-shadow: 0 10px 26px rgba(28, 154, 86, .35);
+  transition: filter .2s ease, transform .2s ease;
+}
+.hp-home .hp-local__actions a:last-child {
+  border: 1.5px solid var(--hp-gold);
+  background: color-mix(in srgb, var(--hp-gold) 10%, var(--hp-surface));
+  color: var(--hp-gold);
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hp-home .hp-story__content > a:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+  .hp-home .hp-local__actions a:last-child:hover {
+    background: var(--hp-gold);
+    color: #fff;
+    transform: translateY(-1px);
+  }
 }

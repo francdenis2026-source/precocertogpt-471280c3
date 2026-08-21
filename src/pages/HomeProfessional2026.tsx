@@ -97,13 +97,23 @@ export function HomeProfessional2026() {
 
   const searchOpen = searchFocused && query.trim().length >= 2;
 
-  // A página continua rolando com a busca aberta; overlay e resultados ficam
-  // no fluxo normal do documento e acompanham a barra de pesquisa.
+  // Ao abrir os resultados, trava o fundo e compensa a barra de rolagem para
+  // manter o foco na busca sem causar salto lateral no conteúdo.
   useEffect(() => {
     if (!searchOpen) return;
+    const { body } = document;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const previousOverflow = body.style.overflow;
+    const previousPaddingRight = body.style.paddingRight;
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
     const fecharNoEsc = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchFocused(false); };
     document.addEventListener("keydown", fecharNoEsc);
-    return () => document.removeEventListener("keydown", fecharNoEsc);
+    return () => {
+      body.style.overflow = previousOverflow;
+      body.style.paddingRight = previousPaddingRight;
+      document.removeEventListener("keydown", fecharNoEsc);
+    };
   }, [searchOpen]);
 
   const submitSearch = (event: FormEvent) => {
@@ -254,7 +264,7 @@ export function HomeProfessional2026() {
       </div>
       <div className="hp-shell hp-footer__meta">
         <span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span>
-        <small>&copy; 2026 PreçoCerto · Feijó, AC <i className="hp-footer__dev">dev. &lt;FrancD'nis&gt;</i></small>
+        <small>&copy; 2026 PreçoCerto · Feijó, AC <i className="hp-footer__dev">dev. &lt;FrancD&apos;nis&gt;</i></small>
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />

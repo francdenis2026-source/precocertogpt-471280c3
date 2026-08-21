@@ -12,7 +12,7 @@ const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").trim();
 type SortMode="relevance"|"lowest"|"highest"|"name"|"stores";
 function score(product:Product,raw:string){const q=normalize(raw);if(!q)return 20;const name=normalize(product.name);const brand=normalize(product.brand||"");const category=normalize(product.category||"");const establishment=normalize(product.establishment||"");const neighborhood=normalize(product.neighborhood||"");if(name===q)return 0;if(name.startsWith(q))return 1;if(name.includes(q))return 2;if(establishment===q)return 3;if(establishment.includes(q))return 4;if(brand.includes(q))return 5;if(category.includes(q))return 6;if(neighborhood.includes(q))return 7;const words=q.split(/\s+/).filter(Boolean);const haystack=`${name} ${brand} ${category} ${establishment} ${neighborhood}`;return words.every(word=>haystack.includes(word))?8:99}
-function ProductThumb({product}:{product:Product}){const src=resolveProductImage(product);return src?<img src={src} alt={product.name} loading="lazy"/>:<PackageSearch/>}
+function ProductThumb({product}:{product:Product}){const src=resolveProductImage(product);return src?<img src={src} alt={product.name} width="76" height="70" loading="lazy"/>:<PackageSearch/>}
 
 export function SearchDiscovery2026(){
  const[params,setParams]=useSearchParams();

@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, Building2,
   Check, Code2, Eye, Heart, Info, LayoutDashboard, LockKeyhole, Mail, Map as MapIcon,
@@ -273,37 +273,55 @@ function ThemeButton() {
   return <button className="ref-theme" type="button" onClick={toggle} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
 }
 
-export function PublicHeader({ current }: { current?: "home" | "search" | "basket" | "stores" | "profile" }) {
+type PublicSection = "home" | "sectors" | "search" | "basket" | "stores" | "profile";
+
+function sectionFromPath(pathname: string): PublicSection | undefined {
+  if (pathname === "/") return "home";
+  if (["/explorar", "/mercados", "/farmacias", "/padarias", "/livros", "/servicos"].some((path) => pathname === path || pathname.startsWith(`${path}/`))) return "sectors";
+  if (pathname.startsWith("/buscar") || pathname.startsWith("/produto/")) return "search";
+  if (pathname.startsWith("/estabelecimentos") || pathname.startsWith("/estabelecimento/") || pathname.startsWith("/loja/")) return "stores";
+  if (pathname.startsWith("/cesta")) return "basket";
+  if (pathname.startsWith("/favoritos") || pathname.startsWith("/minha-conta")) return "profile";
+  return undefined;
+}
+
+export function PublicHeader({ current }: { current?: PublicSection }) {
   const [menu, setMenu] = useState(false);
   const { count } = useBasket();
-  useEffect(() => { setMenu(false); }, [current]);
+  const { pathname } = useLocation();
+  const activeSection = sectionFromPath(pathname) ?? current;
+  const activeProps = (section: PublicSection) => ({
+    className: activeSection === section ? "is-active" : "",
+    "aria-current": activeSection === section ? ("page" as const) : undefined,
+  });
+  useEffect(() => { setMenu(false); }, [pathname]);
   return <header className="ref-header">
     <div className="ref-shell ref-header__inner">
       <Brand />
       <nav className="ref-nav" aria-label="Navegação principal">
-        <Link className={current === "home" ? "is-active" : ""} to="/">Início</Link>
-        <Link to="/explorar">Setores</Link>
-        <Link className={current === "search" ? "is-active" : ""} to="/buscar">Buscar</Link>
-        <Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos">Lojas</Link>
-        <Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link>
+        <Link {...activeProps("home")} to="/">Início</Link>
+        <Link {...activeProps("sectors")} to="/explorar">Setores</Link>
+        <Link {...activeProps("search")} to="/buscar">Buscar</Link>
+        <Link {...activeProps("stores")} to="/estabelecimentos">Lojas</Link>
+        <Link {...activeProps("basket")} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link>
       </nav>
       <div className="ref-header__utility">
         <span className="ref-location"><MapPin aria-hidden="true" /><span><small>Você está em</small><strong>Feijó, AC</strong></span></span>
-        {current === "home" && <OnlinePresence />}
+        {activeSection === "home" && <OnlinePresence />}
       </div>
       <div className="ref-header__actions">
         <ThemeButton />
-        <Link className="ref-favorites-link" to="/favoritos" aria-label="Favoritos"><Heart /></Link>
+        <Link className={`ref-favorites-link${activeSection === "profile" ? " is-active" : ""}`} aria-current={activeSection === "profile" ? "page" : undefined} to="/favoritos" aria-label="Favoritos"><Heart /></Link>
         <Link className="ref-signin" to="/login">Entrar</Link>
         <button type="button" className="ref-menu" aria-label={menu ? "Fechar menu" : "Abrir menu"} aria-expanded={menu} onClick={() => setMenu(value => !value)}>{menu ? <X /> : <Menu />}</button>
       </div>
     </div>
     {menu && <nav className="ref-mobile-menu" aria-label="Menu">
-      <Link to="/explorar" onClick={() => setMenu(false)}><SlidersHorizontal aria-hidden="true" /> Explorar setores</Link>
-      <Link to="/buscar" onClick={() => setMenu(false)}><Search aria-hidden="true" /> Buscar no PreçoCerto</Link>
-      <Link to="/estabelecimentos" onClick={() => setMenu(false)}><Store aria-hidden="true" /> Estabelecimentos</Link>
-      <Link to="/cesta-basica" onClick={() => setMenu(false)}><ShoppingBasket aria-hidden="true" /> Lista de compras</Link>
-      <Link to="/favoritos" onClick={() => setMenu(false)}><Heart aria-hidden="true" /> Meus favoritos</Link>
+      <Link {...activeProps("sectors")} to="/explorar" onClick={() => setMenu(false)}><SlidersHorizontal aria-hidden="true" /> Explorar setores</Link>
+      <Link {...activeProps("search")} to="/buscar" onClick={() => setMenu(false)}><Search aria-hidden="true" /> Buscar no PreçoCerto</Link>
+      <Link {...activeProps("stores")} to="/estabelecimentos" onClick={() => setMenu(false)}><Store aria-hidden="true" /> Estabelecimentos</Link>
+      <Link {...activeProps("basket")} to="/cesta-basica" onClick={() => setMenu(false)}><ShoppingBasket aria-hidden="true" /> Lista de compras</Link>
+      <Link {...activeProps("profile")} to="/favoritos" onClick={() => setMenu(false)}><Heart aria-hidden="true" /> Meus favoritos</Link>
       <Link to="/lojista" onClick={() => setMenu(false)}><Building2 aria-hidden="true" /> Para negócios</Link>
       <div className="ref-mobile-menu__footer"><ThemeButton /><span>Alterar tema</span></div>
     </nav>}

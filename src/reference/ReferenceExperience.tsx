@@ -285,16 +285,25 @@ function sectionFromPath(pathname: string): PublicSection | undefined {
   return undefined;
 }
 
-export function PublicHeader({ current }: { current?: PublicSection }) {
+export function PublicHeader({ current, backOnly = false }: { current?: PublicSection; backOnly?: boolean }) {
   const [menu, setMenu] = useState(false);
   const { count } = useBasket();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const activeSection = sectionFromPath(pathname) ?? current;
   const activeProps = (section: PublicSection) => ({
     className: activeSection === section ? "is-active" : "",
     "aria-current": activeSection === section ? ("page" as const) : undefined,
   });
   useEffect(() => { setMenu(false); }, [pathname]);
+  if (backOnly) return <header className="ref-header ref-header--back-only">
+    <div className="ref-shell ref-header__inner">
+      <button className="ref-header__back" type="button" onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Voltar para a página anterior">
+        <ArrowLeft aria-hidden="true" />
+        <span>Voltar</span>
+      </button>
+    </div>
+  </header>;
   return <header className="ref-header">
     <div className="ref-shell ref-header__inner">
       <Brand />

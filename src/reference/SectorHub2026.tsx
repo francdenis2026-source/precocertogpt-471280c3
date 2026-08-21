@@ -1,14 +1,361 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Grid2X2, Heart, MapPin, Megaphone, PackageSearch, Search, ShoppingBasket, Sparkles, Store, TrendingDown } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  BookOpen,
+  BriefcaseBusiness,
+  Grid2X2,
+  Heart,
+  MapPin,
+  Megaphone,
+  PackageSearch,
+  Search,
+  ShoppingBasket,
+  Sparkles,
+  Store,
+  TrendingDown,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import type { CatalogPayload, StoreRow } from "../data/catalog";
-import { fetchSectorCatalog, prefetchSectorCatalog, sectorProducts, sectorStores } from "../data/sectorCatalog";
+import {
+  fetchSectorCatalog,
+  prefetchSectorCatalog,
+  sectorProducts,
+  sectorStores,
+} from "../data/sectorCatalog";
 import { marketplaceSectors } from "./MarketplaceSectors";
-import { PublicHeader } from "./ReferenceExperience";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./SectorHub2026.css";
 import "./SectorHubExperienceFixes2026.css";
 
-const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").trim();
-const sponsoredIds=new Set(String(import.meta.env.VITE_SPONSORED_STORE_IDS||"").split(",").map((v:string)=>normalize(v)).filter(Boolean));
-function isSponsored(store:StoreRow){return[store.id,store.slug,store.name].some(v=>sponsoredIds.has(normalize(String(v||""))))}
-export function SectorHub2026(){const[catalog,setCatalog]=useState<CatalogPayload|null>(null);useEffect(()=>{let active=true;void fetchSectorCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined);return()=>{active=false}},[]);const sectorData=useMemo(()=>{if(!catalog)return[];return marketplaceSectors.map(sector=>({sector,stores:sectorStores(catalog,sector),products:sectorProducts(catalog,sector)})).filter(item=>item.stores.length>0||item.products.length>0||item.sector.id==="books"||item.sector.id==="services")},[catalog]);const featuredStores=useMemo(()=>{if(!catalog)return[];return catalog.stores.filter(store=>(store.products||0)>0).sort((a,b)=>Number(isSponsored(b))-Number(isSponsored(a))||(b.products||0)-(a.products||0)||a.name.localeCompare(b.name,"pt-BR")).slice(0,8)},[catalog]);const totalSectorStores=sectorData.reduce((sum,item)=>sum+item.stores.length,0);const sponsoredVisible=featuredStores.some(isSponsored);return <div className="sector-hub"><PublicHeader/><main id="conteudo-principal"><section className="sector-hub__hero"><div className="sector-hub__shell sector-hub__hero-grid"><div className="sector-hub__hero-copy"><span className="sector-hub__eyebrow"><Grid2X2/>EXPLORAR FEIJÓ POR SETOR</span><h1>Descubra o que existe de verdade, <em>sem misturar categorias.</em></h1><p>A plataforma só relaciona produtos a setores e estabelecimentos quando existe vínculo real no catálogo. O que ainda não tem cadastro não é apresentado como disponível.</p><div className="sector-hub__hero-actions sector-hub__hero-actions--primary"><a href="#setores"><Grid2X2/>Ver setores disponíveis</a><Link to="/estabelecimentos"><Store/>Estabelecimentos</Link><Link to="/cesta-inteligente"><Sparkles/>Cesta Inteligente</Link></div></div><aside className="sector-hub__summary"><span>VISÃO REAL</span><strong>Catálogo organizado</strong><p>Produtos, negócios e perfis aparecem somente onde fazem sentido.</p><div><article><b>{catalog?.metrics.stores??"—"}</b><small>estabelecimentos</small></article><article><b>{catalog?.metrics.products??"—"}</b><small>produtos</small></article><article><b>{totalSectorStores||0}</b><small>vínculos por setor</small></article></div><small className="sector-hub__catalog-note"><BadgeCheck/> Sem associação automática com setor sem catálogo.</small></aside></div></section><section className="sector-hub__content sector-hub__shell"><header id="setores" className="sector-hub__section-head"><div><span>Setores da plataforma</span><h2>Veja somente áreas com contexto real.</h2></div><p>Farmácias sem produtos não aparecem como catálogo ativo. Produtos de mercado ficam nos mercados; conteúdos culturais e serviços usam estruturas próprias.</p></header><div className="sector-hub__sectors">{sectorData.map(({sector,stores,products})=>{const Icon=sector.icon;const hasCatalog=stores.length>0||products.length>0;return <Link key={sector.id} to={sector.href} onPointerEnter={prefetchSectorCatalog} onFocus={prefetchSectorCatalog} className={`sector-hub__sector sector-hub__sector--${sector.id}`}><div className="sector-hub__sector-icon"><Icon/></div><div className="sector-hub__sector-copy"><small>{sector.eyebrow}</small><strong>{sector.label}</strong><p>{sector.description}</p><div className="sector-hub__sector-meta">{hasCatalog?<><span><Store/>{stores.length} {stores.length===1?"opção real":"opções reais"}</span><span><PackageSearch/>{products.length} itens vinculados</span></>:<span><BadgeCheck/>Perfil próprio, sem produtos fictícios</span>}</div></div><ArrowRight className="sector-hub__arrow"/></Link>})}</div><section className="sector-hub__tools"><div className="sector-hub__tools-copy"><span>Ferramentas para decidir melhor</span><h2>Pesquise, compare e planeje.</h2><p>A busca geral permite filtrar por estabelecimento, setor, categoria, bairro e preço.</p></div><div className="sector-hub__tool-grid"><Link to="/buscar"><Search/><span><strong>Busca avançada</strong><small>Filtre por loja e categoria.</small></span><ArrowRight/></Link><Link to="/cesta-inteligente"><Sparkles/><span><strong>Cesta Inteligente</strong><small>Monte pelo seu orçamento.</small></span><ArrowRight/></Link><Link to="/cesta-basica"><ShoppingBasket/><span><strong>Lista de compras</strong><small>Organize seus itens.</small></span><ArrowRight/></Link><Link to="/favoritos"><Heart/><span><strong>Favoritos</strong><small>Salve produtos importantes.</small></span><ArrowRight/></Link></div></section><section className="sector-hub__stores"><header><div><span>Negócios locais</span><h2>Estabelecimentos com catálogo ativo.</h2></div><Link to="/estabelecimentos">Ver diretório completo <ArrowRight/></Link></header>{featuredStores.length?<><div className="sector-hub__store-grid">{featuredStores.map(store=>{const sponsored=isSponsored(store);return <Link key={store.id} className={sponsored?"is-sponsored":undefined} to={`/estabelecimento/${store.slug||store.id}`}>{sponsored&&<em className="sector-hub__sponsor-badge"><Megaphone/>Patrocinado</em>}<i style={{background:store.color}}><Store/></i><span><small>{store.neighborhood||"Feijó"}</small><strong>{store.name}</strong><em>{store.products||0} itens catalogados</em></span><b>VER CATÁLOGO</b><ArrowRight/></Link>})}</div>{sponsoredVisible&&<p className="sector-hub__sponsor-note"><Megaphone/> Conteúdo patrocinado recebe identificação visível e não altera preços nem comparação.</p>}</>:<div className="sector-hub__empty"><PackageSearch/><span><strong>Nenhum catálogo ativo</strong><small>Os estabelecimentos aparecem quando houver produtos vinculados.</small></span></div>}</section><section className="sector-hub__special"><article><BookOpen/><span><small>CULTURA E CONHECIMENTO</small><strong>Autores, livros e projetos culturais</strong><p>Perfis editoriais separados de estabelecimentos comerciais.</p><Link to="/livros">Explorar cultura <ArrowRight/></Link></span></article><article><BriefcaseBusiness/><span><small>SERVIÇOS LOCAIS</small><strong>Profissionais e especialidades</strong><p>Prestadores apresentados como serviços, não como produtos.</p><Link to="/servicos">Explorar serviços <ArrowRight/></Link></span></article></section><section className="sector-hub__how"><div><TrendingDown/><span><small>01 · FILTRE</small><strong>Encontre somente dados compatíveis</strong></span></div><div><Store/><span><small>02 · CONFIRA</small><strong>Abra o catálogo real da loja</strong></span></div><div><MapPin/><span><small>03 · DECIDA</small><strong>Compare e escolha com contexto</strong></span></div></section></section></main></div>}
+const normalize = (value: string) =>
+  value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("pt-BR")
+    .trim();
+const sponsoredIds = new Set(
+  String(import.meta.env.VITE_SPONSORED_STORE_IDS || "")
+    .split(",")
+    .map((v: string) => normalize(v))
+    .filter(Boolean),
+);
+function isSponsored(store: StoreRow) {
+  return [store.id, store.slug, store.name].some((v) =>
+    sponsoredIds.has(normalize(String(v || ""))),
+  );
+}
+export function SectorHub2026() {
+  const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
+  useEffect(() => {
+    let active = true;
+    void fetchSectorCatalog()
+      .then((data) => {
+        if (active) setCatalog(data);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+  const sectorData = useMemo(() => {
+    if (!catalog) return [];
+    return marketplaceSectors
+      .map((sector) => ({
+        sector,
+        stores: sectorStores(catalog, sector),
+        products: sectorProducts(catalog, sector),
+      }))
+      .filter(
+        (item) =>
+          item.stores.length > 0 ||
+          item.products.length > 0 ||
+          item.sector.id === "books" ||
+          item.sector.id === "services",
+      );
+  }, [catalog]);
+  const featuredStores = useMemo(() => {
+    if (!catalog) return [];
+    return catalog.stores
+      .filter((store) => (store.products || 0) > 0)
+      .sort(
+        (a, b) =>
+          Number(isSponsored(b)) - Number(isSponsored(a)) ||
+          (b.products || 0) - (a.products || 0) ||
+          a.name.localeCompare(b.name, "pt-BR"),
+      )
+      .slice(0, 8);
+  }, [catalog]);
+  const totalSectorStores = sectorData.reduce(
+    (sum, item) => sum + item.stores.length,
+    0,
+  );
+  const sponsoredVisible = featuredStores.some(isSponsored);
+  return (
+    <div className="sector-hub">
+      <PublicHeader backOnly />
+      <main id="conteudo-principal">
+        <section className="sector-hub__hero">
+          <div className="sector-hub__shell sector-hub__hero-grid">
+            <div className="sector-hub__hero-copy">
+              <span className="sector-hub__eyebrow">
+                <Grid2X2 />
+                EXPLORAR FEIJÓ POR SETOR
+              </span>
+              <h1>
+                Descubra o que existe de verdade,{" "}
+                <em>sem misturar categorias.</em>
+              </h1>
+              <p>
+                A plataforma só relaciona produtos a setores e estabelecimentos
+                quando existe vínculo real no catálogo. O que ainda não tem
+                cadastro não é apresentado como disponível.
+              </p>
+            </div>
+            <aside className="sector-hub__summary">
+              <span>VISÃO REAL</span>
+              <strong>Catálogo organizado</strong>
+              <p>
+                Produtos, negócios e perfis aparecem somente onde fazem sentido.
+              </p>
+              <div>
+                <article>
+                  <b>{catalog?.metrics.stores ?? "—"}</b>
+                  <small>estabelecimentos</small>
+                </article>
+                <article>
+                  <b>{catalog?.metrics.products ?? "—"}</b>
+                  <small>produtos</small>
+                </article>
+                <article>
+                  <b>{totalSectorStores || 0}</b>
+                  <small>vínculos por setor</small>
+                </article>
+              </div>
+              <small className="sector-hub__catalog-note">
+                <BadgeCheck /> Sem associação automática com setor sem catálogo.
+              </small>
+            </aside>
+          </div>
+        </section>
+        <section className="sector-hub__content sector-hub__shell">
+          <header id="setores" className="sector-hub__section-head">
+            <div>
+              <span>Setores da plataforma</span>
+              <h2>Veja somente áreas com contexto real.</h2>
+            </div>
+            <p>
+              Farmácias sem produtos não aparecem como catálogo ativo. Produtos
+              de mercado ficam nos mercados; conteúdos culturais e serviços usam
+              estruturas próprias.
+            </p>
+          </header>
+          <div className="sector-hub__sectors">
+            {sectorData.map(({ sector, stores, products }) => {
+              const Icon = sector.icon;
+              const hasCatalog = stores.length > 0 || products.length > 0;
+              return (
+                <Link
+                  key={sector.id}
+                  to={sector.href}
+                  onPointerEnter={prefetchSectorCatalog}
+                  onFocus={prefetchSectorCatalog}
+                  className={`sector-hub__sector sector-hub__sector--${sector.id}`}
+                >
+                  <div className="sector-hub__sector-icon">
+                    <Icon />
+                  </div>
+                  <div className="sector-hub__sector-copy">
+                    <small>{sector.eyebrow}</small>
+                    <strong>{sector.label}</strong>
+                    <p>{sector.description}</p>
+                    <div className="sector-hub__sector-meta">
+                      {hasCatalog ? (
+                        <>
+                          <span>
+                            <Store />
+                            {stores.length}{" "}
+                            {stores.length === 1
+                              ? "opção real"
+                              : "opções reais"}
+                          </span>
+                          <span>
+                            <PackageSearch />
+                            {products.length} itens vinculados
+                          </span>
+                        </>
+                      ) : (
+                        <span>
+                          <BadgeCheck />
+                          Perfil próprio, sem produtos fictícios
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <ArrowRight className="sector-hub__arrow" />
+                </Link>
+              );
+            })}
+          </div>
+          <section className="sector-hub__tools">
+            <div className="sector-hub__tools-copy">
+              <span>Ferramentas para decidir melhor</span>
+              <h2>Pesquise, compare e planeje.</h2>
+              <p>
+                A busca geral permite filtrar por estabelecimento, setor,
+                categoria, bairro e preço.
+              </p>
+            </div>
+            <div className="sector-hub__tool-grid">
+              <Link to="/buscar">
+                <Search />
+                <span>
+                  <strong>Busca avançada</strong>
+                  <small>Filtre por loja e categoria.</small>
+                </span>
+                <ArrowRight />
+              </Link>
+              <Link to="/cesta-inteligente">
+                <Sparkles />
+                <span>
+                  <strong>Cesta Inteligente</strong>
+                  <small>Monte pelo seu orçamento.</small>
+                </span>
+                <ArrowRight />
+              </Link>
+              <Link to="/cesta-basica">
+                <ShoppingBasket />
+                <span>
+                  <strong>Lista de compras</strong>
+                  <small>Organize seus itens.</small>
+                </span>
+                <ArrowRight />
+              </Link>
+              <Link to="/favoritos">
+                <Heart />
+                <span>
+                  <strong>Favoritos</strong>
+                  <small>Salve produtos importantes.</small>
+                </span>
+                <ArrowRight />
+              </Link>
+            </div>
+          </section>
+          <section className="sector-hub__stores">
+            <header>
+              <div>
+                <span>Negócios locais</span>
+                <h2>Estabelecimentos com catálogo ativo.</h2>
+              </div>
+              <Link to="/estabelecimentos">
+                Ver diretório completo <ArrowRight />
+              </Link>
+            </header>
+            {featuredStores.length ? (
+              <>
+                <div className="sector-hub__store-grid">
+                  {featuredStores.map((store) => {
+                    const sponsored = isSponsored(store);
+                    return (
+                      <Link
+                        key={store.id}
+                        className={sponsored ? "is-sponsored" : undefined}
+                        to={`/estabelecimento/${store.slug || store.id}`}
+                      >
+                        {sponsored && (
+                          <em className="sector-hub__sponsor-badge">
+                            <Megaphone />
+                            Patrocinado
+                          </em>
+                        )}
+                        <i style={{ background: store.color }}>
+                          <Store />
+                        </i>
+                        <span>
+                          <small>{store.neighborhood || "Feijó"}</small>
+                          <strong>{store.name}</strong>
+                          <em>{store.products || 0} itens catalogados</em>
+                        </span>
+                        <b>VER CATÁLOGO</b>
+                        <ArrowRight />
+                      </Link>
+                    );
+                  })}
+                </div>
+                {sponsoredVisible && (
+                  <p className="sector-hub__sponsor-note">
+                    <Megaphone /> Conteúdo patrocinado recebe identificação
+                    visível e não altera preços nem comparação.
+                  </p>
+                )}
+              </>
+            ) : (
+              <div className="sector-hub__empty">
+                <PackageSearch />
+                <span>
+                  <strong>Nenhum catálogo ativo</strong>
+                  <small>
+                    Os estabelecimentos aparecem quando houver produtos
+                    vinculados.
+                  </small>
+                </span>
+              </div>
+            )}
+          </section>
+          <section className="sector-hub__special">
+            <article>
+              <BookOpen />
+              <span>
+                <small>CULTURA E CONHECIMENTO</small>
+                <strong>Autores, livros e projetos culturais</strong>
+                <p>
+                  Perfis editoriais separados de estabelecimentos comerciais.
+                </p>
+                <Link to="/livros">
+                  Explorar cultura <ArrowRight />
+                </Link>
+              </span>
+            </article>
+            <article>
+              <BriefcaseBusiness />
+              <span>
+                <small>SERVIÇOS LOCAIS</small>
+                <strong>Profissionais e especialidades</strong>
+                <p>
+                  Prestadores apresentados como serviços, não como produtos.
+                </p>
+                <Link to="/servicos">
+                  Explorar serviços <ArrowRight />
+                </Link>
+              </span>
+            </article>
+          </section>
+          <section className="sector-hub__how">
+            <div>
+              <TrendingDown />
+              <span>
+                <small>01 · FILTRE</small>
+                <strong>Encontre somente dados compatíveis</strong>
+              </span>
+            </div>
+            <div>
+              <Store />
+              <span>
+                <small>02 · CONFIRA</small>
+                <strong>Abra o catálogo real da loja</strong>
+              </span>
+            </div>
+            <div>
+              <MapPin />
+              <span>
+                <small>03 · DECIDA</small>
+                <strong>Compare e escolha com contexto</strong>
+              </span>
+            </div>
+          </section>
+        </section>
+      </main>
+      <PublicFooter />
+    </div>
+  );
+}

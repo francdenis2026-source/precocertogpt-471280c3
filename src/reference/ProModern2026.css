@@ -540,3 +540,24 @@ html[data-theme="dark"] .ref-mobile-menu>a.is-active{
   background:color-mix(in srgb,var(--pc-green) 25%,var(--pc-surface));
   color:var(--pc-ink)!important;
 }
+
+.ref-header--back-only .ref-header__inner{height:58px;justify-content:flex-start}
+.ref-header__back{
+  min-height:38px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--pc-border);
+  border-radius:var(--pc-radius-control);
+  padding:0 13px;
+  background:color-mix(in srgb,var(--pc-surface) 94%,transparent);
+  color:var(--pc-muted);
+  font-size:var(--pc-text-sm);
+  font-weight:700;
+  box-shadow:var(--pc-shadow-sm);
+  transition:border-color .18s ease,background-color .18s ease,color .18s ease,transform .18s ease;
+}
+.ref-header__back svg{width:16px;height:16px}
+@media(hover:hover) and (pointer:fine){.ref-header__back:hover{border-color:color-mix(in srgb,var(--pc-green) 34%,var(--pc-border));background:var(--pc-surface-2);color:var(--pc-ink);transform:translateX(-2px)}}
+.ref-header__back:focus-visible{outline:2px solid var(--pc-green);outline-offset:2px}
+html[data-theme="dark"] .ref-header__back{background:var(--pc-surface);color:var(--pc-ink)}

@@ -13,43 +13,43 @@
    saturada em texto de todo nível é o que rouba a sobriedade. Aqui ela fica
    reservada ao que o usuário pode acionar. */
 .hp-home {
-  --hp-brand: #5f2960;
-  --hp-brand-2: #804082;
+  --hp-brand: #296046;
+  --hp-brand-2: #408263;
   --hp-accent: #ba6e2c;
   --hp-accent-ink: #ffffff;
 
-  --plum-ink: #221523;
-  --plum-deep: #1d101e;
-  --plum-soft: #f6eef6;
+  --plum-ink: #151d23;
+  --plum-deep: #10181e;
+  --plum-soft: #f0f4f1;
 
-  --hp-ink: #221523;
-  --ink-2: #4b3a4d;
-  --ink-3: #63536a;
-  --hp-muted: #63536a;
+  --hp-ink: #151d23;
+  --ink-2: #3a4d44;
+  --ink-3: #536a5f;
+  --hp-muted: #536a5f;
 
-  --hp-bg: #faf8fa;
+  --hp-bg: #f8faf9;
   --hp-surface: #ffffff;
-  --hp-surface-2: #f4eff5;
-  --hp-line: #e6dde8;
-  --hp-shadow: 0 18px 44px rgba(34,21,35,.10);
+  --hp-surface-2: #f0f4f1;
+  --hp-line: #dfe6e1;
+  --hp-shadow: 0 18px 44px rgba(21,29,35,.10);
 }
 
 html[data-theme="dark"] .hp-home {
-  --hp-brand: #cfa7d1;
-  --hp-brand-2: #e2c4e3;
+  --hp-brand: #a7d1bd;
+  --hp-brand-2: #c4e3d5;
   --hp-accent: #e0a25c;
-  --hp-accent-ink: #241226;
-  --plum-ink: #f7f2f8;
-  --plum-deep: #120b13;
-  --plum-soft: #2a1a2c;
-  --hp-ink: #f7f2f8;
-  --ink-2: #d3c3d5;
-  --ink-3: #b6a4b9;
-  --hp-muted: #b6a4b9;
-  --hp-bg: #140d15;
-  --hp-surface: #1d131f;
-  --hp-surface-2: #261a28;
-  --hp-line: #362636;
+  --hp-accent-ink: #121e26;
+  --plum-ink: #f3f7f4;
+  --plum-deep: #0b1013;
+  --plum-soft: #1a242c;
+  --hp-ink: #f3f7f4;
+  --ink-2: #c3d5cd;
+  --ink-3: #a4b9af;
+  --hp-muted: #a4b9af;
+  --hp-bg: #0d1215;
+  --hp-surface: #131a1f;
+  --hp-surface-2: #1a2228;
+  --hp-line: #262f36;
 }
 
 /* Títulos e preços deixam de ser roxos. São a informação principal e ganham
@@ -60,7 +60,7 @@ html[data-theme="dark"] .hp-home {
 .hp-product-card__body > div strong,
 .hp-spotlight__prices strong { color: var(--plum-ink); }
 
-html[data-theme="dark"] .hp-spotlight__prices strong { color: #f7f2f8; }
+html[data-theme="dark"] .hp-spotlight__prices strong { color: #f3f7f4; }
 
 /* Rótulos de categoria em neutro: eram roxo saturado repetido em cada
    cartão, o que multiplicava a cor sem acrescentar informação. */
@@ -114,7 +114,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-login:hover {
   background: var(--hp-brand);
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(95,41,96,.32);
+  box-shadow: 0 10px 22px rgba(41,96,70,.32);
 }
 
 /* ============ RODAPÉ ============ */
@@ -123,7 +123,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-footer {
   padding: 0;
   background: var(--plum-deep);
-  color: #d9cbda;
+  color: #cbdad3;
 }
 
 .hp-footer > .hp-footer__inner {
@@ -139,7 +139,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-footer .hp-footer__identity p {
   max-width: 300px;
   margin: 0;
-  color: #b5a3b7;
+  color: #a3b7ae;
   font-size: var(--t-small);
   line-height: 1.6;
 }
@@ -165,7 +165,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-footer nav.hp-footer__nav a {
   position: relative;
   width: fit-content;
-  color: #cbbccd;
+  color: #bccdc5;
   font-size: var(--t-small);
   font-weight: 600;
   transition: color .2s var(--ease), transform .2s var(--ease);
@@ -204,7 +204,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 }
 
 .hp-footer__meta span svg { width: 15px; }
-.hp-footer__meta small { color: #9c8b9e; font-size: var(--t-meta); }
+.hp-footer__meta small { color: #8b9e95; font-size: var(--t-meta); }
 
 /* ============ MICROINTERAÇÕES ============ */
 /* Um vocabulário só: o elemento sobe alguns pixels, a sombra acompanha e a
@@ -294,18 +294,18 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
    comum aqui resulta em escuro sobre escuro, então eles seguem a superfície
    em que estão, não o tema da página. */
 .hp-spotlight__prices strong,
-html[data-theme="dark"] .hp-spotlight__prices strong { color: #f7f2f8; }
-.hp-spotlight__prices small { color: #c3b0c5; }
-.hp-spotlight > header span { color: #dcb9de; }
-.hp-spotlight > header small { color: #b7a5b9; }
+html[data-theme="dark"] .hp-spotlight__prices strong { color: #f3f7f4; }
+.hp-spotlight__prices small { color: #b0c5bb; }
+.hp-spotlight > header span { color: #b9decd; }
+.hp-spotlight > header small { color: #a5b9b0; }
 
-.hp-story > .hp-shell > span { color: #dcb9de; }
+.hp-story > .hp-shell > span { color: #b9decd; }
 
 /* O âmbar com texto branco dava 3,92:1 — insuficiente para 11px. Clareando o
    fundo e escrevendo em ameixa o mesmo botão chega a 6,79:1. */
 .hp-home {
   --hp-accent: #d99242;
-  --hp-accent-ink: #221523;
+  --hp-accent-ink: #151d23;
 }
 
 .hp-spotlight > a, .hp-spotlight > button { color: var(--hp-accent-ink); }
@@ -323,13 +323,13 @@ html[data-theme="dark"] .hp-spotlight__prices strong { color: #f7f2f8; }
    acompanha o fundo em vez do tema. */
 html[data-theme="dark"] .hp-home .hp-search__submit,
 html[data-theme="dark"] .hp-local__actions a:first-child {
-  color: #201122;
+  color: #111b22;
 }
 
 html[data-theme="dark"] .hp-home .hp-search__submit svg,
-html[data-theme="dark"] .hp-local__actions a:first-child svg { color: #201122; }
+html[data-theme="dark"] .hp-local__actions a:first-child svg { color: #111b22; }
 
-html[data-theme="dark"] .hp-login { background: var(--hp-brand); color: #201122; }
+html[data-theme="dark"] .hp-login { background: var(--hp-brand); color: #111b22; }
 html[data-theme="dark"] .hp-login:hover { background: var(--hp-brand-2); }
 
 /* ============ DOCK MÓVEL ============ */

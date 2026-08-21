@@ -114,9 +114,9 @@ html[data-theme="dark"] .hp-home{
 .ref-hero,
 .ref-auth__story{
   --pc-on-dark:#faf5fa;
-  --pc-on-dark-muted:#d2bcd3;
+  --pc-on-dark-muted:#bcd3c8;
   --pc-accent-warm:#fbbf24;
-  --pc-accent-cool:#dc6ade;
+  --pc-accent-cool:#6adea8;
 }
 
 /* ============================================================
@@ -310,7 +310,7 @@ html[data-theme="dark"] .hp-home{
 }
 .ref-auth__story .ref-kicker{color:var(--pc-accent-warm)}
 .ref-auth__story .ref-kicker svg{width:15px;height:15px}
-.ref-auth__story>small{color:#c3b2c4}
+.ref-auth__story>small{color:#b2c4bc}
 
 /* Provas sociais do painel lateral */
 .ref-auth__trust-grid article{

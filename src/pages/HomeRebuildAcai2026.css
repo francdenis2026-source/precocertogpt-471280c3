@@ -17,16 +17,16 @@
   --sec-y-tight: 32px;
 
   /* Neutros com contraste suficiente sobre as superfícies claras.
-     O --hp-muted anterior (#635a6e) ficava em 4.2:1 no corpo de texto. */
-  --ink-2: #4a4056;
-  --ink-3: #5d5369;
+     O --hp-muted anterior (#5a6e65) ficava em 4.2:1 no corpo de texto. */
+  --ink-2: #40564c;
+  --ink-3: #53695f;
 
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 html[data-theme="dark"] .hp-home {
-  --ink-2: #cabdd8;
-  --ink-3: #b3a8bf;
+  --ink-2: #bdd8cb;
+  --ink-3: #a8bfb4;
 }
 
 /* ============ CABEÇALHO ============ */
@@ -62,17 +62,18 @@ html[data-theme="dark"] .hp-home {
 .hp-hero, .hp-hero__grid { min-height: 452px; }
 .hp-hero__grid { padding-block: 40px; gap: 48px; align-items: center; }
 
-/* Imagem nova: parede clara à esquerda, loja à direita. Como o lado do texto
-   já é limpo, o véu pode ser bem mais leve e a foto aparece de verdade. */
+/* Foto atual: pessoa comparando preço com celular, fundo escuro do lado do
+   texto — véu pode ser mais leve porque a própria foto já escurece a
+   esquerda onde o título fica. */
 .hp-hero__media {
-  background-image: url('/hero-feijo-editorial-2026.webp');
-  background-position: center 46%;
+  background-image: url('/hero-precocerto-comparacao-v2.webp');
+  background-position: center 34%;
 }
 
 .hp-hero__veil {
   background:
-    linear-gradient(96deg, rgba(20,7,32,.94) 0%, rgba(20,7,32,.86) 34%, rgba(20,7,32,.52) 58%, rgba(20,7,32,.20) 100%),
-    linear-gradient(180deg, rgba(20,7,32,.30) 0%, transparent 26%, rgba(20,7,32,.34) 100%);
+    linear-gradient(96deg, rgba(10,24,36,.9) 0%, rgba(10,24,36,.78) 34%, rgba(10,24,36,.46) 58%, rgba(10,24,36,.16) 100%),
+    linear-gradient(180deg, rgba(10,24,36,.26) 0%, transparent 26%, rgba(10,24,36,.3) 100%);
 }
 
 .hp-hero h1 {
@@ -87,14 +88,14 @@ html[data-theme="dark"] .hp-home {
   margin: 14px 0 20px;
   font-size: var(--t-lead);
   line-height: 1.5;
-  color: #ddd3e8;
+  color: #d8e3da;
 }
 
 .hp-eyebrow {
   margin-bottom: 12px;
   font-size: var(--t-eyebrow);
   letter-spacing: .14em;
-  color: #e4c9f5;
+  color: #d3ebd8;
 }
 
 /* ============ BUSCA ============ */
@@ -107,11 +108,11 @@ html[data-theme="dark"] .hp-home {
 
 .hp-search:focus-within {
   transform: translateY(-1px);
-  box-shadow: 0 0 0 4px rgba(201,166,233,.32), 0 26px 60px rgba(0,0,0,.3);
+  box-shadow: 0 0 0 4px rgba(166,233,202,.32), 0 26px 60px rgba(0,0,0,.3);
 }
 
 .hp-search input { height: 46px; font-size: var(--t-body); }
-.hp-search input::placeholder { color: #6f6479; }
+.hp-search input::placeholder { color: #64796f; }
 
 .hp-home .hp-search__submit {
   height: 46px;
@@ -121,28 +122,28 @@ html[data-theme="dark"] .hp-home {
 }
 
 .hp-home .hp-search__submit:hover {
-  background: #6d34a1;
+  background: #34a16e;
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(91,42,135,.4);
+  box-shadow: 0 10px 22px rgba(42,135,92,.4);
 }
 
 .hp-home .hp-search__submit:active { transform: translateY(0); }
 
-.hp-quick-searches { margin-top: 12px; font-size: var(--t-meta); color: #c8bcd6; }
+.hp-quick-searches { margin-top: 12px; font-size: var(--t-meta); color: #bcd6ca; }
 
 .hp-quick-searches a {
   padding: 5px 11px;
   font-size: var(--t-meta);
   /* Antes: fundo translúcido a 7% sobre a foto, com texto branco — o rótulo
      sumia conforme o trecho da imagem que passava por trás. */
-  background: rgba(20,7,32,.55);
+  background: rgba(7,22,32,.55);
   border-color: rgba(255,255,255,.30);
   transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
 }
 
 .hp-quick-searches a:hover {
-  background: rgba(91,42,135,.9);
-  border-color: rgba(201,166,233,.6);
+  background: rgba(42,135,92,.9);
+  border-color: rgba(166,233,202,.6);
   transform: translateY(-1px);
 }
 
@@ -150,7 +151,7 @@ html[data-theme="dark"] .hp-home {
 .hp-spotlight {
   padding: 14px;
   border-radius: 18px;
-  background: rgba(24,9,38,.78);
+  background: rgba(9,26,38,.78);
   border-color: rgba(255,255,255,.24);
 }
 
@@ -204,7 +205,7 @@ html[data-theme="dark"] .hp-home {
 .hp-sector-grid > a:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--hp-brand) 42%, var(--hp-line));
-  box-shadow: 0 14px 30px rgba(34,18,48,.13);
+  box-shadow: 0 14px 30px rgba(18,35,48,.13);
 }
 
 .hp-sector-grid > a strong { font-size: var(--t-body); }
@@ -231,7 +232,7 @@ html[data-theme="dark"] .hp-home {
 .hp-product-card:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--hp-brand) 40%, var(--hp-line));
-  box-shadow: 0 16px 34px rgba(34,18,48,.15);
+  box-shadow: 0 16px 34px rgba(18,35,48,.15);
 }
 
 .hp-product-card__media { height: 128px; padding: 10px; }
@@ -271,7 +272,7 @@ html[data-theme="dark"] .hp-home {
 }
 
 .hp-story h2 { font-size: clamp(26px, 3vw, 40px); line-height: 1.08; letter-spacing: -.03em; }
-.hp-story > .hp-shell > p { font-size: var(--t-lead); line-height: 1.5; color: #ded5e8; }
+.hp-story > .hp-shell > p { font-size: var(--t-lead); line-height: 1.5; color: #d9e4db; }
 .hp-story ol { margin-top: 20px; gap: 12px; }
 .hp-story ol li { font-size: var(--t-small); }
 .hp-story ol li b { font-size: var(--t-body); }
@@ -289,7 +290,7 @@ html[data-theme="dark"] .hp-home {
 .hp-local__actions a:hover {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--hp-brand) 45%, var(--hp-line));
-  box-shadow: 0 12px 26px rgba(34,18,48,.14);
+  box-shadow: 0 12px 26px rgba(18,35,48,.14);
 }
 
 /* ============ RODAPÉ ============ */
@@ -301,7 +302,7 @@ html[data-theme="dark"] .hp-home {
 /* Um anel único para todos os alvos, em vez de depender do padrão do
    navegador, que some sobre as superfícies escuras do hero. */
 .hp-home :is(a, button, input, select):focus-visible {
-  outline: 3px solid #c9a6e9;
+  outline: 3px solid #a6e9ca;
   outline-offset: 3px;
   border-radius: 8px;
 }
@@ -328,7 +329,7 @@ html[data-theme="dark"] .hp-home {
   .hp-hero h1 { font-size: clamp(28px, 8.4vw, 38px); }
   .hp-hero__copy > p { margin: 10px 0 16px; font-size: var(--t-small); }
   .hp-hero__veil {
-    background: linear-gradient(180deg, rgba(20,7,32,.82) 0%, rgba(20,7,32,.93) 52%, rgba(20,7,32,.97) 100%);
+    background: linear-gradient(180deg, rgba(7,22,32,.82) 0%, rgba(7,22,32,.93) 52%, rgba(7,22,32,.97) 100%);
   }
   .hp-search { padding: 5px 5px 5px 13px; border-radius: 12px; }
   .hp-search input { height: 43px; font-size: var(--t-small); }

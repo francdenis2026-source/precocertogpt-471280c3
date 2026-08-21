@@ -14,14 +14,14 @@
   background:
     linear-gradient(
       98deg,
-      rgba(24,12,26,.92) 0%,
-      rgba(24,12,26,.84) 26%,
-      rgba(24,12,26,.58) 44%,
-      rgba(24,12,26,.26) 62%,
-      rgba(24,12,26,.10) 78%,
-      rgba(24,12,26,.04) 100%
+      rgba(12,20,26,.92) 0%,
+      rgba(12,20,26,.84) 26%,
+      rgba(12,20,26,.58) 44%,
+      rgba(12,20,26,.26) 62%,
+      rgba(12,20,26,.10) 78%,
+      rgba(12,20,26,.04) 100%
     ),
-    linear-gradient(180deg, transparent 82%, rgba(24,12,26,.22) 100%);
+    linear-gradient(180deg, transparent 82%, rgba(12,20,26,.22) 100%);
 }
 
 /* ============ SEÇÃO DE LOJISTAS ============ */
@@ -40,7 +40,7 @@
   min-height: 168px;
   border-radius: 14px;
   background: url('/comerciante-local-feijo.webp') center 38% / cover no-repeat;
-  box-shadow: inset 0 0 0 1px rgba(34,21,35,.10);
+  box-shadow: inset 0 0 0 1px rgba(21,29,35,.10);
 }
 
 /* ============ RODAPÉ: ALTURA ============ */
@@ -67,14 +67,14 @@
   margin-left: 10px;
   padding-left: 10px;
   border-left: 1px solid rgba(255,255,255,.16);
-  color: #b9a7bb;
+  color: #a7bbb2;
   font-style: normal;
   font-weight: 700;
   letter-spacing: .01em;
   transition: color .2s var(--ease);
 }
 
-.hp-footer__meta:hover .hp-footer__dev { color: #dcc9de; }
+.hp-footer__meta:hover .hp-footer__dev { color: #c9ded4; }
 
 /* ============ RESPONSIVO ============ */
 @media (max-width: 1080px) {
@@ -90,7 +90,7 @@
 
 @media (max-width: 640px) {
   .hp-hero__veil {
-    background: linear-gradient(180deg, rgba(24,12,26,.80) 0%, rgba(24,12,26,.92) 54%, rgba(24,12,26,.96) 100%);
+    background: linear-gradient(180deg, rgba(12,20,26,.80) 0%, rgba(12,20,26,.92) 54%, rgba(12,20,26,.96) 100%);
   }
   .hp-footer > .hp-footer__inner { padding-block: 22px 16px; gap: 22px; }
   .hp-footer__dev { display: block; margin: 6px 0 0; padding: 0; border: 0; }

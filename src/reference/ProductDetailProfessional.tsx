@@ -10,7 +10,7 @@ import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
-import { PublicHeader } from "./ReferenceExperience";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -166,7 +166,7 @@ export function ProductDetailProfessional() {
             {savingVsPrevious > 0 && <div className="pdx-price-saving"><TrendingDown/> Está {brl.format(savingVsPrevious)} abaixo do último preço registrado.</div>}
           </div>
 
-          <div className="pdx-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"}/>{favorite ? "Salvo nos favoritos" : "Salvar nos favoritos"}</button><button type="button" className="pdx-primary-action" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar mais um · ${quantity} na lista` : "Adicionar à lista de compras"}</button></div>
+          <div className="pdx-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"}/>{favorite ? "Salvo nos favoritos" : "Salvar nos favoritos"}</button><button type="button" className="pdx-primary-action pc-btn pc-btn--primary" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar mais um · ${quantity} na lista` : "Adicionar à lista de compras"}</button></div>
 
           <div className="pdx-trust"><CheckCircle2/><span><strong>Preço organizado pelo PreçoCerto</strong><small>Use como referência e confirme disponibilidade diretamente com o estabelecimento.</small></span></div>
         </div>
@@ -201,9 +201,9 @@ export function ProductDetailProfessional() {
       <aside className="pdx-disclaimer"><Info/><div><strong>Catálogo informativo</strong><span>Preços e disponibilidade podem mudar. O PreçoCerto organiza as informações para facilitar sua comparação; a confirmação final deve ser feita com o estabelecimento.</span></div></aside>
     </main>
 
-    
+    <PublicFooter/>
 
-    <div className="pdx-mobile-bar"><div><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></div><button type="button" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar (${quantity})` : "Adicionar à lista"}</button></div>
+    <div className="pdx-mobile-bar"><div><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></div><button type="button" className="pc-btn pc-btn--primary" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar (${quantity})` : "Adicionar à lista"}</button></div>
     {message && <div className="pdx-toast" role="status" aria-live="polite">{message}</div>}
   </div>;
 }

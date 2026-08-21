@@ -9,31 +9,31 @@
 .store-pro-back{width:fit-content;color:var(--pc-ink);font-weight:750;text-decoration:none;transition:color .16s ease,transform .16s ease}
 .store-pro-back:hover{color:var(--pc-green-strong);transform:translateX(-2px)}
 
-.store-pro-hero{position:relative;isolation:isolate;min-height:300px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#5e3c64);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/hero-feijo-real-shopper-2026.webp') 74% 50%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
-.store-pro-hero__overlay{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(23,8,23,.98) 0%,rgba(23,8,23,.94) 40%,rgba(23,8,23,.66) 70%,rgba(23,8,23,.3) 100%)}
+.store-pro-hero{position:relative;isolation:isolate;min-height:300px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#3c6451);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/mercado-bairro-feijo-v1.webp') 74% 30%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
+.store-pro-hero__overlay{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(8,17,23,.98) 0%,rgba(8,17,23,.94) 40%,rgba(8,17,23,.66) 70%,rgba(8,17,23,.3) 100%)}
 .store-pro-hero__content{position:relative;z-index:2;min-height:300px;display:grid;grid-template-columns:96px minmax(0,1fr) auto;align-items:center;gap:22px;padding:36px 40px}
-.store-pro-logo{width:92px;height:92px;display:grid;place-items:center;overflow:hidden;border-radius:22px;color:#fff;background:#562d57;box-shadow:0 16px 44px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13)}
+.store-pro-logo{width:92px;height:92px;display:grid;place-items:center;overflow:hidden;border-radius:22px;color:#fff;background:#2d5743;box-shadow:0 16px 44px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13)}
 .store-pro-logo svg{width:38px;height:38px}
 .store-pro-logo.has-image{background:#fff;padding:8px}
 .store-pro-logo.has-image img{width:100%;height:100%;display:block;object-fit:contain}
 .store-pro-copy{max-width:760px}
 .store-pro-copy>span,.store-pro-catalog-head>div>span{display:block;color:var(--pc-gold);font-size:11px;font-weight:900;letter-spacing:.13em}
 .store-pro-copy h1{margin:8px 0 10px;font-family:var(--pc-font-display);font-size:clamp(2.3rem,4.5vw,4.9rem);line-height:.92;letter-spacing:-.055em;text-wrap:balance;color:#fff}
-.store-pro-copy p{max-width:690px;margin:0 0 16px;color:#d4c5d5;font-size:15px;line-height:1.6}
+.store-pro-copy p{max-width:690px;margin:0 0 16px;color:#c5d5ce;font-size:15px;line-height:1.6}
 .store-pro-meta-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.store-pro-meta-line b{display:flex;align-items:center;gap:6px;padding:8px 11px;border:1px solid rgba(215,180,217,.18);border-radius:999px;background:rgba(32,10,33,.58);color:#eadeea;font-size:12px;font-weight:700}
-.store-pro-meta-line b svg{width:15px;color:#d278db}
-.store-pro-status{min-width:210px;display:grid;grid-template-columns:38px 1fr;align-items:center;gap:10px;padding:13px 14px;border:1px solid rgba(210,120,219,.25);border-radius:16px;background:rgba(32,7,33,.65);backdrop-filter:blur(12px)}
-.store-pro-status>svg{width:36px;height:36px;padding:8px;border-radius:10px;background:#441746;color:#d983e1}
+.store-pro-meta-line b{display:flex;align-items:center;gap:6px;padding:8px 11px;border:1px solid rgba(180,217,200,.18);border-radius:999px;background:rgba(10,23,33,.58);color:#e1e7e2;font-size:12px;font-weight:700}
+.store-pro-meta-line b svg{width:15px;color:#78dbad}
+.store-pro-status{min-width:210px;display:grid;grid-template-columns:38px 1fr;align-items:center;gap:10px;padding:13px 14px;border:1px solid rgba(120,219,173,.25);border-radius:16px;background:rgba(7,22,33,.65);backdrop-filter:blur(12px)}
+.store-pro-status>svg{width:36px;height:36px;padding:8px;border-radius:10px;background:#173246;color:#83e1b5}
 .store-pro-status span{display:grid;gap:2px}
 .store-pro-status strong{color:#fff;font-size:12px}
-.store-pro-status small{color:#beabbf;font-size:11px}
+.store-pro-status small{color:#abbfb6;font-size:11px}
 
 .store-pro-brand-art{position:absolute;z-index:0;inset:0 0 0 43%;display:flex;align-items:center;justify-content:center;padding:22px 34px 22px 70px;pointer-events:none}
-.store-pro-brand-art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,11,23,.96) 0%,rgba(23,11,23,.7) 22%,rgba(23,11,23,.2) 62%,rgba(23,11,23,.06) 100%)}
+.store-pro-brand-art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,18,23,.96) 0%,rgba(11,18,23,.7) 22%,rgba(11,18,23,.2) 62%,rgba(11,18,23,.06) 100%)}
 .store-pro-brand-art img{position:relative;max-width:100%;max-height:240px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 18px 34px rgba(0,0,0,.35))}
-.store-pro-hero--bons-amigos{background:linear-gradient(135deg,#3b263e 0%,#432c43 45%,#432143 100%)}
-.store-pro-hero--bons-amigos .store-pro-hero__overlay{background:linear-gradient(90deg,rgba(16,7,16,.99) 0%,rgba(16,7,16,.97) 35%,rgba(16,7,16,.6) 57%,rgba(16,7,16,.08) 100%)}
+.store-pro-hero--bons-amigos{background:linear-gradient(135deg,#26343e 0%,#2c3943 45%,#213543 100%)}
+.store-pro-hero--bons-amigos .store-pro-hero__overlay{background:linear-gradient(90deg,rgba(7,12,16,.99) 0%,rgba(7,12,16,.97) 35%,rgba(7,12,16,.6) 57%,rgba(7,12,16,.08) 100%)}
 .store-pro-page--bons-amigos .store-pro-copy>span{color:#ff3b30}
 .store-pro-page--bons-amigos .store-pro-meta-line b svg{color:#ff4a3d}
 
@@ -115,12 +115,12 @@
 .store-pro-bottom-note a svg{width:12px}
 
 .store-pro-state{min-height:100dvh;display:grid;place-items:center;align-content:center;gap:12px;background:var(--pc-canvas);color:var(--pc-ink)}
-.store-pro-state>a{padding:10px 14px;border-radius:9px;background:var(--pc-green);color:#4b194f;font-weight:850}
+.store-pro-state>a{padding:10px 14px;border-radius:9px;background:var(--pc-green);color:#19384f;font-weight:850}
 .store-pro-loader{width:34px;height:34px;border:3px solid var(--pc-border);border-top-color:var(--pc-green);border-radius:50%;animation:store-pro-spin .8s linear infinite}
 @keyframes store-pro-spin{to{transform:rotate(1turn)}}
 
 @media(max-width:1180px){.store-pro-shell{width:min(100% - 30px,1100px)}.store-pro-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.store-pro-toolbar{grid-template-columns:1fr 190px 175px}.store-pro-status{display:none}.store-pro-brand-art{inset:0 0 0 50%}}
-@media(max-width:860px){.store-pro-hero__content{grid-template-columns:76px 1fr;padding:26px}.store-pro-logo{width:74px;height:74px;border-radius:18px}.store-pro-copy h1{font-size:clamp(2.2rem,8vw,3.8rem)}.store-pro-status{display:none}.store-pro-brand-art{opacity:.36;inset:0;padding:35px 20px;justify-content:flex-end}.store-pro-brand-art:before{background:linear-gradient(90deg,rgba(16,7,16,.98),rgba(16,7,16,.7) 70%,rgba(16,7,16,.28))}.store-pro-summary{grid-template-columns:1fr 1fr}.store-pro-summary article:nth-child(3){grid-column:1/-1;border-top:1px solid var(--pc-border)}.store-pro-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.store-pro-toolbar{position:relative;top:auto;grid-template-columns:1fr 1fr}.store-pro-search{grid-column:1/-1}.store-pro-catalog-hint{display:none}}
+@media(max-width:860px){.store-pro-hero__content{grid-template-columns:76px 1fr;padding:26px}.store-pro-logo{width:74px;height:74px;border-radius:18px}.store-pro-copy h1{font-size:clamp(2.2rem,8vw,3.8rem)}.store-pro-status{display:none}.store-pro-brand-art{opacity:.36;inset:0;padding:35px 20px;justify-content:flex-end}.store-pro-brand-art:before{background:linear-gradient(90deg,rgba(7,12,16,.98),rgba(7,12,16,.7) 70%,rgba(7,12,16,.28))}.store-pro-summary{grid-template-columns:1fr 1fr}.store-pro-summary article:nth-child(3){grid-column:1/-1;border-top:1px solid var(--pc-border)}.store-pro-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.store-pro-toolbar{position:relative;top:auto;grid-template-columns:1fr 1fr}.store-pro-search{grid-column:1/-1}.store-pro-catalog-hint{display:none}}
 @media(max-width:620px){.store-pro-shell{width:min(100% - 20px,600px);padding:12px 0 40px}.store-pro-topline>span{display:none}.store-pro-hero{min-height:0;border-radius:20px}.store-pro-hero__content{min-height:0;grid-template-columns:60px 1fr;gap:14px;padding:22px 18px 26px}.store-pro-logo{width:58px;height:58px;border-radius:15px}.store-pro-logo.has-image{padding:5px}.store-pro-copy>span{font-size:9px}.store-pro-copy h1{margin-top:6px;font-size:clamp(1.9rem,10vw,3rem)}.store-pro-copy p{grid-column:1/-1;font-size:13px;line-height:1.5}.store-pro-meta-line{grid-column:1/-1}.store-pro-meta-line b{font-size:10px;padding:6px 8px}.store-pro-meta-line b:nth-child(2){display:none}.store-pro-brand-art{opacity:.24;padding:25px 8px}.store-pro-brand-art img{max-height:150px}.store-pro-notice{margin-top:9px;padding:11px 12px}.store-pro-notice small{font-size:11px}.store-pro-summary{margin-top:10px}.store-pro-summary article{min-height:68px;padding:12px 14px}.store-pro-summary article>strong{font-size:23px}.store-pro-catalog{margin-top:20px}.store-pro-catalog-head{margin-bottom:10px}.store-pro-catalog h2{font-size:1.6rem}.store-pro-toolbar{grid-template-columns:1fr;padding:8px}.store-pro-search{grid-column:auto}.store-pro-grid{grid-template-columns:1fr 1fr!important;gap:9px!important}.store-pro-product-image{height:125px!important;padding:8px}.store-pro-grid>a>small,.store-pro-grid>a>strong,.store-pro-grid>a>span,.store-pro-grid>a>footer{margin-left:10px!important;margin-right:10px!important}.store-pro-grid>a>strong{font-size:12px!important;min-height:34px}.store-pro-brand{font-size:10px!important}.store-pro-grid>a>footer b{font-size:17px!important}.store-pro-grid>a>footer em{font-size:9px!important}.store-pro-pagination{align-items:flex-start;flex-direction:column}.store-pro-bottom-note{grid-template-columns:18px 1fr}.store-pro-bottom-note span,.store-pro-bottom-note a{grid-column:2}}
 @media(max-width:390px){.store-pro-grid{grid-template-columns:1fr!important}.store-pro-product-image{height:165px!important}}
 @media(prefers-reduced-motion:reduce){.store-pro-back,.store-pro-search,.store-pro-select,.store-pro-grid>a,.store-pro-pagination button{transition:none}}

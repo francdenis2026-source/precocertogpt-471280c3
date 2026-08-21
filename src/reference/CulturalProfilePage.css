@@ -1,9 +1,9 @@
 .culture-profile-page{min-height:100dvh;background:var(--pc-canvas);color:var(--pc-ink);font-family:var(--pc-font-body)}
 .culture-profile-shell{width:min(1120px,calc(100% - 32px));margin:auto;padding:22px 0 30px}
 .culture-profile-hero{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:18px;padding:22px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-block);background:var(--pc-surface)}
-.culture-profile-icon{width:64px;height:64px;display:grid;place-items:center;border-radius:14px;background:#f4e9f5;color:#9a57a3}
+.culture-profile-icon{width:64px;height:64px;display:grid;place-items:center;border-radius:14px;background:#ecf2ed;color:#57a380}
 .culture-profile-icon svg{width:28px}
-.culture-profile-hero span{color:#9a57a3;font-size:8px;font-weight:900;letter-spacing:.12em}
+.culture-profile-hero span{color:#57a380;font-size:8px;font-weight:900;letter-spacing:.12em}
 .culture-profile-hero h1{margin:5px 0 6px;font-family:var(--pc-font-display);font-size:clamp(2rem,4vw,3.2rem);line-height:.95;letter-spacing:-.045em}
 .culture-profile-hero p{max-width:760px;margin:0;color:var(--pc-muted);font-size:11px;line-height:1.55}
 .culture-profile-hero small{display:flex;align-items:center;gap:5px;margin-top:9px;color:var(--pc-muted);font-size:8px}
@@ -11,16 +11,16 @@
 .culture-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .culture-profile-grid article{display:grid;grid-template-columns:26px 28px 1fr;gap:9px;padding:16px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-card);background:var(--pc-surface)}
 .culture-profile-grid article>b{color:var(--pc-muted);font-size:8px}
-.culture-profile-grid article>svg{width:25px;height:25px;padding:5px;border-radius:7px;background:#f4e9f5;color:#9a57a3}
+.culture-profile-grid article>svg{width:25px;height:25px;padding:5px;border-radius:7px;background:#ecf2ed;color:#57a380}
 .culture-profile-grid h2{margin:0;font-size:13px;color:var(--pc-ink)}
 .culture-profile-grid p{margin:5px 0 0;color:var(--pc-muted);font-size:9px;line-height:1.55}
-.culture-profile-note{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-control);background:color-mix(in srgb,#9a57a3 10%,var(--pc-surface))}
-.culture-profile-note>svg{width:22px;color:#9a57a3}
+.culture-profile-note{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-control);background:color-mix(in srgb,#57a380 10%,var(--pc-surface))}
+.culture-profile-note>svg{width:22px;color:#57a380}
 .culture-profile-note>div{display:grid;gap:2px}
 .culture-profile-note strong{font-size:10px;color:var(--pc-ink)}
 .culture-profile-note span{color:var(--pc-muted);font-size:8px}
-.culture-profile-note a{display:flex;align-items:center;gap:5px;color:#9a57a3;font-size:9px;font-weight:850}
+.culture-profile-note a{display:flex;align-items:center;gap:5px;color:#57a380;font-size:9px;font-weight:850}
 .culture-profile-note a svg{width:12px}
-html[data-theme="dark"] .culture-profile-icon,html[data-theme="dark"] .culture-profile-grid article>svg{background:color-mix(in srgb,#9a57a3 22%,var(--pc-surface-2));color:#ddb1e4}
-html[data-theme="dark"] .culture-profile-hero span,html[data-theme="dark"] .culture-profile-note>svg,html[data-theme="dark"] .culture-profile-note a{color:#ddb1e4}
+html[data-theme="dark"] .culture-profile-icon,html[data-theme="dark"] .culture-profile-grid article>svg{background:color-mix(in srgb,#57a380 22%,var(--pc-surface-2));color:#b1e4cc}
+html[data-theme="dark"] .culture-profile-hero span,html[data-theme="dark"] .culture-profile-note>svg,html[data-theme="dark"] .culture-profile-note a{color:#b1e4cc}
 @media(max-width:680px){.culture-profile-shell{width:min(100% - 22px,680px);padding-top:14px}.culture-profile-hero{grid-template-columns:48px 1fr;gap:12px;padding:15px}.culture-profile-icon{width:46px;height:46px;border-radius:10px}.culture-profile-icon svg{width:22px}.culture-profile-grid{grid-template-columns:1fr}.culture-profile-note{grid-template-columns:24px 1fr}.culture-profile-note a{grid-column:2}}

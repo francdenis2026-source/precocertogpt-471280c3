@@ -1,5 +1,5 @@
 /* Impeccable global refinement — hierarchy, rhythm, interaction and responsive clarity. */
-:root{--pc-focus:var(--pc-green,#781f7d);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(39,12,40,.08));--pc-card-radius:var(--pc-radius-card,12px)}
+:root{--pc-focus:var(--pc-green,#1f7d51);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(12,28,40,.08));--pc-card-radius:var(--pc-radius-card,12px)}
 :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-focus) 42%,transparent);outline-offset:3px}
 :where(button,a){-webkit-tap-highlight-color:transparent}
 
@@ -17,7 +17,7 @@
 .ref-home .ref-price-row{transition:transform .16s ease,border-color .16s ease,background .16s ease}
 .ref-home .ref-price-row:hover{transform:translateY(-1px)}
 .ref-home .ref-price-row img{transition:transform 220ms cubic-bezier(.23,1,.32,1),filter 180ms ease}
-.ref-home .ref-search{box-shadow:0 14px 38px rgba(26,6,27,.16)}
+.ref-home .ref-search{box-shadow:0 14px 38px rgba(6,18,27,.16)}
 .ref-home .ref-proof__grid>div{align-content:center}
 .ref-home .ref-economy__grid{align-items:center}
 .ref-home .ref-local__actions a{overflow:hidden}
@@ -47,7 +47,7 @@ html[data-theme="dark"] .ref-home .ref-sectors__all{color:color-mix(in srgb,var(
 html[data-theme="dark"] .ref-home .ref-price-board{box-shadow:0 18px 54px rgba(0,0,0,.22)}
 html[data-theme="dark"] .ref-home .ref-price-row:hover{background:color-mix(in srgb,var(--pc-green-soft) 48%,var(--pc-surface));border-color:color-mix(in srgb,var(--pc-green) 42%,var(--pc-border))}
 html[data-theme="dark"] .ref-home .ref-proof span{color:color-mix(in srgb,#fff 70%,var(--pc-surface))}
-html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#4b194f!important}
+html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#19384f!important}
 
 /* Desktop editorial bridge: remove the dead zone between sectors and price board. */
 @media(min-width:681px){
@@ -66,7 +66,7 @@ html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!
 .pc-account-tools>a{min-height:88px;border-radius:var(--pc-radius-card,12px);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
 .pc-account-tools>a:hover{transform:translateY(-2px);box-shadow:var(--pc-soft-shadow)}
 .pc-account-details{border-radius:var(--pc-radius-card,12px);overflow:hidden}
-html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#471e49)}
+html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#1e3749)}
 
 /* Admin: denser dashboard, consistent cards and controls. */
 .ref-admin__main,.admin-control-main,.admin-catalog-main{scroll-padding-top:20px}
@@ -76,9 +76,9 @@ html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#471e49)}
 .ref-admin__main header h1,.admin-control-main h1,.admin-catalog-main h1{text-wrap:balance;letter-spacing:-.035em}
 
 /* Stores: dense catalog, readable labels and reliable touch targets. */
-.store-pro-page{--pc-focus:var(--pc-green,#781f7d)}
+.store-pro-page{--pc-focus:var(--pc-green,#1f7d51)}
 .store-pro-grid>a{border-radius:var(--pc-radius-card,12px)!important}
-.store-pro-grid>a:focus-visible{outline-color:var(--pc-green,#781f7d)}
+.store-pro-grid>a:focus-visible{outline-color:var(--pc-green,#1f7d51)}
 .store-pro-search,.store-pro-select{min-height:40px}
 .store-pro-pagination button{min-width:36px;height:36px}
 .store-pro-bottom-note{line-height:1.45}
@@ -113,7 +113,7 @@ html[data-theme="light"] .pdp-page .pdp-add{color:#fff}
 html[data-theme="dark"] .ref-page :is(.ref-search-submit,.ref-auth__submit),
 html[data-theme="dark"] .smart-basket-page :is(.smart-primary,.smart-cta),
 html[data-theme="dark"] .pro-basket-page .pro-basket-primary,
-html[data-theme="dark"] .pdp-page .pdp-add{color:#4b194f!important}
+html[data-theme="dark"] .pdp-page .pdp-add{color:#19384f!important}
 
 @media(max-width:680px){
   .ref-home .ref-shell,.pc-account-shell{width:min(100% - 24px,620px)}

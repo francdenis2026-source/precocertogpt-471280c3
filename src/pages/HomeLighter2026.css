@@ -16,8 +16,8 @@
 .hp-home {
   /* Ameixa média no lugar do quase-preto. Branco ainda rende 12:1 sobre ela
      e o âmbar 4,6:1, então nada de contraste se perde ao clarear. */
-  --plum-deep: #40254a;
-  --plum-panel: #4a2b50;
+  --plum-deep: #253b4a;
+  --plum-panel: #2b503f;
 }
 
 /* ============ HERO ============ */
@@ -29,14 +29,14 @@
   background:
     linear-gradient(
       98deg,
-      rgba(46,22,54,.90) 0%,
-      rgba(46,22,54,.80) 28%,
-      rgba(46,22,54,.52) 46%,
-      rgba(46,22,54,.22) 64%,
-      rgba(46,22,54,.08) 80%,
-      rgba(46,22,54,.02) 100%
+      rgba(22,41,54,.90) 0%,
+      rgba(22,41,54,.80) 28%,
+      rgba(22,41,54,.52) 46%,
+      rgba(22,41,54,.22) 64%,
+      rgba(22,41,54,.08) 80%,
+      rgba(22,41,54,.02) 100%
     ),
-    linear-gradient(180deg, transparent 84%, rgba(46,22,54,.18) 100%);
+    linear-gradient(180deg, transparent 84%, rgba(22,41,54,.18) 100%);
 }
 
 /* ============ HISTÓRIA: DE ESCURA PARA CLARA ============ */
@@ -45,28 +45,27 @@
    alternar quatro vezes. A fotografia continua, agora sob um véu claro. */
 .hp-story { background: var(--hp-surface-2); color: var(--hp-ink); }
 
-.hp-story__media { opacity: .78; }
+.hp-story__media { opacity: .34; }
 
 .hp-story::after {
   background:
     linear-gradient(
       96deg,
-      rgba(250,248,250,.97) 0%,
-      rgba(250,248,250,.95) 34%,
-      rgba(250,248,250,.82) 48%,
-      rgba(250,248,250,.30) 61%,
-      rgba(250,248,250,.05) 72%,
-      transparent 82%
+      rgba(248,250,249,.97) 0%,
+      rgba(248,250,249,.93) 32%,
+      rgba(248,250,249,.72) 54%,
+      rgba(248,250,249,.36) 74%,
+      rgba(248,250,249,.14) 100%
     );
 }
 
-.hp-story h2 { color: #28142b; }
-.hp-story > .hp-shell > p { color: #493b4d; font-weight: 560; }
-.hp-story > .hp-shell > span { color: #5d1761; }
+.hp-story h2 { color: #14212b; }
+.hp-story > .hp-shell > p { color: var(--ink-2); }
+.hp-story > .hp-shell > span { color: var(--hp-brand); }
 
 .hp-story ol li {
   border: 1px solid var(--hp-line);
-  background: color-mix(in srgb, var(--hp-surface) 94%, transparent);
+  background: color-mix(in srgb, var(--hp-surface) 88%, transparent);
   backdrop-filter: blur(6px);
 }
 
@@ -80,12 +79,12 @@
 
 .hp-story > .hp-shell > a {
   background: var(--hp-brand);
-  color: #fdfbfe;
+  color: #fcfdfc;
 }
 
 .hp-story > .hp-shell > a:hover {
   background: var(--hp-brand-2);
-  color: #fdfbfe;
+  color: #fcfdfc;
 }
 
 /* ============ RODAPÉ ============ */
@@ -94,16 +93,16 @@
 .hp-footer { background: var(--plum-deep); }
 
 /* ============ CARD DE DESTAQUE ============ */
-.hp-spotlight { background: rgba(52,28,60,.80); }
+.hp-spotlight { background: rgba(28,47,60,.80); }
 
 @media (max-width: 640px) {
   .hp-hero__veil {
-    background: linear-gradient(180deg, rgba(46,22,54,.78) 0%, rgba(46,22,54,.90) 54%, rgba(46,22,54,.94) 100%);
+    background: linear-gradient(180deg, rgba(22,41,54,.78) 0%, rgba(22,41,54,.90) 54%, rgba(22,41,54,.94) 100%);
   }
   /* No celular a fotografia da história atrapalha a leitura das etapas. */
   .hp-story__media { opacity: .18; }
   .hp-story::after {
-    background: linear-gradient(180deg, rgba(250,248,250,.92), rgba(250,248,250,.97));
+    background: linear-gradient(180deg, rgba(248,250,249,.92), rgba(248,250,249,.97));
   }
 }
 
@@ -112,17 +111,17 @@
    antes, feita para fundo escuro: as descrições das etapas rendiam 1,65:1.
    Elas ficam num <small> dentro de <span>, e a regra genérica do span não
    alcançava o filho. */
-.hp-story ol li span small { color: #574a5b; }
-.hp-story ol li span strong { color: #28142b; }
+.hp-story ol li span small { color: var(--ink-3); }
+.hp-story ol li span strong { color: var(--plum-ink); }
 .hp-story ol li > b { color: var(--hp-brand); }
 
 /* O rodapé clareou, então o texto de apoio precisa acompanhar. */
-.hp-footer > .hp-footer__meta small { color: #b3a3b5; }
-.hp-footer__dev { color: #c3b4c5; border-left-color: rgba(255,255,255,.20); }
-.hp-footer .hp-footer__identity p { color: #c2b2c4; }
-.hp-footer nav.hp-footer__nav a { color: #d5c8d7; }
+.hp-footer > .hp-footer__meta small { color: #a3b5ad; }
+.hp-footer__dev { color: #b4c5bd; border-left-color: rgba(255,255,255,.20); }
+.hp-footer .hp-footer__identity p { color: #b2c4bc; }
+.hp-footer nav.hp-footer__nav a { color: #c8d7d0; }
 
 /* No tema escuro a marca vira lilás claro; usada como fundo do botão da
    história ela pede tinta escura, não branca. */
 html[data-theme="dark"] .hp-story > .hp-shell > a,
-html[data-theme="dark"] .hp-story > .hp-shell > a:hover { color: #241226; }
+html[data-theme="dark"] .hp-story > .hp-shell > a:hover { color: #121e26; }

@@ -82,7 +82,7 @@ main[tabindex="-1"]:focus{outline:none}
 .ref-product-loading p{max-width:46ch;margin:0;color:var(--pc-muted);font-size:var(--pc-text-meta);line-height:1.5}
 
 /* Modal compacto de produto. */
-.ref-product-dialog-backdrop{position:fixed;z-index:1000;inset:0;display:grid;place-items:center;padding:20px;background:rgba(24,7,24,.62);backdrop-filter:blur(4px)}
+.ref-product-dialog-backdrop{position:fixed;z-index:1000;inset:0;display:grid;place-items:center;padding:20px;background:rgba(7,17,24,.62);backdrop-filter:blur(4px)}
 .ref-product-dialog{position:relative;width:min(680px,100%);max-height:calc(100dvh - 40px);overflow:auto;display:grid;grid-template-columns:minmax(210px,.75fr) minmax(0,1.25fr);border:1px solid var(--pc-border);border-radius:var(--pc-radius-block);background:var(--pc-surface);color:var(--pc-ink);box-shadow:var(--pc-shadow-lg);animation:ref-dialog-in 220ms cubic-bezier(.23,1,.32,1) both}
 .ref-product-dialog__close{position:absolute;z-index:2;top:12px;right:12px;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid var(--pc-border);border-radius:50%;background:var(--pc-surface-2);color:var(--pc-ink);cursor:pointer}
 .ref-product-dialog__close svg{width:18px}

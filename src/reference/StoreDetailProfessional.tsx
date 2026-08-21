@@ -5,12 +5,9 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { normalizeStoreKind } from "../data/sectorCatalog";
-import { marketplaceSectors } from "./MarketplaceSectors";
-import { PublicHeader } from "./ReferenceExperience";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
 import "./StoreExperienceAcai2026.css";
-import "./StoreSectorHero.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const PAGE_SIZE = 20;
@@ -32,24 +29,6 @@ function storeBackdrop(key: string) {
   for (let index = 0; index < key.length; index += 1) hash = (hash * 31 + key.charCodeAt(index)) >>> 0;
   return STORE_BACKDROPS[hash % STORE_BACKDROPS.length];
 }
-
-// Cada setor recebe um hero próprio: mercados mantêm a fotografia real do
-// comércio, e os demais (farmácia, padaria, cultura, serviços) — sem fotos
-// próprias no acervo — ganham um cartão com a cor e o ícone do setor, para
-// não repetir uma imagem de supermercado num perfil que não é um mercado.
-const marketSectorId = marketplaceSectors[0].id;
-function sectorForStore(kind?: string) {
-  const normalized = normalizeStoreKind(kind);
-  return marketplaceSectors.find(sector => sector.businessKinds.map(normalizeStoreKind).includes(normalized)) || marketplaceSectors[0];
-}
-
-const SECTOR_TAGLINES: Record<string, string> = {
-  markets: "Consulte produtos, marcas e preços organizados para comparar antes de comprar.",
-  pharmacies: "Medicamentos, higiene e cuidados pessoais organizados por este estabelecimento de saúde.",
-  bakery: "Cardápio e itens preparados deste comércio, organizados para consulta antes de ir até lá.",
-  books: "Obras, autoria e projeto cultural deste perfil, sem mistura com catálogo de supermercado.",
-  services: "Especialidade, contato e área de atendimento deste prestador de serviço local.",
-};
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
@@ -130,11 +109,8 @@ export function StoreDetailProfessional() {
   const endResult = Math.min(safePage * PAGE_SIZE, filteredProducts.length);
   const logoUrl = getStoreLogoUrl(store.name);
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
-  const sector = sectorForStore(store.kind);
-  const isMarketSector = sector.id === marketSectorId;
-  const backdrop = isMarketSector ? storeBackdrop(store.slug || String(store.id)) : undefined;
+  const backdrop = storeBackdrop(store.slug || String(store.id));
   const showLogo = logoUrl && !logoFailed;
-  const SectorIcon = sector.icon;
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <PublicHeader current="stores"/>
@@ -144,14 +120,9 @@ export function StoreDetailProfessional() {
         <span><MapPin /> Feijó · Acre</span>
       </div>
 
-      <section
-        className={`store-pro-hero${isBonsAmigos ? " store-pro-hero--bons-amigos" : ""}${isMarketSector ? "" : ` store-pro-hero--sector store-pro-hero--${sector.id}`}`}
-        aria-labelledby="store-title"
-        style={!isBonsAmigos && backdrop ? { backgroundImage: `url('${backdrop}')` } : undefined}
-      >
+      <section className={`store-pro-hero${isBonsAmigos ? " store-pro-hero--bons-amigos" : ""}`} aria-labelledby="store-title" style={!isBonsAmigos ? { backgroundImage: `url('${backdrop}')` } : undefined}>
         <div className="store-pro-hero__overlay" />
         {isBonsAmigos && <div className="store-pro-brand-art" aria-hidden="true"><img src="/branding/bons-amigos-hero.jpg?v=20260818" alt="" /></div>}
-        {!isBonsAmigos && !isMarketSector && <SectorIcon className="store-pro-hero__watermark" aria-hidden="true" />}
         <div className="store-pro-hero__content">
           <div className={`store-pro-logo${showLogo ? " has-image" : ""}`} style={!showLogo ? { background: store.color } : undefined}>
             {showLogo
@@ -159,12 +130,12 @@ export function StoreDetailProfessional() {
               : <Store />}
           </div>
           <div className="store-pro-copy">
-            <span><SectorIcon aria-hidden="true" /> {sector.shortLabel.toLocaleUpperCase("pt-BR")} · FEIJÓ, ACRE</span>
+            <span>CATÁLOGO LOCAL · PREÇOS EM FEIJÓ</span>
             <h1 id="store-title">{store.name}</h1>
             {specialties.length > 0 && <ul className="store-pro-specialties" aria-label="Especialidades do estabelecimento">
               {specialties.map(([label, count]) => <li key={label}>{label}<b>{count}</b></li>)}
             </ul>}
-            <p>{SECTOR_TAGLINES[sector.id] || SECTOR_TAGLINES[marketSectorId]}</p>
+            <p>Consulte produtos, marcas e preços organizados para comparar antes de comprar.</p>
             <div className="store-pro-meta-line">
               <b><BadgeCheck /> {allProducts.length || store.products} produtos no catálogo</b>
               <b><Clock3 /> informações organizadas pelo PreçoCerto</b>
@@ -201,7 +172,7 @@ export function StoreDetailProfessional() {
           <span className="store-pro-brand"><Tag aria-hidden="true"/><b>Marca</b> {cleanBrand(product.brand)}</span>
           <span className="store-pro-spec">{product.size || product.unit || "Unidade não informada"}</span>
           <footer><em>preço cadastrado</em><b>{brl.format(product.minPrice)}</b></footer>
-        </Link>)}</div> : <div className="store-pro-empty"><PackageSearch /><h3>Nenhum produto encontrado</h3><p>Tente outro nome ou remova algum filtro.</p><button type="button" onClick={() => { setQuery(""); setCategory("Todos"); }}>Limpar filtros</button></div>}
+        </Link>)}</div> : <div className="store-pro-empty"><PackageSearch /><h3>Nenhum produto encontrado</h3><p>Tente outro nome ou remova algum filtro.</p><button type="button" className="pc-btn pc-btn--ghost" onClick={() => { setQuery(""); setCategory("Todos"); }}>Limpar filtros</button></div>}
 
         {pageCount > 1 && <nav className="store-pro-pagination" aria-label="Paginação do catálogo">
           <span>Mostrando {startResult}–{endResult} de {filteredProducts.length}</span>
@@ -209,7 +180,8 @@ export function StoreDetailProfessional() {
         </nav>}
       </section>
 
-      <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
+      <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link className="pc-btn pc-btn--ghost" to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
     </main>
+    <PublicFooter/>
   </div>;
 }

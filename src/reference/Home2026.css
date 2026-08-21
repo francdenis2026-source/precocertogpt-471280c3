@@ -12,12 +12,12 @@
    --------------------------------------------------------------------- */
 .ref-hero{
   position:relative;overflow:hidden;color:#fff;isolation:isolate;
-  background:linear-gradient(135deg,#49224a 0%,#6e3870 50%,#6d2b70 100%);
+  background:linear-gradient(135deg,#22394a 0%,#387056 50%,#2b7050 100%);
   border-top:none;
 }
 .ref-hero::before{
   content:"";position:absolute;inset:0;z-index:0;
-  background:linear-gradient(135deg,rgba(73,34,74,.04) 0%,rgba(110,56,112,.08) 50%,rgba(109,43,112,.04) 100%),
+  background:linear-gradient(135deg,rgba(34,57,74,.04) 0%,rgba(56,112,86,.08) 50%,rgba(43,112,80,.04) 100%),
     radial-gradient(circle at 85% 15%, rgba(217,119,6,.08) 0%, transparent 50%);
   opacity:0.8;
 }

@@ -16,10 +16,10 @@
 .store-pro-hero__overlay {
   background: linear-gradient(
     100deg,
-    rgba(34,9,35, .96) 0%,
-    rgba(34,9,35, .90) 38%,
-    rgba(34,9,35, .58) 64%,
-    rgba(34,9,35, .24) 100%
+    rgba(9,24,35, .96) 0%,
+    rgba(9,24,35, .90) 38%,
+    rgba(9,24,35, .58) 64%,
+    rgba(9,24,35, .24) 100%
   );
 }
 
@@ -33,15 +33,6 @@
 .store-pro-copy > span {
   font-size: 10px;
   letter-spacing: .16em;
-}
-
-/* O cartão do hero é sempre escuro, mas a cor vinha de --pc-gold, que troca
-   com o tema do site: no claro ela fica escura (2,57:1 sobre a marinha —
-   ilegível). Aqui a cor é fixa, igual à do tema escuro, porque o fundo
-   também é fixo. Especificidade extra (.store-pro-page) para vencer a regra
-   de DesignSystem2.css, que carrega depois deste arquivo no bundle. */
-.store-pro-page .store-pro-copy > span {
-  color: #fbbf24;
 }
 
 .store-pro-copy h1 {
@@ -76,7 +67,7 @@
   border: 1px solid rgba(255, 255, 255, .22);
   border-radius: 999px;
   background: rgba(255, 255, 255, .10);
-  color: #f8edf9;
+  color: #f0f6f1;
   font-size: 11px;
   font-weight: 700;
   line-height: 1;
@@ -86,8 +77,8 @@
 .store-pro-specialties li b {
   padding: 3px 6px;
   border-radius: 999px;
-  background: rgba(226,169,230, .26);
-  color: #f8e3fa;
+  background: rgba(169,230,202, .26);
+  color: #e8f5eb;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
 }
@@ -213,7 +204,7 @@
   margin-left: 10px;
   padding-left: 10px;
   border-left: 1px solid rgba(255,255,255,.16);
-  color: #b9a7bb;
+  color: #a7bbb2;
   font-style: normal;
   font-weight: 700;
 }

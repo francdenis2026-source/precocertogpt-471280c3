@@ -5,7 +5,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
 import "./StoreExperienceAcai2026.css";
 
@@ -182,6 +182,6 @@ export function StoreDetailProfessional() {
 
       <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link className="pc-btn pc-btn--ghost" to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
     </main>
-    <PublicFooter/>
+    
   </div>;
 }

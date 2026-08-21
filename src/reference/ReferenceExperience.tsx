@@ -189,16 +189,18 @@ export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClos
               <span className="pc-dev-avatar"><Store aria-hidden="true" /></span>
               <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
             </header>
-            <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar sua própria loja virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
-            <div className="pc-dev-grid">
-              <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Uma vitrine digital para negócios da cidade, reunindo descoberta, catálogo, comparação e jornada de compra em um ambiente único.</p></div></article>
-              <article><Building2 /><div><strong>Loja virtual própria</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação da própria loja dentro da plataforma.</p></div></article>
-              <article><ShieldCheck /><div><strong>Clareza para o consumidor</strong><p>Quando um estabelecimento ainda não possui venda direta habilitada, o PreçoCerto identifica a página como catálogo informativo para evitar confusão.</p></div></article>
-              <article><Info /><div><strong>Informação para decidir melhor</strong><p>Preços e estabelecimentos são organizados para facilitar a comparação e ajudar o público a tomar decisões de compra com mais contexto.</p></div></article>
-              <article><Code2 /><div><strong>Tecnologia da plataforma</strong><p>Aplicação web construída com React, TypeScript, Vite e integração com Supabase, preparada para experiências responsivas e evolução contínua.</p></div></article>
-              <article><Heart /><div><strong>Projeto feito em Feijó</strong><p>Uma iniciativa local pensada para fortalecer a presença digital dos negócios e tornar o comércio da cidade mais acessível para quem compra.</p></div></article>
+            <div className="pc-dev-content">
+              <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar sua própria loja virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
+              <div className="pc-dev-grid">
+                <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Uma vitrine digital para negócios da cidade, reunindo descoberta, catálogo, comparação e jornada de compra em um ambiente único.</p></div></article>
+                <article><Building2 /><div><strong>Loja virtual própria</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação da própria loja dentro da plataforma.</p></div></article>
+                <article><ShieldCheck /><div><strong>Clareza para o consumidor</strong><p>Quando um estabelecimento ainda não possui venda direta habilitada, o PreçoCerto identifica a página como catálogo informativo para evitar confusão.</p></div></article>
+                <article><Info /><div><strong>Informação para decidir melhor</strong><p>Preços e estabelecimentos são organizados para facilitar a comparação e ajudar o público a tomar decisões de compra com mais contexto.</p></div></article>
+                <article><Code2 /><div><strong>Tecnologia da plataforma</strong><p>Aplicação web construída com React, TypeScript, Vite e integração com Supabase, preparada para experiências responsivas e evolução contínua.</p></div></article>
+                <article><Heart /><div><strong>Projeto feito em Feijó</strong><p>Uma iniciativa local pensada para fortalecer a presença digital dos negócios e tornar o comércio da cidade mais acessível para quem compra.</p></div></article>
+              </div>
+              <div className="pc-dev-signature"><span><UserRound /> Desenvolvimento e idealização</span><strong>Franc D’nis</strong><small>Assinatura técnica do projeto</small></div>
             </div>
-            <div className="pc-dev-signature"><span><UserRound /> Desenvolvimento e idealização</span><strong>Franc D’nis</strong><small>Assinatura técnica do projeto</small></div>
             <footer className="pc-dev-footer"><span><MapPin /> Feijó · Acre · Brasil</span><button type="button" onClick={() => onClose()}><MessageCircle /> Fechar</button></footer>
           </section>}
     </div>,

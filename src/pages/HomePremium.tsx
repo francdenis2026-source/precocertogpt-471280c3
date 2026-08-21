@@ -340,7 +340,7 @@ export function HomePremium() {
 
             <div className="pcx-hero__visual">
               <figure className="pcx-hero__portrait">
-                <img src="/hero-precocerto-comparacao-v2.webp" alt="Pessoa comparando preços pelo celular enquanto faz compras no mercado" width="1776" height="920" fetchPriority="high" />
+                <img src="/hero-precocerto-comparacao-v2.webp" alt="Pessoa comparando preços pelo celular enquanto faz compras no mercado" width="1776" height="920" fetchPriority="high" style={{ filter: 'contrast(1.05) saturate(1.02)' }} />
                 <figcaption><span><MapPin aria-hidden="true" /> Feijó, Acre</span><strong>Compare antes de escolher.</strong></figcaption>
               </figure>
               <aside className="pcx-receipt" aria-label="Resumo da melhor oportunidade atual">

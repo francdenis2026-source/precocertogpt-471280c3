@@ -10,7 +10,7 @@
 .pc-search-overlay__backdrop {
   z-index: 1 !important;
   pointer-events: auto;
-  background: rgba(14,6,19, .24) !important;
+  background: rgba(18,7,18, .24) !important;
   backdrop-filter: blur(3px) saturate(.9) !important;
   -webkit-backdrop-filter: blur(3px) saturate(.9) !important;
 }
@@ -31,17 +31,17 @@
   border: 1px solid rgba(255,255,255,.98);
   border-radius: 13px;
   background: #fff;
-  color: #221829;
+  color: #281928;
   box-shadow:
     0 0 0 4px rgba(242,121,85,.20),
-    0 18px 48px rgba(14,5,20,.34);
+    0 18px 48px rgba(19,6,19,.34);
   pointer-events: auto;
 }
 
 .pc-search-overlay__floating-search > svg {
   width: 20px;
   height: 20px;
-  color: #584465;
+  color: #634663;
 }
 
 .pc-search-overlay__floating-search input {
@@ -50,9 +50,9 @@
   border: 0;
   outline: 0;
   background: transparent;
-  color: #221829;
-  caret-color: #491a65;
-  -webkit-text-fill-color: #221829;
+  color: #281928;
+  caret-color: #601e61;
+  -webkit-text-fill-color: #281928;
   font: inherit;
   font-size: 1rem;
 }
@@ -69,16 +69,16 @@
   place-items: center;
   border: 0;
   border-radius: 10px;
-  background: #f3f1f5;
-  color: #5e5465;
+  background: #f5f1f5;
+  color: #645564;
   cursor: pointer;
   touch-action: manipulation;
   transition: background-color 160ms ease, color 160ms ease, transform 140ms cubic-bezier(.22,.8,.22,1);
 }
 
 .pc-search-overlay__clear:hover {
-  background: #ebe6ef;
-  color: #39194d;
+  background: #eee6ef;
+  color: #491c4a;
 }
 
 .pc-search-overlay__clear:active { transform: scale(.95); }
@@ -128,19 +128,19 @@ body.pc-search-input-active .pc-home .pc-search-area {
 }
 
 [data-theme="dark"] .pc-search-overlay__floating-search {
-  border-color: #695c73;
-  background: #f9f8fb;
-  color: #1f1626;
+  border-color: #715d72;
+  background: #faf8fb;
+  color: #251725;
 }
 
 [data-theme="dark"] .pc-search-overlay__floating-search input {
-  color: #1f1626;
-  -webkit-text-fill-color: #1f1626;
+  color: #251725;
+  -webkit-text-fill-color: #251725;
 }
 
 [data-theme="dark"] .pc-search-overlay__clear {
-  background: #ede9f0;
-  color: #5e5465;
+  background: #efe9f0;
+  color: #645564;
 }
 
 @media (max-width: 720px) {

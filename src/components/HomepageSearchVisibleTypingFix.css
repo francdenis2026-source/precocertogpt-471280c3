@@ -3,19 +3,19 @@
   z-index: 2 !important;
   opacity: 1 !important;
   visibility: visible !important;
-  color: #221829 !important;
-  caret-color: #491a65 !important;
-  -webkit-text-fill-color: #221829 !important;
+  color: #281928 !important;
+  caret-color: #601e61 !important;
+  -webkit-text-fill-color: #281928 !important;
   text-shadow: none !important;
 }
 
 .pc-search-overlay__floating-search input::selection {
-  background: rgba(73,26,101, .18);
-  color: #221829;
+  background: rgba(96,30,97, .18);
+  color: #281928;
 }
 
 [data-theme="dark"] .pc-search-overlay__floating-search input {
-  color: #1f1626 !important;
-  caret-color: #491a65 !important;
-  -webkit-text-fill-color: #1f1626 !important;
+  color: #251725 !important;
+  caret-color: #601e61 !important;
+  -webkit-text-fill-color: #251725 !important;
 }

@@ -7,6 +7,7 @@ import { resolveProductImage } from "../data/productImageResolver";
 import "./HomeProfessional2026.css";
 import "./HomeRebuildAcai2026.css";
 import "./HomeRefineAcai2026.css";
+import "./HomePolishAcai2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -156,7 +157,7 @@ export function HomeProfessional2026() {
 
       <section className="hp-local hp-shell">
         <div className="hp-local__copy"><span><Store /> FEITO PARA O COMÉRCIO DE FEIJÓ</span><h2>Mais visibilidade para quem vende.<br />Mais clareza para quem compra.</h2><p>Explore os estabelecimentos cadastrados ou prepare a presença digital do seu negócio no PreçoCerto.</p></div>
-        <div className="hp-local__actions"><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista">Cadastrar meu negócio <ArrowRight /></Link></div>
+        <div className="hp-local__media" aria-hidden="true" /><div className="hp-local__actions"><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista">Cadastrar meu negócio <ArrowRight /></Link></div>
       </section>
     </main>
 
@@ -190,7 +191,7 @@ export function HomeProfessional2026() {
       </div>
       <div className="hp-shell hp-footer__meta">
         <span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span>
-        <small>&copy; 2026 PreçoCerto · Feijó, AC</small>
+        <small>&copy; 2026 PreçoCerto · Feijó, AC <i className="hp-footer__dev">dev. &lt;FrancD'nis&gt;</i></small>
       </div>
     </footer>
     <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>

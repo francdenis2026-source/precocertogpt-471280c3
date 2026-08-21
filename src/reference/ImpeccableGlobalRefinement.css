@@ -1,5 +1,5 @@
 /* Impeccable global refinement — hierarchy, rhythm, interaction and responsive clarity. */
-:root{--pc-focus:var(--pc-green,#531a82);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(7,27,45,.08));--pc-card-radius:var(--pc-radius-card,12px)}
+:root{--pc-focus:var(--pc-green,#781f7d);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(7,27,45,.08));--pc-card-radius:var(--pc-radius-card,12px)}
 :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-focus) 42%,transparent);outline-offset:3px}
 :where(button,a){-webkit-tap-highlight-color:transparent}
 
@@ -34,7 +34,7 @@
 .ref-home .ref-proof strong{color:var(--pc-ink)}
 .ref-home .ref-proof span{color:color-mix(in srgb,var(--pc-ink) 68%,var(--pc-surface))}
 .ref-home .ref-economy p,.ref-home .ref-local p{max-width:48ch}
-.ref-home .ref-economy__signals span{border-color:color-mix(in srgb,#fff 24%,transparent);background:color-mix(in srgb,#fff 8%,transparent);color:#f4f1f6}
+.ref-home .ref-economy__signals span{border-color:color-mix(in srgb,#fff 24%,transparent);background:color-mix(in srgb,#fff 8%,transparent);color:#f6f1f6}
 .ref-home .ref-receipt{border-color:color-mix(in srgb,var(--pc-border-strong) 86%,transparent)}
 
 html[data-theme="dark"] .ref-home .ref-section__heading p,
@@ -47,19 +47,19 @@ html[data-theme="dark"] .ref-home .ref-sectors__all{color:color-mix(in srgb,var(
 html[data-theme="dark"] .ref-home .ref-price-board{box-shadow:0 18px 54px rgba(0,0,0,.22)}
 html[data-theme="dark"] .ref-home .ref-price-row:hover{background:color-mix(in srgb,var(--pc-green-soft) 48%,var(--pc-surface));border-color:color-mix(in srgb,var(--pc-green) 42%,var(--pc-border))}
 html[data-theme="dark"] .ref-home .ref-proof span{color:color-mix(in srgb,#fff 70%,var(--pc-surface))}
-html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#160722!important}
+html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#1f0821!important}
 
 /* Desktop editorial bridge: remove the dead zone between sectors and price board. */
 @media(min-width:681px){
   .ref-home .ref-sectors{padding-bottom:16px}
   .ref-home .ref-sectors__all{margin-top:8px;padding-bottom:14px}
   .ref-home .ref-sectors + .ref-section{position:relative;padding-top:26px!important}
-  .ref-home .ref-sectors + .ref-section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pc-border,#ddd8e1) 58%,transparent) 14%,color-mix(in srgb,var(--pc-border,#ddd8e1) 58%,transparent) 86%,transparent)}
+  .ref-home .ref-sectors + .ref-section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pc-border,#e0d8e1) 58%,transparent) 14%,color-mix(in srgb,var(--pc-border,#e0d8e1) 58%,transparent) 86%,transparent)}
   .ref-home .ref-sectors + .ref-section .ref-section__heading{margin-bottom:16px}
 }
 
 /* Customer area: clear tool hierarchy and calmer account surface. */
-.pc-account-page{background:linear-gradient(180deg,var(--pc-canvas,#f5f7f4) 0,color-mix(in srgb,var(--pc-green-soft,#efe9f5) 38%,var(--pc-canvas,#f5f7f4)) 100%)}
+.pc-account-page{background:linear-gradient(180deg,var(--pc-canvas,#f5f7f4) 0,color-mix(in srgb,var(--pc-green-soft,#f4eaf4) 38%,var(--pc-canvas,#f5f7f4)) 100%)}
 .pc-account-shell{width:min(1120px,calc(100% - 36px));margin:auto;padding:28px 0 48px}
 .pc-account-hero{border-radius:var(--pc-radius-block,16px);box-shadow:var(--pc-soft-shadow)}
 .pc-account-tools{gap:10px}
@@ -76,9 +76,9 @@ html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#061721)}
 .ref-admin__main header h1,.admin-control-main h1,.admin-catalog-main h1{text-wrap:balance;letter-spacing:-.035em}
 
 /* Stores: dense catalog, readable labels and reliable touch targets. */
-.store-pro-page{--pc-focus:var(--pc-green,#531a82)}
+.store-pro-page{--pc-focus:var(--pc-green,#781f7d)}
 .store-pro-grid>a{border-radius:var(--pc-radius-card,12px)!important}
-.store-pro-grid>a:focus-visible{outline-color:var(--pc-green,#531a82)}
+.store-pro-grid>a:focus-visible{outline-color:var(--pc-green,#781f7d)}
 .store-pro-search,.store-pro-select{min-height:40px}
 .store-pro-pagination button{min-width:36px;height:36px}
 .store-pro-bottom-note{line-height:1.45}
@@ -113,7 +113,7 @@ html[data-theme="light"] .pdp-page .pdp-add{color:#fff}
 html[data-theme="dark"] .ref-page :is(.ref-search-submit,.ref-auth__submit),
 html[data-theme="dark"] .smart-basket-page :is(.smart-primary,.smart-cta),
 html[data-theme="dark"] .pro-basket-page .pro-basket-primary,
-html[data-theme="dark"] .pdp-page .pdp-add{color:#160722!important}
+html[data-theme="dark"] .pdp-page .pdp-add{color:#1f0821!important}
 
 @media(max-width:680px){
   .ref-home .ref-shell,.pc-account-shell{width:min(100% - 24px,620px)}

@@ -16,10 +16,10 @@
 .store-pro-hero__overlay {
   background: linear-gradient(
     100deg,
-    rgba(24, 8, 36, .96) 0%,
-    rgba(24, 8, 36, .90) 38%,
-    rgba(24, 8, 36, .58) 64%,
-    rgba(24, 8, 36, .24) 100%
+    rgba(34,9,35, .96) 0%,
+    rgba(34,9,35, .90) 38%,
+    rgba(34,9,35, .58) 64%,
+    rgba(34,9,35, .24) 100%
   );
 }
 
@@ -67,7 +67,7 @@
   border: 1px solid rgba(255, 255, 255, .22);
   border-radius: 999px;
   background: rgba(255, 255, 255, .10);
-  color: #f3ecfa;
+  color: #f8edf9;
   font-size: 11px;
   font-weight: 700;
   line-height: 1;
@@ -77,8 +77,8 @@
 .store-pro-specialties li b {
   padding: 3px 6px;
   border-radius: 999px;
-  background: rgba(201, 166, 233, .26);
-  color: #efe2fb;
+  background: rgba(226,169,230, .26);
+  color: #f8e3fa;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
 }
@@ -197,4 +197,18 @@
   display: grid;
   gap: 2px;
   min-width: 0;
+}
+
+/* Assinatura do desenvolvedor, no mesmo lugar do rodapé das internas. */
+.ref-footer__dev {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(255,255,255,.16);
+  color: #b9a7bb;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .ref-footer__dev { display: block; margin: 6px 0 0; padding: 0; border: 0; }
 }

@@ -91,7 +91,7 @@ html:not([data-theme="dark"]) .pcn-home :where(.pcn-store,.pcn-category,.pcn-pro
   border-color:rgba(25,41,70,.10)!important;
 }
 html:not([data-theme="dark"]) .pcn-home .pcn-section__head>div>span{color:#6347d8!important}
-html:not([data-theme="dark"]) .pcn-home .pcn-product__saving{background:#f1ebf6!important;color:#4f2277!important}
+html:not([data-theme="dark"]) .pcn-home .pcn-product__saving{background:#f5ecf5!important;color:#6e2673!important}
 
 /* Dark theme: retain separation without heavy glow. */
 html[data-theme="dark"] .pcn-home :where(.pcn-store,.pcn-category,.pcn-product,.pcn-how__grid>div){

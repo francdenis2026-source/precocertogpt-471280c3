@@ -3,15 +3,15 @@
    IMPORTANTE: seletores alinhados ao DOM BEM real de HomeNext.tsx. */
 
 .pc-next {
-  --pc-home-ink: #1a171c;
-  --pc-home-muted: #69616e;
+  --pc-home-ink: #1c171c;
+  --pc-home-muted: #6d626d;
   --pc-home-blue: #8a570f;
   --pc-home-blue-strong: #6f4309;
-  --pc-home-green: #451d6f;
+  --pc-home-green: #65216b;
   --pc-home-amber: #b7791f;
   --pc-home-surface: #fff;
-  --pc-home-border: #dedae0;
-  --pc-home-shadow: 0 12px 32px rgba(26,23,28,.07);
+  --pc-home-border: #e0dae0;
+  --pc-home-shadow: 0 12px 32px rgba(28,23,28,.07);
   --pc-home-radius: 10px;
   color: var(--pc-home-ink);
   background: #f3f4f2;
@@ -27,14 +27,14 @@
 .pc-next .pcn-nav a:hover { background: rgba(255,255,255,.08); }
 .pc-next .pcn-brand__word > span { color:#d69a43; }
 .pc-next .pcn-login,.pc-next .pcn-search__submit { background:#8a570f!important; color:#fff!important; border-color:#8a570f!important; box-shadow:none!important; }
-.pc-next .pcn-receipt button { background:#e9e4da!important; color:#1a171c!important; border-color:#cac4b9!important; }
+.pc-next .pcn-receipt button { background:#e9e4da!important; color:#1c171c!important; border-color:#cac4b9!important; }
 .pc-next .pcn-quick button { background:rgba(19,19,20,.76)!important; color:#f3f1eb!important; border-color:rgba(255,255,255,.17)!important; }
 .pc-next .pcn-quick button svg { color:#d69a43; }
 .pc-next :is(.pcn-icon-link,.pcn-theme,.pcn-login,.pcn-menu):focus-visible,
 .pc-next :is(a,button,input):focus-visible { outline: 3px solid #efb251; outline-offset: 3px; }
 
 /* Hero compacto: busca continua sendo a ação dominante */
-.pc-next .pcn-hero { min-height: 720px; max-height: none; overflow: hidden; background:#1a171c; }
+.pc-next .pcn-hero { min-height: 720px; max-height: none; overflow: hidden; background:#1c171c; }
 .pc-next .pcn-hero__content { min-height: 720px; padding-top: 125px; padding-bottom: 80px; align-items: center; gap: clamp(34px,6vw,84px); grid-template-columns:minmax(0,1.22fr) minmax(290px,.55fr); }
 .pc-next .pcn-hero__copy { max-width: 720px; }
 .pc-next .pcn-hero h1 { max-width: 11ch; margin: 16px 0 14px; font-size: clamp(3.5rem,7.2vw,6rem); line-height: .86; letter-spacing: -.04em; text-wrap: balance; }
@@ -46,13 +46,13 @@
 .pc-next .pcn-search__submit { min-height: 44px; border-radius: 7px; }
 .pc-next .pcn-quick { margin-top: 12px; }
 .pc-next .pcn-quick button { min-height: 34px; }
-.pc-next .pcn-receipt { width: min(330px,100%); padding: 25px 24px 30px; border-radius: 2px; background:#f8f7f2; color:#1a171c; }
+.pc-next .pcn-receipt { width: min(330px,100%); padding: 25px 24px 30px; border-radius: 2px; background:#f8f7f2; color:#1c171c; }
 .pc-next .pcn-receipt > small { margin-top: 16px; }
-.pc-next .pcn-receipt__saving { color:#451d6f; font-size:clamp(2.7rem,5vw,4.7rem); }
+.pc-next .pcn-receipt__saving { color:#65216b; font-size:clamp(2.7rem,5vw,4.7rem); }
 
 /* Métricas deixam de dominar a dobra */
 .pc-next .pcn-metrics-wrap { margin-top: -48px; }
-.pc-next .pcn-metrics { min-height: 92px; border-radius: 8px; background:#1c191e; }
+.pc-next .pcn-metrics { min-height: 92px; border-radius: 8px; background:#1e191e; }
 .pc-next .pcn-metrics > div { min-height: 66px; grid-template-columns: 40px 1fr; column-gap: 10px; padding: 13px 15px; }
 .pc-next .pcn-metric-icon { width: 40px; height: 40px; border-radius: 13px; }
 .pc-next .pcn-metric-icon svg { width: 18px; }
@@ -89,7 +89,7 @@
 .pc-next .pcn-modal__body { padding: 17px 19px 20px; }
 
 /* Dark */
-html[data-theme="dark"] .pc-next { --pc-home-ink:#f5f3ec; --pc-home-muted:#bbb7be; --pc-home-surface:#1c191e; --pc-home-border:#3a363c; background:#131114; }
+html[data-theme="dark"] .pc-next { --pc-home-ink:#f5f3ec; --pc-home-muted:#bdb7be; --pc-home-surface:#1e191e; --pc-home-border:#3c363c; background:#141114; }
 
 @media (max-width:1000px) {
   .pc-next .pcn-nav { display:none; }

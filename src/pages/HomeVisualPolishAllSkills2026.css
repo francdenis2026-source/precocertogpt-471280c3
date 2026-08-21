@@ -4,17 +4,17 @@
 
 .pc-home {
   --vp-topbar: #f4b63e;
-  --vp-header: #290939;
-  --vp-header-2: #340d47;
-  --vp-plum: #24112d;
-  --vp-plum-2: #351640;
-  --vp-teal: #741aa2;
-  --vp-teal-bright: #a154cc;
+  --vp-header: #370b36;
+  --vp-header-2: #441044;
+  --vp-plum: #2c122b;
+  --vp-plum-2: #3e183c;
+  --vp-teal: #9b219b;
+  --vp-teal-bright: #c55ac6;
   --vp-gold: #f4b63e;
   --vp-paper: rgba(255,255,255,.94);
-  --vp-line: rgba(36,17,45,.13);
-  --vp-shadow: 0 14px 34px rgba(32,17,37,.10);
-  --vp-shadow-hover: 0 20px 46px rgba(28,14,34,.16);
+  --vp-line: rgba(44,18,43,.13);
+  --vp-shadow: 0 14px 34px rgba(36,18,35,.10);
+  --vp-shadow-hover: 0 20px 46px rgba(33,15,33,.16);
 }
 
 /* subtle photographic atmosphere behind the landing page */
@@ -28,7 +28,7 @@
 .pc-home main > section { position: relative; z-index: 1; }
 [data-theme="dark"] .pc-home main {
   background:
-    linear-gradient(rgba(20,16,23,.96), rgba(20,16,23,.98)),
+    linear-gradient(rgba(22,16,23,.96), rgba(22,16,23,.98)),
     url('/comerciante-local-feijo.webp') center 420px / cover fixed no-repeat;
 }
 
@@ -49,8 +49,8 @@
   text-shadow: none;
 }
 .pc-home .pc-header.is-scrolled {
-  background: rgba(41,9,57,.98);
-  box-shadow: 0 10px 30px rgba(25,4,36,.24);
+  background: rgba(55,11,54,.98);
+  box-shadow: 0 10px 30px rgba(34,6,34,.24);
 }
 .pc-home .pc-header-inner { height: 62px; gap: 22px; }
 .pc-home .pc-logo img {
@@ -61,7 +61,7 @@
 .pc-home .pc-nav { gap: 20px; }
 .pc-home .pc-nav a {
   min-height: 46px;
-  color: #f2ebf6;
+  color: #f5ecf5;
   font-size: .88rem;
   font-weight: 800;
   letter-spacing: .005em;
@@ -101,8 +101,8 @@
 }
 .pc-home .pc-hero::after {
   background:
-    linear-gradient(90deg, rgba(36,17,45,.995) 0%, rgba(36,17,45,.965) 41%, rgba(36,17,45,.72) 67%, rgba(36,17,45,.18) 100%),
-    radial-gradient(circle at 72% 30%, rgba(161,84,204,.12), transparent 32%);
+    linear-gradient(90deg, rgba(44,18,43,.995) 0%, rgba(44,18,43,.965) 41%, rgba(44,18,43,.72) 67%, rgba(44,18,43,.18) 100%),
+    radial-gradient(circle at 72% 30%, rgba(197,90,198,.12), transparent 32%);
 }
 .pc-home .pc-hero-inner { align-items: center; gap: 34px; }
 .pc-home .pc-kicker { font-size: .78rem; padding: 5px 10px; }
@@ -114,7 +114,7 @@
 }
 .pc-home .pc-hero-copy > p {
   max-width: 640px;
-  color: #e2d8e5;
+  color: #e4d9e4;
   font-size: 1.05rem;
   line-height: 1.58;
 }
@@ -122,7 +122,7 @@
 .pc-home .pc-search {
   min-height: 62px;
   border-radius: 14px;
-  box-shadow: 0 18px 42px rgba(12,4,15,.28), 0 0 0 1px rgba(244,182,62,.13);
+  box-shadow: 0 18px 42px rgba(14,5,14,.28), 0 0 0 1px rgba(244,182,62,.13);
 }
 .pc-home .pc-search input { height: 52px; font-size: 1.02rem; font-weight: 650; }
 .pc-home .pc-search button {
@@ -130,7 +130,7 @@
   height: 50px;
   border-radius: 10px;
   background: var(--vp-teal);
-  color: #120518;
+  color: #170617;
   font-size: .88rem;
 }
 .pc-home .pc-search button:hover { background: var(--vp-teal-bright); }
@@ -144,11 +144,11 @@
   grid-template-columns: 40px minmax(0,1fr);
   padding: 11px 12px;
   border-radius: 13px;
-  background: rgba(43,19,52,.78);
+  background: rgba(50,21,49,.78);
   border-color: rgba(255,255,255,.13);
   transition: transform 180ms cubic-bezier(.23,1,.32,1), border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
-.pc-home .pc-hero-side > div > svg { width: 40px; height: 40px; border-radius: 10px; background: rgba(161,84,204,.16); }
+.pc-home .pc-hero-side > div > svg { width: 40px; height: 40px; border-radius: 10px; background: rgba(197,90,198,.16); }
 .pc-home .pc-hero-side strong { font-size: .88rem; }
 .pc-home .pc-hero-side small { font-size: .75rem; line-height: 1.4; }
 
@@ -183,7 +183,7 @@
   min-height: 78px;
   padding: 12px 14px;
   border-radius: 13px;
-  box-shadow: 0 4px 14px rgba(36,17,45,.04);
+  box-shadow: 0 4px 14px rgba(44,18,43,.04);
   transition: transform 170ms cubic-bezier(.23,1,.32,1), border-color 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
 }
 .pc-home .pc-category-icon { width: 40px; height: 40px; border-radius: 10px; }
@@ -194,7 +194,7 @@
 .pc-home .pc-product-grid { gap: 16px; }
 .pc-home .pc-product-card {
   border-radius: 15px;
-  box-shadow: 0 5px 18px rgba(36,17,45,.045);
+  box-shadow: 0 5px 18px rgba(44,18,43,.045);
   transition: transform 190ms cubic-bezier(.23,1,.32,1), border-color 190ms ease, box-shadow 190ms ease;
 }
 .pc-home .pc-product-media { min-height: 160px; }
@@ -216,7 +216,7 @@
 .pc-home .pc-store-card,
 .pc-home .pc-how-step {
   border-radius: 15px;
-  box-shadow: 0 5px 18px rgba(36,17,45,.045);
+  box-shadow: 0 5px 18px rgba(44,18,43,.045);
   transition: transform 180ms cubic-bezier(.23,1,.32,1), border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 .pc-home .pc-store-card { min-height: 82px; padding: 14px; }
@@ -235,44 +235,44 @@
   border-radius: 22px;
   background: rgba(255,255,255,.70);
   backdrop-filter: blur(7px);
-  border: 1px solid rgba(36,17,45,.07);
-  box-shadow: 0 18px 46px rgba(36,17,45,.055);
+  border: 1px solid rgba(44,18,43,.07);
+  box-shadow: 0 18px 46px rgba(44,18,43,.055);
 }
 [data-theme="dark"] .pc-home :is(.pc-opportunities,.pc-stores,.pc-how) {
-  background: rgba(29,23,33,.76);
+  background: rgba(32,23,33,.76);
   border-color: rgba(255,255,255,.07);
 }
 .pc-home .pc-compare-section {
   background:
-    linear-gradient(120deg,rgba(161,84,204,.11),rgba(244,182,62,.08)),
+    linear-gradient(120deg,rgba(197,90,198,.11),rgba(244,182,62,.08)),
     rgba(255,255,255,.78);
 }
-[data-theme="dark"] .pc-home .pc-compare-section { background: linear-gradient(120deg,rgba(161,84,204,.07),rgba(244,182,62,.05)),#1b1520; }
+[data-theme="dark"] .pc-home .pc-compare-section { background: linear-gradient(120deg,rgba(197,90,198,.07),rgba(244,182,62,.05)),#1f161f; }
 .pc-home .pc-basket-section {
   background:
-    linear-gradient(115deg, rgba(41,9,57,.94), rgba(52,13,71,.91)),
+    linear-gradient(115deg, rgba(55,11,54,.94), rgba(68,16,68,.91)),
     url('/compra-inteligente-profissional.webp') 76% 50%/cover no-repeat;
   color: #fff;
 }
 .pc-home .pc-basket-copy h2,
 .pc-home .pc-basket-copy p { color: #fff; }
-.pc-home .pc-basket-copy .pc-kicker { color: #e0bff2; border-color: rgba(255,255,255,.18); }
-.pc-home .pc-basket-points span { color: #f4eafa; }
+.pc-home .pc-basket-copy .pc-kicker { color: #efc2ef; border-color: rgba(255,255,255,.18); }
+.pc-home .pc-basket-points span { color: #f9ebf9; }
 .pc-home .pc-commercial {
   background:
-    linear-gradient(125deg, rgba(36,17,45,.98), rgba(53,22,64,.93)),
+    linear-gradient(125deg, rgba(44,18,43,.98), rgba(62,24,60,.93)),
     url('/comerciante-local-feijo.webp') 75% 52% / cover no-repeat;
 }
 
 /* footer becomes a deliberate ending, not a leftover strip */
 .pc-home .pc-footer {
-  background: #16071e;
+  background: #1d081d;
   border-top: 4px solid var(--vp-gold);
 }
 .pc-home .pc-footer-inner { padding-block: 22px 16px; }
-.pc-home .pc-footer-brand p { font-size: .82rem; color: #dccce4; }
+.pc-home .pc-footer-brand p { font-size: .82rem; color: #e3cde3; }
 .pc-home .pc-footer nav a { font-size: .8rem; }
-.pc-home .pc-footer-bottom { min-height: 42px; font-size: .7rem; color: #b8a1c4; }
+.pc-home .pc-footer-bottom { min-height: 42px; font-size: .7rem; color: #c2a3c2; }
 
 /* professional interaction language */
 @media (hover:hover) and (pointer:fine) {

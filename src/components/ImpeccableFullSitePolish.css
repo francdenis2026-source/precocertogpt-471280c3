@@ -22,20 +22,20 @@
 .true-home .th-product{box-shadow:0 7px 22px rgba(15,23,42,.055)!important}
 .true-home .th-product__price strong{letter-spacing:-.025em!important}
 .true-home .th-mid-hero__panel{backdrop-filter:none!important;background:rgba(6,23,35,.92)!important}
-.true-home .th-basket-mini{box-shadow:0 16px 38px rgba(37,9,54,.13)!important}
+.true-home .th-basket-mini{box-shadow:0 16px 38px rgba(51,11,52,.13)!important}
 .true-home :where(.th-search button,.th-button,.th-header__cta,.th-product-modal__actions a):disabled{opacity:.52;cursor:not-allowed;transform:none!important;filter:none!important}
 
 /* ---------- Dorinha: Persuade / editorial ---------- */
 .dorinha-pro__hero h1{letter-spacing:-.035em!important;line-height:.98!important;max-width:12ch;text-wrap:balance}
 .dorinha-pro__intro h2,.dorinha-pro__section-head h2,.dorinha-pro__author-copy h2,.dorinha-pro__market h2{letter-spacing:-.03em!important;text-wrap:balance}
 .dorinha-pro__top{backdrop-filter:none!important;background:rgba(251,247,241,.97)!important}
-.dorinha-pro__hero{background:linear-gradient(118deg,#19091f,#301034 54%,#4a214a)!important}
+.dorinha-pro__hero{background:linear-gradient(118deg,#1e0a1d,#301034 54%,#4a214a)!important}
 .dorinha-pro__book{border-radius:var(--imp-radius)!important;box-shadow:0 8px 24px rgba(50,26,48,.06)!important}
 .dorinha-pro__hero-portrait,.dorinha-pro__author-photo{box-shadow:0 22px 54px rgba(0,0,0,.22)!important}
 .dorinha-pro__facts div{background:transparent!important;border:1px solid rgba(255,255,255,.1)!important}
 .dorinha-pro__pix{box-shadow:var(--imp-shadow)!important}
 .dorinha-pro :where(a,button):disabled{opacity:.5!important;cursor:not-allowed!important;transform:none!important}
-html[data-theme="dark"] .dorinha-pro__top{background:rgba(16,11,18,.97)!important}
+html[data-theme="dark"] .dorinha-pro__top{background:rgba(18,11,17,.97)!important}
 
 /* ---------- Public surfaces ---------- */
 :where(.scpm-page,.establishments-page,.establishments-marketplace,.public-establishment,.public-store,.fremix-page,.merchant-online-store,.orders-page,.customer-orders,.mercadopago-callback,.public-service-page) :where(h1,h2){letter-spacing:-.03em!important;text-wrap:balance}

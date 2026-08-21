@@ -1,5 +1,4 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, Building2,
@@ -327,7 +326,7 @@ export function PublicFooter() {
         <div><strong>Negócios</strong><Link to="/lojista">Seja um parceiro</Link><Link to="/quero-vender">Quero vender</Link><Link to="/painel-lojista">Painel lojista</Link></div>
         <div><strong>Suporte</strong><Link to="/fale-conosco">Fale conosco</Link><Link to="/colaborar">Colaborar</Link><Link to="/meus-pedidos">Rastrear pedido</Link></div>
       </nav>
-      <div className="ref-footer__meta"><span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span><small>&copy; 2026 PreçoCerto · Feijó, AC</small></div>
+      <div className="ref-footer__meta"><span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span><small>&copy; 2026 PreçoCerto · Feijó, AC <i className="ref-footer__dev">dev. &lt;FrancD'nis&gt;</i></small></div>
     </div>
     <FooterInfoDialogs open={panel} onClose={() => setPanel(null)} />
   </footer>;

@@ -41,7 +41,7 @@
 
 .pc-home.pc-audit-polished .pc-header { border-bottom:1px solid rgba(255,255,255,.07); }
 .pc-home.pc-audit-polished .pc-header:not(.is-scrolled) {
-  background:linear-gradient(180deg,rgba(21,4,30,.94),rgba(21,4,30,.68));
+  background:linear-gradient(180deg,rgba(29,5,29,.94),rgba(29,5,29,.68));
 }
 
 @media (max-width:680px) {

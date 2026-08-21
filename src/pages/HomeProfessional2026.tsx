@@ -3,12 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, TrendingDown, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
-import { resolveProductImage } from "../data/productImageResolver";
+import { resolveProductImage, resolveCutoutImage } from "../data/productImageResolver";
+import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
+import { getStoreLogoUrl } from "../data/storeLogos";
 import "./HomeProfessional2026.css";
 import "./HomeRebuildAcai2026.css";
 import "./HomeRefineAcai2026.css";
 import "./HomePolishAcai2026.css";
 import "./HomeLighter2026.css";
+import "./HomeSearchOverlay2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -22,8 +25,10 @@ const readTheme = (): Theme => {
   return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
-function ProductImage({ product, eager = false }: { product: Product; eager?: boolean }) {
-  const source = resolveProductImage(product);
+function ProductImage({ product, eager = false, preferCutout = false }: { product: Product; eager?: boolean; preferCutout?: boolean }) {
+  // A vitrine da homepage pede a foto sem fundo branco, porque o cartão tem
+  // moldura colorida; as demais telas continuam com a foto de cadastro.
+  const source = (preferCutout && resolveCutoutImage(product)) || resolveProductImage(product);
   const [failed, setFailed] = useState(false);
   return source && !failed
     ? <img src={source} alt={product.name} width="240" height="200" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => setFailed(true)} />
@@ -66,9 +71,38 @@ export function HomeProfessional2026() {
     return products.filter(product => normalize(`${product.name} ${product.brand || ""} ${product.category || ""}`).includes(term))
       .sort((a, b) => a.minPrice - b.minPrice).slice(0, 5);
   }, [products, query]);
-  const featured = useMemo(() => products.filter(product => Boolean(resolveProductImage(product)))
-    .sort((a, b) => (b.maxPrice - b.minPrice) - (a.maxPrice - a.minPrice)).slice(0, 6), [products]);
+  // A vitrine troca a cada 30 minutos. O relógio agenda apenas a virada, em vez
+  // de acordar de minuto em minuto sem nada a fazer.
+  const [cycle, setCycle] = useState(() => currentCycle());
+  useEffect(() => {
+    const timer = window.setTimeout(() => setCycle(currentCycle()), msUntilNextCycle() + 250);
+    return () => window.clearTimeout(timer);
+  }, [cycle]);
+
+  const featured = useMemo(() => buildFeatured(products, cycle, 6), [products, cycle]);
   const spotlight = featured[0];
+
+  const searchOpen = searchFocused && query.trim().length >= 2;
+
+  // Com a busca aberta a página atrás não rola: o overlay fica sobre ela e
+  // rolar o fundo enquanto se lê os resultados desorienta. A largura da barra
+  // de rolagem é compensada para o conteúdo não saltar ao travar.
+  useEffect(() => {
+    if (!searchOpen) return;
+    const { body } = document;
+    const larguraBarra = window.innerWidth - document.documentElement.clientWidth;
+    const overflowAnterior = body.style.overflow;
+    const paddingAnterior = body.style.paddingRight;
+    body.style.overflow = "hidden";
+    if (larguraBarra > 0) body.style.paddingRight = `${larguraBarra}px`;
+    const fecharNoEsc = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchFocused(false); };
+    document.addEventListener("keydown", fecharNoEsc);
+    return () => {
+      body.style.overflow = overflowAnterior;
+      body.style.paddingRight = paddingAnterior;
+      document.removeEventListener("keydown", fecharNoEsc);
+    };
+  }, [searchOpen]);
 
   const submitSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -100,7 +134,9 @@ export function HomeProfessional2026() {
     </header>
 
     <main id="conteudo-principal">
-      <section className="hp-hero">
+      {searchOpen && <div className="hp-search-scrim" onMouseDown={() => setSearchFocused(false)} aria-hidden="true" />}
+
+      <section className={`hp-hero${searchOpen ? " is-searching" : ""}`}>
         <div className="hp-hero__media" aria-hidden="true" />
         <div className="hp-hero__veil" aria-hidden="true" />
         <div className="hp-shell hp-hero__grid">
@@ -114,11 +150,28 @@ export function HomeProfessional2026() {
               <input id="hp-search-input" value={query} onChange={event => setQuery(event.target.value)} placeholder="O que você quer economizar hoje?" autoComplete="off" role="combobox" aria-autocomplete="list" aria-expanded={searchFocused && query.trim().length >= 2} aria-controls="hp-search-results" />
               {query && <button className="hp-search__clear" type="button" onClick={() => setQuery("")} aria-label="Limpar pesquisa"><X /></button>}
               <button className="hp-search__submit" type="submit">Comparar <ArrowRight /></button>
-              {searchFocused && query.trim().length >= 2 && <div id="hp-search-results" className="hp-search-results">
+              {searchOpen && <div id="hp-search-results" className="hp-search-results" role="listbox">
                 <header><strong>Resultados rápidos</strong><span>{suggestions.length} encontrados</span></header>
-                {suggestions.length ? suggestions.map(product => <button type="button" key={product.id} onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}>
-                  <i><ProductImage product={product} /></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><b>{brl.format(product.minPrice)}</b><ArrowRight />
-                </button>) : <div className="hp-search-results__empty"><PackageSearch /><span><strong>Produto não encontrado</strong><small>Tente uma palavra mais curta, como “arroz” ou “leite”.</small></span></div>}
+                {suggestions.length ? suggestions.map(product => {
+                  const loja = product.establishment || "Comércio local";
+                  const logo = getStoreLogoUrl(loja);
+                  return <button type="button" key={product.id} role="option" aria-selected="false" onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}>
+                    <i><ProductImage product={product} /></i>
+                    <span>
+                      <small>{product.category}</small>
+                      <strong>{product.name}</strong>
+                      {/* O estabelecimento é o que o usuário precisa reconhecer:
+                          saber onde o preço está vale tanto quanto o preço. */}
+                      <em className="hp-result-store">
+                        {logo
+                          ? <img src={logo} alt="" aria-hidden="true" loading="lazy" />
+                          : <Store aria-hidden="true" />}
+                        {loja}
+                      </em>
+                    </span>
+                    <b>{brl.format(product.minPrice)}</b><ArrowRight />
+                  </button>;
+                }) : <div className="hp-search-results__empty"><PackageSearch /><span><strong>Produto não encontrado</strong><small>Tente uma palavra mais curta, como “arroz” ou “leite”.</small></span></div>}
                 <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Ver busca completa <ArrowRight /></Link>
               </div>}
             </form>
@@ -128,7 +181,7 @@ export function HomeProfessional2026() {
           <aside className="hp-spotlight" aria-label="Destaque de preço">
             <header><span><i /> PREÇO EM DESTAQUE</span><small>Catálogo local</small></header>
             {loading ? <div className="hp-spotlight__loading" aria-busy="true"><i /><i /><i /></div> : spotlight ? <>
-              <div className="hp-spotlight__product"><div><ProductImage product={spotlight} eager /></div><span><small>{spotlight.category}</small><strong>{spotlight.name}</strong><em>{spotlight.size || spotlight.brand}</em></span></div>
+              <div className="hp-spotlight__product"><div><ProductImage product={spotlight} eager preferCutout /></div><span><small>{spotlight.category}</small><strong>{spotlight.name}</strong><em>{spotlight.size || spotlight.brand}</em></span></div>
               <div className="hp-spotlight__prices"><span><small>Menor preço</small><strong>{brl.format(spotlight.minPrice)}</strong></span><span><small>Diferença possível</small><strong>{brl.format(Math.max(0, spotlight.maxPrice - spotlight.minPrice))}</strong></span></div>
               <Link to={`/produto/${spotlight.slug || spotlight.id}`}>Ver comparação completa <ArrowRight /></Link>
             </> : <div className="hp-spotlight__empty">Novos preços serão exibidos aqui.</div>}
@@ -145,7 +198,7 @@ export function HomeProfessional2026() {
         <div className="hp-section-head"><div><span>OPORTUNIDADES LOCAIS</span><h2 id="hp-offers-title">Produtos para comparar agora.</h2><p>Uma seleção compacta com preços disponíveis no catálogo.</p></div><Link to="/buscar">Explorar preços <ArrowRight /></Link></div>
         <div className="hp-product-grid">{loading ? Array.from({ length: 4 }, (_, index) => <div className="hp-product-card hp-product-card--loading" key={index} />) : featured.slice(0, 4).map(product => <article className="hp-product-card" key={product.id}>
           <Link to={`/produto/${product.slug || product.id}`} aria-label={`Comparar preços de ${product.name}`}>
-            <div className="hp-product-card__media"><ProductImage product={product} /><span><TrendingDown /> comparar</span></div>
+            <div className="hp-product-card__media"><ProductImage product={product} preferCutout /><span><TrendingDown /> comparar</span></div>
             <div className="hp-product-card__body"><small>{product.category}</small><h3>{product.name}</h3><p>{product.size || product.brand || "Produto local"}</p><div><span><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight /></div></div>
           </Link>
         </article>)}</div>

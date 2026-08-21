@@ -13,6 +13,15 @@ const productImages = import.meta.glob("../assets/products/*.{png,jpg,jpeg,webp,
   import: "default",
 }) as Record<string, string>;
 
+// Recortes com fundo transparente, derivados das fotos originais removendo o
+// branco ligado à borda. São preferidos porque a moldura do cartão é colorida:
+// a foto original desenha um retângulo branco dentro dela.
+const cutoutImages = import.meta.glob("../assets/products-cut/*.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
 const normalize = (value: string) => value
   .normalize("NFD")
   .replace(/[\u0300-\u036f]/g, "")
@@ -34,7 +43,45 @@ const productAssets = Object.entries(productImages).map(([path, url]) => ({
   key: normalize(path.replace(/^.*\//, "")),
 }));
 
+const cutoutAssets = Object.entries(cutoutImages).map(([path, url]) => ({
+  url,
+  key: normalize(path.replace(/^.*\//, "")),
+}));
+
+// Os recortes entram antes na lista, então vencem o empate por chave.
+localAssets.unshift(...cutoutAssets);
 localAssets.push(...productAssets);
+
+const cutoutKeys = new Set(cutoutAssets.map(item => item.key));
+
+function cutoutKeyFor(product: Product): string | undefined {
+  const candidates = [
+    product.slug ? normalize(String(product.slug)) : "",
+    normalize(product.name || ""),
+    normalize([product.name, product.brand, product.size].filter(Boolean).join(" ")),
+  ].filter(key => key.length >= 8);
+
+  for (const candidate of candidates) {
+    if (cutoutKeys.has(candidate)) return candidate;
+  }
+  for (const candidate of candidates) {
+    const key = [...cutoutKeys].find(k => k.includes(candidate) || candidate.includes(k));
+    if (key) return key;
+  }
+  return undefined;
+}
+
+/** Indica se o produto tem uma foto local recortada, sem fundo branco. */
+export function hasCutout(product: Product) {
+  return Boolean(cutoutKeyFor(product));
+}
+
+/** A imagem sem fundo branco do produto, quando existe uma. */
+export function resolveCutoutImage(product: Product): string | undefined {
+  const key = cutoutKeyFor(product);
+  if (!key) return undefined;
+  return cutoutAssets.find(item => item.key === key)?.url;
+}
 
 const publicFallbacks = [
   { terms: ["aguasanitaria", "ype", "1l"], url: "/products/agua-sanitaria-ype-1l.jpg" },

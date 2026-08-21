@@ -345,25 +345,14 @@ export function PublicHeader({ current, backOnly = false }: { current?: PublicSe
 }
 
 export function PublicFooter() {
-  const [panel, setPanel] = useState<FooterPanel>(null);
-  return <footer className="ref-footer">
-    <div className="ref-shell ref-footer__inner">
-      <div className="ref-footer__identity">
-        <Brand inverse />
-        <p>O preço certo perto de você.</p>
-        <div className="ref-footer__panel-triggers">
-          <button type="button" onClick={() => setPanel("contato")}><MessageCircle aria-hidden="true" /> Contato</button>
-          <button type="button" onClick={() => setPanel("desenvolvedor")}><UserRound aria-hidden="true" /> Desenvolvedor</button>
-        </div>
+  return <footer className="ref-footer ref-footer--compact">
+    <div className="ref-shell ref-footer__compact">
+      <Brand inverse />
+      <div className="ref-footer__compact-copy">
+        <span><BadgeCheck aria-hidden="true" /> Informação local para comprar melhor</span>
+        <small>&copy; 2026 PreçoCerto · Feijó, Acre</small>
       </div>
-      <nav aria-label="Navegação do rodapé">
-        <div><strong>Plataforma</strong><Link to="/buscar">Comparar preços</Link><Link to="/explorar">Setores</Link><Link to="/estabelecimentos">Lojas locais</Link><Link to="/cesta-basica">Lista de compras</Link></div>
-        <div><strong>Negócios</strong><Link to="/lojista">Seja um parceiro</Link><Link to="/quero-vender">Quero vender</Link><Link to="/painel-lojista">Painel lojista</Link></div>
-        <div><strong>Suporte</strong><Link to="/fale-conosco">Fale conosco</Link><Link to="/colaborar">Colaborar</Link><Link to="/meus-pedidos">Rastrear pedido</Link></div>
-      </nav>
-      <div className="ref-footer__meta"><span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span><small>&copy; 2026 PreçoCerto · Feijó, AC <i className="ref-footer__dev">dev. &lt;FrancD'nis&gt;</i></small></div>
     </div>
-    <FooterInfoDialogs open={panel} onClose={() => setPanel(null)} />
   </footer>;
 }
 

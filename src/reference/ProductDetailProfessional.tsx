@@ -10,7 +10,7 @@ import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
-import { PublicHeader } from "./ReferenceExperience";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -203,6 +203,7 @@ export function ProductDetailProfessional() {
 
 
 
+    <PublicFooter/>
     <div className="pdx-mobile-bar"><div><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></div><button type="button" className="pc-btn pc-btn--primary" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar (${quantity})` : "Adicionar à lista"}</button></div>
     {message && <div className="pdx-toast" role="status" aria-live="polite">{message}</div>}
   </div>;

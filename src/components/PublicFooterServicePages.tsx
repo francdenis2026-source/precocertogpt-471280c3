@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react";
 import { ArrowLeft, ArrowRight, Building2, CheckCircle2, Clock3, HeartHandshake, Mail, MapPin, MessageCircle, Phone, ShieldCheck, Store } from "lucide-react";
 import { supabase } from "../lib/supabase";
+import { PublicFooter } from "../reference/ReferenceExperience";
 import "./PublicFooterServicePages.css";
 
 function Layout({ children }: { children: React.ReactNode }) {
-  return <div className="pc-service-page"><div className="pc-service-topbar"><div className="pc-service-topbar__inner"><a className="pc-service-back" href="/"><ArrowLeft size={17}/> Voltar</a><div className="pc-service-brand">Preço<span>Certo</span></div></div></div>{children}</div>;
+  return <div className="pc-service-page"><div className="pc-service-topbar"><div className="pc-service-topbar__inner"><a className="pc-service-back" href="/"><ArrowLeft size={17}/> Voltar</a><div className="pc-service-brand">Preço<span>Certo</span></div></div></div>{children}<PublicFooter/></div>;
 }
 
 function databaseUnavailableMessage() {

@@ -8,6 +8,7 @@ import "./HomeProfessional2026.css";
 import "./HomeRebuildAcai2026.css";
 import "./HomeRefineAcai2026.css";
 import "./HomePolishAcai2026.css";
+import "./HomeLighter2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();

@@ -1,0 +1,127 @@
+/* Aliviar o peso escuro da homepage.
+   Carregado depois de HomePolishAcai2026.css. */
+
+/* Medição antes de mexer: 44% dos pixels da página tinham luminância abaixo
+   de 0,10 — quase preto. Vinham de três faixas: hero (452px), história
+   (417px) e rodapé (231px), somando 1100px de 2117.
+
+   O matiz não era o problema. A luminosidade era: as três superfícies
+   ficavam entre 9% e 11%. Para um site de comparar preços, onde a tarefa é
+   ler e decidir, esse peso trabalha contra.
+
+   Duas correções, não uma. A superfície escura sobe de 9% para 24% de
+   luminosidade, e a seção do meio deixa de ser escura, quebrando a
+   monotonia. */
+
+.hp-home {
+  /* Ameixa média no lugar do quase-preto. Branco ainda rende 12:1 sobre ela
+     e o âmbar 4,6:1, então nada de contraste se perde ao clarear. */
+  --plum-deep: #40254a;
+  --plum-panel: #4a2b50;
+}
+
+/* ============ HERO ============ */
+/* Véu mais leve sobre a mesma fotografia: além de pesar menos, a loja ao
+   fundo aparece bem mais. */
+.hp-hero { background: var(--plum-deep); }
+
+.hp-hero__veil {
+  background:
+    linear-gradient(
+      98deg,
+      rgba(46,22,54,.90) 0%,
+      rgba(46,22,54,.80) 28%,
+      rgba(46,22,54,.52) 46%,
+      rgba(46,22,54,.22) 64%,
+      rgba(46,22,54,.08) 80%,
+      rgba(46,22,54,.02) 100%
+    ),
+    linear-gradient(180deg, transparent 84%, rgba(46,22,54,.18) 100%);
+}
+
+/* ============ HISTÓRIA: DE ESCURA PARA CLARA ============ */
+/* Era a faixa escura do meio, entre duas seções claras. Passando a clara,
+   a página fica com um só bloco escuro no topo e outro no rodapé, em vez de
+   alternar quatro vezes. A fotografia continua, agora sob um véu claro. */
+.hp-story { background: var(--hp-surface-2); color: var(--hp-ink); }
+
+.hp-story__media { opacity: .34; }
+
+.hp-story::after {
+  background:
+    linear-gradient(
+      96deg,
+      rgba(250,248,250,.97) 0%,
+      rgba(250,248,250,.93) 32%,
+      rgba(250,248,250,.72) 54%,
+      rgba(250,248,250,.36) 74%,
+      rgba(250,248,250,.14) 100%
+    );
+}
+
+.hp-story h2 { color: var(--plum-ink); }
+.hp-story > .hp-shell > p { color: var(--ink-2); }
+.hp-story > .hp-shell > span { color: var(--hp-brand); }
+
+.hp-story ol li {
+  border: 1px solid var(--hp-line);
+  background: color-mix(in srgb, var(--hp-surface) 88%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.hp-story ol li b { color: var(--plum-ink); }
+.hp-story ol li span { color: var(--ink-2); }
+.hp-story ol li em, .hp-story ol li i { color: var(--hp-brand); }
+
+/* O número do passo era âmbar sobre escuro; sobre claro precisa de tinta. */
+.hp-story ol li > b:first-child,
+.hp-story ol li > span:first-child { color: var(--hp-brand); }
+
+.hp-story > .hp-shell > a {
+  background: var(--hp-brand);
+  color: #fdfbfe;
+}
+
+.hp-story > .hp-shell > a:hover {
+  background: var(--hp-brand-2);
+  color: #fdfbfe;
+}
+
+/* ============ RODAPÉ ============ */
+/* Continua escuro — o rodapé fecha a página e essa é a convenção — mas na
+   mesma ameixa média, não no quase-preto. */
+.hp-footer { background: var(--plum-deep); }
+
+/* ============ CARD DE DESTAQUE ============ */
+.hp-spotlight { background: rgba(52,28,60,.80); }
+
+@media (max-width: 640px) {
+  .hp-hero__veil {
+    background: linear-gradient(180deg, rgba(46,22,54,.78) 0%, rgba(46,22,54,.90) 54%, rgba(46,22,54,.94) 100%);
+  }
+  /* No celular a fotografia da história atrapalha a leitura das etapas. */
+  .hp-story__media { opacity: .18; }
+  .hp-story::after {
+    background: linear-gradient(180deg, rgba(250,248,250,.92), rgba(250,248,250,.97));
+  }
+}
+
+/* ============ AJUSTES DA INVERSÃO ============ */
+/* A seção de história passou a clara e três textos continuaram na cor de
+   antes, feita para fundo escuro: as descrições das etapas rendiam 1,65:1.
+   Elas ficam num <small> dentro de <span>, e a regra genérica do span não
+   alcançava o filho. */
+.hp-story ol li span small { color: var(--ink-3); }
+.hp-story ol li span strong { color: var(--plum-ink); }
+.hp-story ol li > b { color: var(--hp-brand); }
+
+/* O rodapé clareou, então o texto de apoio precisa acompanhar. */
+.hp-footer > .hp-footer__meta small { color: #b3a3b5; }
+.hp-footer__dev { color: #c3b4c5; border-left-color: rgba(255,255,255,.20); }
+.hp-footer .hp-footer__identity p { color: #c2b2c4; }
+.hp-footer nav.hp-footer__nav a { color: #d5c8d7; }
+
+/* No tema escuro a marca vira lilás claro; usada como fundo do botão da
+   história ela pede tinta escura, não branca. */
+html[data-theme="dark"] .hp-story > .hp-shell > a,
+html[data-theme="dark"] .hp-story > .hp-shell > a:hover { color: #241226; }

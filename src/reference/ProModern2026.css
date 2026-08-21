@@ -541,7 +541,13 @@ html[data-theme="dark"] .ref-mobile-menu>a.is-active{
   color:var(--pc-ink)!important;
 }
 
-.ref-header--back-only .ref-header__inner{height:58px;justify-content:flex-start}
+.ref-header--back-only .ref-header__inner{height:58px;justify-content:space-between}
+.ref-header__back-row{display:flex;align-items:center;gap:14px;min-width:0;flex:1}
+.ref-header__context{display:flex;align-items:center;gap:9px;min-width:0;padding-left:14px;border-left:1px solid var(--pc-border)}
+.ref-header__context-logo{width:26px;height:26px;border-radius:8px;object-fit:contain;background:var(--pc-surface-2);flex:none}
+.ref-header__context-title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--pc-ink);font-size:var(--pc-text-body);font-weight:750}
+.ref-header--back-only .ref-theme{flex:none}
+@media(max-width:640px){.ref-header__context-title{max-width:38vw}}
 .ref-header__back{
   min-height:38px;
   display:inline-flex;

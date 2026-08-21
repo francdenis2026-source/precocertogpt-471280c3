@@ -97,24 +97,13 @@ export function HomeProfessional2026() {
 
   const searchOpen = searchFocused && query.trim().length >= 2;
 
-  // Com a busca aberta a página atrás não rola: o overlay fica sobre ela e
-  // rolar o fundo enquanto se lê os resultados desorienta. A largura da barra
-  // de rolagem é compensada para o conteúdo não saltar ao travar.
+  // A página continua rolando com a busca aberta; overlay e resultados ficam
+  // no fluxo normal do documento e acompanham a barra de pesquisa.
   useEffect(() => {
     if (!searchOpen) return;
-    const { body } = document;
-    const larguraBarra = window.innerWidth - document.documentElement.clientWidth;
-    const overflowAnterior = body.style.overflow;
-    const paddingAnterior = body.style.paddingRight;
-    body.style.overflow = "hidden";
-    if (larguraBarra > 0) body.style.paddingRight = `${larguraBarra}px`;
     const fecharNoEsc = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchFocused(false); };
     document.addEventListener("keydown", fecharNoEsc);
-    return () => {
-      body.style.overflow = overflowAnterior;
-      body.style.paddingRight = paddingAnterior;
-      document.removeEventListener("keydown", fecharNoEsc);
-    };
+    return () => document.removeEventListener("keydown", fecharNoEsc);
   }, [searchOpen]);
 
   const submitSearch = (event: FormEvent) => {

@@ -29,15 +29,19 @@
   z-index: 2;
 }
 
-/* O conteúdo secundário recua apenas pela opacidade, sem qualquer desfoque. */
+/* O conteúdo secundário recua apenas pela opacidade, sem qualquer desfoque.
+   O card de destaque fica opaco para a foto não vazar pelo fundo. */
 .hp-hero.is-searching .hp-eyebrow,
 .hp-hero.is-searching h1,
 .hp-hero.is-searching .hp-hero__copy > p,
-.hp-hero.is-searching .hp-quick-searches,
-.hp-hero.is-searching .hp-spotlight {
+.hp-hero.is-searching .hp-quick-searches {
   opacity: .72;
   filter: none;
   transition: opacity .24s var(--ease);
+  pointer-events: none;
+}
+
+.hp-hero.is-searching .hp-spotlight {
   pointer-events: none;
 }
 

@@ -164,7 +164,7 @@ html[data-theme="dark"] .ref-brand img.ref-brand__dark{display:block}
    Developer / contact dialogs triggered from the footer
    --------------------------------------------------------------------- */
 .pc-dev-backdrop{position:fixed;inset:0;z-index:var(--pc-z-modal);display:grid;place-items:center;padding:20px}
-.pc-dev-dialog,.pc-contact-dialog{position:relative;width:min(680px,100%);max-height:calc(100dvh - 32px);overflow:hidden;padding:20px;display:flex;flex-direction:column;gap:11px}
+.pc-dev-dialog,.pc-contact-dialog{position:relative;width:min(680px,100%);max-height:calc(100dvh - 32px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:20px;display:flex;flex-direction:column;gap:11px}
 .pc-dev-close{position:absolute;top:16px;right:16px;width:36px;height:36px;display:grid;place-items:center;border-radius:999px}
 .pc-dev-close svg{width:18px;height:18px}
 .pc-dev-header{display:flex;gap:14px;align-items:flex-start}

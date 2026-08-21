@@ -565,3 +565,10 @@ html[data-theme="dark"] .ref-header__back{background:var(--pc-surface);color:var
 /* O card já seleciona a loja no mapa; evita repetir a mesma ação no rodapé. */
 .ref-stores-page .ref-store-card>footer>button{display:none}
 .store-pro-topline--location-only{justify-content:flex-end}
+
+/* Todo controle acionável com seta de retorno usa o cursor de ação. */
+:is(a,button):not(:disabled):has(.lucide-arrow-left),
+:is(.ref-header__back,.ref-auth__back,.fav-back,.back-btn,.store-pro-back,.store-detail-back,.auth-back,.admin-back,.pc-service-back,.sf-back,.storefront-pro__back){cursor:pointer!important}
+:is(a,button):has(.lucide-arrow-left) .lucide-arrow-left,
+:is(.ref-header__back,.ref-auth__back,.fav-back,.back-btn,.store-pro-back,.store-detail-back,.auth-back,.admin-back,.pc-service-back,.sf-back,.storefront-pro__back) svg{pointer-events:none}
+:is(a,button):disabled:has(.lucide-arrow-left){cursor:not-allowed!important}

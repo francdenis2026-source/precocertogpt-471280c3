@@ -116,7 +116,7 @@
   html[data-theme="dark"] .ref-header__quick a.is-active,
   html[data-theme="dark"] .ref-dock a.is-active{color:var(--pc-green-strong)!important}
   html[data-theme="dark"] .ref-home .ref-search-submit,
-  html[data-theme="dark"] .home-smart-basket__cta{color:#1f0821!important}
+  html[data-theme="dark"] .home-smart-basket__cta{color:#4b194f!important}
   html[data-theme="dark"] .home-smart-basket__copy>p{color:color-mix(in srgb,#fff 74%,var(--pc-surface))!important}
   html[data-theme="dark"] .ref-home .ref-search input::placeholder{color:color-mix(in srgb,#fff 62%,var(--pc-surface))!important}
 }

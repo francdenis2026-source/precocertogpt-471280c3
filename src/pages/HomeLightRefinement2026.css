@@ -6,11 +6,11 @@
   --pc-light-bg: #f8f6f2;
   --pc-light-surface: #ffffff;
   --pc-light-paper: #f4f1ea;
-  --pc-light-ink: #191019;
+  --pc-light-ink: #3e2a3e;
   --pc-light-muted: #534b53;
   --pc-light-border: rgba(25,16,25,0.12);
   --pc-light-accent: #a34827;
-  --pc-light-primary: #280e28;
+  --pc-light-primary: #4f214f;
   --pc-light-success: #522a55;
   
   /* Refined Product Clipping Glow (Light Mode) */
@@ -169,7 +169,7 @@ html:not([data-theme="dark"]) .pcx-story::after {
 
 /* Footer Polish: High contrast text on dark background */
 html:not([data-theme="dark"]) .pcx-footer {
-  background: #0f060f !important; /* Even darker for better contrast */
+  background: #401e40 !important; /* Even darker for better contrast */
   border-top: 2px solid #a34827 !important; /* Visible accent border */
   color: #ffffff !important; /* Pure white text */
 }

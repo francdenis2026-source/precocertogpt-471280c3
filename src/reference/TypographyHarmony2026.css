@@ -150,3 +150,16 @@ html .sector-hub span small {
 
 /* Último rótulo abaixo do piso: a chamada dos cartões de loja no explorar. */
 html .sector-hub__store-grid a b { font-size: var(--ts-eyebrow); }
+
+/* ============ PROPORÇÃO DA MARCA ============ */
+/* Uma folha fixava a largura da logo e outra fixava a altura; juntas
+   deformavam o desenho. No cabeçalho ela saía 126x30 e no rodapé 92x30,
+   quando a proporção do arquivo pede 3,68:1 — ou seja, esticada num lugar e
+   achatada no outro. Deixando a largura mandar e a altura seguir, o desenho
+   volta a ser o mesmo nos dois. */
+html .ref-brand img,
+html .hp-brand img,
+html .hp-footer__identity .hp-brand img {
+  height: auto;
+  object-fit: contain;
+}

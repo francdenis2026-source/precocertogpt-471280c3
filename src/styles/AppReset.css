@@ -1,6 +1,6 @@
 :root {
   font-family: "Inter Variable", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #271728;
+  color: #462d48;
   background: #f3f1eb;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,7 +32,7 @@ a[href*="lovable.app"][target="_blank"]:has(img[src*="lovable"]) {
 
 * { box-sizing: border-box; }
 
-::selection { background: #c48822; color: #270c28; }
+::selection { background: #c48822; color: #4f1e51; }
 
 .pc-skip-link {
   position: fixed;
@@ -42,7 +42,7 @@ a[href*="lovable.app"][target="_blank"]:has(img[src*="lovable"]) {
   translate: 0 -160%;
   padding: 10px 14px;
   border-radius: 6px;
-  background: #270c28;
+  background: #4f1e51;
   color: #fff;
   font-weight: 800;
 }

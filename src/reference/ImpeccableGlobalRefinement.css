@@ -47,7 +47,7 @@ html[data-theme="dark"] .ref-home .ref-sectors__all{color:color-mix(in srgb,var(
 html[data-theme="dark"] .ref-home .ref-price-board{box-shadow:0 18px 54px rgba(0,0,0,.22)}
 html[data-theme="dark"] .ref-home .ref-price-row:hover{background:color-mix(in srgb,var(--pc-green-soft) 48%,var(--pc-surface));border-color:color-mix(in srgb,var(--pc-green) 42%,var(--pc-border))}
 html[data-theme="dark"] .ref-home .ref-proof span{color:color-mix(in srgb,#fff 70%,var(--pc-surface))}
-html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#1f0821!important}
+html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!important;color:#4b194f!important}
 
 /* Desktop editorial bridge: remove the dead zone between sectors and price board. */
 @media(min-width:681px){
@@ -66,7 +66,7 @@ html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!
 .pc-account-tools>a{min-height:88px;border-radius:var(--pc-radius-card,12px);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
 .pc-account-tools>a:hover{transform:translateY(-2px);box-shadow:var(--pc-soft-shadow)}
 .pc-account-details{border-radius:var(--pc-radius-card,12px);overflow:hidden}
-html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#1c0a1d)}
+html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#471e49)}
 
 /* Admin: denser dashboard, consistent cards and controls. */
 .ref-admin__main,.admin-control-main,.admin-catalog-main{scroll-padding-top:20px}
@@ -113,7 +113,7 @@ html[data-theme="light"] .pdp-page .pdp-add{color:#fff}
 html[data-theme="dark"] .ref-page :is(.ref-search-submit,.ref-auth__submit),
 html[data-theme="dark"] .smart-basket-page :is(.smart-primary,.smart-cta),
 html[data-theme="dark"] .pro-basket-page .pro-basket-primary,
-html[data-theme="dark"] .pdp-page .pdp-add{color:#1f0821!important}
+html[data-theme="dark"] .pdp-page .pdp-add{color:#4b194f!important}
 
 @media(max-width:680px){
   .ref-home .ref-shell,.pc-account-shell{width:min(100% - 24px,620px)}

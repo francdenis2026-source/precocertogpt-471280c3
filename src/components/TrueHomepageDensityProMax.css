@@ -18,7 +18,7 @@
 .true-home .th-product__placeholder strong{font-size:12px;line-height:1.2;color:#421c44}
 .true-home .th-product__placeholder small{font-size:10px;line-height:1.2;color:#715a73}
 
-html[data-theme="dark"] .true-home .th-product__placeholder{background:linear-gradient(145deg,#2e172f,#251225);border-color:#6a426b;color:#ebdbec}
+html[data-theme="dark"] .true-home .th-product__placeholder{background:linear-gradient(145deg,#4c2b4e,#492849);border-color:#6a426b;color:#ebdbec}
 html[data-theme="dark"] .true-home .th-product__placeholder>span{background:#3c1f3d;color:#dd94e1;border-color:#664667}
 html[data-theme="dark"] .true-home .th-product__placeholder strong{color:#f6f0f7}
 html[data-theme="dark"] .true-home .th-product__placeholder small{color:#cec3ce}

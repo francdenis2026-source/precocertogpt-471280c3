@@ -4,10 +4,10 @@
 
 .pc-home {
   --vp-topbar: #f4b63e;
-  --vp-header: #370b36;
-  --vp-header-2: #441044;
-  --vp-plum: #2c122b;
-  --vp-plum-2: #3e183c;
+  --vp-header: #5d1a5b;
+  --vp-header-2: #621e62;
+  --vp-plum: #4f254d;
+  --vp-plum-2: #592856;
   --vp-teal: #9b219b;
   --vp-teal-bright: #c55ac6;
   --vp-gold: #f4b63e;
@@ -130,7 +130,7 @@
   height: 50px;
   border-radius: 10px;
   background: var(--vp-teal);
-  color: #170617;
+  color: #491949;
   font-size: .88rem;
 }
 .pc-home .pc-search button:hover { background: var(--vp-teal-bright); }
@@ -247,7 +247,7 @@
     linear-gradient(120deg,rgba(197,90,198,.11),rgba(244,182,62,.08)),
     rgba(255,255,255,.78);
 }
-[data-theme="dark"] .pc-home .pc-compare-section { background: linear-gradient(120deg,rgba(197,90,198,.07),rgba(244,182,62,.05)),#1f161f; }
+[data-theme="dark"] .pc-home .pc-compare-section { background: linear-gradient(120deg,rgba(197,90,198,.07),rgba(244,182,62,.05)),#403040; }
 .pc-home .pc-basket-section {
   background:
     linear-gradient(115deg, rgba(55,11,54,.94), rgba(68,16,68,.91)),
@@ -266,7 +266,7 @@
 
 /* footer becomes a deliberate ending, not a leftover strip */
 .pc-home .pc-footer {
-  background: #1d081d;
+  background: #4c1a4c;
   border-top: 4px solid var(--vp-gold);
 }
 .pc-home .pc-footer-inner { padding-block: 22px 16px; }

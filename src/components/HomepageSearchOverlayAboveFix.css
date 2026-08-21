@@ -31,7 +31,7 @@
   border: 1px solid rgba(255,255,255,.98);
   border-radius: 13px;
   background: #fff;
-  color: #281928;
+  color: #462f46;
   box-shadow:
     0 0 0 4px rgba(242,121,85,.20),
     0 18px 48px rgba(19,6,19,.34);
@@ -50,9 +50,9 @@
   border: 0;
   outline: 0;
   background: transparent;
-  color: #281928;
+  color: #462f46;
   caret-color: #601e61;
-  -webkit-text-fill-color: #281928;
+  -webkit-text-fill-color: #462f46;
   font: inherit;
   font-size: 1rem;
 }
@@ -130,12 +130,12 @@ body.pc-search-input-active .pc-home .pc-search-area {
 [data-theme="dark"] .pc-search-overlay__floating-search {
   border-color: #715d72;
   background: #faf8fb;
-  color: #251725;
+  color: #452e45;
 }
 
 [data-theme="dark"] .pc-search-overlay__floating-search input {
-  color: #251725;
-  -webkit-text-fill-color: #251725;
+  color: #452e45;
+  -webkit-text-fill-color: #452e45;
 }
 
 [data-theme="dark"] .pc-search-overlay__clear {

@@ -3,7 +3,7 @@
 
 :root {
   /* Color Palette */
-  --pc-canvas: #240e25;
+  --pc-canvas: #4a224c;
   --pc-surface: #441b44;
   --pc-surface-light: #512353;
   --pc-surface-lighter: #4d284e;
@@ -43,7 +43,7 @@ html[data-theme="light"] {
   --pc-surface: #ffffff;
   --pc-surface-light: #f7f3f7;
   --pc-surface-lighter: #efe9ef;
-  --pc-ink: #240e25;
+  --pc-ink: #4a224c;
   --pc-ink-muted: #6a576b;
   --pc-accent: #d47a3d;
   --pc-accent-dark: #b85f2a;

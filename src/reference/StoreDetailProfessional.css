@@ -12,7 +12,7 @@
 .store-pro-hero{position:relative;isolation:isolate;min-height:300px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#5e3c64);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/hero-feijo-real-shopper-2026.webp') 74% 50%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
 .store-pro-hero__overlay{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(23,8,23,.98) 0%,rgba(23,8,23,.94) 40%,rgba(23,8,23,.66) 70%,rgba(23,8,23,.3) 100%)}
 .store-pro-hero__content{position:relative;z-index:2;min-height:300px;display:grid;grid-template-columns:96px minmax(0,1fr) auto;align-items:center;gap:22px;padding:36px 40px}
-.store-pro-logo{width:92px;height:92px;display:grid;place-items:center;overflow:hidden;border-radius:22px;color:#fff;background:#3d1c3e;box-shadow:0 16px 44px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13)}
+.store-pro-logo{width:92px;height:92px;display:grid;place-items:center;overflow:hidden;border-radius:22px;color:#fff;background:#562d57;box-shadow:0 16px 44px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13)}
 .store-pro-logo svg{width:38px;height:38px}
 .store-pro-logo.has-image{background:#fff;padding:8px}
 .store-pro-logo.has-image img{width:100%;height:100%;display:block;object-fit:contain}
@@ -32,7 +32,7 @@
 .store-pro-brand-art{position:absolute;z-index:0;inset:0 0 0 43%;display:flex;align-items:center;justify-content:center;padding:22px 34px 22px 70px;pointer-events:none}
 .store-pro-brand-art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,11,23,.96) 0%,rgba(23,11,23,.7) 22%,rgba(23,11,23,.2) 62%,rgba(23,11,23,.06) 100%)}
 .store-pro-brand-art img{position:relative;max-width:100%;max-height:240px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 18px 34px rgba(0,0,0,.35))}
-.store-pro-hero--bons-amigos{background:linear-gradient(135deg,#140c15 0%,#211421 45%,#170a17 100%)}
+.store-pro-hero--bons-amigos{background:linear-gradient(135deg,#3b263e 0%,#432c43 45%,#432143 100%)}
 .store-pro-hero--bons-amigos .store-pro-hero__overlay{background:linear-gradient(90deg,rgba(16,7,16,.99) 0%,rgba(16,7,16,.97) 35%,rgba(16,7,16,.6) 57%,rgba(16,7,16,.08) 100%)}
 .store-pro-page--bons-amigos .store-pro-copy>span{color:#ff3b30}
 .store-pro-page--bons-amigos .store-pro-meta-line b svg{color:#ff4a3d}
@@ -115,7 +115,7 @@
 .store-pro-bottom-note a svg{width:12px}
 
 .store-pro-state{min-height:100dvh;display:grid;place-items:center;align-content:center;gap:12px;background:var(--pc-canvas);color:var(--pc-ink)}
-.store-pro-state>a{padding:10px 14px;border-radius:9px;background:var(--pc-green);color:#1f0821;font-weight:850}
+.store-pro-state>a{padding:10px 14px;border-radius:9px;background:var(--pc-green);color:#4b194f;font-weight:850}
 .store-pro-loader{width:34px;height:34px;border:3px solid var(--pc-border);border-top-color:var(--pc-green);border-radius:50%;animation:store-pro-spin .8s linear infinite}
 @keyframes store-pro-spin{to{transform:rotate(1turn)}}
 

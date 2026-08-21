@@ -4,14 +4,14 @@
   --th-ease-in-out:cubic-bezier(.77,0,.175,1);
   --th-press:140ms;
   --th-ui:190ms;
-  --th-navy:#1e0a1f;
-  --th-navy-2:#2b102c;
+  --th-navy:#491d4b;
+  --th-navy-2:#4f2350;
   --th-green:#10b981;
   --th-green-soft:#f5e1f6;
   --th-surface:#ffffff;
   --th-soft:#f8f5f8;
   --th-line:#e7dfe8;
-  --th-ink:#2e152e;
+  --th-ink:#4e294e;
   --th-muted:#79637a;
 }
 
@@ -34,7 +34,7 @@
 
 .true-home .th-search{max-width:680px;min-height:62px;padding:6px 6px 6px 18px;border:1px solid rgba(255,255,255,.52);border-radius:17px;box-shadow:0 16px 38px rgba(0,0,0,.24);transition:box-shadow var(--th-ui) ease,border-color var(--th-ui) ease,transform var(--th-ui) var(--th-ease-out)}
 .true-home .th-search:focus-within{transform:none;box-shadow:0 18px 42px rgba(0,0,0,.28),0 0 0 3px rgba(164,31,170,.24);border-color:#d48fd7}
-.true-home .th-search input{height:48px;font-size:16px;color:#2e172f}
+.true-home .th-search input{height:48px;font-size:16px;color:#4c2b4e}
 .true-home .th-search button{height:48px;border-radius:11px;transition:transform var(--th-press) var(--th-ease-out),filter var(--th-ui) ease,background-color var(--th-ui) ease}
 .true-home .th-search button:active{transform:scale(.97)}
 .true-home .th-trust{margin-top:15px;gap:10px 16px}
@@ -76,15 +76,15 @@
 .true-home .th-mid-hero__panel{backdrop-filter:blur(14px) saturate(120%)}
 
 .true-home .th-discover{background:#f8f4f8}
-.true-home .th-basket-mini{background:linear-gradient(145deg,#330b34,#611363);box-shadow:0 18px 42px rgba(51,11,52,.12)}
+.true-home .th-basket-mini{background:linear-gradient(145deg,#591a5b,#611363);box-shadow:0 18px 42px rgba(51,11,52,.12)}
 .true-home .th-basket-mini .th-button{box-shadow:none}
 .true-home .th-store{border-color:#e8dfe8;box-shadow:0 4px 14px rgba(38,19,37,.035);transition:border-color var(--th-ui) ease,box-shadow var(--th-ui) ease,background-color var(--th-ui) ease,transform var(--th-press) var(--th-ease-out)}
 .true-home .th-store:active{transform:scale(.985)}
 .true-home .th-store__logo{background:#fff!important;border:1px solid #ebe5ec}
 
-.true-home .th-merchant{background:linear-gradient(115deg,#1e0a1f,#39123b)}
+.true-home .th-merchant{background:linear-gradient(115deg,#491d4b,#58225a)}
 .true-home .th-merchant__inner{min-height:150px}
-.true-home .th-footer{padding:22px 0;background:#1b081b}
+.true-home .th-footer{padding:22px 0;background:#4a1b4a}
 
 .true-home :is(.th-button,.th-search button,.th-header__cta,.th-product-modal__actions a){transition:transform var(--th-press) var(--th-ease-out),background-color var(--th-ui) ease,color var(--th-ui) ease,border-color var(--th-ui) ease,box-shadow var(--th-ui) ease,filter var(--th-ui) ease}
 .true-home :is(.th-button,.th-header__cta,.th-product-modal__actions a):active{transform:scale(.97)}
@@ -101,12 +101,12 @@
   .true-home .th-brand:hover,.true-home .th-brand:hover img,.true-home .th-footer nav a:hover{transform:none!important}
 }
 
-html[data-theme="dark"] .true-home{--th-surface:#241025;--th-soft:#1e0d1f;--th-line:#4d304c;--th-ink:#f5edf6;--th-muted:#cdbacc}
-html[data-theme="dark"] .true-home .th-quick{background:#1d0d1e;border-bottom-color:#3f243e}
-html[data-theme="dark"] .true-home .th-opportunities{background:linear-gradient(180deg,#1c0b1d,#220b21)}
-html[data-theme="dark"] .true-home .th-discover{background:#1d0d1e}
-html[data-theme="dark"] .true-home .th-quick__grid>a,html[data-theme="dark"] .true-home .th-store{background:#290f28;border-color:#4c2e4b;box-shadow:none}
-html[data-theme="dark"] .true-home .th-quick__grid>a>span{background:#331534;color:#d993dd}
+html[data-theme="dark"] .true-home{--th-surface:#48254a;--th-soft:#452347;--th-line:#4d304c;--th-ink:#f5edf6;--th-muted:#cdbacc}
+html[data-theme="dark"] .true-home .th-quick{background:#442346;border-bottom-color:#3f243e}
+html[data-theme="dark"] .true-home .th-opportunities{background:linear-gradient(180deg,#462048,#4c1e4a)}
+html[data-theme="dark"] .true-home .th-discover{background:#442346}
+html[data-theme="dark"] .true-home .th-quick__grid>a,html[data-theme="dark"] .true-home .th-store{background:#4f224d;border-color:#4c2e4b;box-shadow:none}
+html[data-theme="dark"] .true-home .th-quick__grid>a>span{background:#522753;color:#d993dd}
 html[data-theme="dark"] .true-home .th-store__logo{background:#fff!important;border-color:#523451}
 
 @media(max-width:960px){

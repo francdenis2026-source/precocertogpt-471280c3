@@ -13,7 +13,7 @@
 /* Light theme — brighter editorial hero, restrained image and strong readable type. */
 html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore,
 html[data-theme="light"] .sector-page--all .sector-hero--explore {
-  color:#2d152e;
+  color:#4d294e;
   background:
     linear-gradient(90deg,rgba(247,249,246,.98) 0%,rgba(248,244,248,.95) 48%,rgba(245,239,246,.82) 72%,rgba(242,235,243,.68) 100%),
     url('/hero-feijo-real-shopper-2026.webp') 66% 43%/cover no-repeat;
@@ -34,7 +34,7 @@ html[data-theme="light"] .sector-page--all .sector-hero--explore .sector-eyebrow
 
 html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore h1,
 html[data-theme="light"] .sector-page--all .sector-hero--explore h1 {
-  color:#2d152e;
+  color:#4d294e;
   text-shadow:none;
 }
 
@@ -61,7 +61,7 @@ html:not([data-theme="dark"]) .sector-page--all .sector-hero--explore aside,
 html[data-theme="light"] .sector-page--all .sector-hero--explore aside {
   border-color:rgba(101,76,103,.18);
   background:rgba(255,255,255,.74);
-  color:#381a37;
+  color:#532c52;
   box-shadow:0 16px 38px rgba(57,34,59,.09);
   backdrop-filter:blur(14px) saturate(112%);
 }

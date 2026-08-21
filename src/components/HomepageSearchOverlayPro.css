@@ -40,7 +40,7 @@
   border: 1px solid rgba(219,210,220, .96);
   border-radius: 18px;
   background: rgba(255, 254, 251, .995);
-  color: #2d1f2d;
+  color: #483448;
   box-shadow: 0 32px 90px rgba(23,7,23, .34), 0 2px 10px rgba(23,7,23, .10), inset 0 1px 0 rgba(255,255,255,.9);
   pointer-events: auto;
   transform-origin: 50% 0;
@@ -75,7 +75,7 @@
 }
 .pc-search-overlay__header span svg { width: 14px; height: 14px; }
 .pc-search-overlay__header strong {
-  color: #2d192e;
+  color: #4a2d4c;
   font-size: .98rem;
   font-weight: 900;
   letter-spacing: -.015em;
@@ -99,7 +99,7 @@
   cursor: pointer;
   transition: transform 150ms cubic-bezier(.2,.8,.2,1), background-color 160ms ease, color 160ms ease, border-color 160ms ease;
 }
-.pc-search-overlay__header > button:hover { background: #f7f3f7; color: #381a39; border-color: #cbc1cb; }
+.pc-search-overlay__header > button:hover { background: #f7f3f7; color: #532c54; border-color: #cbc1cb; }
 .pc-search-overlay__header > button:active { transform: scale(.96); }
 .pc-search-overlay__header > button svg { width: 18px; height: 18px; }
 
@@ -122,7 +122,7 @@
   padding: 10px 14px;
   border-bottom: 1px solid #ece8ed;
   background: transparent;
-  color: #2e1f2e;
+  color: #483448;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 160ms ease, box-shadow 160ms ease, transform 150ms cubic-bezier(.2,.8,.2,1);
@@ -155,7 +155,7 @@
 .pc-search-overlay__copy strong,
 .pc-search-overlay__copy small,
 .pc-search-overlay__copy em { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pc-search-overlay__copy strong { color: #291929; font-size: .91rem; font-weight: 900; letter-spacing: -.012em; }
+.pc-search-overlay__copy strong { color: #472f47; font-size: .91rem; font-weight: 900; letter-spacing: -.012em; }
 .pc-search-overlay__copy small { margin-top: 2px; color: #716771; font-size: .72rem; font-weight: 620; }
 .pc-search-overlay__copy em {
   width: fit-content;
@@ -250,27 +250,27 @@
 
 [data-theme="dark"] .pc-search-overlay__backdrop { background: rgba(7,0,8, .45); }
 [data-theme="dark"] .pc-search-overlay__panel { border-color: #504250; background: rgba(29,20,29, .995); color: #f4eef5; box-shadow: 0 34px 100px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.035); }
-[data-theme="dark"] .pc-search-overlay__header { border-bottom-color: #443644; background: linear-gradient(180deg, #231923, #1f161f); }
+[data-theme="dark"] .pc-search-overlay__header { border-bottom-color: #443644; background: linear-gradient(180deg, #423142, #403040); }
 [data-theme="dark"] .pc-search-overlay__header strong,
 [data-theme="dark"] .pc-search-overlay__copy strong,
 [data-theme="dark"] .pc-search-overlay__state { color: #f5f0f6; }
 [data-theme="dark"] .pc-search-overlay__header small,
 [data-theme="dark"] .pc-search-overlay__copy small,
 [data-theme="dark"] .pc-search-overlay__state small { color: #b9afb9; }
-[data-theme="dark"] .pc-search-overlay__header > button { border-color: #504350; background: #2a1e2a; color: #d0c7d0; }
+[data-theme="dark"] .pc-search-overlay__header > button { border-color: #504350; background: #453445; color: #d0c7d0; }
 [data-theme="dark"] .pc-search-overlay__result { border-bottom-color: #443644; color: #f3edf4; }
 [data-theme="dark"] .pc-search-overlay__result:hover,
 [data-theme="dark"] .pc-search-overlay__result:focus-visible,
 [data-theme="dark"] .pc-search-overlay__result.is-active { background: linear-gradient(90deg, rgba(161,81,163,.16), rgba(161,81,163,.045)); }
-[data-theme="dark"] .pc-search-overlay__thumb { border-color: #504250; background: #281d28; }
+[data-theme="dark"] .pc-search-overlay__thumb { border-color: #504250; background: #443444; }
 [data-theme="dark"] .pc-search-overlay__copy em { color: #cf7ad1; }
 [data-theme="dark"] .pc-search-overlay__price { border-left-color: #443845; }
 [data-theme="dark"] .pc-search-overlay__price small { color: #bab0ba; }
 [data-theme="dark"] .pc-search-overlay__price strong { color: #d28dd8; }
 [data-theme="dark"] .pc-search-overlay__price em { color: #ff9d80; }
-[data-theme="dark"] .pc-search-overlay__footer { border-top-color: #443644; background: #231923; }
+[data-theme="dark"] .pc-search-overlay__footer { border-top-color: #443644; background: #423142; }
 [data-theme="dark"] .pc-search-overlay__footer > span { color: #ada1ad; }
-[data-theme="dark"] .pc-search-overlay__footer kbd { border-color: #5b4d5c; background: #2f222f; color: #e4dbe4; }
+[data-theme="dark"] .pc-search-overlay__footer kbd { border-color: #5b4d5c; background: #483748; color: #e4dbe4; }
 
 @media (max-width: 720px) {
   .pc-search-overlay__backdrop { backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }

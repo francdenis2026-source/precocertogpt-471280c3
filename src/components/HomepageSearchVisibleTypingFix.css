@@ -3,19 +3,19 @@
   z-index: 2 !important;
   opacity: 1 !important;
   visibility: visible !important;
-  color: #281928 !important;
+  color: #462f46 !important;
   caret-color: #601e61 !important;
-  -webkit-text-fill-color: #281928 !important;
+  -webkit-text-fill-color: #462f46 !important;
   text-shadow: none !important;
 }
 
 .pc-search-overlay__floating-search input::selection {
   background: rgba(96,30,97, .18);
-  color: #281928;
+  color: #462f46;
 }
 
 [data-theme="dark"] .pc-search-overlay__floating-search input {
-  color: #251725 !important;
+  color: #452e45 !important;
   caret-color: #601e61 !important;
-  -webkit-text-fill-color: #251725 !important;
+  -webkit-text-fill-color: #452e45 !important;
 }

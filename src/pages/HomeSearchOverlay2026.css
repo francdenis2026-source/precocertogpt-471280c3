@@ -217,3 +217,16 @@
   .hp-search-scrim, .hp-search-results { animation: none; }
   .hp-hero.is-searching .hp-search { transform: none; }
 }
+/* A homepage continua rolando normalmente, mas sem exibir a barra vertical. */
+html.hp-hide-page-scrollbar,
+body.hp-hide-page-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html.hp-hide-page-scrollbar::-webkit-scrollbar,
+body.hp-hide-page-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}

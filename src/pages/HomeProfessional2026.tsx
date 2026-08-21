@@ -52,6 +52,17 @@ export function HomeProfessional2026() {
   const [theme, setTheme] = useState<Theme>(readTheme);
 
   useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+    root.classList.add("hp-hide-page-scrollbar");
+    body.classList.add("hp-hide-page-scrollbar");
+    return () => {
+      root.classList.remove("hp-hide-page-scrollbar");
+      body.classList.remove("hp-hide-page-scrollbar");
+    };
+  }, []);
+
+  useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
     window.localStorage.setItem("theme", theme);

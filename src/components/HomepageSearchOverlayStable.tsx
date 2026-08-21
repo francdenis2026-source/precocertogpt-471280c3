@@ -1,4 +1,5 @@
 import { CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import { createPortal } from "react-dom";
 import { ArrowRight, LoaderCircle, PackageSearch, Search, Store, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product } from "../data/catalog";
@@ -198,12 +199,23 @@ export function HomepageSearchOverlayStable() {
     document.querySelector<HTMLInputElement>("#pc-home-search")?.focus({ preventScroll: true });
   };
 
+  const closeFromShade = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const documentWidth = document.documentElement.clientWidth;
+    const documentHeight = document.documentElement.clientHeight;
+    const clickedVerticalScrollbar = event.clientX >= documentWidth;
+    const clickedHorizontalScrollbar = event.clientY >= documentHeight;
+
+    // Native scrollbar presses must remain scroll interactions, never outside clicks.
+    if (clickedVerticalScrollbar || clickedHorizontalScrollbar) return;
+    close();
+  };
+
   return createPortal(
     <div className="pc-stable-search" style={rootStyle}>
-      <button className="pc-stable-search__shade pc-stable-search__shade--top" type="button" aria-label="Fechar resultados" onClick={close} />
-      <button className="pc-stable-search__shade pc-stable-search__shade--left" type="button" aria-label="Fechar resultados" onClick={close} />
-      <button className="pc-stable-search__shade pc-stable-search__shade--right" type="button" aria-label="Fechar resultados" onClick={close} />
-      <button className="pc-stable-search__shade pc-stable-search__shade--bottom" type="button" aria-label="Fechar resultados" onClick={close} />
+      <button className="pc-stable-search__shade pc-stable-search__shade--top" type="button" aria-label="Fechar resultados" onPointerDown={closeFromShade} />
+      <button className="pc-stable-search__shade pc-stable-search__shade--left" type="button" aria-label="Fechar resultados" onPointerDown={closeFromShade} />
+      <button className="pc-stable-search__shade pc-stable-search__shade--right" type="button" aria-label="Fechar resultados" onPointerDown={closeFromShade} />
+      <button className="pc-stable-search__shade pc-stable-search__shade--bottom" type="button" aria-label="Fechar resultados" onPointerDown={closeFromShade} />
 
       <section className="pc-stable-search__panel" ref={panelRef} aria-label="Resultados da busca">
         <header className="pc-stable-search__header">

@@ -1,14 +1,12 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  ArrowRight, BookOpen, HeartPulse, MapPin, Menu, Moon,
-  PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, TrendingDown, X,
-} from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, TrendingDown, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import "./HomeProfessional2026.css";
 import "./HomeRebuildAcai2026.css";
+import "./HomeRefineAcai2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -162,7 +160,39 @@ export function HomeProfessional2026() {
       </section>
     </main>
 
-    <footer className="hp-footer"><div className="hp-shell"><Link className="hp-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /><small>FEIJÓ · ACRE</small></Link><p>Compare preços locais e faça escolhas melhores.</p><nav aria-label="Links do rodapé"><Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/lojista">Para comerciantes</Link><Link to="/contato">Contato</Link></nav></div></footer>
+    <footer className="hp-footer">
+      <div className="hp-shell hp-footer__inner">
+        <div className="hp-footer__identity">
+          <Link className="hp-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link>
+          <p>O preço certo perto de você. Compare o comércio de Feijó antes de sair de casa.</p>
+        </div>
+        <nav aria-label="Links do rodapé" className="hp-footer__nav">
+          <div>
+            <strong>Plataforma</strong>
+            <Link to="/buscar">Comparar preços</Link>
+            <Link to="/explorar">Setores</Link>
+            <Link to="/estabelecimentos">Lojas locais</Link>
+            <Link to="/cesta-basica">Lista de compras</Link>
+          </div>
+          <div>
+            <strong>Negócios</strong>
+            <Link to="/lojista">Seja um parceiro</Link>
+            <Link to="/quero-vender">Quero vender</Link>
+            <Link to="/painel-lojista">Painel lojista</Link>
+          </div>
+          <div>
+            <strong>Suporte</strong>
+            <Link to="/fale-conosco">Fale conosco</Link>
+            <Link to="/colaborar">Colaborar</Link>
+            <Link to="/meus-pedidos">Rastrear pedido</Link>
+          </div>
+        </nav>
+      </div>
+      <div className="hp-shell hp-footer__meta">
+        <span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span>
+        <small>&copy; 2026 PreçoCerto · Feijó, AC</small>
+      </div>
+    </footer>
     <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>
   </div>;
 }

@@ -1,0 +1,342 @@
+/* Refinamento de cor, cabeçalho, rodapé e microinterações.
+   Carregado depois de HomeRebuildAcai2026.css. */
+
+/* ============ COR ============ */
+/* O roxo anterior era h272 s53% — violeta frio e vívido, leitura de produto
+   de tecnologia. E disputava com o âmbar a 123 graus de distância, quase
+   complementares. A família aqui gira para h298, mais próxima do vinho, com
+   menos saturação e mais profundidade; o âmbar escurece e a distância cai
+   para 90 graus, então os dois passam a ler como um sistema só.
+
+   A mudança que mais pesa, porém, não é o matiz: é o quanto de cor a página
+   usa. Antes o roxo carregava títulos, rótulos de categoria e preços. Cor
+   saturada em texto de todo nível é o que rouba a sobriedade. Aqui ela fica
+   reservada ao que o usuário pode acionar. */
+.hp-home {
+  --hp-brand: #5f2960;
+  --hp-brand-2: #804082;
+  --hp-accent: #ba6e2c;
+  --hp-accent-ink: #ffffff;
+
+  --plum-ink: #221523;
+  --plum-deep: #1d101e;
+  --plum-soft: #f6eef6;
+
+  --hp-ink: #221523;
+  --ink-2: #4b3a4d;
+  --ink-3: #63536a;
+  --hp-muted: #63536a;
+
+  --hp-bg: #faf8fa;
+  --hp-surface: #ffffff;
+  --hp-surface-2: #f4eff5;
+  --hp-line: #e6dde8;
+  --hp-shadow: 0 18px 44px rgba(34,21,35,.10);
+}
+
+html[data-theme="dark"] .hp-home {
+  --hp-brand: #cfa7d1;
+  --hp-brand-2: #e2c4e3;
+  --hp-accent: #e0a25c;
+  --hp-accent-ink: #241226;
+  --plum-ink: #f7f2f8;
+  --plum-deep: #120b13;
+  --plum-soft: #2a1a2c;
+  --hp-ink: #f7f2f8;
+  --ink-2: #d3c3d5;
+  --ink-3: #b6a4b9;
+  --hp-muted: #b6a4b9;
+  --hp-bg: #140d15;
+  --hp-surface: #1d131f;
+  --hp-surface-2: #261a28;
+  --hp-line: #362636;
+}
+
+/* Títulos e preços deixam de ser roxos. São a informação principal e ganham
+   mais presença em tinta cheia do que em cor de marca. */
+.hp-section-head h2,
+.hp-local h2 { color: var(--plum-ink); }
+
+.hp-product-card__body > div strong,
+.hp-spotlight__prices strong { color: var(--plum-ink); }
+
+html[data-theme="dark"] .hp-spotlight__prices strong { color: #f7f2f8; }
+
+/* Rótulos de categoria em neutro: eram roxo saturado repetido em cada
+   cartão, o que multiplicava a cor sem acrescentar informação. */
+.hp-product-card__body > small { color: var(--ink-3); font-weight: 800; }
+
+/* O olho de destaque continua colorido — é um só por seção. */
+.hp-section-head span,
+.hp-section-head div span,
+.hp-story > .hp-shell > span,
+.hp-local__copy > span { color: var(--hp-brand-2); }
+
+/* ============ CABEÇALHO ============ */
+.hp-header {
+  background: color-mix(in srgb, var(--hp-surface) 82%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+/* Sem sombra no topo da página; a borda só aparece quando o conteúdo passa
+   por baixo, o que dá ao cabeçalho um estado de repouso e um de trabalho. */
+.hp-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hp-line) 18%, var(--hp-line) 82%, transparent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+body:has(.hp-home) .hp-header::after { opacity: 1; }
+
+.hp-brand img { transition: transform .3s var(--ease); }
+.hp-brand:hover img { transform: translateY(-1px) scale(1.015); }
+
+.hp-theme, .hp-menu {
+  transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+
+.hp-theme:hover, .hp-menu:hover {
+  background: var(--hp-surface-2);
+  border-color: color-mix(in srgb, var(--hp-brand) 34%, var(--hp-line));
+  transform: translateY(-1px);
+}
+
+.hp-login {
+  background: var(--plum-ink);
+  transition: background .22s var(--ease), transform .22s var(--ease), box-shadow .22s var(--ease);
+}
+
+.hp-login:hover {
+  background: var(--hp-brand);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(95,41,96,.32);
+}
+
+/* ============ RODAPÉ ============ */
+/* Passa a carregar a mesma árvore de links das páginas internas, em vez de
+   uma fileira solta de quatro itens. */
+.hp-footer {
+  padding: 0;
+  background: var(--plum-deep);
+  color: #d9cbda;
+}
+
+.hp-footer > .hp-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr);
+  gap: 48px;
+  padding-block: 40px 30px;
+}
+
+.hp-footer__identity { display: grid; gap: 14px; align-content: start; }
+.hp-footer__identity .hp-brand img { width: 152px; height: auto; }
+
+.hp-footer .hp-footer__identity p {
+  max-width: 300px;
+  margin: 0;
+  color: #b5a3b7;
+  font-size: var(--t-small);
+  line-height: 1.6;
+}
+
+.hp-footer nav.hp-footer__nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  margin: 0;
+}
+
+.hp-footer nav.hp-footer__nav > div { display: grid; gap: 9px; align-content: start; }
+
+.hp-footer nav.hp-footer__nav strong {
+  margin-bottom: 3px;
+  color: var(--hp-accent);
+  font-size: var(--t-eyebrow);
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.hp-footer nav.hp-footer__nav a {
+  position: relative;
+  width: fit-content;
+  color: #cbbccd;
+  font-size: var(--t-small);
+  font-weight: 600;
+  transition: color .2s var(--ease), transform .2s var(--ease);
+}
+
+.hp-footer nav.hp-footer__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transition: right .25s var(--ease);
+}
+
+.hp-footer nav.hp-footer__nav a:hover { color: #fff; transform: translateX(2px); }
+.hp-footer nav.hp-footer__nav a:hover::after { right: 0; }
+
+.hp-footer > .hp-footer__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 16px;
+  border-top: 1px solid rgba(255,255,255,.09);
+}
+
+.hp-footer__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #d8b98a;
+  font-size: var(--t-meta);
+  font-weight: 700;
+}
+
+.hp-footer__meta span svg { width: 15px; }
+.hp-footer__meta small { color: #9c8b9e; font-size: var(--t-meta); }
+
+/* ============ MICROINTERAÇÕES ============ */
+/* Um vocabulário só: o elemento sobe alguns pixels, a sombra acompanha e a
+   cor da borda confirma o alvo. Repetir o mesmo gesto em toda a página é o
+   que faz a interface parecer construída por uma pessoa só. */
+
+/* Botão principal: brilho que atravessa uma vez no hover. */
+.hp-home .hp-search__submit {
+  position: relative;
+  overflow: hidden;
+  background: var(--hp-brand);
+}
+
+.hp-home .hp-search__submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.26) 50%, transparent 70%);
+  transform: translateX(-130%);
+  transition: transform .6s var(--ease);
+}
+
+.hp-home .hp-search__submit:hover { background: var(--hp-brand-2); }
+.hp-home .hp-search__submit:hover::before { transform: translateX(130%); }
+
+/* Cartões: a elevação vem com a borda ganhando cor, e a seta caminha. */
+.hp-sector-grid > a svg:last-child,
+.hp-local__actions a svg:last-child {
+  transition: transform .25s var(--ease);
+}
+
+.hp-sector-grid > a:hover svg:last-child,
+.hp-local__actions a:hover svg:last-child { transform: translateX(4px); }
+
+.hp-product-card__body > div > svg { transition: transform .25s var(--ease), color .25s var(--ease); }
+
+.hp-product-card:hover .hp-product-card__body > div > svg {
+  transform: translateX(4px);
+  color: var(--hp-brand);
+}
+
+/* O selo de comparar entra junto com o cartão em vez de ficar sempre aceso. */
+.hp-product-card__media > span {
+  background: color-mix(in srgb, var(--hp-surface) 94%, transparent);
+  color: var(--hp-brand);
+  opacity: .82;
+  transform: translateY(-2px);
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+
+.hp-product-card:hover .hp-product-card__media > span { opacity: 1; transform: translateY(0); }
+
+/* Chips de busca rápida. */
+.hp-quick-searches a { will-change: transform; }
+.hp-quick-searches a:active { transform: translateY(0) scale(.97); }
+
+/* Botão do card de destaque. */
+.hp-spotlight > a, .hp-spotlight > button {
+  background: var(--hp-accent);
+  color: var(--hp-accent-ink);
+  font-weight: 800;
+}
+
+.hp-spotlight > a:hover, .hp-spotlight > button:hover {
+  background: color-mix(in srgb, var(--hp-accent) 84%, #fff);
+}
+
+/* Estados pressionados: todo alvo volta ao lugar ao ser clicado, o que dá a
+   sensação física de botão. */
+.hp-home :is(a, button):active { transform: translateY(0) scale(.995); }
+
+/* ============ RESPONSIVO ============ */
+@media (max-width: 900px) {
+  .hp-footer > .hp-footer__inner { grid-template-columns: 1fr; gap: 28px; padding-block: 30px 22px; }
+  .hp-footer .hp-footer__identity p { max-width: none; }
+}
+
+@media (max-width: 640px) {
+  .hp-footer nav.hp-footer__nav { grid-template-columns: 1fr 1fr; gap: 22px 18px; }
+  .hp-footer > .hp-footer__meta { flex-direction: column; align-items: flex-start; gap: 8px; padding-bottom: 92px; }
+  .hp-footer__identity .hp-brand img { width: 134px; }
+}
+
+/* ============ SUPERFÍCIES ESCURAS ============ */
+/* Estes três elementos ficam sobre fundo escuro nos dois temas — o card de
+   destaque e a seção de história vivem sobre fotografia. Tinta de texto
+   comum aqui resulta em escuro sobre escuro, então eles seguem a superfície
+   em que estão, não o tema da página. */
+.hp-spotlight__prices strong,
+html[data-theme="dark"] .hp-spotlight__prices strong { color: #f7f2f8; }
+.hp-spotlight__prices small { color: #c3b0c5; }
+.hp-spotlight > header span { color: #dcb9de; }
+.hp-spotlight > header small { color: #b7a5b9; }
+
+.hp-story > .hp-shell > span { color: #dcb9de; }
+
+/* O âmbar com texto branco dava 3,92:1 — insuficiente para 11px. Clareando o
+   fundo e escrevendo em ameixa o mesmo botão chega a 6,79:1. */
+.hp-home {
+  --hp-accent: #d99242;
+  --hp-accent-ink: #221523;
+}
+
+.hp-spotlight > a, .hp-spotlight > button { color: var(--hp-accent-ink); }
+
+.hp-spotlight > a:hover, .hp-spotlight > button:hover {
+  background: #e7a558;
+}
+
+/* O rótulo do rodapé usa o âmbar sobre ameixa profunda, onde ele rende bem. */
+.hp-footer nav.hp-footer nav.hp-footer__nav strong { color: #d99242; }
+
+/* ============ TEMA ESCURO: BOTÕES ============ */
+/* No escuro a marca vira lilás claro para funcionar como texto. Usada como
+   fundo de botão com texto branco, porém, cai a 2,08:1. Nesses alvos a tinta
+   acompanha o fundo em vez do tema. */
+html[data-theme="dark"] .hp-home .hp-search__submit,
+html[data-theme="dark"] .hp-local__actions a:first-child {
+  color: #201122;
+}
+
+html[data-theme="dark"] .hp-home .hp-search__submit svg,
+html[data-theme="dark"] .hp-local__actions a:first-child svg { color: #201122; }
+
+html[data-theme="dark"] .hp-login { background: var(--hp-brand); color: #201122; }
+html[data-theme="dark"] .hp-login:hover { background: var(--hp-brand-2); }
+
+/* ============ DOCK MÓVEL ============ */
+/* Os rótulos ficavam em 8px — os menores da página inteira, justamente na
+   navegação principal do celular. */
+.hp-dock a { font-size: var(--t-eyebrow); gap: 4px; }
+.hp-dock a span { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0; }
+.hp-dock a svg { width: 20px; }
+.hp-dock a { transition: color .2s var(--ease), background .2s var(--ease); }
+.hp-dock a.is-active { color: var(--hp-brand); }

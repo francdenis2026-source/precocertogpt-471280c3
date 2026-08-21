@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { normalize } from '../data/remoteCatalog';
-import { normalizeSearchText, searchProducts, suggestProducts } from '../lib/productSearch';
+import { findSimilarProducts, normalizeSearchText, searchProducts, suggestProducts } from '../lib/productSearch';
 
 
 describe('Normalização de Busca', () => {
@@ -55,6 +55,42 @@ describe('Busca de produtos por relevância', () => {
     const suggestions = suggestProducts(duplicated, 'arroz tio');
     expect(suggestions.filter(p => p.name === 'Arroz Tio João Tipo 1')).toHaveLength(1);
     expect(suggestions[0].minPrice).toBe(27.9);
+  });
+});
+
+describe('Produtos similares', () => {
+  const base = {
+    slug: '', category: 'Mercearia', size: '1 kg', unit: 'pacote',
+    minPrice: 1, avgPrice: 2, maxPrice: 3, storeCount: 1,
+    establishmentId: 1, establishmentSlug: 'loja', establishment: 'Loja',
+    neighborhood: 'Centro', storeColor: '#000', capturedAt: new Date().toISOString(),
+  };
+  const arroz = { ...base, id: 1, name: 'Arroz Tio João Tipo 1', brand: 'Tio João' };
+
+  it('não trata produtos diferentes da mesma categoria como similares', () => {
+    const catalog = [
+      arroz,
+      { ...base, id: 2, name: 'Feijão Carioca Kicaldo', brand: 'Kicaldo' },
+      { ...base, id: 3, name: 'Óleo de Soja Liza', brand: 'Liza' },
+    ];
+    expect(findSimilarProducts(catalog, arroz)).toEqual([]);
+  });
+
+  it('encontra a mesma família de produto mesmo com outra marca', () => {
+    const semelhante = { ...base, id: 2, name: 'Arroz Branco Bernardo', brand: 'Bernardo', minPrice: 6.5 };
+    const catalog = [arroz, semelhante, { ...base, id: 3, name: 'Feijão Carioca', brand: 'Kicaldo' }];
+    expect(findSimilarProducts(catalog, arroz).map(product => product.id)).toEqual([2]);
+  });
+
+  it('não cruza produtos com categorias incompatíveis', () => {
+    const higiene = { ...base, id: 2, name: 'Óleo Corporal Amêndoas', brand: 'Marca', category: 'Higiene' };
+    const cozinha = { ...base, id: 3, name: 'Óleo de Soja Liza', brand: 'Liza' };
+    expect(findSimilarProducts([cozinha, higiene], cozinha)).toEqual([]);
+  });
+
+  it('remove cadastros duplicados do mesmo produto', () => {
+    const duplicado = { ...arroz, id: 2, minPrice: .9 };
+    expect(findSimilarProducts([arroz, duplicado], arroz)).toEqual([]);
   });
 });
 

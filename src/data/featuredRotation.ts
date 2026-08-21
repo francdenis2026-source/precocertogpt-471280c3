@@ -38,6 +38,22 @@ function shuffle<T>(items: T[], random: () => number) {
 const storeKey = (product: Product) =>
   (product.establishment || "").trim().toLowerCase() || "sem-estabelecimento";
 
+const normalizeIdentity = (value: string) => value
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "")
+  .trim();
+
+const productKey = (product: Product) => normalizeIdentity([
+  product.name,
+  product.brand,
+  product.size,
+].filter(Boolean).join(" ")) || String(product.id);
+
+const imageKey = (product: Product) =>
+  resolveProductImage(product)?.split("?")[0].toLowerCase() || `sem-imagem:${productKey(product)}`;
+
 /**
  * Monta a vitrine do ciclo.
  *
@@ -76,16 +92,30 @@ export function buildFeatured(products: Product[], cycle: number, size = 6) {
   const lojas = shuffle([...porLoja.keys()], random).map(key => shuffle(porLoja.get(key)!, random));
 
   const escolhidos: Product[] = [];
-  for (let rodada = 0; escolhidos.length < size; rodada += 1) {
-    let colheu = false;
+  const produtosUsados = new Set<string>();
+  const imagensUsadas = new Set<string>();
+  const candidatos: Product[] = [];
+  for (let rodada = 0; ; rodada += 1) {
+    let encontrou = false;
     for (const fila of lojas) {
-      if (escolhidos.length >= size) break;
       const produto = fila[rodada];
       if (!produto) continue;
-      escolhidos.push(produto);
-      colheu = true;
+      candidatos.push(produto);
+      encontrou = true;
     }
-    if (!colheu) break; // catálogo esgotado antes de encher a vitrine
+    if (!encontrou) break;
+  }
+
+  for (const produto of candidatos) {
+      if (escolhidos.length >= size) break;
+      const chaveProduto = productKey(produto);
+      const chaveImagem = imageKey(produto);
+      // O mesmo item pode existir em várias lojas e variantes podem apontar
+      // para o mesmo arquivo. A vitrine mostra cada identidade visual uma vez.
+      if (produtosUsados.has(chaveProduto) || imagensUsadas.has(chaveImagem)) continue;
+      escolhidos.push(produto);
+      produtosUsados.add(chaveProduto);
+      imagensUsadas.add(chaveImagem);
   }
 
   return escolhidos;

@@ -45,27 +45,28 @@
    alternar quatro vezes. A fotografia continua, agora sob um véu claro. */
 .hp-story { background: var(--hp-surface-2); color: var(--hp-ink); }
 
-.hp-story__media { opacity: .34; }
+.hp-story__media { opacity: .78; }
 
 .hp-story::after {
   background:
     linear-gradient(
       96deg,
       rgba(250,248,250,.97) 0%,
-      rgba(250,248,250,.93) 32%,
-      rgba(250,248,250,.72) 54%,
-      rgba(250,248,250,.36) 74%,
-      rgba(250,248,250,.14) 100%
+      rgba(250,248,250,.95) 34%,
+      rgba(250,248,250,.82) 48%,
+      rgba(250,248,250,.30) 61%,
+      rgba(250,248,250,.05) 72%,
+      transparent 82%
     );
 }
 
-.hp-story h2 { color: var(--plum-ink); }
-.hp-story > .hp-shell > p { color: var(--ink-2); }
-.hp-story > .hp-shell > span { color: var(--hp-brand); }
+.hp-story h2 { color: #28142b; }
+.hp-story > .hp-shell > p { color: #493b4d; font-weight: 560; }
+.hp-story > .hp-shell > span { color: #5d1761; }
 
 .hp-story ol li {
   border: 1px solid var(--hp-line);
-  background: color-mix(in srgb, var(--hp-surface) 88%, transparent);
+  background: color-mix(in srgb, var(--hp-surface) 94%, transparent);
   backdrop-filter: blur(6px);
 }
 
@@ -111,8 +112,8 @@
    antes, feita para fundo escuro: as descrições das etapas rendiam 1,65:1.
    Elas ficam num <small> dentro de <span>, e a regra genérica do span não
    alcançava o filho. */
-.hp-story ol li span small { color: var(--ink-3); }
-.hp-story ol li span strong { color: var(--plum-ink); }
+.hp-story ol li span small { color: #574a5b; }
+.hp-story ol li span strong { color: #28142b; }
 .hp-story ol li > b { color: var(--hp-brand); }
 
 /* O rodapé clareou, então o texto de apoio precisa acompanhar. */

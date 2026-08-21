@@ -185,3 +185,8 @@ html[data-theme="dark"] .ref-brand img.ref-brand__dark{display:block}
   .pc-dev-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .pc-dev-dialog,.pc-contact-dialog{border-radius:var(--pc-radius-block) var(--pc-radius-block) 0 0}
 }
+
+/* Developer dialog: compact, viewport-centered and never clipped. */
+.pc-dev-dialog{width:min(820px,100%);max-height:min(540px,calc(100dvh - 40px));display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;gap:0}.pc-dev-content{min-height:0;overflow-y:auto;overscroll-behavior:contain;margin-top:9px;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--pc-border-strong) transparent}.pc-dev-content .pc-dev-signature{margin-top:9px}.pc-dev-footer{margin-top:9px}
+@media(max-width:680px){.pc-dev-backdrop{place-items:center;padding:12px}.pc-dev-dialog{width:100%;max-width:560px;max-height:calc(100dvh - 24px);border-radius:var(--pc-radius-block);padding:15px}.pc-dev-header h2{font-size:18px}.pc-dev-grid{grid-template-columns:1fr}.pc-dev-footer button{min-height:44px}}
+@media(max-height:620px){.pc-dev-backdrop{place-items:center;padding:10px}.pc-dev-dialog{max-height:calc(100dvh - 20px)}}

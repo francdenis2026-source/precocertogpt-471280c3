@@ -45,18 +45,17 @@
    alternar quatro vezes. A fotografia continua, agora sob um véu claro. */
 .hp-story { background: var(--hp-surface-2); color: var(--hp-ink); }
 
-.hp-story__media { opacity: .78; }
+.hp-story__media { opacity: 1; }
 
 .hp-story::after {
   background:
     linear-gradient(
       96deg,
-      rgba(248, 249, 250,.97) 0%,
-      rgba(248, 249, 250,.95) 34%,
-      rgba(248, 249, 250,.82) 48%,
-      rgba(248, 249, 250,.30) 61%,
-      rgba(248, 249, 250,.05) 72%,
-      transparent 82%
+      rgba(246, 247, 248,.95) 0%,
+      rgba(246, 247, 248,.88) 22%,
+      rgba(246, 247, 248,.52) 36%,
+      rgba(246, 247, 248,.14) 50%,
+      transparent 62%
     );
 }
 

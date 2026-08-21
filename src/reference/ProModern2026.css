@@ -84,8 +84,9 @@ html[data-theme="dark"] .hp-home{
 .hp-sector-grid>a{
   min-height:104px;border-radius:16px;box-shadow:0 8px 24px rgba(16, 35, 48,.045);
 }
-.hp-sector-grid i{background:color-mix(in srgb,var(--hp-brand) 9%,var(--hp-surface));transition:transform .2s ease}
-@media(hover:hover) and (pointer:fine){.hp-sector-grid>a:hover i{transform:scale(1.06) rotate(-2deg)}}
+.hp-sector-grid i{background:var(--hp-brand);color:#fff;transition:transform .2s ease,background .2s ease}
+html[data-theme="dark"] .hp-sector-grid i{color:var(--hp-accent-ink)}
+@media(hover:hover) and (pointer:fine){.hp-sector-grid>a:hover i{transform:scale(1.06) rotate(-2deg);background:var(--hp-brand-2)}}
 .hp-product-grid{gap:12px}
 .hp-product-card{border-radius:18px;box-shadow:0 10px 28px rgba(16, 35, 48,.055)}
 .hp-product-card__media{height:164px;background:linear-gradient(145deg,color-mix(in srgb,var(--hp-brand) 7%,var(--hp-surface)),var(--hp-surface-2))}

@@ -137,7 +137,7 @@ export function StoreDetailProfessional() {
   const SectorIcon = sector.icon;
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
-    <PublicHeader current="stores"/>
+    <PublicHeader current="stores" title={store.name} logo={showLogo ? logoUrl : undefined}/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline store-pro-topline--location-only">
         <span><MapPin /> Feijó · Acre</span>

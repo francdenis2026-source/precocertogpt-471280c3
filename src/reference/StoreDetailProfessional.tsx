@@ -56,6 +56,7 @@ export function StoreDetailProfessional() {
   const [category, setCategory] = useState("Todos");
   const [sort, setSort] = useState<"name" | "price-asc" | "price-desc">("name");
   const [page, setPage] = useState(1);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -109,6 +110,7 @@ export function StoreDetailProfessional() {
   const logoUrl = getStoreLogoUrl(store.name);
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
   const backdrop = storeBackdrop(store.slug || String(store.id));
+  const showLogo = logoUrl && !logoFailed;
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <PublicHeader current="stores"/>
@@ -122,8 +124,10 @@ export function StoreDetailProfessional() {
         <div className="store-pro-hero__overlay" />
         {isBonsAmigos && <div className="store-pro-brand-art" aria-hidden="true"><img src="/branding/bons-amigos-hero.jpg?v=20260818" alt="" /></div>}
         <div className="store-pro-hero__content">
-          <div className={`store-pro-logo${logoUrl ? " has-image" : ""}`} style={!logoUrl ? { background: store.color } : undefined}>
-            {logoUrl ? <img src={logoUrl} alt={`Logomarca ${store.name}`} /> : <Store />}
+          <div className={`store-pro-logo${showLogo ? " has-image" : ""}`} style={!showLogo ? { background: store.color } : undefined}>
+            {showLogo
+              ? <img src={logoUrl} alt={`Logomarca ${store.name}`} onError={() => setLogoFailed(true)} />
+              : <Store />}
           </div>
           <div className="store-pro-copy">
             <span>CATÁLOGO LOCAL · PREÇOS EM FEIJÓ</span>

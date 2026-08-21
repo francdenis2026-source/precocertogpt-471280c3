@@ -188,3 +188,13 @@
   .store-pro-summary { grid-template-columns: 1fr 1fr; }
   .ref-store-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
 }
+
+/* ---------- CORREÇÕES VERIFICADAS EM TELA ---------- */
+/* O título e a legenda do painel de mapa ficavam na mesma linha
+   ("Mapa do comércio localExplore negócios de Feijó") porque o span que os
+   envolve é um bloco e ambos são inline. */
+.ref-stores-map > header span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}

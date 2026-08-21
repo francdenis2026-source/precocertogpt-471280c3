@@ -16,3 +16,8 @@ html[data-theme="dark"] .pc-about-modal{background:rgba(9,2,9,.88)}html[data-the
 @media(prefers-contrast:more){.pc-about-modal__dialog{border-width:2px}.pc-about-modal__section>p,.pc-about-modal__developer>p,.pc-about-modal__features span,.pc-about-modal__footer span{color:#432944}html[data-theme="dark"] .pc-about-modal__section>p,html[data-theme="dark"] .pc-about-modal__developer>p,html[data-theme="dark"] .pc-about-modal__features span,html[data-theme="dark"] .pc-about-modal__footer span{color:#ece2ec}}
 @media(prefers-reduced-motion:reduce){.pc-about-modal,.pc-about-modal__dialog,.pc-about-modal *{animation:none!important;transition:none!important}}
 .pc-about-modal__close:active,.pc-about-modal__footer button:active,.pc-about-modal__contacts a:active{transform:scale(.97)}
+
+/* Compact centered layout: header and footer stay visible while only the content scrolls. */
+.pc-about-modal__dialog{width:min(720px,100%);max-height:min(560px,calc(100dvh - 28px));display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden}.pc-about-modal__body{min-height:0;gap:18px;overflow-y:auto;overscroll-behavior:contain;padding:16px 18px;scrollbar-width:thin;scrollbar-color:#b99cbb transparent}
+@media(max-width:680px){.pc-about-modal{place-items:center;padding:12px}.pc-about-modal__dialog{width:100%;max-width:560px;max-height:calc(100dvh - 24px);overflow:hidden;border-radius:16px}.pc-about-modal__hero{padding-top:14px;padding-bottom:13px}.pc-about-modal__hero h2{font-size:1.16rem}.pc-about-modal__body{gap:12px;padding:13px 15px}.pc-about-modal__footer button{min-height:44px}}
+@media(max-height:620px){.pc-about-modal{place-items:center;padding:10px}.pc-about-modal__dialog{max-height:calc(100dvh - 20px)}}

@@ -1,4 +1,4 @@
-/* Busca em destaque: a barra sobe, a página desfoca atrás e os resultados
+/* Busca em destaque: a barra sobe, a página permanece nítida e os resultados
    ganham espaço para serem lidos. Carregado depois de HomeLighter2026.css. */
 
 /* ============ VÉU ============ */
@@ -8,20 +8,20 @@
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(28, 14, 32, .52);
-  backdrop-filter: blur(7px) saturate(.9);
-  -webkit-backdrop-filter: blur(7px) saturate(.9);
+  background: rgba(28, 14, 32, .18);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   animation: hp-scrim-in .22s var(--ease) both;
 }
 
 @keyframes hp-scrim-in {
-  from { opacity: 0; backdrop-filter: blur(0); }
+  from { opacity: 0; }
   to   { opacity: 1; }
 }
 
 /* ============ BARRA EM DESTAQUE ============ */
-/* O hero sobe de camada para a barra ficar acima do véu; o resto da página
-   permanece atrás e desfocado. */
+/* O hero sobe de camada para a barra ficar acima do véu; o restante continua
+   visível e nítido para preservar contexto durante a pesquisa. */
 .hp-hero.is-searching { z-index: 70; }
 
 .hp-hero.is-searching .hp-hero__copy {
@@ -29,16 +29,15 @@
   z-index: 2;
 }
 
-/* O que não é a busca recua enquanto se digita — continua legível, mas para
-   de disputar atenção com os resultados. */
+/* O conteúdo secundário recua apenas pela opacidade, sem qualquer desfoque. */
 .hp-hero.is-searching .hp-eyebrow,
 .hp-hero.is-searching h1,
 .hp-hero.is-searching .hp-hero__copy > p,
 .hp-hero.is-searching .hp-quick-searches,
 .hp-hero.is-searching .hp-spotlight {
-  opacity: .32;
-  filter: blur(1.5px);
-  transition: opacity .24s var(--ease), filter .24s var(--ease);
+  opacity: .72;
+  filter: none;
+  transition: opacity .24s var(--ease);
   pointer-events: none;
 }
 

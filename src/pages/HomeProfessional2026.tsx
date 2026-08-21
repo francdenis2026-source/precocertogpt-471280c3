@@ -150,7 +150,9 @@ export function HomeProfessional2026() {
     <main id="conteudo-principal">
       {searchOpen && <div className="hp-search-scrim" onMouseDown={() => setSearchFocused(false)} aria-hidden="true" />}
 
-      <section className={`hp-hero${searchOpen ? " is-searching" : ""}`}>
+      <section className={`hp-hero${searchOpen ? " is-searching" : ""}`} onPointerDown={event => {
+        if (searchOpen && !(event.target as HTMLElement).closest(".hp-search")) setSearchFocused(false);
+      }}>
         <div className="hp-hero__media" aria-hidden="true" />
         <div className="hp-hero__veil" aria-hidden="true" />
         <div className="hp-shell hp-hero__grid">
@@ -158,7 +160,7 @@ export function HomeProfessional2026() {
             <span className="hp-eyebrow"><MapPin /> COMÉRCIO LOCAL · FEIJÓ</span>
             <h1>Seu dinheiro vai<br /><em>mais longe.</em></h1>
             <p>Compare preços reais do comércio de Feijó e descubra onde cada produto custa menos — antes de sair de casa.</p>
-            <form className="hp-search" role="search" onSubmit={submitSearch} onFocus={() => setSearchFocused(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node)) window.setTimeout(() => setSearchFocused(false), 120); }}>
+            <form className="hp-search" role="search" onSubmit={submitSearch} onFocus={() => setSearchFocused(true)}>
               <Search aria-hidden="true" />
               <label className="sr-only" htmlFor="hp-search-input">Buscar produto, marca ou categoria</label>
               <input id="hp-search-input" value={query} onChange={event => setQuery(event.target.value)} placeholder="O que você quer economizar hoje?" autoComplete="off" role="combobox" aria-autocomplete="list" aria-expanded={searchFocused && query.trim().length >= 2} aria-controls="hp-search-results" />

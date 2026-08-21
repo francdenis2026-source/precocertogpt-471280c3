@@ -164,17 +164,17 @@ html[data-theme="dark"] .ref-brand img.ref-brand__dark{display:block}
    Developer / contact dialogs triggered from the footer
    --------------------------------------------------------------------- */
 .pc-dev-backdrop{position:fixed;inset:0;z-index:var(--pc-z-modal);display:grid;place-items:center;padding:20px}
-.pc-dev-dialog,.pc-contact-dialog{position:relative;width:min(680px,100%);max-height:calc(100dvh - 32px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:20px;display:flex;flex-direction:column;gap:11px}
-.pc-dev-close{position:absolute;top:16px;right:16px;width:36px;height:36px;display:grid;place-items:center;border-radius:999px}
+.pc-dev-dialog,.pc-contact-dialog{position:relative;width:min(680px,100%);max-height:calc(100dvh - 32px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:20px;display:flex;flex-direction:column;gap:11px}.pc-dev-dialog{width:min(880px,100%);max-height:min(620px,calc(100dvh - 32px));padding:18px;gap:9px}
+.pc-dev-close{position:absolute;top:12px;right:12px;width:34px;height:34px;display:grid;place-items:center;border-radius:999px}
 .pc-dev-close svg{width:18px;height:18px}
-.pc-dev-header{display:flex;gap:14px;align-items:flex-start}
-.pc-dev-avatar{width:48px;height:48px;border-radius:var(--pc-radius-control);background:var(--pc-green-soft);color:var(--pc-green-strong);display:grid;place-items:center;flex:none}
-.pc-dev-header h2{margin:2px 0 6px;font-size:var(--pc-h3)}
+.pc-dev-header{display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:center;padding-right:40px}
+.pc-dev-avatar{width:42px;height:42px;border-radius:var(--pc-radius-control);background:var(--pc-green-soft);color:var(--pc-green-strong);display:grid;place-items:center;flex:none}
+.pc-dev-header h2{margin:2px 0 4px;font-size:20px}
 .pc-dev-intro{margin:0;padding:9px 11px;line-height:1.42}
-.pc-dev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.pc-dev-grid article{display:flex;gap:8px;min-height:66px;padding:10px;border-radius:var(--pc-radius-control);border:1px solid var(--pc-border)}
-.pc-dev-grid article svg{width:20px;height:20px;color:var(--pc-green-strong);flex:none}
-.pc-dev-signature{display:flex;flex-direction:row;align-items:center;gap:8px;padding:9px 11px;border-radius:var(--pc-radius-control);border:1px solid var(--pc-border);background:var(--pc-surface-2)}
+.pc-dev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.pc-dev-grid article{display:grid;grid-template-columns:24px minmax(0,1fr);gap:7px;min-height:0;padding:9px;border-radius:var(--pc-radius-control);border:1px solid var(--pc-border)}
+.pc-dev-grid article svg{width:22px;height:22px;padding:4px;color:var(--pc-green-strong);flex:none}
+.pc-dev-signature{display:flex;flex-direction:row;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--pc-radius-control);border:1px solid var(--pc-border);background:var(--pc-surface-2)}
 .pc-dev-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:9px;border-top:1px solid var(--pc-border)}
 .pc-dev-footer button{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border-radius:var(--pc-radius-control);cursor:pointer}
 .pc-contact-icon{width:52px;height:52px;border-radius:999px;display:grid;place-items:center;background:var(--pc-green-soft);color:var(--pc-green-strong)}

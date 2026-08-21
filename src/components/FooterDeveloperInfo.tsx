@@ -81,15 +81,15 @@ export function FooterDeveloperInfo() {
             <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
           </header>
 
-          <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar sua própria loja virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
+          <p id="pc-dev-description" className="pc-dev-intro">Criado em Feijó-AC, o PreçoCerto aproxima consumidores e negócios locais em um marketplace com comparação de preços, lojas virtuais e gestão de vendas.</p>
 
           <div className="pc-dev-grid">
-            <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Uma vitrine digital para negócios da cidade, reunindo descoberta, catálogo, comparação e jornada de compra em um ambiente único.</p></div></article>
-            <article><Building2 /><div><strong>Loja virtual própria</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação da própria loja dentro da plataforma.</p></div></article>
-            <article><ShieldCheck /><div><strong>Clareza para o consumidor</strong><p>Quando um estabelecimento ainda não possui venda direta habilitada, o PreçoCerto identifica a página como catálogo informativo para evitar confusão.</p></div></article>
-            <article><Info /><div><strong>Informação para decidir melhor</strong><p>Preços e estabelecimentos são organizados para facilitar a comparação e ajudar o público a tomar decisões de compra com mais contexto.</p></div></article>
-            <article><Code2 /><div><strong>Tecnologia da plataforma</strong><p>Aplicação web construída com React, TypeScript, Vite e integração com Supabase, preparada para experiências responsivas e evolução contínua.</p></div></article>
-            <article><Heart /><div><strong>Projeto feito em Feijó</strong><p>Uma iniciativa local pensada para fortalecer a presença digital dos negócios e tornar o comércio da cidade mais acessível para quem compra.</p></div></article>
+            <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Descoberta, catálogo e comparação em uma só vitrine.</p></div></article>
+            <article><Building2 /><div><strong>Loja virtual própria</strong><p>Produtos, ofertas e vendas gerenciados pelo comerciante.</p></div></article>
+            <article><ShieldCheck /><div><strong>Clareza ao consumidor</strong><p>Catálogos informativos e vendas são identificados com precisão.</p></div></article>
+            <article><Info /><div><strong>Decisão bem informada</strong><p>Preços e lojas organizados para uma comparação simples.</p></div></article>
+            <article><Code2 /><div><strong>Tecnologia moderna</strong><p>React, TypeScript, Vite e Supabase em uma experiência responsiva.</p></div></article>
+            <article><Heart /><div><strong>Feito em Feijó</strong><p>Tecnologia local para fortalecer negócios e consumidores.</p></div></article>
           </div>
 
           <div className="pc-dev-signature">

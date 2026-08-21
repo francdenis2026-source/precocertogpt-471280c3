@@ -139,8 +139,7 @@ export function StoreDetailProfessional() {
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <PublicHeader current="stores"/>
     <main id="conteudo-principal" className="store-pro-shell">
-      <div className="store-pro-topline">
-        <Link className="store-pro-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
+      <div className="store-pro-topline store-pro-topline--location-only">
         <span><MapPin /> Feijó · Acre</span>
       </div>
 

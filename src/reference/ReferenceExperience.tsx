@@ -290,13 +290,20 @@ export function PublicHeader({ current, backOnly = false }: { current?: PublicSe
   const { count } = useBasket();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const compactInternalHeader = pathname === "/buscar"
+    || pathname === "/estabelecimentos"
+    || pathname.startsWith("/estabelecimento/")
+    || pathname.startsWith("/loja/")
+    || pathname === "/cesta"
+    || pathname === "/cesta-basica"
+    || pathname === "/cesta-inteligente";
   const activeSection = sectionFromPath(pathname) ?? current;
   const activeProps = (section: PublicSection) => ({
     className: activeSection === section ? "is-active" : "",
     "aria-current": activeSection === section ? ("page" as const) : undefined,
   });
   useEffect(() => { setMenu(false); }, [pathname]);
-  if (backOnly) return <header className="ref-header ref-header--back-only">
+  if (backOnly || compactInternalHeader) return <header className="ref-header ref-header--back-only">
     <div className="ref-shell ref-header__inner">
       <button className="ref-header__back" type="button" onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Voltar para a página anterior">
         <ArrowLeft aria-hidden="true" />

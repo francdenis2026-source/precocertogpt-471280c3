@@ -107,35 +107,18 @@ export function SectorHub2026() {
                 <em>sem misturar categorias.</em>
               </h1>
               <p>
-                A plataforma só relaciona produtos a setores e estabelecimentos
-                quando existe vínculo real no catálogo. O que ainda não tem
-                cadastro não é apresentado como disponível.
+                A plataforma só relaciona produtos e estabelecimentos a um
+                setor quando existe vínculo real no catálogo.
               </p>
-            </div>
-            <aside className="sector-hub__summary">
-              <span>VISÃO REAL</span>
-              <strong>Catálogo organizado</strong>
-              <p>
-                Produtos, negócios e perfis aparecem somente onde fazem sentido.
-              </p>
-              <div>
-                <article>
-                  <b>{catalog?.metrics.stores ?? "—"}</b>
-                  <small>estabelecimentos</small>
-                </article>
-                <article>
-                  <b>{catalog?.metrics.products ?? "—"}</b>
-                  <small>produtos</small>
-                </article>
-                <article>
-                  <b>{totalSectorStores || 0}</b>
-                  <small>vínculos por setor</small>
-                </article>
+              <div className="sector-hub__hero-stats">
+                <span><b>{catalog?.metrics.stores ?? "—"}</b> estabelecimentos</span>
+                <span><b>{catalog?.metrics.products ?? "—"}</b> produtos</span>
+                <span><b>{totalSectorStores || 0}</b> vínculos por setor</span>
               </div>
               <small className="sector-hub__catalog-note">
                 <BadgeCheck /> Sem associação automática com setor sem catálogo.
               </small>
-            </aside>
+            </div>
           </div>
         </section>
         <section className="sector-hub__content sector-hub__shell">

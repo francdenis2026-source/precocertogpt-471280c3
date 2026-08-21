@@ -29,9 +29,9 @@
   .ref-home .ref-hero__copy{max-width:none!important}
   .ref-home .ref-kicker{font-size:11px!important;letter-spacing:.09em!important}
   .ref-home .ref-hero h1{max-width:9ch!important;margin:9px 0 11px!important;font-size:clamp(2.5rem,11vw,2.9rem)!important;line-height:.93!important;letter-spacing:-.045em!important}
-  .ref-home .ref-hero__copy>p{max-width:34ch!important;margin-bottom:14px!important;color:#eee4ee!important;font-size:1rem!important;line-height:1.45!important}
+  .ref-home .ref-hero__copy>p{max-width:34ch!important;margin-bottom:14px!important;color:#e4eaee!important;font-size:1rem!important;line-height:1.45!important}
   .ref-home .ref-trust{gap:8px 12px!important;margin-top:11px!important}
-  .ref-home .ref-trust span{color:#e2d7e2!important;font-size:11px!important}
+  .ref-home .ref-trust span{color:#d7dde2!important;font-size:11px!important}
   .ref-home .ref-trust svg{width:19px!important;height:19px!important}
 
   .ref-home .ref-search,.ref-home .ref-search.has-query{grid-template-columns:28px minmax(0,1fr) auto!important;grid-template-rows:auto auto;gap:7px!important;padding:8px!important;border:1px solid var(--pc-border-strong)!important;border-radius:14px!important;background:var(--pc-surface)!important;box-shadow:0 14px 34px color-mix(in srgb,var(--pc-navy) 18%,transparent)!important}
@@ -88,14 +88,14 @@
   .ref-footer>.ref-footer__inner{display:flex!important;flex-direction:column!important;align-items:center!important;gap:20px!important;text-align:center!important}
   .ref-footer__identity{display:grid!important;justify-items:center!important;gap:8px!important}
   .ref-footer .ref-brand img{width:118px!important}
-  .ref-footer p{display:block!important;max-width:28ch;margin:0!important;color:#ddd1dd!important;font-size:13px!important}
+  .ref-footer p{display:block!important;max-width:28ch;margin:0!important;color:#d1d8dd!important;font-size:13px!important}
   .ref-footer nav{width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important;justify-items:center!important}
   .ref-footer nav>div{width:100%;display:flex!important;flex-wrap:wrap;justify-content:center;gap:6px 10px!important}
   .ref-footer nav strong{width:100%;color:#fff;font-size:12px!important}
-  .ref-footer nav a{min-height:36px!important;padding:0 8px!important;color:#e4d9e4!important;font-size:12px!important}
+  .ref-footer nav a{min-height:36px!important;padding:0 8px!important;color:#d9dfe4!important;font-size:12px!important}
   .ref-footer__meta{justify-items:center!important;text-align:center!important}
-  .ref-footer__meta span{display:flex!important;align-items:center;gap:6px;color:#d8c9d7!important;font-size:11px!important}
-  .ref-footer__meta small{color:#bbcdc5!important;font-size:11px!important}
+  .ref-footer__meta span{display:flex!important;align-items:center;gap:6px;color:#c9d2d8!important;font-size:11px!important}
+  .ref-footer__meta small{color:#bbc5cd!important;font-size:11px!important}
 
   /* Bottom app dock: taller, larger targets/icons and stronger active state. */
   .ref-dock{height:calc(var(--pc-mobile-dock) + env(safe-area-inset-bottom))!important;min-height:var(--pc-mobile-dock)!important;padding:5px 6px env(safe-area-inset-bottom)!important;background:color-mix(in srgb,var(--pc-surface) 98%,transparent)!important;border-top:1px solid var(--pc-border-strong)!important;box-shadow:0 -10px 28px color-mix(in srgb,var(--pc-navy) 10%,transparent)!important}

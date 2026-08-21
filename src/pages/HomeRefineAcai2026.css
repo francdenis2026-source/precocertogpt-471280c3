@@ -13,43 +13,43 @@
    saturada em texto de todo nível é o que rouba a sobriedade. Aqui ela fica
    reservada ao que o usuário pode acionar. */
 .hp-home {
-  --hp-brand: #296046;
-  --hp-brand-2: #408263;
-  --hp-accent: #ba6e2c;
+  --hp-brand: #1f4e6b;
+  --hp-brand-2: #2f74a3;
+  --hp-accent: #2f74a3;
   --hp-accent-ink: #ffffff;
 
-  --plum-ink: #151d23;
-  --plum-deep: #10181e;
-  --plum-soft: #f0f4f1;
+  --plum-ink: #131a20;
+  --plum-deep: #0d1216;
+  --plum-soft: #eef1f3;
 
-  --hp-ink: #151d23;
-  --ink-2: #3a4d44;
-  --ink-3: #536a5f;
-  --hp-muted: #536a5f;
+  --hp-ink: #131a20;
+  --ink-2: #3a444d;
+  --ink-3: #5b6570;
+  --hp-muted: #5b6570;
 
-  --hp-bg: #f8faf9;
+  --hp-bg: #f6f7f8;
   --hp-surface: #ffffff;
-  --hp-surface-2: #f0f4f1;
-  --hp-line: #dfe6e1;
-  --hp-shadow: 0 18px 44px rgba(21,29,35,.10);
+  --hp-surface-2: #eef1f3;
+  --hp-line: #dde2e6;
+  --hp-shadow: 0 18px 44px rgba(19,26,32,.10);
 }
 
 html[data-theme="dark"] .hp-home {
-  --hp-brand: #a7d1bd;
-  --hp-brand-2: #c4e3d5;
-  --hp-accent: #e0a25c;
-  --hp-accent-ink: #121e26;
-  --plum-ink: #f3f7f4;
-  --plum-deep: #0b1013;
-  --plum-soft: #1a242c;
-  --hp-ink: #f3f7f4;
-  --ink-2: #c3d5cd;
-  --ink-3: #a4b9af;
-  --hp-muted: #a4b9af;
-  --hp-bg: #0d1215;
-  --hp-surface: #131a1f;
-  --hp-surface-2: #1a2228;
-  --hp-line: #262f36;
+  --hp-brand: #9cbed3;
+  --hp-brand-2: #7fa8c2;
+  --hp-accent: #7fa8c2;
+  --hp-accent-ink: #0d222f;
+  --plum-ink: #e9eef2;
+  --plum-deep: #0d1216;
+  --plum-soft: #212930;
+  --hp-ink: #e9eef2;
+  --ink-2: #c3cad0;
+  --ink-3: #9aa5ad;
+  --hp-muted: #9aa5ad;
+  --hp-bg: #14191e;
+  --hp-surface: #1b2126;
+  --hp-surface-2: #212930;
+  --hp-line: #2a333b;
 }
 
 /* Títulos e preços deixam de ser roxos. São a informação principal e ganham
@@ -60,7 +60,7 @@ html[data-theme="dark"] .hp-home {
 .hp-product-card__body > div strong,
 .hp-spotlight__prices strong { color: var(--plum-ink); }
 
-html[data-theme="dark"] .hp-spotlight__prices strong { color: #f3f7f4; }
+html[data-theme="dark"] .hp-spotlight__prices strong { color: #eef1f3; }
 
 /* Rótulos de categoria em neutro: eram roxo saturado repetido em cada
    cartão, o que multiplicava a cor sem acrescentar informação. */
@@ -114,7 +114,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 @media(hover:hover) and (pointer:fine){.hp-login:hover {
   background: var(--hp-brand);
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(41,96,70,.32);
+  box-shadow: 0 10px 22px rgba(41, 73, 96,.32);
 }}
 
 /* ============ RODAPÉ ============ */
@@ -123,7 +123,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-footer {
   padding: 0;
   background: var(--plum-deep);
-  color: #cbdad3;
+  color: #c3cad0;
 }
 
 .hp-footer > .hp-footer__inner {
@@ -139,7 +139,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-footer .hp-footer__identity p {
   max-width: 300px;
   margin: 0;
-  color: #a3b7ae;
+  color: #9aa5ad;
   font-size: var(--t-small);
   line-height: 1.6;
 }
@@ -165,7 +165,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
 .hp-footer nav.hp-footer__nav a {
   position: relative;
   width: fit-content;
-  color: #bccdc5;
+  color: #c3cad0;
   font-size: var(--t-small);
   font-weight: 600;
   transition: color .2s var(--ease), transform .2s var(--ease);
@@ -198,13 +198,13 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: #d8b98a;
+  color: #7fa8c2;
   font-size: var(--t-meta);
   font-weight: 700;
 }
 
 .hp-footer__meta span svg { width: 15px; }
-.hp-footer__meta small { color: #8b9e95; font-size: var(--t-meta); }
+.hp-footer__meta small { color: #8b95a0; font-size: var(--t-meta); }
 
 /* ============ MICROINTERAÇÕES ============ */
 /* Um vocabulário só: o elemento sobe alguns pixels, a sombra acompanha e a
@@ -294,28 +294,28 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
    comum aqui resulta em escuro sobre escuro, então eles seguem a superfície
    em que estão, não o tema da página. */
 .hp-spotlight__prices strong,
-html[data-theme="dark"] .hp-spotlight__prices strong { color: #f3f7f4; }
-.hp-spotlight__prices small { color: #b0c5bb; }
-.hp-spotlight > header span { color: #b9decd; }
-.hp-spotlight > header small { color: #a5b9b0; }
+html[data-theme="dark"] .hp-spotlight__prices strong { color: #eef1f3; }
+.hp-spotlight__prices small { color: #adb8c0; }
+.hp-spotlight > header span { color: #b3c8d6; }
+.hp-spotlight > header small { color: #9aa5ad; }
 
-.hp-story > .hp-shell > span { color: #b9decd; }
+.hp-story > .hp-shell > span { color: #b3c8d6; }
 
 /* O âmbar com texto branco dava 3,92:1 — insuficiente para 11px. Clareando o
    fundo e escrevendo em ameixa o mesmo botão chega a 6,79:1. */
 .hp-home {
-  --hp-accent: #d99242;
-  --hp-accent-ink: #151d23;
+  --hp-accent: #7fa8c2;
+  --hp-accent-ink: #0d222f;
 }
 
 .hp-spotlight > a, .hp-spotlight > button { color: var(--hp-accent-ink); }
 
 @media(hover:hover) and (pointer:fine){.hp-spotlight > a:hover, .hp-spotlight > button:hover {
-  background: #e7a558;
+  background: #9cc0d8;
 }}
 
 /* O rótulo do rodapé usa o âmbar sobre ameixa profunda, onde ele rende bem. */
-.hp-footer nav.hp-footer nav.hp-footer__nav strong { color: #d99242; }
+.hp-footer nav.hp-footer nav.hp-footer__nav strong { color: #7fa8c2; }
 
 /* ============ TEMA ESCURO: BOTÕES ============ */
 /* No escuro a marca vira lilás claro para funcionar como texto. Usada como
@@ -323,13 +323,13 @@ html[data-theme="dark"] .hp-spotlight__prices strong { color: #f3f7f4; }
    acompanha o fundo em vez do tema. */
 html[data-theme="dark"] .hp-home .hp-search__submit,
 html[data-theme="dark"] .hp-local__actions a:first-child {
-  color: #111b22;
+  color: #0d222f;
 }
 
 html[data-theme="dark"] .hp-home .hp-search__submit svg,
-html[data-theme="dark"] .hp-local__actions a:first-child svg { color: #111b22; }
+html[data-theme="dark"] .hp-local__actions a:first-child svg { color: #0d222f; }
 
-html[data-theme="dark"] .hp-login { background: var(--hp-brand); color: #111b22; }
+html[data-theme="dark"] .hp-login { background: var(--hp-brand); color: #0d222f; }
 @media(hover:hover) and (pointer:fine){html[data-theme="dark"] .hp-login:hover { background: var(--hp-brand-2); }}
 
 /* ============ DOCK MÓVEL ============ */

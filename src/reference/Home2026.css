@@ -12,13 +12,13 @@
    --------------------------------------------------------------------- */
 .ref-hero{
   position:relative;overflow:hidden;color:#fff;isolation:isolate;
-  background:linear-gradient(135deg,#22394a 0%,#387056 50%,#2b7050 100%);
+  background:linear-gradient(135deg,#22394a 0%,#385970 50%,#2b5370 100%);
   border-top:none;
 }
 .ref-hero::before{
   content:"";position:absolute;inset:0;z-index:0;
-  background:linear-gradient(135deg,rgba(34, 57, 74,.04) 0%,rgba(56, 112, 86,.08) 50%,rgba(43, 112, 80,.04) 100%),
-    radial-gradient(circle at 85% 15%, rgba(217,119,6,.08) 0%, transparent 50%);
+  background:linear-gradient(135deg,rgba(34, 57, 74,.04) 0%,rgba(56, 89, 112,.08) 50%,rgba(43, 83, 112,.04) 100%),
+    radial-gradient(circle at 85% 15%, rgba(56, 121, 167,.08) 0%, transparent 50%);
   opacity:0.8;
 }
 .ref-hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(48px,8vw,96px)}
@@ -184,7 +184,7 @@
 .ref-economy__signals{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}
 .ref-economy__signals span{display:inline-flex;align-items:center;gap:7px;font-size:var(--pc-text-xs);color:rgba(255,255,255,.72)}
 .ref-economy__signals svg{width:15px;height:15px;color:var(--pc-gold)}
-.ref-economy > .ref-shell > div > a{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px;border-radius:var(--pc-radius-control);background:var(--pc-gold);color:#1a1204;font-weight:var(--pc-weight-semibold);text-decoration:none;font-size:var(--pc-text-sm)}
+.ref-economy > .ref-shell > div > a{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px;border-radius:var(--pc-radius-control);background:var(--pc-gold);color:#0b1922;font-weight:var(--pc-weight-semibold);text-decoration:none;font-size:var(--pc-text-sm)}
 
 .ref-receipt{position:relative;background:var(--pc-surface);color:var(--pc-ink);border-radius:var(--pc-radius-block);box-shadow:var(--pc-shadow-lg);padding:22px 22px 18px;font-variant-numeric:tabular-nums}
 .ref-receipt__top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding-bottom:14px;border-bottom:1px dashed var(--pc-border)}
@@ -227,7 +227,7 @@
 /* ---------------------------------------------------------------------
    Product quick-view dialog
    --------------------------------------------------------------------- */
-.ref-product-dialog-backdrop{position:fixed;inset:0;z-index:var(--pc-z-modal);background:rgba(22,9,22,.6);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px}
+.ref-product-dialog-backdrop{position:fixed;inset:0;z-index:var(--pc-z-modal);background:rgba(13, 25, 33,.6);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px}
 .ref-product-dialog{position:relative;width:min(920px,100%);max-height:min(720px,calc(100dvh - 32px));overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:var(--pc-surface);color:var(--pc-ink);border-radius:var(--pc-radius-block);box-shadow:var(--pc-shadow-lg)}
 .ref-product-dialog__close{position:absolute;top:14px;right:14px;z-index:1;width:36px;height:36px;border-radius:999px;border:1px solid var(--pc-border);background:var(--pc-surface);display:grid;place-items:center;cursor:pointer}
 .ref-product-dialog__close svg{width:16px;height:16px}

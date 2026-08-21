@@ -1,5 +1,5 @@
 /* Impeccable global refinement — hierarchy, rhythm, interaction and responsive clarity. */
-:root{--pc-focus:var(--pc-green,#1f7d51);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(12, 28, 40,.08));--pc-card-radius:var(--pc-radius-card,12px)}
+:root{--pc-focus:var(--pc-green,#275475);--pc-soft-shadow:var(--pc-shadow-sm,0 10px 30px rgba(12, 28, 40,.08));--pc-card-radius:var(--pc-radius-card,12px)}
 :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-focus) 42%,transparent);outline-offset:3px}
 :where(button,a){-webkit-tap-highlight-color:transparent}
 
@@ -9,7 +9,7 @@
 .ref-home .ref-hero h1{max-width:11ch;letter-spacing:-.035em;text-wrap:balance}
 .ref-home .ref-section,.ref-home .ref-sectors{padding-block:clamp(34px,5vw,62px)}
 .ref-home>main>.ref-section{position:relative}
-.ref-home>main>.ref-section::before{content:"";position:absolute;z-index:-1;top:12%;right:-12%;width:34rem;height:34rem;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--pc-gold,#946514) 7.5%,transparent),transparent 68%);pointer-events:none}
+.ref-home>main>.ref-section::before{content:"";position:absolute;z-index:-1;top:12%;right:-12%;width:34rem;height:34rem;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--pc-gold,#2a5b7e) 7.5%,transparent),transparent 68%);pointer-events:none}
 .ref-home .ref-section__heading,.ref-home .ref-sectors__heading{align-items:end;gap:24px;margin-bottom:20px}
 .ref-home .ref-section__heading h2,.ref-home .ref-sectors__heading h2,.ref-home .ref-economy h2,.ref-home .ref-local h2{max-width:18ch;margin-top:0;text-wrap:balance;letter-spacing:-.035em}
 .ref-home .ref-section__heading p,.ref-home .ref-sectors__heading p{max-width:48ch;line-height:1.55}
@@ -34,7 +34,7 @@
 .ref-home .ref-proof strong{color:var(--pc-ink)}
 .ref-home .ref-proof span{color:color-mix(in srgb,var(--pc-ink) 68%,var(--pc-surface))}
 .ref-home .ref-economy p,.ref-home .ref-local p{max-width:48ch}
-.ref-home .ref-economy__signals span{border-color:color-mix(in srgb,#fff 24%,transparent);background:color-mix(in srgb,#fff 8%,transparent);color:#f6f1f6}
+.ref-home .ref-economy__signals span{border-color:color-mix(in srgb,#fff 24%,transparent);background:color-mix(in srgb,#fff 8%,transparent);color:#f1f4f6}
 .ref-home .ref-receipt{border-color:color-mix(in srgb,var(--pc-border-strong) 86%,transparent)}
 
 html[data-theme="dark"] .ref-home .ref-section__heading p,
@@ -54,12 +54,12 @@ html[data-theme="dark"] .ref-home .ref-search-submit{background:var(--pc-green)!
   .ref-home .ref-sectors{padding-bottom:16px}
   .ref-home .ref-sectors__all{margin-top:8px;padding-bottom:14px}
   .ref-home .ref-sectors + .ref-section{position:relative;padding-top:26px!important}
-  .ref-home .ref-sectors + .ref-section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pc-border,#e0d8e1) 58%,transparent) 14%,color-mix(in srgb,var(--pc-border,#e0d8e1) 58%,transparent) 86%,transparent)}
+  .ref-home .ref-sectors + .ref-section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pc-border,#d8dde1) 58%,transparent) 14%,color-mix(in srgb,var(--pc-border,#d8dde1) 58%,transparent) 86%,transparent)}
   .ref-home .ref-sectors + .ref-section .ref-section__heading{margin-bottom:16px}
 }
 
 /* Customer area: clear tool hierarchy and calmer account surface. */
-.pc-account-page{background:linear-gradient(180deg,var(--pc-canvas,#f5f7f4) 0,color-mix(in srgb,var(--pc-green-soft,#f4eaf4) 38%,var(--pc-canvas,#f5f7f4)) 100%)}
+.pc-account-page{background:linear-gradient(180deg,var(--pc-canvas,#f4f6f7) 0,color-mix(in srgb,var(--pc-green-soft,#eaf0f4) 38%,var(--pc-canvas,#f4f6f7)) 100%)}
 .pc-account-shell{width:min(1120px,calc(100% - 36px));margin:auto;padding:28px 0 48px}
 .pc-account-hero{border-radius:var(--pc-radius-block,16px);box-shadow:var(--pc-soft-shadow)}
 .pc-account-tools{gap:10px}
@@ -76,9 +76,9 @@ html[data-theme="dark"] .pc-account-page{background:var(--pc-canvas,#1e3749)}
 .ref-admin__main header h1,.admin-control-main h1,.admin-catalog-main h1{text-wrap:balance;letter-spacing:-.035em}
 
 /* Stores: dense catalog, readable labels and reliable touch targets. */
-.store-pro-page{--pc-focus:var(--pc-green,#1f7d51)}
+.store-pro-page{--pc-focus:var(--pc-green,#275475)}
 .store-pro-grid>a{border-radius:var(--pc-radius-card,12px)!important}
-.store-pro-grid>a:focus-visible{outline-color:var(--pc-green,#1f7d51)}
+.store-pro-grid>a:focus-visible{outline-color:var(--pc-green,#275475)}
 .store-pro-search,.store-pro-select{min-height:40px}
 .store-pro-pagination button{min-width:36px;height:36px}
 .store-pro-bottom-note{line-height:1.45}

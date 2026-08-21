@@ -67,14 +67,14 @@
   margin-left: 10px;
   padding-left: 10px;
   border-left: 1px solid rgba(255,255,255,.16);
-  color: #a7bbb2;
+  color: #a7b3bb;
   font-style: normal;
   font-weight: 700;
   letter-spacing: .01em;
   transition: color .2s var(--ease);
 }
 
-@media(hover:hover) and (pointer:fine){.hp-footer__meta:hover .hp-footer__dev { color: #c9ded4; }}
+@media(hover:hover) and (pointer:fine){.hp-footer__meta:hover .hp-footer__dev { color: #c9d5de; }}
 
 /* ============ RESPONSIVO ============ */
 @media (max-width: 1080px) {

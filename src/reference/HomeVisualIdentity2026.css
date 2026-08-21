@@ -13,10 +13,10 @@
   background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--pc-navy) 78%,transparent));
 }
 .ref-home .ref-hero__grid{z-index:1}
-.ref-home .ref-hero__copy>p{color:#f3eaf3;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+.ref-home .ref-hero__copy>p{color:#eaeff3;text-shadow:0 1px 2px rgba(0,0,0,.22)}
 .ref-home .ref-hero h1{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.18)}
 .ref-home .ref-hero h1 em,.ref-home .ref-kicker,.ref-home .ref-trust svg{color:var(--pc-gold)}
-.ref-home .ref-trust span{color:#e8dfe8;font-size:var(--pc-text-sm);letter-spacing:.01em;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.ref-home .ref-trust span{color:#dfe4e8;font-size:var(--pc-text-sm);letter-spacing:.01em;text-shadow:0 1px 2px rgba(0,0,0,.18)}
 .ref-home .ref-search{box-shadow:var(--pc-shadow-lg)}
 .ref-home .ref-search button.ref-search-submit{background:var(--pc-green)}
 

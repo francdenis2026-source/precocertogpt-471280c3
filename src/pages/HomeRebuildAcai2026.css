@@ -17,16 +17,16 @@
   --sec-y-tight: 32px;
 
   /* Neutros com contraste suficiente sobre as superfícies claras.
-     O --hp-muted anterior (#5a6e65) ficava em 4.2:1 no corpo de texto. */
-  --ink-2: #40564c;
-  --ink-3: #53695f;
+     O --hp-muted anterior (#5a666e) ficava em 4.2:1 no corpo de texto. */
+  --ink-2: #404d56;
+  --ink-3: #536069;
 
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 html[data-theme="dark"] .hp-home {
-  --ink-2: #bdd8cb;
-  --ink-3: #a8bfb4;
+  --ink-2: #bdcdd8;
+  --ink-3: #a8b5bf;
 }
 
 /* ============ CABEÇALHO ============ */
@@ -88,14 +88,14 @@ html[data-theme="dark"] .hp-home {
   margin: 14px 0 20px;
   font-size: var(--t-lead);
   line-height: 1.5;
-  color: #d8e3da;
+  color: #d8dee3;
 }
 
 .hp-eyebrow {
   margin-bottom: 12px;
   font-size: var(--t-eyebrow);
   letter-spacing: .14em;
-  color: #d3ebd8;
+  color: #d3e1eb;
 }
 
 /* ============ BUSCA ============ */
@@ -108,11 +108,11 @@ html[data-theme="dark"] .hp-home {
 
 .hp-search:focus-within {
   transform: translateY(-1px);
-  box-shadow: 0 0 0 4px rgba(166,233,202,.32), 0 26px 60px rgba(0,0,0,.3);
+  box-shadow: 0 0 0 4px rgba(169, 195, 214,.32), 0 26px 60px rgba(0,0,0,.3);
 }
 
 .hp-search input { height: 46px; font-size: var(--t-body); }
-.hp-search input::placeholder { color: #64796f; }
+.hp-search input::placeholder { color: #647079; }
 
 .hp-home .hp-search__submit {
   height: 46px;
@@ -122,14 +122,14 @@ html[data-theme="dark"] .hp-home {
 }
 
 @media(hover:hover) and (pointer:fine){.hp-home .hp-search__submit:hover {
-  background: #34a16e;
+  background: #3474a1;
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(42,135,92,.4);
+  box-shadow: 0 10px 22px rgba(42, 96, 135,.4);
 }}
 
 .hp-home .hp-search__submit:active { transform: translateY(0); }
 
-.hp-quick-searches { margin-top: 12px; font-size: var(--t-meta); color: #bcd6ca; }
+.hp-quick-searches { margin-top: 12px; font-size: var(--t-meta); color: #bccbd6; }
 
 .hp-quick-searches a {
   padding: 5px 11px;
@@ -142,8 +142,8 @@ html[data-theme="dark"] .hp-home {
 }
 
 @media(hover:hover) and (pointer:fine){.hp-quick-searches a:hover {
-  background: rgba(42,135,92,.9);
-  border-color: rgba(166,233,202,.6);
+  background: rgba(42, 96, 135,.9);
+  border-color: rgba(169, 195, 214,.6);
   transform: translateY(-1px);
 }}
 
@@ -272,7 +272,7 @@ html[data-theme="dark"] .hp-home {
 }
 
 .hp-story h2 { font-size: clamp(26px, 3vw, 40px); line-height: 1.08; letter-spacing: -.03em; }
-.hp-story > .hp-shell > p { font-size: var(--t-lead); line-height: 1.5; color: #d9e4db; }
+.hp-story > .hp-shell > p { font-size: var(--t-lead); line-height: 1.5; color: #d9dfe4; }
 .hp-story ol { margin-top: 20px; gap: 12px; }
 .hp-story ol li { font-size: var(--t-small); }
 .hp-story ol li b { font-size: var(--t-body); }
@@ -302,7 +302,7 @@ html[data-theme="dark"] .hp-home {
 /* Um anel único para todos os alvos, em vez de depender do padrão do
    navegador, que some sobre as superfícies escuras do hero. */
 .hp-home :is(a, button, input, select):focus-visible {
-  outline: 3px solid #a6e9ca;
+  outline: 3px solid #a9c3d6;
   outline-offset: 3px;
   border-radius: 8px;
 }

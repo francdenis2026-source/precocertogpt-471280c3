@@ -41,7 +41,7 @@
    também é fixo. Especificidade extra (.store-pro-page) para vencer a regra
    de DesignSystem2.css, que carrega depois deste arquivo no bundle. */
 .store-pro-page .store-pro-copy > span {
-  color: #fbbf24;
+  color: #6896b7;
 }
 
 .store-pro-copy h1 {
@@ -76,7 +76,7 @@
   border: 1px solid rgba(255, 255, 255, .22);
   border-radius: 999px;
   background: rgba(255, 255, 255, .10);
-  color: #f0f6f1;
+  color: #f0f3f6;
   font-size: 11px;
   font-weight: 700;
   line-height: 1;
@@ -86,8 +86,8 @@
 .store-pro-specialties li b {
   padding: 3px 6px;
   border-radius: 999px;
-  background: rgba(169,230,202, .26);
-  color: #e8f5eb;
+  background: rgba(169, 195, 214, .26);
+  color: #e8f0f5;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
 }
@@ -213,7 +213,7 @@
   margin-left: 10px;
   padding-left: 10px;
   border-left: 1px solid rgba(255,255,255,.16);
-  color: #a7bbb2;
+  color: #a7b3bb;
   font-style: normal;
   font-weight: 700;
 }

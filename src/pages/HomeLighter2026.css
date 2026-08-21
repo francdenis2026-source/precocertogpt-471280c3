@@ -17,7 +17,7 @@
   /* Ameixa média no lugar do quase-preto. Branco ainda rende 12:1 sobre ela
      e o âmbar 4,6:1, então nada de contraste se perde ao clarear. */
   --plum-deep: #253b4a;
-  --plum-panel: #2b503f;
+  --plum-panel: #2b4150;
 }
 
 /* ============ HERO ============ */
@@ -51,18 +51,18 @@
   background:
     linear-gradient(
       96deg,
-      rgba(248,250,249,.97) 0%,
-      rgba(248,250,249,.95) 34%,
-      rgba(248,250,249,.82) 48%,
-      rgba(248,250,249,.30) 61%,
-      rgba(248,250,249,.05) 72%,
+      rgba(248, 249, 250,.97) 0%,
+      rgba(248, 249, 250,.95) 34%,
+      rgba(248, 249, 250,.82) 48%,
+      rgba(248, 249, 250,.30) 61%,
+      rgba(248, 249, 250,.05) 72%,
       transparent 82%
     );
 }
 
 .hp-story h2 { color: #14212b; }
-.hp-story > .hp-shell > p { color: #3b4d45; font-weight: 560; }
-.hp-story > .hp-shell > span { color: #17613e; }
+.hp-story > .hp-shell > p { color: #3b464d; font-weight: 560; }
+.hp-story > .hp-shell > span { color: #1e415a; }
 
 .hp-story ol li {
   border: 1px solid var(--hp-line);
@@ -80,12 +80,12 @@
 
 .hp-story > .hp-shell > a {
   background: var(--hp-brand);
-  color: #fcfdfc;
+  color: #fcfdfd;
 }
 
 @media(hover:hover) and (pointer:fine){.hp-story > .hp-shell > a:hover {
   background: var(--hp-brand-2);
-  color: #fcfdfc;
+  color: #fcfdfd;
 }}
 
 /* ============ RODAPÉ ============ */
@@ -103,7 +103,7 @@
   /* No celular a fotografia da história atrapalha a leitura das etapas. */
   .hp-story__media { opacity: .18; }
   .hp-story::after {
-    background: linear-gradient(180deg, rgba(248,250,249,.92), rgba(248,250,249,.97));
+    background: linear-gradient(180deg, rgba(248, 249, 250,.92), rgba(248, 249, 250,.97));
   }
 }
 
@@ -112,15 +112,15 @@
    antes, feita para fundo escuro: as descrições das etapas rendiam 1,65:1.
    Elas ficam num <small> dentro de <span>, e a regra genérica do span não
    alcançava o filho. */
-.hp-story ol li span small { color: #4a5b53; }
+.hp-story ol li span small { color: #4a545b; }
 .hp-story ol li span strong { color: #14212b; }
 .hp-story ol li > b { color: var(--hp-brand); }
 
 /* O rodapé clareou, então o texto de apoio precisa acompanhar. */
-.hp-footer > .hp-footer__meta small { color: #a3b5ad; }
-.hp-footer__dev { color: #b4c5bd; border-left-color: rgba(255,255,255,.20); }
-.hp-footer .hp-footer__identity p { color: #b2c4bc; }
-.hp-footer nav.hp-footer__nav a { color: #c8d7d0; }
+.hp-footer > .hp-footer__meta small { color: #a3aeb5; }
+.hp-footer__dev { color: #b4bec5; border-left-color: rgba(255,255,255,.20); }
+.hp-footer .hp-footer__identity p { color: #b2bcc4; }
+.hp-footer nav.hp-footer__nav a { color: #c8d1d7; }
 
 /* No tema escuro a marca vira lilás claro; usada como fundo do botão da
    história ela pede tinta escura, não branca. */

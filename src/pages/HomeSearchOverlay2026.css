@@ -58,7 +58,7 @@
   transform: translateY(-6px) scale(1.012);
   border-color: rgba(255, 255, 255, .6);
   box-shadow:
-    0 0 0 4px rgba(167,209,189, .28),
+    0 0 0 4px rgba(167, 192, 209, .28),
     0 30px 70px rgba(6,14,20, .45);
 }
 
@@ -251,7 +251,7 @@
   transition: border-color .16s ease, color .16s ease;
 }
 
-@media(hover:hover) and (pointer:fine){.hp-footer__panel-triggers button:hover { border-color: #f0a33a; color: #f0a33a; }}
+@media(hover:hover) and (pointer:fine){.hp-footer__panel-triggers button:hover { border-color: #709bba; color: #709bba; }}
 .hp-footer__panel-triggers svg { width: 13px; height: 13px; }
 
 /* Mantém a rolagem da homepage sem exibir a barra vertical. */

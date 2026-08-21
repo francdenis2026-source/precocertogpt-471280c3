@@ -45,7 +45,7 @@ html[data-theme="dark"] .ref-live-card__prices strong{color:var(--pc-green-stron
 html[data-theme="dark"] .ref-live-card__product small,
 html[data-theme="dark"] .ref-live-card__prices>div+div strong{color:var(--pc-gold)}
 html[data-theme="dark"] .ref-live-card :is(.ref-live-card__top small,.ref-live-card__product p,.ref-live-card__prices small,.ref-live-card__prices span){color:var(--pc-muted)}
-html[data-theme="dark"] .ref-live-card>button{background:var(--pc-gold);color:#2a493b;border-color:color-mix(in srgb,var(--pc-gold) 65%,var(--pc-border))}
+html[data-theme="dark"] .ref-live-card>button{background:var(--pc-gold);color:#2a3c49;border-color:color-mix(in srgb,var(--pc-gold) 65%,var(--pc-border))}
 
 /* Proof + price board stay tonal, without separate theme tokens. */
 html[data-theme="dark"] .ref-proof{
@@ -81,7 +81,7 @@ html[data-theme="dark"] .ref-economy__signals span{
   color:var(--pc-ink)
 }
 html[data-theme="dark"] .ref-economy__signals svg{color:var(--pc-gold)}
-html[data-theme="dark"] .ref-economy__grid>div>a{background:var(--pc-gold);color:#2a493b}
+html[data-theme="dark"] .ref-economy__grid>div>a{background:var(--pc-gold);color:#2a3c49}
 
 /* Local commerce photography: the only intentionally bespoke dark composition. */
 html[data-theme="dark"] .ref-local{
@@ -98,7 +98,7 @@ html[data-theme="dark"] .ref-local::before{
 html[data-theme="dark"] .ref-local::after{
   background:
     linear-gradient(90deg,rgba(8, 18, 26,.99) 0%,rgba(8, 18, 26,.97) 30%,rgba(8, 18, 26,.88) 42%,rgba(8, 18, 26,.48) 56%,rgba(8, 18, 26,.20) 72%,rgba(8, 18, 26,.10) 100%),
-    linear-gradient(0deg,rgba(15,4,16,.30),transparent 58%)
+    linear-gradient(0deg,rgba(9, 25, 37,.30),transparent 58%)
 }
 html[data-theme="dark"] .ref-local h2{color:var(--pc-ink);text-shadow:0 2px 18px rgba(0,0,0,.38)}
 html[data-theme="dark"] .ref-local p{color:color-mix(in srgb,var(--pc-ink) 78%,var(--pc-muted))}

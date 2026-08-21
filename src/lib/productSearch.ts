@@ -58,3 +58,62 @@ export function suggestProducts(products: Product[], query: string, limit = 6) {
   }
   return [...unique.values()].slice(0, limit);
 }
+
+const similarityNoise = new Set([
+  "a", "as", "com", "da", "das", "de", "do", "dos", "e", "em", "o", "os",
+  "para", "por", "sem", "tipo", "tradicional", "classico", "classica", "sabor",
+  "pacote", "garrafa", "frasco", "caixa", "lata", "pote", "sache", "unidade",
+  "unidades", "kg", "g", "mg", "l", "ml",
+]);
+
+function productFamilyTokens(product: Product) {
+  const brandTokens = new Set(normalizeSearchText(product.brand || "").split(" ").filter(Boolean));
+  return [...new Set(normalizeSearchText(product.name).split(" ").filter(token =>
+    token.length >= 3 &&
+    !/^\d+$/.test(token) &&
+    !similarityNoise.has(token) &&
+    !brandTokens.has(token),
+  ))];
+}
+
+function similarityScore(reference: Product, candidate: Product) {
+  if (String(reference.id) === String(candidate.id)) return 0;
+
+  const referenceCategory = normalizeSearchText(reference.category || "");
+  const candidateCategory = normalizeSearchText(candidate.category || "");
+  if (referenceCategory && candidateCategory && referenceCategory !== candidateCategory) return 0;
+
+  const referenceTokens = productFamilyTokens(reference);
+  const candidateTokens = productFamilyTokens(candidate);
+  const shared = referenceTokens.filter(token => candidateTokens.includes(token));
+
+  // Categoria isolada nunca define similaridade: "Mercearia", por exemplo,
+  // pode conter arroz, feijão, óleo e biscoito. É obrigatório compartilhar ao
+  // menos um termo real da família/natureza do produto.
+  if (!shared.length) return 0;
+
+  const referenceIdentity = normalizeSearchText([reference.name, reference.brand, reference.size].join(" "));
+  const candidateIdentity = normalizeSearchText([candidate.name, candidate.brand, candidate.size].join(" "));
+  if (referenceIdentity === candidateIdentity) return 0;
+
+  const union = new Set([...referenceTokens, ...candidateTokens]).size || 1;
+  let score = shared.length * 100 + (shared.length / union) * 60;
+  if (referenceTokens[0] && referenceTokens[0] === candidateTokens[0]) score += 45;
+  if (normalizeSearchText(reference.brand || "") === normalizeSearchText(candidate.brand || "")) score += 15;
+  if (normalizeSearchText(reference.unit || "") === normalizeSearchText(candidate.unit || "")) score += 5;
+  return score;
+}
+
+/**
+ * Retorna somente alternativas com relação lexical real com o produto.
+ * Quando não há uma família compatível no catálogo, devolve uma lista vazia
+ * em vez de preencher o espaço com itens aleatórios da mesma categoria.
+ */
+export function findSimilarProducts(products: Product[], reference: Product, limit = 4) {
+  return products
+    .map(product => ({ product, score: similarityScore(reference, product) }))
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
+    .slice(0, limit)
+    .map(item => item.product);
+}

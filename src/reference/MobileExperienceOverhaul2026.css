@@ -1,0 +1,78 @@
+/* Mobile Experience Overhaul 2026 — loads last of all page/reference styles
+   (imported at the end of App.tsx, after TypographyHarmony2026.css), so it is
+   the final word on mobile (<=680px) sizing/contrast without needing to
+   rewrite the many older mobile layers underneath it.
+
+   Fixes in this file:
+   1) Real overflow bugs: the mobile ".ref-shell" gutter override was dead
+      (Chrome2026.css's unconditional rule was winning), and the 2-column
+      product grid thumbnail was wider than its actual cell at 320-375px.
+   2) Bigger, easier-to-hit header + footer/dock, per explicit request:
+      larger touch targets, larger icons, larger type.
+   3) The shared quick-view product dialog could clip content with no way
+      to scroll on short mobile viewports — made the outer dialog itself
+      scrollable as a safety net regardless of its inner layout.
+*/
+
+@media (max-width:680px){
+  :root{--pc-mobile-header:62px;--pc-mobile-quick:64px;--pc-mobile-dock:78px}
+
+  /* ---------- 1) Overflow fixes ---------- */
+  .ref-shell{width:min(100% - 32px,560px)!important}
+  .ref-product-grid a>div img{width:104px!important;height:104px!important}
+  .ref-page{padding-bottom:calc(var(--pc-mobile-dock) + 14px + env(safe-area-inset-bottom))!important}
+
+  /* ---------- 2) Header: taller, bigger buttons and type ---------- */
+  .ref-header__inner{padding-inline:14px!important;gap:8px!important}
+  .ref-header .ref-brand img{width:104px!important}
+  .ref-header .ref-online{height:34px!important;min-width:46px!important;width:46px!important}
+  .ref-header__actions{gap:6px!important}
+  .ref-header__actions>a:not(.ref-signin),.ref-theme,.ref-menu{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;border-radius:12px!important}
+  .ref-header__actions svg,.ref-theme svg,.ref-menu svg{width:22px!important;height:22px!important}
+
+  .ref-header__quick a{font-size:12px!important;gap:5px!important}
+  .ref-header__quick a svg{width:25px!important;height:25px!important}
+
+  /* Compact ("back-only") header used on internal pages: bigger back button
+     and a taller bar to match the rest of the mobile chrome. */
+  .ref-header--back-only .ref-header__inner{height:64px!important;min-height:64px!important;padding-inline:14px!important}
+  .ref-header__back{min-height:46px!important;padding:0 16px!important;font-size:13.5px!important;border-radius:12px!important}
+  .ref-header__back svg{width:18px!important;height:18px!important}
+  .ref-header__context-title{max-width:34vw;font-size:14px!important}
+  .ref-header--back-only .ref-theme,.ref-header--back-only .ref-menu{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important}
+
+  /* Sticky search bar on /buscar needs to clear the taller header. */
+  .search26-search{top:64px!important}
+
+  /* ---------- 3) Footer / bottom dock: taller, bigger icons and labels ---------- */
+  .ref-dock a{min-height:66px!important;font-size:12px!important;gap:5px!important}
+  .ref-dock svg{width:26px!important;height:26px!important}
+  .ref-footer nav a{min-height:44px!important;font-size:13px!important}
+  .ref-footer nav strong{font-size:12.5px!important}
+
+  /* ---------- Typography: a touch larger for small-screen readability ---------- */
+  .ref-home .ref-section__heading p,.ref-home .ref-sectors__heading p{font-size:13px!important;line-height:1.5!important}
+  .ref-home .ref-section__heading h2,.ref-home .ref-sectors__heading h2{font-size:clamp(1.65rem,7vw,2.05rem)!important}
+
+  /* ---------- Cards: slightly roomier, higher-contrast meta text ---------- */
+  .ref-product-grid>a,.ref-product-grid>article{padding:10px!important}
+  .ref-product-grid a>strong{font-size:12.5px!important}
+  .ref-product-grid a>span{color:color-mix(in srgb,var(--pc-ink) 62%,var(--pc-surface))!important;font-size:10px!important}
+
+  /* ---------- Modals: never let content get stuck below the fold ---------- */
+  .ref-product-dialog{display:flex!important;flex-direction:column!important;max-height:88dvh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+}
+
+@media (max-width:390px){
+  :root{--pc-mobile-header:60px}
+  .ref-header .ref-brand img{width:96px!important}
+  .ref-header__quick{padding-inline:6px!important}
+  .ref-header__quick a{font-size:11px!important}
+  .ref-header__quick a svg{width:23px!important;height:23px!important}
+  .ref-header__context-title{max-width:30vw}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ref-product-dialog{scroll-behavior:auto}
+}
+

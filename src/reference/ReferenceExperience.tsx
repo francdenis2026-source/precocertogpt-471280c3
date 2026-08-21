@@ -285,7 +285,19 @@ function sectionFromPath(pathname: string): PublicSection | undefined {
   return undefined;
 }
 
-export function PublicHeader({ current, backOnly = false }: { current?: PublicSection; backOnly?: boolean }) {
+// O título por rota mantém o contexto nas páginas que usam a barra compacta;
+// páginas dinâmicas podem substituir o texto e incluir uma logo.
+function defaultBackBarTitle(pathname: string): string | undefined {
+  if (pathname === "/buscar") return "Buscar produtos";
+  if (pathname === "/explorar") return "Setores";
+  if (pathname === "/estabelecimentos") return "Estabelecimentos";
+  if (pathname.startsWith("/estabelecimento/") || pathname.startsWith("/loja/")) return "Estabelecimento";
+  if (pathname === "/cesta" || pathname === "/cesta-basica") return "Sua cesta";
+  if (pathname === "/cesta-inteligente") return "Cesta inteligente";
+  return undefined;
+}
+
+export function PublicHeader({ current, backOnly = false, title, logo }: { current?: PublicSection; backOnly?: boolean; title?: string; logo?: string }) {
   const [menu, setMenu] = useState(false);
   const { count } = useBasket();
   const { pathname } = useLocation();
@@ -303,14 +315,24 @@ export function PublicHeader({ current, backOnly = false }: { current?: PublicSe
     "aria-current": activeSection === section ? ("page" as const) : undefined,
   });
   useEffect(() => { setMenu(false); }, [pathname]);
-  if (backOnly || compactInternalHeader) return <header className="ref-header ref-header--back-only">
-    <div className="ref-shell ref-header__inner">
-      <button className="ref-header__back" type="button" onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Voltar para a página anterior">
-        <ArrowLeft aria-hidden="true" />
-        <span>Voltar</span>
-      </button>
-    </div>
-  </header>;
+  if (backOnly || compactInternalHeader) {
+    const barTitle = title ?? defaultBackBarTitle(pathname);
+    return <header className="ref-header ref-header--back-only">
+      <div className="ref-shell ref-header__inner">
+        <div className="ref-header__back-row">
+          <button className="ref-header__back" type="button" onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Voltar para a página anterior">
+            <ArrowLeft aria-hidden="true" />
+            <span>Voltar</span>
+          </button>
+          {(barTitle || logo) && <div className="ref-header__context">
+            {logo && <img className="ref-header__context-logo" src={logo} alt="" aria-hidden="true" />}
+            {barTitle && <strong className="ref-header__context-title">{barTitle}</strong>}
+          </div>}
+        </div>
+        <ThemeButton />
+      </div>
+    </header>;
+  }
   return <header className="ref-header">
     <div className="ref-shell ref-header__inner">
       <Brand />

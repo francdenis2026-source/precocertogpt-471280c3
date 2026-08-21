@@ -1,0 +1,37 @@
+/* Hero por setor — farmácia, padaria, cultura e serviços não têm fotografia
+   própria no acervo, então usar a imagem genérica de supermercado ali soava
+   errado. Aqui cada setor ganha uma cor e um ícone de fundo em vez da foto,
+   mantendo a mesma estrutura do hero de mercado (logo, título, chips,
+   selo), só trocando o pano de fundo pelo tom do setor. Carregado depois de
+   StoreExperienceAcai2026.css. */
+
+.store-pro-hero--sector .store-pro-hero__overlay { background: none !important; }
+
+.store-pro-hero__watermark {
+  position: absolute;
+  z-index: 0;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 260px;
+  height: 260px;
+  color: rgba(255, 255, 255, .12);
+  pointer-events: none;
+}
+
+.store-pro-hero--pharmacies { background: linear-gradient(125deg, #0b3a3a 0%, #124f4a 55%, #0e3f52 100%) !important; }
+.store-pro-hero--bakery { background: linear-gradient(125deg, #4a2a12 0%, #6b3a16 55%, #7a4a1a 100%) !important; }
+.store-pro-hero--books { background: linear-gradient(125deg, #241a4a 0%, #33265e 55%, #402d6e 100%) !important; }
+.store-pro-hero--services { background: linear-gradient(125deg, #1c2430 0%, #283244 55%, #33405a 100%) !important; }
+
+/* O selo de ícone ao lado do nome do setor, no rótulo acima do título. */
+.store-pro-hero--sector .store-pro-copy > span { display: inline-flex; align-items: center; gap: 6px; }
+.store-pro-hero--sector .store-pro-copy > span svg { width: 13px; height: 13px; }
+
+@media (max-width: 860px) {
+  .store-pro-hero__watermark { width: 170px; height: 170px; right: -20px; }
+}
+
+@media (max-width: 620px) {
+  .store-pro-hero__watermark { display: none; }
+}

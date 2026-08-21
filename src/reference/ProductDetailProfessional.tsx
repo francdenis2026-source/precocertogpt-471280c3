@@ -10,7 +10,7 @@ import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -201,7 +201,7 @@ export function ProductDetailProfessional() {
       <aside className="pdx-disclaimer"><Info/><div><strong>Catálogo informativo</strong><span>Preços e disponibilidade podem mudar. O PreçoCerto organiza as informações para facilitar sua comparação; a confirmação final deve ser feita com o estabelecimento.</span></div></aside>
     </main>
 
-    <PublicFooter/>
+    
 
     <div className="pdx-mobile-bar"><div><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></div><button type="button" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar (${quantity})` : "Adicionar à lista"}</button></div>
     {message && <div className="pdx-toast" role="status" aria-live="polite">{message}</div>}

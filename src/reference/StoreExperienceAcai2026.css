@@ -35,6 +35,15 @@
   letter-spacing: .16em;
 }
 
+/* O cartão do hero é sempre escuro, mas a cor vinha de --pc-gold, que troca
+   com o tema do site: no claro ela fica escura (2,57:1 sobre a marinha —
+   ilegível). Aqui a cor é fixa, igual à do tema escuro, porque o fundo
+   também é fixo. Especificidade extra (.store-pro-page) para vencer a regra
+   de DesignSystem2.css, que carrega depois deste arquivo no bundle. */
+.store-pro-page .store-pro-copy > span {
+  color: #fbbf24;
+}
+
 .store-pro-copy h1 {
   margin: 6px 0 0;
   font-size: clamp(26px, 3.4vw, 38px);

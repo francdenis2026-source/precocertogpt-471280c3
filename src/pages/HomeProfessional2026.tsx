@@ -1,11 +1,12 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, TrendingDown, X } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, TrendingDown, UserRound, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveProductImage, resolveCutoutImage } from "../data/productImageResolver";
 import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
 import { getStoreLogoUrl } from "../data/storeLogos";
+import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import "./HomeProfessional2026.css";
 import "./HomeRebuildAcai2026.css";
 import "./HomeRefineAcai2026.css";
@@ -50,6 +51,7 @@ export function HomeProfessional2026() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>(readTheme);
+  const [footerPanel, setFooterPanel] = useState<FooterPanel>(null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -129,9 +131,10 @@ export function HomeProfessional2026() {
           <small>FEIJÓ · ACRE</small>
         </Link>
         <nav className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
+          <Link to="/explorar" onClick={() => setMenuOpen(false)}>Setores</Link>
+          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas</Link>
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link>
-          <Link to="/explorar" onClick={() => setMenuOpen(false)}>Explorar</Link>
-          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
+          <Link to="/cesta-inteligente" onClick={() => setMenuOpen(false)}>Cesta inteligente</Link>
           <Link to="/cesta-basica" onClick={() => setMenuOpen(false)}>Minha cesta</Link>
         </nav>
         <div className="hp-header__actions">
@@ -231,6 +234,10 @@ export function HomeProfessional2026() {
         <div className="hp-footer__identity">
           <Link className="hp-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link>
           <p>O preço certo perto de você. Compare o comércio de Feijó antes de sair de casa.</p>
+          <div className="hp-footer__panel-triggers">
+            <button type="button" onClick={() => setFooterPanel("contato")}><MessageCircle aria-hidden="true" /> Contato</button>
+            <button type="button" onClick={() => setFooterPanel("desenvolvedor")}><UserRound aria-hidden="true" /> Desenvolvedor</button>
+          </div>
         </div>
         <nav aria-label="Links do rodapé" className="hp-footer__nav">
           <div>
@@ -259,6 +266,7 @@ export function HomeProfessional2026() {
         <small>&copy; 2026 PreçoCerto · Feijó, AC <i className="hp-footer__dev">dev. &lt;FrancD'nis&gt;</i></small>
       </div>
     </footer>
+    <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />
     <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>
   </div>;
 }

@@ -1,6 +1,6 @@
 import { ArrowRight, BookOpen, Building2, MapPin, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./CulturalProfilePage.css";
 
 type CulturalProfileKind = "dorinha" | "fremix";
@@ -43,6 +43,5 @@ export function CulturalProfilePage({ kind }: { kind: CulturalProfileKind }) {
       </section>
       <aside className="culture-profile-note"><BookOpen /><div><strong>Área cultural do PreçoCerto</strong><span>Perfis editoriais são organizados separadamente de lojas, mercados e estabelecimentos comerciais.</span></div><Link to="/livros">Explorar cultura <ArrowRight /></Link></aside>
     </main>
-    <PublicFooter/>
   </div>;
 }

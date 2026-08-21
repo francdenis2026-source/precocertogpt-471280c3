@@ -4,7 +4,7 @@ import { ArrowRight, BadgeCheck, Minus, PackageSearch, PiggyBank, Plus, Shopping
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
-import { AppDock, PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { AppDock, PublicHeader } from "./ReferenceExperience";
 import "./ProfessionalBasketPage.css";
 
 type BasketEntry = { productId: string; quantity: number };
@@ -106,8 +106,6 @@ export function ProfessionalBasketPage() {
         </aside>
       </section>}
     </main>
-
-    <PublicFooter/>
     <AppDock current="basket"/>
   </div>;
 }

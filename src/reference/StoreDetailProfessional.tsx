@@ -7,9 +7,28 @@ import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
+import "./StoreExperienceAcai2026.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const PAGE_SIZE = 20;
+
+
+const STORE_BACKDROPS = [
+  "/supermercado-hero.jpg",
+  "/mercado-local-profissional.webp",
+  "/hero-feijo-mercado-claro-2026.webp",
+  "/mercado-bairro-feijo-v1.webp",
+  "/supermercado-premium.jpg",
+  "/marketplace-local-profissional-v2.webp",
+];
+
+// Escolha estavel: a mesma loja recebe sempre a mesma imagem, e lojas
+// diferentes tendem a receber imagens diferentes.
+function storeBackdrop(key: string) {
+  let hash = 0;
+  for (let index = 0; index < key.length; index += 1) hash = (hash * 31 + key.charCodeAt(index)) >>> 0;
+  return STORE_BACKDROPS[hash % STORE_BACKDROPS.length];
+}
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
@@ -52,6 +71,15 @@ export function StoreDetailProfessional() {
     return catalog.products.filter(item => item.offers?.some(offer => String(offer.establishmentId) === String(store.id)) || String(item.establishmentId) === String(store.id));
   }, [catalog, store]);
 
+  const specialties = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const product of allProducts) {
+      const label = (product.category || "").trim();
+      if (label) counts.set(label, (counts.get(label) || 0) + 1);
+    }
+    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  }, [allProducts]);
+
   const categories = useMemo(() => ["Todos", ...Array.from(new Set(allProducts.map(product => product.category).filter(Boolean))).sort((a, b) => a.localeCompare(b, "pt-BR"))], [allProducts]);
   const filteredProducts = useMemo(() => {
     const term = normalize(query);
@@ -80,6 +108,7 @@ export function StoreDetailProfessional() {
   const endResult = Math.min(safePage * PAGE_SIZE, filteredProducts.length);
   const logoUrl = getStoreLogoUrl(store.name);
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
+  const backdrop = storeBackdrop(store.slug || String(store.id));
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <PublicHeader current="stores"/>
@@ -89,7 +118,7 @@ export function StoreDetailProfessional() {
         <span><MapPin /> Feijó · Acre</span>
       </div>
 
-      <section className={`store-pro-hero${isBonsAmigos ? " store-pro-hero--bons-amigos" : ""}`} aria-labelledby="store-title">
+      <section className={`store-pro-hero${isBonsAmigos ? " store-pro-hero--bons-amigos" : ""}`} aria-labelledby="store-title" style={!isBonsAmigos ? { backgroundImage: `url('${backdrop}')` } : undefined}>
         <div className="store-pro-hero__overlay" />
         {isBonsAmigos && <div className="store-pro-brand-art" aria-hidden="true"><img src="/branding/bons-amigos-hero.jpg?v=20260818" alt="" /></div>}
         <div className="store-pro-hero__content">
@@ -99,6 +128,9 @@ export function StoreDetailProfessional() {
           <div className="store-pro-copy">
             <span>CATÁLOGO LOCAL · PREÇOS EM FEIJÓ</span>
             <h1 id="store-title">{store.name}</h1>
+            {specialties.length > 0 && <ul className="store-pro-specialties" aria-label="Especialidades do estabelecimento">
+              {specialties.map(([label, count]) => <li key={label}>{label}<b>{count}</b></li>)}
+            </ul>}
             <p>Consulte produtos, marcas e preços organizados para comparar antes de comprar.</p>
             <div className="store-pro-meta-line">
               <b><BadgeCheck /> {allProducts.length || store.products} produtos no catálogo</b>

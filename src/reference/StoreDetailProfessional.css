@@ -9,7 +9,7 @@
 .store-pro-back{width:fit-content;color:var(--pc-ink);font-weight:750;text-decoration:none;transition:color .16s ease,transform .16s ease}
 .store-pro-back:hover{color:var(--pc-green-strong);transform:translateX(-2px)}
 
-.store-pro-hero{position:relative;isolation:isolate;min-height:300px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#31586a);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/hero-feijo-real-shopper-2026.webp') 74% 50%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
+.store-pro-hero{position:relative;isolation:isolate;min-height:300px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#4a3a66);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/hero-feijo-real-shopper-2026.webp') 74% 50%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
 .store-pro-hero__overlay{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(5,17,26,.98) 0%,rgba(5,17,26,.94) 40%,rgba(5,17,26,.66) 70%,rgba(5,17,26,.3) 100%)}
 .store-pro-hero__content{position:relative;z-index:2;min-height:300px;display:grid;grid-template-columns:96px minmax(0,1fr) auto;align-items:center;gap:22px;padding:36px 40px}
 .store-pro-logo{width:92px;height:92px;display:grid;place-items:center;overflow:hidden;border-radius:22px;color:#fff;background:#153245;box-shadow:0 16px 44px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13)}

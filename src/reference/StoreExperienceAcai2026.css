@@ -1,0 +1,190 @@
+/* Estabelecimentos — hero com imagem, especialidade em destaque e catálogo compacto.
+   Carregado depois de StoreDetailProfessional.css e Stores2026.css. */
+
+/* ---------- HERO ---------- */
+/* A imagem vem inline no elemento (uma por loja); aqui só o enquadramento. */
+.store-pro-hero {
+  min-height: 232px;
+  background-position: center 42%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+}
+
+/* Véu em açaí: escuro à esquerda, onde fica o texto, e aberto à direita
+   para a imagem do comércio aparecer. */
+.store-pro-hero__overlay {
+  background: linear-gradient(
+    100deg,
+    rgba(24, 8, 36, .96) 0%,
+    rgba(24, 8, 36, .90) 38%,
+    rgba(24, 8, 36, .58) 64%,
+    rgba(24, 8, 36, .24) 100%
+  );
+}
+
+.store-pro-hero__content {
+  min-height: 232px;
+  grid-template-columns: 78px minmax(0, 1fr) auto;
+  gap: 18px;
+  padding: 26px 28px;
+}
+
+.store-pro-copy > span {
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.store-pro-copy h1 {
+  margin: 6px 0 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  line-height: 1.06;
+  letter-spacing: -.03em;
+}
+
+/* A linha descritiva genérica sai: as especialidades dizem mais e ocupam menos. */
+.store-pro-copy > p { display: none; }
+
+.store-pro-meta-line { margin-top: 12px; gap: 8px 16px; }
+.store-pro-meta-line b { font-size: 11px; }
+
+/* ---------- ESPECIALIDADES ---------- */
+/* Categorias com mais produtos na loja — dado real do catálogo, não rótulo fixo. */
+.store-pro-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.store-pro-specialties li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 11px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .10);
+  color: #f3ecfa;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(6px);
+}
+
+.store-pro-specialties li b {
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(201, 166, 233, .26);
+  color: #efe2fb;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- CARDS DE PRODUTO ---------- */
+/* O grid original alternava 4/3/2/1 coluna e deixava os cartões com alturas
+   irregulares. Aqui as linhas ficam iguais e a coluna única no celular some. */
+.store-pro-grid {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important;
+  gap: 12px !important;
+  align-items: stretch;
+}
+
+.store-pro-grid > a {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.store-pro-grid > a:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--pc-green) 45%, var(--pc-border));
+  box-shadow: var(--pc-shadow-sm);
+}
+
+.store-pro-product-image {
+  height: 138px !important;
+  padding: 10px !important;
+  overflow: hidden;
+}
+
+.store-pro-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Duas linhas fixas para o nome: sem isso o cartão cresce conforme o título
+   e a grade fica irregular. */
+.store-pro-grid > a > strong {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5em;
+  margin-top: 6px !important;
+  font-size: 13px !important;
+  line-height: 1.25;
+}
+
+.store-pro-category { margin-top: 10px !important; }
+.store-pro-brand { margin-top: 6px !important; }
+.store-pro-spec { margin-top: 4px !important; }
+
+/* O rodapé de preço encosta na base, alinhando o preço entre os cartões. */
+.store-pro-grid > a > footer {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+/* ---------- LISTA DE ESTABELECIMENTOS ---------- */
+/* O hero da lista já traz imagem em ::before e um véu claro em ::after.
+   Não é reescrito aqui — só o grid de cartões abaixo dele é compactado. */
+
+.ref-store-cards {
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.ref-store-card { border-radius: 14px; transition: transform .18s ease, box-shadow .18s ease; }
+.ref-store-card:hover { transform: translateY(-2px); box-shadow: var(--pc-shadow-sm); }
+
+/* ---------- COMPACTAÇÃO ---------- */
+.store-pro-shell { padding-block: 18px 28px; }
+.store-pro-topline { margin-bottom: 12px; }
+.store-pro-notice { margin-block: 12px; padding: 12px 14px; }
+.store-pro-summary { gap: 10px; margin-block: 12px; }
+.store-pro-summary article { padding: 14px 16px; }
+.store-pro-catalog { margin-top: 14px; }
+.store-pro-catalog-head { margin-bottom: 12px; }
+.store-pro-toolbar { gap: 8px; margin-bottom: 14px; }
+
+@media (max-width: 900px) {
+  .store-pro-hero, .store-pro-hero__content { min-height: 200px; }
+  .store-pro-hero__content { grid-template-columns: 64px minmax(0, 1fr); padding: 22px 20px; }
+  /* O selo de verificação repete o que o resumo abaixo já informa. */
+  .store-pro-status { display: none; }
+  .store-pro-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important; }
+}
+
+@media (max-width: 640px) {
+  .store-pro-hero, .store-pro-hero__content { min-height: 172px; }
+  .store-pro-hero__content { grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 18px 15px; }
+  .store-pro-copy h1 { font-size: 23px; }
+  .store-pro-specialties { gap: 5px; margin-top: 10px; }
+  .store-pro-specialties li { padding: 4px 8px 4px 9px; font-size: 10px; }
+  /* Duas colunas no celular em vez de uma: a página fica bem mais curta. */
+  .store-pro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  .store-pro-product-image { height: 112px !important; padding: 7px !important; }
+  .store-pro-grid > a > strong { font-size: 12px !important; }
+  .store-pro-shell { padding-block: 12px 22px; }
+  .store-pro-summary { grid-template-columns: 1fr 1fr; }
+  .ref-store-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+}

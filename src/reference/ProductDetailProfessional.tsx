@@ -9,6 +9,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
+import { findSimilarProducts } from "../lib/productSearch";
 import { supabase } from "../lib/supabase";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
@@ -108,7 +109,7 @@ export function ProductDetailProfessional() {
   }, [product]);
 
   const offers = useMemo(() => product ? (product.offers?.length ? [...product.offers] : [{ establishmentId: product.establishmentId, establishmentSlug: product.establishmentSlug, establishment: product.establishment, neighborhood: product.neighborhood, storeColor: product.storeColor, value: product.minPrice, capturedAt: product.capturedAt }]).sort((a,b)=>a.value-b.value) : [], [product]);
-  const similar = useMemo(() => !product || !catalog ? [] : catalog.products.filter(item => String(item.id) !== String(product.id) && item.category === product.category).sort((a,b) => a.minPrice - b.minPrice).slice(0, 4), [catalog, product]);
+  const similar = useMemo(() => !product || !catalog ? [] : findSimilarProducts(catalog.products, product, 4), [catalog, product]);
   const basketRows = useMemo(() => !catalog ? [] : basket.map(entry => ({ entry, product: catalog.products.find(item => String(item.id) === entry.productId) })).filter(row => row.product), [basket, catalog]);
   const basketTotal = basketRows.reduce((sum, row) => sum + (row.product?.minPrice || 0) * row.entry.quantity, 0);
 
@@ -193,7 +194,7 @@ export function ProductDetailProfessional() {
       </section>
 
       <section className="pdx-secondary-grid">
-        <article className="pdx-card pdx-similar"><header><div><span>ALTERNATIVAS</span><h2>Produtos similares</h2></div></header>{similar.length ? <div className="pdx-similar-grid">{similar.map(item => <Link to={`/produto/${item.slug || item.id}`} key={item.id}><div className="pdx-similar-image"><ProductImage product={item} compact/></div><span className="pdx-similar-copy"><small>{cleanValue(item.brand)} · {item.size || item.unit}</small><strong>{item.name}</strong><em>{item.establishment}</em></span><b>{brl.format(item.minPrice)}</b></Link>)}</div> : <p className="pdx-empty-copy">Nenhum produto similar disponível nesta categoria.</p>}</article>
+        <article className="pdx-card pdx-similar"><header><div><span>ALTERNATIVAS</span><h2>Produtos similares</h2></div></header>{similar.length ? <div className="pdx-similar-grid">{similar.map(item => <Link to={`/produto/${item.slug || item.id}`} key={item.id}><div className="pdx-similar-image"><ProductImage product={item} compact/></div><span className="pdx-similar-copy"><small>{cleanValue(item.brand)} · {item.size || item.unit}</small><strong>{item.name}</strong><em>{item.establishment}</em></span><b>{brl.format(item.minPrice)}</b></Link>)}</div> : <p className="pdx-empty-copy">Ainda não há uma alternativa realmente semelhante para este produto.</p>}</article>
 
         <aside className="pdx-card pdx-list-card"><header><div><span>SUA LISTA</span><h2>Lista de compras</h2></div><b>{basket.reduce((sum,item)=>sum+item.quantity,0)} itens</b></header>{basketRows.length ? <div className="pdx-list-preview">{basketRows.slice(0,3).map(({entry,product:item}) => item && <div key={entry.productId}><span>{entry.quantity}×</span><p><strong>{item.name}</strong><small>{cleanValue(item.brand)}</small></p><b>{brl.format(item.minPrice*entry.quantity)}</b></div>)}</div> : <div className="pdx-list-empty"><ShoppingBasket/><span>Sua lista ainda está vazia.</span></div>}<footer><span>Total estimado</span><strong>{brl.format(basketTotal)}</strong></footer><Link to="/cesta-basica">Abrir lista completa <ArrowRight/></Link></aside>
       </section>

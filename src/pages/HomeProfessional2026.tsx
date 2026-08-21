@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { CSSProperties, FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, UserRound, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
@@ -37,10 +37,10 @@ function ProductImage({ product, eager = false, preferCutout = false }: { produc
 }
 
 const sectors = [
-  { label: "Mercados", detail: "Alimentos e cesta", icon: ShoppingBasket, to: "/mercados" },
-  { label: "Açougues", detail: "Carnes e cortes", icon: Tag, to: "/buscar?q=carne" },
-  { label: "Farmácias", detail: "Saúde e cuidado", icon: HeartPulse, to: "/farmacias" },
-  { label: "Livros locais", detail: "Cultura de Feijó", icon: BookOpen, to: "/livros" },
+  { label: "Mercados", detail: "Alimentos e cesta", icon: ShoppingBasket, to: "/mercados", color: "#2f9e58" },
+  { label: "Açougues", detail: "Carnes e cortes", icon: Tag, to: "/buscar?q=carne", color: "#d1483f" },
+  { label: "Farmácias", detail: "Saúde e cuidado", icon: HeartPulse, to: "/farmacias", color: "#0f9ba6" },
+  { label: "Livros locais", detail: "Cultura de Feijó", icon: BookOpen, to: "/livros", color: "#b45309" },
 ] as const;
 
 export function HomeProfessional2026() {
@@ -196,7 +196,7 @@ export function HomeProfessional2026() {
 
       <section className="hp-sectors hp-shell" aria-labelledby="hp-sectors-title">
         <div className="hp-section-head"><div><h2 id="hp-sectors-title">Tudo o que você procura, bem organizado.</h2></div><Link to="/explorar">Ver todos os setores <ArrowRight /></Link></div>
-        <div className="hp-sector-grid">{sectors.map(({ label, detail, icon: Icon, to }, index) => <Link to={to} key={label} className={index === 0 ? "hp-sector-grid__lead" : undefined}><i><Icon /></i><span><strong>{label}</strong><small>{detail}</small></span><ArrowRight /></Link>)}</div>
+        <div className="hp-sector-grid">{sectors.map(({ label, detail, icon: Icon, to, color }, index) => <Link to={to} key={label} className={index === 0 ? "hp-sector-grid__lead" : undefined} style={{ "--sector-accent": color } as CSSProperties}><i><Icon /></i><span><strong>{label}</strong><small>{detail}</small></span><ArrowRight /></Link>)}</div>
       </section>
 
       <section className="hp-offers hp-shell" aria-labelledby="hp-offers-title">

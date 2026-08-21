@@ -29,3 +29,70 @@ html[data-theme="dark"] .hp-home{--hp-bg:#14191e;--hp-surface:#1b2126;--hp-surfa
   max-height: 100%;
   object-fit: contain;
 }
+
+/* Acentos cromáticos da homepage: os tons funcionais ficam separados da cor
+   institucional para comunicar preço, oportunidade e categoria com clareza. */
+.hp-home {
+  --hp-price: #1c9a56;
+  --hp-price-soft: #e4f5ea;
+  --hp-gold: #c9781f;
+  --hp-gold-soft: #fbeed9;
+}
+html[data-theme="dark"] .hp-home {
+  --hp-price: #4ade80;
+  --hp-price-soft: #173322;
+  --hp-gold: #f2ae4c;
+  --hp-gold-soft: #3a2a14;
+}
+.hp-home .hp-eyebrow,
+.hp-home .hp-spotlight > header,
+.hp-home .hp-story__content > span {
+  color: var(--hp-gold);
+}
+.hp-home .hp-quick-searches a {
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hp-home .hp-quick-searches a:hover {
+    background: color-mix(in srgb, var(--hp-gold) 24%, transparent);
+    border-color: color-mix(in srgb, var(--hp-gold) 72%, white);
+    color: #fff8ec;
+  }
+}
+.hp-home .hp-spotlight > header i {
+  background: #36c56f;
+  box-shadow: 0 0 0 5px rgba(54, 197, 111, .16);
+}
+.hp-home .hp-spotlight__prices > span:first-child strong {
+  color: #63e096;
+}
+.hp-home .hp-spotlight > a {
+  background: #63d98d;
+  color: #0b2a19;
+}
+.hp-home .hp-sector-grid > a {
+  --sc: var(--sector-accent, var(--hp-brand));
+}
+.hp-home .hp-sector-grid i {
+  background: color-mix(in srgb, var(--sc) 13%, var(--hp-surface));
+  color: var(--sc);
+}
+.hp-home .hp-sector-grid__lead {
+  border-color: color-mix(in srgb, var(--sc) 55%, var(--hp-line));
+  background: color-mix(in srgb, var(--sc) 8%, var(--hp-surface));
+}
+.hp-home .hp-sector-grid__lead i {
+  background: var(--sc);
+  color: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hp-home .hp-sector-grid > a:hover {
+    border-color: color-mix(in srgb, var(--sc) 58%, var(--hp-line));
+  }
+  .hp-home .hp-sector-grid__lead:hover {
+    border-color: var(--sc);
+  }
+}
+.hp-home .hp-product-card__body > div strong {
+  color: var(--hp-price);
+}

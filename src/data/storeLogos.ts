@@ -10,6 +10,7 @@ const normalizeStoreName = (name: string) => name
   .trim();
 
 const STORE_LOGOS = [
+  { aliases: ["kelly burgueria e lanchonete", "kelly burgueria", "kelly burgueria lanchonete", "kelly"], local: "/branding/kelly-burgueria-logo.jpg?v=20260822" },
   { aliases: ["comercio bons amigos", "bons amigos", "comercio ba bons amigos", "ba comercio bons amigos"], local: "/branding/bons-amigos-logo.svg?v=20260818-3" },
   { aliases: ["panificadora bandeira", "padaria bandeira", "bandeira"], local: "/branding/panificadora-bandeira.svg?v=20260818-3" },
   { aliases: ["drogaria pague pouco", "pague pouco"], file: "drogaria-pague-pouco.webp" },

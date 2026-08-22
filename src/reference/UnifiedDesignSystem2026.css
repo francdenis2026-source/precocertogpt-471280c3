@@ -576,3 +576,101 @@ html[data-theme="dark"] .hp-home .hp-footer {
       url("/banners/feijo-community-band.webp");
   }
 }
+
+
+/* Rodapé fotográfico exclusivo — substitui a ilustração anterior. */
+.hp-home .hp-footer,
+html[data-theme="dark"] .hp-home .hp-footer {
+  background-color: #071b2c;
+  background-image:
+    linear-gradient(90deg,
+      rgb(5 22 38 / 90%) 0%,
+      rgb(5 22 38 / 78%) 34%,
+      rgb(5 22 38 / 50%) 58%,
+      rgb(5 22 38 / 18%) 82%,
+      rgb(5 22 38 / 10%) 100%),
+    url("/footer-local-feijo-v2.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right 54%;
+}
+html[data-theme="dark"] .hp-home .hp-footer {
+  background-image:
+    linear-gradient(90deg,
+      rgb(3 14 25 / 88%) 0%,
+      rgb(3 14 25 / 72%) 36%,
+      rgb(3 14 25 / 42%) 60%,
+      rgb(3 14 25 / 12%) 84%,
+      rgb(3 14 25 / 8%) 100%),
+    url("/footer-local-feijo-v2.svg");
+}
+
+/* Header mais compacto, com leitura e alvos de interação maiores. */
+:root {
+  --pc-header-height: 64px;
+  --pc-header-height-scrolled: 56px;
+}
+.site-header,
+.site-header.site-header--absolute,
+.site-header.site-header--absolute.site-header--scrolled {
+  height: var(--pc-header-height) !important;
+  min-height: var(--pc-header-height) !important;
+}
+.site-header.site-header--scrolled {
+  height: var(--pc-header-height-scrolled) !important;
+  min-height: var(--pc-header-height-scrolled) !important;
+}
+.site-header .header-inner {
+  min-height: inherit !important;
+  padding-block: 4px !important;
+  gap: clamp(.75rem, 2vw, 1.5rem) !important;
+}
+.site-header .brand__logo-img {
+  height: 44px !important;
+  width: auto !important;
+}
+.site-header.site-header--scrolled .brand__logo-img {
+  height: 38px !important;
+}
+.site-header :where(nav a, button, [role="button"], .header-actions a) {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .875rem !important;
+  line-height: 1.15;
+  font-weight: 600 !important;
+}
+.site-header :where(nav, .header-actions) {
+  gap: clamp(.3rem, .8vw, .75rem) !important;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --pc-header-height: 60px;
+    --pc-header-height-scrolled: 54px;
+  }
+  .site-header .brand__logo-img {
+    height: 40px !important;
+  }
+  .site-header.site-header--scrolled .brand__logo-img {
+    height: 36px !important;
+  }
+  .site-header .header-inner {
+    padding-block: 3px !important;
+  }
+  .site-header :where(nav a, button, [role="button"], .header-actions a) {
+    min-height: 40px;
+    font-size: .875rem !important;
+  }
+  .hp-home .hp-footer,
+  html[data-theme="dark"] .hp-home .hp-footer {
+    background-position: 66% center;
+    background-image:
+      linear-gradient(90deg,
+        rgb(4 18 31 / 90%) 0%,
+        rgb(4 18 31 / 72%) 54%,
+        rgb(4 18 31 / 28%) 100%),
+      url("/footer-local-feijo-v2.svg");
+  }
+}

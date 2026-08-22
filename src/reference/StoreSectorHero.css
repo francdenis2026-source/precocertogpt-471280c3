@@ -1,11 +1,12 @@
-/* Hero por setor — farmácia, padaria, cultura e serviços não têm fotografia
-   própria no acervo, então usar a imagem genérica de supermercado ali soava
-   errado. Aqui cada setor ganha uma cor e um ícone de fundo em vez da foto,
-   mantendo a mesma estrutura do hero de mercado (logo, título, chips,
-   selo), só trocando o pano de fundo pelo tom do setor. Carregado depois de
-   StoreExperienceAcai2026.css. */
-
-.store-pro-hero--sector .store-pro-hero__overlay { background: none !important; }
+/* Hero por setor — farmácia, padaria, cultura e serviços agora usam a mesma
+   foto do hero de cada página de setor (/farmacias, /padarias, /livros,
+   /servicos), aplicada via inline style em StoreDetailProfessional.tsx
+   (SECTOR_BACKDROPS). Antes esses 4 setores caíam num cartão de cor sólida
+   sem foto nenhuma; o véu escuro padrão (.store-pro-hero__overlay, definido
+   em StoreDetailProfessional.css) volta a ficar ativo aqui para garantir
+   contraste do texto sobre a foto, igual ao hero de mercado. Um tom de cor
+   por setor continua servindo de "fundo de segurança" enquanto a foto
+   carrega. Carregado depois de StoreExperienceAcai2026.css. */
 
 .store-pro-hero__watermark {
   position: absolute;
@@ -15,14 +16,14 @@
   transform: translateY(-50%);
   width: 260px;
   height: 260px;
-  color: rgba(255, 255, 255, .12);
+  color: rgba(255, 255, 255, .16);
   pointer-events: none;
 }
 
-.store-pro-hero--pharmacies { background: linear-gradient(125deg, #0b3a3a 0%, #124f4a 55%, #0e3f52 100%) !important; }
-.store-pro-hero--bakery { background: linear-gradient(125deg, #173245 0%, #204661 55%, #25506f 100%) !important; }
-.store-pro-hero--books { background: linear-gradient(125deg, #1a364a 0%, #26475e 55%, #2d536e 100%) !important; }
-.store-pro-hero--services { background: linear-gradient(125deg, #1c2430 0%, #283244 55%, #33405a 100%) !important; }
+.store-pro-hero--pharmacies { background-color: #0b3a3a !important; }
+.store-pro-hero--bakery { background-color: #173245 !important; }
+.store-pro-hero--books { background-color: #1a364a !important; }
+.store-pro-hero--services { background-color: #1c2430 !important; }
 
 /* O selo de ícone ao lado do nome do setor, no rótulo acima do título. */
 .store-pro-hero--sector .store-pro-copy > span { display: inline-flex; align-items: center; gap: 6px; }

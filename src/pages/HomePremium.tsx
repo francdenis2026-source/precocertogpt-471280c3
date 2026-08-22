@@ -312,7 +312,7 @@ export function HomePremium() {
               <h1 id="pcx-title">'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
                                         
                                             
-                                            analise a cor do site, e veja se essa cor combina</h1>
+                                            Auditar a paleta de cores do meu site e sugerir uma combinação que mantenha a identidade visual do marketplace.</h1>
               <p>Em Feijó, compare o mesmo produto nos estabelecimentos da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               
               <div className="pcx-hero__actions">

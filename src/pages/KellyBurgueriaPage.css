@@ -21,8 +21,11 @@
    foto real do produto. */
 .kelly-hero{
   position:relative;overflow:hidden;border-radius:var(--pc-radius-block,20px);
-  min-height:168px;display:flex;align-items:flex-end;
-  background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 32%/cover no-repeat;
+  min-height:220px;display:flex;align-items:flex-end;
+  background-color:#0d0705;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
   border:1px solid var(--pc-border);
 }
 .kelly-hero__overlay{

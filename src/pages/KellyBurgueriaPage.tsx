@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, AtSign, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
+import kellyHeroAsset from "../assets/kelly_burgueria_hero.png.asset.json";
 import {
   KELLY_ADDRESS,
   KELLY_CNPJ,
@@ -79,7 +80,7 @@ export function KellyBurgueriaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section className="kelly-hero" aria-labelledby="kelly-title">
+        <section className="kelly-hero" aria-labelledby="kelly-title" style={{ backgroundImage: `url('${kellyHeroAsset.url}')` }}>
           <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/kelly-burgueria-logo.jpg?v=20260822" alt={`Logomarca ${KELLY_NAME}`} width="96" height="96" /></div>

@@ -79,7 +79,7 @@ function buildSection() {
         <div><b>01</b><span>Pesquise o que você precisa</span></div>
         <div><b>02</b><span>Compare preços e estabelecimentos</span></div>
         <div><b>03</b><span>Escolha a melhor opção para você</span></div>
-        <div><b>04</b><span>Compre online nas lojas habilitadas</span></div>
+        <div><b>04</b><span>Compre online nos estabelecimentos habilitados</span></div>
         <div><b>05</b><span>Acompanhe pagamento, preparo e entrega</span></div>
       </div>
       <div class="pc-mp-grid">

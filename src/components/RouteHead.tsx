@@ -14,7 +14,7 @@ const ROUTE_HEAD: Record<string, HeadInfo> = {
   "/": {
     title: "PreçoCerto | Comparar preços em Feijó (AC)",
     description:
-      "Compare preços de produtos nas lojas de Feijó (AC), descubra estabelecimentos locais e escolha onde comprar com economia real.",
+      "Compare preços de produtos nos estabelecimentos de Feijó (AC), descubra estabelecimentos locais e escolha onde comprar com economia real.",
   },
   "/buscar": {
     title: "Comparar preços de produtos | PreçoCerto",

@@ -80,7 +80,7 @@ export function HomeSmartBasketSpotlight() {
           <h2 id="home-smart-basket-title">Monte uma cesta que cabe no seu orçamento.</h2>
           <p>Informe quanto pode gastar e o PreçoCerto organiza uma sugestão de compra com itens essenciais, usando os preços cadastrados no comércio local.</p>
           <div className="home-smart-basket__modes" aria-label="Modos de comparação">
-            <span><PiggyBank aria-hidden="true" /><b>Maior economia</b><small>Menor preço de cada item, mesmo em lojas diferentes.</small></span>
+            <span><PiggyBank aria-hidden="true" /><b>Maior economia</b><small>Menor preço de cada item, mesmo em estabelecimentos diferentes.</small></span>
             <span><Store aria-hidden="true" /><b>Mais praticidade</b><small>Melhor combinação possível em um único estabelecimento.</small></span>
           </div>
           <div className="home-smart-basket__trust"><BadgeCheck aria-hidden="true" /> Ferramenta exclusiva para usuários cadastrados · sua cesta pode ser salva na conta</div>

@@ -63,7 +63,7 @@ export function FooterDeveloperInfo() {
         <section className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title">
           <button className="pc-dev-close" type="button" aria-label="Fechar contato" onClick={() => setOpen(null)}><X /></button>
           <span className="pc-contact-icon"><Mail aria-hidden="true" /></span>
-          <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre lojas virtuais ou suporte à plataforma.</p></div>
+          <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre estabelecimentos virtuais ou suporte à plataforma.</p></div>
           <a className="pc-contact-email" href="mailto:precocerto-fj@proton.me"><Mail /> <span><small>E-mail</small><strong>precocerto-fj@proton.me</strong></span></a>
           <p className="pc-contact-note"><ShieldCheck /> Utilize este endereço para contatos relacionados ao PreçoCerto.</p>
         </section>
@@ -78,7 +78,7 @@ export function FooterDeveloperInfo() {
 
           <header className="pc-dev-header">
             <span className="pc-dev-avatar"><Store aria-hidden="true" /></span>
-            <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
+            <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, estabelecimentos virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
           </header>
 
           <div className="pc-dev-content">

@@ -1,0 +1,308 @@
+/*
+ * PreçoCerto — propagação do sistema visual da homepage.
+ * Uma camada pública compartilhada substitui ajustes isolados por rota.
+ * Painéis administrativos herdam tokens e tipografia, mas preservam densidade.
+ */
+
+:root {
+  --pc-public-max: 1160px;
+  --pc-public-gutter: 40px;
+  --pc-public-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --pc-public-ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --pc-public-shadow: 0 18px 48px rgb(24 32 51 / 9%);
+  --pc-public-hero-overlay: linear-gradient(100deg, rgb(14 24 47 / 90%) 0%, rgb(20 36 76 / 72%) 54%, rgb(18 31 60 / 34%) 100%);
+}
+
+body {
+  background: var(--pc-canvas);
+  color: var(--pc-ink);
+  font-family: var(--pc-font-body);
+}
+
+::selection { background: color-mix(in srgb, var(--pc-navy-2) 26%, transparent); color: var(--pc-ink); }
+
+:where(
+  .search26-page, .sector-hub, .sector-page, .pdx-page, .store-pro-page,
+  .pro-basket-page, .smart-basket-page, .ref-page, .ref-auth, .mo-page,
+  .kelly-page, .culture-profile-page, .dorinha-editorial
+) {
+  background: var(--pc-canvas);
+  color: var(--pc-ink);
+  font-family: var(--pc-font-body);
+}
+
+:where(
+  .search26-page, .sector-hub, .sector-page, .pdx-page, .store-pro-page,
+  .pro-basket-page, .smart-basket-page, .ref-page, .ref-auth, .mo-page,
+  .kelly-page, .culture-profile-page, .dorinha-editorial
+) :where(h1, h2, h3) {
+  font-family: var(--pc-font-display);
+  text-wrap: balance;
+}
+
+:where(
+  .search26-shell, .sector-hub__shell, .sector-shell, .pdx-shell,
+  .store-pro-shell, .pro-basket-shell, .smart-basket-shell, .ref-shell
+) {
+  width: min(var(--pc-public-max), calc(100% - var(--pc-public-gutter)));
+  margin-inline: auto;
+}
+
+/* Shared public chrome: same restraint, spacing and interaction as HomeNew2026. */
+.ref-header {
+  min-height: 64px;
+  border-bottom: 1px solid var(--pc-border);
+  background: color-mix(in srgb, var(--pc-surface) 95%, transparent);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
+}
+
+.ref-header__inner { min-height: 64px; height: 64px; }
+.ref-nav a, .ref-signin, .ref-theme, .ref-menu, .ref-header__actions > a { min-height: 44px; }
+.ref-signin { background: var(--pc-navy-2); box-shadow: none; }
+.ref-footer { background: var(--pc-footer); }
+
+/* Hero vocabulary: real local imagery, navy veil, compact height and clear type. */
+:where(
+  .search26-hero, .sector-hub__hero, .sector-hero, .store-pro-hero,
+  .pro-basket-hero, .smart-basket-hero, .ref-stores-hero,
+  .kelly-hero, .culture-profile-hero, .mo-head
+) {
+  border-radius: var(--pc-radius-hero);
+  box-shadow: var(--pc-public-shadow);
+}
+
+.search26-hero::after,
+.sector-hub__hero::after,
+.pro-basket-hero::after { background: var(--pc-public-hero-overlay); }
+
+.sector-hub__hero {
+  width: min(var(--pc-public-max), calc(100% - var(--pc-public-gutter)));
+  margin: 20px auto 0;
+  padding-inline: clamp(26px, 4vw, 48px);
+  background: var(--pc-navy);
+}
+
+.sector-hub__hero::before { background-image: url('/marketplace-local-profissional-v2.webp'); }
+.sector-hub__hero-grid { width: 100%; margin: 0; }
+
+.search26-hero::before { background-image: url('/hero-precocerto-market-2026.webp'); }
+.pro-basket-hero::before { background-image: url('/mercado-local-profissional.webp'); }
+
+.smart-basket-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background: var(--pc-navy) url('/mercado-local-profissional.webp') 68% 40% / cover no-repeat;
+}
+
+.smart-basket-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: var(--pc-public-hero-overlay);
+}
+
+.smart-basket-hero :where(h1, p, small, svg) { color: inherit; }
+
+.culture-profile-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 230px;
+  color: #fff;
+  background: var(--pc-navy) url('/marketplace-local-profissional-v2.webp') center 44% / cover no-repeat;
+}
+
+.culture-profile-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: var(--pc-public-hero-overlay);
+}
+
+.culture-profile-hero :where(h1, p, small, span) { color: inherit; }
+.culture-profile-icon { border: 1px solid rgb(255 255 255 / 18%); background: rgb(255 255 255 / 12%); color: #fff; }
+
+.mo-head {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--pc-navy) url('/auth-market-hero-v2.webp') center 48% / cover no-repeat;
+  color: #fff;
+}
+
+.mo-head::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: var(--pc-public-hero-overlay);
+}
+
+.mo-head :where(h1, p, span, a) { color: inherit; }
+
+/* Headings, labels and readable body scale shared across every public route. */
+:where(
+  .search26-hero, .sector-hub__hero, .sector-hero, .store-pro-hero,
+  .pro-basket-hero, .smart-basket-hero, .ref-stores-hero,
+  .kelly-hero, .culture-profile-hero, .mo-head
+) h1 {
+  font-size: clamp(2.35rem, 4.5vw, 4.2rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+
+:where(
+  .search26-page, .sector-hub, .sector-page, .pdx-page, .store-pro-page,
+  .pro-basket-page, .smart-basket-page, .ref-page, .ref-auth, .mo-page,
+  .kelly-page, .culture-profile-page
+) :where(p, li) {
+  line-height: 1.55;
+}
+
+:where(
+  .search26-page, .sector-hub, .sector-page, .pdx-page, .store-pro-page,
+  .pro-basket-page, .smart-basket-page, .ref-page, .ref-auth, .mo-page,
+  .kelly-page, .culture-profile-page
+) :where(button, input, select, textarea) {
+  font-family: inherit;
+}
+
+/* Shared surface/card language from the homepage. */
+:where(
+  .search26-card, .search26-advanced, .search26-start,
+  .sector-hub__sector, .sector-hub__tool-grid > a, .sector-hub__store-grid > a,
+  .sector-real-content, .sector-store-card, .pdx-card, .pdx-tech-details,
+  .store-pro-summary, .store-pro-grid > a, .pro-basket-list, .pro-basket-summary,
+  .smart-planner, .smart-product-picker, .smart-plan-list, .smart-summary,
+  .ref-store-card, .ref-results-table, .ref-product-grid > article,
+  .mo-card, .mo-steps, .kelly-info__card, .kelly-menu-group,
+  .culture-profile-grid article, .culture-profile-note
+) {
+  border-color: var(--pc-border);
+  border-radius: var(--pc-radius-card);
+  background: var(--pc-surface);
+  color: var(--pc-ink);
+  box-shadow: none;
+}
+
+:where(.search26-search, .ref-stores-toolbar, .store-pro-search, .store-pro-select) {
+  border-color: color-mix(in srgb, var(--pc-navy-2) 32%, var(--pc-border));
+  border-radius: 14px;
+  background: var(--pc-surface);
+  box-shadow: 0 10px 28px rgb(24 32 51 / 8%);
+  transition: border-color 180ms var(--pc-public-ease-out), box-shadow 180ms var(--pc-public-ease-out);
+}
+
+:where(.search26-search, .ref-stores-toolbar, .store-pro-search):focus-within {
+  border-color: color-mix(in srgb, var(--pc-navy-2) 72%, var(--pc-border));
+  box-shadow: 0 12px 32px rgb(49 86 217 / 14%);
+}
+
+:where(
+  .search26-price strong, .pdx-price-main, .pdx-offer-price strong,
+  .store-pro-grid footer b, .pro-basket-line-total strong,
+  .smart-summary h2, .ref-result-price, .kelly-menu-list__price
+) { color: var(--pc-green-strong); }
+
+:where(
+  .search26-results > header span, .sector-hub__section-head span,
+  .pdx-card > header span, .store-pro-catalog-head > div > span,
+  .pro-basket-eyebrow, .smart-basket-hero small, .ref-page-title span,
+  .culture-profile-grid article > b
+) {
+  color: var(--pc-navy-2);
+  letter-spacing: .06em;
+}
+
+/* Auth and secondary pages use the same hero photography and surface model. */
+.ref-auth__story { background: var(--pc-navy); }
+.ref-auth__story::before {
+  opacity: 1;
+  background: linear-gradient(100deg, rgb(14 24 47 / 92%), rgb(20 36 76 / 58%)), url('/auth-market-hero-v2.webp') 58% 50% / cover no-repeat;
+  filter: none;
+}
+.ref-auth__form { background: var(--pc-canvas); }
+.ref-auth__card { border-radius: var(--pc-radius-block); background: var(--pc-surface); box-shadow: var(--pc-public-shadow); }
+.ref-auth__submit, .ref-info > a { background: var(--pc-navy-2); }
+
+.ref-page:has(.ref-info) .ref-info::after {
+  background: linear-gradient(100deg, rgb(14 24 47 / 92%), rgb(20 36 76 / 68%) 55%, rgb(18 31 60 / 76%));
+}
+
+/* Local storefronts keep their own accent/logo, but inherit layout and craft. */
+.kelly-page { --menu-hero: var(--pc-navy); }
+.kelly-shell { width: min(var(--pc-public-max), calc(100% - var(--pc-public-gutter))); }
+.kelly-hero { box-shadow: var(--pc-public-shadow); }
+.kelly-info__card, .kelly-menu-group { border-radius: var(--pc-radius-card); }
+.kelly-menu-group__head { background-color: var(--pc-navy); }
+
+/* Editorial page keeps its wine accent, while matching shared type, density and radii. */
+.dorinha-editorial { --de-paper: var(--pc-canvas); --de-ink: var(--pc-ink); --de-muted: var(--pc-muted); }
+.dorinha-editorial h1, .dorinha-editorial h2, .dorinha-editorial h3 { font-family: var(--pc-font-display); }
+.dorinha-editorial__hero { width: min(var(--pc-public-max), calc(100% - var(--pc-public-gutter))); border-radius: var(--pc-radius-hero); box-shadow: var(--pc-public-shadow); }
+.dorinha-editorial__catalog, .dorinha-editorial__author, .dorinha-editorial__contact { width: min(var(--pc-public-max), calc(100% - var(--pc-public-gutter))); }
+.dorinha-editorial__books article, .dorinha-editorial__catalog, .dorinha-editorial__contact { border-radius: var(--pc-radius-card); }
+
+/* Emil-style feedback: fast, interruptible and transform-only. */
+:where(
+  .search26-page, .sector-hub, .sector-page, .pdx-page, .store-pro-page,
+  .pro-basket-page, .smart-basket-page, .ref-page, .ref-auth, .mo-page,
+  .kelly-page, .culture-profile-page, .dorinha-editorial
+) :where(a, button) {
+  touch-action: manipulation;
+}
+
+:where(
+  .search26-page, .sector-hub, .sector-page, .pdx-page, .store-pro-page,
+  .pro-basket-page, .smart-basket-page, .ref-page, .ref-auth, .mo-page,
+  .kelly-page, .culture-profile-page, .dorinha-editorial
+) :where(button, .pc-btn, .ref-signin):active {
+  transform: scale(.97);
+  transition: transform 140ms var(--pc-public-ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(
+    .search26-card, .sector-hub__sector, .sector-hub__tool-grid > a,
+    .sector-hub__store-grid > a, .sector-store-card, .store-pro-grid > a,
+    .ref-store-card, .culture-profile-grid article
+  ) {
+    transition: transform 160ms var(--pc-public-ease-out), border-color 160ms ease, background-color 160ms ease;
+  }
+
+  :where(
+    .search26-card, .sector-hub__sector, .sector-hub__tool-grid > a,
+    .sector-hub__store-grid > a, .sector-store-card, .store-pro-grid > a,
+    .ref-store-card, .culture-profile-grid article
+  ):hover { transform: translateY(-2px); }
+}
+
+@media (max-width: 760px) {
+  :root { --pc-public-gutter: 24px; }
+  .ref-header__inner { height: 60px; min-height: 60px; }
+  .sector-hub__hero { margin-top: 10px; padding: 26px 20px; }
+  :where(
+    .search26-hero, .sector-hub__hero, .sector-hero, .store-pro-hero,
+    .pro-basket-hero, .smart-basket-hero, .ref-stores-hero,
+    .kelly-hero, .culture-profile-hero, .mo-head
+  ) { border-radius: 18px; box-shadow: none; }
+  :where(
+    .search26-hero, .sector-hub__hero, .sector-hero, .store-pro-hero,
+    .pro-basket-hero, .smart-basket-hero, .ref-stores-hero,
+    .kelly-hero, .culture-profile-hero, .mo-head
+  ) h1 { font-size: clamp(2.1rem, 10vw, 3.2rem); }
+  .dorinha-editorial__hero, .dorinha-editorial__catalog, .dorinha-editorial__author, .dorinha-editorial__contact { width: calc(100% - 20px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    .search26-card, .sector-hub__sector, .sector-hub__tool-grid > a,
+    .sector-hub__store-grid > a, .sector-store-card, .store-pro-grid > a,
+    .ref-store-card, .culture-profile-grid article
+  ) { transform: none !important; }
+}

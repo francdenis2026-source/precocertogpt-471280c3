@@ -1,52 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { X } from "lucide-react";
+import { Megaphone, X } from "lucide-react";
+import { loadActiveCampaigns, type PlatformCampaign } from "../lib/campaigns";
 import "./FestivalAcaiBar.css";
 
-// Faixa sazonal e discreta para a semana do Festival do Açaí + Festival de
-// Praia em Feijó. Some sozinha fora do intervalo abaixo — não precisa remover
-// o componente depois do evento, só ajustar (ou deixar) estas duas datas para
-// o próximo ano.
-const FESTIVAL_START = "2026-08-21T00:00:00-05:00";
-const FESTIVAL_END = "2026-08-25T00:00:00-05:00";
-
-const DISMISS_KEY = "pc-festival-acai-2026-dismissed";
-
+// O nome é mantido para compatibilidade. O conteúdo agora vem do gestor de
+// campanhas e, quando fechado, reaparece na próxima abertura ou atualização.
 export function FestivalAcaiBar() {
-  const [visible, setVisible] = useState(false);
+  const [campaign, setCampaign] = useState<PlatformCampaign|null>(null);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const now = Date.now();
-    const inRange = now >= new Date(FESTIVAL_START).getTime() && now < new Date(FESTIVAL_END).getTime();
-    let dismissed = false;
-    try {
-      dismissed = window.localStorage.getItem(DISMISS_KEY) === "1";
-    } catch {
-      // Navegação privada ou storage bloqueado: trata como não dispensado.
-    }
-    setVisible(inRange && !dismissed);
+    let mounted=true;
+    const refresh=()=>{setHidden(false);void loadActiveCampaigns().then(rows=>{if(mounted)setCampaign(rows[0]||null)})};
+    refresh();window.addEventListener('pc:campaigns-changed',refresh);
+    return()=>{mounted=false;window.removeEventListener('pc:campaigns-changed',refresh)};
   }, []);
 
-  if (!visible) return null;
-
-  const dismiss = () => {
-    try {
-      window.localStorage.setItem(DISMISS_KEY, "1");
-    } catch {
-      // Sem storage disponível: a faixa some só nesta sessão.
-    }
-    setVisible(false);
-  };
-
-  return (
-    <div className="pc-festival-bar" role="region" aria-label="Aviso do Festival do Açaí">
-      <Link className="pc-festival-bar__art" to="/buscar" aria-label="Festival do Açaí e Festival de Praia em Feijó. Pesquisar e comparar preços locais.">
-        <img src="/banner-festival-acai-feijo-2026.png" width="1024" height="62" alt="" aria-hidden="true" />
-        <span><strong>Festival do Açaí e Festival de Praia em Feijó</strong><small>Pesquise e compare preços locais</small></span>
-      </Link>
-      <button type="button" className="pc-festival-bar__close" onClick={dismiss} aria-label="Fechar aviso do festival">
-        <X aria-hidden="true" />
-      </button>
-    </div>
-  );
+  if (!campaign || hidden) return null;
+  const content=<>{campaign.imageUrl&&<img src={campaign.imageUrl} width="1024" height="62" alt="" aria-hidden="true"/>}<span><i><Megaphone aria-hidden="true"/></i><b><strong>{campaign.title}</strong>{campaign.subtitle&&<small>{campaign.subtitle}</small>}</b><em>{campaign.linkLabel}</em></span></>;
+  const external=/^https?:\/\//i.test(campaign.linkUrl);
+  return <div className={`pc-festival-bar theme-${campaign.theme} kind-${campaign.kind}`} role="region" aria-label={campaign.title}>
+    {external?<a className="pc-festival-bar__art" href={campaign.linkUrl} target="_blank" rel="noreferrer">{content}</a>:<Link className="pc-festival-bar__art" to={campaign.linkUrl||'/buscar'}>{content}</Link>}
+    {campaign.isDismissible&&<button type="button" className="pc-festival-bar__close" onClick={()=>setHidden(true)} aria-label="Fechar banner"><X aria-hidden="true"/></button>}
+  </div>;
 }

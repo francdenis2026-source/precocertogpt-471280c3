@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function (location) {
+        if (location.search[1] === "/") {
+          var decoded = location.search.slice(1).split("&").map(function (segment) {
+            return segment.replace(/~and~/g, "&");
+          }).join("?");
+          window.history.replaceState(null, "", location.pathname.slice(0, -1) + decoded + location.hash);
+        }
+      })(window.location);
+    </script>
     <title>Mucilon Arroz e Aveia Integral Sachê 180g | PreçoCerto</title>
     <meta name="description" content="Mucilon Arroz e Aveia Integral Sachê 180g — Mucilon · un · infantil. Compare preços e disponibilidade no comércio local de Feijó (AC)." />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
@@ -68,7 +78,7 @@
       #pc-boot-screen.is-done .pc-boot-progress i{animation:none!important}
       #pc-boot-screen.is-removed{display:none!important}
       .pc-boot-loading{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:#061c28}
-      .pc-boot-loading::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,24,34,.92),rgba(3,24,34,.55)),url('/auth-market-hero-v2.webp') center/cover no-repeat;filter:saturate(.78)}
+      .pc-boot-loading::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(3,20,28,.62),rgba(3,20,28,.32) 55%,rgba(3,20,28,.5)),url('/auth-market-hero-v2.webp') center/cover no-repeat;filter:brightness(1.08) saturate(1.05)}
       .pc-boot-loading__card{position:relative;z-index:1;display:grid;justify-items:center;gap:18px;padding:34px 38px;border:1px solid rgba(255,255,255,.14);border-radius:24px;background:rgba(4,28,39,.72);box-shadow:0 24px 70px rgba(0,0,0,.28);backdrop-filter:blur(14px);text-align:center;max-width:min(440px,calc(100vw - 40px))}
       .pc-boot-loading__card img{width:178px;height:auto}.pc-boot-loading__card strong{font-size:20px;letter-spacing:-.02em}.pc-boot-loading__card small{color:#b9c9d1;font-size:13px;line-height:1.55}
       .pc-boot-progress{width:210px;height:3px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12)}.pc-boot-progress i{display:block;width:42%;height:100%;border-radius:inherit;background:#7fa8c2;animation:pcBoot 1.15s ease-in-out infinite}

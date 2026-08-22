@@ -16,3 +16,182 @@ html[data-theme="dark"] .pharmacy-directory-page{background:var(--pc-canvas,#061
 @media(max-width:620px){.pharmacy-directory{gap:14px}.pharmacy-directory__hero{min-height:320px;border-radius:17px;background-position:68% center}.pharmacy-directory__hero::after{background:linear-gradient(90deg,rgb(7 31 39 / 97%) 0%,rgb(7 31 39 / 88%) 72%,rgb(7 31 39 / 60%) 100%)}.pharmacy-directory__hero-copy{width:100%;padding:24px 20px}.pharmacy-directory__hero h1{font-size:40px}.pharmacy-directory__hero-copy>p{max-width:38ch}.pharmacy-directory__hero-meta{align-items:flex-start;flex-direction:column;gap:7px}.pharmacy-directory__list-heading{align-items:flex-start;flex-direction:column;gap:8px}.pharmacy-directory__list-heading>p{font-size:11px}.pharmacy-directory__heading{align-items:flex-start;flex-direction:column;gap:10px}.pharmacy-directory__heading h1{font-size:34px}.pharmacy-establishment{grid-template-columns:50px minmax(0,1fr);gap:12px;padding:14px}.pharmacy-establishment__mark{width:48px;height:48px;border-radius:12px}.pharmacy-establishment__identity h2{font-size:19px}.pharmacy-establishment__catalog{grid-column:1/-1;padding-top:11px}.pharmacy-establishment__action{grid-column:1/-1;grid-row:auto;width:100%}}
 @media(prefers-reduced-motion:reduce){.pharmacy-directory__loader{animation:none}.pharmacy-establishment,.pharmacy-establishment__action{transition:none}}
 @keyframes pharmacy-loader{to{transform:rotate(360deg)}}
+
+/* Mobile pharmacy experience: the same desktop identity, recomposed for touch. */
+@media(max-width:680px){
+  .pharmacy-directory-page--pharmacies{overflow-x:clip;overscroll-behavior-y:contain}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory{
+    width:100%;
+    gap:16px;
+    padding:0 0 calc(28px + env(safe-area-inset-bottom));
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero{
+    min-height:390px;
+    align-items:flex-end;
+    border-width:0 0 1px;
+    border-radius:0 0 24px 24px;
+    background-image:url('/pharmacy-hero-2026.webp');
+    background-position:66% center;
+    background-size:cover;
+    box-shadow:0 14px 34px rgb(9 38 47 / 18%);
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero::after{
+    background:
+      linear-gradient(180deg,rgb(5 26 33 / 12%) 0%,rgb(5 26 33 / 22%) 30%,rgb(5 26 33 / 84%) 68%,rgb(5 26 33 / 97%) 100%),
+      linear-gradient(90deg,rgb(5 26 33 / 32%),transparent 74%);
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-copy{
+    width:100%;
+    padding:92px 20px 24px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-copy>span{
+    min-height:28px;
+    padding:0 9px;
+    border:1px solid rgb(127 228 201 / 34%);
+    border-radius:999px;
+    background:rgb(5 26 33 / 48%);
+    font-size:10px;
+    letter-spacing:.09em;
+    backdrop-filter:blur(8px);
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero h1{
+    max-width:10ch;
+    margin:10px 0 8px;
+    font-size:clamp(36px,11vw,44px);
+    line-height:1;
+    text-wrap:balance;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-copy>p{
+    max-width:42ch;
+    color:#edf7f5;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta{
+    width:100%;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:8px;
+    margin-top:16px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta strong,
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta small{
+    min-height:40px;
+    padding:0 10px;
+    border-color:rgb(255 255 255 / 22%);
+    background:rgb(5 26 33 / 64%);
+    font-size:11px;
+    backdrop-filter:blur(10px);
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta small{
+    justify-content:center;
+    white-space:nowrap;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__list-heading{
+    width:calc(100% - 32px);
+    margin-inline:auto;
+    padding:2px 0 0;
+    gap:10px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__list-heading h2{
+    font-size:22px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__list-heading>p{
+    padding:6px 9px;
+    font-size:10px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__list{
+    width:calc(100% - 32px);
+    margin-inline:auto;
+    gap:12px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment{
+    grid-template-columns:56px minmax(0,1fr);
+    gap:12px;
+    padding:14px;
+    border-radius:16px;
+    box-shadow:0 8px 22px rgb(16 38 49 / 7%);
+    transform:none;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment:active{
+    border-color:color-mix(in srgb,#0f8d82 54%,var(--pc-border,#d8e1dc));
+    box-shadow:0 4px 12px rgb(16 60 62 / 9%);
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__mark{
+    width:56px;
+    height:56px;
+    align-self:start;
+    border-radius:13px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__identity>span{
+    font-size:9px;
+    letter-spacing:.065em;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__identity h2{
+    margin-top:4px;
+    font-size:clamp(18px,5.4vw,21px);
+    line-height:1.1;
+    overflow-wrap:anywhere;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__identity p{
+    font-size:13px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__catalog{
+    grid-column:1/2;
+    min-width:0;
+    align-self:stretch;
+    justify-content:center;
+    gap:2px;
+    padding:10px 0 0;
+    border-top:1px solid var(--pc-border,#d8e1dc);
+    border-left:0;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__catalog small{
+    font-size:9px;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__catalog strong{
+    font-size:12px;
+    line-height:1.25;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__action{
+    grid-column:2/3;
+    grid-row:auto;
+    width:100%;
+    min-height:46px;
+    align-self:end;
+    padding:0 13px;
+    border-radius:11px;
+    font-size:13px;
+    touch-action:manipulation;
+  }
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__state{
+    width:calc(100% - 32px);
+    min-height:132px;
+    margin-inline:auto;
+    padding:20px;
+    text-align:center;
+  }
+}
+
+@media(max-width:390px){
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero{min-height:374px;background-position:68% center}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-copy{padding:82px 16px 20px}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero h1{font-size:36px}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-copy>p{font-size:14px}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta{grid-template-columns:1fr}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta strong,
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-meta small{min-height:36px;justify-content:flex-start}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__list-heading,
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__list,
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__state{width:calc(100% - 24px)}
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment{grid-template-columns:50px minmax(0,1fr);padding:12px}
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__mark{width:50px;height:50px}
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__catalog{grid-column:1/-1;justify-content:start}
+  .pharmacy-directory-page--pharmacies .pharmacy-establishment__action{grid-column:1/-1}
+}
+
+@media(max-width:680px) and (orientation:landscape){
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero{min-height:320px;background-position:70% 45%}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero-copy{width:76%;padding:54px 24px 22px}
+  .pharmacy-directory-page--pharmacies .pharmacy-directory__hero h1{font-size:36px}
+}

@@ -295,3 +295,173 @@ html[data-theme="dark"] .hp-home .hp-offers::after {
       url("/compra-inteligente-profissional.webp");
   }
 }
+
+
+/* Refinamento fotográfico e microinterações — contraste equilibrado por tema. */
+.hp-home .hp-story__media {
+  opacity: .82 !important;
+  filter: saturate(1.02) contrast(1.09) brightness(.94) !important;
+  transform: scale(1.015);
+}
+.hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      rgb(244 242 237 / 91%) 0%,
+      rgb(244 242 237 / 78%) 36%,
+      rgb(244 242 237 / 45%) 56%,
+      rgb(244 242 237 / 12%) 76%,
+      transparent 100%) !important;
+}
+html[data-theme="dark"] .hp-home .hp-story__media {
+  opacity: .76 !important;
+  filter: saturate(1.08) contrast(1.08) brightness(1.08) !important;
+}
+html[data-theme="dark"] .hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 88%) 0%,
+      rgb(13 23 31 / 72%) 36%,
+      rgb(13 23 31 / 40%) 57%,
+      rgb(13 23 31 / 10%) 78%,
+      transparent 100%) !important;
+}
+
+/* A imagem de continuidade permanece visível, sem lavar o claro nem fechar o escuro. */
+.hp-home .hp-sectors,
+.hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 82%) 0%,
+      rgb(247 245 240 / 61%) 42%,
+      rgb(247 245 240 / 34%) 72%,
+      rgb(247 245 240 / 55%) 100%),
+    url("/compra-inteligente-profissional.webp");
+}
+.hp-home .hp-sectors::after,
+.hp-home .hp-offers::after {
+  background:
+    radial-gradient(circle at 8% 45%, rgb(247 245 240 / 30%), transparent 34%),
+    linear-gradient(180deg, rgb(247 245 240 / 8%), rgb(247 245 240 / 36%));
+}
+html[data-theme="dark"] .hp-home .hp-sectors,
+html[data-theme="dark"] .hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 78%) 0%,
+      rgb(13 23 31 / 56%) 42%,
+      rgb(13 23 31 / 30%) 72%,
+      rgb(13 23 31 / 48%) 100%),
+    url("/compra-inteligente-profissional.webp");
+}
+html[data-theme="dark"] .hp-home .hp-sectors::after,
+html[data-theme="dark"] .hp-home .hp-offers::after {
+  background:
+    radial-gradient(circle at 8% 45%, rgb(13 23 31 / 22%), transparent 34%),
+    linear-gradient(180deg, rgb(13 23 31 / 4%), rgb(13 23 31 / 30%));
+}
+
+/* Cards reativos: elevação curta, contorno cromático e brilho controlado. */
+.hp-home :where(.hp-sector-grid > *, .hp-offers article, .hp-story li) {
+  transition:
+    transform 180ms cubic-bezier(.2,.8,.2,1),
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+.hp-home :where(.hp-sector-grid > *, .hp-offers article):hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--pc-green) 58%, var(--taste-line));
+  box-shadow:
+    0 16px 34px rgb(11 45 62 / 14%),
+    0 0 0 1px color-mix(in srgb, var(--pc-green) 18%, transparent);
+}
+.hp-home .hp-sector-grid > *:nth-child(3n+2):hover {
+  border-color: color-mix(in srgb, var(--pc-gold) 66%, var(--taste-line));
+  box-shadow:
+    0 16px 34px rgb(11 45 62 / 14%),
+    0 0 0 1px color-mix(in srgb, var(--pc-gold) 24%, transparent);
+}
+.hp-home .hp-story li:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--pc-green) 42%, var(--taste-line));
+  background: color-mix(in srgb, var(--taste-paper) 94%, var(--pc-green));
+}
+
+/* Botões e links de ação: resposta visual clara no hover, clique e teclado. */
+.hp-home :where(button, a[role="button"], .hp-story__content > a, .hp-offers a) {
+  transition:
+    transform 160ms cubic-bezier(.2,.8,.2,1),
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.hp-home :where(button, a[role="button"], .hp-story__content > a):hover {
+  transform: translateY(-2px);
+  background-color: #147a43;
+  border-color: #147a43;
+  color: #fff;
+  box-shadow: 0 10px 22px rgb(20 122 67 / 24%);
+}
+.hp-home :where(button, a[role="button"], .hp-story__content > a):active {
+  transform: translateY(0) scale(.98);
+  box-shadow: 0 4px 10px rgb(20 122 67 / 18%);
+}
+.hp-home :where(button, a, [role="button"]):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--pc-gold) 74%, white);
+  outline-offset: 3px;
+  border-radius: max(6px, inherit);
+}
+.hp-home .hp-offers a:hover {
+  color: #147a43;
+}
+html[data-theme="dark"] .hp-home :where(.hp-sector-grid > *, .hp-offers article):hover {
+  box-shadow:
+    0 18px 38px rgb(0 0 0 / 34%),
+    0 0 0 1px color-mix(in srgb, var(--pc-green) 28%, transparent);
+}
+html[data-theme="dark"] .hp-home .hp-story li:hover {
+  background: color-mix(in srgb, var(--taste-paper) 92%, var(--pc-green));
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-story__media {
+    opacity: .62 !important;
+    filter: saturate(.98) contrast(1.07) brightness(.96) !important;
+  }
+  html[data-theme="dark"] .hp-home .hp-story__media {
+    opacity: .64 !important;
+    filter: saturate(1.04) contrast(1.06) brightness(1.07) !important;
+  }
+  .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      rgb(244 242 237 / 58%) 0%,
+      rgb(244 242 237 / 88%) 62%,
+      rgb(244 242 237 / 96%) 100%) !important;
+  }
+  html[data-theme="dark"] .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      rgb(13 23 31 / 48%) 0%,
+      rgb(13 23 31 / 80%) 62%,
+      rgb(13 23 31 / 94%) 100%) !important;
+  }
+  .hp-home .hp-sectors,
+  .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(247 245 240 / 76%), rgb(247 245 240 / 52%)),
+      url("/compra-inteligente-profissional.webp");
+  }
+  html[data-theme="dark"] .hp-home .hp-sectors,
+  html[data-theme="dark"] .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(13 23 31 / 70%), rgb(13 23 31 / 46%)),
+      url("/compra-inteligente-profissional.webp");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-home :where(button, a, [role="button"], .hp-sector-grid > *, .hp-offers article, .hp-story li) {
+    transition: none !important;
+    transform: none !important;
+  }
+}

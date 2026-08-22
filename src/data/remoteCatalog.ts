@@ -125,14 +125,20 @@ const baseProductName = (value: string | null) => normalizeCatalogTerm(value || 
 
 // Chave usada apenas na comparação: diferenças de espaço ou pontuação não
 // podem separar cadastros do mesmo produto ("Dobom" e "Do Bom").
-const identityProductName = (value: string | null) => baseProductName(value)
-  .replace(/\s+/g, "")
-  .replace(/dobon/g, "dobom");
+const productIdentityWords = (value: string | null) => baseProductName(value)
+  .split(" ")
+  .filter(Boolean)
+  .map(word => word === "dobon" ? "dobom" : word);
+
+// A ordem das mesmas palavras não cria outro produto. Assim,
+// "Leite em Pó Italac Integral" e "Leite em Pó Integral Italac" usam a
+// mesma identidade, mas palavras comercialmente relevantes (instantâneo,
+// sachê, lata, sabor etc.) continuam impedindo uma união indevida.
+const identityProductName = (value: string | null) => productIdentityWords(value).sort().join("");
 const identityToken = (value: string | null) => normalize(value || "").replace(/[^a-z0-9]+/g, "");
-const isLeiteDobom = (product: ProductRow) => identityProductName(product.name) === "leiteempodobom";
-const publicProductName = (product: ProductRow) => isLeiteDobom(product)
-  ? "Leite em Pó Dobom 400 g"
-  : product.name ?? "Produto sem nome";
+const identityFor = (name: string) => identityProductName(name);
+const isLeiteDobom = (product: ProductRow) => identityProductName(product.name) === identityFor("leite em pó dobom");
+
 const identitySpecification = (product: ProductRow) => {
   // O cadastro legado sem gramagem corresponde ao mesmo Leite Dobom 400 g
   // presente nas demais lojas. Sem este alias, ele ficaria isolado como
@@ -140,6 +146,19 @@ const identitySpecification = (product: ProductRow) => {
   if (isLeiteDobom(product)) return "mass:400g";
   return extractSpecification(product);
 };
+
+const officialProfileKey = (name: string, specification: string) => `${identityFor(name)}|${specification}`;
+const OFFICIAL_PRODUCT_NAMES: Record<string, { name: string; brand: string; size: string }> = {
+  [officialProfileKey("leite em pó dobom", "mass:400g")]: { name: "Leite em Pó Dobom 400 g", brand: "Dobom", size: "400 g" },
+  [officialProfileKey("leite em pó integral italac", "mass:400g")]: { name: "Leite em Pó Integral Italac 400 g", brand: "Italac", size: "400 g" },
+  [officialProfileKey("leite em pó integral itambé", "mass:400g")]: { name: "Leite em Pó Integral Itambé 400 g", brand: "Itambé", size: "400 g" },
+  [officialProfileKey("leite em pó integral piracanjuba", "mass:400g")]: { name: "Leite em Pó Integral Piracanjuba 400 g", brand: "Piracanjuba", size: "400 g" },
+  [officialProfileKey("leite em pó integral ninho", "mass:380g")]: { name: "Leite em Pó Integral NINHO 380 g", brand: "NINHO", size: "380 g" },
+};
+const publicProductProfile = (product: ProductRow) => OFFICIAL_PRODUCT_NAMES[`${identityProductName(product.name)}|${identitySpecification(product)}`];
+const publicProductName = (product: ProductRow) => publicProductProfile(product)?.name
+  ?? product.name
+  ?? "Produto sem nome";
 
 const productIdentity = (product: ProductRow) => product.barcode
   ? `barcode:${normalize(product.barcode)}`
@@ -274,9 +293,9 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
           id: product.id,
           slug: productSlugById.get(String(product.id)) || String(product.id),
           name: publicProductName(product),
-          brand: isLeiteDobom(product) ? "Dobom" : product.brand ?? "—",
+          brand: publicProductProfile(product)?.brand ?? product.brand ?? "—",
           category: isLimpolPerfumes500ml ? "Desinfetante" : product.category ?? "Geral",
-          size: isLeiteDobom(product) ? "400 g" : product.size ?? "—",
+          size: publicProductProfile(product)?.size ?? product.size ?? "—",
           unit: product.unit ?? "un",
           barcode: product.barcode ?? undefined,
           minPrice: round(Math.min(...values)),

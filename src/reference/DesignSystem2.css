@@ -5,11 +5,9 @@
   --pc-font-body:"Inter Variable",Inter,system-ui,sans-serif;
   --pc-canvas:#f6f7f8;--pc-surface:#ffffff;--pc-surface-2:#eef1f3;--pc-surface-3:#e3e7ea;
   --pc-ink:#131a20;--pc-muted:#5b6570;--pc-subtle:#6b7680;--pc-border:#dde2e6;--pc-border-strong:#c3cad0;
-  /* Azul profundo (não cinza-chumbo): usado em header/rodapé/heros de todas
-     as páginas via este token só, então um azul com saturação real aqui já
-     resolve o site inteiro de uma vez, sem precisar caçar cor em cada
-     página. */
-  --pc-navy:#0f3556;--pc-navy-2:#154a75;
+  /* Índigo de marca: mais saturado e expressivo que o antigo azul-chumbo,
+     mantendo contraste profissional com branco, verde e dourado. */
+  --pc-navy:#243b7a;--pc-navy-2:#3157a4;
   /* --pc-green* e --pc-gold* eram clones do azul de marca (mesmo hex do navy),
      deixando preço, selos e destaques indistinguíveis da UI estrutural.
      Agora green é realmente verde (preço/economia) e gold é realmente dourado
@@ -27,11 +25,9 @@ html[data-theme="dark"]{
   color-scheme:dark;
   --pc-canvas:#14191e;--pc-surface:#1b2126;--pc-surface-2:#212930;--pc-surface-3:#2a333b;
   --pc-ink:#e9eef2;--pc-muted:#9aa5ad;--pc-subtle:#8b95a0;--pc-border:#2a333b;--pc-border-strong:#3a444d;
-  /* Este era o principal "chumbo" do site: quase cinza neutro (R16 G23 B28,
-     sem saturação de cor nenhuma) usado em header/rodapé/heros no modo
-     escuro. Troca por um azul-marinho profundo de verdade — mesma
-     escuridão, mas com identidade de cor, não cinza de infraestrutura. */
-  --pc-navy:#0b2438;--pc-navy-2:#123a58;--pc-green:#34c77c;--pc-green-strong:#4ade80;--pc-green-soft:#15291d;
+  /* No tema escuro, o índigo permanece reconhecível sem perder profundidade
+     nem competir com os indicadores de preço e economia. */
+  --pc-navy:#111f4d;--pc-navy-2:#1b3570;--pc-green:#34c77c;--pc-green-strong:#4ade80;--pc-green-soft:#15291d;
   --pc-gold:#f2ae4c;--pc-gold-soft:#3a2a14;--pc-danger:#f3897a;--pc-danger-soft:#3a1e1a;--pc-info:#9cbed3;
   --pc-shadow-sm:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.32);--pc-shadow-lg:0 2px 8px rgba(0,0,0,.45),0 24px 60px rgba(0,0,0,.5);
 }

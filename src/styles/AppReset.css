@@ -52,3 +52,4 @@ a[href*="lovable.app"][target="_blank"]:has(img[src*="lovable"]) {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+/* preview rebuild marker: 2026-08-22T04:29:16Z */

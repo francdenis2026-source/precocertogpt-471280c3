@@ -6,8 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, BadgeCheck, BookOpen, Croissant, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Sandwich, Scale, Search, ShoppingBasket, Store, Sun, UserRound, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
-import { primarySectors } from "../reference/MarketplaceSectors";
-import { prefetchSectorCatalog } from "../data/sectorCatalog";
 import { resolveProductImage, resolveCutoutImage } from "../data/productImageResolver";
 import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
 import { getStoreLogoUrl } from "../data/storeLogos";
@@ -191,7 +189,7 @@ export function HomeProfessional2026() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.from(".hp-eyebrow, .hp-hero__copy h1, .hp-hero__copy>p, .hp-search", { y: 16, opacity: 0, duration: .6, stagger: .07, ease: "power3.out" });
     gsap.from(".hp-spotlight", { y: 16, opacity: 0, duration: .6, delay: .15, ease: "power3.out" });
-    gsap.utils.toArray<HTMLElement>(".hp-sectors, .hp-offers, .hp-story, .hp-local").forEach((section) => {
+    gsap.utils.toArray<HTMLElement>(".hp-sectors, .hp-offers, .hp-guide").forEach((section) => {
       gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", once: true }, y: 24, opacity: 0, duration: .55, ease: "power2.out" });
     });
     gsap.utils.toArray<HTMLElement>([".hp-sector-grid", ".hp-product-grid"]).forEach((grid) => {
@@ -235,9 +233,9 @@ export function HomeProfessional2026() {
         <div className="hp-hero__veil" aria-hidden="true" />
         <div className="hp-shell hp-hero__grid">
           <div className="hp-hero__copy">
-            <span className="hp-eyebrow"><MapPin /> COMÉRCIO LOCAL · FEIJÓ</span>
-            <h1>Seu dinheiro vai<br /><em>mais longe.</em></h1>
-            <p>Compare preços reais do comércio de Feijó e descubra onde cada produto custa menos, antes de sair de casa.</p>
+            <span className="hp-eyebrow"><MapPin /> Preços do comércio de Feijó</span>
+            <h1>Compare antes.<br /><em>Compre melhor.</em></h1>
+            <p>Pesquise um produto, veja os preços disponíveis e escolha onde comprar sem perder tempo.</p>
             <form className="hp-search" role="search" onSubmit={submitSearch} onFocus={() => setSearchFocused(true)}>
               <Search aria-hidden="true" />
               <label className="sr-only" htmlFor="hp-search-input">Buscar produto, marca ou categoria</label>
@@ -270,21 +268,6 @@ export function HomeProfessional2026() {
               </div>}
             </form>
 
-            {/* Atalhos logo abaixo da busca. Uma barra de pesquisa vazia não
-                diz o que existe para procurar — quem chega pela primeira vez
-                não sabe se o site tem açougue, padaria ou só supermercado.
-                Estes atalhos respondem isso na primeira tela, sem exigir que
-                a pessoa role a página até a lista de categorias nem adivinhe
-                uma palavra de busca. */}
-            <nav className="hp-quickcats" aria-label="Onde comprar">
-              {primarySectors.map(sector => (
-                <Link key={sector.id} to={sector.href} onPointerEnter={prefetchSectorCatalog} onFocus={prefetchSectorCatalog}>
-                  <sector.icon aria-hidden="true" />
-                  {sector.shortLabel}
-                </Link>
-              ))}
-              <Link className="hp-quickcats__all" to="/explorar">Ver tudo <ArrowRight aria-hidden="true" /></Link>
-            </nav>
           </div>
 
           <aside className="hp-spotlight" aria-label="Destaque de preço">
@@ -300,12 +283,12 @@ export function HomeProfessional2026() {
       </section>
 
       <section className="hp-sectors hp-shell" aria-labelledby="hp-sectors-title">
-        <div className="hp-section-head"><div><span>COMÉRCIO POR CATEGORIA</span><h2 id="hp-sectors-title">Onde comprar em Feijó.</h2><p>Encontre rapidamente o tipo de estabelecimento que você precisa.</p></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
+        <div className="hp-section-head"><div><span>Comércio por categoria</span><h2 id="hp-sectors-title">Onde você quer comprar?</h2><p>Escolha uma categoria e encontre estabelecimentos próximos.</p></div><Link to="/explorar">Ver todas <ArrowRight /></Link></div>
         <div className="hp-sector-grid">{sectors.map(({ label, detail, icon: Icon, to, color }, index) => <Link to={to} key={label} className={index === 0 ? "hp-sector-grid__lead" : undefined} style={{ "--sector-accent": color } as CSSProperties}><i><Icon /></i><span><strong>{label}</strong><small>{detail}</small></span><ArrowRight /></Link>)}</div>
       </section>
 
       <section className="hp-offers hp-shell" aria-labelledby="hp-offers-title">
-        <div className="hp-section-head"><div><span>OPORTUNIDADES LOCAIS</span><h2 id="hp-offers-title">Produtos para comparar agora.</h2><p>Uma seleção compacta com preços disponíveis no catálogo.</p></div><Link to="/buscar">Explorar preços <ArrowRight /></Link></div>
+        <div className="hp-section-head"><div><span>Preços em destaque</span><h2 id="hp-offers-title">Compare agora.</h2><p>Produtos com preços disponíveis no catálogo local.</p></div><Link to="/buscar">Ver catálogo <ArrowRight /></Link></div>
         <div className="hp-product-grid">{loading ? Array.from({ length: 4 }, (_, index) => <div className="hp-product-card hp-product-card--loading" key={index} />) : featured.slice(0, 4).map(product => <article className="hp-product-card" key={product.id}>
           <Link to={`/produto/${product.slug || product.id}`} aria-label={`Comparar preços de ${product.name}`}>
             <div className="hp-product-card__media"><ProductImage product={product} preferCutout /></div>
@@ -314,14 +297,19 @@ export function HomeProfessional2026() {
         </article>)}</div>
       </section>
 
-      <section className="hp-story">
-        <div className="hp-story__media" aria-hidden="true" />
-        <div className="hp-shell hp-story__content"><span>COMO FUNCIONA</span><h2>Da pesquisa à escolha,<br />sem complicação.</h2><p>Busque o produto, veja as opções disponíveis e escolha o comércio que faz mais sentido para sua compra.</p><ol><li><b>01</b><span><strong>Pesquise</strong><small>Digite o produto ou a marca.</small></span></li><li><b>02</b><span><strong>Compare</strong><small>Veja preços e estabelecimentos.</small></span></li><li><b>03</b><span><strong>Economize</strong><small>Escolha com mais informação.</small></span></li></ol><Link className="pc-btn" to="/buscar">Comparar preços <ArrowRight /></Link></div>
-      </section>
-
-      <section className="hp-local hp-shell">
-        <div className="hp-local__copy"><h2>O comércio de Feijó, um por um.</h2><p>Veja quem já está no PreçoCerto ou cadastre seu negócio em poucos minutos.</p></div>
-        <div className="hp-local__media" aria-hidden="true" /><div className="hp-local__actions"><Link className="pc-btn" to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link><Link className="pc-btn" to="/lojista">Cadastrar meu negócio <ArrowRight /></Link></div>
+      <section className="hp-guide hp-shell" aria-label="Como usar o PreçoCerto">
+        <div className="hp-guide__media" aria-hidden="true" />
+        <div className="hp-guide__steps">
+          <span>Simples e direto</span>
+          <h2>Pesquise, compare e escolha.</h2>
+          <ol><li><b>1</b><span><strong>Pesquise</strong><small>Produto ou marca</small></span></li><li><b>2</b><span><strong>Compare</strong><small>Preço e estabelecimento</small></span></li><li><b>3</b><span><strong>Escolha</strong><small>A melhor opção para você</small></span></li></ol>
+        </div>
+        <div className="hp-guide__actions">
+          <h3>Comércio local em um só lugar.</h3>
+          <p>Encontre estabelecimentos ou inclua seu negócio no PreçoCerto.</p>
+          <Link className="pc-btn" to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link>
+          <Link className="pc-btn" to="/lojista">Cadastrar meu negócio</Link>
+        </div>
       </section>
     </main>
 

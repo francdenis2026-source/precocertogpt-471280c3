@@ -6,6 +6,7 @@ import type { Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { AppDock, PublicHeader } from "./ReferenceExperience";
 import "./ProfessionalBasketPage.css";
+import "./CompactViewportPages.css";
 
 type BasketEntry = { productId: string; quantity: number };
 const BASKET_KEY = "precocerto:active_basket_items";

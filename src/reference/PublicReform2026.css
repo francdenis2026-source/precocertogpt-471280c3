@@ -202,9 +202,43 @@ html:not([data-theme="dark"]) .hp-home .hp-story li {
   background: color-mix(in srgb, var(--pc-public-surface) 92%, var(--pc-public-bg));
 }
 
-html[data-theme="dark"] .hp-home :where(.hp-sectors, .hp-offers),
-html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers) {
+html[data-theme="dark"] .hp-home .hp-offers,
+html:not([data-theme="dark"]) .hp-home .hp-offers {
   background-image: none !important;
+}
+html:not([data-theme="dark"]) .hp-home .hp-sectors {
+  color: #f5f9fb;
+  background-color: #0b2f4a;
+  background-image:
+    linear-gradient(100deg,
+      rgb(7 28 42 / 82%) 0%,
+      rgb(7 28 42 / 70%) 38%,
+      rgb(7 28 42 / 43%) 68%,
+      rgb(7 28 42 / 58%) 100%),
+    url("/comercio-local-feijo-categorias-2026.webp") !important;
+  background-position: center 56% !important;
+  background-size: cover !important;
+}
+html[data-theme="dark"] .hp-home .hp-sectors {
+  color: #f5f9fb;
+  background-color: #081f31;
+  background-image:
+    linear-gradient(100deg,
+      rgb(5 21 32 / 86%) 0%,
+      rgb(5 21 32 / 74%) 38%,
+      rgb(5 21 32 / 48%) 68%,
+      rgb(5 21 32 / 64%) 100%),
+    url("/comercio-local-feijo-categorias-2026.webp") !important;
+  background-position: center 56% !important;
+  background-size: cover !important;
+}
+html .hp-home .hp-sectors :where(.hp-section-head h2, .hp-section-head p) {
+  color: inherit;
+  text-shadow: 0 1px 18px rgb(0 0 0 / 28%);
+}
+html .hp-home .hp-sectors .hp-section-head > div > span,
+html .hp-home .hp-sectors .hp-section-head > a {
+  color: #8fd3f4;
 }
 html[data-theme="dark"] .hp-home :where(.hp-sectors, .hp-offers)::after,
 html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers)::after {
@@ -287,6 +321,10 @@ html:not([data-theme="dark"]) .hp-home .hp-local__media::after {
   html:not([data-theme="dark"]) .hp-home .hp-story__content {
     min-height: 0;
     padding: 30px 20px 26px;
+  }
+  html[data-theme="dark"] .hp-home .hp-sectors,
+  html:not([data-theme="dark"]) .hp-home .hp-sectors {
+    background-position: 62% center !important;
   }
   .hp-home .hp-hero h1 { font-size: clamp(2.35rem, 11vw, 3.2rem) !important; }
   .hp-home .hp-hero__copy > p { font-size: 1rem !important; }

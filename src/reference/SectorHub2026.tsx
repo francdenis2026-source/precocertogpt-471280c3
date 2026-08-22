@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import {
   ArrowRight,
   BookOpen,

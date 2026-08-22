@@ -1,9 +1,7 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight, BadgePercent, CheckCircle2, Heart, LogIn, MapPin, Menu, Moon, PackageSearch,
   Search, ShieldCheck, ShoppingBasket, Store, Sun, Tag, TrendingDown, X,

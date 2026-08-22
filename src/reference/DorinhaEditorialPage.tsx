@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { ArrowRight, BookOpen, CheckCircle2, Feather, MapPin, MessageCircle, Quote, Share2, Sparkles } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import imagimacaoAsset from "../assets/uma-viagem-ao-mundo-da-imaginacao.png.asset.json";

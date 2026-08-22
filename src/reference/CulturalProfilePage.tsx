@@ -1,7 +1,5 @@
 import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { ArrowRight, BookOpen, Building2, MapPin, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PublicHeader } from "./ReferenceExperience";

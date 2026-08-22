@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link } from 'react-router-dom';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowLeft, Check, CheckCircle2, Clipboard, ExternalLink, Film, Play, RefreshCw, Sparkles, Video } from 'lucide-react';
 import { fetchCatalog } from '../data/remoteCatalog';
 import { resolveProductImage } from '../data/productImageResolver';

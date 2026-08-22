@@ -1,9 +1,7 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { ArrowRight, BadgeCheck, Building2, ChevronDown, PackageSearch, RotateCcw, Search, SlidersHorizontal, Store } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { fetchSectorCatalog, productHasSectorOffer, sectorStores } from "../data/sectorCatalog";
 import { getMarketplaceSector, marketplaceSectors, type MarketplaceSectorId } from "./MarketplaceSectors";

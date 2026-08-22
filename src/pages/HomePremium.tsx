@@ -310,8 +310,9 @@ export function HomePremium() {
           <div className="pcx-shell pcx-hero__grid">
             <div className="pcx-hero__copy">
               <h1 id="pcx-title">'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-
-acabei de rodar o sql, verifique</h1>
+                                        
+                                            
+                                            verifique as cores secundarias do site</h1>
               <p>Em Feijó, compare o mesmo produto nos estabelecimentos da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               
               <div className="pcx-hero__actions">

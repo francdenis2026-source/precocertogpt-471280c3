@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
   ChevronRight, Factory, Heart, Home, Info, Layers3, MapPin, Package,
-  PackageSearch, ShieldCheck, ShoppingBasket, Store, Tag, TrendingDown,
+  PackageSearch, PiggyBank, ShieldCheck, ShoppingBasket, Store, Tag, TrendingDown,
 } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
@@ -14,7 +17,9 @@ import { buildComparableOffers, findComparableProducts, type ComparableOffer } f
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
 
+gsap.registerPlugin(ScrollTrigger);
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const round2 = (value: number) => Math.round(value * 100) / 100;
 const BASKET_KEY = "precocerto:active_basket_items";
 const PENDING_BASKET_KEY = "pc:pending_basket_item";
 type BasketEntry = { productId: string; quantity: number };
@@ -76,6 +81,7 @@ export function ProductDetailProfessional() {
   const [basket, setBasket] = useState<BasketEntry[]>([]);
   const [message, setMessage] = useState("");
   const [extra, setExtra] = useState<ProductExtra>({ manufacturer: "", barcode: "" });
+  const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let active = true;
@@ -109,13 +115,14 @@ export function ProductDetailProfessional() {
   const offers = useMemo(() => product ? (product.offers?.length ? [...product.offers] : [{ establishmentId: product.establishmentId, establishmentSlug: product.establishmentSlug, establishment: product.establishment, neighborhood: product.neighborhood, storeColor: product.storeColor, value: product.minPrice, capturedAt: product.capturedAt }]).sort((a,b)=>a.value-b.value) : [], [product]);
   const comparisonOffers = useMemo(() => !product || !catalog ? [] : buildComparableOffers(catalog.products, product), [catalog, product]);
   const quickOffers = useMemo(() => {
-    const seen = new Set<string>();
-    return comparisonOffers.filter(offer => {
+    const cheapestByStore = new Map<string, ComparableOffer>();
+    comparisonOffers.forEach(offer => {
+      if (!Number.isFinite(offer.value) || offer.value <= 0) return;
       const key = String(offer.establishmentId || offer.establishment);
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, 6);
+      const current = cheapestByStore.get(key);
+      if (!current || offer.value < current.value) cheapestByStore.set(key, offer);
+    });
+    return Array.from(cheapestByStore.values()).sort((a, b) => a.value - b.value).slice(0, 6);
   }, [comparisonOffers]);
   const similar = useMemo(() => !product || !catalog ? [] : findComparableProducts(catalog.products, product, 4), [catalog, product]);
   const basketRows = useMemo(() => !catalog ? [] : basket.map(entry => ({ entry, product: catalog.products.find(item => String(item.id) === entry.productId) })).filter(row => row.product), [basket, catalog]);
@@ -135,6 +142,15 @@ export function ProductDetailProfessional() {
     const next = existing ? current.map(item => item.productId === id ? { ...item, quantity: item.quantity + 1 } : item) : [...current, { productId: id, quantity: 1 }];
     writeBasket(next); setBasket(next); setMessage("Produto adicionado à sua lista."); window.setTimeout(() => setMessage(""), 2200);
   };
+
+  useGSAP(() => {
+    if (loading || !product || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".pdx-breadcrumb, .pdx-identity > *, .pdx-price-block", { y: 14, opacity: 0, duration: .55, stagger: .05, ease: "power3.out" });
+    gsap.from(".pdx-visual", { opacity: 0, duration: .5, delay: .1, ease: "power2.out" });
+    gsap.utils.toArray<HTMLElement>(".pdx-commerce-grid > .pdx-card, .pdx-secondary-grid > .pdx-card, .pdx-tech-details").forEach((card, index) => {
+      gsap.from(card, { scrollTrigger: { trigger: card, start: "top 88%", once: true }, y: 20, opacity: 0, duration: .5, delay: index * .03, ease: "power2.out" });
+    });
+  }, { scope: pageRef, dependencies: [loading, product] });
 
   // Mesmo tratamento de esqueleto da página de estabelecimento: um fundo com
   // a identidade visual da marca e a "forma" da página real (imagem, título,
@@ -186,12 +202,12 @@ export function ProductDetailProfessional() {
   const displayedUpdatedAt = formatDate(displayedOffer?.capturedAt || product.updated_at || product.capturedAt);
   const basketTarget = displayedProduct || product;
   const basketTargetQuantity = basket.find(item => item.productId === String(basketTarget.id))?.quantity || 0;
-  const priceSpread = quickOffers.length > 1 ? Math.max(0, quickOffers[quickOffers.length - 1].value - quickOffers[0].value) : 0;
+  const priceSpread = quickOffers.length > 1 ? Math.max(0, round2(quickOffers[quickOffers.length - 1].value - quickOffers[0].value)) : 0;
   const isSingleOffer = comparisonOffers.length <= 1;
   const previousPrice = Number(displayedOffer?.previousPrice || displayedProduct?.previousPrice || 0);
   const savingVsPrevious = previousPrice > displayedPrice ? previousPrice - displayedPrice : 0;
 
-  return <div className="pdx-page">
+  return <div className="pdx-page" ref={pageRef}>
     <PublicHeader/>
 
     <main id="conteudo-principal" className="pdx-shell">
@@ -210,9 +226,10 @@ export function ProductDetailProfessional() {
             <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : selectedOffer ? "OFERTA SELECIONADA" : "MENOR PREÇO EQUIVALENTE"} <BadgeCheck/></span><strong>{brl.format(displayedPrice)}</strong><small>{displayedStore ? `em ${displayedStore}` : "preço verificado"}{!isSingleOffer && displayedOffer ? ` · ${displayedOffer.productBrand || "marca não informada"} · ${displayedOffer.productSize || "medida compatível"}` : ""}</small></div>
             <div className={`pdx-price-facts${isSingleOffer ? " pdx-price-facts--compact" : ""}`}>
               <span><Store/><b>{quickOffers.length}</b><small>{isSingleOffer ? "loja consultada" : "lojas exibidas"}</small></span>
-              {!isSingleOffer && <span><TrendingDown/><b>{brl.format(priceSpread)}</b><small>diferença entre lojas</small></span>}
+              {!isSingleOffer && <span><PiggyBank/><b>{brl.format(priceSpread)}</b><small>economia possível</small></span>}
               <span><CalendarDays/><b>{displayedUpdatedAt}</b><small>última verificação</small></span>
             </div>
+            {!isSingleOffer && priceSpread > 0 && <div className="pdx-price-saving"><PiggyBank/> Você pode economizar até {brl.format(priceSpread)} escolhendo {quickOffers[0]?.establishment || "a oferta mais barata"} em vez da opção mais cara.</div>}
             {savingVsPrevious > 0 && <div className="pdx-price-saving"><TrendingDown/> Está {brl.format(savingVsPrevious)} abaixo do último preço registrado.</div>}
           </div>
 
@@ -235,7 +252,7 @@ export function ProductDetailProfessional() {
               </Link>;
             })}
           </div>
-          {comparisonOffers.length > 1 && <div className="pdx-quick-compare__saving"><TrendingDown aria-hidden="true" /><span><small>ECONOMIA POSSÍVEL</small><strong>{brl.format(priceSpread)}</strong></span></div>}
+          {comparisonOffers.length > 1 && <div className="pdx-quick-compare__saving"><PiggyBank aria-hidden="true" /><span><small>ECONOMIA POSSÍVEL</small><strong>{brl.format(priceSpread)}</strong></span></div>}
         </aside>}
       </section>
 

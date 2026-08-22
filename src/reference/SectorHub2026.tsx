@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import {
   ArrowRight,
   BookOpen,
@@ -27,9 +26,6 @@ import {
 import { primarySectors } from "./MarketplaceSectors";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./SectorHub2026.css";
-import "./SectorHubExperienceFixes2026.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const normalize = (value: string) =>
   value
@@ -93,51 +89,6 @@ export function SectorHub2026() {
   }, [catalog]);
   const sponsoredVisible = featuredStores.some(isSponsored);
 
-  // Entrada em cascata na hero e revelação por rolagem das demais seções, no
-  // mesmo padrão usado nas outras páginas do site. O conteúdo principal já
-  // existe no DOM desde a primeira renderização (só os dados do catálogo
-  // trocam depois), então roda uma única vez no mount, sem depender do
-  // carregamento. Respeita prefers-reduced-motion e anima só transform/opacity.
-  useGSAP(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.from(
-      ".sector-hub__eyebrow, .sector-hub__hero-copy h1, .sector-hub__hero-copy>p, .sector-hub__hero-stats",
-      { y: 16, opacity: 0, duration: .6, stagger: .06, ease: "power3.out" },
-    );
-    gsap.utils
-      .toArray<HTMLElement>([
-        ".sector-hub__tools",
-        ".sector-hub__stores",
-        ".sector-hub__special",
-        ".sector-hub__how",
-      ])
-      .forEach((section) => {
-        gsap.from(section, {
-          scrollTrigger: { trigger: section, start: "top 85%", once: true },
-          y: 22,
-          opacity: 0,
-          duration: .55,
-          ease: "power2.out",
-        });
-      });
-    gsap.utils
-      .toArray<HTMLElement>([
-        ".sector-hub__sectors",
-        ".sector-hub__tool-grid",
-        ".sector-hub__store-grid",
-      ])
-      .forEach((grid) => {
-        gsap.from(grid.children, {
-          scrollTrigger: { trigger: grid, start: "top 85%", once: true },
-          y: 18,
-          opacity: 0,
-          duration: .5,
-          stagger: .06,
-          ease: "power2.out",
-        });
-      });
-  }, { scope: pageRef });
-
   return (
     <div className="sector-hub" ref={pageRef}>
       <PublicHeader backOnly />
@@ -164,6 +115,10 @@ export function SectorHub2026() {
                 <span>
                   <b>{catalog?.metrics.products ?? "—"}</b> produtos com preço
                 </span>
+              </div>
+              <div className="sector-hub__hero-actions">
+                <Link to="/buscar">Buscar um produto <Search /><span className="sr-only">no catálogo local</span></Link>
+                <Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link>
               </div>
             </div>
           </div>
@@ -206,11 +161,6 @@ export function SectorHub2026() {
                       <Link to="/cadastro-lojista">cadastre o seu</Link>
                     </p>
                   )}
-                  <div className="sector-hub__sector-examples">
-                    {sector.examples.map((example) => (
-                      <span key={example}>{example}</span>
-                    ))}
-                  </div>
                 </div>
               );
               if (total === 0) {

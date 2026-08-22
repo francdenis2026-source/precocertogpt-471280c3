@@ -674,3 +674,72 @@ html[data-theme="dark"] .hp-home .hp-footer {
       url("/footer-local-feijo-v2.svg");
   }
 }
+
+
+/* Rodapé compacto: sem filete dourado e com contraste garantido. */
+.hp-home .hp-footer,
+html[data-theme="dark"] .hp-home .hp-footer {
+  min-height: 0 !important;
+  padding-block: clamp(1.25rem, 2.4vw, 2rem) !important;
+  border-top: 0 !important;
+  box-shadow: none !important;
+  background-image:
+    linear-gradient(90deg,
+      rgb(3 18 31 / 96%) 0%,
+      rgb(3 18 31 / 92%) 38%,
+      rgb(3 18 31 / 82%) 68%,
+      rgb(3 18 31 / 68%) 100%),
+    url("/footer-local-feijo-v2.svg");
+}
+.hp-home .hp-footer::before,
+.hp-home .hp-footer::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+}
+.hp-home .hp-footer > *,
+.hp-home .hp-footer :where(.hp-shell, [class*="footer-grid"], [class*="footer__grid"]) {
+  position: relative;
+  z-index: 1;
+}
+.hp-home .hp-footer :where(.hp-shell, [class*="footer-grid"], [class*="footer__grid"]) {
+  padding-block: 0 !important;
+  margin-block: 0 !important;
+  row-gap: clamp(.75rem, 1.6vw, 1.25rem) !important;
+}
+.hp-home .hp-footer :where(h2, h3, h4, strong, b, a) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 48%);
+}
+.hp-home .hp-footer :where(p, small, span, li, address) {
+  color: #dce9f1 !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 52%);
+}
+.hp-home .hp-footer :where(a, button):hover {
+  color: #ffd58a !important;
+}
+.hp-home .hp-footer :where(hr, [class*="divider"], [class*="separator"]) {
+  border-color: rgb(255 255 255 / 18%) !important;
+  background: rgb(255 255 255 / 18%) !important;
+}
+.hp-home .hp-footer :where(ul, p) {
+  margin-block: .25rem !important;
+}
+.hp-home .hp-footer :where(li) {
+  margin-block: .18rem !important;
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-footer,
+  html[data-theme="dark"] .hp-home .hp-footer {
+    padding-block: 1.125rem !important;
+    background-image:
+      linear-gradient(90deg,
+        rgb(3 18 31 / 96%) 0%,
+        rgb(3 18 31 / 88%) 62%,
+        rgb(3 18 31 / 72%) 100%),
+      url("/footer-local-feijo-v2.svg");
+  }
+}

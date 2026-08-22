@@ -1,4 +1,5 @@
-.pharmacy-directory-page{min-height:100dvh;display:flex;flex-direction:column;background:var(--pc-canvas,#f3f6f5);color:var(--pc-ink,#102631);font-family:"Inter Variable",Inter,sans-serif}
+.pharmacy-directory-page{width:100%;max-width:100%;min-height:100svh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:clip;background:var(--pc-canvas,#f3f6f5);color:var(--pc-ink,#102631);font-family:"Inter Variable",Inter,sans-serif}
+.pharmacy-directory-page,.pharmacy-directory-page *,.pharmacy-directory-page *::before,.pharmacy-directory-page *::after{box-sizing:border-box}
 .pharmacy-directory{width:min(1080px,calc(100% - 32px));flex:1;display:flex;flex-direction:column;gap:18px;margin-inline:auto;padding:24px 0 38px}
 .pharmacy-directory__heading{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:28px 0 16px;border-bottom:1px solid var(--pc-border,#d8e1dc)}
 .pharmacy-directory__heading>div{display:grid;gap:5px}.pharmacy-directory__heading span,.pharmacy-directory__list-heading span{display:flex;align-items:center;gap:7px;color:#087a74;font-size:11px;font-weight:850;letter-spacing:.1em}.pharmacy-directory__heading span svg{width:15px;height:15px}.pharmacy-directory__heading h1{margin:0;font-family:"Outfit Variable",Outfit,sans-serif;font-size:clamp(32px,5vw,48px);line-height:1;letter-spacing:-.04em}.pharmacy-directory__heading>p,.pharmacy-directory__list-heading>p{margin:0;padding:7px 10px;border:1px solid color-mix(in srgb,#0f766e 30%,var(--pc-border,#d8e1dc));border-radius:999px;background:color-mix(in srgb,#0f766e 8%,var(--pc-surface,#fff));color:#08665f;font-size:12px;font-weight:750}
@@ -19,11 +20,14 @@ html[data-theme="dark"] .pharmacy-directory-page{background:var(--pc-canvas,#061
 
 /* Mobile pharmacy experience: the same desktop identity, recomposed for touch. */
 @media(max-width:680px){
-  .pharmacy-directory-page--pharmacies{overflow-x:clip;overscroll-behavior-y:contain}
+  .pharmacy-directory-page--pharmacies{contain:inline-size;overflow-x:clip;overscroll-behavior-x:none}
   .pharmacy-directory-page--pharmacies .pharmacy-directory{
     width:100%;
+    max-width:100%;
+    min-height:0;
+    flex:none;
     gap:16px;
-    padding:0 0 calc(28px + env(safe-area-inset-bottom));
+    padding:0 0 24px;
   }
   .pharmacy-directory-page--pharmacies .pharmacy-directory__hero{
     min-height:390px;

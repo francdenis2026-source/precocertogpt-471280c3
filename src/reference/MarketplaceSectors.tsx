@@ -5,7 +5,7 @@ import type { CatalogPayload } from "../data/catalog";
 import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
 import { fetchSectorCatalog, prefetchSectorCatalog, sectorStores } from "../data/sectorCatalog";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { PublicHeader } from "./ReferenceExperience";
+import { AppDock, PublicHeader } from "./ReferenceExperience";
 import "./PharmacyDirectory.css";
 import "./CulturalProfiles.css";
 
@@ -209,6 +209,7 @@ function CompactSectorDirectory({ catalog, sector }: { catalog: CatalogPayload |
         <strong>Nenhum estabelecimento ativo nesta categoria.</strong>
       </section>}
     </main>
+    <AppDock current="stores" />
   </div>;
 }
 

@@ -17,10 +17,29 @@
 @media (max-width:680px){
   :root{--pc-mobile-header:62px;--pc-mobile-quick:64px;--pc-mobile-dock:78px}
 
+  /* Stable mobile viewport and a single, predictable dock clearance for every
+     route that renders the shared bottom navigation. */
+  html,body,#root{width:100%;max-width:100%;min-height:100%;overflow-x:clip}
+  body{min-height:100svh;min-height:100dvh}
+  body:has(.ref-dock) #root>div{
+    min-height:100svh;
+    min-height:100dvh;
+    padding-bottom:calc(var(--pc-mobile-dock) + env(safe-area-inset-bottom))!important;
+  }
+  .ref-dock{
+    width:100%;
+    max-width:100vw;
+    height:calc(var(--pc-mobile-dock) + env(safe-area-inset-bottom))!important;
+    box-sizing:border-box;
+    contain:layout paint;
+    isolation:isolate;
+    transform:translateZ(0);
+  }
+
   /* ---------- 1) Overflow fixes ---------- */
   .ref-shell{width:min(100% - 32px,560px)!important}
   .ref-product-grid a>div img{width:104px!important;height:104px!important}
-  .ref-page,.ref-auth{padding-bottom:calc(var(--pc-mobile-dock) + 14px + env(safe-area-inset-bottom))!important}
+  .ref-page:not(:has(> .ref-dock)),.ref-auth{padding-bottom:calc(var(--pc-mobile-dock) + 14px + env(safe-area-inset-bottom))!important}
 
   /* ---------- 2) Header: taller, bigger buttons and type ---------- */
   .ref-header__inner{padding-inline:14px!important;gap:8px!important}

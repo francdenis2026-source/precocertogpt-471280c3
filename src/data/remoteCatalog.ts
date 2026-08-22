@@ -127,6 +127,13 @@ const baseProductName = (value: string | null) => normalizeCatalogTerm(value || 
 // podem separar cadastros do mesmo produto ("Dobom" e "Do Bom").
 const identityProductName = (value: string | null) => baseProductName(value).replace(/\s+/g, "");
 const identityToken = (value: string | null) => normalize(value || "").replace(/[^a-z0-9]+/g, "");
+const identitySpecification = (product: ProductRow) => {
+  // O cadastro legado sem gramagem corresponde ao mesmo Leite Dobom 400 g
+  // presente nas demais lojas. Sem este alias, ele ficaria isolado como
+  // "unit:un" e criaria um segundo cartão com preço divergente.
+  if (identityProductName(product.name) === "leiteempodobom") return "mass:400g";
+  return extractSpecification(product);
+};
 
 const productIdentity = (product: ProductRow) => product.barcode
   ? `barcode:${normalize(product.barcode)}`
@@ -134,7 +141,7 @@ const productIdentity = (product: ProductRow) => product.barcode
       `name:${identityProductName(product.name)}`,
       `brand:${identityToken(product.brand)}`,
       `category:${identityToken(product.category)}`,
-      `spec:${extractSpecification(product)}`,
+      `spec:${identitySpecification(product)}`,
     ].join("|");
 
 async function fetchAllRows(

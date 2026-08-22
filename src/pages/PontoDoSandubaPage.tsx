@@ -1,10 +1,12 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
+import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
+import type { Product } from "../data/catalog";
 import {
   SANDUBA_ADDRESS,
   SANDUBA_MENU,
@@ -14,6 +16,7 @@ import {
   SANDUBA_PHONE,
   SANDUBA_WHATSAPP,
   sandubaItemImages,
+  sandubaProducts,
   type MenuItem,
 } from "../data/manualEstablishments2";
 import "./KellyBurgueriaPage.css";
@@ -50,6 +53,13 @@ export function PontoDoSandubaPage() {
     }
     return SANDUBA_MENU_CATEGORIES.map(category => ({ category, items: byCategory.get(category) || [] })).filter(group => group.items.length);
   }, []);
+
+  // Mesmo padrão da página da Kelly Burgueria: cada item já existe como
+  // Product completo (mesmo objeto do catálogo unificado, em
+  // /produto/sanduba-...), mapeado por nome para abrir o modal de
+  // visualização rápida ao clicar em qualquer item do cardápio.
+  const productByName = useMemo(() => new Map(sandubaProducts.map(product => [product.name, product])), []);
+  const [activeProduct, setActiveProduct] = useState<Product | null>(null);
 
   // Mesmo tratamento de movimento da página da Kelly Burgueria (ver
   // comentário lá): entrada em cascata na hero, cartões de info e grupos do
@@ -123,14 +133,22 @@ export function PontoDoSandubaPage() {
             <ul className="kelly-menu-list">
               {group.items.map(item => {
                 const image = sandubaItemImages.get(item.name);
+                const product = productByName.get(item.name);
                 return (
                   <li key={item.name} className={image ? "has-image" : undefined}>
-                    {image && <span className="kelly-menu-list__thumb"><img src={image} alt="" loading="lazy" width="64" height="64" /></span>}
-                    <div className="kelly-menu-list__copy">
-                      <strong>{item.name}</strong>
-                      {item.description && <p>{item.description}</p>}
-                    </div>
-                    <span className="kelly-menu-list__price">{brl.format(item.price)}</span>
+                    <button
+                      type="button"
+                      className="kelly-menu-list__item-btn"
+                      onClick={() => product && setActiveProduct(product)}
+                      aria-haspopup="dialog"
+                    >
+                      {image && <span className="kelly-menu-list__thumb"><img src={image} alt="" loading="lazy" width="64" height="64" /></span>}
+                      <span className="kelly-menu-list__copy">
+                        <strong>{item.name}</strong>
+                        {item.description && <p>{item.description}</p>}
+                      </span>
+                      <span className="kelly-menu-list__price">{brl.format(item.price)}</span>
+                    </button>
                   </li>
                 );
               })}
@@ -150,6 +168,7 @@ export function PontoDoSandubaPage() {
         </aside>
       </main>
       <PublicFooter />
+      {activeProduct && <ProductQuickViewModal product={activeProduct} onClose={() => setActiveProduct(null)} />}
     </div>
   );
 }

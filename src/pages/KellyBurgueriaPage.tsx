@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, BadgeCheck, Camera, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store } from "lucide-react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import {
   KELLY_ADDRESS,
   KELLY_CNPJ,
-  KELLY_INSTAGRAM,
   KELLY_MENU,
   KELLY_MENU_CATEGORIES,
   KELLY_NAME,
-  KELLY_NEIGHBORHOOD,
   KELLY_PHONE,
   KELLY_WHATSAPP,
   kellyItemImages,
@@ -73,24 +71,8 @@ export function KellyBurgueriaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section className="kelly-hero" aria-labelledby="kelly-title">
-          <div className="kelly-hero__overlay" />
-          <div className="kelly-hero__content">
-            <div className="kelly-hero__logo"><img src="/branding/kelly-burgueria-logo.jpg?v=20260822" alt={`Logomarca ${KELLY_NAME}`} width="96" height="96" /></div>
-            <div className="kelly-hero__copy">
-              <span className="kelly-hero__kicker"><UtensilsCrossed aria-hidden="true" /> LANCHONETE &amp; HAMBURGUERIA · FEIJÓ, ACRE</span>
-              <h1 id="kelly-title">{KELLY_NAME}</h1>
-              <p>Hambúrgueres artesanais, carne na chapa, panquecas e lanches rápidos, feitos na hora no bairro Bela Vista.</p>
-              <div className="kelly-hero__meta">
-                <span><MapPin aria-hidden="true" /> {KELLY_NEIGHBORHOOD}, Feijó · AC</span>
-                <span><BadgeCheck aria-hidden="true" /> Cardápio oficial verificado</span>
-              </div>
-              <div className="kelly-hero__actions">
-                <a className="pc-btn pc-btn--primary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Pedir pelo WhatsApp</a>
-                <a className="pc-btn pc-btn--ghost" href={KELLY_INSTAGRAM} target="_blank" rel="noreferrer"><Camera aria-hidden="true" /> @kellyburgueria</a>
-              </div>
-            </div>
-          </div>
+        <section className="kelly-hero kelly-hero--banner" aria-label={`${KELLY_NAME}, lanchonete e hamburgueria em Feijó`}>
+          <img src="/kelly-burgueria/kelly-hero-banner.jpg?v=20260822" alt="Kelly Burgueria — hambúrgueres artesanais, carne na chapa e panquecas em Bela Vista, Feijó" width="1600" height="600" />
         </section>
 
         <section className="kelly-info" aria-label="Informações do estabelecimento">

@@ -1,0 +1,53 @@
+/* Home Mobile Fixes 2026 — carregado por último entre os estilos da home
+   (depois de HomeSearchOverlay2026.css), então vence qualquer empate de
+   especificidade com as camadas anteriores. Corrige 4 problemas reais:
+
+   1) Conteúdo passando por baixo do dock fixo ao rolar a página: o rodapé
+      tinha voltado a ter só 12px de respiro (HomePolishAcai2026.css
+      sobrescreveu sem querer os 92px que HomeRefineAcai2026.css definia).
+   2) A página "redimensiona" ao tocar na busca: o campo de busca virava
+      position:fixed no mobile, saindo do fluxo normal e fazendo o hero
+      encolher/pular na hora. Trocado para position:sticky, que mantém o
+      espaço reservado no lugar.
+   3) Rodapé alto no mobile: nav de 3 grupos forçada em 2 colunas deixava um
+      grupo sozinho numa terceira linha extra; agora são 3 colunas.
+   4) Hero da home apagado no tema claro: o véu escuro usado no tema escuro
+      também era aplicado (sem guarda de tema) no claro, quase apagando a
+      foto. Agora o tema claro tem seu próprio véu, bem mais leve. */
+
+/* ---------- 4) Véu do hero: versão própria para o tema claro ---------- */
+html:not([data-theme="dark"]) .hp-hero__veil{
+  background:
+    linear-gradient(98deg,rgba(10,22,30,.58) 0%,rgba(10,22,30,.40) 30%,rgba(10,22,30,.18) 54%,rgba(10,22,30,.05) 76%,transparent 92%),
+    linear-gradient(180deg,transparent 82%,rgba(10,22,30,.14) 100%);
+}
+
+@media(max-width:640px){
+  html:not([data-theme="dark"]) .hp-hero__veil{
+    background:linear-gradient(180deg,rgba(10,22,30,.34) 0%,rgba(10,22,30,.52) 55%,rgba(10,22,30,.64) 100%);
+  }
+
+  /* ---------- 2) Busca no mobile sem "pular" o layout ---------- */
+  .hp-hero.is-searching .hp-search{
+    position:sticky;
+    top:max(10px,env(safe-area-inset-top));
+    left:auto;right:auto;
+    max-width:none;
+    transform:none;
+    z-index:90;
+  }
+
+  /* ---------- 1) Respiro real acima do dock fixo ---------- */
+  .hp-footer > .hp-footer__meta{
+    padding-bottom:calc(84px + env(safe-area-inset-bottom))!important;
+  }
+
+  /* ---------- 3) Rodapé mais compacto: 3 colunas em vez de 2+órfã ---------- */
+  .hp-footer nav.hp-footer__nav{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:14px 8px!important;
+  }
+  .hp-footer nav.hp-footer__nav strong{font-size:10px!important}
+  .hp-footer nav.hp-footer__nav a{font-size:9.5px!important;line-height:1.3!important;white-space:normal!important}
+  .hp-footer > .hp-footer__inner{padding-block:18px 12px!important;gap:16px!important}
+}

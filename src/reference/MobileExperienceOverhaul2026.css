@@ -20,7 +20,7 @@
   /* ---------- 1) Overflow fixes ---------- */
   .ref-shell{width:min(100% - 32px,560px)!important}
   .ref-product-grid a>div img{width:104px!important;height:104px!important}
-  .ref-page{padding-bottom:calc(var(--pc-mobile-dock) + 14px + env(safe-area-inset-bottom))!important}
+  .ref-page,.ref-auth{padding-bottom:calc(var(--pc-mobile-dock) + 14px + env(safe-area-inset-bottom))!important}
 
   /* ---------- 2) Header: taller, bigger buttons and type ---------- */
   .ref-header__inner{padding-inline:14px!important;gap:8px!important}
@@ -50,6 +50,15 @@
   .ref-footer nav a{min-height:44px!important;font-size:13px!important}
   .ref-footer nav strong{font-size:12.5px!important}
 
+  /* Two other files (FooterSignatureRefinement.css, MobileProMax2026.css) each
+     compute their own dock-clearance padding for .ref-footer, with slightly
+     different numbers; this is the definitive, more compact final value —
+     just enough to clear the 78px dock, not the ~114px it had grown to. */
+  .ref-footer{padding:20px 0 calc(var(--pc-mobile-dock) + 10px + env(safe-area-inset-bottom))!important}
+
+  /* ---------- Store logos: bigger, and matched to their grid column ---------- */
+  .ref-store-card__select>i,.ref-store-card>a>i{width:58px!important;height:58px!important}
+
   /* ---------- Typography: a touch larger for small-screen readability ---------- */
   .ref-home .ref-section__heading p,.ref-home .ref-sectors__heading p{font-size:13px!important;line-height:1.5!important}
   .ref-home .ref-section__heading h2,.ref-home .ref-sectors__heading h2{font-size:clamp(1.65rem,7vw,2.05rem)!important}
@@ -76,3 +85,12 @@
   .ref-product-dialog{scroll-behavior:auto}
 }
 
+/* Store detail: keep the logo aligned with a sufficiently wide grid column. */
+@media (max-width:900px){
+  .store-pro-hero__content{grid-template-columns:86px minmax(0,1fr)!important}
+  .store-pro-logo{width:86px!important;height:86px!important}
+}
+@media (max-width:640px){
+  .store-pro-hero__content{grid-template-columns:70px minmax(0,1fr)!important}
+  .store-pro-logo{width:70px!important;height:70px!important}
+}

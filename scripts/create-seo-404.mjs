@@ -5,13 +5,22 @@ const source = path.resolve('dist/index.html');
 const target = path.resolve('dist/404.html');
 let html = await readFile(source, 'utf8');
 
+// O GitHub Pages não conhece as rotas internas do React: uma URL real como
+// /estabelecimento/kelly-burgueria-lanchonete não existe como arquivo, então
+// qualquer acesso direto (link compartilhado, F5 na página) cai neste
+// 404.html. Sem este script, o visitante ficaria preso numa página de "não
+// encontrado" — ou, pior, ao recarregar acabaria voltando pra Home, porque
+// o caminho original se perde. Este trecho guarda o caminho pedido em
+// "?/caminho" e manda o navegador para a Home com essa informação; lá,
+// outro script (no index.html) lê "?/caminho", restaura a URL de verdade
+// antes do React montar, e a rota certa é renderizada normalmente.
 const spaRedirect = `<script>
-      (function (location) {
-        location.replace(
-          location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/?/" +
-          location.pathname.slice(1).replace(/&/g, "~and~") +
-          (location.search ? "&" + location.search.slice(1).replace(/&/g, "~and~") : "") +
-          location.hash
+      (function (l) {
+        l.replace(
+          l.protocol + "//" + l.hostname + (l.port ? ":" + l.port : "") + "/?/" +
+          l.pathname.slice(1).replace(/&/g, "~and~") +
+          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+          l.hash
         );
       })(window.location);
     </script>`;

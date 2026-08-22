@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import {
   SANDUBA_ADDRESS,
   SANDUBA_MENU,
   SANDUBA_MENU_CATEGORIES,
   SANDUBA_NAME,
+  SANDUBA_NEIGHBORHOOD,
   SANDUBA_PHONE,
   SANDUBA_WHATSAPP,
   sandubaItemImages,
@@ -71,8 +72,23 @@ export function PontoDoSandubaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section className="kelly-hero kelly-hero--banner sanduba-hero" aria-label={`${SANDUBA_NAME}, lanchonete e hamburgueria em Feijó`}>
-          <img src="/ponto-do-sanduba/ponto-do-sanduba-hero-banner.jpg?v=20260822b" alt="Ponto do Sanduba — x-tudo, sanduíches especiais e lanches rápidos no Centro de Feijó" width="1600" height="600" />
+        <section className="kelly-hero sanduba-hero" aria-labelledby="sanduba-title">
+          <div className="kelly-hero__overlay" />
+          <div className="kelly-hero__content">
+            <div className="kelly-hero__logo"><img src="/branding/ponto-do-sanduba-logo.jpg?v=20260822" alt={`Logomarca ${SANDUBA_NAME}`} width="96" height="96" /></div>
+            <div className="kelly-hero__copy">
+              <span className="kelly-hero__kicker"><UtensilsCrossed aria-hidden="true" /> LANCHONETE &amp; HAMBURGUERIA · FEIJÓ, ACRE</span>
+              <h1 id="sanduba-title">{SANDUBA_NAME}</h1>
+              <p>X-tudo, sanduíches especiais e lanches rápidos, no Centro de Feijó.</p>
+              <div className="kelly-hero__meta">
+                <span><MapPin aria-hidden="true" /> {SANDUBA_NEIGHBORHOOD}, Feijó · AC</span>
+                <span><BadgeCheck aria-hidden="true" /> Cardápio oficial verificado</span>
+              </div>
+              <div className="kelly-hero__actions">
+                <a className="pc-btn pc-btn--primary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Pedir pelo WhatsApp</a>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="kelly-info" aria-label="Informações do estabelecimento">

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,7 +8,6 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { getStoreAddress, getStoreMapQuery } from "../data/storeAddresses";
 import { normalizeStoreKind } from "../data/sectorCatalog";
 import { marketplaceSectors } from "./MarketplaceSectors";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
@@ -92,7 +91,6 @@ function ProductImage({ product }: { product: Product }) {
 
 export function StoreDetailProfessional() {
   const { identifier = "" } = useParams();
-  const navigate = useNavigate();
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -102,6 +100,12 @@ export function StoreDetailProfessional() {
   const [logoFailed, setLogoFailed] = useState(false);
   const pageRef = useRef<HTMLDivElement>(null);
 
+  // Entrada suave da hero e revelação dos blocos abaixo dela ao rolar.
+  // O catálogo carrega de forma assíncrona, então a dependência em
+  // `loading` garante que a animação só rode depois que a hero de verdade
+  // existe no DOM (na primeira renderização, com loading=true, a página
+  // mostra só o spinner). Sem essa dependência o useGSAP rodaria uma vez no
+  // mount, antes do conteúdo aparecer, e nunca animaria nada.
   useGSAP(() => {
     if (loading || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.from(".store-pro-logo, .store-pro-copy > *", { y: 18, opacity: 0, duration: .6, stagger: .06, ease: "power3.out" });
@@ -113,6 +117,11 @@ export function StoreDetailProfessional() {
 
   useEffect(() => {
     let active = true;
+    // Reaproveita o catálogo já em cache (60s) sempre que possível — a Home,
+    // a busca e os favoritos já carregam esse mesmo catálogo antes do
+    // usuário chegar aqui, então forçar uma nova consulta completa ao banco
+    // a cada clique em um estabelecimento é o que fazia esta página demorar
+    // e mostrar "Carregando…" por vários segundos sem necessidade.
     fetchCatalog()
       .then(data => { if (active) setCatalog(data); })
       .finally(() => { if (active) setLoading(false); });
@@ -120,11 +129,6 @@ export function StoreDetailProfessional() {
   }, []);
 
   const store = useMemo(() => catalog?.stores.find(item => String(item.id) === identifier || item.slug === identifier), [catalog, identifier]);
-
-  useEffect(() => {
-    if (!store?.slug || !identifier || identifier === store.slug) return;
-    navigate(`/estabelecimento/${store.slug}`, { replace: true });
-  }, [identifier, navigate, store?.slug]);
   const allProducts = useMemo(() => {
     if (!catalog || !store) return [];
     return catalog.products.filter(item => item.offers?.some(offer => String(offer.establishmentId) === String(store.id)) || String(item.establishmentId) === String(store.id));
@@ -160,6 +164,11 @@ export function StoreDetailProfessional() {
   useEffect(() => setPage(1), [query, category, sort]);
   useEffect(() => { if (page > pageCount) setPage(pageCount); }, [page, pageCount]);
 
+  // Enquanto o catálogo carrega (raro agora que a página reaproveita o
+  // cache, mas ainda acontece na primeira visita ao site), mostra um
+  // esqueleto com a mesma "forma" da página real sobre um fundo com a
+  // identidade visual da marca, em vez de uma tela em branco com spinner —
+  // assim a transição parece parte do design, não uma falha de carregamento.
   if (loading) return (
     <main className="store-pro-skeleton" role="status" aria-live="polite">
       <span className="store-pro-skeleton__sr">Carregando estabelecimento…</span>
@@ -191,15 +200,14 @@ export function StoreDetailProfessional() {
   // sempre na busca do mapa evita que o Google Maps resolva o nome da loja
   // para outro lugar do Brasil (ou não encontre nada) quando o nome sozinho
   // é ambíguo ou pouco conhecido fora da cidade.
-  const fullAddress = getStoreAddress(store.name);
-  const mapsQuery = encodeURIComponent(getStoreMapQuery(store.name, store.neighborhood));
+  const mapsQuery = encodeURIComponent(`${store.name}, ${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó - AC, 69960-000, Brasil`);
   const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`} ref={pageRef}>
     <PublicHeader current="stores" title={store.name} logo={showLogo ? logoUrl : undefined}/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline store-pro-topline--location-only">
-        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {fullAddress || `${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000`}</a>
+        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000</a>
       </div>
 
       <section

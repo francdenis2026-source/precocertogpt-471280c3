@@ -20,23 +20,18 @@ export function FestivalAcaiBar() {
     const inRange = now >= new Date(FESTIVAL_START).getTime() && now < new Date(FESTIVAL_END).getTime();
     let dismissed = false;
     try {
-      // Versões anteriores salvavam o fechamento permanentemente. Removemos
-      // essa preferência antiga e mantemos o aviso fechado só nesta sessão.
-      window.localStorage.removeItem(DISMISS_KEY);
-      dismissed = window.sessionStorage.getItem(DISMISS_KEY) === "1";
+      dismissed = window.localStorage.getItem(DISMISS_KEY) === "1";
     } catch {
       // Navegação privada ou storage bloqueado: trata como não dispensado.
     }
-    // Atualiza após a montagem sem provocar uma renderização encadeada dentro
-    // do próprio efeito; o HTML inicial continua estável para o prerender.
-    queueMicrotask(() => setVisible(inRange && !dismissed));
+    setVisible(inRange && !dismissed);
   }, []);
 
   if (!visible) return null;
 
   const dismiss = () => {
     try {
-      window.sessionStorage.setItem(DISMISS_KEY, "1");
+      window.localStorage.setItem(DISMISS_KEY, "1");
     } catch {
       // Sem storage disponível: a faixa some só nesta sessão.
     }

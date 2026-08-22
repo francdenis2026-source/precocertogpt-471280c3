@@ -38,6 +38,8 @@ function ProductImage({ product, eager = false, preferCutout = false }: { produc
     : <span className="hp-product-fallback"><PackageSearch aria-hidden="true" /><small>Imagem em atualização</small></span>;
 }
 
+// Cada setor recebe uma cor de acento própria, para que a grade deixe de ser
+// um bloco monocromático e o usuário reconheça a categoria de relance.
 const sectors = [
   { label: "Mercados", detail: "Alimentos e cesta", icon: ShoppingBasket, to: "/mercados", color: "#2f9e58" },
   { label: "Açougues", detail: "Carnes e cortes", icon: Tag, to: "/buscar?q=carne", color: "#d1483f" },
@@ -99,21 +101,22 @@ export function HomeProfessional2026() {
 
   const searchOpen = searchFocused && query.trim().length >= 2;
 
-  // Ao abrir os resultados, trava o fundo e compensa a barra de rolagem para
-  // manter o foco na busca sem causar salto lateral no conteúdo.
+  // Com a busca aberta a página atrás não rola: o overlay fica sobre ela e
+  // rolar o fundo enquanto se lê os resultados desorienta. A largura da barra
+  // de rolagem é compensada para o conteúdo não saltar ao travar.
   useEffect(() => {
     if (!searchOpen) return;
     const { body } = document;
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    const previousOverflow = body.style.overflow;
-    const previousPaddingRight = body.style.paddingRight;
+    const larguraBarra = window.innerWidth - document.documentElement.clientWidth;
+    const overflowAnterior = body.style.overflow;
+    const paddingAnterior = body.style.paddingRight;
     body.style.overflow = "hidden";
-    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+    if (larguraBarra > 0) body.style.paddingRight = `${larguraBarra}px`;
     const fecharNoEsc = (event: KeyboardEvent) => { if (event.key === "Escape") setSearchFocused(false); };
     document.addEventListener("keydown", fecharNoEsc);
     return () => {
-      body.style.overflow = previousOverflow;
-      body.style.paddingRight = previousPaddingRight;
+      body.style.overflow = overflowAnterior;
+      body.style.paddingRight = paddingAnterior;
       document.removeEventListener("keydown", fecharNoEsc);
     };
   }, [searchOpen]);
@@ -134,7 +137,7 @@ export function HomeProfessional2026() {
         </Link>
         <nav className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
           <Link to="/explorar" onClick={() => setMenuOpen(false)}>Setores</Link>
-          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
+          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas</Link>
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link>
           <Link to="/cesta-inteligente" onClick={() => setMenuOpen(false)}>Cesta inteligente</Link>
           <Link to="/cesta-basica" onClick={() => setMenuOpen(false)}>Minha cesta</Link>
@@ -248,7 +251,7 @@ export function HomeProfessional2026() {
             <strong>Plataforma</strong>
             <Link to="/buscar">Comparar preços</Link>
             <Link to="/explorar">Setores</Link>
-            <Link to="/estabelecimentos">Estabelecimentos locais</Link>
+            <Link to="/estabelecimentos">Lojas locais</Link>
             <Link to="/cesta-basica">Lista de compras</Link>
           </div>
           <div>
@@ -267,10 +270,10 @@ export function HomeProfessional2026() {
       </div>
       <div className="hp-shell hp-footer__meta">
         <span><BadgeCheck aria-hidden="true" /> Preços locais verificados</span>
-        <small>&copy; 2026 PreçoCerto · Feijó, AC <i className="hp-footer__dev">dev. &lt;FrancD&apos;nis&gt;</i></small>
+        <small>&copy; 2026 PreçoCerto · Feijó, AC <i className="hp-footer__dev">dev. &lt;FrancD'nis&gt;</i></small>
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />
-    <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Estabelecimentos</span></Link></nav>
+    <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>
   </div>;
 }

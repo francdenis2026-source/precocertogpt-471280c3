@@ -25,5 +25,3 @@
 /* O selo de ícone ao lado do nome do setor, no rótulo acima do título. */
 .store-pro-hero--sector .store-pro-copy > span { display: inline-flex; align-items: center; gap: 6px; }
 .store-pro-hero--sector .store-pro-copy > span svg { width: 13px; height: 13px; }
-
-/* Lovable sync: compact sector heroes 2026-08-22 */

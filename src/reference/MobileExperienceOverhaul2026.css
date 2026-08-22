@@ -85,7 +85,10 @@
   .ref-product-dialog{scroll-behavior:auto}
 }
 
-/* Store detail: keep the logo aligned with a sufficiently wide grid column. */
+/* ---------- Store detail (/estabelecimento, /loja): logo bigger and
+   matched to its own grid column, so it isn't squeezed by a narrower track
+   defined later in StoreExperienceAcai2026.css. Same breakpoints as that
+   file so the numbers line up exactly. ---------- */
 @media (max-width:900px){
   .store-pro-hero__content{grid-template-columns:86px minmax(0,1fr)!important}
   .store-pro-logo{width:86px!important;height:86px!important}

@@ -1,4 +1,4 @@
-/* PreçoCerto Design System 2.0 — shared semantic tokens and functional color accents for all public and private surfaces. */
+/* PreçoCerto Design System 2.0 — shared semantic tokens for all public and private surfaces. */
 :root{
   color-scheme:light;
   --pc-font-display:"Outfit Variable",Outfit,"Inter Variable",Inter,system-ui,sans-serif;
@@ -6,6 +6,10 @@
   --pc-canvas:#f6f7f8;--pc-surface:#ffffff;--pc-surface-2:#eef1f3;--pc-surface-3:#e3e7ea;
   --pc-ink:#131a20;--pc-muted:#5b6570;--pc-subtle:#6b7680;--pc-border:#dde2e6;--pc-border-strong:#c3cad0;
   --pc-navy:#17384c;--pc-navy-2:#1f4e6b;
+  /* --pc-green* e --pc-gold* eram clones do azul de marca (mesmo hex do navy),
+     deixando preço, selos e destaques indistinguíveis da UI estrutural.
+     Agora green é realmente verde (preço/economia) e gold é realmente dourado
+     (destaque/selo), dando ao site vocabulário de cor de verdade. */
   --pc-green:#1c9a56;--pc-green-strong:#15803d;--pc-green-soft:#e3f5ea;
   --pc-gold:#c9781f;--pc-gold-soft:#fbeed9;--pc-danger:#c0311f;--pc-danger-soft:#fbeae7;--pc-info:#1f4e6b;
   --pc-radius-control:10px;--pc-radius-card:14px;--pc-radius-block:18px;--pc-radius-hero:24px;
@@ -107,6 +111,8 @@ body{font-family:var(--pc-font-body)}
 .acc-bars i b{background:var(--pc-green)}
 
 /* Phase 2 — search, explore, sectors and public list surfaces. */
+/* Cada setor com sua própria cor de acento (mesmo vocabulário de cor da
+   homepage), em vez de todos herdarem o mesmo verde/azul genérico. */
 .sector-page{--sector-accent:#1c9a56;--sector-soft:color-mix(in srgb,#1c9a56 12%,var(--pc-surface));background:var(--pc-canvas);color:var(--pc-ink);font-family:var(--pc-font-body)}
 .sector-page--pharmacies{--sector-accent:#0f9ba6;--sector-soft:color-mix(in srgb,#0f9ba6 12%,var(--pc-surface))}
 .sector-page--bakery{--sector-accent:#c2410c;--sector-soft:color-mix(in srgb,#c2410c 12%,var(--pc-surface))}

@@ -2,18 +2,10 @@
    estrutura de página de cardápio) e troca só a imagem do hero e o acento
    de cor para a identidade laranja da marca. */
 
-.sanduba-page .sanduba-hero{
-  background-color:#2b1306;
+.sanduba-hero{
   background-image:url('/ponto-do-sanduba/hero-burgers.jpg');
-  background-position:center 42%;
-  background-size:cover;
-  background-repeat:no-repeat;
 }
 
 .sanduba-page .kelly-hero__kicker{color:#ffb15c}
 .sanduba-page .kelly-menu-list__price{color:#e0672a}
 .sanduba-page .kelly-info__card svg{color:#e0672a}
-
-@media (max-width:760px){
-  .sanduba-page .sanduba-hero{background-position:58% center}
-}

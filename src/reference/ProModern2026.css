@@ -604,26 +604,3 @@ html[data-theme="dark"] .ref-header__back{background:var(--pc-surface);color:var
   .ref-footer__compact{min-height:92px;flex-direction:column;justify-content:center;gap:10px;text-align:center}
   .ref-footer__compact-copy{flex-direction:column;gap:5px}
 }
-
-/* Neutraliza regras legadas com !important ainda carregadas em Estabelecimentos. */
-html body .ref-stores-page .ref-footer.ref-footer--compact{
-  min-height:0!important;
-  padding:0!important;
-}
-html body .ref-stores-page .ref-footer.ref-footer--compact>.ref-shell.ref-footer__compact{
-  min-height:68px;
-  display:flex;
-  flex-direction:row!important;
-  align-items:center!important;
-  justify-content:space-between;
-  gap:20px!important;
-}
-@media(max-width:680px){
-  html body .ref-stores-page .ref-footer.ref-footer--compact{padding-bottom:calc(72px + env(safe-area-inset-bottom))!important}
-  html body .ref-stores-page .ref-footer.ref-footer--compact>.ref-shell.ref-footer__compact{
-    min-height:86px;
-    flex-direction:column!important;
-    justify-content:center;
-    gap:8px!important;
-  }
-}

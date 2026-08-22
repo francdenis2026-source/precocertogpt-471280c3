@@ -29,7 +29,7 @@ export const establishmentSeed: EstablishmentSeed[] = [
   { id: 2, slug: "mercado-reboucas", name: "Mercado Rebouças", neighborhood: "Esperança", color: "#16A36A" },
   { id: 3, slug: "pague-pouco", name: "Pague Pouco", neighborhood: "Centro", color: "#F4B400" },
   { id: 4, slug: "super-feijoense", name: "Super Feijoense", neighborhood: "Zenaide Paiva", color: "#EF6C3B" },
-  { id: 5, slug: "parceirao", name: "Parceirão", neighborhood: "Centro", color: "#7259C7" },
+  { id: 5, slug: "parceirao", name: "Parceirão", neighborhood: "Conquista", color: "#7259C7" },
   { id: 6, slug: "super-mercado-popular", name: "Popular", neighborhood: "Centro", color: "#D93025" },
   { id: 7, slug: "supermercado-bom-preco", name: "Bom Preço", neighborhood: "Esperança", color: "#F06292" },
   { id: 8, slug: "mercantil-feijo", name: "Mercantil Feijó", neighborhood: "Centro", color: "#4285F4" },

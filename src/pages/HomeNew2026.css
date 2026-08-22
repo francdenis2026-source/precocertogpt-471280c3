@@ -2,6 +2,10 @@
 @import "@fontsource-variable/inter";
 /* impeccable-disable overused-font -- Inter é a fonte corporal canônica definida em DESIGN.md. */
 
+/* Oculta somente o indicador visual da página inicial; wheel, toque e teclado continuam ativos. */
+html.nx-home-active,html.nx-home-active body{scrollbar-width:none;-ms-overflow-style:none}
+html.nx-home-active::-webkit-scrollbar,html.nx-home-active body::-webkit-scrollbar{width:0;height:0;display:none}
+
 .nx-home{--nx-bg:#eef3f1;--nx-surface:#fbfdfc;--nx-card:#fff;--nx-soft:#e3ece8;--nx-text:#102631;--nx-muted:#52656e;--nx-line:#cbd8d4;--nx-blue:#1f63b5;--nx-blue-2:#174d8e;--nx-teal:#0b7868;--nx-amber:#a9670d;--nx-green:#087a4d;--nx-shadow-sm:0 8px 22px rgb(22 55 64 / 8%);--nx-shadow:0 22px 58px rgb(22 55 64 / 14%);--nx-ease:cubic-bezier(.22,1,.36,1);min-height:100dvh;overflow-x:clip;background:var(--nx-bg);color:var(--nx-text);font-family:"Inter Variable",Inter,sans-serif}
 html[data-theme="dark"] .nx-home{--nx-bg:#101827;--nx-surface:#19253a;--nx-card:#1e2b42;--nx-soft:#243250;--nx-text:#f8f5ef;--nx-muted:#bec7d8;--nx-line:#3c4b66;--nx-blue:#86a4ff;--nx-blue-2:#a1b7ff;--nx-teal:#4dd2b5;--nx-amber:#ffc25c;--nx-green:#56d49a;--nx-shadow-sm:0 8px 22px rgb(0 0 0 / 20%);--nx-shadow:0 22px 58px rgb(0 0 0 / 34%)}
 .nx-home *,.nx-home *::before,.nx-home *::after{box-sizing:border-box}.nx-home a{color:inherit;text-decoration:none}.nx-home button,.nx-home input{font:inherit}.nx-home :where(button,a){-webkit-tap-highlight-color:transparent}.nx-home :where(button,a):focus-visible{outline:3px solid color-mix(in srgb,var(--nx-blue) 52%,transparent);outline-offset:3px}.nx-home ::selection{background:color-mix(in srgb,var(--nx-blue) 28%,transparent);color:var(--nx-text)}.nx-shell{width:min(1160px,calc(100% - 40px));margin-inline:auto}

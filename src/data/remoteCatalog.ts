@@ -125,13 +125,19 @@ const baseProductName = (value: string | null) => normalizeCatalogTerm(value || 
 
 // Chave usada apenas na comparação: diferenças de espaço ou pontuação não
 // podem separar cadastros do mesmo produto ("Dobom" e "Do Bom").
-const identityProductName = (value: string | null) => baseProductName(value).replace(/\s+/g, "");
+const identityProductName = (value: string | null) => baseProductName(value)
+  .replace(/\s+/g, "")
+  .replace(/dobon/g, "dobom");
 const identityToken = (value: string | null) => normalize(value || "").replace(/[^a-z0-9]+/g, "");
+const isLeiteDobom = (product: ProductRow) => identityProductName(product.name) === "leiteempodobom";
+const publicProductName = (product: ProductRow) => isLeiteDobom(product)
+  ? "Leite em Pó Dobom 400 g"
+  : product.name ?? "Produto sem nome";
 const identitySpecification = (product: ProductRow) => {
   // O cadastro legado sem gramagem corresponde ao mesmo Leite Dobom 400 g
   // presente nas demais lojas. Sem este alias, ele ficaria isolado como
   // "unit:un" e criaria um segundo cartão com preço divergente.
-  if (identityProductName(product.name) === "leiteempodobom") return "mass:400g";
+  if (isLeiteDobom(product)) return "mass:400g";
   return extractSpecification(product);
 };
 
@@ -233,7 +239,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       }, new Map<string, ProductRow>()).values(),
     );
 
-    const productSlugById = assignUniqueSlugs(uniqueProductRows, product => product.name || "Produto", product => String(product.id));
+    const productSlugById = assignUniqueSlugs(uniqueProductRows, product => publicProductName(product), product => String(product.id));
 
     const mapped = uniqueProductRows
       .map((product): Product | null => {
@@ -267,10 +273,10 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
         return {
           id: product.id,
           slug: productSlugById.get(String(product.id)) || String(product.id),
-          name: product.name ?? "Produto sem nome",
-          brand: product.brand ?? "—",
+          name: publicProductName(product),
+          brand: isLeiteDobom(product) ? "Dobom" : product.brand ?? "—",
           category: isLimpolPerfumes500ml ? "Desinfetante" : product.category ?? "Geral",
-          size: product.size ?? "—",
+          size: isLeiteDobom(product) ? "400 g" : product.size ?? "—",
           unit: product.unit ?? "un",
           barcode: product.barcode ?? undefined,
           minPrice: round(Math.min(...values)),

@@ -68,8 +68,53 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .ref-store-card__select, .ref-store-card footer a, .ref-store-card footer button, .ref-search-submit, .ref-stores-more { min-height: 44px; }
 .ref-store-card img, .ref-store-card svg { object-fit: contain; }
 
-/* Homepage clara: a fotografia mantém cor e profundidade. O véu fica
-   concentrado somente atrás da cópia, em vez de esbranquiçar a imagem toda. */
+/* Homepage: escala legível e fotografia com função, sem imagem decorativa
+   repetida atrás dos cards. Esta é a única camada final da home clara. */
+.hp-home {
+  font-family: "Manrope Variable", Manrope, Inter, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.hp-home :where(h1,h2,h3) {
+  font-family: "Outfit Variable", Outfit, "Manrope Variable", sans-serif;
+  text-wrap: balance;
+}
+.hp-home .hp-hero h1 {
+  max-width: 620px;
+  font-size: clamp(2.75rem, 4.8vw, 4.1rem) !important;
+  line-height: 1.01 !important;
+  letter-spacing: -.045em !important;
+  font-weight: 760;
+}
+.hp-home .hp-hero__copy > p {
+  max-width: 590px;
+  font-size: 1.0625rem !important;
+  line-height: 1.65 !important;
+}
+.hp-home :where(.hp-eyebrow,.hp-section-head > div > span,.hp-story__content > span) {
+  font-size: .75rem !important;
+  line-height: 1.4;
+  letter-spacing: .12em;
+  font-weight: 850;
+}
+.hp-home .hp-section-head h2,
+.hp-home .hp-story h2 {
+  font-size: clamp(2rem, 3.2vw, 2.75rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.035em !important;
+  font-weight: 720;
+}
+.hp-home .hp-section-head p,
+.hp-home .hp-story p,
+.hp-home .hp-local p { font-size: .9375rem !important; line-height: 1.65 !important; }
+.hp-home .hp-sector-grid strong { font-size: .9375rem !important; }
+.hp-home .hp-sector-grid small,
+.hp-home .hp-product-card p,
+.hp-home .hp-product-card__body > small,
+.hp-home .hp-story li small { font-size: .8125rem !important; line-height: 1.45 !important; }
+.hp-home .hp-product-card h3 { font-size: 1rem !important; line-height: 1.35 !important; }
+.hp-home :where(.hp-search input,.hp-search__submit) { font-size: .9375rem !important; }
+
 html:not([data-theme="dark"]) .hp-home .hp-hero__media {
   opacity: 1 !important;
   filter: saturate(1.08) contrast(1.1) brightness(1.01) !important;
@@ -86,32 +131,58 @@ html:not([data-theme="dark"]) .hp-home .hp-hero__veil {
 }
 
 html:not([data-theme="dark"]) .hp-home .hp-story__media {
+  inset: 0 0 0 auto;
+  width: 48%;
   opacity: 1 !important;
-  filter: saturate(1.08) contrast(1.1) brightness(1.01) !important;
+  background-image: url("/mercado-bairro-feijo-v1.webp") !important;
+  background-position: 66% 50% !important;
+  filter: saturate(1.03) contrast(1.06) brightness(1.01) !important;
+}
+html:not([data-theme="dark"]) .hp-home .hp-story {
+  width: min(calc(100% - 40px), 1180px);
+  min-height: 430px;
+  margin: 24px auto 52px;
+  overflow: hidden;
+  border: 1px solid var(--pc-public-border);
+  border-radius: 24px;
+  background: var(--pc-public-surface);
+  box-shadow: var(--pc-public-shadow);
 }
 html:not([data-theme="dark"]) .hp-home .hp-story::after {
   background: linear-gradient(90deg,
-    rgb(244 242 237 / 84%) 0%,
-    rgb(244 242 237 / 68%) 31%,
-    rgb(244 242 237 / 30%) 49%,
-    rgb(244 242 237 / 7%) 64%,
-    transparent 76%) !important;
+    var(--pc-public-surface) 0%,
+    var(--pc-public-surface) 48%,
+    color-mix(in srgb,var(--pc-public-surface) 72%,transparent) 54%,
+    transparent 62%) !important;
+}
+html:not([data-theme="dark"]) .hp-home .hp-story__content {
+  min-height: 430px;
+  width: 100%;
+  padding: 48px 52% 48px 48px;
+}
+html:not([data-theme="dark"]) .hp-home .hp-story__content > span {
+  display: block;
+  color: var(--pc-public-blue);
+}
+html:not([data-theme="dark"]) .hp-home .hp-story ol {
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 24px 0 20px;
+}
+html:not([data-theme="dark"]) .hp-home .hp-story li {
+  min-height: 58px;
+  padding: 10px 12px;
+  border-color: var(--pc-public-border);
+  background: #f7fafb;
 }
 
 html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers) {
-  background-image:
-    linear-gradient(90deg,
-      rgb(247 245 240 / 64%) 0%,
-      rgb(247 245 240 / 38%) 40%,
-      rgb(247 245 240 / 16%) 72%,
-      rgb(247 245 240 / 27%) 100%),
-    url("/compra-inteligente-profissional.webp");
-  background-blend-mode: normal;
+  background-image: none !important;
 }
 html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers)::after {
-  background:
-    radial-gradient(circle at 8% 45%, rgb(247 245 240 / 16%), transparent 30%),
-    linear-gradient(180deg, rgb(247 245 240 / 3%), rgb(247 245 240 / 16%));
+  content: none !important;
+  background: none !important;
 }
 
 html:not([data-theme="dark"]) .hp-home .hp-local__media {
@@ -144,16 +215,37 @@ html:not([data-theme="dark"]) .hp-home .hp-local__media {
       rgb(7 28 42 / 76%) 100%) !important;
   }
   html:not([data-theme="dark"]) .hp-home .hp-story::after {
-    background: linear-gradient(180deg,
-      rgb(244 242 237 / 28%) 0%,
-      rgb(244 242 237 / 62%) 58%,
-      rgb(244 242 237 / 88%) 100%) !important;
+    background: linear-gradient(180deg,transparent 0%,transparent 38%,var(--pc-public-surface) 50%) !important;
   }
-  html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers) {
-    background-image:
-      linear-gradient(180deg, rgb(247 245 240 / 44%), rgb(247 245 240 / 62%)),
-      url("/compra-inteligente-profissional.webp");
+  html:not([data-theme="dark"]) .hp-home .hp-story {
+    width: calc(100% - 28px);
+    padding-top: 210px;
+    border-radius: 18px;
   }
+  html:not([data-theme="dark"]) .hp-home .hp-story__media {
+    inset: 0 0 auto;
+    width: 100%;
+    height: 230px;
+    background-position: 70% 48% !important;
+  }
+  html:not([data-theme="dark"]) .hp-home .hp-story__content {
+    min-height: 0;
+    padding: 30px 20px 26px;
+  }
+  .hp-home .hp-hero h1 { font-size: clamp(2.35rem, 11vw, 3.2rem) !important; }
+  .hp-home .hp-hero__copy > p { font-size: 1rem !important; }
+  .hp-home .hp-section-head h2,
+  .hp-home .hp-story h2 { font-size: clamp(1.75rem, 8vw, 2.2rem) !important; }
+  .hp-home .hp-section-head p,
+  .hp-home .hp-story p,
+  .hp-home .hp-local p { font-size: .9375rem !important; }
+  .hp-home .hp-sector-grid small,
+  .hp-home .hp-product-card p,
+  .hp-home .hp-product-card__body > small,
+  .hp-home .hp-story li small { font-size: .8125rem !important; }
+  .hp-home .hp-search input { font-size: 1rem !important; }
+  .hp-home .hp-section-head { gap: 12px; }
+  .hp-home .hp-section-head p { max-width: 34rem; margin-top: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

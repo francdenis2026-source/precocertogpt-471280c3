@@ -300,7 +300,7 @@ export function HomeProfessional2026() {
       </section>
 
       <section className="hp-sectors hp-shell" aria-labelledby="hp-sectors-title">
-        <div className="hp-section-head"><div><h2 id="hp-sectors-title">Onde comprar em Feijó.</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
+        <div className="hp-section-head"><div><span>COMÉRCIO POR CATEGORIA</span><h2 id="hp-sectors-title">Onde comprar em Feijó.</h2><p>Encontre rapidamente o tipo de estabelecimento que você precisa.</p></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
         <div className="hp-sector-grid">{sectors.map(({ label, detail, icon: Icon, to, color }, index) => <Link to={to} key={label} className={index === 0 ? "hp-sector-grid__lead" : undefined} style={{ "--sector-accent": color } as CSSProperties}><i><Icon /></i><span><strong>{label}</strong><small>{detail}</small></span><ArrowRight /></Link>)}</div>
       </section>
 
@@ -316,7 +316,7 @@ export function HomeProfessional2026() {
 
       <section className="hp-story">
         <div className="hp-story__media" aria-hidden="true" />
-        <div className="hp-shell hp-story__content"><h2>Da pesquisa à escolha,<br />sem complicação.</h2><p>Busque o produto, veja as opções disponíveis e escolha o comércio que faz mais sentido para sua compra.</p><ol><li><b>01</b><span><strong>Pesquise</strong><small>Digite o produto ou a marca.</small></span></li><li><b>02</b><span><strong>Compare</strong><small>Veja preços e estabelecimentos.</small></span></li><li><b>03</b><span><strong>Economize</strong><small>Escolha com mais informação.</small></span></li></ol><Link className="pc-btn" to="/buscar">Comparar preços <ArrowRight /></Link></div>
+        <div className="hp-shell hp-story__content"><span>COMO FUNCIONA</span><h2>Da pesquisa à escolha,<br />sem complicação.</h2><p>Busque o produto, veja as opções disponíveis e escolha o comércio que faz mais sentido para sua compra.</p><ol><li><b>01</b><span><strong>Pesquise</strong><small>Digite o produto ou a marca.</small></span></li><li><b>02</b><span><strong>Compare</strong><small>Veja preços e estabelecimentos.</small></span></li><li><b>03</b><span><strong>Economize</strong><small>Escolha com mais informação.</small></span></li></ol><Link className="pc-btn" to="/buscar">Comparar preços <ArrowRight /></Link></div>
       </section>
 
       <section className="hp-local hp-shell">

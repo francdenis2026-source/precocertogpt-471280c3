@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
-import { ArrowRight, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, Pill, Sandwich, Scale, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, MapPin, Pill, Sandwich, Scale, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { CatalogPayload } from "../data/catalog";
 import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
@@ -9,6 +9,7 @@ import { PublicHeader } from "./ReferenceExperience";
 import "./MarketplaceSectors.css";
 import "./ExploreLayoutFix.css";
 import "./SectorContentArchitecture.css";
+import "./PharmacyDirectory.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -211,6 +212,46 @@ function SectorStores({ catalog, sector }: { catalog: CatalogPayload | null; sec
   );
 }
 
+function PharmacyDirectory({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
+  const stores = catalog ? sectorStores(catalog, sector) : [];
+  return <div className="pharmacy-directory-page">
+    <PublicHeader backOnly title="Farmácias" />
+    <main id="conteudo-principal" className="pharmacy-directory">
+      <header className="pharmacy-directory__heading">
+        <div>
+          <span><Pill aria-hidden="true" /> SAÚDE LOCAL</span>
+          <h1>Farmácias</h1>
+        </div>
+        <p aria-live="polite">{catalog ? `${stores.length} ${stores.length === 1 ? "estabelecimento ativo" : "estabelecimentos ativos"}` : "Carregando estabelecimentos"}</p>
+      </header>
+
+      {!catalog ? <section className="pharmacy-directory__state" aria-busy="true">
+        <span className="pharmacy-directory__loader" />
+        <strong>Buscando farmácias cadastradas…</strong>
+      </section> : stores.length ? <section className="pharmacy-directory__list" aria-label="Farmácias ativas em Feijó">
+        {stores.map(({ store, count }) => <article className="pharmacy-establishment" key={store.id}>
+          <i className="pharmacy-establishment__mark" style={{ backgroundColor: store.color }}><Pill aria-hidden="true" /></i>
+          <div className="pharmacy-establishment__identity">
+            <span><BadgeCheck aria-hidden="true" /> ESTABELECIMENTO ATIVO</span>
+            <h2>{store.name}</h2>
+            <p><MapPin aria-hidden="true" /> {store.neighborhood || "Feijó, Acre"}</p>
+          </div>
+          <div className="pharmacy-establishment__catalog">
+            <small>CATÁLOGO</small>
+            <strong>{count ? `${count} ${count === 1 ? "item publicado" : "itens publicados"}` : "Perfil disponível"}</strong>
+          </div>
+          <Link className="pharmacy-establishment__action" to={`/estabelecimento/${store.slug || store.id}`}>
+            Abrir estabelecimento <ArrowRight aria-hidden="true" />
+          </Link>
+        </article>)}
+      </section> : <section className="pharmacy-directory__state">
+        <Pill aria-hidden="true" />
+        <strong>Nenhuma farmácia ativa no momento.</strong>
+      </section>}
+    </main>
+  </div>;
+}
+
 export function MarketplaceSectorLanding({ sector }: { sector: MarketplaceSector }) {
   const Icon = sector.icon;
   const pageRef = useRef<HTMLDivElement>(null);
@@ -224,12 +265,15 @@ export function MarketplaceSectorLanding({ sector }: { sector: MarketplaceSector
   const productCount = catalog ? sectorProducts(catalog, sector).length : 0;
 
   useGSAP(() => {
+    if (sector.id === "pharmacies") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.from(".sector-eyebrow, .sector-hero__copy h1, .sector-hero__copy p, .sector-example-chips, .sector-hero__actions, .sector-hero > aside", { y: 16, opacity: 0, duration: .55, stagger: .06, ease: "power3.out" });
     gsap.utils.toArray<HTMLElement>(".sector-content > *").forEach(section => {
       gsap.from(section, { scrollTrigger: { trigger: section, start: "top 88%", once: true }, y: 22, opacity: 0, duration: .55, ease: "power2.out" });
     });
   }, { scope: pageRef });
+
+  if (sector.id === "pharmacies") return <PharmacyDirectory catalog={catalog} sector={sector} />;
 
   return (
     <div className={`sector-page sector-page--${sector.id}`} ref={pageRef}>

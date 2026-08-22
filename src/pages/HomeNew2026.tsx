@@ -9,19 +9,12 @@ import { getStoreLogoUrl } from "../data/storeLogos";
 import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
+import { useSiteTheme } from "../hooks/useSiteTheme";
 import "./HomeNew2026.css";
 
-type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-const readTheme = (): Theme => {
-  if (typeof window === "undefined") return "dark";
-  const saved = window.localStorage.getItem("theme") || window.localStorage.getItem("precocerto-theme");
-  if (saved === "light" || saved === "dark") return saved;
-  return "dark";
-};
-
 const categories = [
   { name: "Mercados", copy: "Compras do dia", to: "/mercados", icon: ShoppingBasket, color: "#11875d" },
   { name: "Açougues", copy: "Carnes e cortes", to: "/acougues", icon: Store, color: "#d94f45" },
@@ -48,17 +41,10 @@ export function HomeNew2026() {
   const [focused, setFocused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>(readTheme);
+  const { theme, toggleTheme } = useSiteTheme();
   const [footerPanel, setFooterPanel] = useState<FooterPanel>(null);
   const [cycle, setCycle] = useState(() => currentCycle());
   const deferredQuery = useDeferredValue(query);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-    window.localStorage.setItem("theme", theme);
-    window.localStorage.setItem("precocerto-theme", theme);
-  }, [theme]);
 
   useEffect(() => {
     document.documentElement.classList.add("nx-home-active");
@@ -141,7 +127,7 @@ export function HomeNew2026() {
         </nav>
         <div className="nx-header__actions">
           <HeaderRadioPlayer />
-          <button type="button" className="nx-theme" onClick={() => setTheme(value => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
+          <button type="button" className="nx-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
             {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
           </button>
           <Link className="nx-login" to="/login">Entrar</Link>

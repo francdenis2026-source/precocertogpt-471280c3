@@ -15,6 +15,7 @@ import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { OnlinePresence } from "../components/OnlinePresence";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
+import { useSiteTheme } from "../hooks/useSiteTheme";
 import { groupForStore } from "../data/businessTaxonomy";
 import { SectorNavigator, getMarketplaceSector } from "./MarketplaceSectors";
 import "./ReferenceExperience.css";
@@ -288,17 +289,9 @@ function useBasket() {
 }
 
 function ThemeButton() {
-  const [dark, setDark] = useState(() => document.documentElement.dataset.theme === "dark");
-  const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    const theme = next ? "dark" : "light";
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("precocerto-theme", theme);
-  };
-  return <button className="ref-theme" type="button" onClick={toggle} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
+  const { theme, toggleTheme } = useSiteTheme();
+  const dark = theme === "dark";
+  return <button className="ref-theme" type="button" onClick={toggleTheme} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
 }
 
 type PublicSection = "home" | "sectors" | "search" | "basket" | "stores" | "profile";

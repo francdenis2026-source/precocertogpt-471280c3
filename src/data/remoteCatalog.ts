@@ -123,12 +123,17 @@ const baseProductName = (value: string | null) => normalizeCatalogTerm(value || 
   .replace(/\s+/g, " ")
   .trim();
 
+// Chave usada apenas na comparação: diferenças de espaço ou pontuação não
+// podem separar cadastros do mesmo produto ("Dobom" e "Do Bom").
+const identityProductName = (value: string | null) => baseProductName(value).replace(/\s+/g, "");
+const identityToken = (value: string | null) => normalize(value || "").replace(/[^a-z0-9]+/g, "");
+
 const productIdentity = (product: ProductRow) => product.barcode
   ? `barcode:${normalize(product.barcode)}`
   : [
-      `name:${baseProductName(product.name)}`,
-      `brand:${normalize(product.brand || "")}`,
-      `category:${normalize(product.category || "")}`,
+      `name:${identityProductName(product.name)}`,
+      `brand:${identityToken(product.brand)}`,
+      `category:${identityToken(product.category)}`,
       `spec:${extractSpecification(product)}`,
     ].join("|");
 
@@ -299,7 +304,11 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       .filter(product => {
         if (!q) return true;
         const searchFields = [product.name, product.category, product.brand, product.barcode, product.size].filter(Boolean) as string[];
-        return searchFields.some(field => normalizeCatalogTerm(field).includes(q));
+        const qNoSpace = q.replace(/\s+/g, "");
+        return searchFields.some(field => {
+          const normalizedField = normalizeCatalogTerm(field);
+          return normalizedField.includes(q) || normalizedField.replace(/\s+/g, "").includes(qNoSpace);
+        });
       })
       .sort((a, b) =>
         a.minPrice - b.minPrice ||

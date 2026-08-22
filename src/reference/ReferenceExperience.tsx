@@ -128,6 +128,9 @@ function productSearchScore(product: Product, rawQuery: string) {
   if (name.includes(term)) return 3;
   if (queryWords.every(word => nameWords.includes(word))) return 4;
   if (queryWords.every(word => nameWords.some(nameWord => nameWord.startsWith(word)))) return 5;
+  // Tolera diferenças de espaçamento no cadastro, como "Dobom"/"Do Bom".
+  const nameNoSpace = name.replace(/\s+/g, "");
+  if (nameNoSpace.includes(term.replace(/\s+/g, "")) || queryWords.every(word => nameNoSpace.includes(word))) return 6;
   const context = normalizeProductSearch(`${product.brand} ${product.category} ${product.establishment}`);
   if (context.includes(term)) return 10;
   if (queryWords.every(word => context.includes(word))) return 11;

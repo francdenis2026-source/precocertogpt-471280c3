@@ -3,11 +3,13 @@
    de cor para a identidade laranja da marca. */
 
 .sanduba-hero{
-  background-image:url('/ponto-do-sanduba/hero-burgers.jpg');
+  --menu-hero:#261005;
 }
 
+.sanduba-page{--menu-accent:#f47b20;--menu-accent-strong:#c6530a;--menu-hero:#261005}
 .sanduba-page .kelly-hero__kicker{color:#ffb15c}
 .sanduba-page .kelly-menu-list__price{color:#e0672a}
 .sanduba-page .kelly-info__card svg{color:#e0672a}
 .sanduba-page .kelly-menu-group__head-icon{background:rgba(224,103,42,.22);border-color:rgba(224,103,42,.4)}
 .sanduba-page .kelly-category-nav a small{color:#e0672a}
+.sanduba-page .kelly-menu-list__price{background:rgba(224,103,42,.1)}

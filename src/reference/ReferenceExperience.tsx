@@ -2,10 +2,10 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, Building2,
+  ArrowLeft, ArrowRight, BadgeCheck, Building2, Camera,
   Check, Code2, Eye, Heart, Info, LayoutDashboard, LockKeyhole, Mail, Map as MapIcon,
   MapPin, Menu, MessageCircle, Minus, Moon, PackageSearch, PiggyBank, Plus, Search, ShieldCheck, ShoppingBag, ShoppingBasket,
-  SlidersHorizontal, Store, Sun, Tag, TrendingDown, UserRound, UsersRound, WalletCards, X,
+  ReceiptText, SlidersHorizontal, Store, Sun, Tag, TrendingDown, UserRound, UsersRound, WalletCards, X,
 } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog, normalize } from "../data/remoteCatalog";
@@ -34,6 +34,7 @@ import "./HomeSmartBasket.css";
 import "./Home2026.css";
 import "./Stores2026.css";
 import "./StoreExperienceAcai2026.css";
+import "./CollaborationPage.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -566,5 +567,60 @@ export function ReferenceMerchantDashboard() { const catalog = useCatalog(); con
 
 type InfoKind = "collaborate" | "contact" | "pharmacies" | "orders" | "culture";
 const infoCopy: Record<InfoKind, { eyebrow: string; title: string; copy: string; action: string; to: string }> = { collaborate: { eyebrow: "COLABORE COM FEIJÓ", title: "Ajude a manter os preços úteis.", copy: "Compartilhe atualizações e fortaleça uma base local mais transparente para todos.", action: "Entrar para colaborar", to: "/login" }, contact: { eyebrow: "FALE COM O PREÇOCERTO", title: "Estamos perto para ouvir.", copy: "Envie sua dúvida, sugestão ou proposta de parceria com o comércio local.", action: "Acessar minha conta", to: "/login" }, pharmacies: { eyebrow: "SAÚDE LOCAL", title: "Farmácias de Feijó.", copy: "A cobertura de preços de farmácias está sendo organizada com verificação e responsabilidade.", action: "Ver estabelecimentos", to: "/estabelecimentos" }, orders: { eyebrow: "SUAS COMPRAS", title: "Pedidos em um só lugar.", copy: "Entre para acompanhar pagamentos, preparo e entrega dos pedidos feitos nas lojas participantes.", action: "Entrar para continuar", to: "/login" }, culture: { eyebrow: "CULTURA DE FEIJÓ", title: "Talento local também tem valor.", copy: "Descubra projetos, livros e produções da nossa cidade dentro do ecossistema PreçoCerto.", action: "Explorar estabelecimentos", to: "/estabelecimentos" } };
-export function ReferenceInfoPage({ kind }: { kind: InfoKind }) { const content = infoCopy[kind]; return <div className="ref-page"><PublicHeader /><main id="conteudo-principal" className="ref-info"><span>{content.eyebrow}</span><h1>{content.title}</h1><p>{content.copy}</p><Link to={content.to}>{content.action} <ArrowRight /></Link></main><PublicFooter /></div>; }
+
+function CollaborationPage() {
+  const [profile, setProfile] = useState<Awaited<ReturnType<typeof loadSessionProfile>>>(null);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    void loadSessionProfile().then(value => {
+      if (!active) return;
+      setProfile(value);
+      setLoadingProfile(false);
+    });
+    return () => { active = false; };
+  }, []);
+
+  const emailSubject = encodeURIComponent("Colaboração de preços — nota de compra");
+  const emailBody = encodeURIComponent(
+    `Olá, equipe PreçoCerto!\n\nEstou enviando uma foto legível da minha nota de compra para análise e possível atualização dos preços.\n\nNome: ${profile?.name || ""}\nE-mail cadastrado: ${profile?.email || ""}\nEstabelecimento: \nData da compra: \nDiferença identificada: \n\nVou anexar a imagem da nota neste e-mail.`
+  );
+  const emailHref = `mailto:precocerto-fj@proton.me?subject=${emailSubject}&body=${emailBody}`;
+
+  return <div className="ref-page pc-collab-page">
+    <PublicHeader />
+    <main id="conteudo-principal" className="pc-collab">
+      <section className="pc-collab__hero" aria-labelledby="pc-collab-title">
+        <div className="pc-collab__copy">
+          <span className="pc-collab__eyebrow"><UsersRound aria-hidden="true" /> COLABORAÇÃO VERIFICADA</span>
+          <h1 id="pc-collab-title">Viu um preço diferente?</h1>
+          <p>Envie uma foto legível da sua nota de compra. Nossa equipe confere as informações e realiza as atualizações necessárias no catálogo.</p>
+          <div className="pc-collab__trust"><ShieldCheck aria-hidden="true" /><span><strong>Análise antes da publicação</strong><small>Nenhum preço é alterado automaticamente. A equipe PreçoCerto valida estabelecimento, produto, valor e data.</small></span></div>
+        </div>
+
+        <aside className="pc-collab__panel" aria-label="Enviar nota de compra">
+          <header><span><ReceiptText aria-hidden="true" /></span><div><small>SUA CONTRIBUIÇÃO</small><h2>Envie a nota por e-mail</h2></div></header>
+          <ol>
+            <li><b>1</b><span><strong>Fotografe a nota inteira</strong><small>Produto, preço, estabelecimento e data precisam estar legíveis.</small></span></li>
+            <li><b>2</b><span><strong>Informe a diferença encontrada</strong><small>Conte brevemente qual preço precisa ser conferido.</small></span></li>
+            <li><b>3</b><span><strong>Anexe a imagem e envie</strong><small>Destinatário: precocerto-fj@proton.me</small></span></li>
+          </ol>
+
+          {loadingProfile ? <div className="pc-collab__account is-loading">Verificando sua conta…</div> : profile ? <>
+            <div className="pc-collab__account"><BadgeCheck aria-hidden="true" /><span><small>COLABORADOR IDENTIFICADO</small><strong>{profile.name}</strong></span></div>
+            <a className="pc-collab__send" href={emailHref}><Camera aria-hidden="true" /> Preparar envio da nota <ArrowRight aria-hidden="true" /></a>
+            <small className="pc-collab__hint">Seu aplicativo de e-mail será aberto. Anexe a fotografia antes de enviar.</small>
+          </> : <>
+            <div className="pc-collab__account"><LockKeyhole aria-hidden="true" /><span><small>CONTA NECESSÁRIA</small><strong>Entre para enviar sua colaboração</strong></span></div>
+            <Link className="pc-collab__send" to="/login?redirect=/colaborar"><UserRound aria-hidden="true" /> Entrar ou criar conta <ArrowRight aria-hidden="true" /></Link>
+            <small className="pc-collab__hint">O acesso identificado ajuda a equipe a confirmar informações quando necessário.</small>
+          </>}
+        </aside>
+      </section>
+    </main>
+  </div>;
+}
+
+export function ReferenceInfoPage({ kind }: { kind: InfoKind }) { if (kind === "collaborate") return <CollaborationPage />; const content = infoCopy[kind]; return <div className="ref-page"><PublicHeader /><main id="conteudo-principal" className="ref-info"><span>{content.eyebrow}</span><h1>{content.title}</h1><p>{content.copy}</p><Link to={content.to}>{content.action} <ArrowRight /></Link></main><PublicFooter /></div>; }
 export function ReferenceNotFound() { return <div className="ref-page"><PublicHeader /><main id="conteudo-principal" className="ref-info"><span>PÁGINA NÃO ENCONTRADA</span><h1>Vamos voltar ao preço certo.</h1><p>Este endereço não existe ou foi reorganizado na nova experiência.</p><Link to="/">Ir para a homepage <ArrowRight /></Link></main><PublicFooter /></div>; }

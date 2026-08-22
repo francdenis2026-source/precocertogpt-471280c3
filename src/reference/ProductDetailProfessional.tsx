@@ -126,7 +126,7 @@ export function ProductDetailProfessional() {
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
-    }).slice(0, 4);
+    }).slice(0, 6);
   }, [comparisonOffers]);
   const similar = useMemo(() => !product || !catalog ? [] : findComparableProducts(catalog.products, product, 4), [catalog, product]);
   const basketRows = useMemo(() => !catalog ? [] : basket.map(entry => ({ entry, product: catalog.products.find(item => String(item.id) === entry.productId) })).filter(row => row.product), [basket, catalog]);
@@ -234,18 +234,17 @@ export function ProductDetailProfessional() {
             })}
           </div>
           {comparisonOffers.length > 1 && <div className="pdx-quick-compare__saving"><TrendingDown aria-hidden="true" /><span><small>ECONOMIA POSSÍVEL</small><strong>{brl.format(priceSpread)}</strong></span></div>}
-          <a className="pdx-quick-compare__more" href="#offers-title">Ver comparação completa <ArrowRight aria-hidden="true" /></a>
         </aside>}
       </section>
 
-      <section className="pdx-commerce-grid">
-        <article className={`pdx-card pdx-offers${hasHistory ? "" : " pdx-offers--full"}`} aria-labelledby="offers-title">
-          <header><div><span>ONDE COMPRAR</span><h2 id="offers-title">{isSingleOffer ? "Onde encontrar este produto" : "Ranking de produtos equivalentes"}</h2><p>{isSingleOffer ? "Preço confirmado neste estabelecimento." : "Mesma família e medida compatível, sem restringir por marca."}</p></div><Link to="/estabelecimentos"><MapPin/>Ver estabelecimentos</Link></header>
-          <div className="pdx-offer-list">{comparisonOffers.slice(0, 8).map((offer,index)=><Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.productId}-${offer.value}`} className={index===0 && !isSingleOffer ? "is-best" : ""}><span className="pdx-rank">{isSingleOffer ? <Store aria-hidden="true"/> : index+1}</span><span className="pdx-store-info"><strong>{offer.establishment}</strong><small><MapPin/>{offer.productBrand || "Marca não informada"} · {offer.productSize || "medida equivalente"}</small></span>{index===0 && !isSingleOffer && <em><BadgeCheck/>MENOR PREÇO</em>}<span className="pdx-offer-price"><strong>{brl.format(offer.value)}</strong><small>{formatDate(offer.capturedAt)}</small></span><ArrowRight/></Link>)}</div>
-        </article>
+      {(isSingleOffer || hasHistory) && <section className="pdx-commerce-grid">
+        {isSingleOffer && <article className="pdx-card pdx-offers pdx-offers--full" aria-labelledby="offers-title">
+          <header><div><span>ONDE COMPRAR</span><h2 id="offers-title">Onde encontrar este produto</h2><p>Preço confirmado neste estabelecimento.</p></div><Link to="/estabelecimentos"><MapPin/>Ver estabelecimentos</Link></header>
+          <div className="pdx-offer-list">{comparisonOffers.map(offer=><Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.productId}-${offer.value}`}><span className="pdx-rank"><Store aria-hidden="true"/></span><span className="pdx-store-info"><strong>{offer.establishment}</strong><small><MapPin/>{offer.neighborhood || "Feijó"}</small></span><span className="pdx-offer-price"><strong>{brl.format(offer.value)}</strong><small>{formatDate(offer.capturedAt)}</small></span><ArrowRight/></Link>)}</div>
+        </article>}
 
-        {hasHistory && <article className="pdx-card pdx-history-card"><header><div><span>EVOLUÇÃO DO PREÇO</span><h2>Histórico recente</h2></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceHistory product={product}/></article>}
-      </section>
+        {hasHistory && <article className={`pdx-card pdx-history-card${isSingleOffer ? "" : " pdx-offers--full"}`}><header><div><span>EVOLUÇÃO DO PREÇO</span><h2>Histórico recente</h2></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceHistory product={product}/></article>}
+      </section>}
 
       <details className="pdx-tech-details">
         <summary><span><Info aria-hidden="true" /><span><small>FICHA DO PRODUTO</small><strong>Marca, fabricante e identificação</strong></span></span><ChevronRight aria-hidden="true" /></summary>

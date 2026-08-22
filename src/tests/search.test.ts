@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { normalize } from '../data/remoteCatalog';
-import { findSimilarProducts, normalizeSearchText, searchProducts, suggestProducts } from '../lib/productSearch';
+import { buildComparableOffers, findSimilarProducts, isEquivalentProduct, normalizeSearchText, searchProducts, suggestProducts } from '../lib/productSearch';
 
 
 describe('Normalização de Busca', () => {
@@ -91,6 +91,39 @@ describe('Produtos similares', () => {
   it('remove cadastros duplicados do mesmo produto', () => {
     const duplicado = { ...arroz, id: 2, minPrice: .9 };
     expect(findSimilarProducts([arroz, duplicado], arroz)).toEqual([]);
+  });
+});
+
+describe('Ranking de preços equivalentes', () => {
+  const base = {
+    slug: 'arroz-a', category: 'Mercearia', size: '1 kg', unit: 'pacote',
+    minPrice: 8, avgPrice: 8, maxPrice: 8, storeCount: 1,
+    establishmentId: 1, establishmentSlug: 'loja-a', establishment: 'Loja A',
+    neighborhood: 'Centro', storeColor: '#000', capturedAt: new Date().toISOString(),
+  };
+  const referencia = { ...base, id: 1, name: 'Arroz Branco Marca A', brand: 'Marca A' };
+
+  it('ignora a marca, mas exige família e medida compatíveis', () => {
+    const outraMarca = { ...base, id: 2, name: 'Arroz Branco Marca B', brand: 'Marca B', size: '1000 g' };
+    const pacoteMaior = { ...base, id: 3, name: 'Arroz Branco Marca C', brand: 'Marca C', size: '5 kg' };
+    const outroProduto = { ...base, id: 4, name: 'Feijão Carioca Marca D', brand: 'Marca D' };
+    expect(isEquivalentProduct(referencia, outraMarca)).toBe(true);
+    expect(isEquivalentProduct(referencia, pacoteMaior)).toBe(false);
+    expect(isEquivalentProduct(referencia, outroProduto)).toBe(false);
+  });
+
+  it('inclui outros estabelecimentos, ordena por preço e mantém a melhor oferta de cada loja', () => {
+    const equivalente = {
+      ...base, id: 2, slug: 'arroz-b', name: 'Arroz Branco Marca B', brand: 'Marca B', size: '1000 g',
+      establishmentId: 2, establishmentSlug: 'loja-b', establishment: 'Loja B', minPrice: 6.5,
+      offers: [
+        { establishmentId: 2, establishmentSlug: 'loja-b', establishment: 'Loja B', neighborhood: 'Centro', storeColor: '#111', value: 6.5, capturedAt: base.capturedAt },
+        { establishmentId: 1, establishmentSlug: 'loja-a', establishment: 'Loja A', neighborhood: 'Centro', storeColor: '#000', value: 7.5, capturedAt: base.capturedAt },
+      ],
+    };
+    const ranking = buildComparableOffers([referencia, equivalente], referencia);
+    expect(ranking.map(item => [item.establishment, item.value])).toEqual([['Loja B', 6.5], ['Loja A', 7.5]]);
+    expect(ranking[0].productBrand).toBe('Marca B');
   });
 });
 

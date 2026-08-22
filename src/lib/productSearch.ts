@@ -1,4 +1,5 @@
-import type { Product } from "../data/catalog";
+import type { Product, ProductOffer } from "../data/catalog";
+import { parseMeasure } from "./pricing";
 
 export const normalizeSearchText = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
@@ -76,6 +77,88 @@ function productFamilyTokens(product: Product) {
   ))];
 }
 
+function productMeasure(product: Product) {
+  // Alguns cadastros antigos guardam a gramagem no nome e deixam `size`
+  // vazio. Considerar os dois campos evita perder comparações válidas.
+  return parseMeasure(`${product.name} ${product.size || ""}`, product.unit);
+}
+
+function hasSameProductFamily(reference: Product, candidate: Product) {
+  const referenceTokens = productFamilyTokens(reference);
+  const candidateTokens = productFamilyTokens(candidate);
+  const shared = referenceTokens.filter(token => candidateTokens.includes(token));
+  return Boolean(shared.length && (
+    referenceTokens[0] === candidateTokens[0] || shared.length >= 2
+  ));
+}
+
+/**
+ * Equivalência comercial: marca não participa da decisão. Exigimos a mesma
+ * família de produto, a mesma dimensão (peso, volume ou unidade) e embalagem
+ * com quantidade praticamente igual. A tolerância absorve apenas variações de
+ * cadastro/arredondamento; 900 ml não vira concorrente de 1 L.
+ */
+export function isEquivalentProduct(reference: Product, candidate: Product) {
+  if (String(reference.id) === String(candidate.id)) return true;
+  const referenceCategory = normalizeSearchText(reference.category || "");
+  const candidateCategory = normalizeSearchText(candidate.category || "");
+  if (referenceCategory && candidateCategory && referenceCategory !== candidateCategory) return false;
+  if (!hasSameProductFamily(reference, candidate)) return false;
+
+  const referenceMeasure = productMeasure(reference);
+  const candidateMeasure = productMeasure(candidate);
+  if (!referenceMeasure || !candidateMeasure || referenceMeasure.base !== candidateMeasure.base) return false;
+  const tolerance = Math.max(referenceMeasure.quantity, candidateMeasure.quantity) * 0.05;
+  return Math.abs(referenceMeasure.quantity - candidateMeasure.quantity) <= tolerance;
+}
+
+export type ComparableOffer = ProductOffer & {
+  productId: string | number;
+  productSlug: string;
+  productName: string;
+  productBrand: string;
+  productSize: string;
+  exactProduct: boolean;
+};
+
+function offersFor(product: Product): ProductOffer[] {
+  return product.offers?.length ? product.offers : [{
+    establishmentId: product.establishmentId,
+    establishmentSlug: product.establishmentSlug,
+    establishment: product.establishment,
+    neighborhood: product.neighborhood,
+    storeColor: product.storeColor,
+    value: product.minPrice,
+    capturedAt: product.capturedAt,
+    previousPrice: product.previousPrice,
+  }];
+}
+
+/** Ranking por estabelecimento para o produto exato e equivalentes de outra marca. */
+export function buildComparableOffers(products: Product[], reference: Product): ComparableOffer[] {
+  const byStore = new Map<string, ComparableOffer>();
+  for (const product of products.filter(candidate => isEquivalentProduct(reference, candidate))) {
+    for (const offer of offersFor(product)) {
+      if (!Number.isFinite(offer.value) || offer.value <= 0) continue;
+      const enriched: ComparableOffer = {
+        ...offer,
+        productId: product.id,
+        productSlug: product.slug,
+        productName: product.name,
+        productBrand: product.brand,
+        productSize: product.size || product.unit,
+        exactProduct: String(product.id) === String(reference.id),
+      };
+      const key = String(offer.establishmentId || normalizeSearchText(offer.establishment));
+      const saved = byStore.get(key);
+      if (!saved || enriched.value < saved.value || (enriched.value === saved.value && enriched.exactProduct && !saved.exactProduct)) {
+        byStore.set(key, enriched);
+      }
+    }
+  }
+  return [...byStore.values()].sort((a, b) => a.value - b.value || a.establishment.localeCompare(b.establishment, "pt-BR"));
+}
+
 function similarityScore(reference: Product, candidate: Product) {
   if (String(reference.id) === String(candidate.id)) return 0;
 
@@ -102,6 +185,13 @@ function similarityScore(reference: Product, candidate: Product) {
   if (normalizeSearchText(reference.brand || "") === normalizeSearchText(candidate.brand || "")) score += 15;
   if (normalizeSearchText(reference.unit || "") === normalizeSearchText(candidate.unit || "")) score += 5;
   return score;
+}
+
+export function findComparableProducts(products: Product[], reference: Product, limit = 4) {
+  return products
+    .filter(product => String(product.id) !== String(reference.id) && isEquivalentProduct(reference, product))
+    .sort((a, b) => a.minPrice - b.minPrice || a.name.localeCompare(b.name, "pt-BR"))
+    .slice(0, limit);
 }
 
 /**

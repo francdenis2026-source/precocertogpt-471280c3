@@ -125,8 +125,7 @@ html[data-theme="dark"] .store-pro-hero__overlay{background:linear-gradient(92de
 .store-pro-loader{width:34px;height:34px;border:3px solid var(--pc-border);border-top-color:var(--pc-green);border-radius:50%;animation:store-pro-spin .8s linear infinite}
 @keyframes store-pro-spin{to{transform:rotate(1turn)}}
 
-.store-pro-skeleton{min-height:100dvh;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:22px;padding:56px max(20px,calc((100% - 1180px)/2)) 64px;background:linear-gradient(155deg,#0b0f13 0%,#0f1a15 48%,#0b0f13 100%)}
-.store-pro-skeleton::before{content:"";position:absolute;inset:-25%;background:radial-gradient(circle at 18% 22%,rgba(28,154,86,.22),transparent 58%),radial-gradient(circle at 82% 74%,rgba(28,154,86,.14),transparent 55%);pointer-events:none}
+.store-pro-skeleton{min-height:100dvh;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:22px;padding:56px max(20px,calc((100% - 1180px)/2)) 64px;background:linear-gradient(100deg,rgba(4,10,15,.82),rgba(4,10,15,.5) 55%,rgba(4,10,15,.78)),url('/auth-market-hero-v2.webp') center/cover no-repeat}
 .store-pro-skeleton__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .store-pro-skeleton__hero{position:relative;z-index:1;display:flex;align-items:center;gap:22px;padding:26px 30px;border-radius:20px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
 .store-pro-skeleton__logo{width:72px;height:72px;flex-shrink:0;border-radius:18px}

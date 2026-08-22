@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, PackageSearch, Pill, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
+import { ArrowRight, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, Pill, Sandwich, Scale, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { CatalogPayload, Product, StoreRow } from "../data/catalog";
-import { fetchSectorCatalog, prefetchSectorCatalog, sectorProducts, sectorStores } from "../data/sectorCatalog";
+import type { CatalogPayload } from "../data/catalog";
+import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
+import { fetchSectorCatalog, prefetchSectorCatalog, sectorProducts, sectorStores, withCatalog } from "../data/sectorCatalog";
 import { PublicHeader } from "./ReferenceExperience";
 import "./MarketplaceSectors.css";
 import "./ExploreLayoutFix.css";
@@ -13,25 +14,217 @@ import "./SectorContentArchitecture.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export type MarketplaceSectorId = "all" | "markets" | "pharmacies" | "bakery" | "books" | "services";
-export type MarketplaceSector = {id:MarketplaceSectorId;label:string;shortLabel:string;eyebrow:string;title:string;description:string;searchHint:string;href:string;icon:LucideIcon;productCategories:string[];businessKinds:string[];highlights:string[];examples:string[]};
-export const marketplaceSectors:MarketplaceSector[]=[
- {id:"markets",label:"Mercados, mercearias e açougues",shortLabel:"Mercados",eyebrow:"Compras do dia a dia",title:"Compras locais organizadas pelo estabelecimento certo.",description:"Compare alimentos, bebidas, limpeza e outros itens somente quando houver preço realmente cadastrado em um comércio compatível.",searchHint:"Arroz, café, limpeza ou mercado…",href:"/mercados",icon:ShoppingBasket,productCategories:["mercearia","laticinios","limpeza","hortifruti","bebidas","higiene","congelados"],businessKinds:["market","grocery","supermarket","beverage"],highlights:["Catálogos reais","Preços vinculados ao estabelecimento","Comparação local"],examples:["Mercados","Mercearias","Bebidas","Hortifruti"]},
-  {id:"pharmacies",label:"Farmácias e saúde",shortLabel:"Farmácias",eyebrow:"Saúde e cuidados",title:"Farmácias aparecem quando há catálogo farmacêutico real.",description:"Medicamentos, higiene e cuidados pessoais só entram aqui quando estiverem vinculados a uma farmácia ou estabelecimento de saúde cadastrado.",searchHint:"Farmácia, higiene ou produto de saúde…",href:"/farmacias",icon:Pill,productCategories:["farmacia","medicamentos","saude","higiene","perfumaria","cuidados pessoais"],businessKinds:["pharmacy","health"],highlights:["Sem associações artificiais","Catálogo por farmácia","Dados verificáveis"],examples:["Farmácias","Higiene","Perfumaria","Cuidados pessoais"]},
- {id:"bakery",label:"Padarias e alimentação",shortLabel:"Alimentação",eyebrow:"Comida perto de você",title:"Alimentação local sem misturar com supermercado.",description:"Padarias, lanchonetes, restaurantes e produtos preparados aparecem apenas quando o estabelecimento e o catálogo pertencem a este setor.",searchHint:"Pão, bolo, lanche ou padaria…",href:"/padarias",icon:Croissant,productCategories:["padaria","alimentos preparados","lanches","refeicoes","doces","salgados"],businessKinds:["bakery","restaurant","pizzeria","snack_bar","food"],highlights:["Cardápios separados","Negócios compatíveis","Consulta direta"],examples:["Padarias","Lanchonetes","Restaurantes","Doces e salgados"]},
- {id:"books",label:"Livros, autores e cultura",shortLabel:"Livros e cultura",eyebrow:"Cultura e conhecimento",title:"Autores, obras e projetos em uma experiência editorial própria.",description:"Perfis culturais não são tratados como supermercados. Aqui o foco é contexto, autoria, obras e projetos locais.",searchHint:"Título, autora, autor ou projeto cultural…",href:"/livros",icon:BookOpen,productCategories:["livros","literatura","cultura","educacao"],businessKinds:["books_author","bookstore","publisher","culture","culture_music"],highlights:["Perfis editoriais","Obras e autores","Projetos culturais"],examples:["Autores","Livros","Editoras","Projetos culturais"]},
- {id:"services",label:"Serviços e profissionais",shortLabel:"Serviços",eyebrow:"Profissionais locais",title:"Serviços organizados pela especialidade real do prestador.",description:"Autônomos e prestadores aparecem como perfis de serviço, com área atendida e informações úteis — sem produtos fictícios.",searchHint:"Serviço, profissão ou especialidade…",href:"/servicos",icon:BriefcaseBusiness,productCategories:["servicos","profissionais","autonomos"],businessKinds:["services","professional","freelancer"],highlights:["Perfis profissionais","Área atendida","Contato objetivo"],examples:["Autônomos","Profissionais","Serviços locais"]},
-];
-const normalize=(v:string)=>v.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").trim();
-export function getMarketplaceSector(value:string|null|undefined){return marketplaceSectors.find(s=>s.id===value)||null}
-export function SectorNavigator({active="all",compact=false,counts}:{active?:MarketplaceSectorId;compact?:boolean;counts?:Partial<Record<MarketplaceSectorId,number>>}){const warm=()=>prefetchSectorCatalog();return <nav className={`sector-nav${compact?" sector-nav--compact":""}`} aria-label="Explorar por setor"><Link className={active==="all"?"is-active":""} to="/explorar"><Grid2X2/><span><strong>Todos os setores</strong><small>Visão geral da cidade</small></span></Link>{marketplaceSectors.map(s=><Link key={s.id} className={active===s.id?"is-active":""} to={s.href} onPointerEnter={warm} onFocus={warm}><s.icon/><span><strong>{s.shortLabel}</strong><small>{counts?.[s.id]!==undefined?`${counts[s.id]} opções reais`:s.examples.slice(0,2).join(" · ")}</small></span></Link>)}</nav>}
-function CulturalProfiles(){return <div className="sector-profile-grid"><Link to="/dorinha-barroso"><BookOpen/><span><small>AUTORA</small><strong>Dorinha Barroso</strong><p>Perfil editorial dedicado para conhecer a autora e seus conteúdos culturais.</p></span><ArrowRight/></Link><Link to="/fremix-producoes"><Store/><span><small>PROJETO CULTURAL</small><strong>Fremix Produções</strong><p>Espaço próprio para iniciativas e conteúdos culturais locais.</p></span><ArrowRight/></Link></div>}
-function RealSectorContent({catalog,sector}:{catalog:CatalogPayload|null;sector:MarketplaceSector}){if(sector.id==="books")return <section className="sector-real-content"><header><div><span>CONTEÚDO CULTURAL</span><h2>Perfis com contexto próprio</h2><p>Pessoas e projetos culturais são apresentados como perfis editoriais, sem associação artificial com produtos.</p></div></header><CulturalProfiles/></section>;if(!catalog)return <section className="sector-real-content"><div className="sector-empty-real"><span className="sector-loading-dot"/><span><strong>Carregando dados do setor</strong><small>Confirmando catálogos e estabelecimentos vinculados.</small></span></div></section>;const matches=sectorStores(catalog,sector);if(!matches.length)return <section className="sector-real-content"><header><div><span>CATÁLOGO REAL</span><h2>Ainda não há catálogo ativo neste setor</h2><p>Não exibimos produtos ou lojas apenas por categoria. Esta área será preenchida quando houver cadastro e preço vinculados a um estabelecimento compatível.</p></div></header><div className="sector-empty-real"><PackageSearch/><span><strong>Nenhuma associação artificial</strong><small>Os dados aparecem automaticamente quando o catálogo real existir.</small></span></div></section>;return <section className="sector-real-content"><header><div><span>CATÁLOGO REAL</span><h2>Opções locais confirmadas</h2><p>Somente negócios com produtos realmente vinculados a este setor aparecem abaixo.</p></div><Link to={`/estabelecimentos?setor=${sector.id}`}>Ver diretório <ArrowRight/></Link></header><div className="sector-store-grid">{matches.slice(0,8).map(({store,count})=><Link to={`/estabelecimento/${store.slug||store.id}`} key={store.id} className="sector-store-card"><i style={{background:store.color}}><Store/></i><span><small>{store.neighborhood||"Feijó"}</small><strong>{store.name}</strong><em>{count} {count===1?"item vinculado":"itens vinculados"}</em></span><b>ABRIR CATÁLOGO</b><ArrowRight/></Link>)}</div></section>}
-export function MarketplaceSectorLanding({sector}:{sector:MarketplaceSector}){const Icon=sector.icon;const pageRef=useRef<HTMLDivElement>(null);const[catalog,setCatalog]=useState<CatalogPayload|null>(null);useEffect(()=>{let active=true;void fetchSectorCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined);return()=>{active=false}},[]);const productCount=catalog?sectorProducts(catalog,sector).length:0;const storeCount=catalog?sectorStores(catalog,sector).length:0;
-  // Entrada suave da hero (eyebrow, título, descrição, chips e ações) e
-  // revelação por rolagem das seções do conteúdo real do setor. Respeita
-  // prefers-reduced-motion e usa só transform/opacity. Roda uma vez na
-  // montagem — a página não tem retorno condicional antes disso.
+/* "Setor" saiu de toda a interface. A palavra é de quem monta a plataforma,
+ * não de quem compra: ninguém em Feijó diz "vou olhar o setor de padarias".
+ * O que a pessoa quer saber é ONDE COMPRAR uma coisa — então é esse o nome
+ * usado na navegação, e cada item é uma "categoria" (palavra que todo mundo
+ * já conhece de qualquer loja online). Os identificadores internos e as URLs
+ * continuam os mesmos para não quebrar links já existentes. */
+
+export type MarketplaceSectorId = BusinessGroupId | "all";
+export type MarketplaceSector = {
+  id: BusinessGroupId;
+  label: string;
+  shortLabel: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  searchHint: string;
+  href: string;
+  icon: LucideIcon;
+  examples: string[];
+};
+
+/* Apresentação de cada categoria. A composição dos grupos (quais tipos de
+ * negócio entram em cada um) vive em businessTaxonomy.ts — aqui só entra o
+ * que é texto e ícone, para os dois nunca saírem de sincronia. */
+const PRESENTATION: Record<BusinessGroupId, Pick<MarketplaceSector, "eyebrow" | "title" | "description" | "searchHint" | "icon">> = {
+  markets: {
+    eyebrow: "COMPRAS DO DIA A DIA",
+    title: "Mercados e mercearias de Feijó",
+    description: "Compare o preço do arroz, do café, da limpeza e da bebida entre os mercados da cidade antes de sair de casa.",
+    searchHint: "Arroz, café, sabão ou o nome do mercado…",
+    icon: ShoppingBasket,
+  },
+  butchers: {
+    eyebrow: "CARNES E CORTES",
+    title: "Açougues e peixarias de Feijó",
+    description: "Carne, frango e peixe: veja quem vende, onde fica e a que preço, sem precisar rodar a cidade perguntando.",
+    searchHint: "Carne, frango, peixe ou o nome do açougue…",
+    icon: Scale,
+  },
+  bakery: {
+    eyebrow: "PÃO, BOLO E SALGADOS",
+    title: "Padarias e confeitarias de Feijó",
+    description: "Pão feito na hora, bolo, salgado e doce — com o preço de cada casa à vista.",
+    searchHint: "Pão, bolo, salgado ou o nome da padaria…",
+    icon: Croissant,
+  },
+  food: {
+    eyebrow: "LANCHE E REFEIÇÃO",
+    title: "Lanchonetes, pizzarias e restaurantes",
+    description: "Cardápio completo com preço aberto, do hambúrguer à pizza, para decidir antes de pedir.",
+    searchHint: "Hambúrguer, pizza, açaí ou o nome da lanchonete…",
+    icon: Sandwich,
+  },
+  pharmacies: {
+    eyebrow: "SAÚDE E CUIDADO",
+    title: "Farmácias de Feijó",
+    description: "Medicamentos, higiene e cuidados pessoais nas farmácias que já publicam preço na plataforma.",
+    searchHint: "Remédio, higiene ou o nome da farmácia…",
+    icon: Pill,
+  },
+  books: {
+    eyebrow: "CULTURA LOCAL",
+    title: "Livros, autores e cultura",
+    description: "Autores, obras e projetos culturais da cidade, com espaço próprio — não são tratados como loja de produto.",
+    searchHint: "Título, autor ou projeto cultural…",
+    icon: BookOpen,
+  },
+  services: {
+    eyebrow: "PROFISSIONAIS DA CIDADE",
+    title: "Serviços e profissionais",
+    description: "Quem faz o serviço, onde atende e como falar direto — sem produto inventado no meio.",
+    searchHint: "Serviço, profissão ou especialidade…",
+    icon: BriefcaseBusiness,
+  },
+  other: {
+    eyebrow: "COMÉRCIO LOCAL",
+    title: "Outros comércios de Feijó",
+    description: "Negócios já cadastrados que ainda não se encaixam numa categoria específica. Assim que o tipo do negócio for informado, cada um vai para o seu lugar.",
+    searchHint: "Nome do comércio ou produto…",
+    icon: Store,
+  },
+};
+
+export const marketplaceSectors: MarketplaceSector[] = businessGroups.map(group => ({
+  id: group.id,
+  label: group.label,
+  shortLabel: group.shortLabel,
+  href: group.href,
+  examples: group.examples,
+  ...PRESENTATION[group.id],
+}));
+
+/** As categorias que aparecem na navegação principal. "Outros comércios"
+ *  existe como destino honesto para cadastros incompletos, mas não merece
+ *  espaço fixo no menu ao lado de "Padarias" e "Açougues". */
+export const primarySectors = marketplaceSectors.filter(sector => sector.id !== "other");
+
+export function getMarketplaceSector(value: string | null | undefined) {
+  return marketplaceSectors.find(sector => sector.id === value) || null;
+}
+
+export function SectorNavigator({ active = "all", compact = false, counts }: { active?: MarketplaceSectorId; compact?: boolean; counts?: Partial<Record<MarketplaceSectorId, number>> }) {
+  const warm = () => prefetchSectorCatalog();
+  return (
+    <nav className={`sector-nav${compact ? " sector-nav--compact" : ""}`} aria-label="Onde comprar">
+      <Link className={active === "all" ? "is-active" : ""} to="/explorar">
+        <Grid2X2 />
+        <span><strong>Ver tudo</strong><small>Todas as categorias</small></span>
+      </Link>
+      {primarySectors.map(sector => (
+        <Link key={sector.id} className={active === sector.id ? "is-active" : ""} to={sector.href} onPointerEnter={warm} onFocus={warm}>
+          <sector.icon />
+          <span>
+            <strong>{sector.shortLabel}</strong>
+            <small>{counts?.[sector.id] !== undefined ? `${counts[sector.id]} ${counts[sector.id] === 1 ? "estabelecimento" : "estabelecimentos"}` : sector.examples.slice(0, 2).join(" · ")}</small>
+          </span>
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+function CulturalProfiles() {
+  return (
+    <div className="sector-profile-grid">
+      <Link to="/dorinha-barroso">
+        <BookOpen />
+        <span><small>AUTORA</small><strong>Dorinha Barroso</strong><p>Página dedicada para conhecer a autora e seus conteúdos culturais.</p></span>
+        <ArrowRight />
+      </Link>
+      <Link to="/fremix-producoes">
+        <Store />
+        <span><small>PROJETO CULTURAL</small><strong>Fremix Produções</strong><p>Espaço próprio para iniciativas e conteúdos culturais locais.</p></span>
+        <ArrowRight />
+      </Link>
+    </div>
+  );
+}
+
+function SectorStores({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
+  if (sector.id === "books") {
+    return (
+      <section className="sector-real-content">
+        <header><div><span>CULTURA</span><h2>Perfis com espaço próprio</h2><p>Pessoas e projetos culturais são apresentados como páginas editoriais, e não como loja de produto.</p></div></header>
+        <CulturalProfiles />
+      </section>
+    );
+  }
+  if (!catalog) {
+    return (
+      <section className="sector-real-content">
+        <div className="sector-empty-real"><span className="sector-loading-dot" /><span><strong>Carregando estabelecimentos</strong><small>Buscando quem está cadastrado nesta categoria.</small></span></div>
+      </section>
+    );
+  }
+
+  const stores = sectorStores(catalog, sector);
+  const open = withCatalog(stores);
+
+  if (!stores.length) {
+    return (
+      <section className="sector-real-content">
+        <header><div><span>ESTABELECIMENTOS</span><h2>Nenhum {sector.shortLabel.toLocaleLowerCase("pt-BR")} cadastrado ainda</h2><p>Assim que um negócio desta categoria entrar na plataforma, ele aparece aqui automaticamente.</p></div></header>
+        <div className="sector-empty-real">
+          <Store />
+          <span><strong>É o seu negócio?</strong><small><Link to="/cadastro-lojista">Cadastre gratuitamente</Link> e apareça para quem procura em Feijó.</small></span>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="sector-real-content">
+      <header>
+        <div>
+          <span>ESTABELECIMENTOS</span>
+          <h2>{stores.length} {stores.length === 1 ? "opção" : "opções"} em Feijó</h2>
+          <p>{open.length ? `${open.length} com preços publicados — clique para abrir o catálogo.` : "Ainda sem preços publicados. Fale direto com o estabelecimento."}</p>
+        </div>
+        <Link to={`/estabelecimentos?setor=${sector.id}`}>Ver todos <ArrowRight /></Link>
+      </header>
+      <div className="sector-store-grid">
+        {stores.slice(0, 8).map(({ store, count }) => (
+          <Link to={`/estabelecimento/${store.slug || store.id}`} key={store.id} className="sector-store-card">
+            <i style={{ background: store.color }}><Store /></i>
+            <span>
+              <small>{store.neighborhood || "Feijó"}</small>
+              <strong>{store.name}</strong>
+              <em>{count ? `${count} ${count === 1 ? "item com preço" : "itens com preço"}` : "Sem preços publicados"}</em>
+            </span>
+            <b>{count ? "VER PREÇOS" : "VER PERFIL"}</b>
+            <ArrowRight />
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function MarketplaceSectorLanding({ sector }: { sector: MarketplaceSector }) {
+  const Icon = sector.icon;
+  const pageRef = useRef<HTMLDivElement>(null);
+  const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
+  useEffect(() => {
+    let active = true;
+    void fetchSectorCatalog().then(data => { if (active) setCatalog(data); }).catch(() => undefined);
+    return () => { active = false; };
+  }, []);
+  const stores = catalog ? sectorStores(catalog, sector) : [];
+  const productCount = catalog ? sectorProducts(catalog, sector).length : 0;
+
   useGSAP(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.from(".sector-eyebrow, .sector-hero__copy h1, .sector-hero__copy p, .sector-example-chips, .sector-hero__actions, .sector-hero > aside", { y: 16, opacity: 0, duration: .55, stagger: .06, ease: "power3.out" });
@@ -39,4 +232,44 @@ export function MarketplaceSectorLanding({sector}:{sector:MarketplaceSector}){co
       gsap.from(section, { scrollTrigger: { trigger: section, start: "top 88%", once: true }, y: 22, opacity: 0, duration: .55, ease: "power2.out" });
     });
   }, { scope: pageRef });
-  return <div className={`sector-page sector-page--${sector.id}`} ref={pageRef}><PublicHeader/><main id="conteudo-principal" className="sector-main"><section className="sector-hero"><div className="sector-shell sector-hero__grid"><div className="sector-hero__copy"><span className="sector-eyebrow"><Icon/>{sector.eyebrow}</span><h1>{sector.title}</h1><p>{sector.description}</p><div className="sector-example-chips">{sector.examples.map(example=><span key={example}>{example}</span>)}</div><div className="sector-hero__actions"><Link to={`/buscar?setor=${sector.id}`}><Search/>Pesquisar neste setor</Link><a href="#conteudo-local"><Store/>Ver opções reais</a></div></div><aside><span>SETOR VERIFICADO</span><Icon/><strong>{sector.label}</strong><div className="sector-hero__metrics"><b>{storeCount}</b><small>estabelecimentos com vínculo</small><b>{productCount}</b><small>itens compatíveis</small></div><p>Contagens baseadas no catálogo realmente cadastrado.</p></aside></div></section><section className="sector-content sector-shell"><div className="sector-highlights">{sector.highlights.map((h,i)=><div key={h}><span>0{i+1}</span><BadgeCheck/><strong>{h}</strong></div>)}</div><div id="conteudo-local"><RealSectorContent catalog={catalog} sector={sector}/></div><div className="sector-content__heading sector-content__heading--secondary"><div><span>CONTINUE EXPLORANDO</span><h2>Troque de setor sem perder o contexto.</h2></div><p>Cada área tem regras próprias para evitar misturar produtos, lojas e perfis incompatíveis.</p></div><SectorNavigator active={sector.id} compact/></section></main></div>}
+
+  return (
+    <div className={`sector-page sector-page--${sector.id}`} ref={pageRef}>
+      <PublicHeader />
+      <main id="conteudo-principal" className="sector-main">
+        <section className="sector-hero">
+          <div className="sector-shell sector-hero__grid">
+            <div className="sector-hero__copy">
+              <span className="sector-eyebrow"><Icon />{sector.eyebrow}</span>
+              <h1>{sector.title}</h1>
+              <p>{sector.description}</p>
+              <div className="sector-example-chips">{sector.examples.map(example => <span key={example}>{example}</span>)}</div>
+              <div className="sector-hero__actions">
+                <Link to={`/buscar?setor=${sector.id}`}><Search />Pesquisar aqui</Link>
+                <a href="#conteudo-local"><Store />Ver estabelecimentos</a>
+              </div>
+            </div>
+            <aside>
+              <span>NESTA CATEGORIA</span>
+              <Icon />
+              <strong>{sector.label}</strong>
+              <div className="sector-hero__metrics">
+                <b>{catalog ? stores.length : "—"}</b><small>estabelecimentos</small>
+                <b>{catalog ? productCount : "—"}</b><small>itens com preço</small>
+              </div>
+              <p>Números do que está cadastrado hoje em Feijó.</p>
+            </aside>
+          </div>
+        </section>
+        <section className="sector-content sector-shell">
+          <div id="conteudo-local"><SectorStores catalog={catalog} sector={sector} /></div>
+          <div className="sector-content__heading sector-content__heading--secondary">
+            <div><span>CONTINUE PROCURANDO</span><h2>Outras categorias</h2></div>
+            <p>Cada tipo de comércio tem sua própria página, com os estabelecimentos que realmente pertencem a ele.</p>
+          </div>
+          <SectorNavigator active={sector.id} compact />
+        </section>
+      </main>
+    </div>
+  );
+}

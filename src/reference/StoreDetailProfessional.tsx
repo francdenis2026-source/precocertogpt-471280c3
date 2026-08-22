@@ -8,7 +8,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { normalizeStoreKind } from "../data/sectorCatalog";
+import { groupForStore } from "../data/businessTaxonomy";
 import { marketplaceSectors } from "./MarketplaceSectors";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
@@ -42,10 +42,15 @@ function storeBackdrop(key: string) {
 // comércio, e os demais (farmácia, padaria, cultura, serviços) — sem fotos
 // próprias no acervo — ganham um cartão com a cor e o ícone do setor, para
 // não repetir uma imagem de supermercado num perfil que não é um mercado.
-const marketSectorId = marketplaceSectors[0].id;
-function sectorForStore(kind?: string) {
-  const normalized = normalizeStoreKind(kind);
-  return marketplaceSectors.find(sector => sector.businessKinds.map(normalizeStoreKind).includes(normalized)) || marketplaceSectors[0];
+// A categoria do estabelecimento vem da taxonomia única (businessTaxonomy):
+// ela junta o tipo gravado no cadastro com o que o próprio nome revela
+// ("Açougue do João", "Panificadora Central"). Antes, qualquer tipo não
+// reconhecido virava "mercado" por padrão — e era por isso que açougue,
+// padaria e lanchonete apareciam com a foto e o rótulo de supermercado.
+const marketSectorId = "markets";
+function sectorForStore(store: { kind?: string | null; name?: string | null }) {
+  const group = groupForStore(store);
+  return marketplaceSectors.find(sector => sector.id === group.id) || marketplaceSectors[0];
 }
 
 // Um hero por setor, adequado ao tipo de comércio. Não há fotos reais no
@@ -65,10 +70,13 @@ const SECTOR_BACKDROPS: Record<string, string> = {
 
 const SECTOR_TAGLINES: Record<string, string> = {
   markets: "Consulte produtos, marcas e preços organizados para comparar antes de comprar.",
+  butchers: "Cortes, carnes e pescados deste açougue, com o preço à vista antes de você ir até lá.",
   pharmacies: "Medicamentos, higiene e cuidados pessoais organizados por este estabelecimento de saúde.",
-  bakery: "Cardápio e itens preparados deste comércio, organizados para consulta antes de ir até lá.",
+  bakery: "Pães, bolos, salgados e doces desta casa, organizados para consulta antes de ir até lá.",
+  food: "Cardápio completo com preço aberto, para escolher o pedido antes de chamar no WhatsApp.",
   books: "Obras, autoria e projeto cultural deste perfil, sem mistura com catálogo de supermercado.",
   services: "Especialidade, contato e área de atendimento deste prestador de serviço local.",
+  other: "Produtos e informações deste comércio local, organizados para consulta.",
 };
 
 function normalize(value: string) {
@@ -191,7 +199,7 @@ export function StoreDetailProfessional() {
   const endResult = Math.min(safePage * PAGE_SIZE, filteredProducts.length);
   const logoUrl = getStoreLogoUrl(store.name);
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
-  const sector = sectorForStore(store.kind);
+  const sector = sectorForStore(store);
   const isMarketSector = sector.id === marketSectorId;
   const backdrop = isMarketSector ? storeBackdrop(store.slug || String(store.id)) : SECTOR_BACKDROPS[sector.id];
   const showLogo = logoUrl && !logoFailed;

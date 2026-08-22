@@ -33,3 +33,27 @@ html[data-theme="dark"] .hp-home{--hp-bg:#14191e;--hp-surface:#1b2126;--hp-surfa
   max-height: 100%;
   object-fit: contain;
 }
+
+/* Atalhos de categoria logo abaixo da busca da home.
+   Mesma linguagem visual dos atalhos de pesquisa que já existiam no hero
+   (pílulas claras sobre o fundo escuro), mas levando para as páginas de cada
+   tipo de comércio em vez de para uma palavra de busca. Rola na horizontal no
+   celular em vez de quebrar em várias linhas e empurrar o resto da tela. */
+.hp-quickcats{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hp-quickcats::-webkit-scrollbar{display:none}
+.hp-quickcats a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:12.5px;font-weight:750;white-space:nowrap;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease}
+.hp-quickcats a svg{width:16px;height:16px;color:#e0a955}
+.hp-quickcats__all{background:transparent!important;border-color:rgba(255,255,255,.34)!important;font-weight:850}
+.hp-quickcats__all svg{color:#fff!important}
+@media(hover:hover) and (pointer:fine){
+  .hp-quickcats a:hover{background:rgba(242,174,76,.16);border-color:rgba(242,174,76,.55);color:#f2ae4c;transform:translateY(-1px)}
+  .hp-quickcats a:hover svg{color:#f2ae4c}
+}
+@media(prefers-reduced-motion:reduce){.hp-quickcats a{transition:background .2s ease,border-color .2s ease,color .2s ease}.hp-quickcats a:hover{transform:none}}
+@media(max-width:640px){
+  /* No celular a coluna e estreita demais para as pilulas caberem em duas
+     linhas sem empurrar a dobra: vira uma faixa que rola de lado. */
+  .hp-quickcats{margin-top:14px;flex-wrap:nowrap;overflow-x:auto;margin-inline:-14px;padding-inline:14px}
+  .hp-quickcats a{padding:8px 12px;font-size:12px}
+  .hp-quickcats a svg{width:15px;height:15px}
+}

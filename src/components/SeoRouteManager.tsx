@@ -8,10 +8,12 @@ const INITIAL_DESCRIPTION=typeof document!=='undefined'?document.querySelector<H
 const routeMeta:Record<string,{title:string;description:string;index?:boolean}>={
   '/':{title:'PreçoCerto | Compare preços e compre em Feijó (AC)',description:'Compare preços, descubra estabelecimentos e encontre opções de compra no comércio local de Feijó, Acre.'},
   '/buscar':{title:'Buscar produtos e preços em Feijó | PreçoCerto',description:'Pesquise produtos, compare preços e encontre onde comprar em Feijó (AC).'},
-  '/explorar':{title:'Explorar setores do comércio local | PreçoCerto',description:'Explore mercados, farmácias, padarias, livros, serviços e outros setores do comércio local de Feijó.'},
+  '/explorar':{title:'Onde comprar em Feijó | PreçoCerto',description:'Mercados, açougues, padarias, lanchonetes, farmácias, livros e serviços de Feijó reunidos por categoria, com preços para comparar.'},
   '/mercados':{title:'Mercados e supermercados em Feijó | PreçoCerto',description:'Compare produtos e preços de mercados e supermercados de Feijó (AC).'},
   '/farmacias':{title:'Farmácias em Feijó | PreçoCerto',description:'Explore farmácias e produtos disponíveis no comércio local de Feijó (AC).'},
   '/padarias':{title:'Padarias em Feijó | PreçoCerto',description:'Descubra padarias, produtos e opções do comércio local de Feijó (AC).'},
+  '/acougues':{title:'Açougues e peixarias em Feijó | PreçoCerto',description:'Açougues, casas de carne e peixarias de Feijó (AC): veja quem vende carne, frango e peixe, onde fica e a que preço.'},
+  '/lanchonetes':{title:'Lanchonetes, pizzarias e restaurantes em Feijó | PreçoCerto',description:'Cardápios com preço aberto de lanchonetes, hamburguerias, pizzarias e restaurantes de Feijó (AC).'},
   '/livros':{title:'Livros, autores e cultura local | PreçoCerto',description:'Conheça livros, autores e iniciativas culturais disponíveis no PreçoCerto.'},
   '/servicos':{title:'Serviços locais em Feijó | PreçoCerto',description:'Encontre serviços e profissionais locais disponíveis em Feijó (AC).'},
   '/estabelecimentos':{title:'Estabelecimentos em Feijó | PreçoCerto',description:'Conheça estabelecimentos locais, consulte catálogos e compare preços em Feijó (AC).'},

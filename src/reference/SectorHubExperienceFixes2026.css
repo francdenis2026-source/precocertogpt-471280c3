@@ -14,3 +14,14 @@
  .sector-hub__hero-actions--primary{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sector-hub__hero-actions--primary a{justify-content:center;margin:0}.sector-hub__hero-actions--primary a:first-child{grid-column:1/-1}
  .sector-hub__sector-copy>strong{font-size:17px}.sector-hub__store-grid strong{font-size:13px}
 }
+
+/* Cartões de categoria: exemplos concretos do que se encontra dentro e convite
+   de cadastro para as categorias que ainda não têm nenhum estabelecimento. */
+.sector-hub__sector-examples{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.sector-hub__sector-examples span{padding:3px 8px;border:1px solid var(--pc-border);border-radius:999px;background:var(--pc-canvas);color:var(--pc-muted);font-size:10.5px;font-weight:700;line-height:1.4}
+.sector-hub__sector-invite{margin:5px 0 0!important;color:var(--pc-muted);font-size:12.5px;line-height:1.45}
+.sector-hub__sector-invite a{color:var(--pc-green-strong);font-weight:800;border-bottom:1px solid color-mix(in srgb,var(--pc-green-strong) 40%,transparent)}
+@media(hover:hover) and (pointer:fine){.sector-hub__sector-invite a:hover{border-bottom-color:var(--pc-green-strong)}}
+.sector-hub__sector--empty{border-style:dashed;background:color-mix(in srgb,var(--pc-canvas) 55%,var(--pc-surface));box-shadow:none}
+.sector-hub__sector-link{display:grid;place-items:start center;color:var(--pc-green-strong)}
+@media(max-width:680px){.sector-hub__sector-examples span{font-size:10px}.sector-hub__sector-invite{font-size:12px}}

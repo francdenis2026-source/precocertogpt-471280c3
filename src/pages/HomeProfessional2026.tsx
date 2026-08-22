@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, UserRound, X } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, Croissant, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Sandwich, Scale, Search, ShoppingBasket, Store, Sun, UserRound, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
+import { primarySectors } from "../reference/MarketplaceSectors";
+import { prefetchSectorCatalog } from "../data/sectorCatalog";
 import { resolveProductImage, resolveCutoutImage } from "../data/productImageResolver";
 import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
 import { getStoreLogoUrl } from "../data/storeLogos";
@@ -45,11 +47,17 @@ function ProductImage({ product, eager = false, preferCutout = false }: { produc
 
 // Cada setor recebe uma cor de acento própria, para que a grade deixe de ser
 // um bloco monocromático e o usuário reconheça a categoria de relance.
+// "Açougues" apontava para /buscar?q=carne porque não existia página de
+// açougue — uma busca por palavra não é a mesma coisa que a lista dos
+// açougues da cidade, e era parte da confusão de não se achar esse comércio
+// no site. Agora cada item leva à página da própria categoria.
 const sectors = [
-  { label: "Mercados", detail: "Alimentos e cesta", icon: ShoppingBasket, to: "/mercados", color: "#2f9e58" },
-  { label: "Açougues", detail: "Carnes e cortes", icon: Tag, to: "/buscar?q=carne", color: "#d1483f" },
+  { label: "Mercados", detail: "Compras do mês", icon: ShoppingBasket, to: "/mercados", color: "#2f9e58" },
+  { label: "Açougues", detail: "Carnes e cortes", icon: Scale, to: "/acougues", color: "#d1483f" },
+  { label: "Padarias", detail: "Pão e salgados", icon: Croissant, to: "/padarias", color: "#b45309" },
+  { label: "Lanchonetes", detail: "Lanche e pizza", icon: Sandwich, to: "/lanchonetes", color: "#e0672a" },
   { label: "Farmácias", detail: "Saúde e cuidado", icon: HeartPulse, to: "/farmacias", color: "#0f9ba6" },
-  { label: "Livros locais", detail: "Cultura de Feijó", icon: BookOpen, to: "/livros", color: "#b45309" },
+  { label: "Livros locais", detail: "Cultura de Feijó", icon: BookOpen, to: "/livros", color: "#7259c7" },
 ] as const;
 
 export function HomeProfessional2026() {
@@ -167,7 +175,7 @@ export function HomeProfessional2026() {
           <small>FEIJÓ · ACRE</small>
         </Link>
         <nav className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
-          <Link to="/explorar" onClick={() => setMenuOpen(false)}>Setores</Link>
+          <Link to="/explorar" onClick={() => setMenuOpen(false)}>Onde comprar</Link>
           <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link>
           <Link to="/cesta-inteligente" onClick={() => setMenuOpen(false)}>Cesta inteligente</Link>
@@ -227,6 +235,22 @@ export function HomeProfessional2026() {
                 <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Ver busca completa <ArrowRight /></Link>
               </div>}
             </form>
+
+            {/* Atalhos logo abaixo da busca. Uma barra de pesquisa vazia não
+                diz o que existe para procurar — quem chega pela primeira vez
+                não sabe se o site tem açougue, padaria ou só supermercado.
+                Estes atalhos respondem isso na primeira tela, sem exigir que
+                a pessoa role a página até a lista de categorias nem adivinhe
+                uma palavra de busca. */}
+            <nav className="hp-quickcats" aria-label="Onde comprar">
+              {primarySectors.map(sector => (
+                <Link key={sector.id} to={sector.href} onPointerEnter={prefetchSectorCatalog} onFocus={prefetchSectorCatalog}>
+                  <sector.icon aria-hidden="true" />
+                  {sector.shortLabel}
+                </Link>
+              ))}
+              <Link className="hp-quickcats__all" to="/explorar">Ver tudo <ArrowRight aria-hidden="true" /></Link>
+            </nav>
           </div>
 
           <aside className="hp-spotlight" aria-label="Destaque de preço">
@@ -242,7 +266,7 @@ export function HomeProfessional2026() {
       </section>
 
       <section className="hp-sectors hp-shell" aria-labelledby="hp-sectors-title">
-        <div className="hp-section-head"><div><h2 id="hp-sectors-title">Tudo o que você procura, bem organizado.</h2></div><Link to="/explorar">Ver todos os setores <ArrowRight /></Link></div>
+        <div className="hp-section-head"><div><h2 id="hp-sectors-title">Onde comprar em Feijó.</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
         <div className="hp-sector-grid">{sectors.map(({ label, detail, icon: Icon, to, color }, index) => <Link to={to} key={label} className={index === 0 ? "hp-sector-grid__lead" : undefined} style={{ "--sector-accent": color } as CSSProperties}><i><Icon /></i><span><strong>{label}</strong><small>{detail}</small></span><ArrowRight /></Link>)}</div>
       </section>
 
@@ -281,7 +305,7 @@ export function HomeProfessional2026() {
           <div>
             <strong>Plataforma</strong>
             <Link to="/buscar">Comparar preços</Link>
-            <Link to="/explorar">Setores</Link>
+            <Link to="/explorar">Onde comprar</Link>
             <Link to="/estabelecimentos">Lojas locais</Link>
             <Link to="/cesta-basica">Lista de compras</Link>
           </div>

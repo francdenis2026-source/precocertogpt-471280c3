@@ -1,0 +1,188 @@
+/* bencium-innovative-ux-designer
+ * Direção: editorial de comércio local — petróleo, açafrão e verde de economia.
+ * Distintiva sem sacrificar legibilidade, densidade ou previsibilidade. */
+
+:root {
+  --bencium-ink: #071923;
+  --bencium-petroleum: #0b2f3a;
+  --bencium-petroleum-light: #164a55;
+  --bencium-saffron: #f2ad3b;
+  --bencium-saving: #169b62;
+  --bencium-paper: #f4f1e8;
+  --bencium-surface: #fffdf8;
+  --bencium-line: #d8d5ca;
+  --bencium-shadow: 0 18px 48px rgb(7 25 35 / 12%);
+  --bencium-shadow-strong: 0 30px 80px rgb(7 25 35 / 28%);
+}
+
+/* A camada anterior usava glassmorphism. Aqui a tecnologia desaparece:
+   navegação é uma superfície sólida e a elevação comunica a hierarquia. */
+:where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header) {
+  background: color-mix(in srgb, var(--ux-surface) 97%, var(--bencium-paper));
+  border-bottom: 1px solid color-mix(in srgb, var(--ux-border) 82%, transparent);
+  box-shadow: 0 8px 28px rgb(7 25 35 / 8%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+:where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header)::after { display: none; }
+
+/* Uma atmosfera própria: papel, tinta e uma trama geométrica quase tátil. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) {
+  background-color: var(--ux-canvas, var(--bencium-paper));
+  background-image:
+    linear-gradient(rgb(11 47 58 / 2%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(11 47 58 / 2%) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Hierarquia tipográfica editorial: display expressivo, corpo funcional. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) :where(h1, h2) {
+  font-family: var(--pc-font-display, "Manrope Variable", Manrope, sans-serif);
+  font-weight: 780;
+  text-wrap: balance;
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) :where(p, li) { text-wrap: pretty; }
+
+/* Homepage: composição assimétrica e busca como gesto principal. */
+.hp-home .hp-hero {
+  isolation: isolate;
+  min-height: min(70svh, 620px);
+  background: var(--bencium-ink);
+}
+.hp-home .hp-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgb(242 173 59 / 18%), transparent 28%),
+    linear-gradient(115deg, transparent 0 58%, rgb(22 155 98 / 12%) 58% 59%, transparent 59%);
+}
+.hp-home .hp-hero__veil {
+  background: linear-gradient(90deg, rgb(7 25 35 / 98%) 0%, rgb(7 25 35 / 93%) 43%, rgb(7 25 35 / 45%) 72%, rgb(7 25 35 / 22%) 100%) !important;
+}
+.hp-home .hp-hero__grid { grid-template-columns: minmax(0, 760px) 1fr; }
+.hp-home .hp-eyebrow {
+  width: fit-content;
+  padding: .45rem .7rem;
+  border-left: 3px solid var(--bencium-saffron);
+  background: rgb(255 255 255 / 7%);
+  color: #ffd285;
+  letter-spacing: .095em;
+}
+.hp-home .hp-hero h1 {
+  max-width: 10.5ch;
+  font-size: clamp(3.2rem, 6.4vw, 5.75rem);
+  line-height: .9;
+  letter-spacing: -.065em;
+}
+.hp-home .hp-hero h1 em { color: #b6dbc9; }
+.hp-home .hp-search {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: var(--bencium-shadow-strong), 0 0 0 1px rgb(255 255 255 / 14%);
+}
+.hp-home .hp-search:focus-within {
+  border-color: var(--bencium-saffron);
+  box-shadow: var(--bencium-shadow-strong), 0 0 0 4px rgb(242 173 59 / 20%);
+}
+.hp-home .hp-search__submit {
+  min-width: 124px;
+  background: var(--bencium-petroleum);
+  color: white;
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 18%);
+}
+.hp-home .hp-quickcats a {
+  border-radius: 8px;
+  background: rgb(7 25 35 / 72%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Em vez de uma parede de cartões idênticos, o primeiro item ancora a grade. */
+@media (min-width: 900px) {
+  .hp-home .hp-sector-grid { grid-template-columns: 1.4fr repeat(5, 1fr); }
+  .hp-home .hp-sector-grid > :first-child {
+    background: var(--bencium-petroleum);
+    border-color: var(--bencium-petroleum);
+    color: #fff;
+    box-shadow: var(--bencium-shadow);
+  }
+  .hp-home .hp-sector-grid > :first-child small { color: #bed0d3; }
+  .hp-home .hp-sector-grid > :first-child i { background: var(--bencium-saffron); color: var(--bencium-ink); }
+  .hp-home .hp-product-grid > :first-child { grid-column: span 2; }
+  .hp-home .hp-product-grid > :first-child > a { grid-template-columns: minmax(180px, .9fr) 1.1fr; display: grid; height: 100%; }
+  .hp-home .hp-product-grid > :first-child .hp-product-card__media { height: 100%; min-height: 250px; }
+  .hp-home .hp-product-grid > :first-child .hp-product-card__body { align-content: center; display: grid; }
+}
+
+.hp-home .hp-product-card,
+:where(.search26-result, .sector-hub__sector, .store-pro-card, .sf-card, .pdx-card) {
+  border-color: color-mix(in srgb, var(--bencium-line) 88%, var(--ux-border));
+  box-shadow: 0 2px 0 rgb(7 25 35 / 4%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hp-home .hp-product-card:hover,
+  :where(.search26-result, .sector-hub__sector, .store-pro-card, .sf-card, .pdx-card):hover {
+    border-color: color-mix(in srgb, var(--bencium-petroleum-light) 45%, var(--bencium-line));
+    box-shadow: var(--bencium-shadow);
+  }
+}
+
+/* Afirmação de interação inequívoca e feedback imediato. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, summary, [role="button"]) {
+  min-height: 44px;
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, summary, [role="button"]):focus-visible {
+  outline: 3px solid var(--bencium-saffron) !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 899px) {
+  .hp-home .hp-hero { min-height: auto; }
+  .hp-home .hp-hero h1 { max-width: 11ch; font-size: clamp(2.75rem, 11vw, 4.5rem); }
+  .hp-home .hp-sector-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .hp-home .hp-hero__grid { padding-block: 2rem 1.5rem; }
+  .hp-home .hp-hero h1 { font-size: clamp(2.55rem, 12.5vw, 3.5rem); }
+  .hp-home .hp-search__submit { min-width: 46px; }
+  .hp-home .hp-eyebrow { font-size: .7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+    .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+    .dorinha-pro, .culture-profile-page, .ref-page) *,
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+    .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+    .dorinha-pro, .culture-profile-page, .ref-page) *::before,
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+    .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+    .dorinha-pro, .culture-profile-page, .ref-page) *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+    .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+    .dorinha-pro, .culture-profile-page, .ref-page) {
+    background-image: none;
+  }
+}

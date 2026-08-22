@@ -307,7 +307,7 @@ export function HomeProfessional2026() {
             <strong>Plataforma</strong>
             <Link to="/buscar">Comparar preços</Link>
             <Link to="/explorar">Onde comprar</Link>
-            <Link to="/estabelecimentos">Lojas locais</Link>
+            <Link to="/estabelecimentos">Estabelecimentos locais</Link>
             <Link to="/cesta-basica">Lista de compras</Link>
           </div>
           <div>

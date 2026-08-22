@@ -128,7 +128,7 @@ export function HomeNew2026() {
     <header className="nx-header">
       <div className="nx-shell nx-header__inner">
         <Link className="nx-brand" to="/" aria-label="PreçoCerto, página inicial">
-          <img src="/logo-preco-certo.svg?v=10" alt="PreçoCerto" width="150" height="36" />
+          <img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto" width="171" height="36" />
           <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
         </Link>
         <nav className={menuOpen ? "is-open" : ""} id="nx-navigation" aria-label="Navegação principal">
@@ -238,7 +238,7 @@ export function HomeNew2026() {
     <footer className="nx-footer">
       <div className="nx-shell nx-footer__main">
         <div className="nx-footer__brand">
-          <img src="/logo-preco-certo-inversa.svg?v=10" alt="PreçoCerto" width="126" height="30" />
+          <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
           <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">
             <Code2 aria-hidden="true" /><span><small>Desenvolvido por</small><strong>Franc D’nis</strong></span>
           </button>

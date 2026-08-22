@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, AtSign, BadgeCheck, Clock3, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
+import { ArrowLeft, ArrowRight, AtSign, BadgeCheck, Citrus, Clock3, MapPin, MessageCircle, Plus, ShieldCheck, Soup, Store, UtensilsCrossed } from "lucide-react";
+import type { ReactNode } from "react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
 import type { Product } from "../data/catalog";
@@ -31,6 +32,14 @@ const CATEGORY_PHOTOS: Record<string, string> = {
   "Carne na Chapa": "/kelly-burgueria/carne-chapa.jpg",
   "Bebidas": "/kelly-burgueria/bebidas.jpg",
   "Monte sua Batata": "/kelly-burgueria/fritas.jpg",
+};
+
+const CATEGORY_ICONS: Record<string, ReactNode> = {
+  "Hambúrgueres": <UtensilsCrossed aria-hidden="true" />,
+  "Lanches Rápidos": <UtensilsCrossed aria-hidden="true" />,
+  "Panquecas": <Soup aria-hidden="true" />,
+  "Adicionais": <Plus aria-hidden="true" />,
+  "Suco Natural": <Citrus aria-hidden="true" />,
 };
 
 const CATEGORY_NOTES: Record<string, string> = {
@@ -140,7 +149,7 @@ export function KellyBurgueriaPage() {
         </section>
 
         <nav className="kelly-category-nav" aria-label="Categorias do cardápio">
-          {groups.map(group => <a key={group.category} href={`#kelly-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{group.category}</a>)}
+          {groups.map(group => <a key={group.category} href={`#kelly-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{group.category}<small>{group.items.length}</small></a>)}
         </nav>
 
         <div className="kelly-notice"><BadgeCheck /><span><strong>Cardápio oficial informado pela Kelly</strong><small>Preços e disponibilidade podem mudar. Confirme as condições diretamente com o estabelecimento antes de concluir o pedido.</small></span></div>
@@ -156,6 +165,7 @@ export function KellyBurgueriaPage() {
             >
               <div className="kelly-menu-group__head-veil" />
               <div className="kelly-menu-group__head-copy">
+                {!CATEGORY_PHOTOS[group.category] && <span className="kelly-menu-group__head-icon">{CATEGORY_ICONS[group.category] || <UtensilsCrossed aria-hidden="true" />}</span>}
                 <h2 id={`kelly-cat-${group.category}`}>{group.category}</h2>
                 {CATEGORY_NOTES[group.category] && <p>{CATEGORY_NOTES[group.category]}</p>}
               </div>

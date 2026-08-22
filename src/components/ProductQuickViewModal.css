@@ -78,8 +78,8 @@
 /* Item de cardápio clicável (Kelly/Sanduba) */
 .kelly-menu-list__item-btn{
   all:unset;box-sizing:border-box;cursor:pointer;
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  width:100%;padding:12px 14px;border-radius:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;padding:10px 12px;border-radius:11px;
   transition:background-color .15s ease;
 }
 .kelly-menu-list>li.has-image .kelly-menu-list__item-btn{align-items:flex-start}

@@ -281,14 +281,16 @@ html[data-theme="dark"] .nx-local__copy a:first-child{border-color:#52d4b8;backg
 
 
 /* Serviços do rodapé: compactos, legíveis e sem colisão entre links. */
-.nx-footer__main{min-height:76px;grid-template-columns:minmax(150px,auto) minmax(0,1fr) minmax(145px,auto);gap:22px}
+.nx-footer__main{min-height:76px;grid-template-columns:minmax(225px,auto) minmax(0,1fr) minmax(170px,auto);gap:18px}
+.nx-footer__brand{gap:14px}.nx-footer__brand img{width:166px;max-height:42px;object-fit:contain}
 .nx-footer__links{min-width:0;display:grid;grid-template-columns:.8fr 1.2fr 1fr;align-items:stretch}
-.nx-footer__links nav{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:0 15px;border-left:1px solid rgb(255 255 255 / 17%)}
-.nx-footer__links nav strong{color:#ffd582;font-size:9px;font-weight:900;line-height:1;letter-spacing:.09em;text-transform:uppercase}
+.nx-footer__links nav{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;padding:0 14px;border-left:1px solid rgb(255 255 255 / 17%)}
+.nx-footer__links nav strong{color:#ffd582;font-size:10px;font-weight:900;line-height:1;letter-spacing:.085em;text-transform:uppercase}
 .nx-footer__links nav span{min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
-.nx-footer__links nav a,.nx-footer__links nav button{min-height:20px;display:inline-flex;align-items:center;padding:0;border-radius:4px;color:#f7f8ff;font-size:10px;font-weight:720;line-height:1.2;white-space:nowrap;text-decoration-thickness:1px;text-underline-offset:3px}
+.nx-footer__links nav a,.nx-footer__links nav button{min-height:20px;display:inline-flex;align-items:center;padding:0;border-radius:4px;color:#f7f8ff;font-size:11px;font-weight:740;line-height:1.2;white-space:nowrap;text-decoration-thickness:1px;text-underline-offset:3px}
 .nx-footer__links nav a:hover,.nx-footer__links nav button:hover{color:#ffd582;text-decoration:underline}
 .nx-footer__links nav a:focus-visible,.nx-footer__links nav button:focus-visible{outline:2px solid #ffd582;outline-offset:3px}
-.nx-footer .nx-footer__developer{appearance:none;min-width:0;min-height:20px;display:inline-flex;align-items:center;margin:0;padding:0 0 0 11px;border:0;border-left:1px solid rgb(255 255 255 / 20%);border-radius:0;background:transparent;box-shadow:none;color:#f7f8ff;font:720 10px/1.2 "Inter Variable",Inter,sans-serif;letter-spacing:0;white-space:nowrap;text-transform:none;cursor:pointer}.nx-footer .nx-footer__developer:hover{background:transparent;color:#ffd582;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}.nx-footer .nx-footer__developer:focus-visible{outline:2px solid #ffd582;outline-offset:4px;border-radius:3px}
+.nx-footer .nx-footer__developer{appearance:none;min-width:0;min-height:24px;display:inline-flex;align-items:center;margin:0;padding:0 0 0 13px;border:0;border-left:1px solid rgb(255 255 255 / 24%);border-radius:0;background:transparent;box-shadow:none;color:#f7f8ff;font:760 11px/1.2 "Inter Variable",Inter,sans-serif;letter-spacing:-.01em;white-space:nowrap;text-transform:none;cursor:pointer}.nx-footer .nx-footer__developer:hover{background:transparent;color:#ffd582;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}.nx-footer .nx-footer__developer:focus-visible{outline:2px solid #ffd582;outline-offset:4px;border-radius:3px}
+.nx-footer__meta{gap:5px}.nx-footer__meta span{font-size:10.5px;font-weight:650}.nx-footer__meta small{font-size:10px}.nx-footer__meta .nx-check{width:17px;height:17px;flex-basis:17px;font-size:11px}
 @media(max-width:1120px){.nx-footer__main{grid-template-columns:130px minmax(0,1fr);gap:14px}.nx-footer__brand p,.nx-footer__developer,.nx-footer__meta{display:none}.nx-footer__links nav{padding:0 11px}.nx-footer__links nav span{gap:3px 9px}.nx-footer__links nav a,.nx-footer__links nav button{font-size:9.5px}}
 @media(min-width:721px) and (max-width:860px){.nx-footer__main{grid-template-columns:1fr;min-height:82px}.nx-footer__brand{display:none}.nx-footer__links{width:100%;grid-template-columns:.8fr 1.2fr 1fr}.nx-footer__links nav:first-child{border-left:0}.nx-footer__links nav a,.nx-footer__links nav button{font-size:9px}}

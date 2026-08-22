@@ -145,3 +145,77 @@ html[data-theme="dark"] .hp-home {
     min-height: auto !important;
   }
 }
+
+
+/* Ícones: remove a moldura circular herdada que ocultava o desenho Lucide. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page, .admin-shell, .admin-page,
+  .acc-shell, .avs-shell, .acw-shell) svg.lucide {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  stroke: currentColor !important;
+}
+.hp-quickcats a svg.lucide {
+  width: 16px !important;
+  height: 16px !important;
+  color: #f1b451 !important;
+}
+.hp-sector-grid i svg.lucide,
+.hp-sector-grid > a > svg.lucide {
+  width: 20px !important;
+  height: 20px !important;
+}
+.hp-story li svg.lucide,
+.hp-story__content > a svg.lucide {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Fotografia da seção “Da pesquisa à escolha”: visível sem competir com a cópia. */
+.hp-home .hp-story__media {
+  opacity: .48 !important;
+  filter: saturate(.88) contrast(1.04) brightness(.98) !important;
+}
+.hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--taste-canvas) 96%, transparent) 0%,
+      color-mix(in srgb, var(--taste-canvas) 91%, transparent) 43%,
+      color-mix(in srgb, var(--taste-canvas) 58%, transparent) 67%,
+      color-mix(in srgb, var(--taste-canvas) 12%, transparent) 100%) !important;
+}
+
+html[data-theme="dark"] .hp-home .hp-story__media {
+  opacity: .52 !important;
+  filter: saturate(.92) contrast(1.03) brightness(1.18) !important;
+}
+html[data-theme="dark"] .hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 97%) 0%,
+      rgb(13 23 31 / 91%) 43%,
+      rgb(13 23 31 / 58%) 68%,
+      rgb(13 23 31 / 14%) 100%) !important;
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-story__media {
+    opacity: .36 !important;
+    filter: saturate(.84) contrast(1.03) brightness(1.04) !important;
+  }
+  html[data-theme="dark"] .hp-home .hp-story__media {
+    opacity: .42 !important;
+    filter: saturate(.88) contrast(1.02) brightness(1.16) !important;
+  }
+  .hp-home .hp-story::after,
+  html[data-theme="dark"] .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--taste-canvas) 72%, transparent) 0%,
+      var(--taste-canvas) 72%) !important;
+  }
+}

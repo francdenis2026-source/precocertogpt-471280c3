@@ -7,6 +7,7 @@ import { getMarketplaceSector, marketplaceSectors, type MarketplaceSectorId } fr
 import { resolveProductImage } from "../data/productImageResolver";
 import { AppDock, PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./SearchDiscovery2026.css";
+import "./CompactViewportPages.css";
 
 const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").trim();

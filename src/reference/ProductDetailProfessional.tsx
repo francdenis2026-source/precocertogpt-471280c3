@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-  ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
+  ArrowLeft, ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
   ChevronRight, Factory, Heart, Home, Info, Layers3, MapPin, Package,
   PackageSearch, ShieldCheck, ShoppingBasket, Store, Tag, TrendingDown,
 } from "lucide-react";
@@ -138,6 +138,14 @@ export function ProductDetailProfessional() {
   const manufacturer = cleanValue(extra.manufacturer);
   const barcode = cleanValue(extra.barcode || product.barcode);
   const bestOffer = offers[0];
+  // Loja de origem deste produto: quando só há uma oferta (caso da Kelly
+  // Burgueria, do Ponto do Sanduba e da maioria dos estabelecimentos com
+  // cardápio próprio), é sempre essa loja. Com várias ofertas (comparação
+  // de preço entre supermercados), usamos a de menor preço, já destacada
+  // como principal no bloco de preço acima — não é ambíguo, é a mesma loja
+  // que o restante da página já trata como "a oferta".
+  const homeStore = offers.length === 1 ? offers[0] : bestOffer;
+  const homeStoreHref = homeStore ? `/estabelecimento/${homeStore.establishmentSlug || homeStore.establishmentId}` : "/estabelecimentos";
   const priceSpread = offers.length > 1 ? Math.max(0, offers[offers.length - 1].value - offers[0].value) : 0;
   const previousPrice = Number(product.previousPrice || 0);
   const savingVsPrevious = previousPrice > product.minPrice ? previousPrice - product.minPrice : 0;
@@ -146,7 +154,9 @@ export function ProductDetailProfessional() {
     <PublicHeader/>
 
     <main id="conteudo-principal" className="pdx-shell">
-      <nav className="pdx-breadcrumb" aria-label="Navegação estrutural"><Link to="/"><Home/><span>Início</span></Link><ChevronRight/><Link to={`/buscar?q=${encodeURIComponent(product.category)}`}>{product.category}</Link><ChevronRight/><span>{product.name}</span></nav>
+      {homeStore && <Link className="pdx-back" to={homeStoreHref}><ArrowLeft/> Voltar ao catálogo de {homeStore.establishment}</Link>}
+
+      <nav className="pdx-breadcrumb" aria-label="Navegação estrutural"><Link to="/"><Home/><span>Início</span></Link><ChevronRight/>{homeStore && <><Link className="pdx-breadcrumb__store" to={homeStoreHref}>{homeStore.establishment}</Link><ChevronRight className="pdx-breadcrumb__store"/></>}<Link to={`/buscar?q=${encodeURIComponent(product.category)}`}>{product.category}</Link><ChevronRight/><span>{product.name}</span></nav>
 
       <section className="pdx-product" aria-labelledby="pdx-title">
         <div className="pdx-visual">
@@ -160,7 +170,7 @@ export function ProductDetailProfessional() {
           <div className="pdx-price-block">
             <div><span>MENOR PREÇO ENCONTRADO <BadgeCheck/></span><strong>{brl.format(product.minPrice)}</strong><small>{bestOffer ? `em ${bestOffer.establishment}` : "preço verificado"}</small></div>
             <div className="pdx-price-facts">
-              <span><Store/><b>{offers.length}</b><small>{offers.length === 1 ? "estabelecimento consultado" : "estabelecimentos comparados"}</small></span>
+              <span><Store/><b>{offers.length}</b><small>{offers.length === 1 ? "loja consultada" : "lojas comparadas"}</small></span>
               <span><TrendingDown/><b>{priceSpread ? brl.format(priceSpread) : "-"}</b><small>diferença entre lojas</small></span>
               <span><CalendarDays/><b>{updatedAt}</b><small>última verificação</small></span>
             </div>

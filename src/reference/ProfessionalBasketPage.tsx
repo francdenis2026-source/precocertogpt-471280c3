@@ -97,7 +97,7 @@ export function ProfessionalBasketPage() {
 
         <aside className="pro-basket-summary">
           <header><span><PiggyBank /></span><div><small>RESUMO DA LISTA</small><h2>Planejamento</h2></div></header>
-          <dl><div><dt>Produtos</dt><dd>{rows.length}</dd></div><div><dt>Unidades</dt><dd>{itemCount}</dd></div><div><dt>Lojas de referência</dt><dd>{storeCount || "—"}</dd></div><div><dt>Sem comparar</dt><dd>{brl.format(maxTotal)}</dd></div></dl>
+          <dl><div><dt>Produtos</dt><dd>{rows.length}</dd></div><div><dt>Unidades</dt><dd>{itemCount}</dd></div><div><dt>Estabelecimentos de referência</dt><dd>{storeCount || "—"}</dd></div><div><dt>Sem comparar</dt><dd>{brl.format(maxTotal)}</dd></div></dl>
           <div className="pro-basket-total"><span>Melhor total estimado</span><strong>{brl.format(bestTotal)}</strong><small><BadgeCheck /> preços do catálogo local</small></div>
           <div className="pro-basket-saving"><span>Você pode economizar</span><strong>{brl.format(savings)}</strong></div>
           <Link className="pro-basket-primary" to="/cesta-inteligente"><Sparkles /> Otimizar com Cesta Inteligente <ArrowRight /></Link>

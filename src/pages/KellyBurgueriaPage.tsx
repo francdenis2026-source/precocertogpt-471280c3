@@ -36,7 +36,7 @@ const CATEGORY_NOTES: Record<string, string> = {
 };
 
 const whatsappHref = `https://wa.me/${KELLY_WHATSAPP}?text=${encodeURIComponent(`Olá! Vi o cardápio da ${KELLY_NAME} no PreçoCerto e queria fazer um pedido.`)}`;
-const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${KELLY_NAME}, ${KELLY_ADDRESS}`)}`;
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(KELLY_ADDRESS)}`;
 
 export function KellyBurgueriaPage() {
   const groups = useMemo(() => {

@@ -12,6 +12,7 @@ import {
   KELLY_NEIGHBORHOOD,
   KELLY_PHONE,
   KELLY_WHATSAPP,
+  kellyItemImages,
   type MenuItem,
 } from "../data/manualEstablishments";
 import "./KellyBurgueriaPage.css";
@@ -36,7 +37,7 @@ const CATEGORY_NOTES: Record<string, string> = {
 };
 
 const whatsappHref = `https://wa.me/${KELLY_WHATSAPP}?text=${encodeURIComponent(`Olá! Vi o cardápio da ${KELLY_NAME} no PreçoCerto e queria fazer um pedido.`)}`;
-const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(KELLY_ADDRESS)}`;
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${KELLY_NAME}, ${KELLY_ADDRESS}`)}`;
 
 export function KellyBurgueriaPage() {
   const groups = useMemo(() => {
@@ -55,11 +56,7 @@ export function KellyBurgueriaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section
-          className="kelly-hero"
-          aria-labelledby="kelly-title"
-          style={{ backgroundImage: "url('/kelly-burgueria/hero-burger.jpg?v=20260822-2')" }}
-        >
+        <section className="kelly-hero" aria-labelledby="kelly-title">
           <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/kelly-burgueria-logo.jpg?v=20260822" alt={`Logomarca ${KELLY_NAME}`} width="96" height="96" /></div>
@@ -109,15 +106,19 @@ export function KellyBurgueriaPage() {
               </div>
             </header>
             <ul className="kelly-menu-list">
-              {group.items.map(item => (
-                <li key={item.name}>
-                  <div className="kelly-menu-list__copy">
-                    <strong>{item.name}</strong>
-                    {item.description && <p>{item.description}</p>}
-                  </div>
-                  <span className="kelly-menu-list__price">{brl.format(item.price)}</span>
-                </li>
-              ))}
+              {group.items.map(item => {
+                const image = kellyItemImages.get(item.name);
+                return (
+                  <li key={item.name} className={image ? "has-image" : undefined}>
+                    {image && <span className="kelly-menu-list__thumb"><img src={image} alt="" loading="lazy" width="64" height="64" /></span>}
+                    <div className="kelly-menu-list__copy">
+                      <strong>{item.name}</strong>
+                      {item.description && <p>{item.description}</p>}
+                    </div>
+                    <span className="kelly-menu-list__price">{brl.format(item.price)}</span>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ))}

@@ -14,7 +14,7 @@ export const KELLY_ID = "kelly-burgueria-lanchonete";
 export const KELLY_NAME = "Kelly Burgueria e Lanchonete";
 export const KELLY_NEIGHBORHOOD = "Bela Vista";
 export const KELLY_COLOR = "#e7b400";
-export const KELLY_ADDRESS = "Rua José Leopoldino Guimarães, Feijó - AC, 69960-000";
+export const KELLY_ADDRESS = "Rua José Leopoldino Guimarães, 150 - Bela Vista, Feijó - AC, 69.960-000 (cruzamento da Escola Casulo)";
 export const KELLY_CNPJ = "42.755.163/0001-24";
 export const KELLY_PHONE = "(68) 99939-5494";
 export const KELLY_WHATSAPP = "5568999395494";
@@ -122,7 +122,40 @@ export const manualStores: StoreRow[] = [
   { id: KELLY_ID, slug: KELLY_ID, name: KELLY_NAME, neighborhood: KELLY_NEIGHBORHOOD, color: KELLY_COLOR, products: KELLY_MENU.length, kind: "snack_bar" },
 ];
 
+// Fotos reais recortadas do próprio cardápio enviado, aplicadas por
+// categoria (não há foto individual de cada item — só algumas fotos de
+// prato/produto no material recebido). "Hambúrgueres" alterna entre as duas
+// fotos de burguer disponíveis para dar alguma variedade visual. Categorias
+// sem entrada aqui (Adicionais) ficam sem foto: são só ingredientes extras,
+// e não há nenhuma foto que os represente sem inventar uma.
+const KELLY_CATEGORY_IMAGES: Partial<Record<string, string[]>> = {
+  "Hambúrgueres": ["/kelly-burgueria/hero-burger.jpg", "/kelly-burgueria/item-hamburguer-2.jpg"],
+  "Carne na Chapa": ["/kelly-burgueria/carne-chapa.jpg"],
+  "Lanches Rápidos": ["/kelly-burgueria/item-hamburguer-2.jpg"],
+  "Panquecas": ["/kelly-burgueria/item-panqueca.jpg"],
+  "Monte sua Batata": ["/kelly-burgueria/item-batata.jpg"],
+  "Bebidas": ["/kelly-burgueria/item-bebida.jpg"],
+  "Suco Natural": ["/kelly-burgueria/item-suco.jpg"],
+};
+
+const categoryImageCounters = new Map<string, number>();
+function nextKellyImage(category: string): string | undefined {
+  const options = KELLY_CATEGORY_IMAGES[category];
+  if (!options || !options.length) return undefined;
+  const index = categoryImageCounters.get(category) || 0;
+  categoryImageCounters.set(category, index + 1);
+  return options[index % options.length];
+}
+
+// Nome do item -> foto atribuída (mesma imagem usada no Product.image_url
+// abaixo). A página do cardápio usa este mapa para mostrar a miniatura,
+// garantindo que a mesma foto apareça tanto ali quanto em /buscar, /produto
+// e no restante do site.
+export const kellyItemImages = new Map<string, string>();
+
 export const manualProducts: Product[] = KELLY_MENU.map((item) => {
+  const image = nextKellyImage(item.category);
+  if (image) kellyItemImages.set(item.name, image);
   const id = `kelly-${slugify(item.name)}`;
   const offer: ProductOffer = {
     establishmentId: KELLY_ID,
@@ -152,6 +185,7 @@ export const manualProducts: Product[] = KELLY_MENU.map((item) => {
     storeColor: KELLY_COLOR,
     capturedAt: CAPTURED_AT,
     source: "Cardápio oficial (Kelly Burgueria e Lanchonete)",
+    image_url: image,
     offers: [offer],
   } satisfies Product;
 });

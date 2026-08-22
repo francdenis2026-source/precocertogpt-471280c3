@@ -16,14 +16,8 @@
 .kelly-hero{
   position:relative;overflow:hidden;border-radius:var(--pc-radius-block,20px);
   min-height:280px;display:flex;align-items:flex-end;
-  background-color:#0d0705;
+  background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 30%/cover no-repeat;
   border:1px solid var(--pc-border);
-}
-.kelly-page:not(.sanduba-page) .kelly-hero{
-  background-image:url('/kelly-burgueria/hero-burger.jpg');
-  background-position:center 30%;
-  background-size:cover;
-  background-repeat:no-repeat;
 }
 .kelly-hero__overlay{
   position:absolute;inset:0;
@@ -70,12 +64,19 @@
 .kelly-menu-group__head-copy p{margin:4px 0 0;font-size:12.5px;color:rgba(255,255,255,.82)}
 
 .kelly-menu-list{list-style:none;margin:0;padding:6px 6px 10px}
-.kelly-menu-list>li{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:12px 14px;border-bottom:1px solid var(--pc-border)}
+.kelly-menu-list>li{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border-bottom:1px solid var(--pc-border)}
 .kelly-menu-list>li:last-child{border-bottom:none}
-.kelly-menu-list__copy{min-width:0}
+.kelly-menu-list>li.has-image{align-items:flex-start}
+.kelly-menu-list__thumb{flex:none;width:56px;height:56px;border-radius:12px;overflow:hidden;background:var(--pc-surface-2);margin-top:1px}
+.kelly-menu-list__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.kelly-menu-list__copy{min-width:0;flex:1}
 .kelly-menu-list__copy strong{display:block;font-size:14px;color:var(--pc-ink)}
 .kelly-menu-list__copy p{margin:4px 0 0;font-size:12.5px;line-height:1.5;color:var(--pc-muted)}
 .kelly-menu-list__price{flex:none;font-weight:800;font-size:15px;color:var(--pc-green-strong);white-space:nowrap}
+
+@media (max-width:480px){
+  .kelly-menu-list__thumb{width:48px;height:48px;border-radius:10px}
+}
 
 /* ---------- Bottom CTA ---------- */
 .kelly-cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:22px;border-radius:var(--pc-radius-block,18px);border:1px solid var(--pc-border);background:var(--pc-surface-2)}
@@ -89,12 +90,12 @@
   .kelly-hero{min-height:340px}
   .kelly-hero__content{flex-direction:column;align-items:flex-start}
   .kelly-cta{flex-direction:column;align-items:flex-start}
-  .kelly-page:not(.sanduba-page) .kelly-hero{background-position:62% center}
 }
 
 @media (max-width:480px){
   .kelly-shell{padding:14px 14px 56px}
   .kelly-hero__logo{width:72px;height:72px;border-radius:14px}
   .kelly-menu-list>li{flex-direction:column;gap:4px}
+  .kelly-menu-list__copy{width:100%}
   .kelly-menu-list__price{align-self:flex-end}
 }

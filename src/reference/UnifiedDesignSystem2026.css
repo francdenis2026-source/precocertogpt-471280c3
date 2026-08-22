@@ -1104,3 +1104,144 @@ html[data-theme="dark"] {
 .hp-home .hp-footer__panel-triggers {
   gap: .4rem !important;
 }
+
+
+/* Segunda etapa: páginas de produto e diretório. */
+:where(main, [tabindex="-1"]):focus:not(:focus-visible),
+.ref-directory__main:focus {
+  outline: none !important;
+}
+
+/* Nenhum texto operacional abaixo de 12 px nas telas mais densas. */
+:where(.pdx-page, .ref-directory__main)
+  :where(span, small, p, a, button, li, label, strong, time) {
+  font-size: max(.75rem, 1em) !important;
+  line-height: max(1.35, normal);
+}
+
+/* Navegação de categorias com cor funcional e seleção evidente. */
+.ref-directory__main .sector-nav a {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: 0 6px 16px rgb(16 35 50 / 6%);
+}
+.ref-directory__main .sector-nav a:nth-child(7n+1) svg { color: var(--audit-petrol) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+2) svg { color: var(--audit-amber) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+3) svg { color: #b84c4c !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+4) svg { color: #c97b2b !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+5) svg { color: var(--audit-blue) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+6) svg { color: var(--audit-green) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n) svg { color: #8058b6 !important; }
+.ref-directory__main .sector-nav a:is(.is-active, [aria-current="page"]) {
+  color: #fff !important;
+  background: var(--audit-petrol-strong) !important;
+  border-color: var(--audit-petrol-strong) !important;
+}
+
+/* Produto: superfícies, preço e comparação visualmente separados. */
+.pdx-page {
+  color: var(--audit-ink) !important;
+  background: var(--audit-canvas) !important;
+}
+.pdx-product,
+.pdx-card {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+.pdx-product {
+  border-top: 3px solid transparent !important;
+  border-image: linear-gradient(90deg, var(--audit-blue), var(--audit-green), var(--audit-amber)) 1 !important;
+}
+.pdx-price-block {
+  color: var(--audit-ink) !important;
+  background:
+    linear-gradient(135deg,
+      var(--audit-green-soft),
+      color-mix(in srgb, var(--audit-surface) 86%, var(--audit-green))) !important;
+  border-color: color-mix(in srgb, var(--audit-green) 46%, var(--audit-line)) !important;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 32%);
+}
+.pdx-price-block :where([class*="price"], strong) {
+  color: var(--audit-green) !important;
+}
+.pdx-price-facts > * {
+  color: var(--audit-ink) !important;
+  background: color-mix(in srgb, var(--audit-surface) 94%, transparent) !important;
+  border-color: var(--audit-line) !important;
+}
+.pdx-quick-compare {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+}
+.pdx-quick-compare__list > * {
+  border-color: var(--audit-line) !important;
+}
+.pdx-quick-compare__list > *.is-best {
+  color: var(--audit-ink) !important;
+  background: var(--audit-green-soft) !important;
+  border-color: var(--audit-green) !important;
+}
+.pdx-quick-compare__mark {
+  color: #ffffff !important;
+  background: var(--audit-green) !important;
+  border: 0 !important;
+}
+.pdx-quick-compare__mark svg {
+  display: block !important;
+  width: 18px !important;
+  height: 18px !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.25px !important;
+}
+.pdx-actions .pdx-primary-action,
+.pdx-actions .pc-btn--primary {
+  color: #ffffff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--audit-blue) 28%, transparent);
+}
+.pdx-trust {
+  color: var(--audit-green) !important;
+  background: var(--audit-green-soft) !important;
+  border-color: color-mix(in srgb, var(--audit-green) 35%, var(--audit-line)) !important;
+}
+.pdx-history-card { border-top: 3px solid var(--audit-amber) !important; }
+.pdx-offers--full { border-top: 3px solid var(--audit-blue) !important; }
+.pdx-similar { border-top: 3px solid var(--audit-green) !important; }
+.pdx-list-card { border-top: 3px solid var(--audit-petrol) !important; }
+.pdx-chart-stats > * {
+  background: var(--audit-surface-soft) !important;
+  border-color: var(--audit-line) !important;
+}
+.pdx-chart-row {
+  color: var(--audit-ink) !important;
+}
+.pdx-disclaimer {
+  color: var(--audit-muted) !important;
+  background: var(--audit-surface-soft) !important;
+  border-color: var(--audit-line) !important;
+}
+
+/* Rodapé principal: remove padding externo duplicado. */
+.hp-home .hp-footer,
+html[data-theme="dark"] .hp-home .hp-footer {
+  padding-block: 0 !important;
+}
+.hp-home .hp-footer__inner {
+  padding-block: .875rem !important;
+}
+
+@media (max-width: 760px) {
+  :where(.pdx-page, .ref-directory__main)
+    :where(span, small, p, a, button, li, label, strong, time) {
+    font-size: max(.75rem, 1em) !important;
+  }
+  .hp-home .hp-footer__inner {
+    padding-block: .75rem !important;
+  }
+}

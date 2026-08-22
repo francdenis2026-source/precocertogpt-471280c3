@@ -134,7 +134,7 @@ export function HomeProfessional2026() {
         </Link>
         <nav className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
           <Link to="/explorar" onClick={() => setMenuOpen(false)}>Setores</Link>
-          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas</Link>
+          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link>
           <Link to="/cesta-inteligente" onClick={() => setMenuOpen(false)}>Cesta inteligente</Link>
           <Link to="/cesta-basica" onClick={() => setMenuOpen(false)}>Minha cesta</Link>
@@ -248,7 +248,7 @@ export function HomeProfessional2026() {
             <strong>Plataforma</strong>
             <Link to="/buscar">Comparar preços</Link>
             <Link to="/explorar">Setores</Link>
-            <Link to="/estabelecimentos">Lojas locais</Link>
+            <Link to="/estabelecimentos">Estabelecimentos locais</Link>
             <Link to="/cesta-basica">Lista de compras</Link>
           </div>
           <div>
@@ -271,6 +271,6 @@ export function HomeProfessional2026() {
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />
-    <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>
+    <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Estabelecimentos</span></Link></nav>
   </div>;
 }

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { HeaderRadioPlayer, JOVEM_PAN_STREAMS, PersistentRadioProvider } from '../components/PersistentRadio';
+import { HeaderRadioPlayer, JOVEM_PAN_STREAMS, parseZenoMetadata, PersistentRadioProvider } from '../components/PersistentRadio';
 
 describe('player persistente de rádio',()=>{
   beforeEach(()=>{vi.spyOn(HTMLMediaElement.prototype,'load').mockImplementation(()=>{});vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();vi.spyOn(HTMLMediaElement.prototype,'pause').mockImplementation(()=>{})});
@@ -22,5 +22,10 @@ describe('player persistente de rádio',()=>{
     const audio=container.querySelector('audio') as HTMLAudioElement;
     fireEvent.error(audio);
     expect(audio.src).toContain(JOVEM_PAN_STREAMS[1]);
+  });
+  it('interpreta o título enviado pela API de metadados da rádio',()=>{
+    expect(parseZenoMetadata('{"streamTitle":"Artista — Música"}')).toBe('Artista — Música');
+    expect(parseZenoMetadata('{"metadata":{"artist":"Artista","title":"Música"}}')).toBe('Artista — Música');
+    expect(parseZenoMetadata('')).toBeNull();
   });
 });

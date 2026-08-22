@@ -465,3 +465,114 @@ html[data-theme="dark"] .hp-home .hp-story li:hover {
     transform: none !important;
   }
 }
+
+
+/* Imagens exclusivas por faixa: elimina repetição e cria narrativa local. */
+.hp-home .hp-sectors {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 88%) 0%,
+      rgb(247 245 240 / 70%) 38%,
+      rgb(247 245 240 / 34%) 72%,
+      rgb(247 245 240 / 52%) 100%),
+    url("/mercado-bairro-feijo-v1.webp");
+  background-position: center 54%;
+  background-size: cover;
+}
+.hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 84%) 0%,
+      rgb(247 245 240 / 66%) 40%,
+      rgb(247 245 240 / 30%) 76%,
+      rgb(247 245 240 / 48%) 100%),
+    url("/marketplace-local-profissional-v2.webp");
+  background-position: center 48%;
+  background-size: cover;
+}
+html[data-theme="dark"] .hp-home .hp-sectors {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 78%) 0%,
+      rgb(13 23 31 / 58%) 40%,
+      rgb(13 23 31 / 28%) 74%,
+      rgb(13 23 31 / 48%) 100%),
+    url("/mercado-bairro-feijo-v1.webp");
+}
+html[data-theme="dark"] .hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 76%) 0%,
+      rgb(13 23 31 / 54%) 42%,
+      rgb(13 23 31 / 26%) 76%,
+      rgb(13 23 31 / 46%) 100%),
+    url("/marketplace-local-profissional-v2.webp");
+}
+
+/* Rodapé editorial: substitui a faixa azul chapada por imagem com leitura segura. */
+.hp-home .hp-footer {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background-color: #071f35;
+  background-image:
+    linear-gradient(90deg,
+      rgb(7 31 53 / 90%) 0%,
+      rgb(7 31 53 / 78%) 38%,
+      rgb(7 31 53 / 42%) 68%,
+      rgb(7 31 53 / 22%) 100%),
+    url("/banners/feijo-community-band.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 62%;
+  border-top: 1px solid rgb(244 189 99 / 48%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%);
+}
+.hp-home .hp-footer :where(a, p, small, span) {
+  color: inherit;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 28%);
+}
+.hp-home .hp-footer a:hover {
+  color: #ffd993;
+}
+html[data-theme="dark"] .hp-home .hp-footer {
+  background-image:
+    linear-gradient(90deg,
+      rgb(4 18 31 / 84%) 0%,
+      rgb(4 18 31 / 68%) 40%,
+      rgb(4 18 31 / 34%) 72%,
+      rgb(4 18 31 / 18%) 100%),
+    url("/banners/feijo-community-band.webp");
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-sectors {
+    background-image:
+      linear-gradient(90deg, rgb(247 245 240 / 82%), rgb(247 245 240 / 54%)),
+      url("/mercado-bairro-feijo-v1.webp");
+    background-position: 64% center;
+  }
+  .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(247 245 240 / 80%), rgb(247 245 240 / 58%)),
+      url("/marketplace-local-profissional-v2.webp");
+    background-position: 58% center;
+  }
+  html[data-theme="dark"] .hp-home .hp-sectors {
+    background-image:
+      linear-gradient(90deg, rgb(13 23 31 / 74%), rgb(13 23 31 / 46%)),
+      url("/mercado-bairro-feijo-v1.webp");
+  }
+  html[data-theme="dark"] .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(13 23 31 / 72%), rgb(13 23 31 / 44%)),
+      url("/marketplace-local-profissional-v2.webp");
+  }
+  .hp-home .hp-footer,
+  html[data-theme="dark"] .hp-home .hp-footer {
+    background-position: 72% center;
+    background-image:
+      linear-gradient(90deg, rgb(5 24 42 / 90%), rgb(5 24 42 / 50%)),
+      url("/banners/feijo-community-band.webp");
+  }
+}

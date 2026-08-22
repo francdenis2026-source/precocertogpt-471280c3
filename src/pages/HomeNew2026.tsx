@@ -1,6 +1,6 @@
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BookOpen, Code2, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
+import { ArrowRight, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
@@ -240,7 +240,7 @@ export function HomeNew2026() {
         <div className="nx-footer__brand">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
           <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">
-            <Code2 aria-hidden="true" /><span><small>Desenvolvido por</small><strong>Franc D’nis</strong></span>
+            &lt;Franc_Dnis&gt;
           </button>
         </div>
         <div className="nx-footer__links">

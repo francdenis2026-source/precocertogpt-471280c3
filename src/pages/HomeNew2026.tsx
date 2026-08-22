@@ -238,7 +238,11 @@ export function HomeNew2026() {
     <footer className="nx-footer">
       <div className="nx-shell nx-footer__main">
         <div className="nx-footer__brand"><img src="/logo-preco-certo-inversa.svg?v=10" alt="PreçoCerto" width="126" height="30" /><p>Informação local para comprar melhor.</p></div>
-        <nav aria-label="Links do rodapé"><Link to="/buscar">Comparar preços</Link><Link to="/explorar">Onde comprar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/lojista">Para comerciantes</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></nav>
+        <div className="nx-footer__links">
+          <nav aria-label="Comprar melhor"><strong>Comprar</strong><span><Link to="/buscar">Buscar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/cesta-basica">Lista</Link></span></nav>
+          <nav aria-label="Categorias"><strong>Categorias</strong><span><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></span></nav>
+          <nav aria-label="Suporte e negócios"><strong>Negócios</strong><span><Link to="/lojista">Área do lojista</Link><Link to="/quero-vender">Quero vender</Link><Link to="/colaborar">Colaborar</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></span></nav>
+        </div>
         <div className="nx-footer__meta"><span><i className="nx-check" aria-hidden="true">✓</i> Preços locais organizados</span><small>© 2026 PreçoCerto · Feijó, AC</small></div>
       </div>
     </footer>

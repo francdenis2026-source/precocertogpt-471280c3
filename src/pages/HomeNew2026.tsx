@@ -86,7 +86,7 @@ export function HomeNew2026() {
   }, [menuOpen]);
 
   const products = useMemo(() => catalog.products.filter(product => product.minPrice > 0), [catalog.products]);
-  const featured = useMemo(() => buildFeatured(products, cycle, 5), [products, cycle]);
+  const featured = useMemo(() => buildFeatured(products, cycle, 4), [products, cycle]);
   const spotlight = featured[0];
   const suggestions = useMemo(() => {
     const term = normalize(query);
@@ -205,7 +205,7 @@ export function HomeNew2026() {
         <div className="nx-market__products">
           <div className="nx-section-title"><div><span>Catálogo local</span><h2 id="nx-market-title">Preços para comparar agora</h2><p>Produtos com valores disponíveis no PreçoCerto.</p></div><Link to="/buscar">Ver catálogo <ArrowRight /></Link></div>
           <div className="nx-product-grid">
-            {loading ? Array.from({ length: 4 }, (_, index) => <div className="nx-product-card nx-product-card--loading" key={index} />) : featured.slice(1, 5).map(product => <article className="nx-product-card" key={product.id}>
+            {loading ? Array.from({ length: 3 }, (_, index) => <div className="nx-product-card nx-product-card--loading" key={index} />) : featured.slice(1, 4).map(product => <article className="nx-product-card" key={product.id}>
               <Link to={`/produto/${product.slug || product.id}`}>
                 <div className="nx-product-card__media"><ProductImage product={product} /></div>
                 <div className="nx-product-card__copy"><small>{product.category}</small><h3>{product.name}</h3><p>{product.size || product.brand || "Produto local"}</p><footer><span><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight /></footer></div>
@@ -226,7 +226,6 @@ export function HomeNew2026() {
       </div>
       <div className="nx-local-band">
       <section className="nx-local nx-shell">
-        <div className="nx-local__photo" role="img" aria-label="Fachadas do comércio local de Feijó" />
         <div className="nx-local__copy">
           <span>Feito para Feijó</span>
           <h2>O comércio local mais fácil de encontrar.</h2>

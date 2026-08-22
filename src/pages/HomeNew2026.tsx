@@ -1,6 +1,6 @@
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
+import { ArrowRight, BookOpen, Croissant, HeartPulse, LayoutGrid, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
@@ -134,11 +134,10 @@ export function HomeNew2026() {
           <span><MapPin aria-hidden="true" /><strong>Feijó</strong><small>· Acre</small></span>
         </Link>
         <nav className={menuOpen ? "is-open" : ""} id="nx-navigation" aria-label="Navegação principal">
-          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar</Link>
-          <Link to="/explorar" onClick={() => setMenuOpen(false)}>Onde comprar</Link>
-          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
-          <Link to="/cesta-inteligente" onClick={() => setMenuOpen(false)}>Cesta inteligente</Link>
-          <Link to="/lojista" onClick={() => setMenuOpen(false)}>Para comerciantes</Link>
+          <Link to="/buscar" onClick={() => setMenuOpen(false)} title="Comparar preços" aria-label="Comparar preços"><Search aria-hidden="true" /><span>Comparar</span></Link>
+          <Link to="/explorar" onClick={() => setMenuOpen(false)} title="Explorar categorias" aria-label="Explorar categorias"><LayoutGrid aria-hidden="true" /><span>Categorias</span></Link>
+          <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)} title="Ver estabelecimentos" aria-label="Ver estabelecimentos"><MapPin aria-hidden="true" /><span>Locais</span></Link>
+          <Link to="/cesta-basica" onClick={() => setMenuOpen(false)} title="Abrir lista de compras" aria-label="Abrir lista de compras"><ShoppingBasket aria-hidden="true" /><span>Lista</span></Link>
         </nav>
         <div className="nx-header__actions">
           <HeaderRadioPlayer />
@@ -246,9 +245,9 @@ export function HomeNew2026() {
           </button>
         </div>
         <div className="nx-footer__links">
-          <nav aria-label="Planejamento de compras"><strong>Planejamento</strong><span><Link to="/cesta-basica">Lista de compras</Link></span></nav>
+          <nav aria-label="Área comercial"><strong>Negócios</strong><span><Link to="/lojista">Para comerciantes</Link><Link to="/quero-vender">Quero vender</Link></span></nav>
           <nav aria-label="Categorias"><strong>Categorias</strong><span><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></span></nav>
-          <nav aria-label="Suporte e participação"><strong>Suporte</strong><span><Link to="/quero-vender">Quero vender</Link><Link to="/colaborar">Colaborar</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></span></nav>
+          <nav aria-label="Suporte e participação"><strong>Suporte</strong><span><Link to="/colaborar">Colaborar</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></span></nav>
         </div>
         <div className="nx-footer__meta"><span><i className="nx-check" aria-hidden="true">✓</i> Preços locais organizados</span><small>© 2026 PreçoCerto · Feijó, AC</small></div>
       </div>

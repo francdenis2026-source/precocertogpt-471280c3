@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, BadgeCheck, Citrus, CupSoda, MapPin, MessageCircle, Plus, Sandwich, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, Citrus, Clock3, CupSoda, MapPin, MessageCircle, Plus, Sandwich, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
 import type { ReactNode } from "react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
@@ -91,7 +91,6 @@ export function PontoDoSandubaPage() {
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
         <section className="kelly-hero sanduba-hero" aria-labelledby="sanduba-title">
-          <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/ponto-do-sanduba-logo.jpg?v=20260822" alt={`Logomarca ${SANDUBA_NAME}`} width="96" height="96" /></div>
             <div className="kelly-hero__copy">
@@ -106,6 +105,10 @@ export function PontoDoSandubaPage() {
                 <a className="pc-btn pc-btn--primary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Pedir pelo WhatsApp</a>
               </div>
             </div>
+          </div>
+          <div className="kelly-hero__visual" aria-hidden="true">
+            <img src="/ponto-do-sanduba/hero-burgers.jpg" alt="" />
+            <span><BadgeCheck /> Sabor feito na hora</span>
           </div>
         </section>
 
@@ -122,13 +125,26 @@ export function PontoDoSandubaPage() {
             <ShieldCheck aria-hidden="true" />
             <span><strong>Estabelecimento cadastrado</strong><small>Hamburgueria · Centro de Feijó</small></span>
           </div>
+          <div className="kelly-info__card kelly-info__card--static">
+            <Clock3 aria-hidden="true" />
+            <span><strong>Preparo na hora</strong><small>Lanches montados após o pedido</small></span>
+          </div>
         </section>
 
-        <div className="kelly-notice"><BadgeCheck /><span><strong>Cardápio informativo</strong><small>Preços e itens conforme o cardápio enviado pelo estabelecimento. Confirme disponibilidade e condições diretamente com o Ponto do Sanduba antes de fechar o pedido.</small></span></div>
+        <section className="kelly-catalog-intro" aria-labelledby="sanduba-menu-title">
+          <div>
+            <span className="kelly-eyebrow">CARDÁPIO COMPLETO</span>
+            <h2 id="sanduba-menu-title">Do clássico ao sanduíche completo</h2>
+            <p>Escolha uma categoria e toque no item para conferir todos os detalhes.</p>
+          </div>
+          <strong>{SANDUBA_MENU.length} opções</strong>
+        </section>
 
         <nav className="kelly-category-nav" aria-label="Categorias do cardápio">
           {groups.map(group => <a key={group.category} href={`#sanduba-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{group.category}<small>{group.items.length}</small></a>)}
         </nav>
+
+        <div className="kelly-notice"><BadgeCheck /><span><strong>Cardápio informado pelo Ponto do Sanduba</strong><small>Preços e disponibilidade podem mudar. Confirme as condições diretamente com o estabelecimento antes de concluir o pedido.</small></span></div>
 
         <div className="kelly-menu-grid">
         {groups.map(group => (

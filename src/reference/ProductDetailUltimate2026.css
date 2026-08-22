@@ -144,3 +144,24 @@ html[data-theme="dark"] .pdx-page{--pdx-blue:#60a5fa;--pdx-green-deep:#5ee0b1}
 @media(max-width:1080px){.pdx-quick-compare{grid-column:1/-1}.pdx-quick-compare__list{grid-template-columns:1fr 1fr;gap:0 14px}.pdx-tech-details dl{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.pdx-quick-compare{order:6;grid-column:auto}.pdx-quick-compare__list{grid-template-columns:1fr}.pdx-tech-details{margin-top:11px}.pdx-tech-details dl{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.pdx-tech-details dl{grid-template-columns:1fr}.pdx-quick-compare{padding:12px}}
+
+/* Panorama atual por estabelecimento. O gráfico anterior ligava coletas de
+   lojas diferentes como uma série temporal; estas barras representam o dado
+   correto: preços atuais comparáveis, do menor para o maior. */
+.pdx-chart{position:relative}
+.pdx-chart-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.pdx-chart-stats span{display:grid;gap:3px;padding:10px 12px;border:1px solid var(--pc-border);border-radius:11px;background:var(--pc-surface-2)}
+.pdx-chart-stats span:first-child{border-color:color-mix(in srgb,var(--pdx-green) 38%,var(--pc-border));background:color-mix(in srgb,var(--pdx-green) 9%,var(--pc-surface))}
+.pdx-chart-stats small{color:var(--pc-muted);font-size:9px}
+.pdx-chart-stats strong{font-size:15px;font-variant-numeric:tabular-nums}
+.pdx-chart-bars{display:grid;gap:10px}
+.pdx-chart-row{display:grid;grid-template-columns:minmax(150px,220px) minmax(120px,1fr) 76px;align-items:center;gap:14px}
+.pdx-chart-row>div{min-width:0;display:grid;gap:2px}
+.pdx-chart-row>div strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}
+.pdx-chart-row>div small{color:var(--pc-muted);font-size:8px}
+.pdx-chart-row>span{height:10px;overflow:hidden;border-radius:999px;background:var(--pc-surface-2)}
+.pdx-chart-row>span i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--pdx-blue),#60a5fa)}
+.pdx-chart-row.is-best>span i{background:linear-gradient(90deg,var(--pdx-green-deep),var(--pdx-green))}
+.pdx-chart-row>b{text-align:right;font-size:12px;font-variant-numeric:tabular-nums}
+.pdx-chart-row.is-best>b{color:var(--pdx-green-deep)}
+@media(max-width:600px){.pdx-chart-stats{grid-template-columns:1fr 1fr}.pdx-chart-stats span:last-child{grid-column:1/-1}.pdx-chart-row{grid-template-columns:minmax(100px,1fr) 64px}.pdx-chart-row>span{grid-column:1/-1;grid-row:2}.pdx-chart-row>b{grid-column:2;grid-row:1}}

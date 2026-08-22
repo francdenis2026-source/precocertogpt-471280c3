@@ -10,7 +10,7 @@ import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
-import { buildComparableOffers, findComparableProducts } from "../lib/productSearch";
+import { buildComparableOffers, findComparableProducts, type ComparableOffer } from "../lib/productSearch";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./ProductDetailUltimate2026.css";
 
@@ -53,28 +53,16 @@ function formatDate(value?: string) {
   return new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" }).format(date);
 }
 
-function PriceHistory({ product }: { product: Product }) {
-  const points = (product.price_history || []).filter(item => Number.isFinite(item.value)).slice(-10);
-  if (points.length < 2) return <div className="pdx-history-empty"><BarChart3 /><div><strong>Histórico em formação</strong><span>Novas coletas vão mostrar a evolução do preço deste produto.</span></div></div>;
-
+function PriceComparisonChart({ offers }: { offers: ComparableOffer[] }) {
+  const points = offers.filter(item => Number.isFinite(item.value) && item.value > 0).slice(0, 8);
+  if (points.length < 2) return <div className="pdx-history-empty"><BarChart3 /><div><strong>Comparação em formação</strong><span>Mais preços serão necessários para montar o panorama entre estabelecimentos.</span></div></div>;
   const values = points.map(item => item.value);
   const min = Math.min(...values);
   const max = Math.max(...values);
-  const spread = Math.max(.01, max - min);
-  const coords = points.map((item, index) => {
-    const x = points.length === 1 ? 50 : (index / (points.length - 1)) * 100;
-    const y = 84 - ((item.value - min) / spread) * 62;
-    return `${x},${y}`;
-  }).join(" ");
-
-  return <div className="pdx-chart">
-    <div className="pdx-chart-stats"><span><small>Menor</small><strong>{brl.format(min)}</strong></span><span><small>Maior</small><strong>{brl.format(max)}</strong></span></div>
-    <svg viewBox="0 0 100 100" role="img" aria-label={`Histórico de preços entre ${brl.format(min)} e ${brl.format(max)}`} preserveAspectRatio="none">
-      <line x1="0" y1="84" x2="100" y2="84"/><line x1="0" y1="53" x2="100" y2="53"/><line x1="0" y1="22" x2="100" y2="22"/>
-      <polyline points={coords} />
-      {points.map((item, index) => { const [x, y] = coords.split(" ")[index].split(","); return <circle key={`${item.date}-${index}`} cx={x} cy={y} r="1.8"/>; })}
-    </svg>
-    <div className="pdx-chart-labels">{points.map((item, index) => (index === 0 || index === points.length - 1 || index === Math.floor(points.length / 2)) ? <span key={item.date}>{new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit" }).format(new Date(item.date))}</span> : <span key={item.date}/>)}</div>
+  const average = values.reduce((total, value) => total + value, 0) / values.length;
+  return <div className="pdx-chart" role="img" aria-label={`Comparação de ${points.length} preços, de ${brl.format(min)} a ${brl.format(max)}`}>
+    <div className="pdx-chart-stats"><span><small>Melhor preço</small><strong>{brl.format(min)}</strong></span><span><small>Preço médio</small><strong>{brl.format(average)}</strong></span><span><small>Diferença real</small><strong>{brl.format(max - min)}</strong></span></div>
+    <div className="pdx-chart-bars">{points.map((offer, index) => <div className={`pdx-chart-row${index === 0 ? " is-best" : ""}`} key={`${offer.establishmentId}-${offer.productId}`}><div><strong>{offer.establishment}</strong><small>{offer.neighborhood || "Feijó"}</small></div><span><i style={{ width: `${Math.max(8, (offer.value / max) * 100)}%` }} /></span><b>{brl.format(offer.value)}</b></div>)}</div>
   </div>;
 }
 
@@ -198,9 +186,8 @@ export function ProductDetailProfessional() {
   const displayedUpdatedAt = formatDate(displayedOffer?.capturedAt || product.updated_at || product.capturedAt);
   const basketTarget = displayedProduct || product;
   const basketTargetQuantity = basket.find(item => item.productId === String(basketTarget.id))?.quantity || 0;
-  const priceSpread = comparisonOffers.length > 1 ? Math.max(0, comparisonOffers[comparisonOffers.length - 1].value - comparisonOffers[0].value) : 0;
+  const priceSpread = quickOffers.length > 1 ? Math.max(0, quickOffers[quickOffers.length - 1].value - quickOffers[0].value) : 0;
   const isSingleOffer = comparisonOffers.length <= 1;
-  const hasHistory = (product.price_history || []).filter(item => Number.isFinite(item.value)).length >= 2;
   const previousPrice = Number(displayedOffer?.previousPrice || displayedProduct?.previousPrice || 0);
   const savingVsPrevious = previousPrice > displayedPrice ? previousPrice - displayedPrice : 0;
 
@@ -222,7 +209,7 @@ export function ProductDetailProfessional() {
           <div className="pdx-price-block">
             <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : selectedOffer ? "OFERTA SELECIONADA" : "MENOR PREÇO EQUIVALENTE"} <BadgeCheck/></span><strong>{brl.format(displayedPrice)}</strong><small>{displayedStore ? `em ${displayedStore}` : "preço verificado"}{!isSingleOffer && displayedOffer ? ` · ${displayedOffer.productBrand || "marca não informada"} · ${displayedOffer.productSize || "medida compatível"}` : ""}</small></div>
             <div className={`pdx-price-facts${isSingleOffer ? " pdx-price-facts--compact" : ""}`}>
-              <span><Store/><b>{comparisonOffers.length}</b><small>{isSingleOffer ? "loja consultada" : "lojas comparadas"}</small></span>
+              <span><Store/><b>{quickOffers.length}</b><small>{isSingleOffer ? "loja consultada" : "lojas exibidas"}</small></span>
               {!isSingleOffer && <span><TrendingDown/><b>{brl.format(priceSpread)}</b><small>diferença entre lojas</small></span>}
               <span><CalendarDays/><b>{displayedUpdatedAt}</b><small>última verificação</small></span>
             </div>
@@ -235,7 +222,7 @@ export function ProductDetailProfessional() {
         </div>
 
         {!isSingleOffer && <aside className="pdx-quick-compare" aria-label="Comparação rápida de preços">
-          <header><span>COMPARAÇÃO RÁPIDA</span><h2>Preços equivalentes</h2><p>{comparisonOffers.length > 1 ? `${comparisonOffers.length} estabelecimentos · mesma família e medida compatível.` : "Preço disponível em um estabelecimento."}</p></header>
+          <header><span>COMPARAÇÃO RÁPIDA</span><h2>Preços equivalentes</h2><p>{quickOffers.length > 1 ? `${quickOffers.length} melhores ofertas exibidas · mesma família e medida compatível.` : "Preço disponível em um estabelecimento."}</p></header>
           <div className="pdx-quick-compare__list">
             {quickOffers.map((offer, index) => {
               const active = String(displayedOffer?.productId) === String(offer.productId) && String(displayedOffer?.establishmentId) === String(offer.establishmentId);
@@ -252,13 +239,13 @@ export function ProductDetailProfessional() {
         </aside>}
       </section>
 
-      {(isSingleOffer || hasHistory) && <section className="pdx-commerce-grid">
+      {(isSingleOffer || quickOffers.length > 1) && <section className="pdx-commerce-grid">
         {isSingleOffer && <article className="pdx-card pdx-offers pdx-offers--full" aria-labelledby="offers-title">
           <header><div><span>ONDE COMPRAR</span><h2 id="offers-title">Onde encontrar este produto</h2><p>Preço confirmado neste estabelecimento.</p></div><Link to="/estabelecimentos"><MapPin/>Ver estabelecimentos</Link></header>
           <div className="pdx-offer-list">{comparisonOffers.map(offer=><Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.productId}-${offer.value}`}><span className="pdx-rank"><Store aria-hidden="true"/></span><span className="pdx-store-info"><strong>{offer.establishment}</strong><small><MapPin/>{offer.neighborhood || "Feijó"}</small></span><span className="pdx-offer-price"><strong>{brl.format(offer.value)}</strong><small>{formatDate(offer.capturedAt)}</small></span><ArrowRight/></Link>)}</div>
         </article>}
 
-        {hasHistory && <article className={`pdx-card pdx-history-card${isSingleOffer ? "" : " pdx-offers--full"}`}><header><div><span>EVOLUÇÃO DO PREÇO</span><h2>Histórico recente</h2></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceHistory product={product}/></article>}
+        {!isSingleOffer && <article className="pdx-card pdx-history-card pdx-offers--full"><header><div><span>PANORAMA DE PREÇOS</span><h2>Comparação por estabelecimento</h2><p>Valores atuais das ofertas exibidas, ordenados do menor para o maior.</p></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceComparisonChart offers={quickOffers}/></article>}
       </section>}
 
       <details className="pdx-tech-details">

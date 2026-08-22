@@ -2,20 +2,20 @@
 :root{
   color-scheme:light;
   --pc-font-display:"Outfit Variable",Outfit,"Inter Variable",Inter,system-ui,sans-serif;
-  --pc-font-body:"Inter Variable",Inter,system-ui,sans-serif;
-  --pc-canvas:#f6f7f8;--pc-surface:#ffffff;--pc-surface-2:#eef1f3;--pc-surface-3:#e3e7ea;
-  --pc-ink:#131a20;--pc-muted:#5b6570;--pc-subtle:#6b7680;--pc-border:#ccd4da;--pc-border-strong:#8d959c;
+  --pc-font-body:"Manrope Variable",Manrope,"Inter Variable",Inter,system-ui,sans-serif;
+  --pc-canvas:#f5f6f8;--pc-surface:#ffffff;--pc-surface-2:#eef1f7;--pc-surface-3:#e3e7ef;
+  --pc-ink:#182033;--pc-muted:#626c7e;--pc-subtle:#727c8e;--pc-border:#dfe3ea;--pc-border-strong:#aab2c0;
   /* Azul profundo (não cinza-chumbo): usado em header/rodapé/heros de todas
      as páginas via este token só, então um azul com saturação real aqui já
      resolve o site inteiro de uma vez, sem precisar caçar cor em cada
      página. */
-  --pc-navy:#0f3556;--pc-navy-2:#154a75;--pc-footer:#0d1117;
+  --pc-navy:#26386f;--pc-navy-2:#3156d9;--pc-footer:#202d5d;
   /* --pc-green* e --pc-gold* eram clones do azul de marca (mesmo hex do navy),
      deixando preço, selos e destaques indistinguíveis da UI estrutural.
      Agora green é realmente verde (preço/economia) e gold é realmente dourado
      (destaque/selo), dando ao site vocabulário de cor de verdade. */
-  --pc-green:#18864b;--pc-green-strong:#15803d;--pc-green-soft:#e3f5ea;
-  --pc-gold:#ab661a;--pc-gold-on-dark:#d18c41;--pc-gold-soft:#fbeed9;--pc-danger:#c0311f;--pc-danger-soft:#fbeae7;--pc-info:#1f4e6b;
+  --pc-green:#11875d;--pc-green-strong:#0d714d;--pc-green-soft:#e4f4ed;
+  --pc-gold:#ee9d21;--pc-gold-on-dark:#ffc25c;--pc-gold-soft:#fff2dc;--pc-danger:#c0311f;--pc-danger-soft:#fbeae7;--pc-info:#3156d9;
   --pc-radius-control:10px;--pc-radius-card:14px;--pc-radius-block:18px;--pc-radius-hero:24px;
   --pc-shadow-sm:0 1px 2px rgba(19,26,32,.06),0 6px 18px rgba(19,26,32,.07);--pc-shadow-lg:0 2px 6px rgba(19,26,32,.06),0 24px 56px rgba(19,26,32,.16);
   --pc-space-1:4px;--pc-space-2:8px;--pc-space-3:12px;--pc-space-4:16px;--pc-space-5:20px;--pc-space-6:24px;--pc-space-8:32px;--pc-space-10:40px;--pc-space-12:48px;--pc-space-16:64px;
@@ -25,13 +25,13 @@
 }
 html[data-theme="dark"]{
   color-scheme:dark;
-  --pc-canvas:#14191e;--pc-surface:#1b2126;--pc-surface-2:#212930;--pc-surface-3:#2a333b;
-  --pc-ink:#e9eef2;--pc-muted:#9aa5ad;--pc-subtle:#8b95a0;--pc-border:#364049;--pc-border-strong:#697077;
+  --pc-canvas:#10151f;--pc-surface:#181f2c;--pc-surface-2:#222b3c;--pc-surface-3:#2b3548;
+  --pc-ink:#f4f6fa;--pc-muted:#afb7c7;--pc-subtle:#9ba5b7;--pc-border:#343e50;--pc-border-strong:#657087;
   /* Este era o principal "chumbo" do site: quase cinza neutro (R16 G23 B28,
      sem saturação de cor nenhuma) usado em header/rodapé/heros no modo
      escuro. Troca por um azul-marinho profundo de verdade — mesma
      escuridão, mas com identidade de cor, não cinza de infraestrutura. */
-  --pc-navy:#0b2438;--pc-navy-2:#123a58;--pc-footer:#0d1117;--pc-green:#34c77c;--pc-green-strong:#4ade80;--pc-green-soft:#15291d;
+  --pc-navy:#202d5d;--pc-navy-2:#3f5ed0;--pc-footer:#151e3e;--pc-green:#56d49a;--pc-green-strong:#73e4ae;--pc-green-soft:#183a2d;
   --pc-gold:#f2ae4c;--pc-gold-on-dark:#f2ae4c;--pc-gold-soft:#3a2a14;--pc-danger:#f3897a;--pc-danger-soft:#3a1e1a;--pc-info:#9cbed3;
   --pc-shadow-sm:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.32);--pc-shadow-lg:0 2px 8px rgba(0,0,0,.45),0 24px 60px rgba(0,0,0,.5);
 }

@@ -139,7 +139,7 @@
 /* Afirmação de interação inequívoca e feedback imediato. */
 :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
   .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
-  .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, summary, [role="button"]) {
+  .dorinha-pro, .culture-profile-page, .ref-page) :where(button, summary, [role="button"], a.button, a[class*="button"], a[class*="action"]) {
   min-height: 44px;
 }
 :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,

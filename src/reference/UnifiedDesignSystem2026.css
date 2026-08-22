@@ -17,3 +17,69 @@
     min-height: 44px;
   }
 }
+
+
+/* Auditoria de legibilidade e contraste — camada final ativa, sem alcançar o admin. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) {
+  --pc-gold: #9a570f;
+  --pc-green: #147a43;
+  --pc-border: #c7d0d6;
+  --pc-border-strong: #aebbc3;
+}
+
+html[data-theme="dark"] :where(.hp-home, .search26-page, .sector-page, .sector-hub,
+  .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket,
+  .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) {
+  --pc-gold: #f4bd63;
+  --pc-green: #55d895;
+  --pc-border: #41515c;
+  --pc-border-strong: #596b77;
+}
+
+/* Lucide é quadrado. Neutraliza o atributo height=24 quando uma regra histórica
+   altera apenas width e evita ícones ovais, cortados ou aparentemente vazios. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) svg.lucide {
+  height: auto;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+}
+
+/* Nenhuma informação pública essencial fica abaixo de 12 px. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page)
+  :where(small, figcaption, caption, time, [class*="caption"], [class*="eyebrow"],
+    [class*="kicker"], [class*="meta"]) {
+  font-size: 0.75rem !important;
+  line-height: 1.45;
+}
+
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page)
+  :where(button, label, select, nav a, [role="button"]) {
+  font-size: max(0.8125rem, 1em);
+}
+
+/* Correções específicas da homepage medida na auditoria. */
+.hp-home {
+  --hp-price: #147a43;
+  --hp-gold: #9a570f;
+  --hp-line: #c7d0d6;
+}
+html[data-theme="dark"] .hp-home {
+  --hp-price: #55d895;
+  --hp-gold: #f4bd63;
+  --hp-line: #41515c;
+}
+.hp-quickcats a svg.lucide,
+.hp-sector-grid svg.lucide,
+.hp-footer svg.lucide {
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+}
+.hp-footer svg.lucide { color: #f4bd63; }

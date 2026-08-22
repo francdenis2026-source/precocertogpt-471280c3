@@ -258,16 +258,10 @@
 @media(hover:hover) and (pointer:fine){.hp-footer__panel-triggers button:hover { border-color: #709bba; color: #709bba; }}
 .hp-footer__panel-triggers svg { width: 13px; height: 13px; }
 
-/* Mantém a rolagem da homepage sem exibir a barra vertical. */
-html.hp-hide-page-scrollbar,
-body.hp-hide-page-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-html.hp-hide-page-scrollbar::-webkit-scrollbar,
-body.hp-hide-page-scrollbar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  display: none;
+/* A rolagem principal permanece visível; apenas a faixa horizontal compacta
+   usa uma barra fina para comunicar que existem mais categorias. */
+@media(max-width:640px){
+  .hp-quickcats{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.42) transparent;padding-bottom:7px}
+  .hp-quickcats::-webkit-scrollbar{display:block;height:4px}
+  .hp-quickcats::-webkit-scrollbar-thumb{border-radius:999px;background:rgba(255,255,255,.42)}
 }

@@ -95,7 +95,23 @@ export const sandubaStores: StoreRow[] = [
   { id: SANDUBA_ID, slug: SANDUBA_ID, name: SANDUBA_NAME, neighborhood: SANDUBA_NEIGHBORHOOD, color: SANDUBA_COLOR, products: SANDUBA_MENU.length, kind: "snack_bar" },
 ];
 
+// Só há uma foto limpa (sem preço impresso por cima) no material enviado: o
+// cluster de hambúrgueres do cabeçalho do cardápio. As demais fotos do
+// cardápio original têm preço sobreposto em quase toda a área da imagem, o
+// que inviabiliza usá-las como miniatura de produto — por isso Adicionais,
+// Refrigerantes e Suco Natural ficam sem foto aqui, em vez de usar uma
+// imagem com texto errado por cima.
+const SANDUBA_CATEGORY_IMAGE: Partial<Record<string, string>> = {
+  "Sanduíches": "/ponto-do-sanduba/hero-burgers.jpg",
+};
+
+// Nome do item -> foto atribuída, para a página do cardápio reaproveitar a
+// mesma miniatura mostrada em /buscar, /produto e no restante do site.
+export const sandubaItemImages = new Map<string, string>();
+
 export const sandubaProducts: Product[] = SANDUBA_MENU.map((item) => {
+  const image = SANDUBA_CATEGORY_IMAGE[item.category];
+  if (image) sandubaItemImages.set(item.name, image);
   const id = `sanduba-${slugify(item.name)}`;
   const offer: ProductOffer = {
     establishmentId: SANDUBA_ID,
@@ -125,6 +141,7 @@ export const sandubaProducts: Product[] = SANDUBA_MENU.map((item) => {
     storeColor: SANDUBA_COLOR,
     capturedAt: CAPTURED_AT,
     source: "Cardápio oficial (Ponto do Sanduba)",
+    image_url: image,
     offers: [offer],
   } satisfies Product;
 });

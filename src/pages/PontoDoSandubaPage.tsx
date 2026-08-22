@@ -10,6 +10,7 @@ import {
   SANDUBA_NEIGHBORHOOD,
   SANDUBA_PHONE,
   SANDUBA_WHATSAPP,
+  sandubaItemImages,
   type MenuItem,
 } from "../data/manualEstablishments2";
 import "./KellyBurgueriaPage.css";
@@ -31,7 +32,7 @@ const CATEGORY_NOTES: Record<string, string> = {
 };
 
 const whatsappHref = `https://wa.me/${SANDUBA_WHATSAPP}?text=${encodeURIComponent(`Olá! Vi o cardápio do ${SANDUBA_NAME} no PreçoCerto e queria fazer um pedido.`)}`;
-const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SANDUBA_ADDRESS)}`;
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SANDUBA_NAME}, ${SANDUBA_ADDRESS}`)}`;
 
 export function PontoDoSandubaPage() {
   const groups = useMemo(() => {
@@ -50,11 +51,7 @@ export function PontoDoSandubaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section
-          className="kelly-hero sanduba-hero"
-          aria-labelledby="sanduba-title"
-          style={{ backgroundImage: "url('/ponto-do-sanduba/hero-burgers.jpg?v=20260822-2')" }}
-        >
+        <section className="kelly-hero sanduba-hero" aria-labelledby="sanduba-title">
           <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/ponto-do-sanduba-logo.jpg?v=20260822" alt={`Logomarca ${SANDUBA_NAME}`} width="96" height="96" /></div>
@@ -103,15 +100,19 @@ export function PontoDoSandubaPage() {
               </div>
             </header>
             <ul className="kelly-menu-list">
-              {group.items.map(item => (
-                <li key={item.name}>
-                  <div className="kelly-menu-list__copy">
-                    <strong>{item.name}</strong>
-                    {item.description && <p>{item.description}</p>}
-                  </div>
-                  <span className="kelly-menu-list__price">{brl.format(item.price)}</span>
-                </li>
-              ))}
+              {group.items.map(item => {
+                const image = sandubaItemImages.get(item.name);
+                return (
+                  <li key={item.name} className={image ? "has-image" : undefined}>
+                    {image && <span className="kelly-menu-list__thumb"><img src={image} alt="" loading="lazy" width="64" height="64" /></span>}
+                    <div className="kelly-menu-list__copy">
+                      <strong>{item.name}</strong>
+                      {item.description && <p>{item.description}</p>}
+                    </div>
+                    <span className="kelly-menu-list__price">{brl.format(item.price)}</span>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ))}

@@ -186,6 +186,8 @@ export function ProductDetailProfessional() {
   const homeStore = offers.length === 1 ? offers[0] : bestOffer;
   const homeStoreHref = homeStore ? `/estabelecimento/${homeStore.establishmentSlug || homeStore.establishmentId}` : "/estabelecimentos";
   const priceSpread = comparisonOffers.length > 1 ? Math.max(0, comparisonOffers[comparisonOffers.length - 1].value - comparisonOffers[0].value) : 0;
+  const isSingleOffer = comparisonOffers.length <= 1;
+  const hasHistory = (product.price_history || []).filter(item => Number.isFinite(item.value)).length >= 2;
   const previousPrice = Number(product.previousPrice || 0);
   const savingVsPrevious = previousPrice > product.minPrice ? previousPrice - product.minPrice : 0;
 
@@ -195,7 +197,7 @@ export function ProductDetailProfessional() {
     <main id="conteudo-principal" className="pdx-shell">
       <nav className="pdx-breadcrumb" aria-label="Navegação estrutural"><Link to="/"><Home/><span>Início</span></Link><ChevronRight/>{homeStore && <><Link className="pdx-breadcrumb__store" to={homeStoreHref}>{homeStore.establishment}</Link><ChevronRight className="pdx-breadcrumb__store"/></>}<Link to={`/buscar?q=${encodeURIComponent(product.category)}`}>{product.category}</Link><ChevronRight/><span>{product.name}</span></nav>
 
-      <section className="pdx-product" aria-labelledby="pdx-title">
+      <section className={`pdx-product${isSingleOffer ? " pdx-product--single" : ""}`} aria-labelledby="pdx-title">
         <div className="pdx-visual">
           <div className="pdx-image-stage"><span className="pdx-category-badge">{product.category}</span><ProductImage product={product}/></div>
           <div className="pdx-visual-note"><ShieldCheck/><span><strong>Imagem informativa</strong><small>O produto e a embalagem podem sofrer atualização pelo fabricante.</small></span></div>
@@ -205,10 +207,10 @@ export function ProductDetailProfessional() {
           <div className="pdx-identity"><span className="pdx-brand-pill"><Tag/> {brand}</span><h1 id="pdx-title">{product.name}</h1><p>{product.size || product.unit || "Embalagem não informada"}</p></div>
 
           <div className="pdx-price-block">
-            <div><span>MENOR PREÇO ENCONTRADO <BadgeCheck/></span><strong>{brl.format(product.minPrice)}</strong><small>{bestOffer ? `em ${bestOffer.establishment}` : "preço verificado"}</small></div>
-            <div className="pdx-price-facts">
-              <span><Store/><b>{offers.length}</b><small>{offers.length === 1 ? "loja consultada" : "lojas comparadas"}</small></span>
-              <span><TrendingDown/><b>{priceSpread ? brl.format(priceSpread) : "-"}</b><small>diferença entre lojas</small></span>
+            <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : "MENOR PREÇO ENCONTRADO"} <BadgeCheck/></span><strong>{brl.format(product.minPrice)}</strong><small>{bestOffer ? `em ${bestOffer.establishment}` : "preço verificado"}</small></div>
+            <div className={`pdx-price-facts${isSingleOffer ? " pdx-price-facts--compact" : ""}`}>
+              <span><Store/><b>{comparisonOffers.length}</b><small>{isSingleOffer ? "loja consultada" : "lojas comparadas"}</small></span>
+              {!isSingleOffer && <span><TrendingDown/><b>{brl.format(priceSpread)}</b><small>diferença entre lojas</small></span>}
               <span><CalendarDays/><b>{updatedAt}</b><small>última verificação</small></span>
             </div>
             {savingVsPrevious > 0 && <div className="pdx-price-saving"><TrendingDown/> Está {brl.format(savingVsPrevious)} abaixo do último preço registrado.</div>}
@@ -219,7 +221,7 @@ export function ProductDetailProfessional() {
           <div className="pdx-trust"><CheckCircle2/><span><strong>Preço organizado pelo PreçoCerto</strong><small>Use como referência e confirme disponibilidade diretamente com o estabelecimento.</small></span></div>
         </div>
 
-        <aside className="pdx-quick-compare" aria-label="Comparação rápida de preços">
+        {!isSingleOffer && <aside className="pdx-quick-compare" aria-label="Comparação rápida de preços">
           <header><span>COMPARAÇÃO RÁPIDA</span><h2>Preços equivalentes</h2><p>{comparisonOffers.length > 1 ? `${comparisonOffers.length} estabelecimentos · mesma família e medida compatível.` : "Preço disponível em um estabelecimento."}</p></header>
           <div className="pdx-quick-compare__list">
             {quickOffers.map((offer, index) => {
@@ -233,16 +235,16 @@ export function ProductDetailProfessional() {
           </div>
           {comparisonOffers.length > 1 && <div className="pdx-quick-compare__saving"><TrendingDown aria-hidden="true" /><span><small>ECONOMIA POSSÍVEL</small><strong>{brl.format(priceSpread)}</strong></span></div>}
           <a className="pdx-quick-compare__more" href="#offers-title">Ver comparação completa <ArrowRight aria-hidden="true" /></a>
-        </aside>
+        </aside>}
       </section>
 
       <section className="pdx-commerce-grid">
-        <article className="pdx-card pdx-offers" aria-labelledby="offers-title">
-          <header><div><span>ONDE COMPRAR</span><h2 id="offers-title">Ranking de produtos equivalentes</h2><p>{comparisonOffers.length > 1 ? "Mesma família e medida compatível, sem restringir por marca." : "Ainda há preço registrado em apenas um estabelecimento."}</p></div><Link to="/estabelecimentos"><MapPin/>Ver estabelecimentos</Link></header>
-          <div className="pdx-offer-list">{comparisonOffers.slice(0, 8).map((offer,index)=><Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.productId}-${offer.value}`} className={index===0 ? "is-best" : ""}><span className="pdx-rank">{index+1}</span><span className="pdx-store-info"><strong>{offer.establishment}</strong><small><MapPin/>{offer.productBrand || "Marca não informada"} · {offer.productSize || "medida equivalente"}</small></span>{index===0 && <em><BadgeCheck/>MENOR PREÇO</em>}<span className="pdx-offer-price"><strong>{brl.format(offer.value)}</strong><small>{formatDate(offer.capturedAt)}</small></span><ArrowRight/></Link>)}</div>
+        <article className={`pdx-card pdx-offers${hasHistory ? "" : " pdx-offers--full"}`} aria-labelledby="offers-title">
+          <header><div><span>ONDE COMPRAR</span><h2 id="offers-title">{isSingleOffer ? "Onde encontrar este produto" : "Ranking de produtos equivalentes"}</h2><p>{isSingleOffer ? "Preço confirmado neste estabelecimento." : "Mesma família e medida compatível, sem restringir por marca."}</p></div><Link to="/estabelecimentos"><MapPin/>Ver estabelecimentos</Link></header>
+          <div className="pdx-offer-list">{comparisonOffers.slice(0, 8).map((offer,index)=><Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.productId}-${offer.value}`} className={index===0 && !isSingleOffer ? "is-best" : ""}><span className="pdx-rank">{isSingleOffer ? <Store aria-hidden="true"/> : index+1}</span><span className="pdx-store-info"><strong>{offer.establishment}</strong><small><MapPin/>{offer.productBrand || "Marca não informada"} · {offer.productSize || "medida equivalente"}</small></span>{index===0 && !isSingleOffer && <em><BadgeCheck/>MENOR PREÇO</em>}<span className="pdx-offer-price"><strong>{brl.format(offer.value)}</strong><small>{formatDate(offer.capturedAt)}</small></span><ArrowRight/></Link>)}</div>
         </article>
 
-        <article className="pdx-card pdx-history-card"><header><div><span>EVOLUÇÃO DO PREÇO</span><h2>Histórico recente</h2></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceHistory product={product}/></article>
+        {hasHistory && <article className="pdx-card pdx-history-card"><header><div><span>EVOLUÇÃO DO PREÇO</span><h2>Histórico recente</h2></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceHistory product={product}/></article>}
       </section>
 
       <details className="pdx-tech-details">

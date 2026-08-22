@@ -228,7 +228,7 @@ export function HomeProfessional2026() {
       </section>
 
       <section className="hp-local hp-shell">
-        <div className="hp-local__copy"><h2>O comércio de Feijó, um por um.</h2><p>Veja quem já está no PreçoCerto ou cadastre seu negócio em poucos minutos.</p></div>
+        <div className="hp-local__copy"><h2>O comércio de Feijó, um por um.</h2><p>Veja quem já está no PreçoCerto ou cadastre seu estabelecimento em poucos minutos.</p></div>
         <div className="hp-local__media" aria-hidden="true" /><div className="hp-local__actions"><Link className="pc-btn" to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link><Link className="pc-btn" to="/lojista">Cadastrar meu negócio <ArrowRight /></Link></div>
       </section>
     </main>

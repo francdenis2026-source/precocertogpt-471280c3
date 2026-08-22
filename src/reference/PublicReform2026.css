@@ -69,7 +69,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .ref-store-card img, .ref-store-card svg { object-fit: contain; }
 
 /* Homepage: escala legível e fotografia com função, sem imagem decorativa
-   repetida atrás dos cards. Esta é a única camada final da home clara. */
+   repetida atrás dos cards. A composição é idêntica nos dois temas; somente
+   os tokens de superfície, texto e contraste mudam entre claro e escuro. */
 .hp-home {
   font-family: "Manrope Variable", Manrope, Inter, system-ui, sans-serif;
   font-size: 16px;
@@ -115,10 +116,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hp-home .hp-product-card h3 { font-size: 1rem !important; line-height: 1.35 !important; }
 .hp-home :where(.hp-search input,.hp-search__submit) { font-size: .9375rem !important; }
 
+html[data-theme="dark"] .hp-home .hp-hero__media,
 html:not([data-theme="dark"]) .hp-home .hp-hero__media {
   opacity: 1 !important;
   filter: saturate(1.06) contrast(1.08) brightness(.99) !important;
 }
+html[data-theme="dark"] .hp-home .hp-hero__veil,
 html:not([data-theme="dark"]) .hp-home .hp-hero__veil {
   background:
     linear-gradient(98deg,
@@ -134,6 +137,7 @@ html:not([data-theme="dark"]) .hp-home .hp-hero__veil {
       rgb(7 28 42 / 18%) 100%) !important;
 }
 
+html[data-theme="dark"] .hp-home .hp-story__media,
 html:not([data-theme="dark"]) .hp-home .hp-story__media {
   inset: 0 0 0 auto;
   width: 48%;
@@ -142,6 +146,7 @@ html:not([data-theme="dark"]) .hp-home .hp-story__media {
   background-position: 66% 50% !important;
   filter: saturate(1.04) contrast(1.08) brightness(.98) !important;
 }
+html[data-theme="dark"] .hp-home .hp-story__media::after,
 html:not([data-theme="dark"]) .hp-home .hp-story__media::after {
   content: "";
   position: absolute;
@@ -151,6 +156,7 @@ html:not([data-theme="dark"]) .hp-home .hp-story__media::after {
     linear-gradient(90deg, rgb(7 28 42 / 12%) 0%, transparent 30%),
     linear-gradient(180deg, transparent 54%, rgb(7 28 42 / 22%) 100%);
 }
+html[data-theme="dark"] .hp-home .hp-story,
 html:not([data-theme="dark"]) .hp-home .hp-story {
   width: min(calc(100% - 40px), 1180px);
   min-height: 430px;
@@ -161,6 +167,7 @@ html:not([data-theme="dark"]) .hp-home .hp-story {
   background: var(--pc-public-surface);
   box-shadow: var(--pc-public-shadow);
 }
+html[data-theme="dark"] .hp-home .hp-story::after,
 html:not([data-theme="dark"]) .hp-home .hp-story::after {
   background: linear-gradient(90deg,
     var(--pc-public-surface) 0%,
@@ -169,42 +176,50 @@ html:not([data-theme="dark"]) .hp-home .hp-story::after {
     color-mix(in srgb,var(--pc-public-surface) 42%,transparent) 55%,
     transparent 60%) !important;
 }
+html[data-theme="dark"] .hp-home .hp-story__content,
 html:not([data-theme="dark"]) .hp-home .hp-story__content {
   min-height: 430px;
   width: 100%;
   padding: 48px 52% 48px 48px;
 }
+html[data-theme="dark"] .hp-home .hp-story__content > span,
 html:not([data-theme="dark"]) .hp-home .hp-story__content > span {
   display: block;
   color: var(--pc-public-blue);
 }
+html[data-theme="dark"] .hp-home .hp-story ol,
 html:not([data-theme="dark"]) .hp-home .hp-story ol {
   width: 100%;
   grid-template-columns: 1fr;
   gap: 8px;
   margin: 24px 0 20px;
 }
+html[data-theme="dark"] .hp-home .hp-story li,
 html:not([data-theme="dark"]) .hp-home .hp-story li {
   min-height: 58px;
   padding: 10px 12px;
   border-color: var(--pc-public-border);
-  background: #f7fafb;
+  background: color-mix(in srgb, var(--pc-public-surface) 92%, var(--pc-public-bg));
 }
 
+html[data-theme="dark"] .hp-home :where(.hp-sectors, .hp-offers),
 html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers) {
   background-image: none !important;
 }
+html[data-theme="dark"] .hp-home :where(.hp-sectors, .hp-offers)::after,
 html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers)::after {
   content: none !important;
   background: none !important;
 }
 
+html[data-theme="dark"] .hp-home .hp-local__media,
 html:not([data-theme="dark"]) .hp-home .hp-local__media {
   position: relative;
   overflow: hidden;
   filter: saturate(1.06) contrast(1.08) brightness(.99);
   box-shadow: inset 0 0 0 1px rgb(12 47 69 / 12%), 0 12px 28px rgb(12 47 69 / 12%);
 }
+html[data-theme="dark"] .hp-home .hp-local__media::after,
 html:not([data-theme="dark"]) .hp-home .hp-local__media::after {
   content: "";
   position: absolute;
@@ -231,9 +246,11 @@ html:not([data-theme="dark"]) .hp-home .hp-local__media::after {
   .ref-footer__brand { grid-column: 1 / -1; }
   .ref-footer__grid nav:last-child { grid-column: auto; }
   .ref-footer__legal { align-items: flex-start; flex-direction: column; }
+  html[data-theme="dark"] .hp-home .hp-hero__media,
   html:not([data-theme="dark"]) .hp-home .hp-hero__media {
     filter: saturate(1.06) contrast(1.08) brightness(.98) !important;
   }
+  html[data-theme="dark"] .hp-home .hp-hero__veil,
   html:not([data-theme="dark"]) .hp-home .hp-hero__veil {
     background:
       linear-gradient(180deg,
@@ -242,26 +259,31 @@ html:not([data-theme="dark"]) .hp-home .hp-local__media::after {
         rgb(7 28 42 / 88%) 100%),
       linear-gradient(90deg, rgb(7 28 42 / 26%), transparent 72%) !important;
   }
+  html[data-theme="dark"] .hp-home .hp-story::after,
   html:not([data-theme="dark"]) .hp-home .hp-story::after {
     background: linear-gradient(180deg,transparent 0%,transparent 38%,var(--pc-public-surface) 50%) !important;
   }
+  html[data-theme="dark"] .hp-home .hp-story,
   html:not([data-theme="dark"]) .hp-home .hp-story {
     width: calc(100% - 28px);
     padding-top: 210px;
     border-radius: 18px;
   }
+  html[data-theme="dark"] .hp-home .hp-story__media,
   html:not([data-theme="dark"]) .hp-home .hp-story__media {
     inset: 0 0 auto;
     width: 100%;
     height: 230px;
     background-position: 70% 48% !important;
   }
+  html[data-theme="dark"] .hp-home .hp-story__media::after,
   html:not([data-theme="dark"]) .hp-home .hp-story__media::after {
     background: linear-gradient(180deg,
       rgb(7 28 42 / 4%) 0%,
       rgb(7 28 42 / 8%) 58%,
       rgb(7 28 42 / 32%) 100%);
   }
+  html[data-theme="dark"] .hp-home .hp-story__content,
   html:not([data-theme="dark"]) .hp-home .hp-story__content {
     min-height: 0;
     padding: 30px 20px 26px;

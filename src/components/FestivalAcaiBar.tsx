@@ -20,7 +20,10 @@ export function FestivalAcaiBar() {
     const inRange = now >= new Date(FESTIVAL_START).getTime() && now < new Date(FESTIVAL_END).getTime();
     let dismissed = false;
     try {
-      dismissed = window.localStorage.getItem(DISMISS_KEY) === "1";
+      // Versões anteriores salvavam o fechamento permanentemente. Removemos
+      // essa preferência antiga e mantemos o aviso fechado só nesta sessão.
+      window.localStorage.removeItem(DISMISS_KEY);
+      dismissed = window.sessionStorage.getItem(DISMISS_KEY) === "1";
     } catch {
       // Navegação privada ou storage bloqueado: trata como não dispensado.
     }
@@ -33,7 +36,7 @@ export function FestivalAcaiBar() {
 
   const dismiss = () => {
     try {
-      window.localStorage.setItem(DISMISS_KEY, "1");
+      window.sessionStorage.setItem(DISMISS_KEY, "1");
     } catch {
       // Sem storage disponível: a faixa some só nesta sessão.
     }

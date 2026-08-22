@@ -268,3 +268,10 @@ html[data-theme="dark"] .nx-basket { background: #283d9b; }
   .nx-basket a svg,
   .nx-local__copy a svg { transform: none !important; }
 }
+
+/* Fotografias editoriais integradas à identidade atual, sem competir com o conteúdo. */
+.nx-hero{background:linear-gradient(105deg,rgb(255 253 249 / 96%) 0 42%,rgb(248 245 239 / 84%) 64%,rgb(248 245 239 / 61%)),url('/hero-mercado-local-2026.webp') center 46%/cover no-repeat}.nx-hero::after{background:radial-gradient(circle at 82% 16%,rgb(238 157 33 / 15%),transparent 31%),linear-gradient(180deg,transparent 72%,var(--nx-bg))}html[data-theme="dark"] .nx-hero{background:linear-gradient(105deg,rgb(16 24 39 / 96%) 0 40%,rgb(16 24 39 / 80%) 62%,rgb(16 24 39 / 51%)),url('/hero-mercado-local-2026.webp') center 46%/cover no-repeat}html[data-theme="dark"] .nx-hero::after{background:radial-gradient(circle at 82% 16%,rgb(255 194 92 / 13%),transparent 31%),linear-gradient(180deg,transparent 70%,var(--nx-bg))}
+.nx-hero__visual{border-color:color-mix(in srgb,var(--nx-blue) 18%,var(--nx-line));box-shadow:0 24px 64px rgb(30 48 86 / 19%)}html[data-theme="dark"] .nx-hero__visual{box-shadow:0 26px 70px rgb(0 0 0 / 38%)}
+.nx-basket{background:radial-gradient(circle at 88% 10%,rgb(255 194 92 / 22%),transparent 31%),linear-gradient(145deg,rgb(49 86 217 / 91%),rgb(35 55 143 / 95%)),url('/hero-mercado-local-2026.webp') 78% center/cover no-repeat}html[data-theme="dark"] .nx-basket{background:radial-gradient(circle at 88% 10%,rgb(255 194 92 / 17%),transparent 31%),linear-gradient(145deg,rgb(48 73 183 / 90%),rgb(27 41 103 / 95%)),url('/hero-mercado-local-2026.webp') 78% center/cover no-repeat}
+.nx-footer{background:linear-gradient(90deg,rgb(38 56 111 / 97%),rgb(38 56 111 / 93%),rgb(31 47 97 / 97%)),url('/mercado-local-profissional.webp') center 58%/cover no-repeat}
+@media(max-width:720px){.nx-hero{background-position:62% center}.nx-basket{background-position:72% center}}

@@ -1,5 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, Info, MapPin, PackageSearch, Search, ShieldCheck, SlidersHorizontal, Store, Tag } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
@@ -12,6 +15,8 @@ import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
 import "./StoreExperienceAcai2026.css";
 import "./StoreSectorHero.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const PAGE_SIZE = 20;
@@ -94,6 +99,16 @@ export function StoreDetailProfessional() {
   const [sort, setSort] = useState<"name" | "price-asc" | "price-desc">("name");
   const [page, setPage] = useState(1);
   const [logoFailed, setLogoFailed] = useState(false);
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (loading || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".store-pro-logo, .store-pro-copy > *", { y: 18, opacity: 0, duration: .6, stagger: .06, ease: "power3.out" });
+    gsap.utils.toArray<HTMLElement>(".store-pro-notice, .store-pro-summary").forEach((el, index) => {
+      gsap.from(el, { y: 14, opacity: 0, duration: .5, delay: .1 + index * .05, ease: "power2.out" });
+    });
+    gsap.from(".store-pro-catalog", { scrollTrigger: { trigger: ".store-pro-catalog", start: "top 88%", once: true }, y: 22, opacity: 0, duration: .55, ease: "power2.out" });
+  }, { scope: pageRef, dependencies: [loading] });
 
   useEffect(() => {
     let active = true;
@@ -159,7 +174,7 @@ export function StoreDetailProfessional() {
   const mapsQuery = encodeURIComponent(getStoreMapQuery(store.name, store.neighborhood));
   const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
-  return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
+  return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`} ref={pageRef}>
     <PublicHeader current="stores" title={store.name} logo={showLogo ? logoUrl : undefined}/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline store-pro-topline--location-only">

@@ -6,7 +6,7 @@ import imagimacaoAsset from "../assets/uma-viagem-ao-mundo-da-imaginacao.png.ass
 import mentePerversaAsset from "../assets/mente-perversa.png.asset.json";
 import superacaoAsset from "../assets/uma-historia-de-superacao.png.asset.json";
 import despertarAsset from "../assets/o-despertar-para-o-mundo-literario.png.asset.json";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./DorinhaEditorialPage.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -36,7 +36,7 @@ export function DorinhaEditorialPage(){
  const share=async()=>{const data={title:"Dorinha Barroso · Literatura acreana",text:"Conheça os livros de Dorinha Barroso no PreçoCerto.",url:window.location.href};if(navigator.share){try{await navigator.share(data);return}catch{setCopied(false)}}try{await navigator.clipboard.writeText(window.location.href);setCopied(true);window.setTimeout(()=>setCopied(false),1600)}catch{setCopied(false)}};
  useGSAP(()=>{if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;gsap.from(".dorinha-editorial__hero-copy > *, .dorinha-editorial__portrait",{y:18,opacity:0,duration:.65,stagger:.07,ease:"power3.out"});gsap.utils.toArray<HTMLElement>(".dorinha-editorial__reveal").forEach(section=>gsap.from(section,{scrollTrigger:{trigger:section,start:"top 86%",once:true},y:24,opacity:0,duration:.6,ease:"power2.out"}))},{scope:pageRef});
  return <div className="dorinha-editorial" ref={pageRef}>
-  <PublicHeader/>
+  <PublicHeader backOnly title="Dorinha Barroso"/>
   <main id="conteudo-principal">
    <section className="dorinha-editorial__hero">
     <div className="dorinha-editorial__hero-bg" aria-hidden="true"/>
@@ -61,6 +61,5 @@ export function DorinhaEditorialPage(){
 
    <section className="dorinha-editorial__contact dorinha-editorial__reveal"><div><MessageCircle/><span>CONTATO DIRETO</span><h2>Encontre a próxima leitura.</h2><p>Converse com Dorinha para saber valores, disponibilidade e formas de receber os livros.</p></div><a href={whatsapp(phone)} target="_blank" rel="noreferrer">Falar com Dorinha <ArrowRight/></a><button type="button" onClick={share}><Share2/> {copied?"Link copiado":"Compartilhar página"}</button></section>
   </main>
-  <PublicFooter/>
  </div>
 }

@@ -1,5 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, BadgeCheck, Camera, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import {
@@ -16,6 +19,8 @@ import {
   type MenuItem,
 } from "../data/manualEstablishments";
 import "./KellyBurgueriaPage.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -40,6 +45,7 @@ const whatsappHref = `https://wa.me/${KELLY_WHATSAPP}?text=${encodeURIComponent(
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${KELLY_NAME}, ${KELLY_ADDRESS}`)}`;
 
 export function KellyBurgueriaPage() {
+  const pageRef = useRef<HTMLDivElement>(null);
   const groups = useMemo(() => {
     const byCategory = new Map<string, MenuItem[]>();
     for (const item of KELLY_MENU) {
@@ -50,8 +56,19 @@ export function KellyBurgueriaPage() {
     return KELLY_MENU_CATEGORIES.map(category => ({ category, items: byCategory.get(category) || [] })).filter(group => group.items.length);
   }, []);
 
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".kelly-hero__logo, .kelly-hero__copy > *", { y: 18, opacity: 0, duration: .6, stagger: .06, ease: "power3.out" });
+    gsap.utils.toArray<HTMLElement>(".kelly-info__card, .kelly-notice").forEach((el, index) => {
+      gsap.from(el, { y: 14, opacity: 0, duration: .5, delay: .1 + index * .04, ease: "power2.out" });
+    });
+    gsap.utils.toArray<HTMLElement>(".kelly-menu-group, .kelly-cta").forEach((section) => {
+      gsap.from(section, { scrollTrigger: { trigger: section, start: "top 90%", once: true }, y: 22, opacity: 0, duration: .55, ease: "power2.out" });
+    });
+  }, { scope: pageRef });
+
   return (
-    <div className="ref-page kelly-page">
+    <div className="ref-page kelly-page" ref={pageRef}>
       <PublicHeader current="stores" title={KELLY_NAME} logo="/branding/kelly-burgueria-logo.jpg?v=20260822" />
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>

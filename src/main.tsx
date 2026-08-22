@@ -8,9 +8,10 @@ import App from "./App";
 import "./reference/DesignSystem2.css";
 import "./reference/DesignSystem2Experience.css";
 
-const savedTheme = localStorage.getItem("theme");
-const initialTheme = savedTheme === "dark" ? "dark" : "light";
+const savedTheme = localStorage.getItem("theme") || localStorage.getItem("precocerto-theme");
+const initialTheme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : "dark";
 localStorage.setItem("theme", initialTheme);
+localStorage.setItem("precocerto-theme", initialTheme);
 document.documentElement.dataset.theme = initialTheme;
 document.documentElement.style.colorScheme = initialTheme;
 

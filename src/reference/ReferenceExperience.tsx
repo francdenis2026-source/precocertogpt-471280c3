@@ -168,13 +168,33 @@ export function Brand({ inverse = false }: { inverse?: boolean }) {
 export type FooterPanel = "contato" | "desenvolvedor" | null;
 
 export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClose: () => void }) {
+  const dialogRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!open) return;
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
-    document.addEventListener("keydown", closeOnEscape);
-    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener("keydown", closeOnEscape); };
+    const dialog = dialogRef.current;
+    const focusables = () => Array.from(dialog?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])') || []);
+    window.requestAnimationFrame(() => focusables()[0]?.focus());
+    const manageKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); onClose(); return; }
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) { event.preventDefault(); dialog?.focus(); return; }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", manageKeyboard);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", manageKeyboard);
+      previousFocusRef.current?.focus();
+    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -182,14 +202,14 @@ export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClos
   return createPortal(
     <div className="pc-dev-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
       {open === "contato"
-        ? <section className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title">
+        ? <section ref={dialogRef} className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title" tabIndex={-1}>
             <button className="pc-dev-close" type="button" aria-label="Fechar contato" onClick={onClose}><X /></button>
             <span className="pc-contact-icon"><Mail aria-hidden="true" /></span>
             <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre lojas virtuais ou suporte à plataforma.</p></div>
             <a className="pc-contact-email" href="mailto:precocerto-fj@proton.me"><Mail /> <span><small>E-mail</small><strong>precocerto-fj@proton.me</strong></span></a>
             <p className="pc-contact-note"><ShieldCheck /> Utilize este endereço para contatos relacionados ao PreçoCerto.</p>
           </section>
-        : <section className="pc-dev-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dev-title" aria-describedby="pc-dev-description">
+        : <section ref={dialogRef} className="pc-dev-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dev-title" aria-describedby="pc-dev-description" tabIndex={-1}>
             <button className="pc-dev-close" type="button" aria-label="Fechar informações" onClick={onClose}><X /></button>
             <header className="pc-dev-header">
               <span className="pc-dev-avatar"><Store aria-hidden="true" /></span>

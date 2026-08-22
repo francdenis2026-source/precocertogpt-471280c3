@@ -22,12 +22,12 @@ const readTheme = (): Theme => {
 };
 
 const categories = [
-  { name: "Mercados", copy: "Compras do dia", to: "/mercados", icon: ShoppingBasket, color: "#16845a" },
-  { name: "Açougues", copy: "Carnes e cortes", to: "/acougues", icon: Store, color: "#d45b4f" },
-  { name: "Padarias", copy: "Pães e salgados", to: "/padarias", icon: Croissant, color: "#d88a20" },
-  { name: "Lanchonetes", copy: "Lanches e pizzas", to: "/lanchonetes", icon: Store, color: "#e46f38" },
-  { name: "Farmácias", copy: "Saúde e cuidado", to: "/farmacias", icon: HeartPulse, color: "#139c93" },
-  { name: "Livros locais", copy: "Cultura de Feijó", to: "/livros", icon: BookOpen, color: "#7763c8" },
+  { name: "Mercados", copy: "Compras do dia", to: "/mercados", icon: ShoppingBasket, color: "#11875d" },
+  { name: "Açougues", copy: "Carnes e cortes", to: "/acougues", icon: Store, color: "#d94f45" },
+  { name: "Padarias", copy: "Pães e salgados", to: "/padarias", icon: Croissant, color: "#d98412" },
+  { name: "Lanchonetes", copy: "Lanches e pizzas", to: "/lanchonetes", icon: Store, color: "#e56335" },
+  { name: "Farmácias", copy: "Saúde e cuidado", to: "/farmacias", icon: HeartPulse, color: "#3156d9" },
+  { name: "Livros locais", copy: "Cultura de Feijó", to: "/livros", icon: BookOpen, color: "#7048c8" },
 ] as const;
 
 function ProductImage({ product, eager = false }: { product: Product; eager?: boolean }) {

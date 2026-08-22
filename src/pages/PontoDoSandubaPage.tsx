@@ -50,7 +50,11 @@ export function PontoDoSandubaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section className="kelly-hero sanduba-hero" aria-labelledby="sanduba-title">
+        <section
+          className="kelly-hero sanduba-hero"
+          aria-labelledby="sanduba-title"
+          style={{ backgroundImage: "url('/ponto-do-sanduba/hero-burgers.jpg?v=20260822-2')" }}
+        >
           <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/ponto-do-sanduba-logo.jpg?v=20260822" alt={`Logomarca ${SANDUBA_NAME}`} width="96" height="96" /></div>

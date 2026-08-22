@@ -1486,3 +1486,23 @@ html[data-theme="dark"] .dorinha-editorial {
     padding: 1.15rem !important;
   }
 }
+
+
+/* Foco de rota: remove apenas a moldura do container programaticamente focado.
+   Controles interativos continuam usando :focus-visible. */
+html body main[tabindex="-1"]:focus,
+html body main[tabindex="-1"]:focus-visible,
+html body [role="main"][tabindex="-1"]:focus,
+html body [role="main"][tabindex="-1"]:focus-visible {
+  outline: 0 !important;
+  outline-color: transparent !important;
+  box-shadow: none;
+}
+
+/* Acesso: texto auxiliar legível sem aumentar a altura da janela. */
+.ref-auth :where(small, span, p, label, a, button) {
+  font-size: max(.75rem, 1em) !important;
+}
+.ref-auth__card :where(p, small, span) {
+  opacity: 1 !important;
+}

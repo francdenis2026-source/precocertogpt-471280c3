@@ -1,14 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="72" viewBox="0 0 300 72" role="img" aria-labelledby="pc-title pc-desc">
-  <title id="pc-title">PreçoCerto</title>
-  <desc id="pc-desc">Marca vetorial clara PreçoCerto</desc>
-  <g aria-hidden="true">
-    <rect x="4" y="4" width="64" height="64" rx="15" fill="#F4FBFD"/>
-    <path d="M17 23a6 6 0 0 1 6-6h22.5a6 6 0 0 1 4.24 1.76l12.5 12.5a6 6 0 0 1 0 8.48L40.74 61.2a6 6 0 0 1-8.48 0L18.76 47.7A6 6 0 0 1 17 43.46Z" fill="#2AA6D6"/>
-    <circle cx="29" cy="29" r="4.2" fill="#F5C55A"/>
-    <path d="m31.5 43 7.2 7.2L52.5 36" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M57 54h8" stroke="#36C0B4" stroke-width="5" stroke-linecap="round"/>
-  </g>
-  <text x="82" y="46.5" fill="#FFFFFF" font-family="Outfit, Manrope, Arial, sans-serif" font-size="34" font-weight="720" letter-spacing="-1.15">Preço</text>
-  <text x="174" y="46.5" fill="#65DDD1" font-family="Outfit, Manrope, Arial, sans-serif" font-size="34" font-weight="720" letter-spacing="-1.15">Certo</text>
-  <rect x="268" y="23" width="7" height="7" rx="2" fill="#F5C55A"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="76" viewBox="0 0 320 76" role="img" aria-labelledby="title desc">
+  <title id="title">PreçoCerto</title><desc id="desc">Preço local confirmado perto de você</desc>
+  <g aria-hidden="true"><rect x="3" y="3" width="70" height="70" rx="22" fill="#F8F5EF"/><path d="M38 10c-16.2 0-28 11.4-28 27.1 0 18.7 23.1 30.3 26.9 32.1.7.3 1.5.3 2.2 0C42.9 67.4 66 55.8 66 37.1 66 21.4 54.2 10 38 10Z" fill="#3156D9"/><circle cx="38" cy="35" r="14.5" fill="#FFFDF9"/><path d="m29.5 35.2 5.6 5.7 11.8-12" fill="none" stroke="#11875D" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="58.5" cy="19" r="5.5" fill="#FFC25C" stroke="#FFFDF9" stroke-width="2.5"/></g>
+  <g aria-hidden="true" font-family="Outfit, Manrope, Arial, sans-serif" font-size="36" font-weight="760" letter-spacing="-1.35"><text x="88" y="48.5" fill="#FFFFFF">Preço</text><text x="190" y="48.5" fill="#A9BCFF">Certo</text></g><path d="M192 59h73" stroke="#4DD2B5" stroke-width="4" stroke-linecap="round" aria-hidden="true"/><circle cx="279" cy="24" r="4" fill="#FFC25C" aria-hidden="true"/>
 </svg>

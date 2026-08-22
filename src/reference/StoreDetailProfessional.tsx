@@ -5,6 +5,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
+import { getStoreAddress, getStoreMapQuery } from "../data/storeAddresses";
 import { normalizeStoreKind } from "../data/sectorCatalog";
 import { marketplaceSectors } from "./MarketplaceSectors";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
@@ -154,14 +155,15 @@ export function StoreDetailProfessional() {
   // sempre na busca do mapa evita que o Google Maps resolva o nome da loja
   // para outro lugar do Brasil (ou não encontre nada) quando o nome sozinho
   // é ambíguo ou pouco conhecido fora da cidade.
-  const mapsQuery = encodeURIComponent(`${store.name}, ${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó - AC, 69960-000, Brasil`);
+  const fullAddress = getStoreAddress(store.name);
+  const mapsQuery = encodeURIComponent(getStoreMapQuery(store.name, store.neighborhood));
   const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <PublicHeader current="stores" title={store.name} logo={showLogo ? logoUrl : undefined}/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline store-pro-topline--location-only">
-        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000</a>
+        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {fullAddress || `${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000`}</a>
       </div>
 
       <section

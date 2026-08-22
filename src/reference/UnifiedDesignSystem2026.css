@@ -1024,3 +1024,83 @@ html[data-theme="dark"] {
     box-shadow: 0 18px 38px rgb(16 35 50 / 14%);
   }
 }
+
+
+/* Correção pós-auditoria: contraste do hero e busca em ambos os temas. */
+.hp-home .hp-hero__copy :where(h1, h2) {
+  color: #ffffff !important;
+  text-shadow: 0 3px 22px rgb(0 0 0 / 36%);
+}
+.hp-home .hp-hero__copy :where(p, .hp-eyebrow) {
+  color: #dceaf1 !important;
+  opacity: 1 !important;
+  text-shadow: 0 2px 16px rgb(0 0 0 / 48%);
+}
+.hp-home .hp-hero__copy h1 :where(span, em, strong) {
+  color: #9fdfbe !important;
+}
+.hp-home .hp-search {
+  background: rgb(255 255 255 / 96%) !important;
+  border: 1px solid rgb(255 255 255 / 72%) !important;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 22%) !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-search :where(input) {
+  color: #132534 !important;
+  background: transparent !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-search :where(input)::placeholder {
+  color: #5b6975 !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-search__submit {
+  color: #ffffff !important;
+  background: #2868d8 !important;
+  border-color: #2868d8 !important;
+}
+.hp-home .hp-search__submit:hover {
+  background: #1e54b5 !important;
+}
+
+/* Barra editorial superior: elimina a faixa clara vazia. */
+.hp-home .pc-festival-bar {
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 78% 20%, rgb(40 104 216 / 34%), transparent 34%),
+    linear-gradient(105deg, #30204f, #123f55 58%, #0d513f) !important;
+  border: 0 !important;
+}
+.hp-home .pc-festival-bar :where(span, strong, a, button) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.hp-home .pc-festival-bar a {
+  background: rgb(255 255 255 / 14%) !important;
+  border: 1px solid rgb(255 255 255 / 22%) !important;
+}
+
+/* Compactação real do rodapé principal. */
+.hp-home .hp-footer__inner {
+  padding-block: 1rem !important;
+  gap: clamp(.875rem, 2vw, 1.5rem) !important;
+  align-items: start !important;
+}
+.hp-home .hp-footer__identity :where(p) {
+  margin-block: .35rem .6rem !important;
+  line-height: 1.4 !important;
+}
+.hp-home .hp-footer__nav {
+  gap: .35rem .9rem !important;
+}
+.hp-home .hp-footer__nav :where(a) {
+  min-height: 28px !important;
+  line-height: 1.25 !important;
+}
+.hp-home .hp-footer__meta {
+  margin-top: .65rem !important;
+  padding-top: .65rem !important;
+}
+.hp-home .hp-footer__panel-triggers {
+  gap: .4rem !important;
+}

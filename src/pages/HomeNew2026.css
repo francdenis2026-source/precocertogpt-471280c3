@@ -8,7 +8,7 @@ html[data-theme="dark"] .nx-home{--nx-bg:#101827;--nx-surface:#19253a;--nx-soft:
 
 .nx-home>main{padding-top:66px}.nx-header{position:fixed;z-index:100;top:0;right:0;left:0;isolation:isolate;border-bottom:1px solid color-mix(in srgb,var(--nx-line) 58%,transparent);background:linear-gradient(90deg,color-mix(in srgb,var(--nx-surface) 74%,transparent),color-mix(in srgb,var(--nx-surface) 63%,transparent),color-mix(in srgb,var(--nx-surface) 74%,transparent));box-shadow:0 10px 32px rgb(23 32 51 / 10%);backdrop-filter:blur(22px) saturate(1.38);-webkit-backdrop-filter:blur(22px) saturate(1.38)}.nx-header::after{position:absolute;z-index:-1;right:0;bottom:0;left:0;height:1px;content:"";background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--nx-blue) 44%,transparent),color-mix(in srgb,var(--nx-amber) 35%,transparent),transparent);pointer-events:none}html[data-theme="dark"] .nx-header{border-bottom-color:rgb(134 164 255 / 18%);background:linear-gradient(90deg,rgb(25 37 58 / 76%),rgb(25 37 58 / 61%),rgb(25 37 58 / 76%));box-shadow:0 12px 34px rgb(0 0 0 / 24%)}
 .nx-header__inner{height:66px;display:flex;align-items:center;justify-content:space-between;gap:24px}.nx-brand{display:flex;align-items:center;gap:12px;flex:none}.nx-brand img{display:block;width:150px;height:auto}.nx-brand>span{display:flex;align-items:center;gap:5px;padding-left:12px;border-left:1px solid var(--nx-line);color:var(--nx-muted);font-size:11px;font-weight:750}.nx-brand>span svg{width:14px;height:14px;color:var(--nx-blue)}
-html[data-theme="dark"] .nx-brand img{content:url('/logo-preco-certo-inversa.svg?v=9')}
+html[data-theme="dark"] .nx-brand img{content:url('/logo-preco-certo-inversa.svg?v=10')}
 .nx-header nav{display:flex;align-items:center;gap:2px}.nx-header nav a{min-height:40px;display:flex;align-items:center;padding:0 10px;border-radius:9px;color:var(--nx-muted);font-size:12.5px;font-weight:750;transition:background .18s ease,color .18s ease}.nx-header nav a:hover{background:var(--nx-soft);color:var(--nx-text)}
 .nx-header__actions{display:flex;align-items:center;gap:7px}.nx-theme,.nx-menu{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--nx-line);border-radius:10px;background:var(--nx-surface);color:var(--nx-text);cursor:pointer}.nx-theme svg,.nx-menu svg{width:18px}.nx-login{min-height:40px;display:flex;align-items:center;padding:0 16px;border-radius:10px;background:var(--nx-blue);color:#fff;font-size:12.5px;font-weight:850}.nx-menu{display:none}
 
@@ -50,3 +50,112 @@ html[data-theme="dark"] .nx-hero__photo{background:linear-gradient(180deg,rgb(5 
 .nx-footer{background:#26386f}.nx-footer__brand p,.nx-footer__meta{color:#dfe6ff}.nx-footer nav a,.nx-footer nav button{color:#f4f6ff}
 @media(max-width:720px){.nx-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nx-product-card--loading{height:190px}.nx-local-band{padding:24px 0 88px;background-position:38% center}.nx-local__copy{width:100%;padding:22px}}
 @media(prefers-reduced-motion:reduce){.nx-home *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Impeccable: acabamento profissional, compacto e com menos camadas visuais. */
+.nx-home {
+  --nx-bg: #f5f6f8;
+  --nx-surface: #fff;
+  --nx-soft: #eef1f7;
+  --nx-text: #182033;
+  --nx-muted: #626c7e;
+  --nx-line: #dfe3ea;
+  --nx-shadow: 0 18px 48px rgb(24 32 51 / 9%);
+}
+
+html[data-theme="dark"] .nx-home {
+  --nx-bg: #10151f;
+  --nx-surface: #181f2c;
+  --nx-soft: #222b3c;
+  --nx-text: #f4f6fa;
+  --nx-muted: #afb7c7;
+  --nx-line: #343e50;
+}
+
+html.nx-home-active { scrollbar-width: auto; }
+html.nx-home-active::-webkit-scrollbar { width: auto; height: auto; }
+.nx-shell { width: min(1160px, calc(100% - 40px)); }
+.nx-header { border-bottom: 1px solid var(--nx-line); background: color-mix(in srgb, var(--nx-surface) 95%, transparent); box-shadow: none; backdrop-filter: blur(12px); }
+.nx-header::after { display: none; }
+.nx-header__inner { height: 64px; }
+.nx-header nav a, .nx-theme, .nx-menu, .nx-login { min-height: 44px; }
+.nx-theme, .nx-menu { width: 44px; height: 44px; }
+
+.nx-home > main { padding-top: 64px; }
+.nx-hero { padding: 34px 0 38px; background: var(--nx-surface); }
+.nx-hero::before, .nx-hero::after { display: none; }
+.nx-hero__grid { gap: 46px; min-height: 430px; }
+.nx-hero__copy { padding: 24px 0; }
+.nx-hero h1 { max-width: 660px; margin-top: 0; font-size: clamp(3rem, 5.4vw, 4.8rem); line-height: .98; text-wrap: balance; }
+.nx-hero h1 em { color: var(--nx-blue); }
+.nx-hero__copy > p { max-width: 570px; margin: 18px 0 22px; font-size: 16px; line-height: 1.6; }
+.nx-search { min-height: 60px; border: 1px solid color-mix(in srgb, var(--nx-blue) 34%, var(--nx-line)); border-radius: 14px; box-shadow: 0 10px 28px rgb(24 32 51 / 8%); }
+.nx-search__submit { height: 48px; }
+.nx-hero__links a { min-height: 32px; display: inline-flex; align-items: center; }
+.nx-hero__visual { min-height: 410px; border: 0; border-radius: 20px; box-shadow: var(--nx-shadow); }
+.nx-hero__photo { filter: none; transition: none; }
+.nx-hero__visual:hover .nx-hero__photo { transform: none; }
+.nx-deal { border: 0; background: var(--nx-surface); box-shadow: 0 12px 30px rgb(24 32 51 / 14%); backdrop-filter: none; }
+html[data-theme="dark"] .nx-deal { background: var(--nx-surface); }
+
+.nx-catalog-band, html[data-theme="dark"] .nx-catalog-band { background: var(--nx-bg); }
+.nx-catalog-band::before { display: none; }
+.nx-categories { padding-top: 30px; }
+.nx-section-title > div > span, .nx-basket > span, .nx-local__copy > span { letter-spacing: .04em; }
+.nx-category-grid { gap: 10px; }
+.nx-category-grid > a { min-height: 86px; border-radius: 12px; transition: border-color 160ms ease, background 160ms ease; }
+.nx-category-grid > a:hover { transform: none; }
+.nx-category-grid strong { font-size: 13px; }
+.nx-category-grid small { font-size: 11px; }
+
+.nx-market { grid-template-columns: minmax(0, 8fr) minmax(290px, 4fr); gap: 16px; padding: 32px 0 38px; }
+.nx-market__products { padding: 22px; border-radius: 18px; }
+.nx-product-grid { gap: 12px; }
+.nx-product-card { border-radius: 12px; transition: border-color 160ms ease; }
+.nx-product-card:hover { box-shadow: none; }
+.nx-product-card__media { height: 118px; padding: 14px; }
+.nx-product-card__media img { max-height: 92px; transition: none; }
+.nx-product-card:hover img { transform: none; }
+.nx-product-card__copy { min-height: 132px; padding: 12px; }
+.nx-product-card__copy > small { font-size: 10px; }
+.nx-product-card h3 { min-height: 35px; font-size: 14px; }
+.nx-product-card p { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nx-product-card footer { padding-top: 9px; }
+.nx-product-card footer small { font-size: 10px; }
+.nx-product-card footer strong { font-size: 18px; }
+.nx-product-card__action { color: var(--nx-blue); display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; }
+.nx-product-card__action svg { width: 14px; }
+.nx-product-card--loading { height: 250px; }
+.nx-basket { padding: 28px; border-radius: 18px; background: #3048b6; box-shadow: none; }
+html[data-theme="dark"] .nx-basket { background: #283d9b; }
+.nx-basket h2 { text-shadow: none; }
+.nx-basket a:last-child { text-decoration: none; }
+
+.nx-local-band, html[data-theme="dark"] .nx-local-band { padding: 34px 0; background: var(--nx-surface); }
+.nx-local-band .nx-local { min-height: auto; justify-content: center; }
+.nx-local__copy { width: min(760px, 100%); padding: 34px; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; text-align: center; }
+.nx-local p { margin-inline: auto; }
+.nx-local__copy > div { justify-content: center; }
+.nx-footer { background: #202d5d; }
+
+@media (max-width: 1020px) {
+  .nx-hero__grid { gap: 28px; }
+  .nx-market { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .nx-shell { width: min(100% - 24px, 1160px); }
+  .nx-home > main { padding-top: 60px; }
+  .nx-hero { padding: 22px 0 24px; }
+  .nx-hero__grid { gap: 18px; }
+  .nx-hero__copy { padding: 10px 0 2px; }
+  .nx-hero h1 { font-size: clamp(2.65rem, 12.6vw, 3.8rem); }
+  .nx-hero__copy > p { font-size: 15px; }
+  .nx-hero__visual { min-height: 330px; }
+  .nx-category-grid > a { min-height: 78px; }
+  .nx-product-card__media { height: 105px; }
+  .nx-product-card__copy { min-height: 124px; }
+  .nx-product-card__action { font-size: 0; }
+  .nx-market__products { padding: 14px; }
+  .nx-local__copy { padding: 24px 12px; }
+  .nx-local__copy > div { display: grid; }
+}

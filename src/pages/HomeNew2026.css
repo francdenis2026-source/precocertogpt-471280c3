@@ -278,3 +278,8 @@ html[data-theme="dark"] .nx-basket { background: #283d9b; }
 
 /* Contraste reforçado das ações da faixa local no tema escuro. */
 html[data-theme="dark"] .nx-local__copy a:first-child{border-color:#52d4b8;background:#08705c;color:#fff;box-shadow:0 9px 24px rgb(0 0 0 / 26%)}html[data-theme="dark"] .nx-local__copy a:first-child:hover{border-color:#73e2c8;background:#075b4c}html[data-theme="dark"] .nx-local__copy a:not(:first-child){border-color:#596b8d;background:rgb(25 37 58 / 84%);color:#f8f5ef}html[data-theme="dark"] .nx-local__copy a:not(:first-child):hover{border-color:#86a4ff;background:#243250}
+
+
+/* Navegação institucional completa sem aumentar a altura do footer. */
+.nx-footer__links{min-width:0;display:grid;grid-template-columns:.8fr 1fr 1.2fr;align-items:center;gap:18px}.nx-footer__links nav{min-width:0;display:grid;align-content:center;justify-content:stretch;gap:3px}.nx-footer__links nav strong{color:#fff1d1;font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.nx-footer__links nav span{display:flex;flex-wrap:wrap;gap:2px 9px}.nx-footer__links nav a,.nx-footer__links nav button{min-height:0;padding:0;color:#f4f6ff;font-size:8.5px;line-height:1.25;white-space:nowrap}.nx-footer__links nav a:hover,.nx-footer__links nav button:hover{color:#ffc25c}
+@media(max-width:1020px){.nx-footer__main{grid-template-columns:auto 1fr}.nx-footer__brand p,.nx-footer__meta{display:none}.nx-footer__links{gap:12px}.nx-footer__links nav a,.nx-footer__links nav button{font-size:8px}}

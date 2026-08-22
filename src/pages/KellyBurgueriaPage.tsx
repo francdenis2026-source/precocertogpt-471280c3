@@ -72,7 +72,7 @@ export function KellyBurgueriaPage() {
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
         <section className="kelly-hero kelly-hero--banner" aria-label={`${KELLY_NAME}, lanchonete e hamburgueria em Feijó`}>
-          <img src="/kelly-burgueria/kelly-hero-banner.jpg?v=20260822" alt="Kelly Burgueria — hambúrgueres artesanais, carne na chapa e panquecas em Bela Vista, Feijó" width="1600" height="600" />
+          <img src="/kelly-burgueria/kelly-hero-banner.jpg?v=20260822b" alt="Kelly Burgueria — hambúrgueres artesanais, carne na chapa e panquecas em Bela Vista, Feijó" width="1600" height="600" />
         </section>
 
         <section className="kelly-info" aria-label="Informações do estabelecimento">

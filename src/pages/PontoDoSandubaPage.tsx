@@ -72,7 +72,7 @@ export function PontoDoSandubaPage() {
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
         <section className="kelly-hero kelly-hero--banner sanduba-hero" aria-label={`${SANDUBA_NAME}, lanchonete e hamburgueria em Feijó`}>
-          <img src="/ponto-do-sanduba/ponto-do-sanduba-hero-banner.jpg?v=20260822" alt="Ponto do Sanduba — x-tudo, sanduíches especiais e lanches rápidos no Centro de Feijó" width="1600" height="600" />
+          <img src="/ponto-do-sanduba/ponto-do-sanduba-hero-banner.jpg?v=20260822b" alt="Ponto do Sanduba — x-tudo, sanduíches especiais e lanches rápidos no Centro de Feijó" width="1600" height="600" />
         </section>
 
         <section className="kelly-info" aria-label="Informações do estabelecimento">

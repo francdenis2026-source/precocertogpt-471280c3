@@ -1,12 +1,11 @@
 import { CSSProperties, FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BadgeCheck, BookOpen, Croissant, HeartPulse, MapPin, Menu, MessageCircle, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, UserRound, X, Scale, Sandwich } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X, Scale, Sandwich } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
 import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -20,21 +19,21 @@ const readTheme = (): Theme => {
   return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
-function ProductImage({ product, eager = false, preferCutout = false }: { product: Product; eager?: boolean; preferCutout?: boolean }) {
-  const source = (preferCutout && resolveCutoutImage(product)) || resolveProductImage(product);
+function ProductImage({ product, eager = false }: { product: Product; eager?: boolean }) {
+  const source = resolveCutoutImage(product) || resolveProductImage(product);
   const [failed, setFailed] = useState(false);
   return source && !failed
-    ? <img src={source} alt={product.name} width="280" height="240" loading={eager ? "eager" : "lazy"} decoding="async" fetchPriority={eager ? "high" : "auto"} onError={() => setFailed(true)} />
-    : <span className="hp-product-fallback"><PackageSearch aria-hidden="true" /><small>Imagem em atualização</small></span>;
+    ? <img src={source} alt={product.name} width="180" height="180" loading={eager ? "eager" : "lazy"} decoding="async" fetchPriority={eager ? "high" : "auto"} onError={() => setFailed(true)} />
+    : <span className="hc-product-fallback"><PackageSearch aria-hidden="true" /><small>Sem imagem</small></span>;
 }
 
 const sectors = [
-  { label: "Mercados", detail: "Compra do mês", icon: ShoppingBasket, to: "/mercados", color: "#168458" },
-  { label: "Açougues", detail: "Carnes e cortes", icon: Scale, to: "/acougues", color: "#b94b42" },
-  { label: "Padarias", detail: "Pães e salgados", icon: Croissant, to: "/padarias", color: "#b07122" },
-  { label: "Lanchonetes", detail: "Lanches e pizzas", icon: Sandwich, to: "/lanchonetes", color: "#d45b32" },
-  { label: "Farmácias", detail: "Saúde e cuidado", icon: HeartPulse, to: "/farmacias", color: "#168095" },
-  { label: "Livros locais", detail: "Cultura acreana", icon: BookOpen, to: "/livros", color: "#6c5caf" },
+  { label: "Mercados", icon: ShoppingBasket, to: "/mercados", color: "#168fd0" },
+  { label: "Açougues", icon: Scale, to: "/acougues", color: "#d2574c" },
+  { label: "Padarias", icon: Croissant, to: "/padarias", color: "#c47b24" },
+  { label: "Lanchonetes", icon: Sandwich, to: "/lanchonetes", color: "#e05f37" },
+  { label: "Farmácias", icon: HeartPulse, to: "/farmacias", color: "#168f83" },
+  { label: "Livros", icon: BookOpen, to: "/livros", color: "#7264b8" },
 ] as const;
 
 export function HomeProfessional2026() {
@@ -47,7 +46,6 @@ export function HomeProfessional2026() {
   const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>(readTheme);
-  const [footerPanel, setFooterPanel] = useState<FooterPanel>(null);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -72,7 +70,7 @@ export function HomeProfessional2026() {
     const timer = window.setTimeout(() => setCycle(currentCycle()), msUntilNextCycle() + 250);
     return () => window.clearTimeout(timer);
   }, [cycle]);
-  const featured = useMemo(() => buildFeatured(products, cycle, 5), [products, cycle]);
+  const featured = useMemo(() => buildFeatured(products, cycle, 4), [products, cycle]);
   const spotlight = featured[0];
   const searchOpen = searchFocused && query.trim().length >= 2;
 
@@ -119,84 +117,72 @@ export function HomeProfessional2026() {
     } else if (event.key === "Escape") { event.preventDefault(); setSearchFocused(false); setActiveSearchIndex(-1); }
   };
 
-  return <div className="hp-home-v2">
-    <header className="hp-header">
-      <div className="hp-shell hp-header__inner">
-        <Link className="hp-brand" to="/" aria-label="PreçoCerto, página inicial">
-          <img className="hp-brand__light" src="/logo-preco-certo.svg?v=9" alt="PreçoCerto" width="142" height="36" />
-          <img className="hp-brand__dark" src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="142" height="36" />
-          <small>Feijó · Acre</small>
+  return <div className="hc-home">
+    <header className="hc-header">
+      <div className="hc-shell hc-header__inner">
+        <Link className="hc-brand" to="/" aria-label="PreçoCerto, página inicial">
+          <img className="hc-brand__light" src="/logo-preco-certo.svg?v=9" alt="PreçoCerto" width="142" height="36" />
+          <img className="hc-brand__dark" src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="142" height="36" />
         </Link>
-        <nav id="hp-main-navigation" className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
-          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/explorar" onClick={() => setMenuOpen(false)}>Onde comprar</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link><Link to="/cesta-inteligente" onClick={() => setMenuOpen(false)}>Cesta inteligente</Link>
+        <nav id="hc-main-navigation" className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
+          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar</Link><Link to="/explorar" onClick={() => setMenuOpen(false)}>Categorias</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas</Link><Link to="/cesta-basica" onClick={() => setMenuOpen(false)}>Minha cesta</Link>
         </nav>
-        <div className="hp-header__actions">
-          <button className="hp-theme" type="button" onClick={() => setTheme(value => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>{theme === "dark" ? <Sun /> : <Moon />}<span>{theme === "dark" ? "Claro" : "Escuro"}</span></button>
-          <Link className="hp-login" to="/login">Entrar</Link>
-          <button ref={menuButtonRef} className="hp-menu" type="button" aria-expanded={menuOpen} aria-controls="hp-main-navigation" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X /> : <Menu />}</button>
+        <div className="hc-header__actions">
+          <button className="hc-theme" type="button" onClick={() => setTheme(value => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>{theme === "dark" ? <Sun /> : <Moon />}</button>
+          <Link className="hc-login" to="/login">Entrar</Link>
+          <button ref={menuButtonRef} className="hc-menu" type="button" aria-expanded={menuOpen} aria-controls="hc-main-navigation" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X /> : <Menu />}</button>
         </div>
       </div>
     </header>
 
     <main id="conteudo-principal">
-      {searchOpen && <button className="hp-search-scrim" type="button" onClick={() => setSearchFocused(false)} aria-label="Fechar resultados da pesquisa" />}
-      <section className="hp-hero" onPointerDown={event => { if (searchOpen && !(event.target as HTMLElement).closest(".hp-search")) setSearchFocused(false); }}>
-        <div className="hp-shell hp-hero__layout">
-          <div className="hp-hero__copy">
-            <span className="hp-eyebrow"><MapPin /> Inteligência de preços em Feijó</span>
-            <h1>O preço certo.<br /><em>Perto de você.</em></h1>
-            <p>Compare produtos e estabelecimentos locais antes de sair de casa. Informação clara para comprar com mais confiança.</p>
-            <form className="hp-search" role="search" onSubmit={submitSearch} onFocus={() => setSearchFocused(true)}>
-              <Search aria-hidden="true" /><label className="sr-only" htmlFor="hp-search-input">Buscar produto, marca ou categoria</label>
-              <input id="hp-search-input" value={query} onChange={event => { setQuery(event.target.value); setActiveSearchIndex(-1); }} onKeyDown={handleSearchKeyDown} placeholder="Busque arroz, café, leite…" autoComplete="off" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="hp-search-results" aria-activedescendant={activeSearchIndex >= 0 ? `hp-search-result-${activeSearchIndex}` : undefined} />
-              {query && <button className="hp-search__clear" type="button" onClick={() => setQuery("")} aria-label="Limpar pesquisa"><X /></button>}
-              <button className="hp-search__submit" type="submit">Comparar <ArrowRight /></button>
-              {searchOpen && <div id="hp-search-results" className="hp-search-results" role="listbox">
-                <header><strong>Resultados rápidos</strong><span aria-live="polite">{suggestions.length} encontrados</span></header>
+      {searchOpen && <button className="hc-search-scrim" type="button" onClick={() => setSearchFocused(false)} aria-label="Fechar resultados da pesquisa" />}
+      <section className="hc-hero" onPointerDown={event => { if (searchOpen && !(event.target as HTMLElement).closest(".hc-search")) setSearchFocused(false); }}>
+        <div className="hc-shell hc-hero__frame">
+          <div className="hc-hero__copy">
+            <span className="hc-eyebrow"><MapPin /> Feijó, Acre</span>
+            <h1>Compare preços.<br />Compre melhor.</h1>
+            <p>Encontre produtos e preços do comércio local em poucos segundos.</p>
+            <form className="hc-search" role="search" onSubmit={submitSearch} onFocus={() => setSearchFocused(true)}>
+              <Search aria-hidden="true" /><label className="sr-only" htmlFor="hc-search-input">Buscar produto, marca ou categoria</label>
+              <input id="hc-search-input" value={query} onChange={event => { setQuery(event.target.value); setActiveSearchIndex(-1); }} onKeyDown={handleSearchKeyDown} placeholder="O que você procura?" autoComplete="off" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="hc-search-results" aria-activedescendant={activeSearchIndex >= 0 ? `hc-search-result-${activeSearchIndex}` : undefined} />
+              {query && <button className="hc-search__clear" type="button" onClick={() => setQuery("")} aria-label="Limpar pesquisa"><X /></button>}
+              <button className="hc-search__submit" type="submit">Buscar <ArrowRight /></button>
+              {searchOpen && <div id="hc-search-results" className="hc-search-results" role="listbox">
+                <header><strong>Sugestões</strong><span aria-live="polite">{suggestions.length} resultados</span></header>
                 {suggestions.length ? suggestions.map((product, index) => {
                   const store = product.establishment || "Comércio local";
                   const logo = getStoreLogoUrl(store);
-                  return <button id={`hp-search-result-${index}`} type="button" key={product.id} role="option" aria-selected={activeSearchIndex === index} className={activeSearchIndex === index ? "is-keyboard-active" : undefined} onMouseEnter={() => setActiveSearchIndex(index)} onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}>
-                    <i><ProductImage product={product} /></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{logo ? <img src={logo} alt="" aria-hidden="true" loading="lazy" /> : <Store />}{store}</em></span><b>{brl.format(product.minPrice)}</b><ArrowRight />
-                  </button>;
-                }) : <div className="hp-search-results__empty"><PackageSearch /><span><strong>Nenhum resultado</strong><small>Tente uma palavra mais curta, como “arroz”.</small></span></div>}
-                <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Abrir busca completa <ArrowRight /></Link>
+                  return <button id={`hc-search-result-${index}`} type="button" key={product.id} role="option" aria-selected={activeSearchIndex === index} className={activeSearchIndex === index ? "is-active" : undefined} onMouseEnter={() => setActiveSearchIndex(index)} onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}><i><ProductImage product={product} /></i><span><strong>{product.name}</strong><small>{logo ? <img src={logo} alt="" aria-hidden="true" loading="lazy" /> : <Store />}{store}</small></span><b>{brl.format(product.minPrice)}</b><ArrowRight /></button>;
+                }) : <div className="hc-search-results__empty"><PackageSearch /><span><strong>Não encontramos esse produto</strong><small>Tente uma palavra curta, como arroz ou leite.</small></span></div>}
+                <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Ver busca completa <ArrowRight /></Link>
               </div>}
             </form>
-            <div className="hp-quick-searches"><span>Mais buscados</span>{["Arroz", "Café", "Leite", "Limpeza"].map(item => <Link key={item} to={`/buscar?q=${item.toLowerCase()}`}>{item}</Link>)}</div>
+            <div className="hc-quick">{["Arroz", "Café", "Leite", "Limpeza"].map(item => <Link key={item} to={`/buscar?q=${item.toLowerCase()}`}>{item}</Link>)}</div>
           </div>
-
-          <div className="hp-hero__visual">
-            <div className="hp-hero__photo" role="img" aria-label="Cliente pesquisando preços em um mercado local" />
-            <aside className="hp-spotlight" aria-label="Preço em destaque">
-              <header><span><i /> Radar de preços</span><small>Atualização local</small></header>
-              {loading ? <div className="hp-spotlight__loading" aria-busy="true"><i /><i /><i /></div> : spotlight ? <>
-                <div className="hp-spotlight__product"><div><ProductImage product={spotlight} eager preferCutout /></div><span><small>{spotlight.category}</small><strong>{spotlight.name}</strong><em>{spotlight.size || spotlight.brand}</em></span></div>
-                <div className="hp-spotlight__price"><span><small>A partir de</small><strong>{brl.format(spotlight.minPrice)}</strong></span><span><small>Economia possível</small><b>{brl.format(Math.max(0, spotlight.maxPrice - spotlight.minPrice))}</b></span></div>
-                <Link to={`/produto/${spotlight.slug || spotlight.id}`}>Ver comparação <ArrowRight /></Link>
-              </> : <div className="hp-spotlight__empty">Novos preços serão exibidos aqui.</div>}
-            </aside>
+          <div className="hc-hero__photo" role="img" aria-label="Cliente comparando o preço de um produto em um mercado local">
+            {spotlight && !loading && <Link className="hc-price-ticket" to={`/produto/${spotlight.slug || spotlight.id}`}><span><ProductImage product={spotlight} eager /></span><div><small>Menor preço encontrado</small><strong>{brl.format(spotlight.minPrice)}</strong><em>{spotlight.name}</em></div><ArrowRight /></Link>}
           </div>
         </div>
-        <div className="hp-shell hp-trust"><span><BadgeCheck /> Dados do comércio local</span><dl><div><dt>{compact.format(catalog.metrics.products)}+</dt><dd>produtos</dd></div><div><dt>{compact.format(catalog.metrics.prices)}+</dt><dd>preços</dd></div><div><dt>{catalog.metrics.stores}+</dt><dd>estabelecimentos</dd></div></dl></div>
       </section>
 
-      <section className="hp-sectors hp-shell" aria-labelledby="hp-sectors-title">
-        <div className="hp-section-head"><div><span>Explore Feijó</span><h2 id="hp-sectors-title">Comércio local, organizado.</h2><p>Vá direto ao tipo de estabelecimento que você procura.</p></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
-        <div className="hp-sector-grid">{sectors.map(({ label, detail, icon: Icon, to, color }) => <Link to={to} key={label} style={{ "--sector-accent": color } as CSSProperties}><i><Icon /></i><span><strong>{label}</strong><small>{detail}</small></span><ArrowRight /></Link>)}</div>
+      <section className="hc-discovery hc-shell" aria-label="Categorias e cobertura">
+        <div className="hc-sectors">{sectors.map(({ label, icon: Icon, to, color }) => <Link to={to} key={label} style={{ "--sector-color": color } as CSSProperties}><i><Icon /></i><span>{label}</span></Link>)}</div>
+        <dl className="hc-metrics"><div><dt>{compact.format(catalog.metrics.products)}+</dt><dd>produtos</dd></div><div><dt>{compact.format(catalog.metrics.prices)}+</dt><dd>preços</dd></div><div><dt>{catalog.metrics.stores}+</dt><dd>lojas</dd></div></dl>
       </section>
 
-      <section className="hp-offers" aria-labelledby="hp-offers-title"><div className="hp-shell">
-        <div className="hp-section-head"><div><span>Oportunidades do catálogo</span><h2 id="hp-offers-title">Preços para comparar agora.</h2><p>Uma seleção rotativa de produtos disponíveis no comércio local.</p></div><Link to="/buscar">Explorar catálogo <ArrowRight /></Link></div>
-        <div className="hp-product-grid">{loading ? Array.from({ length: 4 }, (_, index) => <div className="hp-product-card hp-product-card--loading" key={index} aria-hidden="true" />) : featured.slice(0, 4).map((product, index) => <article className={`hp-product-card${index === 0 ? " hp-product-card--feature" : ""}`} key={product.id}><Link to={`/produto/${product.slug || product.id}`} aria-label={`Comparar preços de ${product.name}`}><div className="hp-product-card__media"><span>{index === 0 ? "Escolha do dia" : product.category}</span><ProductImage product={product} preferCutout /></div><div className="hp-product-card__body"><small>{product.category}</small><h3>{product.name}</h3><p>{product.size || product.brand || "Produto local"}</p><div><span><small>A partir de</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight /></div></div></Link></article>)}</div>
-      </div></section>
+      <section className="hc-offers hc-shell" aria-labelledby="hc-offers-title">
+        <div className="hc-section-head"><div><h2 id="hc-offers-title">Preços em destaque</h2><p>Produtos selecionados do catálogo local.</p></div><Link to="/buscar">Ver catálogo <ArrowRight /></Link></div>
+        <div className="hc-product-grid">{loading ? Array.from({ length: 4 }, (_, index) => <div className="hc-product-card hc-product-card--loading" key={index} aria-hidden="true" />) : featured.map(product => <article className="hc-product-card" key={product.id}><Link to={`/produto/${product.slug || product.id}`} aria-label={`Comparar preços de ${product.name}`}><div className="hc-product-card__media"><ProductImage product={product} /></div><div className="hc-product-card__body"><small>{product.category}</small><h3>{product.name}</h3><p>{product.size || product.brand || "Produto local"}</p><div><span><small>A partir de</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight /></div></div></Link></article>)}</div>
+      </section>
 
-      <section className="hp-guide hp-shell" aria-labelledby="hp-guide-title"><div className="hp-guide__image" aria-hidden="true" /><div className="hp-guide__content"><span>Comprar bem pode ser simples</span><h2 id="hp-guide-title">Da pesquisa à escolha em três passos.</h2><ol><li><b>01</b><div><strong>Pesquise</strong><small>Digite o produto ou a marca.</small></div></li><li><b>02</b><div><strong>Compare</strong><small>Veja preços e estabelecimentos.</small></div></li><li><b>03</b><div><strong>Escolha</strong><small>Decida o que faz sentido para você.</small></div></li></ol><Link to="/buscar">Começar uma comparação <ArrowRight /></Link></div></section>
-      <section className="hp-business hp-shell"><div><span>Para quem vende em Feijó</span><h2>Seu negócio também pode estar aqui.</h2><p>Mostre seus produtos para consumidores que já estão procurando onde comprar.</p></div><div><Link className="hp-business__primary" to="/lojista">Cadastrar meu negócio <ArrowRight /></Link><Link to="/estabelecimentos">Conhecer os parceiros</Link></div></section>
+      <section className="hc-action hc-shell">
+        <div className="hc-action__steps"><span><b>1</b> Pesquise</span><ArrowRight /><span><b>2</b> Compare</span><ArrowRight /><span><b>3</b> Escolha</span></div>
+        <div className="hc-action__business"><div><strong>Tem um negócio em Feijó?</strong><small>Cadastre seus produtos no PreçoCerto.</small></div><Link to="/lojista">Quero participar <ArrowRight /></Link></div>
+      </section>
     </main>
 
-    <footer className="hp-footer"><div className="hp-shell hp-footer__inner"><div className="hp-footer__identity"><Link className="hp-brand" to="/"><img src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="138" height="35" /></Link><p>Compare o comércio de Feijó antes de sair de casa.</p><div><button type="button" onClick={() => setFooterPanel("contato")}><MessageCircle /> Contato</button><button type="button" onClick={() => setFooterPanel("desenvolvedor")}><UserRound /> Desenvolvedor</button></div></div><nav aria-label="Links do rodapé"><div><strong>Plataforma</strong><Link to="/buscar">Comparar preços</Link><Link to="/explorar">Onde comprar</Link><Link to="/cesta-basica">Minha cesta</Link></div><div><strong>Negócios</strong><Link to="/lojista">Seja parceiro</Link><Link to="/painel-lojista">Painel lojista</Link><Link to="/estabelecimentos">Estabelecimentos</Link></div><div><strong>Ajuda</strong><Link to="/fale-conosco">Fale conosco</Link><Link to="/colaborar">Colaborar</Link><Link to="/meus-pedidos">Meus pedidos</Link></div></nav></div><div className="hp-shell hp-footer__meta"><span><BadgeCheck /> Preços locais verificados</span><small>© 2026 PreçoCerto · Feijó, AC <i>dev. &lt;FrancD&apos;nis&gt;</i></small></div></footer>
-    <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />
-    <nav className="hp-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>
+    <footer className="hc-footer"><div className="hc-shell"><Link to="/"><img src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="124" height="32" /></Link><nav aria-label="Links do rodapé"><Link to="/fale-conosco">Contato</Link><Link to="/colaborar">Colaborar</Link><Link to="/painel-lojista">Painel lojista</Link></nav><span><BadgeCheck /> Preços locais verificados</span></div></footer>
+    <nav className="hc-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-basica"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Lojas</span></Link></nav>
   </div>;
 }

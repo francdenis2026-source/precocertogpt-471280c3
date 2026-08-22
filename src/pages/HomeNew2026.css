@@ -319,3 +319,7 @@ html:not([data-theme="dark"]) .nx-market__products,html:not([data-theme="dark"])
 html[data-theme="dark"] .nx-hero__photo{background:linear-gradient(180deg,rgb(5 24 33 / 4%) 38%,rgb(5 24 33 / 45%)),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat;filter:saturate(1.06) contrast(1.08) brightness(.92)}
 html:not([data-theme="dark"]) .nx-hero{background:linear-gradient(105deg,rgb(232 238 242 / 96%) 0 40%,rgb(232 238 242 / 81%) 60%,rgb(232 238 242 / 45%)),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat}
 html[data-theme="dark"] .nx-hero{background:linear-gradient(102deg,rgb(7 26 36 / 96%) 0 39%,rgb(7 26 36 / 80%) 57%,rgb(7 26 36 / 46%) 100%),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat}
+
+/* Ícones SVG e rótulos curtos da navegação principal. */
+.nx-header nav a{gap:6px}.nx-header nav a>svg{width:15px;height:15px;flex:none;stroke-width:2}.nx-header nav a>span{white-space:nowrap}
+@media(min-width:1021px) and (max-width:1120px){.nx-header nav a{padding-inline:7px;gap:5px;font-size:11px}.nx-header nav a>svg{width:14px;height:14px}}

@@ -313,3 +313,9 @@ html:not([data-theme="dark"]) .nx-hero{background:linear-gradient(105deg,rgb(232
 html:not([data-theme="dark"]) .nx-deal{border-color:#c3ced9;background:rgb(243 246 247 / 94%);box-shadow:0 16px 36px rgb(23 47 67 / 22%)}
 html:not([data-theme="dark"]) .nx-catalog-band{background:linear-gradient(180deg,rgb(226 233 237 / 86%),rgb(232 237 240 / 94%)),url('/mercado-local-profissional.webp') center/cover no-repeat}html:not([data-theme="dark"]) .nx-local-band{background:linear-gradient(90deg,rgb(228 234 238 / 28%),rgb(228 234 238 / 70%) 56%,rgb(228 234 238 / 91%)),url('/marketplace-local-profissional-v2.webp') center 42%/cover no-repeat}
 html:not([data-theme="dark"]) .nx-market__products,html:not([data-theme="dark"]) .nx-category-grid>a,html:not([data-theme="dark"]) .nx-product-card,html:not([data-theme="dark"]) .nx-local__copy{box-shadow:0 8px 26px rgb(34 52 76 / 8%)}
+
+/* Fotografia editorial exclusiva do hero, otimizada para o card de destaque. */
+.nx-hero__photo{background:linear-gradient(180deg,transparent 50%,rgb(8 35 49 / 38%)),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat;filter:saturate(1.01) contrast(1.05)}
+html[data-theme="dark"] .nx-hero__photo{background:linear-gradient(180deg,rgb(5 24 33 / 4%) 38%,rgb(5 24 33 / 45%)),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat;filter:saturate(1.06) contrast(1.08) brightness(.92)}
+html:not([data-theme="dark"]) .nx-hero{background:linear-gradient(105deg,rgb(232 238 242 / 96%) 0 40%,rgb(232 238 242 / 81%) 60%,rgb(232 238 242 / 45%)),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat}
+html[data-theme="dark"] .nx-hero{background:linear-gradient(102deg,rgb(7 26 36 / 96%) 0 39%,rgb(7 26 36 / 80%) 57%,rgb(7 26 36 / 46%) 100%),url('/hero-supermercado-editorial-2026.webp') center/cover no-repeat}

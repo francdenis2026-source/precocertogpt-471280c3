@@ -180,7 +180,7 @@ export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClos
         ? <section className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title">
             <button className="pc-dev-close" type="button" aria-label="Fechar contato" onClick={onClose}><X /></button>
             <span className="pc-contact-icon"><Mail aria-hidden="true" /></span>
-            <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre lojas virtuais ou suporte à plataforma.</p></div>
+            <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre estabelecimentos virtuais ou suporte à plataforma.</p></div>
             <a className="pc-contact-email" href="mailto:precocerto-fj@proton.me"><Mail /> <span><small>E-mail</small><strong>precocerto-fj@proton.me</strong></span></a>
             <p className="pc-contact-note"><ShieldCheck /> Utilize este endereço para contatos relacionados ao PreçoCerto.</p>
           </section>
@@ -188,13 +188,13 @@ export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClos
             <button className="pc-dev-close" type="button" aria-label="Fechar informações" onClick={onClose}><X /></button>
             <header className="pc-dev-header">
               <span className="pc-dev-avatar"><Store aria-hidden="true" /></span>
-              <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
+              <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, estabelecimentos virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
             </header>
             <div className="pc-dev-content">
-              <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar sua própria loja virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
+              <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar seu próprio estabelecimento virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
               <div className="pc-dev-grid">
                 <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Uma vitrine digital para negócios da cidade, reunindo descoberta, catálogo, comparação e jornada de compra em um ambiente único.</p></div></article>
-                <article><Building2 /><div><strong>Loja virtual própria</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação da própria loja dentro da plataforma.</p></div></article>
+                <article><Building2 /><div><strong>Estabelecimento virtual próprio</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação do próprio estabelecimento dentro da plataforma.</p></div></article>
                 <article><ShieldCheck /><div><strong>Clareza para o consumidor</strong><p>Quando um estabelecimento ainda não possui venda direta habilitada, o PreçoCerto identifica a página como catálogo informativo para evitar confusão.</p></div></article>
                 <article><Info /><div><strong>Informação para decidir melhor</strong><p>Preços e estabelecimentos são organizados para facilitar a comparação e ajudar o público a tomar decisões de compra com mais contexto.</p></div></article>
                 <article><Code2 /><div><strong>Tecnologia da plataforma</strong><p>Aplicação web construída com React, TypeScript, Vite e integração com Supabase, preparada para experiências responsivas e evolução contínua.</p></div></article>
@@ -282,7 +282,7 @@ function sectionFromPath(pathname: string): PublicSection | undefined {
   if (pathname === "/") return "home";
   if (["/explorar", "/mercados", "/farmacias", "/padarias", "/livros", "/servicos"].some((path) => pathname === path || pathname.startsWith(`${path}/`))) return "sectors";
   if (pathname.startsWith("/buscar") || pathname.startsWith("/produto/")) return "search";
-  if (pathname.startsWith("/estabelecimentos") || pathname.startsWith("/estabelecimento/") || pathname.startsWith("/loja/")) return "stores";
+  if (pathname.startsWith("/estabelecimentos") || pathname.startsWith("/estabelecimento/") || pathname.startsWith("/estabelecimento-virtual/")) return "stores";
   if (pathname.startsWith("/cesta")) return "basket";
   if (pathname.startsWith("/favoritos") || pathname.startsWith("/minha-conta")) return "profile";
   return undefined;
@@ -294,7 +294,7 @@ function defaultBackBarTitle(pathname: string): string | undefined {
   if (pathname === "/buscar") return "Buscar produtos";
   if (pathname === "/explorar") return "Setores";
   if (pathname === "/estabelecimentos") return "Estabelecimentos";
-  if (pathname.startsWith("/estabelecimento/") || pathname.startsWith("/loja/")) return "Estabelecimento";
+  if (pathname.startsWith("/estabelecimento/") || pathname.startsWith("/estabelecimento-virtual/")) return "Estabelecimento";
   if (pathname === "/cesta" || pathname === "/cesta-basica") return "Sua cesta";
   if (pathname === "/cesta-inteligente") return "Cesta inteligente";
   return undefined;
@@ -308,7 +308,7 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
   const compactInternalHeader = pathname === "/buscar"
     || pathname === "/estabelecimentos"
     || pathname.startsWith("/estabelecimento/")
-    || pathname.startsWith("/loja/")
+    || pathname.startsWith("/estabelecimento-virtual/")
     || pathname === "/cesta"
     || pathname === "/cesta-basica"
     || pathname === "/cesta-inteligente";

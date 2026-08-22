@@ -7,12 +7,14 @@ import { resolveProductImage, resolveCutoutImage } from "../data/productImageRes
 import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
 import { getStoreLogoUrl } from "../data/storeLogos";
 import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
+import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import "./HomeProfessional2026.css";
 import "./HomeRebuildAcai2026.css";
 import "./HomeRefineAcai2026.css";
 import "./HomePolishAcai2026.css";
 import "./HomeLighter2026.css";
 import "./HomeSearchOverlay2026.css";
+import "./HomeMobileFixes2026.css";
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -122,6 +124,7 @@ export function HomeProfessional2026() {
   };
 
   return <div className="hp-home">
+    <FestivalAcaiBar />
     <header className="hp-header">
       <div className="hp-shell hp-header__inner">
         <Link className="hp-brand" to="/" aria-label="PreçoCerto, página inicial">

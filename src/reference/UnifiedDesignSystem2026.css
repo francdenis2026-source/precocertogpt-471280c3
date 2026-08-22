@@ -743,3 +743,284 @@ html[data-theme="dark"] .hp-home .hp-footer {
       url("/footer-local-feijo-v2.svg");
   }
 }
+
+
+/* ============================================================
+   AUDITORIA VISUAL SISTÊMICA — páginas públicas
+   Petróleo = estrutura | Azul = ação | Âmbar = descoberta
+   Verde = economia/confirmado
+   ============================================================ */
+:root {
+  --audit-canvas: #f3f6f8;
+  --audit-surface: #ffffff;
+  --audit-surface-soft: #eaf0f4;
+  --audit-ink: #102332;
+  --audit-muted: #526675;
+  --audit-line: #c5d1d9;
+  --audit-petrol: #123f55;
+  --audit-petrol-strong: #0b2f42;
+  --audit-blue: #2868d8;
+  --audit-blue-soft: #e7efff;
+  --audit-amber: #a8640e;
+  --audit-amber-soft: #fff1d8;
+  --audit-green: #147a43;
+  --audit-green-soft: #e2f4e9;
+  --audit-shadow: 0 12px 30px rgb(16 35 50 / 9%);
+}
+html[data-theme="dark"] {
+  --audit-canvas: #0b1720;
+  --audit-surface: #142530;
+  --audit-surface-soft: #1b303d;
+  --audit-ink: #f2f6f8;
+  --audit-muted: #b6c5cf;
+  --audit-line: #395361;
+  --audit-petrol: #8dc4df;
+  --audit-petrol-strong: #071f30;
+  --audit-blue: #78a8ff;
+  --audit-blue-soft: #182d54;
+  --audit-amber: #ffc96f;
+  --audit-amber-soft: #45351c;
+  --audit-green: #62dfa0;
+  --audit-green-soft: #173b2a;
+  --audit-shadow: 0 16px 36px rgb(0 0 0 / 28%);
+}
+
+/* Fundos, texto e linhas coerentes nas áreas públicas. */
+:where(.hp-home, .search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page) {
+  color: var(--audit-ink);
+  --text: var(--audit-ink);
+  --muted: var(--audit-muted);
+  --border: var(--audit-line);
+  --surface: var(--audit-surface);
+  --background: var(--audit-canvas);
+}
+:where(.search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page) {
+  background-color: var(--audit-canvas) !important;
+}
+:where(.search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page)
+  :where(p, small, label, li, dd, figcaption, [class*="subtitle"], [class*="description"], [class*="meta"]) {
+  color: var(--audit-muted);
+}
+:where(.hp-home, .search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page)
+  :where(small, figcaption, time, [class*="eyebrow"], [class*="kicker"], [class*="meta"]) {
+  font-size: max(.75rem, 12px) !important;
+  line-height: 1.45 !important;
+}
+
+/* Headers públicos: mesma altura, leitura e contraste. */
+:where(.hp-header, .ref-header, .mo-head) {
+  min-height: 64px !important;
+  height: 64px !important;
+  background: color-mix(in srgb, var(--audit-surface) 94%, transparent) !important;
+  border-bottom: 1px solid var(--audit-line) !important;
+  box-shadow: 0 7px 20px rgb(16 35 50 / 7%) !important;
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+}
+:where(.hp-header__inner, .ref-header__inner, .mo-head .mo-shell) {
+  min-height: 64px !important;
+  height: 64px !important;
+  padding-block: 4px !important;
+}
+:where(.hp-header, .ref-header, .mo-head)
+  :where(a, button, [role="button"]) {
+  min-height: 40px;
+  font-size: .875rem !important;
+  font-weight: 650 !important;
+  color: var(--audit-ink);
+}
+:where(.hp-header, .ref-header, .mo-head)
+  :where(a, button, [role="button"]):hover {
+  color: var(--audit-blue);
+}
+.mo-head {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1200 !important;
+}
+
+/* Homepage: cards opacos e coloridos; fotografia não prejudica leitura. */
+.hp-home .hp-sector-grid > a {
+  background: color-mix(in srgb, var(--audit-surface) 95%, transparent) !important;
+  color: var(--audit-ink) !important;
+  border: 1px solid var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+  backdrop-filter: blur(12px);
+}
+.hp-home .hp-sector-grid > a :where(strong, b, span:first-of-type) {
+  color: var(--audit-ink) !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-sector-grid > a :where(small, p, span:last-child) {
+  color: var(--audit-muted) !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n+1) {
+  border-top: 3px solid var(--audit-amber) !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n+2) {
+  border-top: 3px solid var(--audit-blue) !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n+3) {
+  border-top: 3px solid var(--audit-green) !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n) {
+  border-top: 3px solid var(--audit-petrol) !important;
+}
+.hp-home .hp-product-card {
+  background: color-mix(in srgb, var(--audit-surface) 97%, transparent) !important;
+  border: 1px solid var(--audit-line) !important;
+  color: var(--audit-ink) !important;
+  box-shadow: var(--audit-shadow);
+}
+.hp-home .hp-section-head :where(h2, h3) { color: var(--audit-ink) !important; }
+.hp-home .hp-section-head a { color: var(--audit-blue) !important; font-weight: 700; }
+
+/* Hub de categorias: identidade cromática por tipo, sem excesso de verde. */
+.sector-hub__sector {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border: 1px solid var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+.sector-hub__sector :where(h2, h3, strong) { color: var(--audit-ink) !important; }
+.sector-hub__sector :where(p, small, li) { color: var(--audit-muted) !important; }
+.sector-hub__sector--markets { border-left: 5px solid var(--audit-amber) !important; }
+.sector-hub__sector--butchers { border-left: 5px solid #b84c4c !important; }
+.sector-hub__sector--bakery { border-left: 5px solid #c97b2b !important; }
+.sector-hub__sector--food { border-left: 5px solid var(--audit-blue) !important; }
+.sector-hub__sector--pharmacies { border-left: 5px solid var(--audit-green) !important; }
+.sector-hub__sector--books { border-left: 5px solid #8058b6 !important; }
+.sector-hub__sector--services { border-left: 5px solid var(--audit-petrol) !important; }
+.sector-hub__sector-icon {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-petrol) !important;
+}
+.sector-hub__sector-link,
+.sector-hub__arrow { color: var(--audit-blue) !important; }
+
+/* Diretório: cartões maiores visualmente, textos legíveis e ranking por cor. */
+.ref-store-card {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border: 1px solid var(--audit-line) !important;
+  border-left: 4px solid var(--audit-blue) !important;
+  box-shadow: var(--audit-shadow);
+}
+.ref-store-card:nth-child(3n+1) { border-left-color: var(--audit-amber) !important; }
+.ref-store-card:nth-child(3n+2) { border-left-color: var(--audit-blue) !important; }
+.ref-store-card:nth-child(3n) { border-left-color: var(--audit-green) !important; }
+.ref-store-card :where(h2, h3, strong) { color: var(--audit-ink) !important; }
+.ref-store-card :where(p, small, span) { color: var(--audit-muted); }
+.ref-store-card :where(small, [class*="meta"], [class*="label"]) {
+  font-size: .75rem !important;
+}
+.ref-store-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 18px 38px rgb(16 35 50 / 14%);
+}
+
+/* Busca e formulários: controles identificáveis, foco azul e CTAs sólidos. */
+:where(.search26-page, .pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where(input, select, textarea) {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+}
+:where(.search26-page, .pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where(input, select, textarea):focus {
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--audit-blue) 22%, transparent) !important;
+  outline: none !important;
+}
+:where(.pc-btn--primary, .search26-search button, .pc-collab button, .mo-page button) {
+  color: #fff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 9px 20px color-mix(in srgb, var(--audit-blue) 28%, transparent);
+}
+:where(.pc-btn--primary, .search26-search button, .pc-collab button, .mo-page button):hover {
+  background: color-mix(in srgb, var(--audit-blue) 86%, #00182a) !important;
+  transform: translateY(-2px);
+}
+
+/* Rodapés internos: compactos, consistentes e sem texto invisível. */
+.ref-footer,
+.ref-footer--compact {
+  min-height: 72px !important;
+  padding-block: 1rem !important;
+  color: #eef7fb !important;
+  background:
+    radial-gradient(circle at 85% 20%, rgb(40 104 216 / 22%), transparent 34%),
+    linear-gradient(115deg, #071f30, #0e3b4e) !important;
+  border-top: 1px solid #355468 !important;
+}
+.ref-footer :where(a, strong, b, h2, h3, h4),
+.ref-footer--compact :where(a, strong, b, h2, h3, h4) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.ref-footer :where(p, small, span),
+.ref-footer--compact :where(p, small, span) {
+  color: #c9dce7 !important;
+  opacity: 1 !important;
+}
+.ref-footer__compact {
+  min-height: 0 !important;
+  padding-block: 0 !important;
+  gap: .75rem !important;
+}
+
+/* Cards genéricos das páginas institucionais. */
+:where(.pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where([class*="card"], [class*="panel"], [class*="step"]) {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+:where(.pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where([class*="card"], [class*="panel"], [class*="step"])
+  :where(h2, h3, strong) {
+  color: var(--audit-ink) !important;
+}
+
+@media (max-width: 760px) {
+  :where(.hp-header, .ref-header, .mo-head),
+  :where(.hp-header__inner, .ref-header__inner, .mo-head .mo-shell) {
+    min-height: 58px !important;
+    height: 58px !important;
+  }
+  .ref-footer,
+  .ref-footer--compact {
+    min-height: 64px !important;
+    padding-block: .875rem !important;
+  }
+  .hp-home .hp-sector-grid > a {
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(.sector-hub__sector, .ref-store-card, .hp-product-card) {
+    transition: transform 180ms cubic-bezier(.2,.8,.2,1),
+      border-color 180ms ease, box-shadow 180ms ease;
+  }
+  :where(.sector-hub__sector, .hp-product-card):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgb(16 35 50 / 14%);
+  }
+}

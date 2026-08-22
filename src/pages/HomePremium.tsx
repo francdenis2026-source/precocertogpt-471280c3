@@ -310,7 +310,7 @@ export function HomePremium() {
           <div className="pcx-shell pcx-hero__grid">
             <div className="pcx-hero__copy">
               <h1 id="pcx-title">Comparação de preços em Feijó: <em>saiba antes</em> onde comprar.</h1>
-              <p>Em Feijó, compare o mesmo produto nas lojas da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
+              <p>Em Feijó, compare o mesmo produto nos estabelecimentos da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               
               <div className="pcx-hero__actions">
                 <Link to="/buscar" className="pcx-cta pcx-cta--primary">
@@ -366,7 +366,7 @@ export function HomePremium() {
         </section>
 
         <section className="pcx-market" aria-labelledby="oportunidades-title"><div className="pcx-shell">
-          <div className="pcx-section__head"><div><h2 id="oportunidades-title">Diferenças que cabem no bolso.</h2><p>Os produtos com maior variação de preço entre as lojas.</p></div><Link to="/buscar">Comparar mais <ArrowRight aria-hidden="true" /></Link></div>
+          <div className="pcx-section__head"><div><h2 id="oportunidades-title">Diferenças que cabem no bolso.</h2><p>Os produtos com maior variação de preço entre os estabelecimentos.</p></div><Link to="/buscar">Comparar mais <ArrowRight aria-hidden="true" /></Link></div>
           <div className="pcx-products" aria-busy={catalogLoading}>{catalogLoading && <span className="pcx-sr-only" role="status" aria-live="polite">Carregando oportunidades…</span>}{catalogLoading ? Array.from({ length: 5 }, (_, index) => <div className="pcx-product pcx-product--skeleton" key={index} aria-hidden="true"><span /><i /><i /></div>) : opportunities.map((product, index) => {
             const saving = Math.max(0, product.maxPrice - product.minPrice); const offer = bestOffer(product);
             return <button key={`${product.id}-${index}`} className="pcx-product" type="button" onClick={() => openProduct(product)} aria-label={`Comparar preços de ${product.name}`} title={`Comparar ${product.name}`}>

@@ -195,6 +195,7 @@ export function HomeNew2026() {
         </div>
       </section>
 
+      <div className="nx-catalog-band">
       <section className="nx-categories nx-shell" aria-labelledby="nx-categories-title">
         <div className="nx-section-title"><div><span>Comércio local</span><h2 id="nx-categories-title">Onde você quer comprar?</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
         <div className="nx-category-grid">{categories.map(({ name, copy, to, icon: Icon, color }) => <Link key={name} to={to} style={{ "--nx-accent": color } as React.CSSProperties}><i><Icon /></i><span><strong>{name}</strong><small>{copy}</small></span><ArrowRight /></Link>)}</div>
@@ -222,6 +223,8 @@ export function HomeNew2026() {
         </aside>
       </section>
 
+      </div>
+      <div className="nx-local-band">
       <section className="nx-local nx-shell">
         <div className="nx-local__photo" role="img" aria-label="Fachadas do comércio local de Feijó" />
         <div className="nx-local__copy">
@@ -231,6 +234,7 @@ export function HomeNew2026() {
           <div><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista">Cadastrar meu negócio</Link></div>
         </div>
       </section>
+      </div>
     </main>
 
     <footer className="nx-footer">

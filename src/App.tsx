@@ -47,6 +47,7 @@ import "./reference/UiUxProMaxSystem2026.css";
 import "./reference/UiStylingSystem2026.css";
 import "./reference/UiTypographySystem2026.css";
 import "./reference/DesignTasteFrontendSystem2026.css";
+import "./reference/EmilDesignEngineeringSystem2026.css";
 
 function RouteFocusManager(){const location=useLocation();useEffect(()=>{if(location.pathname.startsWith('/admin'))return;const main=document.querySelector<HTMLElement>("#conteudo-principal, main");if(!main)return;if(!main.id)main.id="conteudo-principal";main.setAttribute("tabindex","-1");window.scrollTo({top:0,left:0,behavior:"auto"});window.requestAnimationFrame(()=>main.focus({preventScroll:true}));},[location.pathname]);return null;}
 export default function App(){return <BrowserRouter><FavoritesProvider><a className="pc-skip-link" href="#conteudo-principal">Pular para o conteúdo</a><SeoRouteManager/><RouteFocusManager/><AdminLoginRedirect/><AdminProductEditorOverlay/><AdminMaintenanceControl/><AdminVideoQuickAccess/><ProductCardQuickActions/><UserAccountHub/><PlatformMaintenanceGate><Routes>

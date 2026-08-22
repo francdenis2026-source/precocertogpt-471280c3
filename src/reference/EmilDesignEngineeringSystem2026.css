@@ -1,0 +1,89 @@
+/* emil-design-eng: invisible correctness for the public product experience. */
+:root {
+  --emil-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --emil-ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --emil-ease-drawer: cubic-bezier(.32, .72, 0, 1);
+  --emil-fast: 120ms;
+  --emil-base: 180ms;
+  --emil-overlay: 220ms;
+}
+
+/* Frequent actions: instant-feeling, interruptible and property-specific. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, input, select, textarea, summary) {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: var(--emil-base);
+  transition-timing-function: var(--emil-ease-out);
+}
+
+/* Repeated navigation and search should never feel delayed. */
+:where(.hp-header, .hp-dock, .ref-header, .sector-nav, .search26-filterbar, .sf-toolbar, .store-pro-toolbar) :where(a, button, input, select) {
+  transition-duration: var(--emil-fast);
+}
+
+/* Physical press feedback only. No magnetic or moving hover effects. */
+@media (hover: hover) and (pointer: fine) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button):active:not(:disabled) {
+    transform: scale(.98);
+  }
+}
+
+/* Dialogs are occasional: spatial entrance, faster exit, centered origin. */
+:where(.ref-product-dialog, .pcn-modal__card, .th-product-modal, .pc-search-overlay__panel, [role="dialog"] > article) {
+  transform-origin: center;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity var(--emil-overlay) var(--emil-ease-out), transform var(--emil-overlay) var(--emil-ease-out);
+  @starting-style {
+    opacity: 0;
+    transform: scale(.97) translateY(8px);
+  }
+}
+:where(.ref-product-dialog__backdrop, .pcn-modal__backdrop, .pc-search-overlay__backdrop) {
+  opacity: 1;
+  transition: opacity 160ms var(--emil-ease-out);
+  @starting-style { opacity: 0; }
+}
+
+/* Anchored surfaces grow from their trigger edge, not the viewport center. */
+:where([role="menu"], [role="listbox"], [class*="dropdown"], [class*="popover"]) {
+  transform-origin: var(--transform-origin, top center);
+  transition: opacity 160ms var(--emil-ease-out), transform 160ms var(--emil-ease-out);
+}
+
+/* Toasts and transient feedback appear without blocking interaction. */
+:where([role="status"], [class*="toast"], [class*="feedback"]):not(:empty) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms var(--emil-ease-out), transform 180ms var(--emil-ease-out);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Focus is immediate; feedback must never lag behind keyboard input. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  transition-duration: 0ms;
+}
+
+/* Loading motion is allowed because it explains system state. */
+:where([class*="skeleton"]) {
+  animation-duration: 900ms;
+  animation-timing-function: linear;
+}
+:where(.animate-spin, .spin, [class*="spinner"]) { animation-duration: 680ms; animation-timing-function: linear; }
+
+/* Images settle without layout shift. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .dorinha-pro, .culture-profile-page) img {
+  opacity: 1;
+  transition: opacity 180ms var(--emil-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, input, select, textarea, summary, img, [role="dialog"] > article, [role="status"]) {
+    transform: none !important;
+    transition-property: color, background-color, border-color, opacity !important;
+    transition-duration: 80ms !important;
+  }
+  :where([class*="skeleton"], .animate-spin, .spin, [class*="spinner"]) { animation: none !important; }
+}

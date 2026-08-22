@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CheckCircle2, ChevronLeft, Clock3, LockKeyhole, ShieldCheck, Store, UserRound } from "lucide-react";
 import { signUp, supabase } from "../lib/roles";
 import "./MerchantOnboarding.css";
+import "./CompactViewportPages.css";
 
 type Application = { id:string; status:string; business_name:string; rejection_reason?:string|null; admin_notes?:string|null; created_at:string };
 const businessTypes=[['grocery','Mercado, mercearia ou açougue'],['bakery','Padaria e confeitaria'],['pharmacy','Farmácia'],['food','Alimentação e delivery'],['services','Serviços'],['culture','Livros, cultura e produção'],['other','Outro negócio']];

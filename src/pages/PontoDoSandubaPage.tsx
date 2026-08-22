@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, Citrus, CupSoda, MapPin, MessageCircle, Plus, Sandwich, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
+import type { ReactNode } from "react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
 import type { Product } from "../data/catalog";
@@ -31,6 +32,13 @@ const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" 
 // Kelly Burgueria, aqui os grupos usam o fundo sólido padrão para não
 // mostrar um preço "fantasma" errado por trás do título da seção.
 const CATEGORY_PHOTOS: Record<string, string> = {};
+
+const CATEGORY_ICONS: Record<string, ReactNode> = {
+  "Sanduíches": <Sandwich aria-hidden="true" />,
+  "Adicionais": <Plus aria-hidden="true" />,
+  "Refrigerantes": <CupSoda aria-hidden="true" />,
+  "Suco Natural": <Citrus aria-hidden="true" />,
+};
 
 const CATEGORY_NOTES: Record<string, string> = {
   "Sanduíches": "Feitos na hora, no pão e no ponto que você pedir.",
@@ -118,14 +126,20 @@ export function PontoDoSandubaPage() {
 
         <div className="kelly-notice"><BadgeCheck /><span><strong>Cardápio informativo</strong><small>Preços e itens conforme o cardápio enviado pelo estabelecimento. Confirme disponibilidade e condições diretamente com o Ponto do Sanduba antes de fechar o pedido.</small></span></div>
 
+        <nav className="kelly-category-nav" aria-label="Categorias do cardápio">
+          {groups.map(group => <a key={group.category} href={`#sanduba-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{group.category}<small>{group.items.length}</small></a>)}
+        </nav>
+
+        <div className="kelly-menu-grid">
         {groups.map(group => (
-          <section className="kelly-menu-group" key={group.category} aria-labelledby={`sanduba-cat-${group.category}`}>
+          <section className="kelly-menu-group" id={`sanduba-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} key={group.category} aria-labelledby={`sanduba-cat-${group.category}`}>
             <header
               className="kelly-menu-group__head"
               style={CATEGORY_PHOTOS[group.category] ? { backgroundImage: `url('${CATEGORY_PHOTOS[group.category]}')` } : undefined}
             >
               <div className="kelly-menu-group__head-veil" />
               <div className="kelly-menu-group__head-copy">
+                <span className="kelly-menu-group__head-icon">{CATEGORY_ICONS[group.category] || <UtensilsCrossed aria-hidden="true" />}</span>
                 <h2 id={`sanduba-cat-${group.category}`}>{group.category}</h2>
                 {CATEGORY_NOTES[group.category] && <p>{CATEGORY_NOTES[group.category]}</p>}
               </div>
@@ -155,6 +169,7 @@ export function PontoDoSandubaPage() {
             </ul>
           </section>
         ))}
+        </div>
 
         <aside className="kelly-cta">
           <div>

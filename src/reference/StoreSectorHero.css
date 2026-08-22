@@ -1,38 +1,27 @@
-/* Hero por setor — farmácia, padaria, cultura e serviços agora usam a mesma
-   foto do hero de cada página de setor (/farmacias, /padarias, /livros,
-   /servicos), aplicada via inline style em StoreDetailProfessional.tsx
-   (SECTOR_BACKDROPS). Antes esses 4 setores caíam num cartão de cor sólida
-   sem foto nenhuma; o véu escuro padrão (.store-pro-hero__overlay, definido
-   em StoreDetailProfessional.css) volta a ficar ativo aqui para garantir
-   contraste do texto sobre a foto, igual ao hero de mercado. Um tom de cor
-   por setor continua servindo de "fundo de segurança" enquanto a foto
-   carrega. Carregado depois de StoreExperienceAcai2026.css. */
+/* Hero por setor — farmácia, padaria, livraria e serviços usam uma
+   ilustração vetorial própria (public/sector-heroes/*.svg), aplicada via
+   inline style em StoreDetailProfessional.tsx (SECTOR_BACKDROPS). Não há
+   fotografia real de acervo específica para cada um desses ramos (as
+   fotos disponíveis no site são todas de supermercado — usá-las aqui
+   mostraria a coisa errada), então cada setor ganha uma cena ilustrada
+   reconhecível (frascos e cápsulas para farmácia, pães e trigo para
+   padaria, livros para livraria, ferramentas/maleta para serviços) em vez
+   de um cartão de cor sólida. O véu (.store-pro-hero__overlay, definido em
+   StoreDetailProfessional.css) garante contraste do texto por cima. A
+   ilustração concentra os elementos na metade inferior/direita da arte —
+   por isso o posicionamento de fundo aqui foca essa área, já que o hero
+   real é bem mais baixo e largo que a arte original. Carregado depois de
+   StoreExperienceAcai2026.css. */
 
-.store-pro-hero__watermark {
-  position: absolute;
-  z-index: 0;
-  right: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 260px;
-  height: 260px;
-  color: rgba(255, 255, 255, .16);
-  pointer-events: none;
-}
+.store-pro-hero__watermark { display: none; }
 
-.store-pro-hero--pharmacies { background-color: #0b3a3a !important; }
-.store-pro-hero--bakery { background-color: #173245 !important; }
-.store-pro-hero--books { background-color: #1a364a !important; }
-.store-pro-hero--services { background-color: #1c2430 !important; }
+.store-pro-hero--sector { background-position: right 84% !important; }
+
+.store-pro-hero--pharmacies { background-color: #0b3536 !important; }
+.store-pro-hero--bakery { background-color: #3c1f0f !important; }
+.store-pro-hero--books { background-color: #1a2f42 !important; }
+.store-pro-hero--services { background-color: #1b1530 !important; }
 
 /* O selo de ícone ao lado do nome do setor, no rótulo acima do título. */
 .store-pro-hero--sector .store-pro-copy > span { display: inline-flex; align-items: center; gap: 6px; }
 .store-pro-hero--sector .store-pro-copy > span svg { width: 13px; height: 13px; }
-
-@media (max-width: 860px) {
-  .store-pro-hero__watermark { width: 170px; height: 170px; right: -20px; }
-}
-
-@media (max-width: 620px) {
-  .store-pro-hero__watermark { display: none; }
-}

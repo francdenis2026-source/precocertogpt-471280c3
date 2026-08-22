@@ -1,0 +1,19 @@
+/* Entrada única e ordenada do sistema visual público do PreçoCerto. */
+@import "./UiUxProMaxSystem2026.css";
+@import "./UiStylingSystem2026.css";
+@import "./UiTypographySystem2026.css";
+@import "./DesignTasteFrontendSystem2026.css";
+@import "./EmilDesignEngineeringSystem2026.css";
+@import "./AppleDesignSystem2026.css";
+@import "./BenciumInnovativeUxSystem2026.css";
+@import "./AnimationOpportunities2026.css";
+
+@media (max-width: 767px) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+    .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+    .dorinha-pro, .culture-profile-page, .ref-page)
+    :where(button, [role="button"], a.button, a[class*="button"], a[class*="action"]) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

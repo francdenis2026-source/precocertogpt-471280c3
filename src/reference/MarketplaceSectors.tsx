@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, MapPin, Pill, Sandwich, Scale, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
+import { useEffect, useState, type CSSProperties } from "react";
+import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, HeartPulse, MapPin, Pill, Plus, Sandwich, Scale, ShieldCheck, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { CatalogPayload } from "../data/catalog";
 import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
 import { fetchSectorCatalog, prefetchSectorCatalog, sectorStores } from "../data/sectorCatalog";
+import { getStoreLogoUrl } from "../data/storeLogos";
 import { PublicHeader } from "./ReferenceExperience";
 import "./PharmacyDirectory.css";
 import "./CulturalProfiles.css";
@@ -147,28 +148,51 @@ function CulturalProfiles() {
   );
 }
 
+function PharmacyStoreMark({ name, color }: { name: string; color: string }) {
+  const [failed, setFailed] = useState(false);
+  const logo = getStoreLogoUrl(name);
+  const showLogo = Boolean(logo) && !failed;
+  return <i className={`pharmacy-establishment__mark${showLogo ? " has-logo" : ""}`} style={{ "--store-color": color } as CSSProperties}>
+    {showLogo ? <img src={logo} alt="" loading="lazy" onError={() => setFailed(true)} /> : <Plus aria-hidden="true" />}
+  </i>;
+}
+
 function CompactSectorDirectory({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
   const Icon = sector.icon;
   const stores = catalog ? sectorStores(catalog, sector) : [];
-  return <div className="pharmacy-directory-page">
+  const isPharmacy = sector.id === "pharmacies";
+  return <div className={`pharmacy-directory-page${isPharmacy ? " pharmacy-directory-page--pharmacies" : ""}`}>
     <PublicHeader backOnly title={sector.shortLabel} />
     <main id="conteudo-principal" className="pharmacy-directory">
-      <header className="pharmacy-directory__heading">
+      {isPharmacy ? <header className="pharmacy-directory__hero">
+        <div className="pharmacy-directory__hero-copy">
+          <span><HeartPulse aria-hidden="true" /> SAÚDE PERTO DE VOCÊ</span>
+          <h1>Farmácias em Feijó</h1>
+          <p>Encontre estabelecimentos cadastrados, confira a disponibilidade do catálogo e acesse as informações de cada farmácia.</p>
+          <div className="pharmacy-directory__hero-meta">
+            <strong><ShieldCheck aria-hidden="true" /> Perfis ativos na plataforma</strong>
+            <small aria-live="polite">{catalog ? `${stores.length} ${stores.length === 1 ? "estabelecimento" : "estabelecimentos"}` : "Atualizando diretório"}</small>
+          </div>
+        </div>
+      </header> : <header className="pharmacy-directory__heading">
         <div>
           <span><Icon aria-hidden="true" /> {sector.eyebrow}</span>
           <h1>{sector.shortLabel}</h1>
         </div>
         <p aria-live="polite">{sector.id === "books" ? "2 perfis culturais" : catalog ? `${stores.length} ${stores.length === 1 ? "estabelecimento ativo" : "estabelecimentos ativos"}` : "Carregando estabelecimentos"}</p>
-      </header>
+      </header>}
+
+      {isPharmacy && <div className="pharmacy-directory__list-heading"><div><span>DIRETÓRIO LOCAL</span><h2>Estabelecimentos cadastrados</h2></div><p>Informações disponíveis no PreçoCerto</p></div>}
 
       {sector.id === "books" ? <CulturalProfiles /> : !catalog ? <section className="pharmacy-directory__state" aria-busy="true">
         <span className="pharmacy-directory__loader" />
         <strong>Buscando estabelecimentos cadastrados…</strong>
       </section> : stores.length ? <section className="pharmacy-directory__list" aria-label={`${sector.shortLabel} ativos em Feijó`}>
-        {stores.map(({ store, count }) => <article className="pharmacy-establishment" key={store.id}>
-          <i className="pharmacy-establishment__mark" style={{ backgroundColor: store.color }}><Icon aria-hidden="true" /></i>
+        {stores.map(({ store, count }) => {
+          return <article className="pharmacy-establishment" key={store.id}>
+          {isPharmacy ? <PharmacyStoreMark name={store.name} color={store.color} /> : <i className="pharmacy-establishment__mark" style={{ "--store-color": store.color } as CSSProperties}><Icon aria-hidden="true" /></i>}
           <div className="pharmacy-establishment__identity">
-            <span><BadgeCheck aria-hidden="true" /> ESTABELECIMENTO ATIVO</span>
+            <span>{isPharmacy ? <ShieldCheck aria-hidden="true" /> : <BadgeCheck aria-hidden="true" />} ESTABELECIMENTO ATIVO</span>
             <h2>{store.name}</h2>
             <p><MapPin aria-hidden="true" /> {store.neighborhood || "Feijó, Acre"}</p>
           </div>
@@ -179,7 +203,7 @@ function CompactSectorDirectory({ catalog, sector }: { catalog: CatalogPayload |
           <Link className="pharmacy-establishment__action" to={`/estabelecimento/${store.slug || store.id}`}>
             Abrir estabelecimento <ArrowRight aria-hidden="true" />
           </Link>
-        </article>)}
+        </article>})}
       </section> : <section className="pharmacy-directory__state">
         <Icon aria-hidden="true" />
         <strong>Nenhum estabelecimento ativo nesta categoria.</strong>

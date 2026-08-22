@@ -55,7 +55,11 @@ export function KellyBurgueriaPage() {
       <main id="conteudo-principal" className="kelly-shell">
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
-        <section className="kelly-hero" aria-labelledby="kelly-title">
+        <section
+          className="kelly-hero"
+          aria-labelledby="kelly-title"
+          style={{ backgroundImage: "url('/kelly-burgueria/hero-burger.jpg?v=20260822-2')" }}
+        >
           <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/kelly-burgueria-logo.jpg?v=20260822" alt={`Logomarca ${KELLY_NAME}`} width="96" height="96" /></div>

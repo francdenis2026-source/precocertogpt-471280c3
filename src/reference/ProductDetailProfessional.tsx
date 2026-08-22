@@ -160,7 +160,7 @@ export function ProductDetailProfessional() {
           <div className="pdx-price-block">
             <div><span>MENOR PREÇO ENCONTRADO <BadgeCheck/></span><strong>{brl.format(product.minPrice)}</strong><small>{bestOffer ? `em ${bestOffer.establishment}` : "preço verificado"}</small></div>
             <div className="pdx-price-facts">
-              <span><Store/><b>{offers.length}</b><small>{offers.length === 1 ? "loja consultada" : "lojas comparadas"}</small></span>
+              <span><Store/><b>{offers.length}</b><small>{offers.length === 1 ? "estabelecimento consultado" : "estabelecimentos comparados"}</small></span>
               <span><TrendingDown/><b>{priceSpread ? brl.format(priceSpread) : "-"}</b><small>diferença entre lojas</small></span>
               <span><CalendarDays/><b>{updatedAt}</b><small>última verificação</small></span>
             </div>

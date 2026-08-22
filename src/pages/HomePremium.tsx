@@ -286,7 +286,7 @@ export function HomePremium() {
             <span className="pcx-brand__mark"><TrendingDown aria-hidden="true" /></span><span>preço<strong>certo</strong></span>
           </Link>
           <nav className="pcx-nav" aria-label="Navegação principal">
-            <Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Lojas</Link><Link to="/farmacias">Farmácias</Link><Link to="/favoritos">Favoritos</Link><Link to="/colaborar">Colaborar</Link>
+            <Link to="/buscar">Comparar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/farmacias">Farmácias</Link><Link to="/favoritos">Favoritos</Link><Link to="/colaborar">Colaborar</Link>
           </nav>
           <div className="pcx-header__actions">
             <button className="pcx-theme-toggle" type="button" onClick={() => setTheme((value) => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"} aria-pressed={theme === "dark"} title={theme === "dark" ? "Mudar para modo claro" : "Mudar para modo escuro"}>
@@ -300,7 +300,7 @@ export function HomePremium() {
           </div>
         </div>
         {menuOpen && <nav id="pcx-mobile-menu" className="pcx-mobile-menu" aria-label="Navegação mobile">
-          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Lojas locais</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Farmácias</Link><Link to="/favoritos" onClick={() => setMenuOpen(false)}>Favoritos</Link><Link to="/colaborar" onClick={() => setMenuOpen(false)}>Colaborar</Link><Link to="/login" onClick={() => setMenuOpen(false)}>Entrar na plataforma</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Área do lojista</Link>
+          <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link><Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link><Link to="/farmacias" onClick={() => setMenuOpen(false)}>Farmácias</Link><Link to="/favoritos" onClick={() => setMenuOpen(false)}>Favoritos</Link><Link to="/colaborar" onClick={() => setMenuOpen(false)}>Colaborar</Link><Link to="/login" onClick={() => setMenuOpen(false)}>Entrar na plataforma</Link><Link to="/lojista" onClick={() => setMenuOpen(false)}>Área do lojista</Link>
         </nav>}
       </header>
 

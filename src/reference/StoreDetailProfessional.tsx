@@ -43,6 +43,21 @@ function sectorForStore(kind?: string) {
   return marketplaceSectors.find(sector => sector.businessKinds.map(normalizeStoreKind).includes(normalized)) || marketplaceSectors[0];
 }
 
+// Um hero por setor, adequado ao tipo de comércio. Não há fotos reais no
+// acervo para farmácia/padaria/livraria/serviços (as fotos genéricas
+// disponíveis são todas de supermercado — usá-las aqui mostraria a coisa
+// errada), então cada setor ganha uma ilustração vetorial própria e limpa
+// no mesmo tom de cor já usado nesse hero (cruz e cápsulas para farmácia,
+// pão e trigo para padaria, livros abertos para livraria/cultura, maleta e
+// engrenagem para serviços). Antes esses 4 setores caíam num cartão de cor
+// sólida sem nenhum elemento visual — agora todo estabelecimento tem hero.
+const SECTOR_BACKDROPS: Record<string, string> = {
+  pharmacies: "/sector-heroes/pharmacies.svg",
+  bakery: "/sector-heroes/bakery.svg",
+  books: "/sector-heroes/books.svg",
+  services: "/sector-heroes/services.svg",
+};
+
 const SECTOR_TAGLINES: Record<string, string> = {
   markets: "Consulte produtos, marcas e preços organizados para comparar antes de comprar.",
   pharmacies: "Medicamentos, higiene e cuidados pessoais organizados por este estabelecimento de saúde.",
@@ -132,15 +147,21 @@ export function StoreDetailProfessional() {
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
   const sector = sectorForStore(store.kind);
   const isMarketSector = sector.id === marketSectorId;
-  const backdrop = isMarketSector ? storeBackdrop(store.slug || String(store.id)) : undefined;
+  const backdrop = isMarketSector ? storeBackdrop(store.slug || String(store.id)) : SECTOR_BACKDROPS[sector.id];
   const showLogo = logoUrl && !logoFailed;
   const SectorIcon = sector.icon;
+  // Todos os estabelecimentos são de Feijó-AC, CEP 69960-000: incluir isso
+  // sempre na busca do mapa evita que o Google Maps resolva o nome da loja
+  // para outro lugar do Brasil (ou não encontre nada) quando o nome sozinho
+  // é ambíguo ou pouco conhecido fora da cidade.
+  const mapsQuery = encodeURIComponent(`${store.name}, ${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó - AC, 69960-000, Brasil`);
+  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
   return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
     <PublicHeader current="stores" title={store.name} logo={showLogo ? logoUrl : undefined}/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline store-pro-topline--location-only">
-        <span><MapPin /> Feijó · Acre</span>
+        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000</a>
       </div>
 
       <section

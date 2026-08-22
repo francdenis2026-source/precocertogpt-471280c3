@@ -5,15 +5,11 @@ import "@fontsource-variable/outfit";
 import "@fontsource-variable/manrope";
 import "./styles/AppReset.css";
 import App from "./App";
+import { initializeSiteTheme } from "./lib/siteTheme";
 import "./reference/DesignSystem2.css";
 import "./reference/DesignSystem2Experience.css";
 
-const savedTheme = localStorage.getItem("theme") || localStorage.getItem("precocerto-theme");
-const initialTheme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : "dark";
-localStorage.setItem("theme", initialTheme);
-localStorage.setItem("precocerto-theme", initialTheme);
-document.documentElement.dataset.theme = initialTheme;
-document.documentElement.style.colorScheme = initialTheme;
+initializeSiteTheme();
 
 const boot = document.getElementById("pc-boot-screen");
 // A tela de boot precisa sair completamente do fluxo de pintura depois do

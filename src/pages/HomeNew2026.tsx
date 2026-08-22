@@ -1,6 +1,6 @@
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BadgeCheck, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
+import { ArrowRight, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
@@ -57,6 +57,11 @@ export function HomeNew2026() {
     window.localStorage.setItem("theme", theme);
     window.localStorage.setItem("precocerto-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.classList.add("nx-home-active");
+    return () => document.documentElement.classList.remove("nx-home-active");
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -151,7 +156,7 @@ export function HomeNew2026() {
       }}>
         <div className="nx-shell nx-hero__grid">
           <div className="nx-hero__copy">
-            <span className="nx-kicker"><BadgeCheck aria-hidden="true" /> Comparação local, sem complicação</span>
+            <span className="nx-kicker"><i className="nx-check" aria-hidden="true">✓</i> Comparação local, sem complicação</span>
             <h1>Encontre o melhor preço <em>perto de você.</em></h1>
             <p>Pesquise produtos do comércio de Feijó, compare os valores disponíveis e decida onde comprar.</p>
             <form className="nx-search" role="search" onSubmit={submitSearch} onFocus={() => setFocused(true)}>
@@ -230,10 +235,10 @@ export function HomeNew2026() {
 
     <footer className="nx-footer">
       <div className="nx-shell nx-footer__main">
-        <div><img src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="142" height="34" /><p>Informação local para comprar melhor em Feijó.</p></div>
+        <div className="nx-footer__brand"><img src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="126" height="30" /><p>Informação local para comprar melhor.</p></div>
         <nav aria-label="Links do rodapé"><Link to="/buscar">Comparar preços</Link><Link to="/explorar">Onde comprar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/lojista">Para comerciantes</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></nav>
+        <div className="nx-footer__meta"><span><i className="nx-check" aria-hidden="true">✓</i> Preços locais organizados</span><small>© 2026 PreçoCerto · Feijó, AC</small></div>
       </div>
-      <div className="nx-shell nx-footer__bottom"><span><BadgeCheck /> Preços locais organizados</span><small>© 2026 PreçoCerto · Feijó, Acre</small></div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />
     <nav className="nx-dock" aria-label="Navegação móvel"><Link className="is-active" to="/"><Store /><span>Início</span></Link><Link to="/buscar"><Search /><span>Buscar</span></Link><Link to="/cesta-inteligente"><ShoppingBasket /><span>Cesta</span></Link><Link to="/estabelecimentos"><MapPin /><span>Locais</span></Link></nav>

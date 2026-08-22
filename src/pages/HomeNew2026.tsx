@@ -8,6 +8,7 @@ import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredR
 import { getStoreLogoUrl } from "../data/storeLogos";
 import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
+import { HeaderRadioPlayer } from "../components/PersistentRadio";
 import "./HomeNew2026.css";
 
 type Theme = "light" | "dark";
@@ -130,7 +131,7 @@ export function HomeNew2026() {
       <div className="nx-shell nx-header__inner">
         <Link className="nx-brand" to="/" aria-label="PreçoCerto, página inicial">
           <img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto" width="171" height="36" />
-          <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
+          <span><MapPin aria-hidden="true" /><strong>Feijó</strong><small>· Acre</small></span>
         </Link>
         <nav className={menuOpen ? "is-open" : ""} id="nx-navigation" aria-label="Navegação principal">
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar</Link>
@@ -140,6 +141,7 @@ export function HomeNew2026() {
           <Link to="/lojista" onClick={() => setMenuOpen(false)}>Para comerciantes</Link>
         </nav>
         <div className="nx-header__actions">
+          <HeaderRadioPlayer />
           <button type="button" className="nx-theme" onClick={() => setTheme(value => value === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
             {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
           </button>

@@ -14,6 +14,7 @@ import { getStoreLogoUrl } from "../data/storeLogos";
 import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib/roles";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { OnlinePresence } from "../components/OnlinePresence";
+import { HeaderRadioPlayer } from "../components/PersistentRadio";
 import { groupForStore } from "../data/businessTaxonomy";
 import { SectorNavigator, getMarketplaceSector } from "./MarketplaceSectors";
 import "./ReferenceExperience.css";
@@ -351,7 +352,7 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
           {barTitle && <strong className="ref-header__context-title">{barTitle}</strong>}
         </div>}
       </div>
-      <ThemeButton />
+      <div className="ref-header__actions"><HeaderRadioPlayer /><ThemeButton /></div>
     </div>
   </header>;
   }
@@ -370,6 +371,7 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
         {activeSection === "home" && <OnlinePresence />}
       </div>
       <div className="ref-header__actions">
+        <HeaderRadioPlayer />
         <ThemeButton />
         <Link className={`ref-favorites-link${activeSection === "profile" ? " is-active" : ""}`} aria-current={activeSection === "profile" ? "page" : undefined} to="/favoritos" aria-label="Favoritos"><Heart /></Link>
         <Link className="ref-signin" to="/login">Entrar</Link>

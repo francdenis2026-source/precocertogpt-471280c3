@@ -83,3 +83,65 @@ html[data-theme="dark"] .hp-home {
   aspect-ratio: 1 / 1;
 }
 .hp-footer svg.lucide { color: #f4bd63; }
+
+
+/* Auditoria expandida: inclui todas as áreas operacionais e administrativas. */
+:where(.admin-shell, .admin-page, .acc-shell, .avs-shell, .acw-shell,
+  .merchant-dashboard, .dashboard-page, [class*="admin-"]) svg.lucide {
+  height: auto;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+}
+
+:where(.admin-shell, .admin-page, .acc-shell, .avs-shell, .acw-shell,
+  .merchant-dashboard, .dashboard-page)
+  :where(small, figcaption, caption, time, [class*="caption"], [class*="eyebrow"],
+    [class*="kicker"], [class*="meta"], [class*="label"]) {
+  font-size: 0.75rem !important;
+  line-height: 1.45;
+}
+
+:where(.admin-shell, .admin-page, .acc-shell, .avs-shell, .acw-shell,
+  .merchant-dashboard, .dashboard-page)
+  :where(button, label, select, nav a, [role="button"]) {
+  font-size: max(0.8125rem, 1em);
+}
+
+/* Heros compactos: preservam imagem e hierarquia sem ocupar a janela inteira. */
+.hp-home .hp-hero,
+.hp-home .hp-hero__grid {
+  min-height: clamp(430px, 54svh, 500px) !important;
+}
+:where(.sector-hero, .ref-hero, .store-pro-hero, .pdx-hero, .merchant-hero,
+  .culture-hero, .culture-profile-hero, .dorinha-editorial__hero,
+  .search26-hero, .basket-hero, .smart-basket-hero) {
+  min-height: clamp(250px, 34svh, 390px) !important;
+}
+:where(.sector-hero__grid, .ref-hero__grid, .store-pro-hero__grid,
+  .pdx-hero__grid, .merchant-hero__grid, .culture-hero__grid,
+  .search26-hero__grid) {
+  min-height: inherit !important;
+  padding-block: clamp(2rem, 5svh, 3.75rem) !important;
+}
+
+/* Remove o traço diagonal verde criado pela textura editorial do hero. */
+.hp-home .hp-hero::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+.hp-home .hp-hero::after {
+  background: none !important;
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-hero,
+  .hp-home .hp-hero__grid {
+    min-height: auto !important;
+  }
+  :where(.sector-hero, .ref-hero, .store-pro-hero, .pdx-hero, .merchant-hero,
+    .culture-hero, .culture-profile-hero, .dorinha-editorial__hero,
+    .search26-hero, .basket-hero, .smart-basket-hero) {
+    min-height: auto !important;
+  }
+}

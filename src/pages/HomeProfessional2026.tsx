@@ -195,8 +195,8 @@ export function HomeProfessional2026() {
     <header className="hp-header">
       <div className="hp-shell hp-header__inner">
         <Link className="hp-brand" to="/" aria-label="PreçoCerto, página inicial">
-          <img className="hp-brand__light" src="/logo-preco-certo.svg" alt="PreçoCerto" width="142" height="36" />
-          <img className="hp-brand__dark" src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" width="142" height="36" />
+          <img className="hp-brand__light" src="/logo-preco-certo.svg?v=8" alt="PreçoCerto" width="142" height="36" />
+          <img className="hp-brand__dark" src="/logo-preco-certo-inversa.svg?v=8" alt="PreçoCerto" width="142" height="36" />
           <small>FEIJÓ · ACRE</small>
         </Link>
         <nav id="hp-main-navigation" className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
@@ -309,7 +309,7 @@ export function HomeProfessional2026() {
     <footer className="hp-footer">
       <div className="hp-shell hp-footer__inner">
         <div className="hp-footer__identity">
-          <Link className="hp-brand" to="/"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" width="130" height="33" /></Link>
+          <Link className="hp-brand" to="/"><img src="/logo-preco-certo-inversa.svg?v=8" alt="PreçoCerto" width="130" height="33" /></Link>
           <p>O preço certo perto de você. Compare o comércio de Feijó antes de sair de casa.</p>
           <div className="hp-footer__panel-triggers">
             <button type="button" onClick={() => setFooterPanel("contato")}><MessageCircle aria-hidden="true" /> Contato</button>

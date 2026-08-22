@@ -159,8 +159,8 @@ function useCatalog() { return useCatalogState().catalog; }
 export function Brand({ inverse = false }: { inverse?: boolean }) {
   return <Link className="ref-brand" to="/" aria-label="PreçoCerto — início">
     {inverse
-      ? <img className="ref-brand__inverse" src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" />
-      : <><img className="ref-brand__light" src="/logo-preco-certo.svg" alt="PreçoCerto" /><img className="ref-brand__dark" src="/logo-preco-certo-inversa.svg" alt="" aria-hidden="true" /></>}
+      ? <img className="ref-brand__inverse" src="/logo-preco-certo-inversa.svg?v=8" alt="PreçoCerto" />
+      : <><img className="ref-brand__light" src="/logo-preco-certo.svg?v=8" alt="PreçoCerto" /><img className="ref-brand__dark" src="/logo-preco-certo-inversa.svg?v=8" alt="" aria-hidden="true" /></>}
     <span>FEIJÓ · ACRE</span>
   </Link>;
 }

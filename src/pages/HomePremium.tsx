@@ -312,7 +312,7 @@ export function HomePremium() {
               <h1 id="pcx-title">'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
                                         
                                             
-                                            verifique as cores secundarias do site</h1>
+                                            Atualize as cores secundárias do site para corresponder ao padrão que eu definir e confirme a alteração na HomePremium.</h1>
               <p>Em Feijó, compare o mesmo produto nos estabelecimentos da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               
               <div className="pcx-hero__actions">

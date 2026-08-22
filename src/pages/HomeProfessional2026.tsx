@@ -20,6 +20,7 @@ import "./HomePolishAcai2026.css";
 import "./HomeLighter2026.css";
 import "./HomeSearchOverlay2026.css";
 import "./HomeMobileFixes2026.css";
+import "./HomeTasteSystem2026.css";
 
 gsap.registerPlugin(ScrollTrigger);
 

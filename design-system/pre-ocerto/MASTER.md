@@ -19,23 +19,23 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#EA580C` | `--color-primary` |
+| Primary | `#12344D` | `--color-primary` |
 | On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#F97316` | `--color-secondary` |
-| Accent/CTA | `#2563EB` | `--color-accent` |
-| Background | `#FFF7ED` | `--color-background` |
+| Secondary | `#0F766E` | `--color-secondary` |
+| Accent/CTA | `#F59E0B` | `--color-accent` |
+| Background | `#F7F9FB` | `--color-background` |
 | Foreground | `#0F172A` | `--color-foreground` |
-| Muted | `#FDF4F0` | `--color-muted` |
-| Border | `#FCEAE1` | `--color-border` |
+| Muted | `#EEF3F6` | `--color-muted` |
+| Border | `#D8E1E7` | `--color-border` |
 | Destructive | `#DC2626` | `--color-destructive` |
-| Ring | `#EA580C` | `--color-ring` |
+| Ring | `#F59E0B` | `--color-ring` |
 
-**Color Notes:** Event orange + map blue
+**Color Notes:** Navy/petroleum establishes trust; amber guides primary action; green is reserved for verified savings and success.
 
 ### Typography
 
-- **Heading Font:** Rubik
-- **Body Font:** Nunito Sans
+- **Heading Font:** Manrope
+- **Body Font:** Inter
 - **Mood:** ecommerce, clean, shopping, product, retail, conversion
 - **Google Fonts:** [Rubik + Nunito Sans](https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap)
 

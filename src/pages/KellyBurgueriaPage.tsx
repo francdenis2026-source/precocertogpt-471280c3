@@ -116,7 +116,7 @@ export function KellyBurgueriaPage() {
           </div>
           <div className="kelly-hero__visual" aria-hidden="true">
             <img src="/kelly-burgueria/hero-burger.jpg" alt="" />
-            <span><BadgeCheck /> Cardápio verificado</span>
+            <span><BadgeCheck /> Artesanal e feito na hora</span>
           </div>
         </section>
 

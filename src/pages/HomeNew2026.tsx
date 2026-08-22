@@ -126,7 +126,6 @@ export function HomeNew2026() {
   };
 
   return <div className="nx-home">
-    <FestivalAcaiBar />
     <header className="nx-header">
       <div className="nx-shell nx-header__inner">
         <Link className="nx-brand" to="/" aria-label="PreçoCerto, página inicial">
@@ -151,6 +150,7 @@ export function HomeNew2026() {
     </header>
 
     <main id="conteudo-principal">
+      <FestivalAcaiBar />
       <section className="nx-hero" onPointerDown={event => {
         if (searchOpen && !(event.target as HTMLElement).closest(".nx-search")) setFocused(false);
       }}>

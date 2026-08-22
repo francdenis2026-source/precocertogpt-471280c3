@@ -45,7 +45,7 @@ export function PersistentRadioProvider({children}:{children:ReactNode}){
 
 export function HeaderRadioPlayer(){
   const radio=useContext(RadioContext);if(!radio)return null;
-  const status=radio.failed?"Transmissão indisponível":radio.loading?"Conectando…":radio.playing?(radio.nowPlaying||"Tocando agora"):"Jovem Pan FM";
+  const status=radio.failed?"Transmissão indisponível":radio.loading?"Conectando…":radio.playing?"Tocando agora":"Jovem Pan FM";
   const label=radio.failed?"Tentar conectar novamente":radio.playing?`Pausar Jovem Pan FM${radio.nowPlaying?`, tocando ${radio.nowPlaying}`:""}`:"Ouvir Jovem Pan FM";
   return <div className={`pc-radio${radio.playing?" is-playing":""}${radio.loading?" is-loading":""}${radio.failed?" has-error":""}${radio.nowPlaying?" has-track":""}`}>
     <button className="pc-radio__play" type="button" onClick={radio.failed?radio.retry:radio.toggle} aria-label={label} title={label}>

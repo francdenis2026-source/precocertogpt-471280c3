@@ -203,7 +203,7 @@ body:has(.hp-home) .hp-header::after { opacity: 1; }
   font-weight: 700;
 }
 
-.hp-footer__meta span svg { width: 15px; }
+.hp-footer__meta span svg { width: 15px;height:15px}
 .hp-footer__meta small { color: #8b95a0; font-size: var(--t-meta); }
 
 /* ============ MICROINTERAÇÕES ============ */
@@ -337,6 +337,6 @@ html[data-theme="dark"] .hp-login { background: var(--hp-brand); color: #0d222f;
    navegação principal do celular. */
 .hp-dock a { font-size: var(--t-eyebrow); gap: 4px; }
 .hp-dock a span { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0; }
-.hp-dock a svg { width: 20px; }
+.hp-dock a svg { width: 20px;height:20px}
 .hp-dock a { transition: color .2s var(--ease), background .2s var(--ease); }
 .hp-dock a.is-active { color: var(--hp-brand); }

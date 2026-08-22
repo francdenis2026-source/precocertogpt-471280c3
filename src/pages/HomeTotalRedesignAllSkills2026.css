@@ -184,7 +184,7 @@
   box-shadow: 0 16px 34px rgba(19,8,19,.22);
 }
 .pc-home .pc-search:focus-within { border-color: #c769c7; box-shadow: 0 0 0 4px rgba(146,28,146,.20), 0 16px 34px rgba(19,8,19,.22); }
-.pc-home .pc-search > svg { width: 19px; color: #776e77; }
+.pc-home .pc-search > svg { width: 19px; color: #776e77;height:19px}
 .pc-home .pc-search input { height: 44px; color: #3b2f3d; font-size: 1rem; }
 .pc-home .pc-search input::placeholder { color: #817881; }
 .pc-home .pc-search button {

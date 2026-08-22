@@ -297,7 +297,7 @@ html[data-theme="light"] .pc-glass {
   background-color: var(--pc-surface-light);
   color: var(--pc-ink);
   border-radius: var(--pc-radius-sm);
-  font-size: 12px;
+  font-size:13px;
   font-weight: 600;
   letter-spacing: var(--pc-letter-spacing-wide);
   text-transform: uppercase;

@@ -55,7 +55,7 @@
 .pc-next .pcn-metrics { min-height: 92px; border-radius: 8px; background:#1e191e; }
 .pc-next .pcn-metrics > div { min-height: 66px; grid-template-columns: 40px 1fr; column-gap: 10px; padding: 13px 15px; }
 .pc-next .pcn-metric-icon { width: 40px; height: 40px; border-radius: 13px; }
-.pc-next .pcn-metric-icon svg { width: 18px; }
+.pc-next .pcn-metric-icon svg { width: 18px;height:18px}
 .pc-next .pcn-metrics strong { font-size: 1.05rem; }
 
 /* Ritmo vertical mais curto */

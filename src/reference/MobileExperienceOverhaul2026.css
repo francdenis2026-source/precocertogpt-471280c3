@@ -30,7 +30,7 @@
   .ref-header__actions>a:not(.ref-signin),.ref-theme,.ref-menu{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;border-radius:12px!important}
   .ref-header__actions svg,.ref-theme svg,.ref-menu svg{width:22px!important;height:22px!important}
 
-  .ref-header__quick a{font-size:12px!important;gap:5px!important}
+  .ref-header__quick a{font-size:13px!important;gap:5px!important}
   .ref-header__quick a svg{width:25px!important;height:25px!important}
 
   /* Compact ("back-only") header used on internal pages: bigger back button
@@ -45,10 +45,10 @@
   .search26-search{top:64px!important}
 
   /* ---------- 3) Footer / bottom dock: taller, bigger icons and labels ---------- */
-  .ref-dock a{min-height:66px!important;font-size:12px!important;gap:5px!important}
+  .ref-dock a{min-height:66px!important;font-size:13px!important;gap:5px!important}
   .ref-dock svg{width:26px!important;height:26px!important}
   .ref-footer nav a{min-height:44px!important;font-size:13px!important}
-  .ref-footer nav strong{font-size:12.5px!important}
+  .ref-footer nav strong{font-size:13px!important}
 
   /* Two other files (FooterSignatureRefinement.css, MobileProMax2026.css) each
      compute their own dock-clearance padding for .ref-footer, with slightly
@@ -65,8 +65,8 @@
 
   /* ---------- Cards: slightly roomier, higher-contrast meta text ---------- */
   .ref-product-grid>a,.ref-product-grid>article{padding:10px!important}
-  .ref-product-grid a>strong{font-size:12.5px!important}
-  .ref-product-grid a>span{color:color-mix(in srgb,var(--pc-ink) 62%,var(--pc-surface))!important;font-size:10px!important}
+  .ref-product-grid a>strong{font-size:13px!important}
+  .ref-product-grid a>span{color:color-mix(in srgb,var(--pc-ink) 62%,var(--pc-surface))!important;font-size:12px!important}
 
   /* ---------- Modals: never let content get stuck below the fold ---------- */
   .ref-product-dialog{display:flex!important;flex-direction:column!important;max-height:88dvh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
@@ -76,7 +76,7 @@
   :root{--pc-mobile-header:60px}
   .ref-header .ref-brand img{width:96px!important}
   .ref-header__quick{padding-inline:6px!important}
-  .ref-header__quick a{font-size:11px!important}
+  .ref-header__quick a{font-size:12.5px!important}
   .ref-header__quick a svg{width:23px!important;height:23px!important}
   .ref-header__context-title{max-width:30vw}
 }

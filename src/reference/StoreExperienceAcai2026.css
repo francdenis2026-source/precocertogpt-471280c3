@@ -31,7 +31,7 @@
 }
 
 .store-pro-copy > span {
-  font-size: 10px;
+  font-size:12px;
   letter-spacing: .16em;
 }
 
@@ -55,7 +55,7 @@
 .store-pro-copy > p { display: none; }
 
 .store-pro-meta-line { margin-top: 12px; gap: 8px 16px; }
-.store-pro-meta-line b { font-size: 11px; }
+.store-pro-meta-line b { font-size:12.5px; }
 
 /* ---------- ESPECIALIDADES ---------- */
 /* Categorias com mais produtos na loja — dado real do catálogo, não rótulo fixo. */
@@ -77,7 +77,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, .10);
   color: #f0f3f6;
-  font-size: 11px;
+  font-size:12.5px;
   font-weight: 700;
   line-height: 1;
   backdrop-filter: blur(6px);
@@ -88,7 +88,7 @@
   border-radius: 999px;
   background: rgba(169, 195, 214, .26);
   color: #e8f0f5;
-  font-size: 10px;
+  font-size:12px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -188,11 +188,11 @@
   .store-pro-hero__content { grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 18px 15px; }
   .store-pro-copy h1 { font-size: 23px; }
   .store-pro-specialties { gap: 5px; margin-top: 10px; }
-  .store-pro-specialties li { padding: 4px 8px 4px 9px; font-size: 10px; }
+  .store-pro-specialties li { padding: 4px 8px 4px 9px; font-size:12px; }
   /* Duas colunas no celular em vez de uma: a página fica bem mais curta. */
   .store-pro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
   .store-pro-product-image { height: 112px !important; padding: 7px !important; }
-  .store-pro-grid > a > strong { font-size: 12px !important; }
+  .store-pro-grid > a > strong { font-size:13px !important; }
   .store-pro-shell { padding-block: 12px 22px; }
   .store-pro-summary { grid-template-columns: 1fr 1fr; }
   .ref-store-cards { grid-template-columns: 1fr 1fr; gap: 8px; }

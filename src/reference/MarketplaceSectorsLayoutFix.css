@@ -50,7 +50,7 @@
   overflow:visible!important;
 }
 .sector-hero aside strong{font-size:20px!important;line-height:1.1}
-.sector-hero aside p{font-size:11px!important;line-height:1.45!important}
+.sector-hero aside p{font-size:12.5px!important;line-height:1.45!important}
 
 .sector-content{
   padding-block:28px 36px!important;
@@ -70,7 +70,7 @@
 .sector-content__heading p{
   margin:0;
   max-width:58ch;
-  font-size:12px;
+  font-size:13px;
   line-height:1.5!important;
 }
 
@@ -103,14 +103,14 @@
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size:11px!important;
+  font-size:12.5px!important;
 }
 .sector-nav--compact small{
   display:block;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size:8px!important;
+  font-size:11.5px!important;
 }
 
 .sector-highlights{
@@ -128,7 +128,7 @@
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size:11px!important;
+  font-size:12.5px!important;
 }
 
 .sector-how{
@@ -147,9 +147,9 @@
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size:10px!important;
+  font-size:12px!important;
 }
-.sector-how small{font-size:7.5px!important}
+.sector-how small{font-size:11.5px!important}
 
 .sector-footer{
   min-height:52px!important;
@@ -161,7 +161,7 @@
   .sector-header{height:46px!important}
   .sector-hero{padding:22px 0!important}
   .sector-hero h1{font-size:clamp(2rem,4vw,3.45rem)!important}
-  .sector-hero p{font-size:12px!important}
+  .sector-hero p{font-size:13px!important}
   .sector-hero aside{padding:14px!important}
   .sector-content{padding-block:20px 28px!important}
   .sector-content__heading h2{font-size:1.8rem!important}

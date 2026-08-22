@@ -4,31 +4,35 @@
   --pc-font-display:"Outfit Variable",Outfit,"Inter Variable",Inter,system-ui,sans-serif;
   --pc-font-body:"Inter Variable",Inter,system-ui,sans-serif;
   --pc-canvas:#f6f7f8;--pc-surface:#ffffff;--pc-surface-2:#eef1f3;--pc-surface-3:#e3e7ea;
-  --pc-ink:#131a20;--pc-muted:#5b6570;--pc-subtle:#6b7680;--pc-border:#dde2e6;--pc-border-strong:#c3cad0;
-  /* Índigo de marca: mais saturado e expressivo que o antigo azul-chumbo,
-     mantendo contraste profissional com branco, verde e dourado. */
-  --pc-navy:#243b7a;--pc-navy-2:#3157a4;
+  --pc-ink:#131a20;--pc-muted:#5b6570;--pc-subtle:#6b7680;--pc-border:#ccd4da;--pc-border-strong:#8d959c;
+  /* Azul profundo (não cinza-chumbo): usado em header/rodapé/heros de todas
+     as páginas via este token só, então um azul com saturação real aqui já
+     resolve o site inteiro de uma vez, sem precisar caçar cor em cada
+     página. */
+  --pc-navy:#0f3556;--pc-navy-2:#154a75;--pc-footer:#0d1117;
   /* --pc-green* e --pc-gold* eram clones do azul de marca (mesmo hex do navy),
      deixando preço, selos e destaques indistinguíveis da UI estrutural.
      Agora green é realmente verde (preço/economia) e gold é realmente dourado
      (destaque/selo), dando ao site vocabulário de cor de verdade. */
-  --pc-green:#1c9a56;--pc-green-strong:#15803d;--pc-green-soft:#e3f5ea;
-  --pc-gold:#c9781f;--pc-gold-soft:#fbeed9;--pc-danger:#c0311f;--pc-danger-soft:#fbeae7;--pc-info:#1f4e6b;
+  --pc-green:#18864b;--pc-green-strong:#15803d;--pc-green-soft:#e3f5ea;
+  --pc-gold:#ab661a;--pc-gold-on-dark:#d18c41;--pc-gold-soft:#fbeed9;--pc-danger:#c0311f;--pc-danger-soft:#fbeae7;--pc-info:#1f4e6b;
   --pc-radius-control:10px;--pc-radius-card:14px;--pc-radius-block:18px;--pc-radius-hero:24px;
   --pc-shadow-sm:0 1px 2px rgba(19,26,32,.06),0 6px 18px rgba(19,26,32,.07);--pc-shadow-lg:0 2px 6px rgba(19,26,32,.06),0 24px 56px rgba(19,26,32,.16);
   --pc-space-1:4px;--pc-space-2:8px;--pc-space-3:12px;--pc-space-4:16px;--pc-space-5:20px;--pc-space-6:24px;--pc-space-8:32px;--pc-space-10:40px;--pc-space-12:48px;--pc-space-16:64px;
-  --pc-text-xs:11px;--pc-text-sm:12px;--pc-text-meta:13px;--pc-text-body:15px;--pc-text-lg:17px;
+  --pc-text-xs:12px;--pc-text-sm:13px;--pc-text-meta:14px;--pc-text-body:16px;--pc-text-lg:18px;
   --pc-h3:20px;--pc-h2:clamp(24px,2.5vw,32px);--pc-h1:clamp(32px,4vw,44px);--pc-display:clamp(48px,6.2vw,78px);
   --pc-leading-tight:1.02;--pc-leading-body:1.55;
 }
 html[data-theme="dark"]{
   color-scheme:dark;
   --pc-canvas:#14191e;--pc-surface:#1b2126;--pc-surface-2:#212930;--pc-surface-3:#2a333b;
-  --pc-ink:#e9eef2;--pc-muted:#9aa5ad;--pc-subtle:#8b95a0;--pc-border:#2a333b;--pc-border-strong:#3a444d;
-  /* No tema escuro, o índigo permanece reconhecível sem perder profundidade
-     nem competir com os indicadores de preço e economia. */
-  --pc-navy:#111f4d;--pc-navy-2:#1b3570;--pc-green:#34c77c;--pc-green-strong:#4ade80;--pc-green-soft:#15291d;
-  --pc-gold:#f2ae4c;--pc-gold-soft:#3a2a14;--pc-danger:#f3897a;--pc-danger-soft:#3a1e1a;--pc-info:#9cbed3;
+  --pc-ink:#e9eef2;--pc-muted:#9aa5ad;--pc-subtle:#8b95a0;--pc-border:#364049;--pc-border-strong:#697077;
+  /* Este era o principal "chumbo" do site: quase cinza neutro (R16 G23 B28,
+     sem saturação de cor nenhuma) usado em header/rodapé/heros no modo
+     escuro. Troca por um azul-marinho profundo de verdade — mesma
+     escuridão, mas com identidade de cor, não cinza de infraestrutura. */
+  --pc-navy:#0b2438;--pc-navy-2:#123a58;--pc-footer:#0d1117;--pc-green:#34c77c;--pc-green-strong:#4ade80;--pc-green-soft:#15291d;
+  --pc-gold:#f2ae4c;--pc-gold-on-dark:#f2ae4c;--pc-gold-soft:#3a2a14;--pc-danger:#f3897a;--pc-danger-soft:#3a1e1a;--pc-info:#9cbed3;
   --pc-shadow-sm:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.32);--pc-shadow-lg:0 2px 8px rgba(0,0,0,.45),0 24px 60px rgba(0,0,0,.5);
 }
 body{font-family:var(--pc-font-body)}
@@ -461,7 +465,7 @@ html[data-theme="dark"] .pc-btn--gold{color:var(--pc-navy)}
 .pc-chart{position:relative}
 .pc-chart__svg{width:100%;height:auto;overflow:visible}
 .pc-chart__grid{stroke:var(--pc-border);stroke-width:1}
-.pc-chart__axis{fill:var(--pc-muted);font-size:11px;font-variant-numeric:tabular-nums}
+.pc-chart__axis{fill:var(--pc-muted);font-size:12.5px;font-variant-numeric:tabular-nums}
 .pc-chart__line{fill:none;stroke:var(--pc-green);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .pc-chart__area{fill:color-mix(in srgb,var(--pc-green) 14%,transparent)}
 .pc-chart__dot{fill:var(--pc-surface);stroke:var(--pc-green);stroke-width:2}

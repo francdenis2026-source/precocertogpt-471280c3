@@ -64,7 +64,7 @@
 .true-home .th-product__media img{transition:transform var(--th-ui) var(--th-ease-out),opacity var(--th-ui) ease}
 .true-home .th-product__topline>span{background:#f7eef8;color:#6b116e;border-color:#eadeea}
 .true-home .th-product h3{font-size:16px;line-height:1.28}
-.true-home .th-product p{font-size:11px}
+.true-home .th-product p{font-size:12.5px}
 .true-home .th-product__price strong{font-size:25px;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
 .true-home .th-product__price span{margin-top:6px;padding:5px 8px;display:inline-flex;border-radius:999px;background:#fff4e8;color:#9a4b0a}
 .true-home .th-product:active{transform:scale(.992)}

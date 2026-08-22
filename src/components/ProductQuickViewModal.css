@@ -43,17 +43,17 @@
 .pqv-image{width:100%;height:100%;object-fit:cover;display:block}
 .pqv-image-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--pc-muted);height:100%;width:100%}
 .pqv-image-fallback svg{width:40px;height:40px;opacity:.6}
-.pqv-image-fallback span{font-size:12px}
+.pqv-image-fallback span{font-size:13px}
 
 .pqv-body{flex:1;min-width:0;padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px}
 
-.pqv-kicker{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--pc-gold)}
+.pqv-kicker{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--pc-gold)}
 .pqv-body h2{margin:0;font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.2;font-weight:900}
 .pqv-size{margin:0;font-size:13px;color:var(--pc-muted);line-height:1.5}
 
 .pqv-price-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
 .pqv-price{font-size:22px;font-weight:900;color:var(--pc-green-strong)}
-.pqv-store{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--pc-muted)}
+.pqv-store{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--pc-muted)}
 .pqv-store svg{width:14px;height:14px;flex:none}
 
 .pqv-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
@@ -70,9 +70,9 @@
 .pqv-btn--primary.is-active{background:#b81f30;border-color:#b81f30}
 .pqv-btn--ghost:hover{border-color:color-mix(in srgb,var(--pc-green) 40%,var(--pc-border));background:var(--pc-surface-2)}
 
-.pqv-message{margin:0;font-size:12.5px;font-weight:600;color:var(--pc-green-strong)}
+.pqv-message{margin:0;font-size:13px;font-weight:600;color:var(--pc-green-strong)}
 
-.pqv-link{margin-top:auto;padding-top:6px;font-size:12.5px;font-weight:700;color:var(--pc-muted);text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+.pqv-link{margin-top:auto;padding-top:6px;font-size:13px;font-weight:700;color:var(--pc-muted);text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
 .pqv-link:hover{color:var(--pc-ink)}
 
 /* Item de cardápio clicável (Kelly/Sanduba) */

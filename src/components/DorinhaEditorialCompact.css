@@ -90,7 +90,7 @@
 .dorinha-pro__hero-actions a:first-child { background: var(--pc-color-surface) !important; color: var(--pc-color-foreground) !important; }
 .dorinha-pro__hero-actions a:last-child { background: var(--de-gold) !important; color: var(--pc-color-foreground) !important; border-color: var(--de-gold) !important; }
 .dorinha-pro__hero-meta { margin-top: 18px !important; gap: 15px !important; color: var(--pc-color-border) !important; }
-.dorinha-pro__hero-meta span { font-size: 10px !important; }
+.dorinha-pro__hero-meta span { font-size:12px !important; }
 .dorinha-pro__hero-portrait { min-height: 510px !important; height: 510px !important; width: 100% !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
 .dorinha-pro__hero-portrait img { object-position: center 15% !important; filter: saturate(.82) contrast(1.03) !important; }
 .dorinha-pro__hero-portrait > div { left: 22px !important; bottom: 20px !important; border-radius: 7px !important; background: rgba(39, 22, 33, .86) !important; }
@@ -115,7 +115,7 @@
 .dorinha-pro__cover img { max-height: 230px !important; filter: drop-shadow(0 12px 12px rgba(45, 29, 37, .17)) !important; }
 .dorinha-pro__book-body { padding: 16px !important; }
 .dorinha-pro__book h3 { min-height: 42px !important; margin: 7px 0 6px !important; font-size: 20px !important; }
-.dorinha-pro__book p { min-height: 64px !important; color: var(--de-muted) !important; font-size: 11.5px !important; line-height: 1.55 !important; }
+.dorinha-pro__book p { min-height: 64px !important; color: var(--de-muted) !important; font-size:12.5px !important; line-height: 1.55 !important; }
 .dorinha-pro__book-footer { margin-top: 14px !important; padding-top: 12px !important; }
 .dorinha-pro__book-footer .dorinha-pro__book-actions a { min-height: 42px !important; border-radius: 6px !important; background: var(--de-wine) !important; box-shadow: none !important; }
 

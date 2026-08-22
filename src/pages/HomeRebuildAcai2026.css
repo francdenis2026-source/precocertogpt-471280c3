@@ -336,7 +336,7 @@ html[data-theme="dark"] .hp-home {
   /* Só o ícone cabe nesta largura. Sem zerar o corpo do texto o rótulo
      "Comparar" volta a renderizar e é cortado pela borda do botão. */
   .hp-home .hp-search__submit { width: 43px; height: 43px; padding: 0; font-size: 0; justify-content: center; }
-  .hp-home .hp-search__submit svg { width: 19px; }
+  .hp-home .hp-search__submit svg { width: 19px;height:19px}
   .hp-section-head h2 { font-size: 23px; }
   .hp-sector-grid { gap: 8px; }
   .hp-sector-grid > a { min-height: 80px; padding: 11px; }

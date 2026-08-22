@@ -149,7 +149,7 @@
   box-shadow: 0 4px 14px rgba(51,24,51, .06);
 }
 .pc-search-overlay__thumb img { width: 88%; height: 88%; object-fit: contain; }
-.pc-search-overlay__thumb svg { width: 22px; color: #847684; }
+.pc-search-overlay__thumb svg { width: 22px; color: #847684;height:22px}
 
 .pc-search-overlay__copy { min-width: 0; }
 .pc-search-overlay__copy strong,
@@ -246,7 +246,7 @@
 }
 @media(hover:hover) and (pointer:fine){.pc-search-overlay__footer a:hover { background: #501e51; }}
 .pc-search-overlay__footer a:active { transform: scale(.98); }
-.pc-search-overlay__footer a svg { width: 14px; }
+.pc-search-overlay__footer a svg { width: 14px;height:14px}
 
 [data-theme="dark"] .pc-search-overlay__backdrop { background: rgba(7,0,8, .45); }
 [data-theme="dark"] .pc-search-overlay__panel { border-color: #504250; background: rgba(29,20,29, .995); color: #f4eef5; box-shadow: 0 34px 100px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.035); }

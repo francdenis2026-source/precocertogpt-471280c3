@@ -16,6 +16,7 @@ import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { OnlinePresence } from "../components/OnlinePresence";
 import { SectorNavigator, getMarketplaceSector } from "./MarketplaceSectors";
 import "./ReferenceExperience.css";
+import "./CompactViewportPages.css";
 import "./ReferencePages.css";
 import "./ReferencePagesMore.css";
 import "./ReferenceResponsive.css";

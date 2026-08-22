@@ -296,6 +296,7 @@ function ThemeButton() {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
     localStorage.setItem("theme", theme);
+    localStorage.setItem("precocerto-theme", theme);
   };
   return <button className="ref-theme" type="button" onClick={toggle} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
 }

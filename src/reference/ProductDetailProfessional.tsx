@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
+  ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
   ChevronRight, Factory, Heart, Home, Info, Layers3, MapPin, Package,
   PackageSearch, ShieldCheck, ShoppingBasket, Store, Tag, TrendingDown,
 } from "lucide-react";
@@ -182,8 +182,6 @@ export function ProductDetailProfessional() {
     <PublicHeader/>
 
     <main id="conteudo-principal" className="pdx-shell">
-      {homeStore && <Link className="pdx-back" to={homeStoreHref}><ArrowLeft/> Voltar ao catálogo de {homeStore.establishment}</Link>}
-
       <nav className="pdx-breadcrumb" aria-label="Navegação estrutural"><Link to="/"><Home/><span>Início</span></Link><ChevronRight/>{homeStore && <><Link className="pdx-breadcrumb__store" to={homeStoreHref}>{homeStore.establishment}</Link><ChevronRight className="pdx-breadcrumb__store"/></>}<Link to={`/buscar?q=${encodeURIComponent(product.category)}`}>{product.category}</Link><ChevronRight/><span>{product.name}</span></nav>
 
       <section className="pdx-product" aria-labelledby="pdx-title">

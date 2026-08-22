@@ -68,6 +68,57 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .ref-store-card__select, .ref-store-card footer a, .ref-store-card footer button, .ref-search-submit, .ref-stores-more { min-height: 44px; }
 .ref-store-card img, .ref-store-card svg { object-fit: contain; }
 
+/* Homepage clara: a fotografia mantém cor e profundidade. O véu fica
+   concentrado somente atrás da cópia, em vez de esbranquiçar a imagem toda. */
+html:not([data-theme="dark"]) .hp-home .hp-hero__media {
+  opacity: 1 !important;
+  filter: saturate(1.08) contrast(1.1) brightness(1.01) !important;
+}
+html:not([data-theme="dark"]) .hp-home .hp-hero__veil {
+  background:
+    linear-gradient(96deg,
+      rgb(7 28 42 / 88%) 0%,
+      rgb(7 28 42 / 76%) 25%,
+      rgb(7 28 42 / 42%) 43%,
+      rgb(7 28 42 / 13%) 59%,
+      transparent 72%),
+    linear-gradient(180deg, transparent 88%, rgb(7 28 42 / 10%) 100%) !important;
+}
+
+html:not([data-theme="dark"]) .hp-home .hp-story__media {
+  opacity: 1 !important;
+  filter: saturate(1.08) contrast(1.1) brightness(1.01) !important;
+}
+html:not([data-theme="dark"]) .hp-home .hp-story::after {
+  background: linear-gradient(90deg,
+    rgb(244 242 237 / 84%) 0%,
+    rgb(244 242 237 / 68%) 31%,
+    rgb(244 242 237 / 30%) 49%,
+    rgb(244 242 237 / 7%) 64%,
+    transparent 76%) !important;
+}
+
+html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers) {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 64%) 0%,
+      rgb(247 245 240 / 38%) 40%,
+      rgb(247 245 240 / 16%) 72%,
+      rgb(247 245 240 / 27%) 100%),
+    url("/compra-inteligente-profissional.webp");
+  background-blend-mode: normal;
+}
+html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers)::after {
+  background:
+    radial-gradient(circle at 8% 45%, rgb(247 245 240 / 16%), transparent 30%),
+    linear-gradient(180deg, rgb(247 245 240 / 3%), rgb(247 245 240 / 16%));
+}
+
+html:not([data-theme="dark"]) .hp-home .hp-local__media {
+  filter: saturate(1.08) contrast(1.08);
+  box-shadow: inset 0 0 0 1px rgb(12 47 69 / 12%), 0 12px 28px rgb(12 47 69 / 12%);
+}
+
 @media (max-width: 980px) {
   .ref-nav, .ref-header__utility { display: none; }
   .ref-menu { display: grid; }
@@ -83,6 +134,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .ref-footer__brand { grid-column: 1 / -1; }
   .ref-footer__grid nav:last-child { grid-column: auto; }
   .ref-footer__legal { align-items: flex-start; flex-direction: column; }
+  html:not([data-theme="dark"]) .hp-home .hp-hero__media {
+    filter: saturate(1.06) contrast(1.08) brightness(.98) !important;
+  }
+  html:not([data-theme="dark"]) .hp-home .hp-hero__veil {
+    background: linear-gradient(180deg,
+      rgb(7 28 42 / 48%) 0%,
+      rgb(7 28 42 / 58%) 48%,
+      rgb(7 28 42 / 76%) 100%) !important;
+  }
+  html:not([data-theme="dark"]) .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      rgb(244 242 237 / 28%) 0%,
+      rgb(244 242 237 / 62%) 58%,
+      rgb(244 242 237 / 88%) 100%) !important;
+  }
+  html:not([data-theme="dark"]) .hp-home :where(.hp-sectors, .hp-offers) {
+    background-image:
+      linear-gradient(180deg, rgb(247 245 240 / 44%), rgb(247 245 240 / 62%)),
+      url("/compra-inteligente-profissional.webp");
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

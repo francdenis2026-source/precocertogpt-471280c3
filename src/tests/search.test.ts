@@ -125,6 +125,16 @@ describe('Ranking de preços equivalentes', () => {
     expect(ranking.map(item => [item.establishment, item.value])).toEqual([['Loja B', 6.5], ['Loja A', 7.5]]);
     expect(ranking[0].productBrand).toBe('Marca B');
   });
+
+  it('não mistura leite em pó com derivados de leite de mesma gramagem', () => {
+    const leiteEmPo = { ...base, id: 10, name: 'LEITE EM PÓ DOBOM 400G', brand: 'Dobom', size: '400 g', category: 'Laticínios' };
+    const doceDeLeite = { ...base, id: 11, name: 'Doce de Leite Aurea 400g', brand: 'Aurea', size: '400 g', category: 'Laticínios' };
+    const condensado = { ...base, id: 12, name: 'Leite Condensado 395g', brand: 'Italac', size: '395 g', category: 'Laticínios' };
+    const leiteOutraMarca = { ...base, id: 13, name: 'Leite em Pó Integral 400g', brand: 'Outra', size: '400 g', category: 'Laticínios' };
+    expect(isEquivalentProduct(leiteEmPo, doceDeLeite)).toBe(false);
+    expect(isEquivalentProduct(leiteEmPo, condensado)).toBe(false);
+    expect(isEquivalentProduct(leiteEmPo, leiteOutraMarca)).toBe(true);
+  });
 });
 
 describe('Lógica de Filtro', () => {

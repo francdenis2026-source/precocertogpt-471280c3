@@ -83,7 +83,25 @@ function productMeasure(product: Product) {
   return parseMeasure(`${product.name} ${product.size || ""}`, product.unit);
 }
 
+// Famílias compostas não podem ser reduzidas ao termo genérico "leite".
+// Sem esta distinção, leite em pó 400 g era comparado com doce de leite,
+// creme de leite e leite condensado apenas porque tinham peso semelhante.
+function recognizedProductFamily(product: Product) {
+  const name = normalizeSearchText(product.name);
+  if (/\bleite\s+(?:em\s+)?po\b/.test(name)) return "leite-em-po";
+  if (/\bleite\s+condensado\b/.test(name)) return "leite-condensado";
+  if (/\bcreme\s+de\s+leite\b/.test(name)) return "creme-de-leite";
+  if (/\bdoce\s+(?:de\s+soro\s+)?de\s+leite\b/.test(name)) return "doce-de-leite";
+  if (/\bleite\s+de\s+coco\b/.test(name)) return "leite-de-coco";
+  return "";
+}
+
 function hasSameProductFamily(reference: Product, candidate: Product) {
+  const recognizedReference = recognizedProductFamily(reference);
+  const recognizedCandidate = recognizedProductFamily(candidate);
+  if (recognizedReference || recognizedCandidate) {
+    return Boolean(recognizedReference && recognizedReference === recognizedCandidate);
+  }
   const referenceTokens = productFamilyTokens(reference);
   const candidateTokens = productFamilyTokens(candidate);
   const shared = referenceTokens.filter(token => candidateTokens.includes(token));

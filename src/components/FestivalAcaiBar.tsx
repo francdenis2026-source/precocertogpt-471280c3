@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, X } from "lucide-react";
+import { X } from "lucide-react";
 import "./FestivalAcaiBar.css";
 
 // Faixa sazonal e discreta para a semana do Festival do Açaí + Festival de
@@ -40,13 +40,10 @@ export function FestivalAcaiBar() {
 
   return (
     <div className="pc-festival-bar" role="region" aria-label="Aviso do Festival do Açaí">
-      <div className="pc-festival-bar__inner">
-        <p>
-          <Sparkles aria-hidden="true" />
-          <span><strong>Festival do Açaí + Festival de Praia</strong> em Feijó — compare preços antes de comprar.</span>
-        </p>
-        <Link to="/buscar">Ver preços<span aria-hidden="true"> →</span></Link>
-      </div>
+      <Link className="pc-festival-bar__art" to="/buscar" aria-label="Festival do Açaí e Festival de Praia em Feijó. Pesquisar e comparar preços locais.">
+        <img src="/banner-festival-acai-feijo-2026.png" width="1024" height="62" alt="" aria-hidden="true" />
+        <span><strong>Festival do Açaí e Festival de Praia em Feijó</strong><small>Pesquise e compare preços locais</small></span>
+      </Link>
       <button type="button" className="pc-festival-bar__close" onClick={dismiss} aria-label="Fechar aviso do festival">
         <X aria-hidden="true" />
       </button>

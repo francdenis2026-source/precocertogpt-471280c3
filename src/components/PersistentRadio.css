@@ -5,3 +5,13 @@ html[data-theme="dark"] .pc-radio{border-color:#465570;background:#202e47;box-sh
 @media(prefers-reduced-motion:reduce){.pc-radio::before,.pc-radio__signal i,.pc-radio__loader{animation:none!important}}@keyframes pc-radio-wave{to{height:4px;opacity:.45}}@keyframes pc-radio-spin{to{transform:rotate(360deg)}}@keyframes pc-radio-sheen{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
 html:not([data-theme="dark"]) .pc-radio{background:linear-gradient(145deg,#edf2f4,#e3e9ed);border-color:#b7c5d3;box-shadow:0 6px 18px rgb(34 52 76 / 13%)}
+
+/* Tocando: reduz o player ao essencial sem perder o controle de pausa. */
+.pc-radio{transition:min-width .2s ease,width .2s ease,padding .2s ease,border-color .18s ease,background-color .18s ease,box-shadow .18s ease}
+.pc-radio.is-playing{width:72px;min-width:72px;gap:5px;padding:4px 7px 4px 4px;box-shadow:0 4px 12px rgb(17 128 102 / 12%)}
+.pc-radio.is-playing .pc-radio__play{gap:0}
+.pc-radio.is-playing .pc-radio__control{width:30px;height:30px;border-radius:8px;box-shadow:none}
+.pc-radio.is-playing .pc-radio__copy,.pc-radio.is-playing .pc-radio__volume{display:none}
+.pc-radio.is-playing .pc-radio__signal{width:24px;justify-content:center;padding:0}
+html[data-theme="dark"] .pc-radio.is-playing{box-shadow:0 4px 12px rgb(0 0 0 / 18%)}
+@media(max-width:720px){.pc-radio.is-playing{width:40px;min-width:40px;padding:4px}.pc-radio.is-playing .pc-radio__signal{display:none}}

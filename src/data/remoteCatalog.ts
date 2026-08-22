@@ -53,6 +53,31 @@ let pendingCatalog: Promise<CatalogResult> | null = null;
 export const normalize = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
+// Gera um slug leg\u00edvel ("mercado-rebou\u00e7as" -> "mercado-reboucas") a partir do
+// nome, em vez de expor o UUID interno na barra de endere\u00e7os. Quando dois
+// registros geram o mesmo slug (nomes iguais/parecidos), acrescenta um sufixo
+// curto e est\u00e1vel derivado do id para manter cada URL \u00fanica.
+function slugifyName(name: string, fallbackId: string | number) {
+  const base = normalize(name)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return base || `item-${String(fallbackId).slice(0, 8)}`;
+}
+
+function assignUniqueSlugs<T>(rows: T[], getName: (row: T) => string, getId: (row: T) => string | number) {
+  const seen = new Map<string, number>();
+  const slugById = new Map<string | number, string>();
+  for (const row of rows) {
+    const id = getId(row);
+    const base = slugifyName(getName(row), id);
+    const count = seen.get(base) || 0;
+    seen.set(base, count + 1);
+    const slug = count === 0 ? base : `${base}-${String(id).replace(/[^a-z0-9]/gi, "").slice(0, 6) || count}`;
+    slugById.set(id, slug);
+  }
+  return slugById;
+}
+
 const normalizeCatalogTerm = (value: string) => normalize(value)
   .replace(/\bmistura lactea condensada\b/g, "leite condensado");
 
@@ -162,6 +187,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
 
     const q = normalizeCatalogTerm(query);
     const storesById = new Map(storeRows.map(store => [String(store.id), store]));
+    const storeSlugById = assignUniqueSlugs(storeRows, store => store.name || "Estabelecimento", store => String(store.id));
     const pricesByProductId = new Map<string, PriceRow[]>();
     const productIdsByStore = new Map<string, Set<string>>();
 
@@ -195,6 +221,8 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       }, new Map<string, ProductRow>()).values(),
     );
 
+    const productSlugById = assignUniqueSlugs(uniqueProductRows, product => product.name || "Produto", product => String(product.id));
+
     const mapped = uniqueProductRows
       .map((product): Product | null => {
         const key = productIdentity(product);
@@ -226,7 +254,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
 
         return {
           id: product.id,
-          slug: String(product.id),
+          slug: productSlugById.get(String(product.id)) || String(product.id),
           name: product.name ?? "Produto sem nome",
           brand: product.brand ?? "—",
           category: isLimpolPerfumes500ml ? "Desinfetante" : product.category ?? "Geral",
@@ -238,7 +266,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
           maxPrice: round(Math.max(...values)),
           storeCount: latestByStore.length,
           establishmentId: store.id,
-          establishmentSlug: String(store.id),
+          establishmentSlug: storeSlugById.get(String(store.id)) || String(store.id),
           establishment: store.name ?? "Estabelecimento",
           neighborhood: store.neighborhood ?? "—",
           storeColor: store.brand_color ?? "#1473E6",
@@ -252,7 +280,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
             const offerPrevious = toNumber(row.previous_value);
             return {
               establishmentId: row.establishment_id,
-              establishmentSlug: String(row.establishment_id),
+              establishmentSlug: storeSlugById.get(String(row.establishment_id)) || String(row.establishment_id),
               establishment: offerStore?.name ?? "Estabelecimento",
               neighborhood: offerStore?.neighborhood ?? "—",
               storeColor: offerStore?.brand_color ?? "#1473E6",
@@ -281,7 +309,7 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
     const stores: StoreRow[] = storeRows
       .map(store => ({
         id: store.id,
-        slug: String(store.id),
+        slug: storeSlugById.get(String(store.id)) || String(store.id),
         name: store.name ?? "Estabelecimento",
         neighborhood: store.neighborhood ?? "—",
         color: store.brand_color ?? "#1473E6",

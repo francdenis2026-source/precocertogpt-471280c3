@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/outfit";
+import "@fontsource-variable/manrope";
 import "./styles/AppReset.css";
 import App from "./App";
 import "./reference/DesignSystem2.css";

@@ -182,13 +182,13 @@ export function HomeNew2026() {
 
       <div className="nx-catalog-band">
       <section className="nx-categories nx-shell" aria-labelledby="nx-categories-title">
-        <div className="nx-section-title"><div><span>Comércio local</span><h2 id="nx-categories-title">Onde você quer comprar?</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight /></Link></div>
-        <div className="nx-category-grid">{categories.map(({ name, copy, to, icon: Icon, color }) => <Link key={name} to={to} style={{ "--nx-accent": color } as React.CSSProperties}><i><Icon /></i><span><strong>{name}</strong><small>{copy}</small></span><ArrowRight /></Link>)}</div>
+        <div className="nx-section-title"><div><h2 id="nx-categories-title">Onde você quer comprar?</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight aria-hidden="true" /></Link></div>
+        <div className="nx-category-grid">{categories.map(({ name, copy, to, icon: Icon, color }) => <Link key={name} to={to} style={{ "--nx-accent": color } as React.CSSProperties}><i aria-hidden="true"><Icon /></i><span><strong>{name}</strong><small>{copy}</small></span><ArrowRight aria-hidden="true" /></Link>)}</div>
       </section>
 
       <section className="nx-market nx-shell" aria-labelledby="nx-market-title">
         <div className="nx-market__products">
-          <div className="nx-section-title"><div><span>Catálogo local</span><h2 id="nx-market-title">Preços para comparar agora</h2><p>Produtos com valores disponíveis no PreçoCerto.</p></div><Link to="/buscar">Ver catálogo <ArrowRight /></Link></div>
+          <div className="nx-section-title"><div><h2 id="nx-market-title">Preços para comparar agora</h2><p>Produtos com valores disponíveis no PreçoCerto.</p></div><Link to="/buscar">Ver catálogo <ArrowRight aria-hidden="true" /></Link></div>
           <div className="nx-product-grid" aria-busy={loading}>
             {loading ? Array.from({ length: 3 }, (_, index) => <div className="nx-product-card nx-product-card--loading" key={index} aria-hidden="true" />) : featured.slice(1, 4).map(product => <article className="nx-product-card" key={product.id}>
               <Link to={`/produto/${product.slug || product.id}`}>
@@ -201,7 +201,6 @@ export function HomeNew2026() {
         </div>
         <aside className="nx-basket">
           <ShoppingBasket aria-hidden="true" />
-          <span>Planeje sua compra</span>
           <h2>Monte uma cesta e compare o total.</h2>
           <p>Organize seus produtos, ajuste quantidades e veja as opções disponíveis por estabelecimento.</p>
           <Link to="/cesta-inteligente">Abrir cesta inteligente <ArrowRight /></Link>
@@ -213,7 +212,6 @@ export function HomeNew2026() {
       <div className="nx-local-band">
       <section className="nx-local nx-shell">
         <div className="nx-local__copy">
-          <span>Feito para Feijó</span>
           <h2>O comércio local mais fácil de encontrar.</h2>
           <p>Explore estabelecimentos por categoria e localização. Se você vende em Feijó, apresente seu negócio a novos clientes.</p>
           <div><Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista">Cadastrar meu negócio</Link></div>

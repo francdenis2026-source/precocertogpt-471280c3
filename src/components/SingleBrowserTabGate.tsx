@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { MonitorCheck, RadioTower } from "lucide-react";
+import { ArrowRight, LockKeyhole, MonitorCheck, ShieldCheck } from "lucide-react";
 import "./SingleBrowserTabGate.css";
+import "./SingleBrowserTabGatePro.css";
 
 const LEASE_KEY = "precocerto:active-browser-tab:v1";
 const TAB_KEY = "precocerto:browser-tab-id:v1";
@@ -10,6 +11,37 @@ const HEARTBEAT_INTERVAL = 2000;
 
 type Lease = { tabId: string; expiresAt: number };
 type TabStatus = "checking" | "active" | "blocked";
+
+function SessionArtwork() {
+  return <svg className="pc-tab-gate__artwork" viewBox="0 0 320 300" role="img" aria-labelledby="pc-session-art-title pc-session-art-description">
+    <title id="pc-session-art-title">Sessão protegida do PreçoCerto</title>
+    <desc id="pc-session-art-description">Dois dispositivos conectados com apenas uma sessão ativa e protegida.</desc>
+    <defs>
+      <linearGradient id="pc-session-screen" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#183755"/><stop offset="1" stopColor="#0c2238"/></linearGradient>
+      <linearGradient id="pc-session-accent" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#62e5ad"/><stop offset="1" stopColor="#23b784"/></linearGradient>
+      <filter id="pc-session-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="14" floodColor="#020b14" floodOpacity=".34"/></filter>
+    </defs>
+    <circle cx="160" cy="142" r="118" fill="#112d48" opacity=".62"/>
+    <circle cx="160" cy="142" r="91" fill="none" stroke="#55dca6" strokeOpacity=".18" strokeWidth="1.5" strokeDasharray="5 7"/>
+    <path d="M61 224c34-32 64-43 96-34 40 11 60 5 101-30" fill="none" stroke="#5de0ab" strokeOpacity=".2" strokeWidth="2" strokeDasharray="3 8"/>
+    <g filter="url(#pc-session-shadow)">
+      <rect x="68" y="76" width="184" height="120" rx="15" fill="url(#pc-session-screen)" stroke="#3c6688"/>
+      <rect x="81" y="89" width="158" height="92" rx="9" fill="#071a2b"/>
+      <path d="M130 210h60M147 196l-5 14m31-14 5 14" stroke="#7291aa" strokeWidth="5" strokeLinecap="round"/>
+    </g>
+    <g transform="translate(113 101)">
+      <path d="M47 0 82 13v25c0 25-14 42-35 51C26 80 12 63 12 38V13L47 0Z" fill="url(#pc-session-accent)"/>
+      <path d="m33 44 9 9 20-23" fill="none" stroke="#06251d" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/>
+    </g>
+    <g transform="translate(226 183)">
+      <rect width="54" height="84" rx="12" fill="#15334e" stroke="#4a708e"/>
+      <rect x="7" y="9" width="40" height="60" rx="7" fill="#071a2b"/>
+      <circle cx="27" cy="76" r="3" fill="#62e5ad"/>
+    </g>
+    <g transform="translate(38 48)"><circle cx="18" cy="18" r="18" fill="#153b51" stroke="#51dca5" strokeOpacity=".5"/><path d="M12 18h12m-6-6v12" stroke="#62e5ad" strokeWidth="2" strokeLinecap="round"/></g>
+    <circle cx="274" cy="82" r="5" fill="#62e5ad"/><circle cx="52" cy="183" r="4" fill="#3c6e91"/>
+  </svg>;
+}
 
 function readLease(): Lease | null {
   try {
@@ -124,16 +156,23 @@ export function SingleBrowserTabGate({ children }: { children: ReactNode }) {
   }
 
   return <main className="pc-tab-gate" id="conteudo-principal">
+    <svg className="pc-tab-gate__backdrop" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs><radialGradient id="pc-gate-glow"><stop stopColor="#1e9a76" stopOpacity=".24"/><stop offset="1" stopColor="#07111f" stopOpacity="0"/></radialGradient><pattern id="pc-gate-grid" width="54" height="54" patternUnits="userSpaceOnUse"><path d="M54 0H0v54" fill="none" stroke="#94b9d5" strokeOpacity=".055"/></pattern></defs>
+      <rect width="1440" height="760" fill="url(#pc-gate-grid)"/><circle cx="230" cy="120" r="420" fill="url(#pc-gate-glow)"/><circle cx="1240" cy="680" r="500" fill="url(#pc-gate-glow)"/>
+      <path d="M0 574C224 487 343 662 586 576s392-231 854-83" fill="none" stroke="#62e5ad" strokeOpacity=".08" strokeWidth="2"/>
+    </svg>
     <section className="pc-tab-gate__panel" role="alert" aria-labelledby="pc-tab-gate-title">
-      <span className="pc-tab-gate__icon" aria-hidden="true"><RadioTower /></span>
-      <p className="pc-tab-gate__eyebrow">PREÇOCERTO JÁ ESTÁ ABERTO</p>
-      <h1 id="pc-tab-gate-title">Use uma aba por vez</h1>
-      <p>Outra aba deste navegador está ativa. Isso evita áudio duplicado, compras conflitantes e alterações repetidas.</p>
-      <button className="pc-tab-gate__action" type="button" onClick={() => takeoverRef.current()}>
-        <MonitorCheck aria-hidden="true" /> Usar o PreçoCerto nesta aba
-      </button>
-      <small>A outra aba será pausada e bloqueada automaticamente.</small>
+      <div className="pc-tab-gate__visual"><SessionArtwork/><span><ShieldCheck aria-hidden="true"/> Sessão protegida</span></div>
+      <div className="pc-tab-gate__content">
+        <span className="pc-tab-gate__icon" aria-hidden="true"><LockKeyhole /></span>
+        <p className="pc-tab-gate__eyebrow">ACESSO ATIVO EM OUTRA ABA</p>
+        <h1 id="pc-tab-gate-title">Continue com segurança nesta aba.</h1>
+        <p>O PreçoCerto mantém somente uma sessão ativa por navegador para proteger suas compras, preferências e reprodução de áudio.</p>
+        <button className="pc-tab-gate__action" type="button" onClick={() => takeoverRef.current()}>
+          <MonitorCheck aria-hidden="true" /> Continuar nesta aba <ArrowRight aria-hidden="true" />
+        </button>
+        <small><ShieldCheck aria-hidden="true"/> A outra aba será pausada automaticamente. Nenhum dado será perdido.</small>
+      </div>
     </section>
   </main>;
 }
-

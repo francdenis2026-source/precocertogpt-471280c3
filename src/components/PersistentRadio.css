@@ -3,3 +3,5 @@ html[data-theme="dark"] .pc-radio{border-color:#465570;background:#202e47;box-sh
 @media(max-width:1120px){.pc-radio{min-width:132px}.pc-radio__volume{display:none}.pc-radio__copy{min-width:74px}.pc-radio__copy strong{max-width:80px}}
 @media(max-width:720px){.pc-radio{width:40px;min-width:40px;height:40px;padding:4px}.pc-radio__play{display:block}.pc-radio__control{width:30px;height:30px}.pc-radio__copy,.pc-radio__signal,.pc-radio__volume{display:none}}
 @media(prefers-reduced-motion:reduce){.pc-radio::before,.pc-radio__signal i,.pc-radio__loader{animation:none!important}}@keyframes pc-radio-wave{to{height:4px;opacity:.45}}@keyframes pc-radio-spin{to{transform:rotate(360deg)}}@keyframes pc-radio-sheen{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+html:not([data-theme="dark"]) .pc-radio{background:linear-gradient(145deg,#edf2f4,#e3e9ed);border-color:#b7c5d3;box-shadow:0 6px 18px rgb(34 52 76 / 13%)}

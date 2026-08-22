@@ -44,11 +44,11 @@ p { line-height: var(--type-leading-body); }
 
 /* Never let legacy microcopy collapse below a readable caption. */
 :where(small, figcaption, caption, time, [class*="caption"], [class*="eyebrow"], [class*="kicker"], [class*="label"], [class*="meta"]) {
-  font-size: max(var(--type-xs), 1em);
+  font-size: var(--type-xs);
   line-height: 1.45;
 }
 :where(label, button, select, option, nav a, [role="button"]) {
-  font-size: max(var(--type-sm), 1em);
+  font-size: var(--type-sm);
   line-height: var(--type-leading-scan);
 }
 :where(input, textarea) { font-size: var(--type-base); line-height: 1.5; }

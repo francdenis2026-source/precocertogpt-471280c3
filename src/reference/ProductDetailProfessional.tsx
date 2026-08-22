@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
   ChevronRight, Factory, Heart, Home, Info, Layers3, MapPin, Package,
@@ -80,6 +80,7 @@ function PriceHistory({ product }: { product: Product }) {
 
 export function ProductDetailProfessional() {
   const { identifier = "" } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
@@ -186,7 +187,11 @@ export function ProductDetailProfessional() {
   // O preço principal precisa vir da mesma coleção que alimenta o ranking.
   // Antes ele usava `product.minPrice`, isto é, o preço do cadastro aberto,
   // mesmo quando a comparação já havia encontrado um equivalente mais barato.
-  const displayedOffer = comparisonOffers[0];
+  const selectedEstablishment = searchParams.get("oferta");
+  const selectedOffer = selectedEstablishment
+    ? comparisonOffers.find(offer => String(offer.establishmentId) === selectedEstablishment)
+    : undefined;
+  const displayedOffer = selectedOffer || comparisonOffers[0];
   const displayedProduct = displayedOffer && catalog?.products.find(item => String(item.id) === String(displayedOffer.productId));
   const displayedPrice = displayedOffer?.value ?? product.minPrice;
   const displayedStore = displayedOffer?.establishment ?? bestOffer?.establishment;
@@ -215,7 +220,7 @@ export function ProductDetailProfessional() {
           <div className="pdx-identity"><span className="pdx-brand-pill"><Tag/> {brand}</span><h1 id="pdx-title">{product.name}</h1><p>{product.size || product.unit || "Embalagem não informada"}</p></div>
 
           <div className="pdx-price-block">
-            <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : "MENOR PREÇO EQUIVALENTE"} <BadgeCheck/></span><strong>{brl.format(displayedPrice)}</strong><small>{displayedStore ? `em ${displayedStore}` : "preço verificado"}{!isSingleOffer && displayedOffer ? ` · ${displayedOffer.productBrand || "marca não informada"} · ${displayedOffer.productSize || "medida compatível"}` : ""}</small></div>
+            <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : selectedOffer ? "OFERTA SELECIONADA" : "MENOR PREÇO EQUIVALENTE"} <BadgeCheck/></span><strong>{brl.format(displayedPrice)}</strong><small>{displayedStore ? `em ${displayedStore}` : "preço verificado"}{!isSingleOffer && displayedOffer ? ` · ${displayedOffer.productBrand || "marca não informada"} · ${displayedOffer.productSize || "medida compatível"}` : ""}</small></div>
             <div className={`pdx-price-facts${isSingleOffer ? " pdx-price-facts--compact" : ""}`}>
               <span><Store/><b>{comparisonOffers.length}</b><small>{isSingleOffer ? "loja consultada" : "lojas comparadas"}</small></span>
               {!isSingleOffer && <span><TrendingDown/><b>{brl.format(priceSpread)}</b><small>diferença entre lojas</small></span>}
@@ -233,7 +238,9 @@ export function ProductDetailProfessional() {
           <header><span>COMPARAÇÃO RÁPIDA</span><h2>Preços equivalentes</h2><p>{comparisonOffers.length > 1 ? `${comparisonOffers.length} estabelecimentos · mesma família e medida compatível.` : "Preço disponível em um estabelecimento."}</p></header>
           <div className="pdx-quick-compare__list">
             {quickOffers.map((offer, index) => {
-              return <Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.value}`} className={index === 0 ? "is-best" : ""}>
+              const active = String(displayedOffer?.productId) === String(offer.productId) && String(displayedOffer?.establishmentId) === String(offer.establishmentId);
+              const target = `/produto/${offer.productSlug || offer.productId}?oferta=${encodeURIComponent(String(offer.establishmentId))}`;
+              return <Link to={target} key={`${offer.establishmentId}-${offer.productId}-${offer.value}`} className={`${index === 0 ? "is-best" : ""}${active ? " is-active" : ""}`} aria-current={active ? "true" : undefined}>
                 <span className="pdx-quick-compare__mark">{index === 0 ? <BadgeCheck aria-hidden="true" /> : <Store aria-hidden="true" />}</span>
                 <span className="pdx-quick-compare__store"><strong>{offer.establishment}</strong><small>{offer.productBrand || "Marca não informada"} · {offer.productSize || "medida equivalente"}</small></span>
                 <span className="pdx-quick-compare__price"><strong>{brl.format(offer.value)}</strong><small>{offer.neighborhood || "Feijó"}</small></span>

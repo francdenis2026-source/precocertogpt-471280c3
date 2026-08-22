@@ -16,8 +16,14 @@
 .kelly-hero{
   position:relative;overflow:hidden;border-radius:var(--pc-radius-block,20px);
   min-height:280px;display:flex;align-items:flex-end;
-  background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 30%/cover no-repeat;
+  background-color:#0d0705;
   border:1px solid var(--pc-border);
+}
+.kelly-page:not(.sanduba-page) .kelly-hero{
+  background-image:url('/kelly-burgueria/hero-burger.jpg');
+  background-position:center 30%;
+  background-size:cover;
+  background-repeat:no-repeat;
 }
 .kelly-hero__overlay{
   position:absolute;inset:0;
@@ -83,6 +89,7 @@
   .kelly-hero{min-height:340px}
   .kelly-hero__content{flex-direction:column;align-items:flex-start}
   .kelly-cta{flex-direction:column;align-items:flex-start}
+  .kelly-page:not(.sanduba-page) .kelly-hero{background-position:62% center}
 }
 
 @media (max-width:480px){

@@ -1,6 +1,6 @@
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
+import { ArrowRight, BookOpen, Code2, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
@@ -237,7 +237,12 @@ export function HomeNew2026() {
 
     <footer className="nx-footer">
       <div className="nx-shell nx-footer__main">
-        <div className="nx-footer__brand"><img src="/logo-preco-certo-inversa.svg?v=10" alt="PreçoCerto" width="126" height="30" /><p>Informação local para comprar melhor.</p></div>
+        <div className="nx-footer__brand">
+          <img src="/logo-preco-certo-inversa.svg?v=10" alt="PreçoCerto" width="126" height="30" />
+          <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">
+            <Code2 aria-hidden="true" /><span><small>Desenvolvido por</small><strong>Franc D’nis</strong></span>
+          </button>
+        </div>
         <div className="nx-footer__links">
           <nav aria-label="Planejamento de compras"><strong>Planejamento</strong><span><Link to="/cesta-basica">Lista de compras</Link></span></nav>
           <nav aria-label="Categorias"><strong>Categorias</strong><span><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></span></nav>

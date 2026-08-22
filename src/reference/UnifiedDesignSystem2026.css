@@ -1245,3 +1245,244 @@ html[data-theme="dark"] .hp-home .hp-footer {
     padding-block: .75rem !important;
   }
 }
+
+
+/* ============================================================
+   TERCEIRA ETAPA — estabelecimentos, colaboração e cultura
+   ============================================================ */
+
+/* O foco programático de mudança de rota não desenha moldura no layout inteiro. */
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+/* Kelly / Ponto do Sanduba: leitura, densidade e ritmo consistentes. */
+:where(.kelly-page, .sanduba-page) {
+  color: var(--audit-ink) !important;
+  background: var(--audit-canvas) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-hero {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: clamp(1.5rem, 3vw, 2.25rem) !important;
+  border: 1px solid color-mix(in srgb, var(--audit-amber) 36%, var(--audit-line)) !important;
+  box-shadow: 0 18px 42px rgb(16 35 50 / 16%);
+}
+:where(.kelly-page, .sanduba-page) .kelly-info {
+  gap: .65rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-info__card {
+  background: var(--audit-surface-soft) !important;
+  border-color: var(--audit-line) !important;
+  color: var(--audit-ink) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-info__card :where(p, small, span) {
+  color: var(--audit-muted) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-catalog-intro {
+  padding-block: 1.25rem .75rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-category-nav {
+  margin-block: .5rem 1rem !important;
+  gap: .45rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-category-nav button {
+  min-height: 38px !important;
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-category-nav button:hover,
+:where(.kelly-page, .sanduba-page) .kelly-category-nav button[aria-selected="true"] {
+  color: #ffffff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-grid {
+  gap: .875rem !important;
+  margin-top: .875rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-group {
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__item-btn {
+  min-height: 66px !important;
+  padding-block: .6rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__copy strong {
+  font-size: .875rem !important;
+  color: var(--audit-ink) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__copy :where(p, small, span) {
+  font-size: .8125rem !important;
+  line-height: 1.35 !important;
+  color: var(--audit-muted) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__price {
+  font-size: .875rem !important;
+  color: var(--audit-green) !important;
+}
+
+/* Dorinha: seções nunca permanecem invisíveis aguardando animação. */
+.dorinha-editorial {
+  background: #f6f0e8 !important;
+  color: #261b22 !important;
+}
+html[data-theme="dark"] .dorinha-editorial {
+  background: #171218 !important;
+  color: #f5ece3 !important;
+}
+.dorinha-editorial__reveal {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+.dorinha-editorial__hero {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-block: clamp(2.25rem, 5vw, 3.75rem) !important;
+}
+.dorinha-editorial
+  :where(small, span, p, a, button, li, figcaption, strong) {
+  font-size: max(.75rem, 1em) !important;
+}
+.dorinha-editorial__manifest {
+  padding-block: clamp(2rem, 4vw, 3.25rem) !important;
+}
+.dorinha-editorial__catalog {
+  padding-block: clamp(2rem, 4vw, 3.5rem) !important;
+}
+.dorinha-editorial__book-copy {
+  color: inherit !important;
+}
+.dorinha-editorial__book-copy :where(p, small) {
+  color: color-mix(in srgb, currentColor 72%, transparent) !important;
+}
+
+/* Colaborar: painel claro com contraste real e hierarquia de passos. */
+.pc-collab__panel {
+  background: rgb(255 255 255 / 97%) !important;
+  color: #132534 !important;
+  border-color: rgb(255 255 255 / 72%) !important;
+  box-shadow: 0 22px 54px rgb(0 0 0 / 30%) !important;
+}
+.pc-collab__panel :where(h2, h3, strong, b, label) {
+  color: #132534 !important;
+  opacity: 1 !important;
+}
+.pc-collab__panel :where(p, small, span, li) {
+  color: #526675 !important;
+  opacity: 1 !important;
+}
+.pc-collab__panel :where(input, textarea) {
+  color: #132534 !important;
+  background: #ffffff !important;
+  border-color: #bdcbd4 !important;
+}
+.pc-collab__hint {
+  color: #31566c !important;
+  background: #e9f5ef !important;
+  border-color: #b8dcca !important;
+}
+
+/* Quero vender: desfaz o tratamento de header global no hero interno. */
+.mo-page .mo-head {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 1 !important;
+  width: min(1080px, 100%) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin-inline: auto !important;
+  padding: 0 !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.mo-page .mo-head > a {
+  min-height: 36px !important;
+  color: #dceaf2 !important;
+  font-size: .8125rem !important;
+}
+.mo-page .mo-head > div {
+  margin: .35rem 0 .7rem !important;
+}
+.mo-page .mo-head h1 {
+  color: #ffffff !important;
+  font-size: clamp(1.75rem, 3vw, 2.5rem) !important;
+  line-height: 1.04 !important;
+  margin: .2rem 0 .35rem !important;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 35%);
+}
+.mo-page .mo-head :where(span, p) {
+  color: #c8dae5 !important;
+  opacity: 1 !important;
+}
+.mo-page .mo-shell {
+  position: relative;
+  z-index: 1;
+}
+.mo-page .mo-steps {
+  color: #eef6fa !important;
+  background: rgb(7 31 48 / 92%) !important;
+  border-color: #456173 !important;
+  box-shadow: 0 18px 42px rgb(0 0 0 / 24%);
+}
+.mo-page .mo-steps > div {
+  color: #d9e6ed !important;
+}
+.mo-page .mo-steps > div.active {
+  color: #ffffff !important;
+  background: #174a63 !important;
+}
+.mo-page .mo-steps :where(strong, b) {
+  color: inherit !important;
+}
+.mo-page .mo-steps :where(small, p) {
+  color: #b8cad5 !important;
+  opacity: 1 !important;
+}
+.mo-page .mo-card {
+  color: #132534 !important;
+  background: rgb(255 255 255 / 97%) !important;
+  border-color: rgb(255 255 255 / 72%) !important;
+  box-shadow: 0 22px 54px rgb(0 0 0 / 28%);
+}
+.mo-page .mo-card :where(h2, strong, label) {
+  color: #132534 !important;
+}
+.mo-page .mo-card :where(p, small, span) {
+  color: #5c6f7c !important;
+  opacity: 1 !important;
+}
+.mo-page .mo-card :where(input, select, textarea) {
+  color: #132534 !important;
+  background: #ffffff !important;
+  border-color: #b9c8d1 !important;
+}
+.mo-page .mo-title > svg {
+  color: #ffffff !important;
+  background: var(--audit-petrol) !important;
+}
+.mo-page .mo-card button {
+  color: #ffffff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+}
+
+@media (max-width: 760px) {
+  .mo-page .mo-head h1 {
+    font-size: 1.65rem !important;
+  }
+  .mo-page .mo-head p {
+    font-size: .75rem !important;
+  }
+  :where(.kelly-page, .sanduba-page) .kelly-hero {
+    padding: 1.15rem !important;
+  }
+}

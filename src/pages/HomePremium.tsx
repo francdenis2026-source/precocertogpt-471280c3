@@ -309,7 +309,10 @@ export function HomePremium() {
         <section className="pcx-hero" aria-labelledby="pcx-title">
           <div className="pcx-shell pcx-hero__grid">
             <div className="pcx-hero__copy">
-              <h1 id="pcx-title">Comparação de preços em Feijó: <em>saiba antes</em> onde comprar.</h1>
+              <h1 id="pcx-title">'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
+                                        
+                                            
+                                            analise a cor do site, e veja se essa cor combina</h1>
               <p>Em Feijó, compare o mesmo produto nos estabelecimentos da cidade e chegue sabendo onde seu dinheiro rende mais.</p>
               
               <div className="pcx-hero__actions">

@@ -11,9 +11,12 @@
   min-height:62px;
   padding:0 42px;
   background:#230a3d;
+  overflow:hidden;
+  box-shadow:inset 0 -1px rgba(255,255,255,.16);
   color:#f6f1fb;
   font-family:var(--pc-font-body,inherit);
 }
+.pc-festival-bar::after{position:absolute;right:0;bottom:0;left:0;height:2px;content:"";background:linear-gradient(90deg,transparent,#b16fd0 34%,#e2bc72 50%,#b16fd0 66%,transparent);opacity:.52;pointer-events:none}
 
 .pc-festival-bar__art{width:min(1024px,100%);display:block;color:#fff}
 .pc-festival-bar__art img{width:100%;height:auto;display:block;object-fit:contain}
@@ -53,7 +56,9 @@
 
 @media(prefers-reduced-motion:no-preference){
   .pc-festival-bar{animation:pc-festival-bar-in .3s ease}
+  .pc-festival-bar::after{animation:pc-festival-glow 4.8s ease-in-out infinite}
 }
+@keyframes pc-festival-glow{50%{opacity:.9;filter:brightness(1.22)} }
 @keyframes pc-festival-bar-in{
   from{opacity:0;transform:translateY(-6px)}
   to{opacity:1;transform:translateY(0)}

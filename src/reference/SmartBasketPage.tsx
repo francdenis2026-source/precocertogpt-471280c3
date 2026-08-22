@@ -1,8 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Bot, Building2, CheckCircle2, LoaderCircle, Minus, PackagePlus, PiggyBank, Plus, Save, Search, Send, ShoppingBasket, Sparkles, Store, Trash2, WalletCards, X } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product, ProductOffer } from "../data/catalog";

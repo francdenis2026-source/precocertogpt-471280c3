@@ -1,8 +1,6 @@
 import { CSSProperties, FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link, useNavigate } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, BadgeCheck, BookOpen, Croissant, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Sandwich, Scale, Search, ShoppingBasket, Store, Sun, UserRound, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -14,12 +12,7 @@ import { getStoreLogoUrl } from "../data/storeLogos";
 import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import "./HomeProfessional2026.css";
-import "./HomeRebuildAcai2026.css";
-import "./HomeRefineAcai2026.css";
-import "./HomePolishAcai2026.css";
-import "./HomeLighter2026.css";
 import "./HomeSearchOverlay2026.css";
-import "./HomeMobileFixes2026.css";
 import "./HomeTasteSystem2026.css";
 
 gsap.registerPlugin(ScrollTrigger);

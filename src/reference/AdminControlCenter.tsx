@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Activity, BadgeCheck, BarChart3, Bell, Building2, Check, CircleDollarSign, ClipboardCheck, ExternalLink, Eye, LayoutDashboard, ListChecks, LogOut, Pencil, RefreshCw, Search, ShieldCheck, ShoppingBasket, Store, Tag, Trash2, UsersRound, X } from 'lucide-react';
 import { loadSessionProfile, signOut, type SessionProfile } from '../lib/roles';
 import { cancelOrder, loadAdminSnapshot, reviewMerchantApplication, setUserRole, updateMerchant, type AdminSnapshot } from '../lib/adminPlatform';

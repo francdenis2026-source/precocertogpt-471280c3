@@ -1,8 +1,6 @@
 import { useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, AtSign, BadgeCheck, Citrus, Clock3, MapPin, MessageCircle, Plus, ShieldCheck, Soup, Store, UtensilsCrossed } from "lucide-react";
 import type { ReactNode } from "react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";

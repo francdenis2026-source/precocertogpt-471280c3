@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link, useParams } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, Info, MapPin, PackageSearch, Search, ShieldCheck, SlidersHorizontal, Store, Tag } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";

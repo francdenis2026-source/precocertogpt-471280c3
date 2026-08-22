@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { ArrowRight, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, Pill, Sandwich, Scale, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { CatalogPayload } from "../data/catalog";
 import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
 import { fetchSectorCatalog, prefetchSectorCatalog, sectorProducts, sectorStores, withCatalog } from "../data/sectorCatalog";

@@ -1,8 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link, useNavigate } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2, ChevronLeft, Clock3, LockKeyhole, ShieldCheck, Store, UserRound } from "lucide-react";
 import { signUp, supabase } from "../lib/roles";
 import "./MerchantOnboarding.css";

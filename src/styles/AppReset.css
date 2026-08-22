@@ -11,7 +11,7 @@ html { min-width: 320px; min-height: 100%; scroll-behavior: smooth; }
 body { min-width: 320px; min-height: 100%; margin: 0; background: #ebf0f3; }
 button, input, select, textarea { font: inherit; }
 img, svg { display: block; max-width: 100%; }
-#root { min-height: 100vh; }
+#root { min-height: 100vh; min-height: 100dvh; }
 
 /* Oculta o badge de atribuição injetado pela hospedagem Lovable. */
 #lovable-badge,

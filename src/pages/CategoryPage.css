@@ -121,7 +121,7 @@
   border-radius: 14px;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
   cursor: pointer;
   border: none;
 }

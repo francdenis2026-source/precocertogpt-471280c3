@@ -1,17 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
-import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, MapPin, Pill, Sandwich, Scale, Search, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, BadgeCheck, BookOpen, BriefcaseBusiness, Croissant, Grid2X2, MapPin, Pill, Sandwich, Scale, ShoppingBasket, Store, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { CatalogPayload } from "../data/catalog";
 import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
-import { fetchSectorCatalog, prefetchSectorCatalog, sectorProducts, sectorStores, withCatalog } from "../data/sectorCatalog";
+import { fetchSectorCatalog, prefetchSectorCatalog, sectorStores } from "../data/sectorCatalog";
 import { PublicHeader } from "./ReferenceExperience";
-import "./MarketplaceSectors.css";
-import "./ExploreLayoutFix.css";
-import "./SectorContentArchitecture.css";
 import "./PharmacyDirectory.css";
-
-gsap.registerPlugin(ScrollTrigger);
+import "./CulturalProfiles.css";
 
 /* "Setor" saiu de toda a interface. A palavra é de quem monta a plataforma,
  * não de quem compra: ninguém em Feijó diz "vou olhar o setor de padarias".
@@ -152,85 +147,26 @@ function CulturalProfiles() {
   );
 }
 
-function SectorStores({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
-  if (sector.id === "books") {
-    return (
-      <section className="sector-real-content">
-        <header><div><span>CULTURA</span><h2>Perfis com espaço próprio</h2><p>Pessoas e projetos culturais são apresentados como páginas editoriais, e não como loja de produto.</p></div></header>
-        <CulturalProfiles />
-      </section>
-    );
-  }
-  if (!catalog) {
-    return (
-      <section className="sector-real-content">
-        <div className="sector-empty-real"><span className="sector-loading-dot" /><span><strong>Carregando estabelecimentos</strong><small>Buscando quem está cadastrado nesta categoria.</small></span></div>
-      </section>
-    );
-  }
-
-  const stores = sectorStores(catalog, sector);
-  const open = withCatalog(stores);
-
-  if (!stores.length) {
-    return (
-      <section className="sector-real-content">
-        <header><div><span>ESTABELECIMENTOS</span><h2>Nenhum {sector.shortLabel.toLocaleLowerCase("pt-BR")} cadastrado ainda</h2><p>Assim que um negócio desta categoria entrar na plataforma, ele aparece aqui automaticamente.</p></div></header>
-        <div className="sector-empty-real">
-          <Store />
-          <span><strong>É o seu negócio?</strong><small><Link to="/cadastro-lojista">Cadastre gratuitamente</Link> e apareça para quem procura em Feijó.</small></span>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="sector-real-content">
-      <header>
-        <div>
-          <span>ESTABELECIMENTOS</span>
-          <h2>{stores.length} {stores.length === 1 ? "opção" : "opções"} em Feijó</h2>
-          <p>{open.length ? `${open.length} com preços publicados — clique para abrir o catálogo.` : "Ainda sem preços publicados. Fale direto com o estabelecimento."}</p>
-        </div>
-        <Link to={`/estabelecimentos?setor=${sector.id}`}>Ver todos <ArrowRight /></Link>
-      </header>
-      <div className="sector-store-grid">
-        {stores.slice(0, 8).map(({ store, count }) => (
-          <Link to={`/estabelecimento/${store.slug || store.id}`} key={store.id} className="sector-store-card">
-            <i style={{ background: store.color }}><Store /></i>
-            <span>
-              <small>{store.neighborhood || "Feijó"}</small>
-              <strong>{store.name}</strong>
-              <em>{count ? `${count} ${count === 1 ? "item com preço" : "itens com preço"}` : "Sem preços publicados"}</em>
-            </span>
-            <b>{count ? "VER PREÇOS" : "VER PERFIL"}</b>
-            <ArrowRight />
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PharmacyDirectory({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
+function CompactSectorDirectory({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
+  const Icon = sector.icon;
   const stores = catalog ? sectorStores(catalog, sector) : [];
   return <div className="pharmacy-directory-page">
-    <PublicHeader backOnly title="Farmácias" />
+    <PublicHeader backOnly title={sector.shortLabel} />
     <main id="conteudo-principal" className="pharmacy-directory">
       <header className="pharmacy-directory__heading">
         <div>
-          <span><Pill aria-hidden="true" /> SAÚDE LOCAL</span>
-          <h1>Farmácias</h1>
+          <span><Icon aria-hidden="true" /> {sector.eyebrow}</span>
+          <h1>{sector.shortLabel}</h1>
         </div>
-        <p aria-live="polite">{catalog ? `${stores.length} ${stores.length === 1 ? "estabelecimento ativo" : "estabelecimentos ativos"}` : "Carregando estabelecimentos"}</p>
+        <p aria-live="polite">{sector.id === "books" ? "2 perfis culturais" : catalog ? `${stores.length} ${stores.length === 1 ? "estabelecimento ativo" : "estabelecimentos ativos"}` : "Carregando estabelecimentos"}</p>
       </header>
 
-      {!catalog ? <section className="pharmacy-directory__state" aria-busy="true">
+      {sector.id === "books" ? <CulturalProfiles /> : !catalog ? <section className="pharmacy-directory__state" aria-busy="true">
         <span className="pharmacy-directory__loader" />
-        <strong>Buscando farmácias cadastradas…</strong>
-      </section> : stores.length ? <section className="pharmacy-directory__list" aria-label="Farmácias ativas em Feijó">
+        <strong>Buscando estabelecimentos cadastrados…</strong>
+      </section> : stores.length ? <section className="pharmacy-directory__list" aria-label={`${sector.shortLabel} ativos em Feijó`}>
         {stores.map(({ store, count }) => <article className="pharmacy-establishment" key={store.id}>
-          <i className="pharmacy-establishment__mark" style={{ backgroundColor: store.color }}><Pill aria-hidden="true" /></i>
+          <i className="pharmacy-establishment__mark" style={{ backgroundColor: store.color }}><Icon aria-hidden="true" /></i>
           <div className="pharmacy-establishment__identity">
             <span><BadgeCheck aria-hidden="true" /> ESTABELECIMENTO ATIVO</span>
             <h2>{store.name}</h2>
@@ -245,73 +181,19 @@ function PharmacyDirectory({ catalog, sector }: { catalog: CatalogPayload | null
           </Link>
         </article>)}
       </section> : <section className="pharmacy-directory__state">
-        <Pill aria-hidden="true" />
-        <strong>Nenhuma farmácia ativa no momento.</strong>
+        <Icon aria-hidden="true" />
+        <strong>Nenhum estabelecimento ativo nesta categoria.</strong>
       </section>}
     </main>
   </div>;
 }
 
 export function MarketplaceSectorLanding({ sector }: { sector: MarketplaceSector }) {
-  const Icon = sector.icon;
-  const pageRef = useRef<HTMLDivElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   useEffect(() => {
     let active = true;
     void fetchSectorCatalog().then(data => { if (active) setCatalog(data); }).catch(() => undefined);
     return () => { active = false; };
   }, []);
-  const stores = catalog ? sectorStores(catalog, sector) : [];
-  const productCount = catalog ? sectorProducts(catalog, sector).length : 0;
-
-  useGSAP(() => {
-    if (sector.id === "pharmacies") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.from(".sector-eyebrow, .sector-hero__copy h1, .sector-hero__copy p, .sector-example-chips, .sector-hero__actions, .sector-hero > aside", { y: 16, opacity: 0, duration: .55, stagger: .06, ease: "power3.out" });
-    gsap.utils.toArray<HTMLElement>(".sector-content > *").forEach(section => {
-      gsap.from(section, { scrollTrigger: { trigger: section, start: "top 88%", once: true }, y: 22, opacity: 0, duration: .55, ease: "power2.out" });
-    });
-  }, { scope: pageRef });
-
-  if (sector.id === "pharmacies") return <PharmacyDirectory catalog={catalog} sector={sector} />;
-
-  return (
-    <div className={`sector-page sector-page--${sector.id}`} ref={pageRef}>
-      <PublicHeader />
-      <main id="conteudo-principal" className="sector-main">
-        <section className="sector-hero">
-          <div className="sector-shell sector-hero__grid">
-            <div className="sector-hero__copy">
-              <span className="sector-eyebrow"><Icon />{sector.eyebrow}</span>
-              <h1>{sector.title}</h1>
-              <p>{sector.description}</p>
-              <div className="sector-example-chips">{sector.examples.map(example => <span key={example}>{example}</span>)}</div>
-              <div className="sector-hero__actions">
-                <Link to={`/buscar?setor=${sector.id}`}><Search />Pesquisar aqui</Link>
-                <a href="#conteudo-local"><Store />Ver estabelecimentos</a>
-              </div>
-            </div>
-            <aside>
-              <span>NESTA CATEGORIA</span>
-              <Icon />
-              <strong>{sector.label}</strong>
-              <div className="sector-hero__metrics">
-                <b>{catalog ? stores.length : "—"}</b><small>estabelecimentos</small>
-                <b>{catalog ? productCount : "—"}</b><small>itens com preço</small>
-              </div>
-              <p>Números do que está cadastrado hoje em Feijó.</p>
-            </aside>
-          </div>
-        </section>
-        <section className="sector-content sector-shell">
-          <div id="conteudo-local"><SectorStores catalog={catalog} sector={sector} /></div>
-          <div className="sector-content__heading sector-content__heading--secondary">
-            <div><span>CONTINUE PROCURANDO</span><h2>Outras categorias</h2></div>
-            <p>Cada tipo de comércio tem sua própria página, com os estabelecimentos que realmente pertencem a ele.</p>
-          </div>
-          <SectorNavigator active={sector.id} compact />
-        </section>
-      </main>
-    </div>
-  );
+  return <CompactSectorDirectory catalog={catalog} sector={sector} />;
 }

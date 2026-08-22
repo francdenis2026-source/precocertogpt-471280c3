@@ -1,59 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Megaphone, X } from "lucide-react";
 import { loadActiveCampaigns, type PlatformCampaign } from "../lib/campaigns";
 import "./FestivalAcaiBar.css";
 
-const DISMISS_CHANNEL = "pc:campaign-dismiss";
-const DISMISS_EVENT_KEY = "pc:campaign-dismiss-event";
-type DismissEvent = { type: "dismiss"; campaignId: string };
+const dismissKey = (campaignId: string) => `pc:campaign-dismissed:${campaignId}`;
+const wasDismissed = (campaignId: string) => {
+  try { return sessionStorage.getItem(dismissKey(campaignId)) === "1"; }
+  catch { return false; }
+};
 
 // O nome é mantido para compatibilidade. O conteúdo agora vem do gestor de
-// campanhas e, quando fechado, reaparece na próxima abertura ou atualização.
+// campanhas. O fechamento vale somente para a sessão da aba: sobrevive a
+// recarregamentos, mas não é propagado para uma nova aba ou nova sessão.
 export function FestivalAcaiBar() {
   const [campaign, setCampaign] = useState<PlatformCampaign|null>(null);
   const [hidden, setHidden] = useState(false);
-  const dismissChannel = useRef<BroadcastChannel|null>(null);
 
   useEffect(() => {
     let mounted=true;
-    const refresh=()=>{setHidden(false);void loadActiveCampaigns().then(rows=>{if(mounted)setCampaign(rows[0]||null)})};
+    const refresh=()=>{void loadActiveCampaigns().then(rows=>{if(!mounted)return;const next=rows[0]||null;setCampaign(next);setHidden(Boolean(next&&wasDismissed(next.id)))})};
     refresh();window.addEventListener('pc:campaigns-changed',refresh);
     return()=>{mounted=false;window.removeEventListener('pc:campaigns-changed',refresh)};
   }, []);
 
-  useEffect(() => {
-    const dismiss = (event: DismissEvent) => {
-      if (event.type === "dismiss" && event.campaignId === campaign?.id) setHidden(true);
-    };
-    const onStorage = (event: StorageEvent) => {
-      if (event.key !== DISMISS_EVENT_KEY || !event.newValue) return;
-      try { dismiss(JSON.parse(event.newValue) as DismissEvent); } catch { /* evento inválido */ }
-    };
-
-    if (typeof BroadcastChannel !== "undefined") {
-      const channel = new BroadcastChannel(DISMISS_CHANNEL);
-      channel.onmessage = event => dismiss(event.data as DismissEvent);
-      dismissChannel.current = channel;
-      return () => { dismissChannel.current = null; channel.close(); };
-    }
-
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, [campaign?.id]);
-
   const closeBanner = () => {
     if (!campaign) return;
-    const event: DismissEvent = { type: "dismiss", campaignId: campaign.id };
     setHidden(true);
-    if (dismissChannel.current) {
-      dismissChannel.current.postMessage(event);
-      return;
-    }
-    try {
-      localStorage.setItem(DISMISS_EVENT_KEY, JSON.stringify(event));
-      localStorage.removeItem(DISMISS_EVENT_KEY);
-    } catch { /* sincronização opcional em navegadores restritivos */ }
+    try { sessionStorage.setItem(dismissKey(campaign.id), "1"); }
+    catch { /* o estado em memória ainda fecha o banner nesta visualização */ }
   };
 
   if (!campaign || hidden) return null;

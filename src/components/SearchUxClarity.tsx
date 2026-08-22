@@ -66,7 +66,7 @@ function ensureSearchHelp() {
     fontSize: "0.84rem",
     lineHeight: "1.45",
   });
-  guide.innerHTML = "<strong style=\"color:var(--text-main)\">Como usar:</strong> pesquise o produto pelo nome. Nos resultados, veja o menor preço e os estabelecimentos. Use <strong style=\"color:var(--text-main)\">Selecionar para comparar</strong> somente quando quiser colocar itens lado a lado.";
+  guide.innerHTML = "<strong style=\"color:var(--text-main)\">Como usar:</strong> pesquise o produto pelo nome. Nos resultados, veja o menor preço e as lojas. Use <strong style=\"color:var(--text-main)\">Selecionar para comparar</strong> somente quando quiser colocar itens lado a lado.";
   command.appendChild(guide);
 }
 

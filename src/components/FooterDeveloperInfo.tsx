@@ -63,7 +63,7 @@ export function FooterDeveloperInfo() {
         <section className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title">
           <button className="pc-dev-close" type="button" aria-label="Fechar contato" onClick={() => setOpen(null)}><X /></button>
           <span className="pc-contact-icon"><Mail aria-hidden="true" /></span>
-          <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre estabelecimentos virtuais ou suporte à plataforma.</p></div>
+          <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre lojas virtuais ou suporte à plataforma.</p></div>
           <a className="pc-contact-email" href="mailto:precocerto-fj@proton.me"><Mail /> <span><small>E-mail</small><strong>precocerto-fj@proton.me</strong></span></a>
           <p className="pc-contact-note"><ShieldCheck /> Utilize este endereço para contatos relacionados ao PreçoCerto.</p>
         </section>
@@ -78,17 +78,17 @@ export function FooterDeveloperInfo() {
 
           <header className="pc-dev-header">
             <span className="pc-dev-avatar"><Store aria-hidden="true" /></span>
-            <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, estabelecimentos virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
+            <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
           </header>
 
           <div className="pc-dev-content">
-            <p id="pc-dev-description" className="pc-dev-intro">Criado em Feijó-AC, o PreçoCerto aproxima consumidores e negócios locais em um marketplace com comparação de preços, estabelecimentos virtuais e gestão de vendas.</p>
+            <p id="pc-dev-description" className="pc-dev-intro">Criado em Feijó-AC, o PreçoCerto aproxima consumidores e negócios locais em um marketplace com comparação de preços, lojas virtuais e gestão de vendas.</p>
 
             <div className="pc-dev-grid">
               <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Descoberta, catálogo e comparação em uma só vitrine.</p></div></article>
               <article><Building2 /><div><strong>Loja virtual própria</strong><p>Produtos, ofertas e vendas gerenciados pelo comerciante.</p></div></article>
               <article><ShieldCheck /><div><strong>Clareza ao consumidor</strong><p>Catálogos informativos e vendas são identificados com precisão.</p></div></article>
-              <article><Info /><div><strong>Decisão bem informada</strong><p>Preços e estabelecimentos organizados para uma comparação simples.</p></div></article>
+              <article><Info /><div><strong>Decisão bem informada</strong><p>Preços e lojas organizados para uma comparação simples.</p></div></article>
               <article><Code2 /><div><strong>Tecnologia moderna</strong><p>React, TypeScript, Vite e Supabase em uma experiência responsiva.</p></div></article>
               <article><Heart /><div><strong>Feito em Feijó</strong><p>Tecnologia local para fortalecer negócios e consumidores.</p></div></article>
             </div>

@@ -37,9 +37,9 @@ export function DeveloperMarketplaceAbout() {
         <div className="pc-about-modal__body">
           <section className="pc-about-modal__section">
             <h3>O PreçoCerto conecta Feijó.</h3>
-            <p>Um marketplace para encontrar produtos, conhecer estabelecimentos e comparar alternativas da cidade com praticidade.</p>
+            <p>Um marketplace para encontrar produtos, conhecer lojas e comparar alternativas da cidade com praticidade.</p>
             <ul className="pc-about-modal__features">
-              <li><Store /><strong>Comércio local</strong><span>Mais presença digital para estabelecimentos de Feijó.</span></li>
+              <li><Store /><strong>Comércio local</strong><span>Mais presença digital para lojas de Feijó.</span></li>
               <li><Users /><strong>Escolhas simples</strong><span>Pesquisa direta para decidir melhor.</span></li>
               <li><ShoppingBag /><strong>Tudo por perto</strong><span>Produtos e negócios em um só lugar.</span></li>
             </ul>

@@ -14,7 +14,7 @@ const ROUTE_HEAD: Record<string, HeadInfo> = {
   "/": {
     title: "PreçoCerto | Comparar preços em Feijó (AC)",
     description:
-      "Compare preços de produtos nos estabelecimentos de Feijó (AC), descubra estabelecimentos locais e escolha onde comprar com economia real.",
+      "Compare preços de produtos nas lojas de Feijó (AC), descubra estabelecimentos locais e escolha onde comprar com economia real.",
   },
   "/buscar": {
     title: "Comparar preços de produtos | PreçoCerto",
@@ -58,7 +58,7 @@ const ROUTE_HEAD: Record<string, HeadInfo> = {
   "/contato": contactHead,
   "/favoritos": {
     title: "Meus favoritos | PreçoCerto",
-    description: "Produtos que você salvou para comparar preços nos estabelecimentos de Feijó (AC).",
+    description: "Produtos que você salvou para comparar preços nas lojas de Feijó (AC).",
   },
 };
 

@@ -4,12 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      (function (location) {
-        if (location.search[1] === "/") {
-          var decoded = location.search.slice(1).split("&").map(function (segment) {
+      // O site é publicado no GitHub Pages, que não sabe nada sobre as rotas
+      // internas do React (/estabelecimento/..., /produto/...). Quando alguém
+      // dá F5 numa dessas páginas, o navegador pede esse caminho direto ao
+      // servidor; sem essa rota existir como arquivo, o GitHub Pages serve o
+      // 404.html, que devolve o usuário para cá com o caminho original
+      // guardado em "?/...". Este trecho decodifica isso e restaura a URL
+      // certa ANTES do React montar, para a página recarregada continuar
+      // exatamente onde estava, em vez de "reiniciar" na Home.
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search.slice(1).split("&").map(function (segment) {
             return segment.replace(/~and~/g, "&");
           }).join("?");
-          window.history.replaceState(null, "", location.pathname.slice(0, -1) + decoded + location.hash);
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
         }
       })(window.location);
     </script>
@@ -92,8 +100,8 @@
       @media(max-width:700px){.pc-boot-loading__card{padding:28px 24px;border-radius:20px}.pc-boot-offline img{object-fit:contain;background:#fff}.pc-boot-offline__actions{bottom:4%;width:calc(100% - 32px);justify-content:center}.pc-boot-offline__actions button,.pc-boot-offline__actions a{padding:11px 14px}}
       @media(prefers-reduced-motion:reduce){.pc-boot-progress i{animation:none;width:100%}}
     </style>
-    <script type="module" crossorigin src="/assets/main-fcT-gNRQ.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-Ld2IrVgd.css">
+    <script type="module" crossorigin src="/assets/main-36FWEvUG.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-DMix2GBZ.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Sabão em Pó Tixan Ypê Concentrado Maciez 800g","brand":{"@type":"Brand","name":"Tixan Ypê"},"category":"Sabão em Pó","url":"https://www.precocerto.live/produto/sabao-em-po-tixan-ype-concentrado-maciez-800g","description":"Sabão em Pó Tixan Ypê Concentrado Maciez 800g — Tixan Ypê · un · Sabão em Pó. Compare preços e disponibilidade no comércio local de Feijó (AC)."}</script></head>
   <body>
     <div id="pc-boot-screen" role="status" aria-live="polite">

@@ -1,4 +1,4 @@
-import { CSSProperties, FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { CSSProperties, FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -64,24 +64,15 @@ const sectors = [
 export function HomeProfessional2026() {
   const navigate = useNavigate();
   const pageRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload>({ ...initialCatalog, metrics: verifiedDatasetMetrics });
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
+  const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>(readTheme);
   const [footerPanel, setFooterPanel] = useState<FooterPanel>(null);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    const body = document.body;
-    root.classList.add("hp-hide-page-scrollbar");
-    body.classList.add("hp-hide-page-scrollbar");
-    return () => {
-      root.classList.remove("hp-hide-page-scrollbar");
-      body.classList.remove("hp-hide-page-scrollbar");
-    };
-  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -116,6 +107,19 @@ export function HomeProfessional2026() {
 
   const searchOpen = searchFocused && query.trim().length >= 2;
 
+  useEffect(() => setActiveSearchIndex(-1), [query]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeMenu = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    };
+    document.addEventListener("keydown", closeMenu);
+    return () => document.removeEventListener("keydown", closeMenu);
+  }, [menuOpen]);
+
   // Com a busca aberta a página atrás não rola: o overlay fica sobre ela e
   // rolar o fundo enquanto se lê os resultados desorienta. A largura da barra
   // de rolagem é compensada para o conteúdo não saltar ao travar.
@@ -139,6 +143,35 @@ export function HomeProfessional2026() {
   const submitSearch = (event: FormEvent) => {
     event.preventDefault();
     navigate(query.trim() ? `/buscar?q=${encodeURIComponent(query.trim())}` : "/buscar");
+  };
+
+  const handleSearchKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (!searchOpen || !suggestions.length) {
+      if (event.key === "Escape") setSearchFocused(false);
+      return;
+    }
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setActiveSearchIndex(index => (index + 1) % suggestions.length);
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setActiveSearchIndex(index => index <= 0 ? suggestions.length - 1 : index - 1);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setActiveSearchIndex(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setActiveSearchIndex(suggestions.length - 1);
+    } else if (event.key === "Enter" && activeSearchIndex >= 0) {
+      event.preventDefault();
+      const product = suggestions[activeSearchIndex];
+      setSearchFocused(false);
+      navigate(`/produto/${product.slug || product.id}`);
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      setSearchFocused(false);
+      setActiveSearchIndex(-1);
+    }
   };
 
   // A home era a única página "viva" do site sem nenhum movimento: tudo
@@ -175,7 +208,7 @@ export function HomeProfessional2026() {
           <img className="hp-brand__dark" src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" width="142" height="36" />
           <small>FEIJÓ · ACRE</small>
         </Link>
-        <nav className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
+        <nav id="hp-main-navigation" className={menuOpen ? "is-open" : ""} aria-label="Navegação principal">
           <Link to="/explorar" onClick={() => setMenuOpen(false)}>Onde comprar</Link>
           <Link to="/estabelecimentos" onClick={() => setMenuOpen(false)}>Estabelecimentos</Link>
           <Link to="/buscar" onClick={() => setMenuOpen(false)}>Comparar preços</Link>
@@ -187,7 +220,7 @@ export function HomeProfessional2026() {
             {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}<span>{theme === "dark" ? "Claro" : "Escuro"}</span>
           </button>
           <Link className="hp-login" to="/login">Entrar</Link>
-          <button className="hp-menu" type="button" aria-expanded={menuOpen} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X /> : <Menu />}</button>
+          <button ref={menuButtonRef} className="hp-menu" type="button" aria-expanded={menuOpen} aria-controls="hp-main-navigation" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X /> : <Menu />}</button>
         </div>
       </div>
     </header>
@@ -208,15 +241,15 @@ export function HomeProfessional2026() {
             <form className="hp-search" role="search" onSubmit={submitSearch} onFocus={() => setSearchFocused(true)}>
               <Search aria-hidden="true" />
               <label className="sr-only" htmlFor="hp-search-input">Buscar produto, marca ou categoria</label>
-              <input id="hp-search-input" value={query} onChange={event => setQuery(event.target.value)} placeholder="O que você quer economizar hoje?" autoComplete="off" role="combobox" aria-autocomplete="list" aria-expanded={searchFocused && query.trim().length >= 2} aria-controls="hp-search-results" />
+              <input id="hp-search-input" value={query} onChange={event => setQuery(event.target.value)} onKeyDown={handleSearchKeyDown} placeholder="O que você quer economizar hoje?…" autoComplete="off" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="hp-search-results" aria-activedescendant={activeSearchIndex >= 0 ? `hp-search-result-${activeSearchIndex}` : undefined} />
               {query && <button className="hp-search__clear" type="button" onClick={() => setQuery("")} aria-label="Limpar pesquisa"><X /></button>}
               <button className="hp-search__submit pc-btn" type="submit">Comparar <ArrowRight /></button>
               {searchOpen && <div id="hp-search-results" className="hp-search-results" role="listbox">
-                <header><strong>Resultados rápidos</strong><span>{suggestions.length} encontrados</span></header>
-                {suggestions.length ? suggestions.map(product => {
+                <header><strong>Resultados rápidos</strong><span aria-live="polite">{suggestions.length} encontrados</span></header>
+                {suggestions.length ? suggestions.map((product, index) => {
                   const loja = product.establishment || "Comércio local";
                   const logo = getStoreLogoUrl(loja);
-                  return <button type="button" key={product.id} role="option" aria-selected="false" onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}>
+                  return <button id={`hp-search-result-${index}`} type="button" key={product.id} role="option" aria-selected={activeSearchIndex === index} className={activeSearchIndex === index ? "is-keyboard-active" : undefined} onMouseEnter={() => setActiveSearchIndex(index)} onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}>
                     <i><ProductImage product={product} /></i>
                     <span>
                       <small>{product.category}</small>

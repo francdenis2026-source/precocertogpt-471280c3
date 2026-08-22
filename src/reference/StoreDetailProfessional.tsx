@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -92,6 +92,7 @@ function ProductImage({ product }: { product: Product }) {
 
 export function StoreDetailProfessional() {
   const { identifier = "" } = useParams();
+  const navigate = useNavigate();
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -119,6 +120,11 @@ export function StoreDetailProfessional() {
   }, []);
 
   const store = useMemo(() => catalog?.stores.find(item => String(item.id) === identifier || item.slug === identifier), [catalog, identifier]);
+
+  useEffect(() => {
+    if (!store?.slug || !identifier || identifier === store.slug) return;
+    navigate(`/estabelecimento/${store.slug}`, { replace: true });
+  }, [identifier, navigate, store?.slug]);
   const allProducts = useMemo(() => {
     if (!catalog || !store) return [];
     return catalog.products.filter(item => item.offers?.some(offer => String(offer.establishmentId) === String(store.id)) || String(item.establishmentId) === String(store.id));

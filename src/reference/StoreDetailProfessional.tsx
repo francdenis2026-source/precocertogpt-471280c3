@@ -113,7 +113,7 @@ export function StoreDetailProfessional() {
 
   useEffect(() => {
     let active = true;
-    fetchCatalog("", { force: true })
+    fetchCatalog()
       .then(data => { if (active) setCatalog(data); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
@@ -160,7 +160,22 @@ export function StoreDetailProfessional() {
   useEffect(() => setPage(1), [query, category, sort]);
   useEffect(() => { if (page > pageCount) setPage(pageCount); }, [page, pageCount]);
 
-  if (loading) return <main className="store-pro-state"><span className="store-pro-loader" /><h1>Carregando estabelecimento…</h1></main>;
+  if (loading) return (
+    <main className="store-pro-skeleton" role="status" aria-live="polite">
+      <span className="store-pro-skeleton__sr">Carregando estabelecimento…</span>
+      <div className="store-pro-skeleton__hero">
+        <span className="store-pro-skeleton__logo" />
+        <div className="store-pro-skeleton__lines">
+          <span className="store-pro-skeleton__bar store-pro-skeleton__bar--kicker" />
+          <span className="store-pro-skeleton__bar store-pro-skeleton__bar--title" />
+          <span className="store-pro-skeleton__bar store-pro-skeleton__bar--text" />
+        </div>
+      </div>
+      <div className="store-pro-skeleton__grid">
+        {Array.from({ length: 8 }).map((_, index) => <span className="store-pro-skeleton__card" key={index} />)}
+      </div>
+    </main>
+  );
   if (!store || !catalog) return <main className="store-pro-state"><Store /><h1>Estabelecimento não encontrado</h1><Link to="/estabelecimentos">Voltar aos estabelecimentos</Link></main>;
 
   const startResult = filteredProducts.length ? (safePage - 1) * PAGE_SIZE + 1 : 0;

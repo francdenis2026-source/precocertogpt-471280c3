@@ -90,7 +90,7 @@ export function ProductDetailProfessional() {
 
   useEffect(() => {
     let active = true;
-    fetchCatalog("", { force: true }).then(data => { if (active) setCatalog(data); }).finally(() => { if (active) setLoading(false); });
+    fetchCatalog().then(data => { if (active) setCatalog(data); }).finally(() => { if (active) setLoading(false); });
     setBasket(readBasket());
     const sync = () => setBasket(readBasket());
     window.addEventListener("pc:basket-changed", sync);
@@ -134,7 +134,24 @@ export function ProductDetailProfessional() {
     writeBasket(next); setBasket(next); setMessage("Produto adicionado à sua lista."); window.setTimeout(() => setMessage(""), 2200);
   };
 
-  if (loading) return <main className="pdx-state"><span className="pdx-loader"/><h1>Carregando produto…</h1><p>Buscando preços e informações atualizadas.</p></main>;
+  if (loading) return (
+    <main className="pdx-skeleton" role="status" aria-live="polite">
+      <span className="pdx-skeleton__sr">Carregando produto…</span>
+      <div className="pdx-skeleton__grid">
+        <span className="pdx-skeleton__image" />
+        <div className="pdx-skeleton__core">
+          <span className="pdx-skeleton__bar pdx-skeleton__bar--kicker" />
+          <span className="pdx-skeleton__bar pdx-skeleton__bar--title" />
+          <span className="pdx-skeleton__bar pdx-skeleton__bar--text" />
+          <span className="pdx-skeleton__panel" />
+        </div>
+        <div className="pdx-skeleton__side">
+          <span className="pdx-skeleton__panel" />
+          <span className="pdx-skeleton__panel" />
+        </div>
+      </div>
+    </main>
+  );
   if (!product) return <main className="pdx-state"><PackageSearch/><h1>Produto não encontrado</h1><p>Este item pode ter sido atualizado ou removido.</p><Link to="/buscar">Voltar para a busca</Link></main>;
 
   const favorite = isFavorite(product.id);

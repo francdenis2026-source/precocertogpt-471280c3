@@ -1,4 +1,4 @@
-import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, BookOpen, Croissant, HeartPulse, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
@@ -50,6 +50,7 @@ export function HomeNew2026() {
   const [theme, setTheme] = useState<Theme>(readTheme);
   const [footerPanel, setFooterPanel] = useState<FooterPanel>(null);
   const [cycle, setCycle] = useState(() => currentCycle());
+  const deferredQuery = useDeferredValue(query);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -89,14 +90,12 @@ export function HomeNew2026() {
   const featured = useMemo(() => buildFeatured(products, cycle, 4), [products, cycle]);
   const spotlight = featured[0];
   const suggestions = useMemo(() => {
-    const term = normalize(query);
+    const term = normalize(deferredQuery);
     if (term.length < 2) return [];
     return products.filter(product => normalize(`${product.name} ${product.brand || ""} ${product.category || ""}`).includes(term))
       .sort((a, b) => a.minPrice - b.minPrice).slice(0, 5);
-  }, [products, query]);
+  }, [deferredQuery, products]);
   const searchOpen = focused && query.trim().length >= 2;
-
-  useEffect(() => setActiveIndex(-1), [query]);
 
   const submitSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -129,7 +128,7 @@ export function HomeNew2026() {
     <header className="nx-header">
       <div className="nx-shell nx-header__inner">
         <Link className="nx-brand" to="/" aria-label="PreçoCerto, página inicial">
-          <img src="/logo-preco-certo.svg?v=9" alt="PreçoCerto" width="150" height="36" />
+          <img src="/logo-preco-certo.svg?v=10" alt="PreçoCerto" width="150" height="36" />
           <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
         </Link>
         <nav className={menuOpen ? "is-open" : ""} id="nx-navigation" aria-label="Navegação principal">
@@ -156,13 +155,12 @@ export function HomeNew2026() {
       }}>
         <div className="nx-shell nx-hero__grid">
           <div className="nx-hero__copy">
-            <span className="nx-kicker"><i className="nx-check" aria-hidden="true">✓</i> Comparação local, sem complicação</span>
             <h1>Encontre o melhor preço <em>perto de você.</em></h1>
             <p>Pesquise produtos do comércio de Feijó, compare os valores disponíveis e decida onde comprar.</p>
             <form className="nx-search" role="search" onSubmit={submitSearch} onFocus={() => setFocused(true)}>
               <Search aria-hidden="true" />
               <label className="sr-only" htmlFor="nx-search-input">Buscar produto, marca ou categoria</label>
-              <input id="nx-search-input" value={query} onChange={event => setQuery(event.target.value)} onKeyDown={handleSearchKeyDown} placeholder="Digite um produto ou uma marca" autoComplete="off" role="combobox" aria-expanded={searchOpen} aria-controls="nx-search-results" aria-activedescendant={activeIndex >= 0 ? `nx-result-${activeIndex}` : undefined} />
+              <input id="nx-search-input" value={query} onChange={event => { setQuery(event.target.value); setActiveIndex(-1); }} onKeyDown={handleSearchKeyDown} placeholder="Digite um produto ou uma marca" autoComplete="off" role="combobox" aria-expanded={searchOpen} aria-controls="nx-search-results" aria-activedescendant={activeIndex >= 0 ? `nx-result-${activeIndex}` : undefined} />
               {query && <button className="nx-search__clear" type="button" onClick={() => setQuery("")} aria-label="Limpar pesquisa"><X /></button>}
               <button className="nx-search__submit" type="submit">Pesquisar <ArrowRight /></button>
               {searchOpen && <div className="nx-results" id="nx-search-results" role="listbox">
@@ -204,14 +202,15 @@ export function HomeNew2026() {
       <section className="nx-market nx-shell" aria-labelledby="nx-market-title">
         <div className="nx-market__products">
           <div className="nx-section-title"><div><span>Catálogo local</span><h2 id="nx-market-title">Preços para comparar agora</h2><p>Produtos com valores disponíveis no PreçoCerto.</p></div><Link to="/buscar">Ver catálogo <ArrowRight /></Link></div>
-          <div className="nx-product-grid">
-            {loading ? Array.from({ length: 3 }, (_, index) => <div className="nx-product-card nx-product-card--loading" key={index} />) : featured.slice(1, 4).map(product => <article className="nx-product-card" key={product.id}>
+          <div className="nx-product-grid" aria-busy={loading}>
+            {loading ? Array.from({ length: 3 }, (_, index) => <div className="nx-product-card nx-product-card--loading" key={index} aria-hidden="true" />) : featured.slice(1, 4).map(product => <article className="nx-product-card" key={product.id}>
               <Link to={`/produto/${product.slug || product.id}`}>
                 <div className="nx-product-card__media"><ProductImage product={product} /></div>
-                <div className="nx-product-card__copy"><small>{product.category}</small><h3>{product.name}</h3><p>{product.size || product.brand || "Produto local"}</p><footer><span><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight /></footer></div>
+                <div className="nx-product-card__copy"><small>{product.category}</small><h3>{product.name}</h3><p>{product.establishment || product.size || product.brand || "Comércio local"}</p><footer><span><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong></span><span className="nx-product-card__action">Comparar <ArrowRight /></span></footer></div>
               </Link>
             </article>)}
           </div>
+          <span className="sr-only" role="status">{loading ? "Carregando preços" : "Preços carregados"}</span>
         </div>
         <aside className="nx-basket">
           <ShoppingBasket aria-hidden="true" />
@@ -238,7 +237,7 @@ export function HomeNew2026() {
 
     <footer className="nx-footer">
       <div className="nx-shell nx-footer__main">
-        <div className="nx-footer__brand"><img src="/logo-preco-certo-inversa.svg?v=9" alt="PreçoCerto" width="126" height="30" /><p>Informação local para comprar melhor.</p></div>
+        <div className="nx-footer__brand"><img src="/logo-preco-certo-inversa.svg?v=10" alt="PreçoCerto" width="126" height="30" /><p>Informação local para comprar melhor.</p></div>
         <nav aria-label="Links do rodapé"><Link to="/buscar">Comparar preços</Link><Link to="/explorar">Onde comprar</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/lojista">Para comerciantes</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></nav>
         <div className="nx-footer__meta"><span><i className="nx-check" aria-hidden="true">✓</i> Preços locais organizados</span><small>© 2026 PreçoCerto · Feijó, AC</small></div>
       </div>

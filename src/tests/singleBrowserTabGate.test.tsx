@@ -29,8 +29,8 @@ describe("controle de aba única", () => {
     window.localStorage.setItem(LEASE_KEY, JSON.stringify({ tabId: "outra-aba", expiresAt: Date.now() + 7000 }));
     render(<SingleBrowserTabGate><p>Aplicação ativa</p></SingleBrowserTabGate>);
     act(() => vi.advanceTimersByTime(100));
-    expect(screen.getByRole("heading", { name: "Use uma aba por vez" })).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Usar o PreçoCerto nesta aba" }));
+    expect(screen.getByRole("heading", { name: "Continue com segurança nesta aba." })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Continuar nesta aba" }));
     expect(screen.getByText("Aplicação ativa")).toBeTruthy();
   });
 });

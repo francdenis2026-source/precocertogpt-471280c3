@@ -171,8 +171,6 @@ export function ProductDetailProfessional() {
   if (!product) return <main className="pdx-state"><PackageSearch/><h1>Produto não encontrado</h1><p>Este item pode ter sido atualizado ou removido.</p><Link to="/buscar">Voltar para a busca</Link></main>;
 
   const favorite = isFavorite(product.id);
-  const quantity = basket.find(item => item.productId === String(product.id))?.quantity || 0;
-  const updatedAt = formatDate(product.updated_at || product.capturedAt);
   const brand = cleanValue(product.brand);
   const manufacturer = cleanValue(extra.manufacturer);
   const barcode = cleanValue(extra.barcode || product.barcode);
@@ -185,11 +183,21 @@ export function ProductDetailProfessional() {
   // que o restante da página já trata como "a oferta".
   const homeStore = offers.length === 1 ? offers[0] : bestOffer;
   const homeStoreHref = homeStore ? `/estabelecimento/${homeStore.establishmentSlug || homeStore.establishmentId}` : "/estabelecimentos";
+  // O preço principal precisa vir da mesma coleção que alimenta o ranking.
+  // Antes ele usava `product.minPrice`, isto é, o preço do cadastro aberto,
+  // mesmo quando a comparação já havia encontrado um equivalente mais barato.
+  const displayedOffer = comparisonOffers[0];
+  const displayedProduct = displayedOffer && catalog?.products.find(item => String(item.id) === String(displayedOffer.productId));
+  const displayedPrice = displayedOffer?.value ?? product.minPrice;
+  const displayedStore = displayedOffer?.establishment ?? bestOffer?.establishment;
+  const displayedUpdatedAt = formatDate(displayedOffer?.capturedAt || product.updated_at || product.capturedAt);
+  const basketTarget = displayedProduct || product;
+  const basketTargetQuantity = basket.find(item => item.productId === String(basketTarget.id))?.quantity || 0;
   const priceSpread = comparisonOffers.length > 1 ? Math.max(0, comparisonOffers[comparisonOffers.length - 1].value - comparisonOffers[0].value) : 0;
   const isSingleOffer = comparisonOffers.length <= 1;
   const hasHistory = (product.price_history || []).filter(item => Number.isFinite(item.value)).length >= 2;
-  const previousPrice = Number(product.previousPrice || 0);
-  const savingVsPrevious = previousPrice > product.minPrice ? previousPrice - product.minPrice : 0;
+  const previousPrice = Number(displayedOffer?.previousPrice || displayedProduct?.previousPrice || 0);
+  const savingVsPrevious = previousPrice > displayedPrice ? previousPrice - displayedPrice : 0;
 
   return <div className="pdx-page">
     <PublicHeader/>
@@ -207,16 +215,16 @@ export function ProductDetailProfessional() {
           <div className="pdx-identity"><span className="pdx-brand-pill"><Tag/> {brand}</span><h1 id="pdx-title">{product.name}</h1><p>{product.size || product.unit || "Embalagem não informada"}</p></div>
 
           <div className="pdx-price-block">
-            <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : "MENOR PREÇO ENCONTRADO"} <BadgeCheck/></span><strong>{brl.format(product.minPrice)}</strong><small>{bestOffer ? `em ${bestOffer.establishment}` : "preço verificado"}</small></div>
+            <div><span>{isSingleOffer ? "PREÇO REGISTRADO" : "MENOR PREÇO EQUIVALENTE"} <BadgeCheck/></span><strong>{brl.format(displayedPrice)}</strong><small>{displayedStore ? `em ${displayedStore}` : "preço verificado"}{!isSingleOffer && displayedOffer ? ` · ${displayedOffer.productBrand || "marca não informada"} · ${displayedOffer.productSize || "medida compatível"}` : ""}</small></div>
             <div className={`pdx-price-facts${isSingleOffer ? " pdx-price-facts--compact" : ""}`}>
               <span><Store/><b>{comparisonOffers.length}</b><small>{isSingleOffer ? "loja consultada" : "lojas comparadas"}</small></span>
               {!isSingleOffer && <span><TrendingDown/><b>{brl.format(priceSpread)}</b><small>diferença entre lojas</small></span>}
-              <span><CalendarDays/><b>{updatedAt}</b><small>última verificação</small></span>
+              <span><CalendarDays/><b>{displayedUpdatedAt}</b><small>última verificação</small></span>
             </div>
             {savingVsPrevious > 0 && <div className="pdx-price-saving"><TrendingDown/> Está {brl.format(savingVsPrevious)} abaixo do último preço registrado.</div>}
           </div>
 
-          <div className="pdx-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"}/>{favorite ? "Salvo nos favoritos" : "Salvar nos favoritos"}</button><button type="button" className="pdx-primary-action pc-btn pc-btn--primary" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar mais um · ${quantity} na lista` : "Adicionar à lista de compras"}</button></div>
+          <div className="pdx-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"}/>{favorite ? "Salvo nos favoritos" : "Salvar nos favoritos"}</button><button type="button" className="pdx-primary-action pc-btn pc-btn--primary" onClick={() => void addToBasket(basketTarget)}><ShoppingBasket/>{basketTargetQuantity ? `Adicionar mais um · ${basketTargetQuantity} na lista` : "Adicionar melhor oferta à lista"}</button></div>
 
           <div className="pdx-trust"><CheckCircle2/><span><strong>Preço organizado pelo PreçoCerto</strong><small>Use como referência e confirme disponibilidade diretamente com o estabelecimento.</small></span></div>
         </div>
@@ -269,7 +277,7 @@ export function ProductDetailProfessional() {
 
 
     <PublicFooter/>
-    <div className="pdx-mobile-bar"><div><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></div><button type="button" className="pc-btn pc-btn--primary" onClick={() => void addToBasket(product)}><ShoppingBasket/>{quantity ? `Adicionar (${quantity})` : "Adicionar à lista"}</button></div>
+    <div className="pdx-mobile-bar"><div><small>{isSingleOffer ? "Preço registrado" : "Menor equivalente"}</small><strong>{brl.format(displayedPrice)}</strong></div><button type="button" className="pc-btn pc-btn--primary" onClick={() => void addToBasket(basketTarget)}><ShoppingBasket/>{basketTargetQuantity ? `Adicionar (${basketTargetQuantity})` : "Adicionar à lista"}</button></div>
     {message && <div className="pdx-toast" role="status" aria-live="polite">{message}</div>}
   </div>;
 }

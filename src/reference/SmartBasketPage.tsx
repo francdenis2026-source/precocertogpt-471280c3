@@ -1,11 +1,16 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Bot, Building2, CheckCircle2, LoaderCircle, Minus, PackagePlus, PiggyBank, Plus, Save, Search, Send, ShoppingBasket, Sparkles, Store, Trash2, WalletCards, X } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product, ProductOffer } from "../data/catalog";
 import { loadSessionProfile, supabase, type SessionProfile } from "../lib/roles";
 import { AppDock, PublicHeader } from "./ReferenceExperience";
 import "./SmartBasketPage.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
@@ -22,6 +27,7 @@ function buildMulti(rows:DesiredRow[],budget:number):Plan{const items:PlannedIte
 function buildSingle(rows:DesiredRow[],budget:number):Plan{const stores=new Set<string>();rows.forEach(r=>r.product.offers?.forEach(o=>stores.add(o.establishment)));let best:Plan|null=null;let bestScore=-1;for(const storeName of stores){const items:PlannedItem[]=[];const missing:string[]=[];let total=0;let score=0;for(const row of rows){const offer=row.product.offers?.find(o=>o.establishment===storeName);if(!offer){missing.push(row.label);continue;}let added=0;for(let i=0;i<row.quantity;i++){if(total+offer.value>budget)break;total+=offer.value;added++;}if(added){items.push({product:row.product,quantity:added,offer,subtotal:offer.value*added,essential:row.label});score+=(110-row.priority)*1000+added;}else missing.push(row.label);}if(!best||score>bestScore||(score===bestScore&&total<best.total)){bestScore=score;best={strategy:"single_store",total,items,stores:items.length?[storeName]:[],missing,savings:0,label:"Melhor cesta em uma loja",storeName};}}return best||{strategy:"single_store",total:0,items:[],stores:[],missing:rows.map(r=>r.label),savings:0,label:"Melhor cesta em uma loja"};}
 function readStoredPrefill(){try{const raw=sessionStorage.getItem("precocerto:smart-basket-prefill");return raw?JSON.parse(raw) as {budget?:number;people?:number}:{};}catch{return{};}}
 export function SmartBasketPage(){
+const pageRef=useRef<HTMLDivElement>(null);
 const navigate=useNavigate();const[searchParams]=useSearchParams();const stored=useMemo(readStoredPrefill,[]);const initialBudget=Math.max(50,Number(searchParams.get("budget")||stored.budget||350));const initialPeople=Math.min(8,Math.max(1,Number(searchParams.get("people")||stored.people||2)));
 const[profile,setProfile]=useState<SessionProfile|null>(null),[authLoading,setAuthLoading]=useState(true),[products,setProducts]=useState<Product[]>([]),[loading,setLoading]=useState(true);const[budget,setBudget]=useState(initialBudget),[income,setIncome]=useState<number|"">(""),[people,setPeople]=useState(initialPeople),[selected,setSelected]=useState<"multi_store"|"single_store">("multi_store"),[saving,setSaving]=useState(false),[message,setMessage]=useState("");const[selectionMode,setSelectionMode]=useState<"smart"|"custom">("smart"),[query,setQuery]=useState(""),[custom,setCustom]=useState<Record<string,number>>({});
 const[assistantOpen,setAssistantOpen]=useState(false),[assistantInput,setAssistantInput]=useState(""),[assistantLog,setAssistantLog]=useState<AssistantTurn[]>([{from:"assistant",text:"Olá! Posso sugerir itens, buscar um produto ou ajustar seu orçamento. O que você precisa?"}]);
@@ -58,9 +64,22 @@ if(found){ctx.addProduct(found);return`Adicionei ${found.name} (a partir de ${br
 if(budgetMatch){const value=Math.max(10,Number(budgetMatch[1]));ctx.setBudget(value);return`Orçamento ajustado para ${brl.format(value)}.`;}
 return"Não encontrei esse produto no catálogo. Tente outro nome, ou peça 'itens essenciais', 'mais economia' ou 'uma loja só'.";
 }
+// Entrada suave da hero, dos controles de orçamento e do seletor de
+// estratégia ao montar a página. Respeita prefers-reduced-motion e usa só
+// transform/opacity. Não anima o seletor de produtos, o plano calculado nem
+// o assistente — essas áreas recalculam a cada tecla/clique (rows, budget,
+// custom) e reanimar a cada recálculo pareceria quebrado/piscando, igual a
+// uma página de resultados de busca.
+useGSAP(() => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  gsap.from(".smart-basket-hero > *", { y: 16, opacity: 0, duration: .55, stagger: .06, ease: "power3.out" });
+  gsap.from(".smart-controls > *", { y: 14, opacity: 0, duration: .5, delay: .12, stagger: .06, ease: "power2.out" });
+  gsap.from(".smart-results .smart-strategies > *", { y: 14, opacity: 0, duration: .5, delay: .18, stagger: .06, ease: "power2.out" });
+}, { scope: pageRef });
+
 async function savePlan(){if(!profile||!supabase||!active.items.length)return;setSaving(true);setMessage("");const payload={user_id:profile.userId,name:`Cesta ${new Date().toLocaleDateString("pt-BR")}`,budget,household_income:income||null,household_size:people,strategy:active.strategy,total:active.total,savings:active.savings,store_count:active.stores.length,items:active.items.map(i=>({product_id:i.product.id,name:i.product.name,quantity:i.quantity,unit_price:i.offer.value,subtotal:i.subtotal,establishment:i.offer.establishment,establishment_id:i.offer.establishmentId}))};const{error}=await supabase.from("smart_basket_plans").insert(payload);setSaving(false);setMessage(error?`Não foi possível salvar: ${error.message}`:"Cesta salva na sua conta.");}
 if(authLoading||loading)return <main className="smart-basket-state"><LoaderCircle className="spin"/><strong>Preparando sua cesta inteligente…</strong></main>;if(!profile)return null;
-return <div className="smart-basket-page"><PublicHeader current="basket"/><main id="conteudo-principal" className="smart-basket-shell">
+return <div className="smart-basket-page" ref={pageRef}><PublicHeader current="basket"/><main id="conteudo-principal" className="smart-basket-shell">
 <section className="smart-basket-hero"><div><small>PLANEJAMENTO DE COMPRA</small><h1>Monte a melhor cesta para o dinheiro que você tem.</h1><p>Use nossa sugestão de itens essenciais ou escolha exatamente os produtos que deseja comprar.</p></div><ShoppingBasket/></section>
 <section className="smart-planner"><div className="smart-controls"><label><span><WalletCards/> Quanto você tem disponível?</span><div className="money-input"><b>R$</b><input type="number" min="10" step="10" value={budget} onChange={e=>setBudget(Math.max(0,Number(e.target.value)))}/></div></label><label><span>Renda mensal da família <em>opcional</em></span><div className="money-input"><b>R$</b><input type="number" min="0" step="100" value={income} placeholder="Ex.: 2.500" onChange={e=>setIncome(e.target.value===""?"":Number(e.target.value))}/></div>{suggestedBudget&&<button type="button" className="budget-suggestion" onClick={()=>setBudget(suggestedBudget)}>Usar referência de {brl.format(suggestedBudget)} <small>25% da renda · ajustável</small></button>}</label><label><span>Pessoas na casa</span><select value={people} onChange={e=>setPeople(Number(e.target.value))}>{[1,2,3,4,5,6,7,8].map(n=><option key={n}>{n}</option>)}</select></label></div></section>
 <section className="smart-product-picker"><header><div><small>PRODUTOS DA CESTA</small><h2>Como você quer montar sua lista?</h2></div><div className="smart-picker-tabs"><button className={selectionMode==="smart"?"is-active":""} onClick={()=>setSelectionMode("smart")}><Sparkles/> Sugestão inteligente</button><button className={selectionMode==="custom"?"is-active":""} onClick={()=>setSelectionMode("custom")}><PackagePlus/> Escolher meus produtos</button></div></header>{selectionMode==="custom"&&<><div className="smart-product-search"><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Busque arroz, café, leite, frango, marca..."/></div>{searchResults.length>0&&<div className="smart-product-results">{searchResults.map(product=><button key={String(product.id)} onClick={()=>addProduct(product)}><span><strong>{product.name}</strong><small>{product.brand||product.category} · a partir de {brl.format(product.minPrice)}</small></span><Plus/></button>)}</div>}<div className="smart-custom-list">{customRows.length?customRows.map(row=><article key={String(row.product.id)}><div><strong>{row.product.name}</strong><small>{row.product.brand||row.product.category} · menor preço {brl.format(row.product.minPrice)}</small></div><div className="smart-qty"><button onClick={()=>changeQty(String(row.product.id),-1)} aria-label="Diminuir quantidade"><Minus/></button><b>{row.quantity}</b><button onClick={()=>changeQty(String(row.product.id),1)} aria-label="Aumentar quantidade"><Plus/></button></div><button className="smart-remove" onClick={()=>setCustom(current=>{const copy={...current};delete copy[row.product.id];return copy;})} aria-label={`Remover ${row.product.name}`}><Trash2/></button></article>):<div className="smart-custom-empty"><PackagePlus/><strong>Sua seleção está vazia.</strong><span>Pesquise acima e adicione os produtos que deseja comprar.</span></div>}</div></>}</section>

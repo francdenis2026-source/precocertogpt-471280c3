@@ -1,6 +1,9 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, BadgeCheck, Building2, ChevronDown, PackageSearch, RotateCcw, Search, SlidersHorizontal, Store } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { fetchSectorCatalog, productHasSectorOffer, sectorStores } from "../data/sectorCatalog";
 import { getMarketplaceSector, marketplaceSectors, type MarketplaceSectorId } from "./MarketplaceSectors";
@@ -9,6 +12,8 @@ import { AppDock, PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./SearchDiscovery2026.css";
 import "./CompactViewportPages.css";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").trim();
 type SortMode="relevance"|"lowest"|"highest"|"name"|"stores";
@@ -16,6 +21,7 @@ function score(product:Product,raw:string){const q=normalize(raw);if(!q)return 2
 function ProductThumb({product}:{product:Product}){const src=resolveProductImage(product);return src?<img src={src} alt={product.name} width="76" height="70" loading="lazy"/>:<PackageSearch/>}
 
 export function SearchDiscovery2026(){
+ const pageRef=useRef<HTMLDivElement>(null);
  const[params,setParams]=useSearchParams();
  const initialQuery=params.get("q")||"";
  const[catalog,setCatalog]=useState<CatalogPayload|null>(null),[loading,setLoading]=useState(true);
@@ -40,6 +46,10 @@ export function SearchDiscovery2026(){
  const submit=(e:FormEvent)=>{e.preventDefault();const next=query.trim();setAppliedQuery(next);setVisible(8);syncUrl(next)};
  const applyFilters=()=>{setAppliedQuery(query.trim());setVisible(8);syncUrl(query.trim());setFiltersOpen(false)};
  const reset=()=>{setQuery("");setAppliedQuery("");setSector("all");setStore("all");setCategory("all");setNeighborhood("all");setMinPrice("");setMaxPrice("");setSort("relevance");setVisible(8);setParams({}, {replace:true})};
+ useGSAP(()=>{
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  gsap.from(".search26-hero > *, .search26-search, .search26-filterbar",{y:16,opacity:0,duration:.55,stagger:.06,ease:"power3.out"});
+ },{scope:pageRef});
  return <div className="search26-page"><PublicHeader current="search" /><main id="conteudo-principal" className="search26-shell search26-main">
   <section className="search26-hero"><div><span><Search/> BUSCA INTELIGENTE LOCAL</span><h1>Procure só o que você precisa.</h1><p>Digite um produto, marca, categoria ou estabelecimento. A busca só mostra resultados depois do seu pedido, sem despejar todo o catálogo na tela.</p></div><aside><BadgeCheck/><strong>{catalog?.metrics.products||0} produtos</strong><small>disponíveis para consulta</small></aside></section>
  <form className="search26-search" onSubmit={submit}><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Ex.: arroz, café, Mercado X…"/><button className="pc-btn pc-btn--primary" disabled={!query.trim()&&activeFilters===0}>Buscar <ArrowRight/></button></form>

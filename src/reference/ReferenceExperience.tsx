@@ -343,7 +343,7 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
         <Link {...activeProps("home")} to="/">Início</Link>
         <Link {...activeProps("sectors")} to="/explorar">Setores</Link>
         <Link {...activeProps("search")} to="/buscar">Buscar</Link>
-        <Link {...activeProps("stores")} to="/estabelecimentos">Lojas</Link>
+        <Link {...activeProps("stores")} to="/estabelecimentos">Estabelecimentos</Link>
         <Link {...activeProps("basket")} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link>
       </nav>
       <div className="ref-header__utility">

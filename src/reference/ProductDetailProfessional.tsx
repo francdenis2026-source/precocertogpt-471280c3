@@ -117,6 +117,15 @@ export function ProductDetailProfessional() {
   }, [product]);
 
   const offers = useMemo(() => product ? (product.offers?.length ? [...product.offers] : [{ establishmentId: product.establishmentId, establishmentSlug: product.establishmentSlug, establishment: product.establishment, neighborhood: product.neighborhood, storeColor: product.storeColor, value: product.minPrice, capturedAt: product.capturedAt }]).sort((a,b)=>a.value-b.value) : [], [product]);
+  const quickOffers = useMemo(() => {
+    const seen = new Set<string>();
+    return offers.filter(offer => {
+      const key = String(offer.establishmentId || offer.establishment);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, 4);
+  }, [offers]);
   const similar = useMemo(() => !product || !catalog ? [] : catalog.products.filter(item => String(item.id) !== String(product.id) && item.category === product.category).sort((a,b) => a.minPrice - b.minPrice).slice(0, 4), [catalog, product]);
   const basketRows = useMemo(() => !catalog ? [] : basket.map(entry => ({ entry, product: catalog.products.find(item => String(item.id) === entry.productId) })).filter(row => row.product), [basket, catalog]);
   const basketTotal = basketRows.reduce((sum, row) => sum + (row.product?.minPrice || 0) * row.entry.quantity, 0);
@@ -208,15 +217,21 @@ export function ProductDetailProfessional() {
           <div className="pdx-trust"><CheckCircle2/><span><strong>Preço organizado pelo PreçoCerto</strong><small>Use como referência e confirme disponibilidade diretamente com o estabelecimento.</small></span></div>
         </div>
 
-        <aside className="pdx-specs" aria-label="Informações do produto">
-          <header><span>INFORMAÇÕES DO PRODUTO</span><h2>Identificação clara</h2></header>
-          <dl>
-            <div><dt><Tag/>Marca</dt><dd>{brand}</dd></div>
-            <div><dt><Factory/>Fabricante</dt><dd>{manufacturer}</dd></div>
-            <div><dt><Layers3/>Categoria</dt><dd>{product.category}</dd></div>
-            <div><dt><Package/>Embalagem</dt><dd>{product.size || product.unit || "Não informada"}</dd></div>
-            <div><dt><BadgeCheck/>Código de barras</dt><dd>{barcode}</dd></div>
-          </dl>
+        <aside className="pdx-quick-compare" aria-label="Comparação rápida de preços">
+          <header><span>COMPARAÇÃO RÁPIDA</span><h2>Preços encontrados</h2><p>{offers.length > 1 ? `${offers.length} estabelecimentos, do menor para o maior.` : "Preço disponível em um estabelecimento."}</p></header>
+          <div className="pdx-quick-compare__list">
+            {quickOffers.map((offer, index) => {
+              const difference = Math.max(0, offer.value - (bestOffer?.value || offer.value));
+              return <Link to={`/estabelecimento/${offer.establishmentSlug || offer.establishmentId}`} key={`${offer.establishmentId}-${offer.value}`} className={index === 0 ? "is-best" : ""}>
+                <span className="pdx-quick-compare__mark">{index === 0 ? <BadgeCheck aria-hidden="true" /> : <Store aria-hidden="true" />}</span>
+                <span className="pdx-quick-compare__store"><strong>{offer.establishment}</strong><small>{index === 0 ? "Menor preço" : difference > 0 ? `${brl.format(difference)} a mais` : "Mesmo preço"}</small></span>
+                <span className="pdx-quick-compare__price"><strong>{brl.format(offer.value)}</strong><small>{offer.neighborhood || "Feijó"}</small></span>
+                <ChevronRight aria-hidden="true" />
+              </Link>;
+            })}
+          </div>
+          {offers.length > 1 && <div className="pdx-quick-compare__saving"><TrendingDown aria-hidden="true" /><span><small>ECONOMIA POSSÍVEL</small><strong>{brl.format(priceSpread)}</strong></span></div>}
+          <a className="pdx-quick-compare__more" href="#offers-title">Ver comparação completa <ArrowRight aria-hidden="true" /></a>
         </aside>
       </section>
 
@@ -228,6 +243,17 @@ export function ProductDetailProfessional() {
 
         <article className="pdx-card pdx-history-card"><header><div><span>EVOLUÇÃO DO PREÇO</span><h2>Histórico recente</h2></div><Link to={`/buscar?q=${encodeURIComponent(product.name)}`}>Ver similares <ArrowRight/></Link></header><PriceHistory product={product}/></article>
       </section>
+
+      <details className="pdx-tech-details">
+        <summary><span><Info aria-hidden="true" /><span><small>FICHA DO PRODUTO</small><strong>Marca, fabricante e identificação</strong></span></span><ChevronRight aria-hidden="true" /></summary>
+        <dl>
+          <div><dt><Tag/>Marca</dt><dd>{brand}</dd></div>
+          <div><dt><Factory/>Fabricante</dt><dd>{manufacturer}</dd></div>
+          <div><dt><Layers3/>Categoria</dt><dd>{product.category}</dd></div>
+          <div><dt><Package/>Embalagem</dt><dd>{product.size || product.unit || "Não informada"}</dd></div>
+          <div><dt><BadgeCheck/>Código de barras</dt><dd>{barcode}</dd></div>
+        </dl>
+      </details>
 
       <section className="pdx-secondary-grid">
         <article className="pdx-card pdx-similar"><header><div><span>ALTERNATIVAS</span><h2>Produtos similares</h2></div></header>{similar.length ? <div className="pdx-similar-grid">{similar.map(item => <Link to={`/produto/${item.slug || item.id}`} key={item.id}><div className="pdx-similar-image"><ProductImage product={item} compact/></div><span className="pdx-similar-copy"><small>{cleanValue(item.brand)} · {item.size || item.unit}</small><strong>{item.name}</strong><em>{item.establishment}</em></span><b>{brl.format(item.minPrice)}</b></Link>)}</div> : <p className="pdx-empty-copy">Nenhum produto similar disponível nesta categoria.</p>}</article>

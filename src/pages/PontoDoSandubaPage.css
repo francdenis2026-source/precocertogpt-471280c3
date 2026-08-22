@@ -1,0 +1,11 @@
+/* Ponto do Sanduba — reaproveita a base de KellyBurgueriaPage.css (mesma
+   estrutura de página de cardápio) e troca só a imagem do hero e o acento
+   de cor para a identidade laranja da marca. */
+
+.sanduba-hero{
+  background-image:url('/ponto-do-sanduba/hero-burgers.jpg');
+}
+
+.sanduba-page .kelly-hero__kicker{color:#ffb15c}
+.sanduba-page .kelly-menu-list__price{color:#e0672a}
+.sanduba-page .kelly-info__card svg{color:#e0672a}

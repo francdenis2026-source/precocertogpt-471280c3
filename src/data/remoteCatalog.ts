@@ -7,6 +7,7 @@ import {
   type Product,
   type StoreRow,
 } from "./catalog";
+import { withManualAdditions } from "./manualEstablishments";
 
 type EstablishmentRow = {
   id: string;
@@ -300,11 +301,10 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
       stores: storeRows.length || verifiedDatasetMetrics.stores,
     };
 
+    const merged = withManualAdditions({ products: mapped, stores, metrics, updatedAt: new Date().toISOString() }, query);
+
     return {
-      products: mapped,
-      stores,
-      metrics,
-      updatedAt: new Date().toISOString(),
+      ...merged,
       source: "supabase",
     };
   } catch (error) {

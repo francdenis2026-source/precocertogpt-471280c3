@@ -1,6 +1,8 @@
 // Catálogo PreçoCerto — fonte única de dados (antes servido pelo D1 via /api/catalog).
 // Mantém a mesma forma de dados consumida pela interface, agregando preços por produto.
 
+import { withManualAdditions } from "./manualEstablishments";
+
 export type ProductOffer = { establishmentId: string | number; establishmentSlug: string; establishment: string; neighborhood: string; storeColor: string; value: number; capturedAt: string; previousPrice?: number };
 
 export type Product = {
@@ -86,7 +88,7 @@ function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 }
 
-export function buildCatalog(query = ""): CatalogPayload {
+function buildLocalCatalog(query = ""): CatalogPayload {
   const now = Date.now();
   const q = normalize(query);
 
@@ -131,4 +133,8 @@ export function buildCatalog(query = ""): CatalogPayload {
   };
 
   return { products, stores, metrics, updatedAt: new Date(now).toISOString() };
+}
+
+export function buildCatalog(query = ""): CatalogPayload {
+  return withManualAdditions(buildLocalCatalog(query), query);
 }

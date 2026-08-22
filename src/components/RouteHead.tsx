@@ -58,7 +58,7 @@ const ROUTE_HEAD: Record<string, HeadInfo> = {
   "/contato": contactHead,
   "/favoritos": {
     title: "Meus favoritos | PreçoCerto",
-    description: "Produtos que você salvou para comparar preços nas lojas de Feijó (AC).",
+    description: "Produtos que você salvou para comparar preços nos estabelecimentos de Feijó (AC).",
   },
 };
 

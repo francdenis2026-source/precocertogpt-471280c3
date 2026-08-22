@@ -1506,3 +1506,197 @@ html body [role="main"][tabindex="-1"]:focus-visible {
 .ref-auth__card :where(p, small, span) {
   opacity: 1 !important;
 }
+
+/* =========================================================================
+   Impeccable — endurecimento integral do modo escuro
+   Mantido no fim da camada canônica para neutralizar superfícies claras
+   legadas sem alterar os fluxos nem a fidelidade das imagens de produto.
+   ========================================================================= */
+
+/* O cabeçalho compacto não possuía estilo-base e herdava o botão cinza do
+   navegador. A correção vale nos dois temas; as cores vêm dos tokens. */
+.ref-header--back-only .ref-header__inner {
+  justify-content: space-between !important;
+}
+.ref-header__back-row,
+.ref-header__back,
+.ref-header__context {
+  display: flex;
+  align-items: center;
+}
+.ref-header__back-row { min-width: 0; gap: .75rem; }
+.ref-header__back {
+  min-height: 44px;
+  gap: .45rem;
+  padding: 0 .85rem;
+  border: 1px solid var(--audit-line);
+  border-radius: .75rem;
+  background: var(--audit-surface-soft);
+  color: var(--audit-ink);
+  font-weight: 800;
+  cursor: pointer;
+}
+.ref-header__back:hover { border-color: var(--audit-blue); }
+.ref-header__back svg { width: 1rem; height: 1rem; }
+.ref-header__context { min-width: 0; gap: .55rem; }
+.ref-header__context-logo { width: 2rem; height: 2rem; object-fit: contain; }
+.ref-header__context-title {
+  overflow: hidden;
+  color: var(--audit-ink);
+  font-size: .875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] body {
+  background: var(--audit-canvas);
+  color: var(--audit-ink);
+}
+
+/* Colaboração: elimina o cartão branco que rompia completamente a atmosfera
+   escura, preservando a hierarquia dourada e o feedback verde. */
+html[data-theme="dark"] .pc-collab__panel {
+  background: rgb(20 37 48 / 96%) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 38%) !important;
+}
+html[data-theme="dark"] .pc-collab__panel :where(h2, h3, strong, b, label) {
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] .pc-collab__panel :where(p, small, span, li) {
+  color: var(--audit-muted) !important;
+}
+html[data-theme="dark"] .pc-collab__panel :where(input, textarea) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] .pc-collab__account {
+  background: color-mix(in srgb, var(--audit-green) 10%, var(--audit-surface)) !important;
+  border-color: color-mix(in srgb, var(--audit-green) 30%, var(--audit-line)) !important;
+}
+html[data-theme="dark"] .pc-collab__hint {
+  background: var(--audit-green-soft) !important;
+  color: #bfe9d1 !important;
+  border-color: color-mix(in srgb, var(--audit-green) 28%, var(--audit-line)) !important;
+}
+
+/* Cadastro de lojista: o fluxo é uma tarefa operacional; no modo escuro o
+   formulário acompanha a escolha do usuário em vez de permanecer fixo claro. */
+html[data-theme="dark"] .mo-page .mo-card {
+  background: rgb(20 37 48 / 97%) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 34%) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(h2, strong, label) {
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(p, small, span) {
+  color: var(--audit-muted) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(input, select, textarea) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  caret-color: var(--audit-blue) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(input, select, textarea)::placeholder {
+  color: #91a5b2 !important;
+  opacity: 1 !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(input, select, textarea):focus {
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--audit-blue) 24%, transparent) !important;
+}
+html[data-theme="dark"] .mo-page .mo-login,
+html[data-theme="dark"] .mo-page .mo-login a {
+  color: var(--audit-muted) !important;
+}
+
+/* Administração: transforma as superfícies operacionais que ainda estavam
+   fixadas em branco. A sidebar continua mais profunda para manter orientação. */
+html[data-theme="dark"] :where(.acc-shell, .acc-state, .acw-shell, .acw-state) {
+  background: var(--audit-canvas) !important;
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) {
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] :where(.acc-sidebar, .acw-sidebar) {
+  background: #071f30 !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] .acc-main :where(
+  .acc-panel, .acc-cards article, .acc-table-wrap, .acc-application-grid article,
+  .acc-activity article, .acc-top-actions label, .acc-top-actions > button,
+  .acc-top-actions > a
+),
+html[data-theme="dark"] .acw-main :where(
+  .acw-summary article, .acw-summary button, .acw-product-grid article,
+  .acw-store-grid article, .acw-gap-list article, .acw-environments article,
+  .acw-env-grid article, .acw-top label, .acw-top button, .acw-top .acw-back,
+  .acw-empty
+) {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) :where(
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea
+) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  caret-color: var(--audit-blue) !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) :where(input, textarea)::placeholder {
+  color: #91a5b2 !important;
+  opacity: 1 !important;
+}
+html[data-theme="dark"] .acc-main :where(.acc-kpis div, .acc-table th, .acc-status, .acc-chip),
+html[data-theme="dark"] .acw-main :where(.acw-product-image, .acw-store-grid article > div > span) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) :where(
+  p, small, span, em, .acc-top p, .acc-table td small, .acw-top p,
+  .acw-product-grid p, .acw-store-grid p
+) {
+  color: var(--audit-muted);
+}
+html[data-theme="dark"] :where(.acc-table td, .acc-table th, .acc-list li,
+  .acc-panel > header, .acw-product-grid footer, .acw-store-grid footer,
+  .acw-tabs, .acw-modal header, .acw-modal footer) {
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] :where(.acc-error, .acw-error) {
+  background: var(--pc-danger-soft) !important;
+  color: #ffc6bd !important;
+  border-color: color-mix(in srgb, var(--pc-danger) 44%, var(--audit-line)) !important;
+}
+html[data-theme="dark"] .acw-modal > form {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border: 1px solid var(--audit-line) !important;
+}
+html[data-theme="dark"] .acw-modal :where(.acw-upload > div, footer button.ghost) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] :where(.acc-table button, .acc-application-grid button,
+  .acw-product-grid footer button, .acw-store-grid footer button) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+
+@media (max-width: 680px) {
+  .ref-header__back span { display: none; }
+  .ref-header__back { width: 44px; padding: 0; justify-content: center; }
+  .ref-header__context-title { max-width: 36vw; }
+}

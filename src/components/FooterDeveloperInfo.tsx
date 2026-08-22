@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Building2, Code2, Heart, Info, Mail, MapPin, MessageCircle, ShieldCheck, ShoppingBag, Store, UserRound, X } from "lucide-react";
 import "./FooterDeveloperInfo.css";
@@ -9,6 +9,8 @@ export function FooterDeveloperInfo() {
   const [nav, setNav] = useState<HTMLElement | null>(null);
   const [mobileMenu, setMobileMenu] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState<OpenPanel>(null);
+  const dialogRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const locate = () => {
@@ -23,13 +25,24 @@ export function FooterDeveloperInfo() {
 
   useEffect(() => {
     if (!open) return;
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(null); };
-    document.addEventListener("keydown", closeOnEscape);
+    const focusables = () => Array.from(dialogRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])') || []);
+    window.requestAnimationFrame(() => focusables()[0]?.focus());
+    const manageKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); setOpen(null); return; }
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) return;
+      if (event.shiftKey && document.activeElement === items[0]) { event.preventDefault(); items.at(-1)?.focus(); }
+      else if (!event.shiftKey && document.activeElement === items.at(-1)) { event.preventDefault(); items[0].focus(); }
+    };
+    document.addEventListener("keydown", manageKeyboard);
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("keydown", manageKeyboard);
+      previousFocusRef.current?.focus();
     };
   }, [open]);
 
@@ -60,7 +73,7 @@ export function FooterDeveloperInfo() {
 
     {open === "contact" && createPortal(
       <div className="pc-dev-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(null); }}>
-        <section className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title">
+        <section ref={dialogRef} className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title" tabIndex={-1}>
           <button className="pc-dev-close" type="button" aria-label="Fechar contato" onClick={() => setOpen(null)}><X /></button>
           <span className="pc-contact-icon"><Mail aria-hidden="true" /></span>
           <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre estabelecimentos virtuais ou suporte à plataforma.</p></div>
@@ -73,7 +86,7 @@ export function FooterDeveloperInfo() {
 
     {open === "developer" && createPortal(
       <div className="pc-dev-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(null); }}>
-        <section className="pc-dev-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dev-title" aria-describedby="pc-dev-description">
+        <section ref={dialogRef} className="pc-dev-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dev-title" aria-describedby="pc-dev-description" tabIndex={-1}>
           <button className="pc-dev-close" type="button" aria-label="Fechar informações" onClick={() => setOpen(null)}><X /></button>
 
           <header className="pc-dev-header">

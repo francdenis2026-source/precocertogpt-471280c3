@@ -8,6 +8,7 @@
 // pela proprietária em 22/08/2026 — dados a seguir são o cardápio oficial.
 
 import type { CatalogPayload, Product, ProductOffer, StoreRow } from "./catalog";
+import { SANDUBA_ID, SANDUBA_NAME, sandubaProducts, sandubaStores } from "./manualEstablishments2";
 
 export const KELLY_ID = "kelly-burgueria-lanchonete";
 export const KELLY_NAME = "Kelly Burgueria e Lanchonete";
@@ -155,29 +156,52 @@ export const manualProducts: Product[] = KELLY_MENU.map((item) => {
   } satisfies Product;
 });
 
+type ManualDataset = { id: string; name: string; stores: StoreRow[]; products: Product[] };
+
+// Cada negócio cadastrado manualmente entra aqui. Adicionar um novo negócio =
+// criar um arquivo manualEstablishmentsN.ts (mesmo formato deste) e somar uma
+// entrada nesta lista — o resto (busca, diretório, cesta, métricas) já
+// funciona automaticamente para todos.
+const manualDatasets: ManualDataset[] = [
+  { id: KELLY_ID, name: KELLY_NAME, stores: manualStores, products: manualProducts },
+  { id: SANDUBA_ID, name: SANDUBA_NAME, stores: sandubaStores, products: sandubaProducts },
+];
+
 /**
  * Mescla os cadastros manuais (acima) num CatalogPayload já resolvido, seja
  * ele vindo do Supabase ou do catálogo local de fallback. Aplica o mesmo
- * filtro de busca usado no restante do catálogo, para que a Kelly Burgueria
- * apareça normalmente em /buscar, na cesta e no diretório de estabelecimentos.
+ * filtro de busca usado no restante do catálogo, para que esses negócios
+ * apareçam normalmente em /buscar, na cesta e no diretório de estabelecimentos.
  */
 export function withManualAdditions(payload: CatalogPayload, query = ""): CatalogPayload {
   const q = normalize(query);
   const matchesQuery = (product: Product) =>
     !q || [product.name, product.category, product.brand].some(field => normalize(field || "").includes(q));
 
-  const extraProducts = manualProducts.filter(matchesQuery);
-  const alreadyPresent = payload.stores.some(store => store.id === KELLY_ID || normalize(store.name) === normalize(KELLY_NAME));
-  if (alreadyPresent) return payload;
+  let stores = payload.stores;
+  let products = payload.products;
+  let addedStores = 0;
+  let addedProducts = 0;
+
+  for (const dataset of manualDatasets) {
+    const alreadyPresent = stores.some(store => store.id === dataset.id || normalize(store.name) === normalize(dataset.name));
+    if (alreadyPresent) continue;
+    stores = [...stores, ...dataset.stores];
+    products = [...products, ...dataset.products.filter(matchesQuery)];
+    addedStores += dataset.stores.length;
+    addedProducts += dataset.products.length;
+  }
+
+  if (!addedStores && !addedProducts) return payload;
 
   return {
     ...payload,
-    products: [...payload.products, ...extraProducts].sort((a, b) => a.minPrice - b.minPrice || a.name.localeCompare(b.name, "pt-BR")),
-    stores: [...payload.stores, ...manualStores],
+    products: products.sort((a, b) => a.minPrice - b.minPrice || a.name.localeCompare(b.name, "pt-BR")),
+    stores,
     metrics: {
-      products: payload.metrics.products + manualProducts.length,
-      prices: payload.metrics.prices + manualProducts.length,
-      stores: payload.metrics.stores + manualStores.length,
+      products: payload.metrics.products + addedProducts,
+      prices: payload.metrics.prices + addedProducts,
+      stores: payload.metrics.stores + addedStores,
     },
   };
 }

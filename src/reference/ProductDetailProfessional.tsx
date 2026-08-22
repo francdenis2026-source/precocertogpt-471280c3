@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, BarChart3, CalendarDays, CheckCircle2,
   ChevronRight, Factory, Heart, Home, Info, Layers3, MapPin, Package,
@@ -79,6 +79,7 @@ function PriceHistory({ product }: { product: Product }) {
 
 export function ProductDetailProfessional() {
   const { identifier = "" } = useParams();
+  const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   const [loading, setLoading] = useState(true);
@@ -99,6 +100,11 @@ export function ProductDetailProfessional() {
   }, []);
 
   const product = useMemo(() => catalog?.products.find(item => String(item.id) === identifier || item.slug === identifier), [catalog, identifier]);
+
+  useEffect(() => {
+    if (!product?.slug || !identifier || identifier === product.slug) return;
+    navigate(`/produto/${product.slug}`, { replace: true });
+  }, [identifier, navigate, product?.slug]);
 
   useEffect(() => {
     if (!product || !supabase) return;

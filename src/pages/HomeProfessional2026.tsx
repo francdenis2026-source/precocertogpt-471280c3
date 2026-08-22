@@ -1,5 +1,8 @@
-import { CSSProperties, FormEvent, useEffect, useMemo, useState } from "react";
+import { CSSProperties, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, BadgeCheck, BookOpen, HeartPulse, MapPin, MessageCircle, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, Tag, UserRound, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -15,6 +18,8 @@ import "./HomePolishAcai2026.css";
 import "./HomeLighter2026.css";
 import "./HomeSearchOverlay2026.css";
 import "./HomeMobileFixes2026.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Theme = "light" | "dark";
 const initialCatalog = buildCatalog();
@@ -49,6 +54,7 @@ const sectors = [
 
 export function HomeProfessional2026() {
   const navigate = useNavigate();
+  const pageRef = useRef<HTMLDivElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload>({ ...initialCatalog, metrics: verifiedDatasetMetrics });
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -126,7 +132,32 @@ export function HomeProfessional2026() {
     navigate(query.trim() ? `/buscar?q=${encodeURIComponent(query.trim())}` : "/buscar");
   };
 
-  return <div className="hp-home">
+  // A home era a única página "viva" do site sem nenhum movimento: tudo
+  // aparecia de uma vez, sem transição, mesmo as páginas de estabelecimento
+  // e da Kelly/Sanduba já tendo esse tratamento (mesmo padrão usado aqui).
+  // Diferente daquelas páginas, a hero e as seções da home já existem no DOM
+  // desde a primeira renderização (só os cartões de produto trocam de
+  // esqueleto pro conteúdo real depois — mesma classe nos dois estados,
+  // então a revelação por rolagem funciona igual pra ambos) — por isso roda
+  // uma única vez no mount, sem depender do carregamento do catálogo.
+  // Entrada em cascata no que já está visível ao abrir (hero e destaque de
+  // preço) e revelação ao rolar para o restante das seções, cada uma uma
+  // única vez (once: true — não fica reanimando ao rolar pra cima e pra
+  // baixo). Só transform/opacity, e nada roda se o usuário pedir menos
+  // movimento.
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".hp-eyebrow, .hp-hero__copy h1, .hp-hero__copy>p, .hp-search", { y: 16, opacity: 0, duration: .6, stagger: .07, ease: "power3.out" });
+    gsap.from(".hp-spotlight", { y: 16, opacity: 0, duration: .6, delay: .15, ease: "power3.out" });
+    gsap.utils.toArray<HTMLElement>(".hp-sectors, .hp-offers, .hp-story, .hp-local").forEach((section) => {
+      gsap.from(section, { scrollTrigger: { trigger: section, start: "top 85%", once: true }, y: 24, opacity: 0, duration: .55, ease: "power2.out" });
+    });
+    gsap.utils.toArray<HTMLElement>([".hp-sector-grid", ".hp-product-grid"]).forEach((grid) => {
+      gsap.from(grid.children, { scrollTrigger: { trigger: grid, start: "top 85%", once: true }, y: 18, opacity: 0, duration: .5, stagger: .06, ease: "power2.out" });
+    });
+  }, { scope: pageRef });
+
+  return <div className="hp-home" ref={pageRef}>
     <FestivalAcaiBar />
     <header className="hp-header">
       <div className="hp-shell hp-header__inner">

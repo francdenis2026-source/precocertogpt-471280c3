@@ -219,3 +219,79 @@ html[data-theme="dark"] .hp-home .hp-story::after {
       var(--taste-canvas) 72%) !important;
   }
 }
+
+
+/* Continuidade fotográfica entre o hero, categorias e vitrine de produtos. */
+.hp-home .hp-sectors,
+.hp-home .hp-offers {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--taste-paper);
+  background-image:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--taste-paper) 97%, transparent) 0%,
+      color-mix(in srgb, var(--taste-paper) 88%, transparent) 38%,
+      color-mix(in srgb, var(--taste-paper) 78%, transparent) 70%,
+      color-mix(in srgb, var(--taste-paper) 92%, transparent) 100%),
+    url("/compra-inteligente-profissional.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.hp-home .hp-sectors {
+  background-position: center 22%;
+  border-top: 1px solid color-mix(in srgb, var(--taste-line) 75%, transparent);
+}
+.hp-home .hp-offers {
+  background-position: center 78%;
+}
+.hp-home .hp-sectors::after,
+.hp-home .hp-offers::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 45%, color-mix(in srgb, var(--taste-paper) 55%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--taste-paper) 16%, transparent), color-mix(in srgb, var(--taste-paper) 72%, transparent));
+}
+.hp-home .hp-sectors > .hp-shell,
+.hp-home .hp-offers > .hp-shell {
+  position: relative;
+  z-index: 1;
+}
+
+html[data-theme="dark"] .hp-home .hp-sectors,
+html[data-theme="dark"] .hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 96%) 0%,
+      rgb(13 23 31 / 84%) 40%,
+      rgb(13 23 31 / 70%) 72%,
+      rgb(13 23 31 / 90%) 100%),
+    url("/compra-inteligente-profissional.webp");
+}
+html[data-theme="dark"] .hp-home .hp-sectors::after,
+html[data-theme="dark"] .hp-home .hp-offers::after {
+  background:
+    radial-gradient(circle at 10% 45%, rgb(13 23 31 / 42%), transparent 38%),
+    linear-gradient(180deg, rgb(13 23 31 / 6%), rgb(13 23 31 / 62%));
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-sectors,
+  .hp-home .hp-offers {
+    background-position: 68% center;
+    background-size: auto 100%;
+  }
+  .hp-home .hp-sectors {
+    background-image:
+      linear-gradient(90deg, color-mix(in srgb, var(--taste-paper) 96%, transparent), color-mix(in srgb, var(--taste-paper) 82%, transparent)),
+      url("/compra-inteligente-profissional.webp");
+  }
+  .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, color-mix(in srgb, var(--taste-paper) 94%, transparent), color-mix(in srgb, var(--taste-paper) 88%, transparent)),
+      url("/compra-inteligente-profissional.webp");
+  }
+}

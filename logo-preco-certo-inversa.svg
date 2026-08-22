@@ -1,8 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="76" viewBox="0 0 300 76" role="img" aria-labelledby="pc-title pc-desc">
-  <title id="pc-title">PreçoCerto</title><desc id="pc-desc">Marca clara PreçoCerto em branco, turquesa e âmbar</desc>
-  <defs><linearGradient id="pc-bg" x1="8" y1="5" x2="68" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#E8FAFF"/><stop offset="1" stop-color="#FFF3CF"/></linearGradient><linearGradient id="pc-tag" x1="18" y1="18" x2="59" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#39B7EA"/><stop offset="1" stop-color="#19C2B4"/></linearGradient></defs>
-  <rect x="4" y="6" width="64" height="64" rx="18" fill="url(#pc-bg)"/>
-  <path d="M18 25.5a6 6 0 0 1 6-6h20.2a6 6 0 0 1 4.25 1.76l11.3 11.3a6 6 0 0 1 0 8.48L42.05 58.75a6 6 0 0 1-8.48 0l-13.8-13.8A6 6 0 0 1 18 40.7Z" fill="url(#pc-tag)"/>
-  <circle cx="30" cy="30.5" r="4" fill="#FFF7DE"/><path d="m34.5 42.5 5.8 5.8 11.2-12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="59" cy="17" r="6" fill="#F7B93F"/>
-  <text x="80" y="48" fill="#FFFFFF" font-family="Outfit, Manrope, Arial, sans-serif" font-size="35" font-weight="750" letter-spacing="-1.35">Preço</text><text x="174" y="48" fill="#65DDD1" font-family="Outfit, Manrope, Arial, sans-serif" font-size="35" font-weight="750" letter-spacing="-1.35">Certo</text><path d="M81 57h64" stroke="#F7B93F" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="72" viewBox="0 0 300 72" role="img" aria-labelledby="pc-title pc-desc">
+  <title id="pc-title">PreçoCerto</title>
+  <desc id="pc-desc">Marca vetorial clara PreçoCerto</desc>
+  <g aria-hidden="true">
+    <rect x="4" y="4" width="64" height="64" rx="15" fill="#F4FBFD"/>
+    <path d="M17 23a6 6 0 0 1 6-6h22.5a6 6 0 0 1 4.24 1.76l12.5 12.5a6 6 0 0 1 0 8.48L40.74 61.2a6 6 0 0 1-8.48 0L18.76 47.7A6 6 0 0 1 17 43.46Z" fill="#2AA6D6"/>
+    <circle cx="29" cy="29" r="4.2" fill="#F5C55A"/>
+    <path d="m31.5 43 7.2 7.2L52.5 36" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M57 54h8" stroke="#36C0B4" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="82" y="46.5" fill="#FFFFFF" font-family="Outfit, Manrope, Arial, sans-serif" font-size="34" font-weight="720" letter-spacing="-1.15">Preço</text>
+  <text x="174" y="46.5" fill="#65DDD1" font-family="Outfit, Manrope, Arial, sans-serif" font-size="34" font-weight="720" letter-spacing="-1.15">Certo</text>
+  <rect x="268" y="23" width="7" height="7" rx="2" fill="#F5C55A"/>
 </svg>

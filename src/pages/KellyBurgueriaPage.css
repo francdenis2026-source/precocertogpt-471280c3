@@ -6,51 +6,61 @@
 
 .kelly-page{background:var(--pc-canvas);color:var(--pc-ink)}
 
-.kelly-shell{max-width:1040px;margin:0 auto;padding:20px 20px 64px;display:flex;flex-direction:column;gap:20px}
+.kelly-shell{max-width:1040px;margin:0 auto;padding:16px 20px 56px;display:flex;flex-direction:column;gap:16px}
 
 .kelly-back{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;color:var(--pc-muted);font-size:13px;font-weight:700;text-decoration:none;padding:6px 2px}
 .kelly-back:hover{color:var(--pc-ink)}
 .kelly-back svg{width:16px;height:16px}
 
-/* ---------- Hero ---------- */
+/* ---------- Hero ----------
+   Compacto: era um banner alto (min-height 280px + título até 2.3rem);
+   agora um cabeçalho editorial mais baixo, na mesma proporção do hero
+   genérico de estabelecimento. O véu também ficou mais leve — no modo
+   escuro em especial o preto quase puro (rgba(10,8,6,.92)) deixava a foto
+   pesada demais; a versão nova preserva contraste do texto sem apagar a
+   foto real do produto. */
 .kelly-hero{
   position:relative;overflow:hidden;border-radius:var(--pc-radius-block,20px);
-  min-height:280px;display:flex;align-items:flex-end;
-  background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 30%/cover no-repeat;
+  min-height:168px;display:flex;align-items:flex-end;
+  background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 32%/cover no-repeat;
   border:1px solid var(--pc-border);
 }
 .kelly-hero__overlay{
   position:absolute;inset:0;
-  background:linear-gradient(100deg,rgba(10,8,6,.92) 0%,rgba(10,8,6,.78) 32%,rgba(10,8,6,.5) 58%,rgba(10,8,6,.22) 80%,transparent 100%),
-             linear-gradient(180deg,rgba(10,8,6,.15) 0%,transparent 30%,rgba(10,8,6,.35) 100%);
+  background:linear-gradient(100deg,rgba(18,12,8,.86) 0%,rgba(18,12,8,.7) 34%,rgba(18,12,8,.42) 60%,rgba(18,12,8,.16) 82%,transparent 100%),
+             linear-gradient(180deg,rgba(18,12,8,.1) 0%,transparent 34%,rgba(18,12,8,.3) 100%);
 }
-.kelly-hero__content{position:relative;z-index:1;display:flex;align-items:flex-end;gap:20px;padding:28px;width:100%}
-.kelly-hero__logo{flex:none;width:88px;height:88px;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 10px 24px rgba(0,0,0,.35);background:#0d0705}
+html[data-theme="dark"] .kelly-hero__overlay{
+  background:linear-gradient(100deg,rgba(22,15,10,.78) 0%,rgba(22,15,10,.62) 34%,rgba(22,15,10,.36) 60%,rgba(22,15,10,.12) 82%,transparent 100%),
+             linear-gradient(180deg,rgba(22,15,10,.08) 0%,transparent 34%,rgba(22,15,10,.26) 100%);
+}
+.kelly-hero__content{position:relative;z-index:1;display:flex;align-items:flex-end;gap:16px;padding:18px 22px;width:100%}
+.kelly-hero__logo{flex:none;width:64px;height:64px;border-radius:15px;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 8px 18px rgba(0,0,0,.32);background:#0d0705}
 .kelly-hero__logo img{width:100%;height:100%;object-fit:cover;display:block}
-.kelly-hero__copy{color:#fff;display:flex;flex-direction:column;gap:10px;min-width:0}
-.kelly-hero__kicker{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:#ffd764;width:fit-content}
-.kelly-hero__kicker svg{width:14px;height:14px}
-.kelly-hero__copy h1{margin:0;font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.12;font-weight:900}
-.kelly-hero__copy p{margin:0;max-width:56ch;font-size:14px;line-height:1.5;color:rgba(255,255,255,.86)}
-.kelly-hero__meta{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:rgba(255,255,255,.82)}
-.kelly-hero__meta span{display:inline-flex;align-items:center;gap:6px}
-.kelly-hero__meta svg{width:14px;height:14px}
-.kelly-hero__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.kelly-hero__copy{color:#fff;display:flex;flex-direction:column;gap:7px;min-width:0}
+.kelly-hero__kicker{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:#ffd764;width:fit-content}
+.kelly-hero__kicker svg{width:13px;height:13px}
+.kelly-hero__copy h1{margin:0;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.1;font-weight:900}
+.kelly-hero__copy p{margin:0;max-width:56ch;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.86)}
+.kelly-hero__meta{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:rgba(255,255,255,.82)}
+.kelly-hero__meta span{display:inline-flex;align-items:center;gap:5px}
+.kelly-hero__meta svg{width:13px;height:13px}
+.kelly-hero__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
 .kelly-hero__actions .pc-btn{font-size:13px}
 .kelly-hero__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
 .kelly-hero__actions .pc-btn--primary:hover{filter:brightness(1.05)}
 .kelly-hero__actions .pc-btn--ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);color:#fff}
 
 /* ---------- Info cards ---------- */
-.kelly-info{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.kelly-info__card{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);text-decoration:none}
+.kelly-info{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kelly-info__card{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);text-decoration:none}
 .kelly-info__card svg{flex:none;width:20px;height:20px;color:var(--pc-gold)}
 .kelly-info__card strong{display:block;font-size:13px}
 .kelly-info__card small{display:block;font-size:12px;color:var(--pc-muted);margin-top:2px;line-height:1.4}
 .kelly-info__card:hover{border-color:color-mix(in srgb,var(--pc-gold) 45%,var(--pc-border))}
 .kelly-info__card--static{cursor:default}
 
-.kelly-notice{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface-2);color:var(--pc-muted)}
+.kelly-notice{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface-2);color:var(--pc-muted)}
 .kelly-notice svg{flex:none;width:18px;height:18px;color:var(--pc-green-strong);margin-top:1px}
 .kelly-notice strong{display:block;color:var(--pc-ink);font-size:13px}
 .kelly-notice small{display:block;font-size:12.5px;line-height:1.5;margin-top:2px}
@@ -87,14 +97,14 @@
 
 @media (max-width:760px){
   .kelly-info{grid-template-columns:1fr}
-  .kelly-hero{min-height:340px}
+  .kelly-hero{min-height:200px}
   .kelly-hero__content{flex-direction:column;align-items:flex-start}
   .kelly-cta{flex-direction:column;align-items:flex-start}
 }
 
 @media (max-width:480px){
-  .kelly-shell{padding:14px 14px 56px}
-  .kelly-hero__logo{width:72px;height:72px;border-radius:14px}
+  .kelly-shell{padding:12px 14px 48px}
+  .kelly-hero__logo{width:56px;height:56px;border-radius:13px}
   .kelly-menu-list>li{flex-direction:column;gap:4px}
   .kelly-menu-list__copy{width:100%}
   .kelly-menu-list__price{align-self:flex-end}

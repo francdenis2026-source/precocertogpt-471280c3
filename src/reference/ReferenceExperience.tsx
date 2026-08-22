@@ -331,20 +331,13 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
   const { count } = useBasket();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const compactInternalHeader = pathname === "/buscar"
-    || pathname === "/estabelecimentos"
-    || pathname.startsWith("/estabelecimento/")
-    || pathname.startsWith("/loja/")
-    || pathname === "/cesta"
-    || pathname === "/cesta-basica"
-    || pathname === "/cesta-inteligente";
   const activeSection = sectionFromPath(pathname) ?? current;
   const activeProps = (section: PublicSection) => ({
     className: activeSection === section ? "is-active" : "",
     "aria-current": activeSection === section ? ("page" as const) : undefined,
   });
   useEffect(() => { setMenu(false); }, [pathname]);
-  if (backOnly || compactInternalHeader) {
+  if (backOnly) {
     const barTitle = title ?? defaultBackBarTitle(pathname);
     return <header className="ref-header ref-header--back-only">
     <div className="ref-shell ref-header__inner">
@@ -396,14 +389,14 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
 }
 
 export function PublicFooter() {
-  return <footer className="ref-footer ref-footer--compact">
-    <div className="ref-shell ref-footer__compact">
-      <Brand inverse />
-      <div className="ref-footer__compact-copy">
-        <span><BadgeCheck aria-hidden="true" /> Informação local para comprar melhor</span>
-        <small>&copy; 2026 PreçoCerto · Feijó, Acre</small>
-      </div>
+  return <footer className="ref-footer">
+    <div className="ref-shell ref-footer__grid">
+      <div className="ref-footer__brand"><Brand inverse /><p>Compare preços reais do comércio local e escolha onde comprar melhor em Feijó.</p><span><BadgeCheck aria-hidden="true" /> Informação local verificada</span></div>
+      <nav aria-label="PreçoCerto"><strong>PreçoCerto</strong><Link to="/buscar">Buscar produtos</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/cesta-basica">Lista de compras</Link></nav>
+      <nav aria-label="Categorias"><strong>Categorias</strong><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></nav>
+      <nav aria-label="Suporte e negócios"><strong>Suporte e negócios</strong><Link to="/lojista">Área do lojista</Link><Link to="/quero-vender">Quero vender</Link><Link to="/colaborar">Colaborar</Link><Link to="/contato">Fale conosco</Link></nav>
     </div>
+    <div className="ref-shell ref-footer__legal"><small>&copy; 2026 PreçoCerto · Feijó, Acre</small><span>Preços podem mudar. Confirme no estabelecimento antes da compra.</span></div>
   </footer>;
 }
 

@@ -3,13 +3,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, BookOpen, CheckCircle2, Feather, MapPin, MessageCircle, Quote, Share2, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import imagimacaoAsset from "../assets/uma-viagem-ao-mundo-da-imaginacao.png.asset.json";
 import mentePerversaAsset from "../assets/mente-perversa.png.asset.json";
 import superacaoAsset from "../assets/uma-historia-de-superacao.png.asset.json";
 import despertarAsset from "../assets/o-despertar-para-o-mundo-literario.png.asset.json";
-import { PublicHeader } from "./ReferenceExperience";
+import { PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./DorinhaEditorialPage.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -57,13 +56,13 @@ export function DorinhaEditorialPage(){
 
    <section className="dorinha-editorial__catalog dorinha-editorial__reveal" id="obras">
     <header><div><span>Biblioteca da autora</span><h2>Obras de Dorinha Barroso</h2></div><p>Literatura local apresentada com contexto, identidade e contato direto.</p></header>
-    <div className="dorinha-editorial__books">{books.map((book,index)=>{const price=book.promotional_price||book.price;return <article key={book.id} style={{"--book-index":index}as CSSProperties}><div className="dorinha-editorial__cover"><b>{String(index+1).padStart(2,"0")}</b>{book.image_url?<img src={book.image_url} alt={`Capa do livro ${book.name}`} loading="lazy"/>:<BookOpen/>}</div><div className="dorinha-editorial__book-copy"><small>{author}</small><h3>{book.name}</h3><p>{book.description}</p><footer><strong>{book.price_on_request||!price?"Valor sob consulta":price.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}</strong><a href={whatsapp(phone,book.name)} target="_blank" rel="noreferrer">Consultar <ArrowRight/></a></footer></div></article>})}</div>
+    <div className="dorinha-editorial__books">{books.map((book,index)=>{const price=book.promotional_price||book.price;const direct=price>0&&!book.price_on_request;return <article key={book.id} style={{"--book-index":index}as CSSProperties}><div className="dorinha-editorial__cover"><b>{String(index+1).padStart(2,"0")}</b>{book.image_url?<img src={book.image_url} alt={`Capa do livro ${book.name}`} loading="lazy"/>:<BookOpen/>}</div><div className="dorinha-editorial__book-copy"><small>{author}</small><h3>{book.name}</h3><p>{book.description}</p><footer><strong>{direct?price.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"Valor sob consulta"}</strong>{direct?<a href={`?comprar=${encodeURIComponent(book.slug)}`}>Comprar direto <ArrowRight/></a>:<a href={whatsapp(phone,book.name)} target="_blank" rel="noreferrer">Consultar <ArrowRight/></a>}</footer></div></article>})}</div>
    </section>
 
    <section className="dorinha-editorial__author dorinha-editorial__reveal" id="autora"><div className="dorinha-editorial__author-photo"><img src="/dorinha-author-portrait-v2.webp" alt={`Foto de ${author}`} loading="lazy"/><span>Literatura<br/>feita no Acre</span></div><div className="dorinha-editorial__author-copy"><span className="dorinha-editorial__eyebrow"><Sparkles/> A escritora</span><h2>{author}</h2><p>{bio}</p><blockquote>“Escrever é transformar vivências em caminhos que outras pessoas também podem percorrer.”</blockquote><div className="dorinha-editorial__facts"><span><b>{books.length}</b> obras neste acervo</span><span><b>Acre</b> origem literária</span><span><b>Direto</b> contato com a autora</span></div></div></section>
 
    <section className="dorinha-editorial__contact dorinha-editorial__reveal"><div><MessageCircle/><span>CONTATO DIRETO</span><h2>Encontre a próxima leitura.</h2><p>Converse com Dorinha para saber valores, disponibilidade e formas de receber os livros.</p></div><a href={whatsapp(phone)} target="_blank" rel="noreferrer">Falar com Dorinha <ArrowRight/></a><button type="button" onClick={share}><Share2/> {copied?"Link copiado":"Compartilhar página"}</button></section>
   </main>
-  <footer className="dorinha-editorial__footer"><div><strong>Dorinha Barroso</strong><span>Escritora acreana · espaço editorial no PreçoCerto</span></div><Link to="/livros">Explorar livros e cultura <ArrowRight/></Link></footer>
+  <PublicFooter/>
  </div>
 }

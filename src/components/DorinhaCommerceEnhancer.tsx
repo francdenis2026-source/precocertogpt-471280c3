@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { BookOpen, Check, Copy, CreditCard, ExternalLink, LockKeyhole, QrCode, ShieldCheck, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { supabase, SUPABASE_URL } from "../lib/supabase";
@@ -7,7 +7,6 @@ type Book={id:string;slug:string;name:string;price:number;promotional_price:numb
 type Profile={merchant:{guest_pix_enabled?:boolean};books:Book[]};
 type PixResult={orderNumber:string;status:string;qrCode?:string|null;qrCodeBase64?:string|null;ticketUrl?:string|null;total:number};
 const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
-const authorPaths=new Set(["/autora/dorinha-barroso","/dorinha-barroso"]);
 function qrUrl(slug:string,retry=0){const base=SUPABASE_URL.replace(/\/$/,"");return `${base}/functions/v1/book-sales-qr?book=${encodeURIComponent(slug)}&v=${retry}`}
 function upperName(value:string){return value.toLocaleUpperCase("pt-BR")}
 function lowerEmail(value:string){return value.toLocaleLowerCase("pt-BR").replace(/\s/g,"")}
@@ -22,7 +21,7 @@ async function functionErrorMessage(error:unknown){
 
 export function DorinhaCommerceEnhancer(){
  const location=useLocation();
- const active=authorPaths.has(location.pathname);
+ const active=location.pathname==="/dorinha-barroso"||location.pathname.startsWith("/autora/");
  const [profile,setProfile]=useState<Profile|null>(null),[book,setBook]=useState<Book|null>(null),[pix,setPix]=useState<PixResult|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(""),[copied,setCopied]=useState(false),[showQr,setShowQr]=useState(false),[qrStatus,setQrStatus]=useState<"loading"|"ready"|"error">("loading"),[qrRetry,setQrRetry]=useState(0);
  useEffect(()=>{if(!active||!supabase)return;void supabase.rpc("author_store_public_profile",{_slug:"dorinha-barroso-livros"}).then(({data})=>setProfile(data as Profile));},[active]);
  useEffect(()=>{if(!active||!profile)return;const wanted=new URLSearchParams(location.search).get("comprar");if(wanted){const b=profile.books.find(x=>x.slug===wanted);if(b)queueMicrotask(()=>setBook(b))}},[active,profile,location.search]);

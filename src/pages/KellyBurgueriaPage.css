@@ -6,7 +6,7 @@
 
 .kelly-page{background:var(--pc-canvas);color:var(--pc-ink)}
 
-.kelly-shell{max-width:1040px;margin:0 auto;padding:16px 20px 56px;display:flex;flex-direction:column;gap:16px}
+.kelly-shell{max-width:1180px;margin:0 auto;padding:18px 24px 64px;display:flex;flex-direction:column;gap:18px}
 
 .kelly-back{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;color:var(--pc-muted);font-size:13px;font-weight:700;text-decoration:none;padding:6px 2px}
 .kelly-back:hover{color:var(--pc-ink)}
@@ -19,40 +19,32 @@
    escuro em especial o preto quase puro (rgba(10,8,6,.92)) deixava a foto
    pesada demais; a versão nova preserva contraste do texto sem apagar a
    foto real do produto. */
-.kelly-hero{
-  position:relative;overflow:hidden;border-radius:var(--pc-radius-block,20px);
-  min-height:168px;display:flex;align-items:flex-end;
-  background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 32%/cover no-repeat;
-  border:1px solid var(--pc-border);
-}
-.kelly-hero__overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(100deg,rgba(18,12,8,.86) 0%,rgba(18,12,8,.7) 34%,rgba(18,12,8,.42) 60%,rgba(18,12,8,.16) 82%,transparent 100%),
-             linear-gradient(180deg,rgba(18,12,8,.1) 0%,transparent 34%,rgba(18,12,8,.3) 100%);
-}
-html[data-theme="dark"] .kelly-hero__overlay{
-  background:linear-gradient(100deg,rgba(22,15,10,.78) 0%,rgba(22,15,10,.62) 34%,rgba(22,15,10,.36) 60%,rgba(22,15,10,.12) 82%,transparent 100%),
-             linear-gradient(180deg,rgba(22,15,10,.08) 0%,transparent 34%,rgba(22,15,10,.26) 100%);
-}
-.kelly-hero__content{position:relative;z-index:1;display:flex;align-items:flex-end;gap:16px;padding:18px 22px;width:100%}
-.kelly-hero__logo{flex:none;width:64px;height:64px;border-radius:15px;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 8px 18px rgba(0,0,0,.32);background:#0d0705}
+.kelly-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);overflow:hidden;min-height:390px;border-radius:26px;border:1px solid rgba(231,180,0,.3);background:linear-gradient(135deg,#130e08 0%,#211508 100%);box-shadow:0 24px 60px rgba(12,8,4,.18)}
+.kelly-hero__content{display:flex;align-items:center;gap:22px;padding:48px}
+.kelly-hero__logo{flex:none;width:84px;height:84px;border-radius:20px;overflow:hidden;border:3px solid rgba(255,255,255,.9);box-shadow:0 12px 28px rgba(0,0,0,.32);background:#0d0705;align-self:flex-start}
 .kelly-hero__logo img{width:100%;height:100%;object-fit:cover;display:block}
-.kelly-hero__copy{color:#fff;display:flex;flex-direction:column;gap:7px;min-width:0}
-.kelly-hero__kicker{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:#ffd764;width:fit-content}
-.kelly-hero__kicker svg{width:13px;height:13px}
-.kelly-hero__copy h1{margin:0;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.1;font-weight:900}
-.kelly-hero__copy p{margin:0;max-width:56ch;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.86)}
-.kelly-hero__meta{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:rgba(255,255,255,.82)}
+.kelly-hero__copy{color:#fff;display:flex;flex-direction:column;gap:13px;min-width:0}
+.kelly-hero__kicker{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:900;letter-spacing:.12em;color:#ffd44a;width:fit-content}
+.kelly-hero__kicker svg{width:15px;height:15px}
+.kelly-hero__copy h1{margin:0;font-size:clamp(2.15rem,4vw,3.65rem);line-height:.98;font-weight:950;letter-spacing:-.045em}
+.kelly-hero__copy p{margin:0;max-width:52ch;font-size:15px;line-height:1.6;color:rgba(255,255,255,.78)}
+.kelly-hero__meta{display:flex;flex-wrap:wrap;gap:8px;font-size:11.5px;color:#fff}
 .kelly-hero__meta span{display:inline-flex;align-items:center;gap:5px}
+.kelly-hero__meta span{padding:7px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.08)}
 .kelly-hero__meta svg{width:13px;height:13px}
-.kelly-hero__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.kelly-hero__actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
 .kelly-hero__actions .pc-btn{font-size:13px}
 .kelly-hero__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
 .kelly-hero__actions .pc-btn--primary:hover{filter:brightness(1.05)}
 .kelly-hero__actions .pc-btn--ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);color:#fff}
+.kelly-hero__visual{position:relative;min-height:390px;overflow:hidden}
+.kelly-hero__visual::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#211508 0%,rgba(33,21,8,.15) 32%,transparent 60%)}
+.kelly-hero__visual img{width:100%;height:100%;object-fit:cover;display:block}
+.kelly-hero__visual span{position:absolute;z-index:1;right:20px;bottom:20px;display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:999px;background:rgba(13,18,16,.86);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:800}
+.kelly-hero__visual span svg{width:16px;height:16px;color:#ffd44a}
 
 /* ---------- Info cards ---------- */
-.kelly-info{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kelly-info{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .kelly-info__card{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);text-decoration:none}
 .kelly-info__card svg{flex:none;width:20px;height:20px;color:var(--pc-gold)}
 .kelly-info__card strong{display:block;font-size:13px}
@@ -65,8 +57,19 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-notice strong{display:block;color:var(--pc-ink);font-size:13px}
 .kelly-notice small{display:block;font-size:12.5px;line-height:1.5;margin-top:2px}
 
+.kelly-catalog-intro{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:12px}
+.kelly-eyebrow{display:block;color:#b48a00;font-size:11px;font-weight:900;letter-spacing:.13em;margin-bottom:7px}
+.kelly-catalog-intro h2{margin:0;font-size:clamp(1.6rem,3vw,2.3rem);letter-spacing:-.035em}
+.kelly-catalog-intro p{margin:7px 0 0;color:var(--pc-muted);font-size:13.5px}
+.kelly-catalog-intro>strong{white-space:nowrap;padding:9px 13px;border-radius:999px;background:rgba(231,180,0,.12);color:#9b7700;border:1px solid rgba(231,180,0,.25);font-size:12px}
+.kelly-category-nav{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
+.kelly-category-nav::-webkit-scrollbar{display:none}
+.kelly-category-nav a{flex:none;padding:9px 13px;border-radius:999px;border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-muted);font-size:12px;font-weight:800;text-decoration:none}
+.kelly-category-nav a:hover{color:#7f6200;border-color:rgba(231,180,0,.55);background:rgba(231,180,0,.1)}
+
 /* ---------- Menu groups ---------- */
-.kelly-menu-group{border:1px solid var(--pc-border);border-radius:var(--pc-radius-block,18px);overflow:hidden;background:var(--pc-surface)}
+.kelly-menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:16px}
+.kelly-menu-group{scroll-margin-top:92px;border:1px solid var(--pc-border);border-radius:var(--pc-radius-block,18px);overflow:hidden;background:var(--pc-surface);box-shadow:0 10px 28px rgba(16,25,31,.05)}
 .kelly-menu-group__head{position:relative;padding:18px 20px;background:var(--pc-navy) center/cover no-repeat;min-height:64px;display:flex;align-items:center}
 .kelly-menu-group__head-veil{position:absolute;inset:0;background:linear-gradient(100deg,rgba(12,20,26,.9),rgba(12,20,26,.6) 60%,rgba(12,20,26,.35))}
 .kelly-menu-group__head-copy{position:relative;z-index:1;color:#fff}
@@ -76,6 +79,9 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-menu-list{list-style:none;margin:0;padding:6px 6px 10px}
 .kelly-menu-list>li{border-bottom:1px solid var(--pc-border)}
 .kelly-menu-list>li:last-child{border-bottom:none}
+.kelly-menu-list__item-btn{appearance:none;width:100%;border:0;background:transparent;color:inherit;display:flex;align-items:center;gap:12px;padding:11px 10px;cursor:pointer;font:inherit;border-radius:12px;transition:background .18s ease,transform .18s ease}
+.kelly-menu-list__item-btn:hover{background:var(--pc-surface-2);transform:translateX(2px)}
+.kelly-menu-list__item-btn:focus-visible{outline:3px solid rgba(231,180,0,.35);outline-offset:-2px}
 .kelly-menu-list__thumb{flex:none;width:56px;height:56px;border-radius:12px;overflow:hidden;background:var(--pc-surface-2);margin-top:1px}
 .kelly-menu-list__thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .kelly-menu-list__copy{min-width:0;flex:1;display:block;text-align:left}
@@ -95,16 +101,23 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-cta__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
 
 @media (max-width:760px){
-  .kelly-info{grid-template-columns:1fr}
-  .kelly-hero{min-height:200px}
-  .kelly-hero__content{flex-direction:column;align-items:flex-start}
+  .kelly-hero{grid-template-columns:1fr;min-height:0}
+  .kelly-hero__content{padding:30px;flex-direction:column;align-items:flex-start}
+  .kelly-hero__visual{min-height:260px}
+  .kelly-hero__visual::after{background:linear-gradient(180deg,#211508 0%,transparent 28%)}
+  .kelly-info{grid-template-columns:repeat(2,1fr)}
+  .kelly-menu-grid{grid-template-columns:1fr}
   .kelly-cta{flex-direction:column;align-items:flex-start}
 }
 
 @media (max-width:480px){
   .kelly-shell{padding:12px 14px 48px}
-  .kelly-hero__logo{width:56px;height:56px;border-radius:13px}
-  .kelly-menu-list__item-btn{flex-direction:column;align-items:flex-start;gap:4px}
-  .kelly-menu-list__copy{width:100%}
-  .kelly-menu-list__price{align-self:flex-end}
+  .kelly-hero{border-radius:20px}
+  .kelly-hero__content{padding:24px 20px}
+  .kelly-hero__logo{width:66px;height:66px;border-radius:16px}
+  .kelly-hero__visual{min-height:210px}
+  .kelly-info{grid-template-columns:1fr}
+  .kelly-catalog-intro{align-items:flex-start;flex-direction:column;gap:10px}
+  .kelly-menu-list__item-btn{gap:9px;padding:10px 8px}
+  .kelly-menu-list__price{font-size:14px}
 }

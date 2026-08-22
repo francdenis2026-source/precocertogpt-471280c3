@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, AtSign, BadgeCheck, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
+import { ArrowLeft, ArrowRight, AtSign, BadgeCheck, Clock3, MapPin, MessageCircle, ShieldCheck, Store, UtensilsCrossed } from "lucide-react";
 import { PublicFooter, PublicHeader } from "../reference/ReferenceExperience";
 import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
 import type { Product } from "../data/catalog";
@@ -89,7 +89,6 @@ export function KellyBurgueriaPage() {
         <Link className="kelly-back" to="/estabelecimentos"><ArrowLeft /> Todos os estabelecimentos</Link>
 
         <section className="kelly-hero" aria-labelledby="kelly-title">
-          <div className="kelly-hero__overlay" />
           <div className="kelly-hero__content">
             <div className="kelly-hero__logo"><img src="/branding/kelly-burgueria-logo.jpg?v=20260822" alt={`Logomarca ${KELLY_NAME}`} width="96" height="96" /></div>
             <div className="kelly-hero__copy">
@@ -106,6 +105,10 @@ export function KellyBurgueriaPage() {
               </div>
             </div>
           </div>
+          <div className="kelly-hero__visual" aria-hidden="true">
+            <img src="/kelly-burgueria/hero-burger.jpg" alt="" />
+            <span><BadgeCheck /> Cardápio verificado</span>
+          </div>
         </section>
 
         <section className="kelly-info" aria-label="Informações do estabelecimento">
@@ -121,12 +124,32 @@ export function KellyBurgueriaPage() {
             <ShieldCheck aria-hidden="true" />
             <span><strong>Estabelecimento registrado</strong><small>CNPJ {KELLY_CNPJ} · Matriz</small></span>
           </div>
+          <div className="kelly-info__card kelly-info__card--static">
+            <Clock3 aria-hidden="true" />
+            <span><strong>Produção artesanal</strong><small>Pedidos preparados na hora</small></span>
+          </div>
         </section>
 
-        <div className="kelly-notice"><BadgeCheck /><span><strong>Cardápio informativo</strong><small>Preços e itens conforme o cardápio enviado pelo estabelecimento. Confirme disponibilidade e condições diretamente com a Kelly Burgueria antes de fechar o pedido.</small></span></div>
+        <section className="kelly-catalog-intro" aria-labelledby="kelly-menu-title">
+          <div>
+            <span className="kelly-eyebrow">CARDÁPIO COMPLETO</span>
+            <h2 id="kelly-menu-title">Escolha o que combina com a sua fome</h2>
+            <p>Toque em qualquer item para ver foto, descrição e opções do produto.</p>
+          </div>
+          <strong>{KELLY_MENU.length} opções</strong>
+        </section>
 
-        {groups.map(group => (
-          <section className="kelly-menu-group" key={group.category} aria-labelledby={`kelly-cat-${group.category}`}>
+        <nav className="kelly-category-nav" aria-label="Categorias do cardápio">
+          {groups.map(group => <a key={group.category} href={`#kelly-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{group.category}</a>)}
+        </nav>
+
+        <div className="kelly-notice"><BadgeCheck /><span><strong>Cardápio oficial informado pela Kelly</strong><small>Preços e disponibilidade podem mudar. Confirme as condições diretamente com o estabelecimento antes de concluir o pedido.</small></span></div>
+
+        <div className="kelly-menu-grid">
+        {groups.map(group => {
+          const sectionId = `kelly-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+          return (
+          <section className="kelly-menu-group" id={sectionId} key={group.category} aria-labelledby={`kelly-cat-${group.category}`}>
             <header
               className="kelly-menu-group__head"
               style={CATEGORY_PHOTOS[group.category] ? { backgroundImage: `url('${CATEGORY_PHOTOS[group.category]}')` } : undefined}
@@ -161,7 +184,8 @@ export function KellyBurgueriaPage() {
               })}
             </ul>
           </section>
-        ))}
+        )})}
+        </div>
 
         <aside className="kelly-cta">
           <div>

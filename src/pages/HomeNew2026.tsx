@@ -255,7 +255,7 @@ export function HomeNew2026() {
       <div className="nx-shell nx-footer__main">
         <div className="nx-footer__brand">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
-          <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">&lt;Franc_Dnis&gt;</button>
+          <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">dev &lt;Franc D’nis&gt;</button>
         </div>
         <div className="nx-footer__links">
           <nav aria-label="Área comercial"><strong>Negócios</strong><span><Link to="/lojista">Para comerciantes</Link><Link to="/quero-vender">Quero vender</Link></span></nav>

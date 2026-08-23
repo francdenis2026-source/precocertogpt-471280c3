@@ -1,10 +1,10 @@
 import type { Product } from "./catalog";
-import { hasCutout, resolveProductImage } from "./productImageResolver";
+import { resolveProductImage } from "./productImageResolver";
 
 /** Duração de cada ciclo da vitrine. */
-export const ROTATION_MS = 30 * 60 * 1000;
+export const ROTATION_MS = 60 * 60 * 1000;
 
-/** Índice do ciclo atual — muda a cada 30 minutos e é igual para todos. */
+/** Índice do ciclo atual — muda a cada 60 minutos e é igual para todos. */
 export function currentCycle(now = Date.now()) {
   return Math.floor(now / ROTATION_MS);
 }
@@ -58,8 +58,7 @@ const imageKey = (product: Product) =>
  * Monta a vitrine do ciclo.
  *
  * Duas regras comandam a escolha. A primeira é a imagem: só entram produtos
- * com recorte sem fundo branco, porque a moldura do cartão é colorida e a foto
- * original desenharia um retângulo branco dentro dela.
+ * que tenham uma foto resolvível, seja ela cadastrada ou um ativo local seguro.
  *
  * A segunda é a repartição entre estabelecimentos. Sortear produtos direto
  * favoreceria quem tem catálogo maior — uma loja com quarenta itens apareceria
@@ -69,12 +68,8 @@ const imageKey = (product: Product) =>
  */
 export function buildFeatured(products: Product[], cycle: number, size = 6) {
   const comPreco = products.filter(product => product.minPrice > 0);
-  const semFundoBranco = comPreco.filter(product => hasCutout(product));
-  // O catálogo de fotos sem fundo branco cobre um subconjunto do catálogo de
-  // produtos. Se, num momento específico, nenhum produto elegível tiver
-  // corte disponível, a vitrine cai para qualquer produto com foto — vazia
-  // seria pior do que mostrar uma foto com fundo branco.
-  const elegiveis = semFundoBranco.length ? semFundoBranco : comPreco.filter(product => Boolean(resolveProductImage(product)));
+  const comImagem = comPreco.filter(product => Boolean(resolveProductImage(product)));
+  const elegiveis = comImagem;
   if (!elegiveis.length) return [];
 
   const random = mulberry32(cycle * 2654435761);

@@ -8,6 +8,8 @@
   .ref-dock {
     min-height: 78px !important;
     padding: 5px 6px env(safe-area-inset-bottom) !important;
+    contain: layout !important;
+    overflow: visible !important;
     border-top: 1px solid #cbded8 !important;
     background: rgb(255 255 255 / 97%) !important;
     box-shadow: 0 -10px 30px rgb(12 56 49 / 12%) !important;
@@ -17,7 +19,7 @@
 
   .ref-dock__developer {
     position: absolute !important;
-    z-index: 0 !important;
+    z-index: 2 !important;
     left: 50% !important;
     bottom: calc(100% + 5px) !important;
     width: max-content !important;

@@ -52,3 +52,42 @@ html[data-theme="dark"] .ref-info>h1{color:#f7f9fb}html[data-theme="dark"] .ref-
 @media(max-width:390px){.pc-collab__copy h1{font-size:36px!important}.pharmacy-establishment{grid-template-columns:46px minmax(0,1fr)!important}.pharmacy-establishment__mark{width:44px!important;height:44px!important}.mo-steps strong{font-size:10px!important}.mo-steps b{width:23px!important;height:23px!important}}
 
 @media(prefers-reduced-motion:reduce){.ref-info>a,.pharmacy-establishment,.sector-hub__sector,.sector-hub__tool-grid>a,.sector-hub__store-grid>a,.pc-collab__send{transition:none!important}}
+
+/* ACESSIBILIDADE — invisível no toque; disponível somente via teclado. */
+.pc-skip-link,
+.pc-skip-link:focus:not(:focus-visible){
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  width:1px!important;
+  height:1px!important;
+  margin:-1px!important;
+  padding:0!important;
+  overflow:hidden!important;
+  clip:rect(0 0 0 0)!important;
+  clip-path:inset(50%)!important;
+  white-space:nowrap!important;
+  border:0!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  translate:0!important;
+}
+.pc-skip-link:focus-visible{
+  z-index:100000!important;
+  top:max(.75rem,env(safe-area-inset-top))!important;
+  left:.75rem!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  padding:.75rem 1rem!important;
+  overflow:visible!important;
+  clip:auto!important;
+  clip-path:none!important;
+  border-radius:10px!important;
+  background:#f59e0b!important;
+  color:#111827!important;
+  box-shadow:0 10px 30px rgb(2 18 32 / 24%)!important;
+  font-weight:800!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+}

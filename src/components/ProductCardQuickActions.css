@@ -9,7 +9,9 @@ html[data-theme="dark"] .pc-card-action{border-color:#364a59;background:rgba(18,
   .pc-card-action{width:38px;height:38px;border-radius:11px}
   .pc-card-action svg{width:17px;height:17px}
   .pc-card-actions{top:8px;right:8px;gap:6px}
-  .pc-basket-running-total{right:12px;left:auto;bottom:calc(76px + env(safe-area-inset-bottom));width:auto;max-width:calc(100vw - 24px);min-width:176px;grid-template-columns:32px minmax(0,1fr);gap:8px;padding:8px 10px;border-radius:14px}
+  /* A navegação inferior já oferece acesso à cesta. Esconder o resumo
+     flutuante no mobile evita que estilos globais o estiquem sobre a tela. */
+  .pc-basket-running-total{display:none!important}
   .pc-basket-running-total>svg{width:32px;height:32px}
   .pc-basket-running-total small{font-size:10px;letter-spacing:.04em}
   .pc-basket-running-total strong{font-size:14px}

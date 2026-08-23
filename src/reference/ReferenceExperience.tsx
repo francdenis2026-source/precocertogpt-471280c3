@@ -402,7 +402,7 @@ export function AppDock({ current }: { current: "home" | "search" | "basket" | "
     <Link className={current === "home" ? "is-active" : ""} to="/" aria-current={current === "home" ? "page" : undefined}><LayoutDashboard aria-hidden="true" /><span>Início</span></Link>
     <Link className={current === "search" ? "is-active" : ""} to="/buscar" aria-current={current === "search" ? "page" : undefined}><Search aria-hidden="true" /><span>Buscar</span></Link>
     <Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica" aria-current={current === "basket" ? "page" : undefined}><ShoppingBasket aria-hidden="true" /><span>Cesta</span></Link>
-    <Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos" aria-current={current === "stores" ? "page" : undefined}><Store aria-hidden="true" /><span>Estabelecimentos</span></Link>
+    <Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos" aria-current={current === "stores" ? "page" : undefined} aria-label="Estabelecimentos"><Store aria-hidden="true" /><span>Locais</span></Link>
     <Link className={current === "profile" ? "is-active" : ""} to="/favoritos" aria-current={current === "profile" ? "page" : undefined}><Heart aria-hidden="true" /><span>Favoritos</span></Link>
   </nav>;
 }

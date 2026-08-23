@@ -224,6 +224,6 @@ export function ProductCardQuickActions() {
       <b>Ver lista</b>
     </a>}
 
-    {feedback && <div className="pc-card-action-feedback" role="status" aria-live="polite">{feedback}</div>}
+    {feedback && <div className="pc-quick-feedback" role="status" aria-live="polite">{feedback}</div>}
   </>;
 }

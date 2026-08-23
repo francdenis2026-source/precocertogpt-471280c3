@@ -1,0 +1,43 @@
+/* Final mobile pass for merchant-facing shared admin/dashboard surfaces. */
+@media (max-width:767px){
+  .ref-merchant-admin,.ref-merchant-admin *{box-sizing:border-box}
+  .ref-merchant-admin{overflow-x:hidden!important}
+  .ref-merchant-admin .ref-admin__main{min-width:0!important;width:100%!important;padding:12px 12px calc(92px + env(safe-area-inset-bottom))!important}
+  .ref-merchant-admin .ref-page-title{align-items:flex-start!important;flex-direction:column!important;gap:10px!important;margin-bottom:14px!important}
+  .ref-merchant-admin .ref-page-title h1{font-size:clamp(2rem,10vw,2.7rem)!important;line-height:.98!important}
+  .ref-merchant-admin .ref-page-title p{font-size:13px!important;line-height:1.5!important}
+  .ref-merchant-admin .ref-update{width:100%!important;min-width:0!important}
+
+  .ref-merchant-table{margin-top:10px!important;padding:10px!important;border-radius:14px!important;overflow:visible!important}
+  .ref-merchant-table>header{align-items:flex-start!important;flex-direction:column!important;gap:8px!important;margin-bottom:10px!important}
+  .ref-merchant-table>header button,.ref-merchant-table>header a{width:100%!important;min-height:46px!important;justify-content:center!important}
+  .ref-merchant-table .ref-results-table{border:0!important;background:transparent!important;display:grid!important;gap:8px!important;overflow:visible!important}
+  .ref-merchant-table .ref-results-table__head{display:none!important}
+  .ref-merchant-table .ref-result-row{min-height:0!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"product action" "meta action"!important;gap:7px 10px!important;padding:11px!important;border:1px solid var(--ref-line)!important;border-radius:12px!important;background:var(--ref-paper)!important}
+  .ref-merchant-table .ref-result-product{grid-area:product!important;min-width:0!important;align-items:flex-start!important}
+  .ref-merchant-table .ref-result-product>i{width:52px!important;height:58px!important;flex:0 0 52px!important}
+  .ref-merchant-table .ref-result-product>span{min-width:0!important}
+  .ref-merchant-table .ref-result-product strong{white-space:normal!important;overflow-wrap:anywhere!important;font-size:13px!important}
+  .ref-merchant-table .ref-result-store,.ref-merchant-table .ref-result-range,.ref-merchant-table .ref-result-price,.ref-merchant-table .ref-status{grid-area:meta!important;display:flex!important;align-items:center!important;gap:6px!important;min-width:0!important;font-size:12px!important}
+  .ref-merchant-table .ref-result-row>button,.ref-merchant-table .ref-result-row>a{grid-area:action!important;align-self:stretch!important;width:44px!important;min-width:44px!important;min-height:44px!important;display:grid!important;place-items:center!important;padding:0!important;font-size:0!important}
+  .ref-merchant-table .ref-result-row>button svg,.ref-merchant-table .ref-result-row>a svg{width:17px!important;height:17px!important}
+
+  .ref-merchant-hero{min-height:0!important;padding:18px 0!important}
+  .ref-merchant-hero>.ref-shell{width:calc(100% - 24px)!important}
+  .ref-merchant-hero h1{font-size:clamp(2.5rem,13vw,3.5rem)!important;line-height:.92!important;margin:12px 0!important}
+  .ref-merchant-hero p{font-size:14px!important;line-height:1.5!important}
+  .ref-merchant-hero>.ref-shell>div{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;margin-top:18px!important}
+  .ref-merchant-hero a{width:100%!important;min-height:48px!important;justify-content:center!important}
+  .ref-merchant-benefits{grid-template-columns:1fr!important;margin-top:0!important;width:100%!important}
+  .ref-merchant-benefits article{min-height:0!important;padding:18px!important}
+  .ref-merchant-benefits h2{margin-top:18px!important}
+  .ref-merchant-cta{grid-template-columns:1fr!important;gap:20px!important;padding:28px 12px calc(92px + env(safe-area-inset-bottom))!important}
+
+  .ref-merchant-admin input,.ref-merchant-admin select,.ref-merchant-admin textarea{font-size:16px!important;max-width:100%!important}
+  .ref-merchant-admin button,.ref-merchant-admin a{touch-action:manipulation}
+}
+
+@media (max-width:390px){
+  .ref-merchant-table .ref-result-row{grid-template-columns:1fr!important;grid-template-areas:"product" "meta" "action"!important}
+  .ref-merchant-table .ref-result-row>button,.ref-merchant-table .ref-result-row>a{width:100%!important;min-height:44px!important;font-size:12px!important;display:flex!important;justify-content:center!important;gap:6px!important}
+}

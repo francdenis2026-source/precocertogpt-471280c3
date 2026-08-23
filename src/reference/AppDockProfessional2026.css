@@ -269,3 +269,86 @@ body::-webkit-scrollbar,
   .ref-dock a,
   .ref-dock a svg { transition: none !important; }
 }
+
+/* Dark app chrome: matching top and bottom navigation surfaces with a
+   restrained emerald-to-gold edge, clearer elevation and tactile controls. */
+@media (max-width: 767px) {
+  html[data-theme="dark"] :is(.mh26-header, .ref-header) {
+    isolation: isolate !important;
+    border-bottom-color: rgb(102 163 150 / 38%) !important;
+    background:
+      radial-gradient(circle at 18% 0%, rgb(38 166 138 / 17%), transparent 38%),
+      linear-gradient(110deg, rgb(12 31 38 / 96%), rgb(15 39 43 / 94%) 58%, rgb(24 35 48 / 96%)) !important;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 32%), inset 0 -1px 0 rgb(255 255 255 / 5%) !important;
+    backdrop-filter: blur(22px) saturate(1.25) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(1.25) !important;
+  }
+
+  html[data-theme="dark"] :is(.mh26-header, .ref-header)::after {
+    content: "" !important;
+    position: absolute !important;
+    z-index: 3 !important;
+    right: 0 !important;
+    bottom: -1px !important;
+    left: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, transparent 2%, #25b99b 28%, #e2b64e 50%, #4b91c7 72%, transparent 98%) !important;
+    box-shadow: 0 2px 12px rgb(37 185 155 / 24%) !important;
+    opacity: .84 !important;
+    pointer-events: none !important;
+  }
+
+  html[data-theme="dark"] :is(
+    .mh26-head-actions > a,
+    .mh26-theme,
+    .mh26-head-actions .pc-radio,
+    .ref-header .ref-theme,
+    .ref-header .ref-menu,
+    .ref-header .pc-radio
+  ) {
+    border-color: rgb(117 180 166 / 30%) !important;
+    background: linear-gradient(145deg, rgb(31 58 61 / 92%), rgb(20 42 48 / 92%)) !important;
+    color: #dffaf3 !important;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%), 0 5px 14px rgb(0 0 0 / 18%) !important;
+  }
+
+  html[data-theme="dark"] .mh26-page .ref-dock,
+  html[data-theme="dark"] .ref-page .ref-dock,
+  html[data-theme="dark"] .msearch26-page .ref-dock,
+  html[data-theme="dark"] .pro-basket-page .ref-dock,
+  html[data-theme="dark"] .smart-basket-page .ref-dock,
+  html[data-theme="dark"] .pharmacy-directory-page .ref-dock {
+    border-top-color: rgb(102 163 150 / 44%) !important;
+    background:
+      radial-gradient(circle at 50% 120%, rgb(36 168 140 / 18%), transparent 44%),
+      linear-gradient(110deg, rgb(12 30 36 / 91%), rgb(15 38 41 / 89%) 55%, rgb(22 32 45 / 92%)) !important;
+    box-shadow: 0 -14px 38px rgb(0 0 0 / 38%), inset 0 1px 0 rgb(255 255 255 / 7%) !important;
+    backdrop-filter: blur(26px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(1.3) !important;
+  }
+
+  html[data-theme="dark"] .ref-dock::after {
+    content: "" !important;
+    position: absolute !important;
+    z-index: 2 !important;
+    top: -1px !important;
+    right: 0 !important;
+    left: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, transparent 2%, #4b91c7 28%, #e2b64e 50%, #25b99b 72%, transparent 98%) !important;
+    box-shadow: 0 -2px 12px rgb(226 182 78 / 18%) !important;
+    opacity: .88 !important;
+    pointer-events: none !important;
+  }
+
+  html[data-theme="dark"] .ref-dock a {
+    color: #d5e4e1 !important;
+    text-shadow: 0 1px 1px rgb(0 0 0 / 32%) !important;
+  }
+
+  html[data-theme="dark"] .ref-dock a.is-active {
+    background: linear-gradient(145deg, rgb(34 77 69 / 92%), rgb(23 57 57 / 90%)) !important;
+    color: #fff !important;
+    box-shadow: inset 0 0 0 1px rgb(127 230 204 / 24%), 0 5px 16px rgb(0 0 0 / 18%) !important;
+  }
+}

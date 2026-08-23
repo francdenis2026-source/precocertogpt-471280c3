@@ -47,11 +47,9 @@ function writeBasket(items: BasketEntry[]) {
 function addBasketItem(productId: string) {
   const current = readBasket();
   const existing = current.find(item => item.productId === productId);
-  const next = existing
-    ? current.map(item => item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)
-    : [...current, { productId, quantity: 1 }];
+  const next = existing ? current : [...current, { productId, quantity: 1 }];
   writeBasket(next);
-  return next;
+  return { items: next, added: !existing };
 }
 
 function savePendingBasket(productId: string) {
@@ -134,10 +132,10 @@ export function ProductCardQuickActions() {
       sessionStorage.removeItem(PENDING_BASKET_KEY);
       return;
     }
-    const next = addBasketItem(pending.productId);
-    setBasketItems(next);
+    const result = addBasketItem(pending.productId);
+    setBasketItems(result.items);
     sessionStorage.removeItem(PENDING_BASKET_KEY);
-    setFeedback("Produto adicionado à sua lista.");
+    setFeedback(result.added ? "Produto adicionado à sua lista." : "Produto já está na lista. Altere a quantidade na cesta.");
   }, [userId]);
 
   useEffect(() => {
@@ -167,9 +165,9 @@ export function ProductCardQuickActions() {
       savePendingBasket(productId);
       return;
     }
-    const next = addBasketItem(productId);
-    setBasketItems(next);
-    setFeedback("Produto adicionado à lista.");
+    const result = addBasketItem(productId);
+    setBasketItems(result.items);
+    setFeedback(result.added ? "Produto adicionado à lista." : "Produto já está na lista. Altere a quantidade na cesta.");
   }, []);
 
   const stopPointer = (event: PointerEvent<HTMLSpanElement>) => event.stopPropagation();
@@ -204,8 +202,8 @@ export function ProductCardQuickActions() {
             className={`pc-card-action pc-card-action--basket${quantity ? " is-active" : ""}`}
             role="button"
             tabIndex={0}
-            aria-label={quantity ? `${product.name}: ${quantity} na lista. Adicionar mais um` : `Adicionar ${product.name} à lista`}
-            title={userId ? "Adicionar à lista" : "Entrar para salvar na lista"}
+            aria-label={quantity ? `${product.name} já está na lista. Altere a quantidade na cesta` : `Adicionar ${product.name} à lista`}
+            title={quantity ? "Já está na lista — altere a quantidade na cesta" : userId ? "Adicionar à lista" : "Entrar para salvar na lista"}
             onPointerDown={stopPointer}
             onClick={event => { stopClick(event); void addToBasket(id); }}
             onKeyDown={event => keyboardActivate(event, () => { void addToBasket(id); })}

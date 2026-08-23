@@ -2,6 +2,7 @@
    Single ordered entry-point for the final mobile refinement layers.
    MobileSearchStability and MobileExperienceOverhaul remain imported earlier
    in App.tsx because legacy desktop/reform styles intentionally load after them. */
+@import "./MobileCoreSafety2026.css";
 @import "./MobileNative2026.css";
 @import "./MobileNativePages2026.css";
 @import "./MobileNativeFinal2026.css";

@@ -1,4 +1,5 @@
-/* Banner superior de campanha — largura total, leitura forte e animação discreta. */
+/* Banner superior de campanha — polish Impeccable 2026.
+   Uma única hierarquia, contraste forte, motion contida e largura total. */
 .pc-festival-bar{
   position:relative;
   z-index:110;
@@ -9,27 +10,28 @@
   min-height:62px;
   padding:0;
   overflow:hidden;
-  background:linear-gradient(100deg,#17244f 0%,#243b76 42%,#382b68 72%,#1a2857 100%);
-  background-size:180% 100%;
-  box-shadow:inset 0 -1px rgba(255,255,255,.18),0 5px 20px rgba(11,20,54,.14);
-  color:#f8f5ff;
+  background:#1c2e63;
+  color:#fff;
+  box-shadow:0 5px 18px rgb(10 21 55 / 16%);
   font-family:var(--pc-font-body,inherit);
   isolation:isolate;
 }
-.pc-festival-bar.theme-emerald{background:linear-gradient(100deg,#073f39,#0b6658 46%,#0b544b 75%,#073f39);background-size:180% 100%}
-.pc-festival-bar.theme-amber{background:linear-gradient(100deg,#4c2e05,#82520e 46%,#68400a 75%,#4c2e05);background-size:180% 100%}
-.pc-festival-bar.theme-slate{background:linear-gradient(100deg,#1d2938,#35485f 46%,#29394d 75%,#1d2938);background-size:180% 100%}
+.pc-festival-bar.theme-emerald{background:#0a584d}
+.pc-festival-bar.theme-amber{background:#6d450b}
+.pc-festival-bar.theme-slate{background:#29394d}
 
+/* Um único gesto visual: luz atravessa a campanha em intervalos longos. */
 .pc-festival-bar::before{
   position:absolute;
   z-index:2;
   top:0;
   bottom:0;
-  left:-32%;
-  width:28%;
+  left:-34%;
+  width:24%;
   content:"";
-  background:linear-gradient(110deg,transparent 0%,rgba(255,255,255,.03) 26%,rgba(255,255,255,.24) 50%,rgba(255,255,255,.04) 74%,transparent 100%);
+  background:linear-gradient(110deg,transparent,rgba(255,255,255,.18),transparent);
   transform:skewX(-16deg);
+  opacity:0;
   pointer-events:none;
 }
 .pc-festival-bar::after{
@@ -38,10 +40,9 @@
   right:0;
   bottom:0;
   left:0;
-  height:2px;
+  height:1px;
   content:"";
-  background:linear-gradient(90deg,transparent,#83b8ff 22%,#e2bc72 50%,#b16fd0 78%,transparent);
-  opacity:.68;
+  background:rgba(255,255,255,.24);
   pointer-events:none;
 }
 
@@ -51,9 +52,10 @@
   width:100%;
   min-width:0;
   display:block;
+  overflow:hidden;
   color:#fff;
   text-decoration:none;
-  overflow:hidden;
+  transition:filter .18s ease;
 }
 .pc-festival-bar__art img{
   display:block;
@@ -64,64 +66,134 @@
 }
 .pc-festival-bar__art span{display:none}
 .pc-festival-bar__art span i{display:grid}
-.pc-festival-bar__art span i svg{width:16px;height:16px}
+.pc-festival-bar__art span i svg{width:17px;height:17px;stroke-width:2.2}
 .pc-festival-bar__art span b{display:grid;gap:2px}
-.pc-festival-bar__art span em{margin-left:auto;padding:6px 9px;border:1px solid rgba(255,255,255,.24);border-radius:7px;color:#fff;font-size:10px;font-style:normal;font-weight:800;white-space:nowrap}
+.pc-festival-bar__art span em{
+  margin-left:auto;
+  min-height:32px;
+  display:inline-flex;
+  align-items:center;
+  padding:0 11px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:10px;
+  color:#fff;
+  font-size:11px;
+  font-style:normal;
+  font-weight:800;
+  white-space:nowrap;
+}
+.pc-festival-bar__art:focus-visible{
+  outline:3px solid rgba(255,255,255,.9);
+  outline-offset:-4px;
+}
 @media(hover:hover) and (pointer:fine){
-  .pc-festival-bar__art:hover{filter:brightness(1.07) saturate(1.04)}
+  .pc-festival-bar__art:hover{filter:brightness(1.06)}
 }
 
 .pc-festival-bar__close{
   position:absolute;
   z-index:5;
-  right:10px;
+  right:12px;
   top:50%;
-  width:30px;
-  height:30px;
+  width:36px;
+  height:36px;
   display:grid;
   place-items:center;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:9px;
-  background:rgba(8,16,39,.28);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:12px;
+  background:rgba(8,16,39,.22);
   color:#fff;
   cursor:pointer;
   transform:translateY(-50%);
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
+  transition:background-color .16s ease,border-color .16s ease,transform .16s ease;
 }
-.pc-festival-bar__close svg{width:15px;height:15px}
-@media(hover:hover) and (pointer:fine){.pc-festival-bar__close:hover{background:rgba(255,255,255,.18)}}
+.pc-festival-bar__close svg{width:16px;height:16px;stroke-width:2.2}
+.pc-festival-bar__close:focus-visible{outline:3px solid rgba(255,255,255,.88);outline-offset:2px}
+@media(hover:hover) and (pointer:fine){
+  .pc-festival-bar__close:hover{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.14)}
+}
+.pc-festival-bar__close:active{transform:translateY(-50%) scale(.96)}
 
 @media(max-width:640px){
   .pc-festival-bar{
-    min-height:54px;
-    height:54px;
+    min-height:56px;
+    height:56px;
     justify-content:flex-start;
-    padding:0;
-    background:linear-gradient(96deg,#210838 0%,#4a125c 52%,#2f0d49 100%);
-    background-size:180% 100%;
+    background:#35104b;
   }
-  .pc-festival-bar__art{width:100%;height:54px;padding:0 48px 0 14px;display:flex;align-items:center}
+  .pc-festival-bar.theme-emerald{background:#075448}
+  .pc-festival-bar.theme-amber{background:#674008}
+  .pc-festival-bar.theme-slate{background:#26384a}
+  .pc-festival-bar__art{
+    width:100%;
+    height:56px;
+    display:flex;
+    align-items:center;
+    padding:0 54px 0 12px;
+  }
   .pc-festival-bar__art img{display:none}
-  .pc-festival-bar__art span{width:100%;display:flex;align-items:center;gap:10px;line-height:1.15}
-  .pc-festival-bar__art span i{flex:0 0 30px;width:30px;height:30px;place-items:center;border-radius:9px;background:rgba(255,255,255,.11)}
-  .pc-festival-bar__art span i svg{width:17px;height:17px}
-  .pc-festival-bar__art span b{min-width:0;flex:1 1 auto}
-  .pc-festival-bar__art strong{display:block;overflow:hidden;font-size:12.5px;font-weight:900;letter-spacing:-.01em;text-overflow:ellipsis;white-space:nowrap}
-  .pc-festival-bar__art small{display:block;overflow:hidden;margin-top:2px;color:#eadff0;font-size:10.5px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
+  .pc-festival-bar__art span{
+    width:100%;
+    min-width:0;
+    display:grid;
+    grid-template-columns:36px minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+    line-height:1.15;
+  }
+  .pc-festival-bar__art span i{
+    width:36px;
+    height:36px;
+    place-items:center;
+    border-radius:11px;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .pc-festival-bar__art span i svg{width:18px;height:18px;color:#fff}
+  .pc-festival-bar__art span b{min-width:0;gap:3px}
+  .pc-festival-bar__art strong{
+    display:block;
+    overflow:hidden;
+    color:#fff;
+    font-size:13px;
+    font-weight:850;
+    line-height:1.15;
+    letter-spacing:-.015em;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .pc-festival-bar__art small{
+    display:block;
+    overflow:hidden;
+    color:rgba(255,255,255,.82);
+    font-size:10.5px;
+    font-weight:570;
+    line-height:1.2;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
   .pc-festival-bar__art span em{display:none}
-  .pc-festival-bar__close{right:8px;width:34px;height:34px}
+  .pc-festival-bar__close{right:9px;width:38px;height:38px;border-radius:11px}
+}
+
+@media(max-width:380px){
+  .pc-festival-bar__art{padding-left:9px;padding-right:51px}
+  .pc-festival-bar__art span{grid-template-columns:32px minmax(0,1fr);gap:8px}
+  .pc-festival-bar__art span i{width:32px;height:32px;border-radius:9px}
+  .pc-festival-bar__art strong{font-size:12px}
+  .pc-festival-bar__art small{font-size:10px}
+  .pc-festival-bar__close{right:7px;width:36px;height:36px}
 }
 
 @media(prefers-reduced-motion:no-preference){
-  .pc-festival-bar{animation:pc-festival-bar-in .32s ease both,pc-festival-bg-drift 9s ease-in-out 1s infinite alternate}
-  .pc-festival-bar::before{animation:pc-festival-sheen 7s cubic-bezier(.4,0,.2,1) 1.2s infinite}
-  .pc-festival-bar::after{animation:pc-festival-glow 4.8s ease-in-out infinite}
+  .pc-festival-bar::before{animation:pc-festival-sheen 8.5s cubic-bezier(.16,1,.3,1) 1.2s infinite}
 }
 @media(prefers-reduced-motion:reduce){
-  .pc-festival-bar,.pc-festival-bar::before,.pc-festival-bar::after{animation:none!important}
+  .pc-festival-bar::before{animation:none!important}
 }
-@keyframes pc-festival-bg-drift{from{background-position:0% 50%}to{background-position:100% 50%}}
-@keyframes pc-festival-sheen{0%,58%{left:-32%;opacity:0}66%{opacity:1}86%{left:118%;opacity:.75}100%{left:118%;opacity:0}}
-@keyframes pc-festival-glow{50%{opacity:1;filter:brightness(1.28)}}
-@keyframes pc-festival-bar-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pc-festival-sheen{
+  0%,68%{left:-34%;opacity:0}
+  73%{opacity:.75}
+  88%{left:116%;opacity:.45}
+  100%{left:116%;opacity:0}
+}

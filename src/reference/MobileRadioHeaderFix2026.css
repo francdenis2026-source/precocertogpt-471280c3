@@ -1,0 +1,66 @@
+/* PreçoCerto — garante o player da rádio visível no header mobile. */
+@media (max-width:767px){
+  .nx-header__inner{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+  .nx-brand{min-width:0!important;overflow:hidden!important}
+  .nx-brand img{width:min(118px,31vw)!important;min-width:92px!important;max-width:118px!important}
+  .nx-header__actions{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:5px!important;
+    min-width:max-content!important;
+    flex:none!important;
+  }
+  .nx-header__actions .pc-radio{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:42px!important;
+    min-width:42px!important;
+    max-width:42px!important;
+    height:42px!important;
+    min-height:42px!important;
+    flex:0 0 42px!important;
+    padding:5px!important;
+    overflow:visible!important;
+    border-radius:11px!important;
+    position:relative!important;
+    z-index:3!important;
+  }
+  .nx-header__actions .pc-radio__play{
+    display:grid!important;
+    width:32px!important;
+    height:32px!important;
+    min-width:32px!important;
+    place-items:center!important;
+  }
+  .nx-header__actions .pc-radio__control{
+    width:32px!important;
+    height:32px!important;
+    border-radius:9px!important;
+  }
+  .nx-header__actions .pc-radio__copy,
+  .nx-header__actions .pc-radio__signal,
+  .nx-header__actions .pc-radio__volume,
+  .nx-header__actions .pc-radio__track{display:none!important}
+  .nx-header__actions .pc-radio.is-playing,
+  .nx-header__actions .pc-radio.is-loading,
+  .nx-header__actions .pc-radio.has-error{
+    width:42px!important;
+    min-width:42px!important;
+    max-width:42px!important;
+  }
+}
+
+@media (max-width:370px){
+  .nx-brand img{width:92px!important;min-width:92px!important}
+  .nx-header__actions{gap:4px!important}
+  .nx-theme,.nx-menu{width:40px!important;height:40px!important;min-width:40px!important}
+  .nx-header__actions .pc-radio{width:40px!important;min-width:40px!important;max-width:40px!important;height:40px!important;min-height:40px!important;flex-basis:40px!important;padding:4px!important}
+  .nx-header__actions .pc-radio__play,.nx-header__actions .pc-radio__control{width:30px!important;height:30px!important;min-width:30px!important}
+}

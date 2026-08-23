@@ -1,0 +1,53 @@
+import { useEffect, useMemo, useState } from "react";
+import { ArrowRight, BadgeCheck, MapPin, PackageSearch, Search, ShoppingBasket, Store } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
+import { fetchCatalog } from "../data/remoteCatalog";
+import { resolveProductImage } from "../data/productImageResolver";
+import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
+import { HeaderRadioPlayer } from "../components/PersistentRadio";
+import { AppDock } from "../reference/ReferenceExperience";
+import "./MobileHome2026.css";
+
+const initialCatalog=buildCatalog();
+const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
+const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+
+function ProductImage({product}:{product:Product}){const src=resolveProductImage(product);return src?<img src={src} alt={product.name} loading="lazy"/>:<PackageSearch aria-hidden="true"/>}
+
+export function MobileHome2026(){
+ const navigate=useNavigate();
+ const[catalog,setCatalog]=useState<CatalogPayload>({...initialCatalog,metrics:verifiedDatasetMetrics});
+ const[loading,setLoading]=useState(true);
+ const[query,setQuery]=useState("");
+ const[focused,setFocused]=useState(false);
+ useEffect(()=>{let active=true;fetchCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined).finally(()=>{if(active)setLoading(false)});return()=>{active=false}},[]);
+ const products=useMemo(()=>catalog.products.filter(p=>p.minPrice>0),[catalog.products]);
+ const results=useMemo(()=>{const term=normalize(query);if(term.length<2)return[];return products.map(product=>{const name=normalize(product.name),brand=normalize(product.brand||""),category=normalize(product.category||""),store=normalize(product.establishment||"");let rank=99;if(name===term)rank=0;else if(name.startsWith(term))rank=1;else if(name.split(/\s+/).some(w=>w.startsWith(term)))rank=2;else if(name.includes(term))rank=3;else if(brand.startsWith(term))rank=4;else if(`${brand} ${category} ${store}`.includes(term))rank=5;return{product,rank}}).filter(x=>x.rank<99).sort((a,b)=>a.rank-b.rank||a.product.minPrice-b.product.minPrice).slice(0,5).map(x=>x.product)},[query,products]);
+ const featured=useMemo(()=>[...products].sort((a,b)=>a.minPrice-b.minPrice).slice(0,4),[products]);
+ const open=focused&&query.trim().length>=2;
+ return <div className="mh26-page">
+  <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><Link to="/estabelecimentos" aria-label="Estabelecimentos"><MapPin/></Link></div></div></header>
+  <main id="conteudo-principal">
+   <section className="mh26-hero">
+    <div className="mh26-hero-copy"><span><BadgeCheck/> PREÇOS LOCAIS DE FEIJÓ</span><h1>Compare preços sem perder tempo.</h1><p>Encontre produtos do comércio local, veja as melhores opções e escolha onde comprar.</p></div>
+    <form className="mh26-search" onSubmit={e=>{e.preventDefault();const q=query.trim();if(q)navigate(`/buscar?q=${encodeURIComponent(q)}`)}} onFocus={()=>setFocused(true)}>
+      <div className="mh26-search-field"><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Digite produto ou marca" autoComplete="off" inputMode="search"/><button type="submit">Buscar</button></div>
+      {open&&<div className="mh26-search-overlay">
+        <header><div><small>RESULTADOS AO VIVO</small><strong>{results.length?"Melhores opções":"Nenhum resultado"}</strong></div><span>{loading?"Atualizando…":`${results.length}/5`}</span></header>
+        <div className="mh26-search-list">{results.length?results.map(product=><button type="button" key={product.id} onMouseDown={e=>e.preventDefault()} onClick={()=>navigate(`/produto/${product.slug||product.id}`)}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||"Comércio local"}</em></span><b>{brl.format(product.minPrice)}</b></button>):<div className="mh26-search-empty"><PackageSearch/><span><strong>Não encontramos esse produto.</strong><small>Tente outra palavra ou marca.</small></span></div>}</div>
+        <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Ver busca completa <ArrowRight/></Link>
+      </div>}
+    </form>
+    <div className="mh26-quick">{["Arroz","Café","Leite","Açúcar"].map(item=><button key={item} type="button" onClick={()=>{setQuery(item);setFocused(true)}}>{item}</button>)}</div>
+   </section>
+
+   <section className="mh26-actions"><Link to="/buscar"><Search/><span><strong>Buscar produtos</strong><small>Compare preços agora</small></span><ArrowRight/></Link><Link to="/cesta-inteligente"><ShoppingBasket/><span><strong>Cesta inteligente</strong><small>Compare o total</small></span><ArrowRight/></Link><Link to="/estabelecimentos"><Store/><span><strong>Estabelecimentos</strong><small>Veja onde comprar</small></span><ArrowRight/></Link></section>
+
+   <section className="mh26-section"><header><div><small>AGORA</small><h2>Preços para comparar</h2></div><Link to="/buscar">Ver todos</Link></header><div className="mh26-products">{loading?Array.from({length:3},(_,i)=><div className="mh26-product is-loading" key={i}/>):featured.slice(0,3).map(product=><Link className="mh26-product" to={`/produto/${product.slug||product.id}`} key={product.id}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||product.brand||"Comércio local"}</em></span><b><small>a partir de</small>{brl.format(product.minPrice)}</b></Link>)}</div></section>
+
+   <section className="mh26-local"><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
+  </main>
+  <AppDock current="home"/>
+ </div>
+}

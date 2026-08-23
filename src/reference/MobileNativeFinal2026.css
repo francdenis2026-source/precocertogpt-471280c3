@@ -1,0 +1,120 @@
+/* PreçoCerto Mobile Native Final 2026 — remaining public flows.
+   Imported after every legacy and mobile stylesheet. Desktop is untouched. */
+
+@media (max-width:767px){
+  /* ---------- Explore / categories ---------- */
+  .sector-hub__shell{width:calc(100% - 24px)!important;max-width:none!important}
+  .sector-hub__hero{width:calc(100% - 24px)!important;min-height:0!important;margin-top:12px!important;border-radius:16px!important}
+  .sector-hub__hero-grid{min-height:0!important;padding:22px 16px!important}
+  .sector-hub__hero-copy{max-width:none!important}
+  .sector-hub__hero h1{max-width:11ch!important;font-size:clamp(2.2rem,10.8vw,3rem)!important;line-height:.98!important}
+  .sector-hub__hero-copy>p{font-size:13.5px!important;line-height:1.5!important}
+  .sector-hub__hero-stats{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+  .sector-hub__hero-stats span{min-height:48px!important;display:grid!important;align-content:center!important;gap:1px!important;padding:8px 10px!important;border:1px solid rgb(255 255 255 / 14%)!important;border-radius:10px!important;background:rgb(255 255 255 / 7%)!important}
+  .sector-hub__hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+  .sector-hub__hero-actions a{width:100%!important;min-height:48px!important}
+  .sector-hub__content{padding-block:20px calc(86px + env(safe-area-inset-bottom))!important}
+  .sector-hub__section-head{grid-template-columns:1fr!important;gap:8px!important;margin-bottom:12px!important}
+  .sector-hub__section-head h2,.sector-hub__tools h2,.sector-hub__stores h2{font-size:clamp(1.65rem,8vw,2.1rem)!important}
+  .sector-hub__section-head p{font-size:12.5px!important}
+  .sector-hub__sectors{grid-template-columns:1fr!important;gap:8px!important}
+  .sector-hub__sector{min-height:0!important;grid-template-columns:44px minmax(0,1fr) 20px!important;padding:12px!important}
+  .sector-hub__sector-copy>p{-webkit-line-clamp:3!important;font-size:11.5px!important}
+  .sector-hub__sector-meta span{min-height:28px!important;font-size:10.5px!important}
+  .sector-hub__tools{grid-template-columns:1fr!important;gap:14px!important;margin-top:16px!important;padding:15px!important;border-radius:15px!important}
+  .sector-hub__tool-grid{grid-template-columns:1fr!important;gap:7px!important}
+  .sector-hub__tool-grid>a{min-height:64px!important}
+  .sector-hub__tool-grid small{white-space:normal!important;line-height:1.3!important}
+  .sector-hub__stores{margin-top:20px!important}
+  .sector-hub__stores>header{align-items:flex-start!important;flex-direction:column!important;gap:4px!important}
+  .sector-hub__stores>header>a{min-height:38px!important}
+  .sector-hub__store-grid{grid-template-columns:1fr!important;gap:7px!important}
+  .sector-hub__store-grid>a{min-height:82px!important;grid-template-columns:44px minmax(0,1fr) 18px!important;padding:10px 11px!important}
+  .sector-hub__store-grid>a>i{width:44px!important;height:44px!important}
+  .sector-hub__store-grid strong{white-space:normal!important;font-size:12.5px!important}
+  .sector-hub__store-grid small,.sector-hub__store-grid em{white-space:normal!important}
+  .sector-hub__special{grid-template-columns:1fr!important;gap:8px!important}
+  .sector-hub__how{grid-template-columns:1fr!important;gap:7px!important}
+
+  /* ---------- Smart basket ---------- */
+  .smart-basket-shell{width:calc(100% - 24px)!important;max-width:none!important;padding:10px 0 calc(92px + env(safe-area-inset-bottom))!important}
+  .smart-basket-hero{grid-template-columns:1fr!important;gap:10px!important;padding:17px 15px!important;border-radius:16px!important}
+  .smart-basket-hero>svg{display:none!important}
+  .smart-basket-hero h1{font-size:clamp(1.85rem,9vw,2.4rem)!important;line-height:1.04!important}
+  .smart-basket-hero p{font-size:13px!important;line-height:1.5!important}
+  .smart-planner,.smart-product-picker{margin-top:10px!important;padding:12px!important;border-radius:14px!important}
+  .smart-controls{grid-template-columns:1fr!important;gap:10px!important}
+  .money-input,.smart-controls select{min-height:48px!important}
+  .money-input input,.smart-controls select{font-size:16px!important}
+  .budget-suggestion{min-height:46px!important}
+  .smart-product-picker>header{align-items:stretch!important;flex-direction:column!important;gap:10px!important}
+  .smart-picker-tabs{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important}
+  .smart-picker-tabs button{min-height:46px!important;justify-content:center!important}
+  .smart-product-search{height:48px!important}
+  .smart-product-search input{font-size:16px!important}
+  .smart-product-results{grid-template-columns:1fr!important;gap:7px!important}
+  .smart-product-results button{min-height:56px!important}
+  .smart-product-results strong{white-space:normal!important}
+  .smart-custom-list article{grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"copy remove" "qty qty"!important;gap:9px!important;padding:10px!important}
+  .smart-custom-list article>div:first-child{grid-area:copy!important}.smart-custom-list article>div:first-child strong{white-space:normal!important}
+  .smart-qty{grid-area:qty!important}.smart-remove{grid-area:remove!important;width:44px!important;height:44px!important}
+  .smart-qty button{width:44px!important;height:44px!important}
+  .smart-results>header,.smart-plan-list>header{align-items:flex-start!important;flex-direction:column!important;gap:5px!important}
+  .smart-strategies{grid-template-columns:1fr!important;gap:8px!important}
+  .smart-strategies>button{min-height:94px!important;grid-template-columns:42px minmax(0,1fr)!important;padding:12px!important}
+  .smart-strategies b{grid-column:2!important;font-size:18px!important}.smart-strategies i{display:none!important}
+  .smart-plan{grid-template-columns:1fr!important;gap:10px!important}
+  .smart-plan-list{padding:12px!important}.smart-plan-list article{grid-template-columns:minmax(0,1fr) auto!important;gap:6px 10px!important;padding:11px 0!important}
+  .smart-plan-list article strong{white-space:normal!important}.smart-plan-list article>span{grid-column:1!important}.smart-plan-list article>b{grid-column:2!important;grid-row:1/3!important;align-self:center!important}
+  .smart-summary{position:static!important;padding:13px!important}
+  .smart-summary button,.smart-summary a{min-height:48px!important;font-size:13px!important}
+  .smart-assistant-fab{right:12px!important;bottom:calc(78px + env(safe-area-inset-bottom))!important;height:48px!important;max-width:calc(100vw - 24px)!important}
+  .smart-assistant{right:12px!important;left:12px!important;bottom:calc(134px + env(safe-area-inset-bottom))!important;width:auto!important;max-height:min(62dvh,520px)!important;border-radius:16px!important}
+
+  /* ---------- Account ---------- */
+  .pc-account-shell{width:calc(100% - 24px)!important;max-width:none!important;padding:12px 0 calc(86px + env(safe-area-inset-bottom))!important}
+  .pc-account-hero{grid-template-columns:52px minmax(0,1fr)!important;gap:11px!important;padding:14px!important;border-radius:15px!important}
+  .pc-user-avatar--hero{width:52px!important;height:52px!important}
+  .pc-account-hero h1{font-size:clamp(1.55rem,7.5vw,2rem)!important}
+  .pc-account-hero p{font-size:12.5px!important}
+  .pc-account-verified{grid-column:1/-1!important;width:100%!important;justify-content:center!important;min-height:40px!important}
+  .pc-account-tools{grid-template-columns:1fr!important;gap:8px!important}
+  .pc-account-tools>a{min-height:76px!important;padding:11px!important}
+  .pc-account-details{grid-template-columns:1fr!important;border-radius:12px!important}
+  .pc-account-details>div{padding:12px!important}
+  .pc-account-details strong{white-space:normal!important;overflow-wrap:anywhere!important}
+  .pc-user-menu{left:12px!important;right:12px!important;bottom:calc(74px + env(safe-area-inset-bottom))!important;width:auto!important;max-height:min(70dvh,520px)!important;overflow-y:auto!important;border-radius:14px!important}
+  .pc-user-menu nav a{min-height:52px!important}
+  .pc-user-menu>button{min-height:48px!important}
+
+  /* ---------- Auth ---------- */
+  .ref-auth{display:block!important;min-height:100dvh!important}
+  .ref-auth__story{display:none!important}
+  .ref-auth__form{width:100%!important;min-height:100dvh!important;padding:14px 12px calc(24px + env(safe-area-inset-bottom))!important;display:flex!important;align-items:flex-start!important;justify-content:center!important}
+  .ref-auth__card{width:100%!important;max-width:520px!important;margin:0 auto!important;padding:18px 15px!important;border-radius:16px!important}
+  .ref-account-tabs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+  .ref-account-tabs button{min-height:46px!important}
+  .ref-auth__card label{min-width:0!important}
+  .ref-auth__card input,.ref-auth__card select{width:100%!important;min-height:48px!important;font-size:16px!important}
+  .ref-auth__submit{width:100%!important;min-height:50px!important}
+
+  /* ---------- Establishments directory / shared store cards ---------- */
+  .ref-directory__main{padding-top:12px!important;padding-bottom:calc(86px + env(safe-area-inset-bottom))!important}
+  .ref-directory__grid,.ref-stores-grid,.stores-pro-grid{grid-template-columns:1fr!important;gap:8px!important}
+  .ref-store-card,.stores-pro-card{min-width:0!important}
+  .ref-store-card__select,.ref-store-card>a{min-height:78px!important;padding:10px!important}
+  .ref-store-card__select>i,.ref-store-card>a>i{width:52px!important;height:52px!important;min-width:52px!important}
+  .ref-directory__toolbar,.stores-pro-toolbar{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+  .ref-directory__toolbar input,.ref-directory__toolbar select,.stores-pro-toolbar input,.stores-pro-toolbar select{width:100%!important;min-height:48px!important;font-size:16px!important}
+
+  /* Shared dialogs/footer overlays */
+  .pc-dev-backdrop{padding:10px!important;align-items:flex-end!important}
+  .pc-dev-dialog,.pc-contact-dialog{width:100%!important;max-width:none!important;max-height:calc(100dvh - 20px)!important;border-radius:18px 18px 12px 12px!important;overflow-y:auto!important}
+  .pc-dev-grid{grid-template-columns:1fr!important}
+}
+
+@media (max-width:390px){
+  .sector-hub__hero-stats{grid-template-columns:1fr!important}
+  .smart-picker-tabs{grid-template-columns:1fr!important}
+  .pc-account-hero{grid-template-columns:44px minmax(0,1fr)!important}.pc-user-avatar--hero{width:44px!important;height:44px!important}
+}

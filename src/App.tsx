@@ -27,6 +27,7 @@ import "./reference/MobileExperienceOverhaul2026.css";
 import "./reference/UnifiedDesignSystem2026.css";
 import "./reference/PublicReform2026.css";
 import "./reference/HomeDesignPropagation2026.css";
+import "./reference/DesktopLiveSearch2026.css";
 import "./reference/MobileBundle2026.css";
 
 const SearchDiscovery2026 = lazy(() => import("./reference/SearchDiscovery2026").then(module => ({ default: module.SearchDiscovery2026 })));

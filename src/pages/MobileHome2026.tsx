@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, MapPin, PackageSearch, Search, ShoppingBasket, Store, TrendingDown, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, TrendingDown, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
+import { useSiteTheme } from "../hooks/useSiteTheme";
 import { AppDock } from "../reference/ReferenceExperience";
 import "./MobileHome2026.css";
 
@@ -17,6 +18,7 @@ function ProductImage({product}:{product:Product}){const src=resolveProductImage
 
 export function MobileHome2026(){
  const navigate=useNavigate();
+ const{theme,toggleTheme}=useSiteTheme();
  const[catalog,setCatalog]=useState<CatalogPayload>({...initialCatalog,metrics:verifiedDatasetMetrics});
  const[loading,setLoading]=useState(true);
  const[query,setQuery]=useState("");
@@ -27,7 +29,7 @@ export function MobileHome2026(){
  const featured=useMemo(()=>[...products].sort((a,b)=>a.minPrice-b.minPrice).slice(0,4),[products]);
  const open=focused&&query.trim().length>=2;
  return <div className="mh26-page">
-  <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo" aria-label="PreçoCerto — início"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><Link to="/estabelecimentos" aria-label="Ver estabelecimentos próximos"><MapPin aria-hidden="true"/></Link></div></div></header>
+  <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo" aria-label="PreçoCerto — início"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><button className="mh26-theme" type="button" onClick={toggleTheme} aria-label={theme==="dark"?"Ativar modo claro":"Ativar modo escuro"} title={theme==="dark"?"Modo claro":"Modo escuro"}>{theme==="dark"?<Sun aria-hidden="true"/>:<Moon aria-hidden="true"/>}</button><Link to="/estabelecimentos" aria-label="Ver estabelecimentos próximos"><MapPin aria-hidden="true"/></Link></div></div></header>
   <main id="conteudo-principal">
    <section className="mh26-hero">
     <div className="mh26-hero-copy"><span className="mh26-verified-badge"><i className="mh26-verified-icon" aria-hidden="true"><CheckCircle2/></i><b>PREÇOS LOCAIS VERIFICADOS</b></span><h1>Economize nas compras em Feijó.</h1><p>Compare produtos do comércio local e descubra onde seu dinheiro rende mais.</p></div>

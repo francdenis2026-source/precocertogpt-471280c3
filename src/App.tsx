@@ -31,6 +31,7 @@ import "./reference/HomeDesignPropagation2026.css";
 import "./reference/DesktopLiveSearch2026.css";
 import "./reference/MobileBundle2026.css";
 import "./reference/LiveSearchOverlayStackFix2026.css";
+import "./reference/ImpeccableSearchResults2026.css";
 
 const SearchDiscovery2026 = lazy(() => import("./reference/SearchDiscovery2026").then(module => ({ default: module.SearchDiscovery2026 })));
 const MobileSearchDiscovery2026 = lazy(() => import("./reference/MobileSearchDiscovery2026").then(module => ({ default: module.MobileSearchDiscovery2026 })));

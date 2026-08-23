@@ -75,7 +75,12 @@ export function ProductQuickViewModal({ product, onClose }: { product: Product; 
     const current = readBasket();
     const id = String(product.id);
     const existing = current.find(item => item.productId === id);
-    const next = existing ? current.map(item => item.productId === id ? { ...item, quantity: item.quantity + 1 } : item) : [...current, { productId: id, quantity: 1 }];
+    if (existing) {
+      setMessage("Produto já está na lista. Altere a quantidade na cesta.");
+      window.setTimeout(() => setMessage(""), 2200);
+      return;
+    }
+    const next = [...current, { productId: id, quantity: 1 }];
     writeBasket(next);
     setMessage("Produto adicionado à sua lista.");
     window.setTimeout(() => setMessage(""), 2200);

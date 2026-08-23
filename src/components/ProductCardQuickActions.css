@@ -2,3 +2,17 @@
 html[data-theme="dark"] .pc-card-action{border-color:#364a59;background:rgba(18, 34, 46,.9);color:#e8edf0}@media(hover:hover) and (pointer:fine){html[data-theme="dark"] .pc-card-action:hover{background:#1e3241}}html[data-theme="dark"] .pc-card-action b{border-color:#253e50}
 @media(max-width:680px){.pc-card-actions{top:6px;right:6px;gap:4px}.pc-card-action{width:29px;height:29px;border-radius:8px}.pc-card-action svg{width:13px;height:13px}.pc-basket-running-total{right:10px;left:10px;bottom:74px;min-width:0;grid-template-columns:30px 1fr auto;padding:7px 9px}.pc-basket-running-total>svg{width:29px;height:29px}.pc-card-action-feedback{bottom:118px}}
 @media(prefers-reduced-motion:reduce){.pc-card-action{transition:none}}
+
+/* Confirmação e resumo compactos em telas pequenas: adicionar um item não
+   deve abrir uma faixa com aparência de tela ou bloquear o conteúdo. */
+@media(max-width:680px){
+  .pc-card-action{width:38px;height:38px;border-radius:11px}
+  .pc-card-action svg{width:17px;height:17px}
+  .pc-card-actions{top:8px;right:8px;gap:6px}
+  .pc-basket-running-total{right:12px;left:auto;bottom:calc(76px + env(safe-area-inset-bottom));width:auto;max-width:calc(100vw - 24px);min-width:176px;grid-template-columns:32px minmax(0,1fr);gap:8px;padding:8px 10px;border-radius:14px}
+  .pc-basket-running-total>svg{width:32px;height:32px}
+  .pc-basket-running-total small{font-size:10px;letter-spacing:.04em}
+  .pc-basket-running-total strong{font-size:14px}
+  .pc-basket-running-total>b{display:none}
+  .pc-card-action-feedback{right:12px;bottom:calc(132px + env(safe-area-inset-bottom));left:auto;max-width:calc(100vw - 24px);padding:9px 12px;border-radius:12px;transform:none;font-size:12.5px;text-align:left}
+}

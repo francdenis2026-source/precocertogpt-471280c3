@@ -1,69 +1,127 @@
-/* Faixa fina e dispensável do Festival do Açaí — fica ANTES do cabeçalho
-   fixo da home (não é sticky), então some do fluxo assim que a pessoa rola a
-   página; o cabeçalho normal assume o topo. Ocupa uma única linha compacta,
-   sem empurrar o resto da home para baixo em nenhuma proporção relevante. */
+/* Banner superior de campanha — largura total, leitura forte e animação discreta. */
 .pc-festival-bar{
   position:relative;
   z-index:110;
   display:flex;
   align-items:center;
   justify-content:center;
+  width:100%;
   min-height:62px;
-  padding:0 42px;
-  background:#1b2857;
+  padding:0;
   overflow:hidden;
-  box-shadow:inset 0 -1px rgba(255,255,255,.16);
-  color:#f6f1fb;
+  background:linear-gradient(100deg,#17244f 0%,#243b76 42%,#382b68 72%,#1a2857 100%);
+  background-size:180% 100%;
+  box-shadow:inset 0 -1px rgba(255,255,255,.18),0 5px 20px rgba(11,20,54,.14);
+  color:#f8f5ff;
   font-family:var(--pc-font-body,inherit);
+  isolation:isolate;
 }
-.pc-festival-bar.theme-emerald{background:#094d45}.pc-festival-bar.theme-amber{background:#5e3b08}.pc-festival-bar.theme-slate{background:#233142}
-.pc-festival-bar::after{position:absolute;right:0;bottom:0;left:0;height:2px;content:"";background:linear-gradient(90deg,transparent,#b16fd0 34%,#e2bc72 50%,#b16fd0 66%,transparent);opacity:.52;pointer-events:none}
+.pc-festival-bar.theme-emerald{background:linear-gradient(100deg,#073f39,#0b6658 46%,#0b544b 75%,#073f39);background-size:180% 100%}
+.pc-festival-bar.theme-amber{background:linear-gradient(100deg,#4c2e05,#82520e 46%,#68400a 75%,#4c2e05);background-size:180% 100%}
+.pc-festival-bar.theme-slate{background:linear-gradient(100deg,#1d2938,#35485f 46%,#29394d 75%,#1d2938);background-size:180% 100%}
 
-.pc-festival-bar__art{width:min(1024px,100%);display:block;color:#fff}
-.pc-festival-bar__art img{width:100%;height:auto;display:block;object-fit:contain}
-.pc-festival-bar__art span{display:none}.pc-festival-bar__art span i{display:grid}.pc-festival-bar__art span i svg{width:16px;height:16px}.pc-festival-bar__art span b{display:grid;gap:2px}.pc-festival-bar__art span em{margin-left:auto;padding:6px 9px;border:1px solid rgba(255,255,255,.24);border-radius:7px;color:#fff;font-size:10px;font-style:normal;font-weight:800;white-space:nowrap}
+.pc-festival-bar::before{
+  position:absolute;
+  z-index:2;
+  top:0;
+  bottom:0;
+  left:-32%;
+  width:28%;
+  content:"";
+  background:linear-gradient(110deg,transparent 0%,rgba(255,255,255,.03) 26%,rgba(255,255,255,.24) 50%,rgba(255,255,255,.04) 74%,transparent 100%);
+  transform:skewX(-16deg);
+  pointer-events:none;
+}
+.pc-festival-bar::after{
+  position:absolute;
+  z-index:3;
+  right:0;
+  bottom:0;
+  left:0;
+  height:2px;
+  content:"";
+  background:linear-gradient(90deg,transparent,#83b8ff 22%,#e2bc72 50%,#b16fd0 78%,transparent);
+  opacity:.68;
+  pointer-events:none;
+}
+
+.pc-festival-bar__art{
+  position:relative;
+  z-index:1;
+  width:100%;
+  min-width:0;
+  display:block;
+  color:#fff;
+  text-decoration:none;
+  overflow:hidden;
+}
+.pc-festival-bar__art img{
+  display:block;
+  width:100%;
+  height:62px;
+  object-fit:cover;
+  object-position:center;
+}
+.pc-festival-bar__art span{display:none}
+.pc-festival-bar__art span i{display:grid}
+.pc-festival-bar__art span i svg{width:16px;height:16px}
+.pc-festival-bar__art span b{display:grid;gap:2px}
+.pc-festival-bar__art span em{margin-left:auto;padding:6px 9px;border:1px solid rgba(255,255,255,.24);border-radius:7px;color:#fff;font-size:10px;font-style:normal;font-weight:800;white-space:nowrap}
 @media(hover:hover) and (pointer:fine){
-  .pc-festival-bar__art:hover{filter:brightness(1.08)}
+  .pc-festival-bar__art:hover{filter:brightness(1.07) saturate(1.04)}
 }
 
 .pc-festival-bar__close{
-  flex:none;
-  width:28px;
-  height:28px;
+  position:absolute;
+  z-index:5;
+  right:10px;
+  top:50%;
+  width:30px;
+  height:30px;
   display:grid;
   place-items:center;
-  border:0;
-  border-radius:8px;
-  background:rgba(255,255,255,.08);
-  color:#f6f1fb;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:9px;
+  background:rgba(8,16,39,.28);
+  color:#fff;
   cursor:pointer;
-  position:absolute;
-  right:9px;
-  top:50%;
   transform:translateY(-50%);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
 }
 .pc-festival-bar__close svg{width:15px;height:15px}
-@media(hover:hover) and (pointer:fine){
-  .pc-festival-bar__close:hover{background:rgba(255,255,255,.18)}
-}
+@media(hover:hover) and (pointer:fine){.pc-festival-bar__close:hover{background:rgba(255,255,255,.18)}}
 
 @media(max-width:640px){
-  .pc-festival-bar{min-height:50px;height:50px;padding:6px 42px 6px 14px;justify-content:flex-start;background:linear-gradient(95deg,#260a40,#451154)}
+  .pc-festival-bar{
+    min-height:54px;
+    height:54px;
+    justify-content:flex-start;
+    padding:0;
+    background:linear-gradient(96deg,#210838 0%,#4a125c 52%,#2f0d49 100%);
+    background-size:180% 100%;
+  }
+  .pc-festival-bar__art{width:100%;height:54px;padding:0 48px 0 14px;display:flex;align-items:center}
   .pc-festival-bar__art img{display:none}
-  .pc-festival-bar__art span{display:flex;align-items:center;gap:9px;line-height:1.15}
-  .pc-festival-bar__art span i{flex:0 0 auto}
-  .pc-festival-bar__art strong{display:block;overflow:hidden;font-size:11.5px;text-overflow:ellipsis;white-space:nowrap}
-  .pc-festival-bar__art small{display:block;overflow:hidden;color:#eadff0;font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+  .pc-festival-bar__art span{width:100%;display:flex;align-items:center;gap:10px;line-height:1.15}
+  .pc-festival-bar__art span i{flex:0 0 30px;width:30px;height:30px;place-items:center;border-radius:9px;background:rgba(255,255,255,.11)}
+  .pc-festival-bar__art span i svg{width:17px;height:17px}
+  .pc-festival-bar__art span b{min-width:0;flex:1 1 auto}
+  .pc-festival-bar__art strong{display:block;overflow:hidden;font-size:12.5px;font-weight:900;letter-spacing:-.01em;text-overflow:ellipsis;white-space:nowrap}
+  .pc-festival-bar__art small{display:block;overflow:hidden;margin-top:2px;color:#eadff0;font-size:10.5px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
   .pc-festival-bar__art span em{display:none}
-  .pc-festival-bar__close{right:8px;width:32px;height:32px}
+  .pc-festival-bar__close{right:8px;width:34px;height:34px}
 }
 
 @media(prefers-reduced-motion:no-preference){
-  .pc-festival-bar{animation:pc-festival-bar-in .3s ease}
+  .pc-festival-bar{animation:pc-festival-bar-in .32s ease both,pc-festival-bg-drift 9s ease-in-out 1s infinite alternate}
+  .pc-festival-bar::before{animation:pc-festival-sheen 7s cubic-bezier(.4,0,.2,1) 1.2s infinite}
   .pc-festival-bar::after{animation:pc-festival-glow 4.8s ease-in-out infinite}
 }
-@keyframes pc-festival-glow{50%{opacity:.9;filter:brightness(1.22)} }
-@keyframes pc-festival-bar-in{
-  from{opacity:0;transform:translateY(-6px)}
-  to{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  .pc-festival-bar,.pc-festival-bar::before,.pc-festival-bar::after{animation:none!important}
 }
+@keyframes pc-festival-bg-drift{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes pc-festival-sheen{0%,58%{left:-32%;opacity:0}66%{opacity:1}86%{left:118%;opacity:.75}100%{left:118%;opacity:0}}
+@keyframes pc-festival-glow{50%{opacity:1;filter:brightness(1.28)}}
+@keyframes pc-festival-bar-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}

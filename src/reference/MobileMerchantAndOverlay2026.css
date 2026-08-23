@@ -1,8 +1,5 @@
-/* Final mobile hardening for merchant onboarding and shared overlays. */
+/* Final mobile hardening for merchant onboarding. Shared globals and overlays live in dedicated mobile layers. */
 @media (max-width:767px){
-  html,body,#root{max-width:100%;overflow-x:hidden}
-
-  /* Merchant onboarding */
   .mo-page{min-height:100dvh!important;padding:12px 12px calc(28px + env(safe-area-inset-bottom))!important;overflow-x:hidden!important}
   .mo-head,.mo-shell{width:100%!important;max-width:none!important}
   .mo-head>a{min-height:44px!important;padding:0 2px!important}
@@ -25,12 +22,6 @@
   .mo-submit{position:sticky!important;bottom:0!important;z-index:10!important;align-items:stretch!important;flex-direction:column!important;gap:8px!important;margin:2px -14px -14px!important;padding:10px 14px calc(10px + env(safe-area-inset-bottom))!important;background:#234054!important;border-top:1px solid #2b4150!important;box-shadow:0 -12px 26px rgb(8 19 27 / 18%)!important}
   .mo-submit p{font-size:11.5px!important;line-height:1.35!important}.mo-submit button{width:100%!important;min-height:50px!important;font-size:14px!important}
   .mo-status{width:100%!important;margin:8vh auto!important;padding:22px 16px!important;border-radius:16px!important}.mo-status h1{font-size:clamp(1.8rem,8vw,2.3rem)!important}.mo-status p{font-size:13px!important}.mo-status button,.mo-status a{min-height:48px!important}
-
-  /* Shared fixed/floating UI hardening */
-  [class*="modal"],[class*="dialog"]{max-width:100vw}
-  .pc-dev-backdrop,.acw-modal{overscroll-behavior:contain!important}
-  .pc-user-floating,.admin-video-quick-access,.admin-product-editor-overlay{max-width:calc(100vw - 24px)!important}
-  button,a,input,select,textarea{touch-action:manipulation}
 }
 
 @media (max-width:390px){

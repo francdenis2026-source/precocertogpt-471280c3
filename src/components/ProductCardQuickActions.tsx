@@ -5,6 +5,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product } from "../data/catalog";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
+import { requestAuthAction } from "../lib/authActionPrompt";
 import "./ProductCardQuickActions.css";
 
 type CardTarget = { element: HTMLAnchorElement; identifier: string };
@@ -57,7 +58,7 @@ function savePendingBasket(productId: string) {
   const returnTo = `${window.location.pathname}${window.location.search}`;
   const pending: PendingBasket = { productId, returnTo, createdAt: Date.now() };
   sessionStorage.setItem(PENDING_BASKET_KEY, JSON.stringify(pending));
-  window.location.assign(`/login?redirect=${encodeURIComponent(returnTo)}`);
+  requestAuthAction("basket", returnTo);
 }
 
 function keyboardActivate(event: KeyboardEvent<HTMLSpanElement>, callback: () => void) {
@@ -163,7 +164,6 @@ export function ProductCardQuickActions() {
   const addToBasket = useCallback(async (productId: string) => {
     const session = supabase ? (await supabase.auth.getSession()).data.session : null;
     if (!session?.user) {
-      setFeedback("Entre para salvar sua lista de compras.");
       savePendingBasket(productId);
       return;
     }

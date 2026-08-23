@@ -393,7 +393,7 @@ export function PublicFooter() {
       <nav aria-label="Categorias"><strong>Categorias</strong><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></nav>
       <nav aria-label="Suporte e negócios"><strong>Suporte e negócios</strong><Link to="/lojista">Área do lojista</Link><Link to="/quero-vender">Quero vender</Link><Link to="/colaborar">Colaborar</Link><Link to="/contato">Fale conosco</Link></nav>
     </div>
-    <div className="ref-shell ref-footer__legal"><small>&copy; 2026 PreçoCerto · Feijó, Acre</small><span>Preços podem mudar. Confirme no estabelecimento antes da compra.</span></div>
+    <div className="ref-shell ref-footer__legal"><small>&copy; 2026 PreçoCerto · Feijó, Acre · dev &lt;Franc D’nis&gt;</small><span>Preços podem mudar. Confirme no estabelecimento antes da compra.</span></div>
   </footer>;
 }
 
@@ -404,7 +404,6 @@ export function AppDock({ current }: { current: "home" | "search" | "basket" | "
     <Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica" aria-current={current === "basket" ? "page" : undefined}><ShoppingBasket aria-hidden="true" /><span>Cesta</span></Link>
     <Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos" aria-current={current === "stores" ? "page" : undefined}><Store aria-hidden="true" /><span>Estabelecimentos</span></Link>
     <Link className={current === "profile" ? "is-active" : ""} to="/favoritos" aria-current={current === "profile" ? "page" : undefined}><Heart aria-hidden="true" /><span>Favoritos</span></Link>
-    <span className="ref-dock__developer">{"dev <Franc D’nis>"}</span>
   </nav>;
 }
 

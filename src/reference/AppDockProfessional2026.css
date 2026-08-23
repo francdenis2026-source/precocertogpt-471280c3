@@ -185,8 +185,84 @@ body::-webkit-scrollbar,
 
 @media (max-width: 370px) {
   .ref-dock { padding-inline: 3px !important; }
-  .ref-dock a { font-size: 10.5px !important; }
+  .ref-dock a { font-size: 11px !important; }
   .ref-dock a svg { width: 32px !important; height: 32px !important; }
+}
+
+/* Small-screen readability and dark-theme contrast pass. */
+@media (max-width: 767px) {
+  body:has(.ref-dock) #root > :is(
+    .mh26-page,
+    .msearch26-page,
+    .ref-page,
+    .pro-basket-page,
+    .smart-basket-page,
+    .pharmacy-directory-page
+  ) p {
+    font-size: max(13.5px, 1em) !important;
+    line-height: 1.55 !important;
+  }
+
+  .ref-dock {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+
+  .ref-dock a {
+    overflow: hidden !important;
+    font-size: 11.5px !important;
+  }
+
+  .ref-dock a > span {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .mh26-verified-badge { font-size: 10.5px !important; }
+  .mh26-search-label { font-size: 13px !important; }
+  .mh26-quick > span,
+  .mh26-quick button { font-size: 12px !important; }
+  .mh26-actions strong { font-size: 14.5px !important; }
+  .mh26-actions small { font-size: 12px !important; line-height: 1.4 !important; }
+  .mh26-local small { font-size: 10px !important; }
+  .mh26-local > a { font-size: 13px !important; }
+
+  html[data-theme="dark"] .mh26-section > header small,
+  html[data-theme="dark"] .mh26-section > header > a,
+  html[data-theme="dark"] .mh26-product > b,
+  html[data-theme="dark"] .mh26-search-overlay > header small {
+    color: #86e5cf !important;
+  }
+
+  html[data-theme="dark"] .mh26-product > span em {
+    background: #254640 !important;
+    color: #b4f0e1 !important;
+  }
+
+  html[data-theme="dark"] .mh26-actions > a > svg:first-child {
+    background: #24433f !important;
+    color: #91ead5 !important;
+  }
+
+  html[data-theme="dark"] .mh26-search-overlay > a {
+    background: #294743 !important;
+    color: #d7fff5 !important;
+  }
+
+  html[data-theme="dark"] body:has(.ref-dock) #root > :is(
+    .msearch26-page,
+    .ref-page,
+    .pro-basket-page,
+    .smart-basket-page,
+    .pharmacy-directory-page
+  ) :is([class$="__eyebrow"], [class$="-eyebrow"], [class$="__kicker"], [class$="-kicker"]) {
+    color: #9be9d7 !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

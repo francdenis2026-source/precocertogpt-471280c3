@@ -138,7 +138,12 @@ export function ProductDetailProfessional() {
     const current = readBasket();
     const id = String(target.id);
     const existing = current.find(item => item.productId === id);
-    const next = existing ? current.map(item => item.productId === id ? { ...item, quantity: item.quantity + 1 } : item) : [...current, { productId: id, quantity: 1 }];
+    if (existing) {
+      setMessage("Produto já está na lista. Altere a quantidade na cesta.");
+      window.setTimeout(() => setMessage(""), 2200);
+      return;
+    }
+    const next = [...current, { productId: id, quantity: 1 }];
     writeBasket(next); setBasket(next); setMessage("Produto adicionado à sua lista."); window.setTimeout(() => setMessage(""), 2200);
   };
 
@@ -232,7 +237,7 @@ export function ProductDetailProfessional() {
             {savingVsPrevious > 0 && <div className="pdx-price-saving"><TrendingDown/> Está {brl.format(savingVsPrevious)} abaixo do último preço registrado.</div>}
           </div>
 
-          <div className="pdx-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"}/>{favorite ? "Salvo nos favoritos" : "Salvar nos favoritos"}</button><button type="button" className="pdx-primary-action pc-btn pc-btn--primary" onClick={() => void addToBasket(basketTarget)}><ShoppingBasket/>{basketTargetQuantity ? `Adicionar mais um · ${basketTargetQuantity} na lista` : "Adicionar melhor oferta à lista"}</button></div>
+          <div className="pdx-actions"><button type="button" className={favorite ? "is-active" : ""} onClick={() => void toggleFavorite(product.id)}><Heart fill={favorite ? "currentColor" : "none"}/>{favorite ? "Salvo nos favoritos" : "Salvar nos favoritos"}</button><button type="button" className="pdx-primary-action pc-btn pc-btn--primary" onClick={() => void addToBasket(basketTarget)}><ShoppingBasket/>{basketTargetQuantity ? "Já está na lista · Alterar na cesta" : "Adicionar melhor oferta à lista"}</button></div>
 
           <div className="pdx-trust"><CheckCircle2/><span><strong>Preço organizado pelo PreçoCerto</strong><small>Use como referência e confirme disponibilidade diretamente com o estabelecimento.</small></span></div>
         </div>

@@ -1,4 +1,4 @@
-/* PreçoCerto — garante o player da rádio visível no header mobile. */
+/* PreçoCerto — player da rádio visível e informativo no header mobile. */
 @media (max-width:767px){
   .nx-header__inner{
     display:grid!important;
@@ -7,13 +7,13 @@
     gap:8px!important;
   }
   .nx-brand{min-width:0!important;overflow:hidden!important}
-  .nx-brand img{width:min(118px,31vw)!important;min-width:92px!important;max-width:118px!important}
+  .nx-brand img{width:min(112px,28vw)!important;min-width:88px!important;max-width:112px!important}
   .nx-header__actions{
     display:flex!important;
     align-items:center!important;
     justify-content:flex-end!important;
     gap:5px!important;
-    min-width:max-content!important;
+    min-width:0!important;
     flex:none!important;
   }
   .nx-header__actions .pc-radio{
@@ -46,9 +46,73 @@
   }
   .nx-header__actions .pc-radio__copy,
   .nx-header__actions .pc-radio__signal,
-  .nx-header__actions .pc-radio__volume,
-  .nx-header__actions .pc-radio__track{display:none!important}
-  .nx-header__actions .pc-radio.is-playing,
+  .nx-header__actions .pc-radio__volume{display:none!important}
+
+  /* Tocando agora: usa o espaço do header sem poluir. */
+  .nx-header__actions .pc-radio.has-track{
+    width:min(176px,42vw)!important;
+    min-width:118px!important;
+    max-width:176px!important;
+    flex:0 1 176px!important;
+    padding-right:8px!important;
+    gap:7px!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__play{flex:0 0 32px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track{
+    position:static!important;
+    inset:auto!important;
+    z-index:auto!important;
+    display:grid!important;
+    min-width:0!important;
+    width:auto!important;
+    max-width:none!important;
+    flex:1 1 auto!important;
+    gap:1px!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:inherit!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:none!important;
+    transform:none!important;
+    transition:none!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__track small{
+    display:flex!important;
+    align-items:center!important;
+    gap:4px!important;
+    color:#148066!important;
+    font-size:7.5px!important;
+    font-weight:950!important;
+    letter-spacing:.09em!important;
+    white-space:nowrap!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__track small::before{
+    content:"";
+    width:6px!important;
+    height:6px!important;
+    flex:0 0 6px!important;
+    border-radius:50%!important;
+    background:#ef4d4d!important;
+    box-shadow:0 0 0 3px rgb(239 77 77 / 12%)!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__track strong{
+    display:block!important;
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+    color:inherit!important;
+    font-size:10px!important;
+    font-weight:820!important;
+    line-height:1.15!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+  }
+  html[data-theme="dark"] .nx-header__actions .pc-radio.has-track .pc-radio__track small{color:#62d7b4!important}
+
   .nx-header__actions .pc-radio.is-loading,
   .nx-header__actions .pc-radio.has-error{
     width:42px!important;
@@ -57,10 +121,19 @@
   }
 }
 
+@media (max-width:430px){
+  .nx-brand img{width:96px!important;min-width:82px!important;max-width:96px!important}
+  .nx-header__actions .pc-radio.has-track{width:min(152px,38vw)!important;min-width:108px!important;max-width:152px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track strong{font-size:9.5px!important}
+}
+
 @media (max-width:370px){
-  .nx-brand img{width:92px!important;min-width:92px!important}
+  .nx-brand img{width:82px!important;min-width:82px!important}
   .nx-header__actions{gap:4px!important}
-  .nx-theme,.nx-menu{width:40px!important;height:40px!important;min-width:40px!important}
-  .nx-header__actions .pc-radio{width:40px!important;min-width:40px!important;max-width:40px!important;height:40px!important;min-height:40px!important;flex-basis:40px!important;padding:4px!important}
-  .nx-header__actions .pc-radio__play,.nx-header__actions .pc-radio__control{width:30px!important;height:30px!important;min-width:30px!important}
+  .nx-theme,.nx-menu{width:38px!important;height:38px!important;min-width:38px!important}
+  .nx-header__actions .pc-radio{width:38px!important;min-width:38px!important;max-width:38px!important;height:38px!important;min-height:38px!important;flex-basis:38px!important;padding:4px!important}
+  .nx-header__actions .pc-radio__play,.nx-header__actions .pc-radio__control{width:28px!important;height:28px!important;min-width:28px!important}
+  .nx-header__actions .pc-radio.has-track{width:min(132px,36vw)!important;min-width:96px!important;max-width:132px!important;padding-right:6px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track small{font-size:7px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track strong{font-size:9px!important}
 }

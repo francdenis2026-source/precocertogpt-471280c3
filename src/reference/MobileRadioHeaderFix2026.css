@@ -6,9 +6,21 @@
     align-items:center!important;
     gap:8px!important;
     overflow:hidden!important;
+    height:58px!important;
+    min-height:58px!important;
+    max-height:58px!important;
   }
-  .nx-brand{min-width:0!important;overflow:hidden!important}
-  .nx-brand img{width:min(112px,28vw)!important;min-width:88px!important;max-width:112px!important}
+  .nx-brand{min-width:0!important;overflow:hidden!important;height:58px!important;display:flex!important;align-items:center!important}
+  .nx-brand img{
+    width:min(138px,34vw)!important;
+    min-width:104px!important;
+    max-width:138px!important;
+    max-height:46px!important;
+    height:auto!important;
+    object-fit:contain!important;
+    transform:scale(1.04)!important;
+    transform-origin:left center!important;
+  }
   .nx-header__actions{
     display:flex!important;
     align-items:center!important;
@@ -128,18 +140,18 @@
 }
 
 @media (max-width:430px){
-  .nx-brand img{width:94px!important;min-width:80px!important;max-width:94px!important}
+  .nx-brand img{width:116px!important;min-width:96px!important;max-width:116px!important;max-height:44px!important;transform:scale(1.03)!important}
   .nx-header__actions .pc-radio.has-track{width:min(142px,36vw)!important;min-width:104px!important;max-width:142px!important}
   .nx-header__actions .pc-radio.has-track .pc-radio__track strong{font-size:9.5px!important}
 }
 
 @media (max-width:390px){
-  .nx-brand img{width:86px!important;min-width:76px!important;max-width:86px!important}
+  .nx-brand img{width:104px!important;min-width:90px!important;max-width:104px!important;max-height:42px!important}
   .nx-header__actions .pc-radio.has-track{width:min(122px,32vw)!important;min-width:94px!important;max-width:122px!important}
 }
 
 @media (max-width:370px){
-  .nx-brand img{width:78px!important;min-width:74px!important}
+  .nx-brand img{width:94px!important;min-width:86px!important;max-width:94px!important;max-height:40px!important;transform:none!important}
   .nx-header__actions{gap:4px!important}
   .nx-theme,.nx-menu{width:38px!important;height:38px!important;min-width:38px!important}
   .nx-header__actions .pc-radio{width:38px!important;min-width:38px!important;max-width:38px!important;height:38px!important;min-height:38px!important;max-height:38px!important;flex-basis:38px!important;padding:4px!important}

@@ -44,3 +44,14 @@
   .mh26-product>span strong{font-size:14.5px}
   .mh26-product>b{font-size:16px}
 }
+
+/* Identificação discreta da música: o controle continua compacto e a faixa
+   aparece apenas quando a rádio fornece o título atual. */
+@media (max-width:767px){
+  .mh26-header-row:has(.pc-radio.has-track){height:82px;align-items:flex-start;padding-top:9px}
+  .mh26-head-actions .pc-radio.has-track{overflow:visible!important}
+  .mh26-head-actions .pc-radio.has-track .pc-radio__track{position:absolute!important;top:48px!important;right:0!important;width:min(210px,calc(100vw - 118px))!important;max-width:none!important;display:grid!important;gap:0!important;padding:4px 8px!important;border:0!important;border-radius:8px!important;background:color-mix(in srgb,var(--mh-surface) 94%,transparent)!important;box-shadow:none!important;color:var(--mh-ink)!important;opacity:1!important;visibility:visible!important;transform:none!important}
+  .mh26-head-actions .pc-radio.has-track .pc-radio__track small{display:none!important}
+  .mh26-head-actions .pc-radio.has-track .pc-radio__track strong{overflow:hidden!important;font-size:10px!important;font-weight:750!important;line-height:1.25!important;text-align:right!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  html[data-theme="dark"] .mh26-head-actions .pc-radio.has-track .pc-radio__track{background:rgba(23,44,46,.94)!important;color:#dbe9e6!important}
+}

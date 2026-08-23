@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, BadgeCheck, MapPin, PackageSearch, Search, ShoppingBasket, Store } from "lucide-react";
+import { ArrowRight, BadgeCheck, MapPin, PackageSearch, Search, ShoppingBasket, Store, TrendingDown, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -27,24 +27,25 @@ export function MobileHome2026(){
  const featured=useMemo(()=>[...products].sort((a,b)=>a.minPrice-b.minPrice).slice(0,4),[products]);
  const open=focused&&query.trim().length>=2;
  return <div className="mh26-page">
-  <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><Link to="/estabelecimentos" aria-label="Estabelecimentos"><MapPin/></Link></div></div></header>
+  <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo" aria-label="PreçoCerto — início"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><Link to="/estabelecimentos" aria-label="Ver estabelecimentos próximos"><MapPin aria-hidden="true"/></Link></div></div></header>
   <main id="conteudo-principal">
    <section className="mh26-hero">
-    <div className="mh26-hero-copy"><span><BadgeCheck/> PREÇOS LOCAIS DE FEIJÓ</span><h1>Compare preços sem perder tempo.</h1><p>Encontre produtos do comércio local, veja as melhores opções e escolha onde comprar.</p></div>
+    <div className="mh26-hero-copy"><span><BadgeCheck aria-hidden="true"/> PREÇOS LOCAIS VERIFICADOS</span><h1>Economize nas compras em Feijó.</h1><p>Compare produtos do comércio local e descubra onde seu dinheiro rende mais.</p></div>
     <form className="mh26-search" onSubmit={e=>{e.preventDefault();const q=query.trim();if(q)navigate(`/buscar?q=${encodeURIComponent(q)}`)}} onFocus={()=>setFocused(true)}>
-      <div className="mh26-search-field"><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Digite produto ou marca" autoComplete="off" inputMode="search"/><button type="submit">Buscar</button></div>
+      <label className="mh26-search-label" htmlFor="mh26-query">O que você quer economizar hoje?</label>
+      <div className="mh26-search-field"><Search aria-hidden="true"/><input id="mh26-query" value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>{if(e.key==="Escape"){setFocused(false);(e.currentTarget as HTMLInputElement).blur()}}} placeholder="Busque arroz, café, leite…" autoComplete="off" inputMode="search" aria-expanded={open} aria-controls="mh26-search-results"/>{query&&<button className="mh26-search-clear" type="button" aria-label="Limpar pesquisa" onClick={()=>setQuery("")}><X aria-hidden="true"/></button>}<button className="mh26-search-submit" type="submit">Buscar</button></div>
       {open&&<div className="mh26-search-overlay">
         <header><div><small>RESULTADOS AO VIVO</small><strong>{results.length?"Melhores opções":"Nenhum resultado"}</strong></div><span>{loading?"Atualizando…":`${results.length}/5`}</span></header>
-        <div className="mh26-search-list">{results.length?results.map(product=><button type="button" key={product.id} onMouseDown={e=>e.preventDefault()} onClick={()=>navigate(`/produto/${product.slug||product.id}`)}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||"Comércio local"}</em></span><b>{brl.format(product.minPrice)}</b></button>):<div className="mh26-search-empty"><PackageSearch/><span><strong>Não encontramos esse produto.</strong><small>Tente outra palavra ou marca.</small></span></div>}</div>
+        <div className="mh26-search-list" id="mh26-search-results">{results.length?results.map(product=><button type="button" key={product.id} onMouseDown={e=>e.preventDefault()} onClick={()=>navigate(`/produto/${product.slug||product.id}`)}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||"Comércio local"}</em></span><b>{brl.format(product.minPrice)}</b></button>):<div className="mh26-search-empty"><PackageSearch aria-hidden="true"/><span><strong>Não encontramos esse produto.</strong><small>Tente outra palavra ou marca.</small></span></div>}</div>
         <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Ver busca completa <ArrowRight/></Link>
       </div>}
     </form>
-    <div className="mh26-quick">{["Arroz","Café","Leite","Açúcar"].map(item=><button key={item} type="button" onClick={()=>{setQuery(item);setFocused(true)}}>{item}</button>)}</div>
+    <div className="mh26-quick" aria-label="Buscas populares"><span>Populares:</span>{["Arroz","Café","Leite","Açúcar"].map(item=><button key={item} type="button" onClick={()=>{setQuery(item);setFocused(true)}}>{item}</button>)}</div>
    </section>
 
-   <section className="mh26-actions"><Link to="/buscar"><Search/><span><strong>Buscar produtos</strong><small>Compare preços agora</small></span><ArrowRight/></Link><Link to="/cesta-inteligente"><ShoppingBasket/><span><strong>Cesta inteligente</strong><small>Compare o total</small></span><ArrowRight/></Link><Link to="/estabelecimentos"><Store/><span><strong>Estabelecimentos</strong><small>Veja onde comprar</small></span><ArrowRight/></Link></section>
+   <section className="mh26-actions" aria-label="Acessos rápidos"><Link className="is-primary" to="/buscar"><Search aria-hidden="true"/><span><strong>Buscar produtos</strong><small>Compare preços agora</small></span><ArrowRight aria-hidden="true"/></Link><Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true"/><span><strong>Cesta inteligente</strong><small>Economize no total</small></span><ArrowRight aria-hidden="true"/></Link><Link to="/estabelecimentos"><Store aria-hidden="true"/><span><strong>Onde comprar</strong><small>Comércios de Feijó</small></span><ArrowRight aria-hidden="true"/></Link></section>
 
-   <section className="mh26-section"><header><div><small>AGORA</small><h2>Preços para comparar</h2></div><Link to="/buscar">Ver todos</Link></header><div className="mh26-products">{loading?Array.from({length:3},(_,i)=><div className="mh26-product is-loading" key={i}/>):featured.slice(0,3).map(product=><Link className="mh26-product" to={`/produto/${product.slug||product.id}`} key={product.id}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||product.brand||"Comércio local"}</em></span><b><small>a partir de</small>{brl.format(product.minPrice)}</b></Link>)}</div></section>
+   <section className="mh26-section"><header><div><small><TrendingDown aria-hidden="true"/> MENOR PREÇO</small><h2>Destaques para comparar</h2></div><Link to="/buscar">Ver todos</Link></header><div className="mh26-products">{loading?Array.from({length:3},(_,i)=><div className="mh26-product is-loading" aria-hidden="true" key={i}/>):featured.slice(0,3).map(product=><Link className="mh26-product" to={`/produto/${product.slug||product.id}`} key={product.id}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||product.brand||"Comércio local"}</em></span><b><small>a partir de</small>{brl.format(product.minPrice)}</b></Link>)}</div></section>
 
    <section className="mh26-local"><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
   </main>

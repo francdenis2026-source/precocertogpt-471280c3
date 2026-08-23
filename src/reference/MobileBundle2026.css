@@ -1,0 +1,13 @@
+/* PreçoCerto Mobile Bundle 2026
+   Single ordered entry-point for all mobile layers.
+   Keep this order stable: later files intentionally refine earlier ones. */
+@import "./MobileSearchStability.css";
+@import "./MobileExperienceOverhaul2026.css";
+@import "./MobileNative2026.css";
+@import "./MobileNativePages2026.css";
+@import "./MobileNativeFinal2026.css";
+@import "./MobileNativeExceptions2026.css";
+@import "./MobileAdminForms2026.css";
+@import "./MobileOverlaySafety2026.css";
+@import "./MobileMerchantAndOverlay2026.css";
+@import "./MobileMerchantDashboard2026.css";

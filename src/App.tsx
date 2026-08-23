@@ -29,6 +29,7 @@ import "./reference/PublicReform2026.css";
 import "./reference/HomeDesignPropagation2026.css";
 import "./reference/MobileNative2026.css";
 import "./reference/MobileNativePages2026.css";
+import "./reference/MobileNativeFinal2026.css";
 
 const SearchDiscovery2026 = lazy(() => import("./reference/SearchDiscovery2026").then(module => ({ default: module.SearchDiscovery2026 })));
 const ProductDetailProfessional = lazy(() => import("./reference/ProductDetailProfessional").then(module => ({ default: module.ProductDetailProfessional })));

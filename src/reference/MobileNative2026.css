@@ -1,0 +1,260 @@
+/* PreçoCerto Mobile Native 2026
+   Camada responsiva definitiva. Este arquivo DEVE ser importado por último.
+   Objetivo: quebrar precedências legadas de desktop no mobile sem alterar o desktop. */
+
+@media (max-width: 767px) {
+  :root {
+    --pc-mobile-gutter: 14px;
+    --pc-mobile-radius: 16px;
+    --pc-mobile-control: 48px;
+  }
+
+  html, body, #root {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: clip !important;
+  }
+
+  body {
+    min-height: 100svh;
+    min-height: 100dvh;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior-x: none;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  img, video, canvas, svg { max-width: 100%; }
+  input, select, textarea, button { max-width: 100%; }
+  :where(main, section, article, aside, header, footer, nav, form, div) { min-width: 0; }
+  :where(p, h1, h2, h3, h4, strong, span, small, a, button) { overflow-wrap: break-word; }
+
+  /* Shells: a antiga largura fixa/global deixa de mandar no mobile. */
+  .ref-shell,
+  .nx-shell,
+  .store-pro-shell,
+  .pc-account-shell,
+  .sector-shell,
+  .smart-basket-shell,
+  .basket-pro-shell,
+  .search26-shell {
+    width: calc(100% - (var(--pc-mobile-gutter) * 2)) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+  }
+
+  /* Controles com área de toque consistente. */
+  :where(.ref-page,.nx-home,.store-pro-page,.smart-basket-page,.pc-account-page)
+  :where(button,a[role="button"],input,select) {
+    min-height: 44px;
+  }
+
+  /* ---------- Homepage nova: experiência de app ---------- */
+  .nx-home > main { padding-top: 58px !important; }
+  .nx-header:has(.pc-festival-bar) + main { padding-top: 116px !important; }
+  .nx-header { backdrop-filter: blur(14px) saturate(1.08); -webkit-backdrop-filter: blur(14px) saturate(1.08); }
+  .nx-header__inner { height: 58px !important; gap: 8px !important; }
+  .nx-brand { gap: 6px !important; }
+  .nx-brand img { width: 124px !important; height: auto !important; }
+  .nx-brand > span { display: none !important; }
+  .nx-login { display: none !important; }
+  .nx-theme, .nx-menu { width: 44px !important; height: 44px !important; min-width: 44px !important; }
+  .nx-menu { display: grid !important; }
+
+  .nx-header nav {
+    position: fixed !important;
+    z-index: 130 !important;
+    top: 58px !important;
+    right: var(--pc-mobile-gutter) !important;
+    left: var(--pc-mobile-gutter) !important;
+    display: none !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 8px !important;
+    padding: 10px !important;
+    border: 1px solid var(--nx-line) !important;
+    border-radius: var(--pc-mobile-radius) !important;
+    background: var(--nx-card) !important;
+    box-shadow: var(--nx-shadow) !important;
+  }
+  .nx-header:has(.pc-festival-bar) nav { top: 116px !important; }
+  .nx-header nav.is-open { display: grid !important; }
+  .nx-header nav a {
+    min-height: 52px !important;
+    justify-content: flex-start !important;
+    padding: 0 12px !important;
+    border: 1px solid var(--nx-line) !important;
+    border-radius: 12px !important;
+    background: var(--nx-surface) !important;
+    font-size: 13px !important;
+  }
+  .nx-header nav a::after { display: none !important; }
+  .nx-header nav a > svg { width: 19px !important; height: 19px !important; }
+
+  .nx-hero { padding: 18px 0 24px !important; background-position: 58% 50% !important; }
+  .nx-hero__grid { grid-template-columns: 1fr !important; gap: 16px !important; min-height: 0 !important; }
+  .nx-hero__copy { padding: 12px 0 0 !important; }
+  .nx-hero h1 { max-width: 12ch !important; font-size: clamp(2.3rem,11vw,3.15rem) !important; line-height: .98 !important; }
+  .nx-hero__copy > p { margin: 12px 0 16px !important; font-size: 14px !important; line-height: 1.5 !important; }
+
+  .nx-search {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    grid-template-columns: 20px minmax(0,1fr) 40px !important;
+    gap: 7px !important;
+    padding: 7px 7px 7px 13px !important;
+    border-radius: 14px !important;
+  }
+  .nx-search input { height: 44px !important; min-width: 0 !important; font-size: 16px !important; }
+  .nx-search__clear { width: 40px !important; height: 40px !important; }
+  .nx-search__submit {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 46px !important;
+    margin-top: 1px !important;
+  }
+  .nx-results {
+    top: calc(100% + 7px) !important;
+    max-height: min(58dvh, 480px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nx-results > button { grid-template-columns: 42px minmax(0,1fr) auto !important; gap: 8px !important; }
+  .nx-results > button > b { font-size: 13px !important; }
+  .nx-hero__links { max-width: 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .nx-hero__links::-webkit-scrollbar { display:none; }
+  .nx-hero__links > * { flex: 0 0 auto; }
+
+  /* A imagem vira um apoio visual compacto; não compete com busca/conteúdo. */
+  .nx-hero__visual { min-height: 250px !important; border-radius: var(--pc-mobile-radius) !important; }
+  .nx-deal { right: 10px !important; bottom: 10px !important; left: 10px !important; padding: 12px !important; }
+
+  .nx-section-title { align-items: flex-end !important; gap: 10px !important; }
+  .nx-section-title h2 { font-size: clamp(1.55rem,7.3vw,2rem) !important; line-height: 1.05 !important; }
+  .nx-section-title > a { font-size: 12px !important; white-space: nowrap; }
+  .nx-category-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 8px !important; }
+  .nx-category-grid > a { min-height: 88px !important; padding: 11px !important; align-items: flex-start !important; }
+  .nx-category-grid > a > i { width: 38px !important; height: 38px !important; }
+  .nx-category-grid > a > span small { font-size: 11px !important; }
+
+  .nx-market { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .nx-product-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .nx-product-card > a { grid-template-columns: 112px minmax(0,1fr) !important; min-height: 132px !important; }
+  .nx-product-card__media { min-height: 132px !important; }
+  .nx-product-card__copy { padding: 11px !important; }
+  .nx-product-card__copy h3 { font-size: 14px !important; }
+  .nx-product-card__action { display: none !important; }
+  .nx-basket { min-height: 0 !important; padding: 18px !important; }
+
+  .nx-local { grid-template-columns: 1fr !important; gap: 16px !important; }
+  .nx-local__copy { padding-right: 0 !important; }
+
+  /* ---------- Design System público legado ---------- */
+  .ref-header__inner { padding-inline: var(--pc-mobile-gutter) !important; }
+  .ref-header .ref-brand img { width: 100px !important; height: auto !important; }
+  .ref-header__actions { gap: 5px !important; }
+  .ref-header__actions > a:not(.ref-signin), .ref-theme, .ref-menu {
+    width: 44px !important; height: 44px !important; min-width: 44px !important; min-height: 44px !important;
+  }
+  .ref-header__quick { overflow-x: auto !important; overscroll-behavior-inline: contain; scrollbar-width: none; }
+  .ref-header__quick::-webkit-scrollbar { display:none; }
+  .ref-header__quick a { flex: 0 0 auto; min-width: 74px; }
+
+  .ref-search-hero, .ref-basket-hero, .sector-hero {
+    min-height: 0 !important;
+    padding: 20px 16px !important;
+    border-radius: var(--pc-mobile-radius) !important;
+  }
+  .ref-search-hero h1, .ref-basket-hero h1 { font-size: clamp(2rem,10vw,2.8rem) !important; }
+  .ref-basket-hero { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+  .ref-basket-hero > aside { width: 100% !important; min-width: 0 !important; }
+  .ref-basket-empty { grid-template-columns: 1fr !important; gap: 14px !important; padding: 18px 15px !important; }
+  .ref-basket-page .ref-basket-layout { grid-template-columns: 1fr !important; }
+  .ref-basket-page .ref-basket-summary { position: static !important; width: 100% !important; }
+
+  .ref-catalog-grid, .store-pro-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 8px !important; }
+  .ref-catalog-grid .ref-catalog-card { min-height: 0 !important; padding: 9px !important; }
+  .ref-catalog-grid .ref-result-product > i { height: 118px !important; }
+  .ref-catalog-grid .ref-result-product > i img { height: 108px !important; }
+  .store-pro-grid > a > div { height: 104px !important; }
+
+  .ref-filter-row { overflow-x: auto !important; flex-wrap: nowrap !important; scrollbar-width: none; }
+  .ref-filter-row::-webkit-scrollbar { display:none; }
+
+  /* ---------- Loja / estabelecimento ---------- */
+  .store-pro-hero { border-radius: var(--pc-mobile-radius) !important; }
+  .store-pro-hero__content { grid-template-columns: 62px minmax(0,1fr) !important; gap: 11px !important; }
+  .store-pro-logo { width: 62px !important; height: 62px !important; }
+  .store-pro-copy h1 { font-size: clamp(1.7rem,8vw,2.2rem) !important; }
+  .store-pro-summary { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .store-pro-catalog-head { align-items: stretch !important; gap: 10px !important; }
+  .store-pro-search, .store-pro-select { width: 100% !important; min-width: 0 !important; }
+
+  /* ---------- Autenticação ---------- */
+  .ref-auth { min-height: 100dvh !important; grid-template-columns: 1fr !important; }
+  .ref-auth__story { display: none !important; }
+  .ref-auth__form { min-height: 100dvh !important; padding: 18px var(--pc-mobile-gutter) calc(24px + env(safe-area-inset-bottom)) !important; align-items: flex-start !important; }
+  .ref-auth__card { width: 100% !important; max-width: none !important; padding: 20px 16px !important; border-radius: var(--pc-mobile-radius) !important; }
+  .ref-auth__card input { min-height: 48px !important; font-size: 16px !important; }
+  .ref-auth__submit { min-height: 50px !important; width: 100% !important; }
+
+  /* ---------- Conta ---------- */
+  .pc-account-hero, .pc-account-tools, .pc-account-details { width: 100% !important; }
+  .pc-account-tools { grid-template-columns: 1fr !important; }
+  .pc-account-details { grid-template-columns: 1fr !important; }
+
+  /* ---------- Modais / overlays: nunca cortar ações ---------- */
+  :where(.ref-product-dialog,.pc-dialog,.smart-dialog,[role="dialog"]) {
+    max-width: calc(100vw - 20px) !important;
+    max-height: calc(100dvh - 20px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ---------- Navegação inferior ---------- */
+  .ref-dock {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
+  .ref-dock a { min-width: 0 !important; min-height: 62px !important; padding-inline: 4px !important; font-size: 11.5px !important; }
+  .ref-dock svg { width: 23px !important; height: 23px !important; }
+
+  /* Tabelas viram regiões roláveis em vez de estourar a tela. */
+  .acc-table-wrap, .ref-table-wrap, .admin-table-wrap { max-width: 100% !important; overflow-x: auto !important; overscroll-behavior-inline: contain; }
+
+  /* Remove alturas rígidas herdadas que escondem conteúdo em celulares baixos. */
+  :where(.ref-page,.nx-home,.store-pro-page,.smart-basket-page,.pc-account-page)
+  :where(main,section,.ref-directory__main,.store-pro-catalog,.smart-basket-main) {
+    height: auto;
+    max-height: none;
+  }
+}
+
+@media (max-width: 420px) {
+  :root { --pc-mobile-gutter: 12px; }
+  .nx-brand img { width: 116px !important; }
+  .nx-hero h1 { font-size: clamp(2.15rem,11.5vw,2.8rem) !important; }
+  .nx-category-grid { gap: 7px !important; }
+  .nx-category-grid > a { padding: 10px !important; }
+  .ref-catalog-grid, .store-pro-grid { grid-template-columns: 1fr 1fr !important; gap: 7px !important; }
+}
+
+@media (max-width: 350px) {
+  .nx-category-grid, .ref-catalog-grid, .store-pro-grid { grid-template-columns: 1fr !important; }
+  .nx-header nav { grid-template-columns: 1fr !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @media (max-width: 767px) {
+    .nx-home *, .ref-page *, .store-pro-page * { scroll-behavior: auto !important; }
+  }
+}

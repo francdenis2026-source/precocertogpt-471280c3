@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
+import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredRotation";
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
 import { useSiteTheme } from "../hooks/useSiteTheme";
@@ -23,10 +24,12 @@ export function MobileHome2026(){
  const[loading,setLoading]=useState(true);
  const[query,setQuery]=useState("");
  const[focused,setFocused]=useState(false);
+ const[cycle,setCycle]=useState(()=>currentCycle());
  useEffect(()=>{let active=true;fetchCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined).finally(()=>{if(active)setLoading(false)});return()=>{active=false}},[]);
+ useEffect(()=>{const timer=window.setTimeout(()=>setCycle(currentCycle()),msUntilNextCycle()+250);return()=>window.clearTimeout(timer)},[cycle]);
  const products=useMemo(()=>catalog.products.filter(p=>p.minPrice>0),[catalog.products]);
  const results=useMemo(()=>{const term=normalize(query);if(term.length<2)return[];return products.map(product=>{const name=normalize(product.name),brand=normalize(product.brand||""),category=normalize(product.category||""),store=normalize(product.establishment||"");let rank=99;if(name===term)rank=0;else if(name.startsWith(term))rank=1;else if(name.split(/\s+/).some(w=>w.startsWith(term)))rank=2;else if(name.includes(term))rank=3;else if(brand.startsWith(term))rank=4;else if(`${brand} ${category} ${store}`.includes(term))rank=5;return{product,rank}}).filter(x=>x.rank<99).sort((a,b)=>a.rank-b.rank||a.product.minPrice-b.product.minPrice).slice(0,5).map(x=>x.product)},[query,products]);
- const featured=useMemo(()=>[...products].sort((a,b)=>a.minPrice-b.minPrice).slice(0,4),[products]);
+ const featured=useMemo(()=>buildFeatured(products,cycle,4),[products,cycle]);
  const open=focused&&query.trim().length>=2;
  return <div className="mh26-page">
   <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo" aria-label="PreçoCerto — início"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><button className="mh26-theme" type="button" onClick={toggleTheme} aria-label={theme==="dark"?"Ativar modo claro":"Ativar modo escuro"} title={theme==="dark"?"Modo claro":"Modo escuro"}>{theme==="dark"?<Sun aria-hidden="true"/>:<Moon aria-hidden="true"/>}</button><Link to="/estabelecimentos" aria-label="Ver estabelecimentos próximos"><MapPin aria-hidden="true"/></Link></div></div></header>

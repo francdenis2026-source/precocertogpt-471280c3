@@ -1,0 +1,119 @@
+/* Impeccable 4.1.1 — polish focado nas áreas de resultados de busca */
+
+/* ===== Busca web: página /buscar ===== */
+@media (min-width:768px){
+  .search26-results{margin-top:18px!important}
+  .search26-results>header{align-items:end!important;margin-bottom:12px!important;padding:0 2px 10px!important;border-bottom:1px solid color-mix(in srgb,var(--pc-line,#d7e0de) 86%,transparent)!important}
+  .search26-results>header span{font-size:10px!important;font-weight:900!important;letter-spacing:.08em!important}
+  .search26-results>header h2{margin-top:3px!important;font-size:clamp(1.25rem,1.6vw,1.6rem)!important;line-height:1.12!important;letter-spacing:-.025em!important}
+  .search26-results>header>small{font-size:12px!important;color:var(--pc-muted,#667980)!important}
+  .search26-grid{display:grid!important;gap:9px!important}
+  .search26-card{
+    min-height:104px!important;
+    grid-template-columns:88px minmax(0,1fr) 150px 22px!important;
+    gap:15px!important;
+    padding:12px 14px!important;
+    border:1px solid color-mix(in srgb,var(--pc-line,#d7e0de) 90%,transparent)!important;
+    border-radius:15px!important;
+    background:var(--pc-surface,#fff)!important;
+    box-shadow:0 8px 24px rgb(15 43 53 / 6%)!important;
+    transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .18s ease,border-color .18s ease!important;
+  }
+  .search26-card:hover{transform:translateY(-2px)!important;border-color:color-mix(in srgb,#1e708f 38%,var(--pc-line,#d7e0de))!important;box-shadow:0 14px 34px rgb(15 43 53 / 11%)!important}
+  .search26-card:focus-visible{outline:3px solid rgb(40 121 154 / 28%)!important;outline-offset:3px!important}
+  .search26-thumb{width:84px!important;height:80px!important;border-radius:14px!important;background:#f7faf9!important;overflow:hidden!important}
+  .search26-thumb img{max-width:76px!important;max-height:72px!important;object-fit:contain!important}
+  .search26-copy{gap:3px!important}
+  .search26-copy>small{font-size:10.5px!important;font-weight:760!important;letter-spacing:.02em!important;color:#60757d!important;text-transform:none!important}
+  .search26-copy>strong{font-size:15px!important;font-weight:830!important;line-height:1.22!important;letter-spacing:-.012em!important;color:#152f39!important}
+  .search26-copy>span{gap:6px!important;margin-top:3px!important;font-size:11.5px!important;color:#647981!important}
+  .search26-copy>span svg{width:15px!important;height:15px!important;color:#23718e!important}
+  .search26-copy>span em{margin-left:4px!important;color:#7a898f!important}
+  .search26-price{align-self:center!important;justify-items:end!important;gap:1px!important;padding-left:14px!important;border-left:1px solid #e3eae8!important}
+  .search26-price>small{font-size:10px!important;color:#74858b!important}
+  .search26-price>strong{font-size:22px!important;font-weight:900!important;line-height:1!important;letter-spacing:-.025em!important;color:#08794d!important;font-variant-numeric:tabular-nums!important}
+  .search26-price>em{margin-top:4px!important;font-size:10.5px!important;color:#6c7d84!important}
+  .search26-card>svg{width:18px!important;height:18px!important;color:#2d718d!important;transition:transform .18s ease!important}
+  .search26-card:hover>svg{transform:translateX(3px)!important}
+  .search26-empty{min-height:240px!important;border-radius:15px!important;background:var(--pc-surface,#fff)!important}
+}
+
+/* ===== Busca mobile: página /buscar ===== */
+@media (max-width:767px){
+  .msearch26-results{padding-top:3px!important}
+  .msearch26-results>header{align-items:end!important;gap:12px!important;margin-bottom:10px!important;padding:0 1px 10px!important;border-bottom:1px solid #dfe7e5!important}
+  .msearch26-results>header span{font-size:9px!important;font-weight:900!important;letter-spacing:.085em!important;color:#0b7868!important}
+  .msearch26-results>header h2{margin-top:3px!important;font-size:1.3rem!important;line-height:1.12!important;letter-spacing:-.025em!important}
+  .msearch26-results>header>small{max-width:44%!important;overflow:hidden!important;font-size:11px!important;color:#697c84!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  .msearch26-list{display:grid!important;gap:8px!important}
+  .msearch26-card{
+    min-height:108px!important;
+    grid-template-columns:82px minmax(0,1fr) auto!important;
+    gap:11px!important;
+    padding:10px!important;
+    border:1px solid #dbe5e2!important;
+    border-radius:15px!important;
+    background:#fff!important;
+    box-shadow:0 6px 18px rgb(17 47 57 / 6%)!important;
+    -webkit-tap-highlight-color:transparent!important;
+  }
+  .msearch26-card:active{transform:scale(.992)!important;background:#f8fbfa!important}
+  .msearch26-card:focus-visible{outline:3px solid rgb(31 113 145 / 26%)!important;outline-offset:2px!important}
+  .msearch26-thumb{width:82px!important;height:82px!important;border-radius:13px!important;background:#f7faf9!important;overflow:hidden!important}
+  .msearch26-thumb img{max-width:74px!important;max-height:74px!important;object-fit:contain!important}
+  .msearch26-copy{min-width:0!important;gap:3px!important}
+  .msearch26-copy>small{font-size:9.5px!important;font-weight:800!important;letter-spacing:.025em!important;color:#627982!important;text-transform:none!important}
+  .msearch26-copy>strong{display:-webkit-box!important;overflow:hidden!important;font-size:13.5px!important;font-weight:850!important;line-height:1.2!important;letter-spacing:-.01em!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important}
+  .msearch26-copy>span{min-width:0!important;gap:5px!important;margin-top:2px!important;overflow:hidden!important;font-size:10.5px!important;color:#657a82!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  .msearch26-copy>span svg{width:14px!important;height:14px!important;flex:0 0 14px!important;color:#24718e!important}
+  .msearch26-copy>em{overflow:hidden!important;font-size:10px!important;color:#7a898f!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  .msearch26-price{min-width:91px!important;align-self:center!important;justify-items:end!important;gap:1px!important;padding-left:9px!important;border-left:1px solid #e4ebe9!important}
+  .msearch26-price>small{font-size:8.8px!important;color:#72838a!important}
+  .msearch26-price>strong{font-size:17px!important;font-weight:930!important;line-height:1!important;letter-spacing:-.02em!important;color:#08794d!important;font-variant-numeric:tabular-nums!important}
+  .msearch26-price>em{margin-top:3px!important;font-size:9px!important;color:#6e7f85!important}
+  .msearch26-price>svg{width:17px!important;height:17px!important;margin-top:5px!important;color:#27718d!important}
+  .msearch26-more{min-height:48px!important;margin-top:11px!important;border-radius:13px!important;font-weight:820!important}
+  .msearch26-empty{min-height:220px!important;border-radius:15px!important;background:#fff!important}
+
+  html[data-theme="dark"] .msearch26-results>header{border-color:#33485b!important}
+  html[data-theme="dark"] .msearch26-card,html[data-theme="dark"] .msearch26-empty{border-color:#35495c!important;background:#1b293d!important;box-shadow:0 8px 22px rgb(0 0 0 / 18%)!important}
+  html[data-theme="dark"] .msearch26-thumb{background:#fff!important}
+  html[data-theme="dark"] .msearch26-copy>small,html[data-theme="dark"] .msearch26-copy>span,html[data-theme="dark"] .msearch26-copy>em,html[data-theme="dark"] .msearch26-price>small,html[data-theme="dark"] .msearch26-price>em{color:#aebdca!important}
+  html[data-theme="dark"] .msearch26-copy>strong{color:#f6f9fb!important}
+  html[data-theme="dark"] .msearch26-price{border-color:#35495c!important}
+  html[data-theme="dark"] .msearch26-price>strong{color:#66d4a5!important}
+}
+
+/* ===== Resultados live da Home web ===== */
+@media (min-width:768px){
+  .nx-live-results{border-radius:16px!important;padding:9px!important;box-shadow:0 28px 70px rgb(9 30 39 / 24%)!important}
+  .nx-live-results__head{padding:10px 11px 12px!important}
+  .nx-live-results__head strong{font-size:13.5px!important;letter-spacing:-.01em!important}
+  .nx-live-results__list>button{min-height:88px!important;grid-template-columns:70px minmax(0,1fr) 126px!important;gap:13px!important;padding:9px 10px!important;border-radius:13px!important}
+  .nx-live-result__copy>strong{font-size:14.5px!important;line-height:1.2!important}
+  .nx-live-result__copy>em{font-size:11.5px!important}
+  .nx-live-result__price b{font-size:19px!important;letter-spacing:-.02em!important;font-variant-numeric:tabular-nums!important}
+  .nx-live-results__list>button:focus-visible{outline:3px solid rgb(34 115 148 / 25%)!important;outline-offset:-2px!important}
+}
+
+/* ===== Resultados live da nova Home mobile ===== */
+@media (max-width:767px){
+  .mh26-search-overlay{border-radius:16px!important;box-shadow:0 26px 66px rgb(0 16 26 / 38%)!important}
+  .mh26-search-overlay>header{padding:11px 12px 12px!important}
+  .mh26-search-overlay>header strong{font-size:13px!important;letter-spacing:-.01em!important}
+  .mh26-search-list{padding:6px!important;scrollbar-width:thin!important}
+  .mh26-search-list>button{min-height:86px!important;grid-template-columns:62px minmax(0,1fr) auto!important;gap:10px!important;padding:9px!important;border-radius:13px!important}
+  .mh26-search-list>button+button{margin-top:2px!important}
+  .mh26-search-list>button:active{background:#edf6f3!important}
+  .mh26-search-list>button i{width:62px!important;height:62px!important;border-radius:12px!important}
+  .mh26-search-list>button i img{max-width:55px!important;max-height:55px!important}
+  .mh26-search-list>button small{font-size:9.5px!important;font-weight:800!important;letter-spacing:.02em!important}
+  .mh26-search-list>button strong{display:-webkit-box!important;overflow:hidden!important;font-size:13.5px!important;font-weight:850!important;line-height:1.2!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important}
+  .mh26-search-list>button em{font-size:10.5px!important}
+  .mh26-search-list>button>b{padding-left:7px!important;font-size:15.5px!important;font-weight:930!important;letter-spacing:-.02em!important;font-variant-numeric:tabular-nums!important}
+  .mh26-search-overlay>a{min-height:48px!important;font-size:12.5px!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .search26-card,.search26-card>svg,.msearch26-card{transition:none!important}
+}

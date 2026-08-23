@@ -1,0 +1,131 @@
+/* Professional mobile app dock — final shared navigation treatment. */
+@media (max-width: 680px) {
+  html,
+  body {
+    background: #eaf5f1 !important;
+  }
+
+  .ref-dock {
+    min-height: 78px !important;
+    padding: 5px 6px env(safe-area-inset-bottom) !important;
+    border-top: 1px solid #cbded8 !important;
+    background: rgb(255 255 255 / 97%) !important;
+    box-shadow: 0 -10px 30px rgb(12 56 49 / 12%) !important;
+    backdrop-filter: blur(18px) saturate(1.12) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
+  }
+
+  .ref-dock__developer {
+    position: absolute !important;
+    z-index: 0 !important;
+    left: 50% !important;
+    bottom: calc(100% + 5px) !important;
+    width: max-content !important;
+    max-width: calc(100vw - 32px) !important;
+    padding: 3px 10px !important;
+    border: 1px solid rgb(8 121 103 / 13%) !important;
+    border-radius: 999px !important;
+    background: rgb(234 245 241 / 94%) !important;
+    box-shadow: 0 3px 10px rgb(12 56 49 / 8%) !important;
+    color: #49665e !important;
+    font-size: 9.5px !important;
+    font-weight: 720 !important;
+    line-height: 1.25 !important;
+    letter-spacing: .035em !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap !important;
+  }
+
+  .ref-dock a {
+    min-width: 0 !important;
+    min-height: 66px !important;
+    gap: 4px !important;
+    padding: 4px 2px !important;
+    border-radius: 14px !important;
+    color: #405951 !important;
+    font-size: 11.5px !important;
+    font-weight: 760 !important;
+    line-height: 1 !important;
+    transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease !important;
+  }
+
+  .ref-dock a svg {
+    width: 34px !important;
+    height: 34px !important;
+    padding: 5px !important;
+    border-radius: 11px !important;
+    background: #e7f4ef !important;
+    color: #087967 !important;
+    stroke-width: 2.35 !important;
+    transition: background-color 180ms ease, color 180ms ease, transform 160ms ease !important;
+  }
+
+  .ref-dock a:nth-child(2) svg { background: #e8f1fb !important; color: #2366a8 !important; }
+  .ref-dock a:nth-child(3) svg { background: #fff1cf !important; color: #9a6200 !important; }
+  .ref-dock a:nth-child(4) svg { background: #efeafb !important; color: #6847a8 !important; }
+  .ref-dock a:nth-child(5) svg { background: #fbe9ee !important; color: #a93d5d !important; }
+
+  .ref-dock a.is-active {
+    background: #eaf5f1 !important;
+    color: #075b50 !important;
+    box-shadow: inset 0 0 0 1px rgb(8 121 103 / 13%) !important;
+    font-weight: 880 !important;
+  }
+
+  .ref-dock a.is-active::before {
+    top: -5px !important;
+    width: 38px !important;
+    height: 4px !important;
+    border-radius: 0 0 6px 6px !important;
+    background: #e0a72d !important;
+    box-shadow: 0 2px 8px rgb(224 167 45 / 30%) !important;
+  }
+
+  .ref-dock a.is-active svg {
+    background: #087967 !important;
+    color: #fff !important;
+    box-shadow: 0 5px 13px rgb(8 121 103 / 24%) !important;
+  }
+
+  .ref-dock a:active svg { transform: scale(.92) !important; }
+
+  html[data-theme="dark"] .ref-dock {
+    border-top-color: #36504d !important;
+    background: rgb(14 29 32 / 98%) !important;
+    box-shadow: 0 -10px 30px rgb(0 0 0 / 28%) !important;
+  }
+
+  html[data-theme="dark"],
+  html[data-theme="dark"] body { background: #0e1d20 !important; }
+  html[data-theme="dark"] .ref-dock__developer {
+    border-color: rgb(120 216 194 / 13%) !important;
+    background: rgb(14 29 32 / 94%) !important;
+    color: #aebfbb !important;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 18%) !important;
+  }
+
+  html[data-theme="dark"] .ref-dock a { color: #c1cfcc !important; }
+  html[data-theme="dark"] .ref-dock a svg { background: #183c37 !important; color: #78d8c2 !important; }
+  html[data-theme="dark"] .ref-dock a:nth-child(2) svg { background: #1c344d !important; color: #83b9ee !important; }
+  html[data-theme="dark"] .ref-dock a:nth-child(3) svg { background: #44371c !important; color: #f0c35f !important; }
+  html[data-theme="dark"] .ref-dock a:nth-child(4) svg { background: #33294c !important; color: #bca3ef !important; }
+  html[data-theme="dark"] .ref-dock a:nth-child(5) svg { background: #472833 !important; color: #ef9bb3 !important; }
+  html[data-theme="dark"] .ref-dock a.is-active {
+    background: #173b36 !important;
+    color: #e8faf5 !important;
+    box-shadow: inset 0 0 0 1px rgb(120 216 194 / 18%) !important;
+  }
+  html[data-theme="dark"] .ref-dock a.is-active svg { background: #20a68e !important; color: #071f1c !important; }
+}
+
+@media (max-width: 370px) {
+  .ref-dock { padding-inline: 3px !important; }
+  .ref-dock a { font-size: 10.5px !important; }
+  .ref-dock a svg { width: 32px !important; height: 32px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-dock a,
+  .ref-dock a svg { transition: none !important; }
+}

@@ -16,3 +16,31 @@
 @media (max-width:767px) and (orientation:landscape){.mh26-hero{padding-block:16px}.mh26-hero h1{max-width:20ch;font-size:2rem}.mh26-hero p{margin-bottom:12px}.mh26-actions{grid-template-columns:repeat(3,1fr)}.mh26-actions>a.is-primary{grid-column:auto;min-height:112px;grid-template-columns:40px 1fr;grid-template-rows:auto 1fr;align-items:start}.mh26-actions>a.is-primary>svg:first-child{width:40px;height:40px;padding:10px}.mh26-actions>a.is-primary>svg:last-child{display:none}}
 @media (prefers-reduced-motion:reduce){.mh26-page *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media (max-width:767px){html[data-theme="dark"] .mh26-theme{background:#172c2e;border-color:#304846;color:#f2f7f6}}
+
+/* Leitura confortável em celulares: cards com hierarquia clara, imagem útil
+   e preço identificável sem depender de zoom. */
+@media (max-width:767px){
+  .mh26-section{padding:18px 14px 8px}
+  .mh26-section>header{margin-bottom:13px}
+  .mh26-section>header small{font-size:10px}
+  .mh26-section h2{font-size:1.7rem}
+  .mh26-section>header>a{font-size:13px}
+  .mh26-products{gap:12px}
+  .mh26-product{min-height:126px;grid-template-columns:96px minmax(0,1fr) auto;gap:12px;padding:12px;border-radius:19px;box-shadow:0 8px 24px rgba(22,58,52,.075)}
+  .mh26-product>i{width:96px;height:100px;border-radius:15px}
+  .mh26-product>i img{max-width:88px;max-height:92px}
+  .mh26-product>span{gap:5px}
+  .mh26-product>span small{font-size:10px;font-weight:800;letter-spacing:.035em}
+  .mh26-product>span strong{font-size:15px;line-height:1.3}
+  .mh26-product>span em{font-size:12px;line-height:1.3}
+  .mh26-product>b{padding-top:44px;font-size:17px}
+  .mh26-product>b small{font-size:9.5px}
+  .mh26-product.is-loading{height:126px}
+}
+@media (max-width:370px){
+  .mh26-product{grid-template-columns:82px minmax(0,1fr) auto;gap:9px;padding:10px}
+  .mh26-product>i{width:82px;height:94px}
+  .mh26-product>i img{max-width:76px;max-height:86px}
+  .mh26-product>span strong{font-size:14.5px}
+  .mh26-product>b{font-size:16px}
+}

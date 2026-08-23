@@ -79,14 +79,37 @@ export function HomeNew2026() {
   const suggestions = useMemo(() => {
     const term = normalize(deferredQuery);
     if (term.length < 2) return [];
-    return products.filter(product => normalize(`${product.name} ${product.brand || ""} ${product.category || ""}`).includes(term))
-      .sort((a, b) => a.minPrice - b.minPrice).slice(0, 5);
+    const ranked = products.map(product => {
+      const name = normalize(product.name);
+      const brand = normalize(product.brand || "");
+      const category = normalize(product.category || "");
+      const store = normalize(product.establishment || "");
+      const size = normalize(product.size || "");
+      let relevance = 99;
+      if (name === term) relevance = 0;
+      else if (name.startsWith(term)) relevance = 1;
+      else if (name.split(/\s+/).some(word => word.startsWith(term))) relevance = 2;
+      else if (name.includes(term)) relevance = 3;
+      else if (brand === term || brand.startsWith(term)) relevance = 4;
+      else if (`${brand} ${category} ${store} ${size}`.includes(term)) relevance = 5;
+      return { product, relevance };
+    }).filter(item => item.relevance < 99);
+    return ranked.sort((a, b) => a.relevance - b.relevance || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
+      .slice(0, 5).map(item => item.product);
   }, [deferredQuery, products]);
   const searchOpen = focused && query.trim().length >= 2;
 
   const submitSearch = (event: FormEvent) => {
     event.preventDefault();
-    navigate(query.trim() ? `/buscar?q=${encodeURIComponent(query.trim())}` : "/buscar");
+    const term = query.trim();
+    if (!term) return;
+    if (activeIndex >= 0 && suggestions[activeIndex]) {
+      const product = suggestions[activeIndex];
+      setFocused(false);
+      navigate(`/produto/${product.slug || product.id}`);
+      return;
+    }
+    navigate(`/buscar?q=${encodeURIComponent(term)}`);
   };
 
   const handleSearchKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
@@ -127,9 +150,7 @@ export function HomeNew2026() {
         </nav>
         <div className="nx-header__actions">
           <HeaderRadioPlayer />
-          <button type="button" className="nx-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>
-            {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
-          </button>
+          <button type="button" className="nx-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
           <Link className="nx-login" to="/login">Entrar</Link>
           <button ref={menuButtonRef} className="nx-menu" type="button" aria-expanded={menuOpen} aria-controls="nx-navigation" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X /> : <Menu />}</button>
         </div>
@@ -137,42 +158,52 @@ export function HomeNew2026() {
     </header>
 
     <main id="conteudo-principal">
-      <section className="nx-hero" onPointerDown={event => {
-        if (searchOpen && !(event.target as HTMLElement).closest(".nx-search")) setFocused(false);
+      <section className="nx-hero nx-hero--mobile-pro" onPointerDown={event => {
+        if (searchOpen && !(event.target as HTMLElement).closest(".nx-live-search")) setFocused(false);
       }}>
         <div className="nx-shell nx-hero__grid">
           <div className="nx-hero__copy">
-            <h1>Encontre o melhor preço <em>perto de você.</em></h1>
-            <p>Pesquise produtos do comércio de Feijó, compare os valores disponíveis e decida onde comprar.</p>
-            <form className="nx-search" role="search" onSubmit={submitSearch} onFocus={() => setFocused(true)}>
-              <Search aria-hidden="true" />
-              <label className="sr-only" htmlFor="nx-search-input">Buscar produto, marca ou categoria</label>
-              <input id="nx-search-input" value={query} onChange={event => { setQuery(event.target.value); setActiveIndex(-1); }} onKeyDown={handleSearchKeyDown} placeholder="Digite um produto ou uma marca" autoComplete="off" role="combobox" aria-expanded={searchOpen} aria-controls="nx-search-results" aria-activedescendant={activeIndex >= 0 ? `nx-result-${activeIndex}` : undefined} />
-              {query && <button className="nx-search__clear" type="button" onClick={() => setQuery("")} aria-label="Limpar pesquisa"><X /></button>}
-              <button className="nx-search__submit" type="submit">Pesquisar <ArrowRight /></button>
-              {searchOpen && <div className="nx-results" id="nx-search-results" role="listbox">
-                <header><strong>Resultados</strong><span aria-live="polite">{suggestions.length} produtos</span></header>
-                {suggestions.length ? suggestions.map((product, index) => {
-                  const store = product.establishment || "Comércio local";
-                  const logo = getStoreLogoUrl(store);
-                  return <button id={`nx-result-${index}`} key={product.id} type="button" role="option" aria-selected={activeIndex === index} className={activeIndex === index ? "is-active" : undefined} onMouseEnter={() => setActiveIndex(index)} onMouseDown={event => event.preventDefault()} onClick={() => navigate(`/produto/${product.slug || product.id}`)}>
-                    <i><ProductImage product={product} /></i>
-                    <span><small>{product.category}</small><strong>{product.name}</strong><em>{logo ? <img src={logo} alt="" aria-hidden="true" /> : <Store aria-hidden="true" />}{store}</em></span>
-                    <b>{brl.format(product.minPrice)}</b>
-                  </button>;
-                }) : <div className="nx-results__empty"><PackageSearch /><span><strong>Nenhum produto encontrado</strong><small>Tente uma palavra mais curta.</small></span></div>}
-                <Link to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Abrir busca completa <ArrowRight /></Link>
+            <div className="nx-hero__eyebrow"><span>PREÇOS LOCAIS</span><b>Feijó · Acre</b></div>
+            <h1>Compare antes de comprar. <em>Economize de verdade.</em></h1>
+            <p>Encontre produtos disponíveis no comércio local, veja os menores preços e escolha onde sua compra vale mais.</p>
+
+            <form className={`nx-live-search${searchOpen ? " is-open" : ""}`} role="search" onSubmit={submitSearch} onFocus={() => setFocused(true)}>
+              <div className="nx-live-search__field">
+                <Search aria-hidden="true" />
+                <label className="sr-only" htmlFor="nx-live-search-input">Pesquisar produto no catálogo local</label>
+                <input id="nx-live-search-input" value={query} onChange={event => { setQuery(event.target.value); setActiveIndex(-1); }} onKeyDown={handleSearchKeyDown} placeholder="Busque arroz, café, leite..." autoComplete="off" inputMode="search" role="combobox" aria-expanded={searchOpen} aria-controls="nx-live-search-results" aria-activedescendant={activeIndex >= 0 ? `nx-live-result-${activeIndex}` : undefined} />
+                {query && <button className="nx-live-search__clear" type="button" onClick={() => { setQuery(""); setActiveIndex(-1); }} aria-label="Limpar pesquisa"><X /></button>}
+              </div>
+              <button className="nx-live-search__submit" type="submit">Ver preços <ArrowRight /></button>
+
+              {searchOpen && <div className="nx-live-results" id="nx-live-search-results" role="listbox">
+                <div className="nx-live-results__head"><div><span>RESULTADOS AO VIVO</span><strong>{suggestions.length ? "Melhores opções encontradas" : "Nenhum resultado exato"}</strong></div><small>{loading ? "Atualizando catálogo…" : `${suggestions.length} de 5 resultados`}</small></div>
+                <div className="nx-live-results__list">
+                  {suggestions.length ? suggestions.map((product, index) => {
+                    const store = product.establishment || "Comércio local";
+                    const logo = getStoreLogoUrl(store);
+                    return <button id={`nx-live-result-${index}`} key={product.id} type="button" role="option" aria-selected={activeIndex === index} className={activeIndex === index ? "is-active" : undefined} onMouseEnter={() => setActiveIndex(index)} onMouseDown={event => event.preventDefault()} onClick={() => { setFocused(false); navigate(`/produto/${product.slug || product.id}`); }}>
+                      <i className="nx-live-result__media"><ProductImage product={product} /></i>
+                      <span className="nx-live-result__copy"><small>{product.category || "Produto"}</small><strong>{product.name}</strong><em>{logo ? <img src={logo} alt="" aria-hidden="true" /> : <Store aria-hidden="true" />}{store}</em></span>
+                      <span className="nx-live-result__price"><small>a partir de</small><b>{brl.format(product.minPrice)}</b><em>Comparar</em></span>
+                    </button>;
+                  }) : <div className="nx-live-results__empty"><PackageSearch /><div><strong>Não encontramos esse produto.</strong><span>Tente o nome principal, a marca ou uma palavra menor.</span></div></div>}
+                </div>
+                <Link className="nx-live-results__all" to={`/buscar?q=${encodeURIComponent(query.trim())}`}>Ver busca completa <ArrowRight /></Link>
               </div>}
             </form>
-            <div className="nx-hero__links"><span>Comece por:</span>{["Arroz", "Café", "Leite"].map(item => <Link key={item} to={`/buscar?q=${item.toLowerCase()}`}>{item}</Link>)}</div>
+
+            <div className="nx-hero__links"><span>Buscas rápidas:</span>{["Arroz", "Café", "Leite"].map(item => <button key={item} type="button" onClick={() => { setQuery(item); setFocused(true); }}>{item}</button>)}</div>
           </div>
 
           <div className="nx-hero__visual">
-            <div className="nx-hero__photo" role="img" aria-label="Comércio local de Feijó" />
+            <div className="nx-hero__photo" role="img" aria-label="Compras no comércio local de Feijó" />
+            <div className="nx-hero__visual-shade" aria-hidden="true" />
+            <div className="nx-hero__visual-badge"><span>COMPARAÇÃO LOCAL</span><strong>Preço certo, decisão melhor.</strong></div>
             <aside className="nx-deal" aria-label="Preço em destaque">
               {loading ? <div className="nx-deal__loading" aria-busy="true"><i /><i /><i /></div> : spotlight ? <>
-                <span>Preço em destaque</span>
-                <div className="nx-deal__product"><ProductImage product={spotlight} eager /><div><small>{spotlight.category}</small><strong>{spotlight.name}</strong><em>{spotlight.size || spotlight.brand}</em></div></div>
+                <span>Menor preço em destaque</span>
+                <div className="nx-deal__product"><ProductImage product={spotlight} eager /><div><small>{spotlight.category}</small><strong>{spotlight.name}</strong><em>{spotlight.establishment || spotlight.size || spotlight.brand}</em></div></div>
                 <footer><div><small>a partir de</small><strong>{brl.format(spotlight.minPrice)}</strong></div><Link to={`/produto/${spotlight.slug || spotlight.id}`} aria-label={`Comparar preços de ${spotlight.name}`}><ArrowRight /></Link></footer>
               </> : <div className="nx-deal__empty">Novos preços serão exibidos aqui.</div>}
             </aside>
@@ -224,9 +255,7 @@ export function HomeNew2026() {
       <div className="nx-shell nx-footer__main">
         <div className="nx-footer__brand">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
-          <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">
-            &lt;Franc_Dnis&gt;
-          </button>
+          <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">&lt;Franc_Dnis&gt;</button>
         </div>
         <div className="nx-footer__links">
           <nav aria-label="Área comercial"><strong>Negócios</strong><span><Link to="/lojista">Para comerciantes</Link><Link to="/quero-vender">Quero vender</Link></span></nav>

@@ -4,6 +4,7 @@ import { Heart, MapPin, PackageSearch, ShoppingBasket, X } from "lucide-react";
 import type { Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
+import { requestAuthAction } from "../lib/authActionPrompt";
 import "./ProductQuickViewModal.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -68,7 +69,7 @@ export function ProductQuickViewModal({ product, onClose }: { product: Product; 
     if (!session?.user) {
       const returnTo = `${window.location.pathname}${window.location.search}`;
       sessionStorage.setItem(PENDING_BASKET_KEY, JSON.stringify({ productId: String(product.id), returnTo, createdAt: Date.now() }));
-      window.location.assign(`/login?redirect=${encodeURIComponent(returnTo)}`);
+      requestAuthAction("basket", returnTo);
       return;
     }
     const current = readBasket();

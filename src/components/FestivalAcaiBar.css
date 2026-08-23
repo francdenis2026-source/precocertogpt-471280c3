@@ -3,6 +3,7 @@
 .pc-festival-bar{
   position:relative;
   z-index:110;
+  flex:0 0 auto;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -92,8 +93,8 @@
 
 .pc-festival-bar__close{
   position:absolute;
-  z-index:5;
-  right:12px;
+  z-index:20;
+  right:max(12px,env(safe-area-inset-right));
   top:50%;
   width:36px;
   height:36px;
@@ -101,8 +102,9 @@
   place-items:center;
   border:1px solid rgba(255,255,255,.24);
   border-radius:12px;
-  background:rgba(8,16,39,.22);
-  color:#fff;
+  background:rgba(255,255,255,.96);
+  color:#15274f;
+  box-shadow:0 4px 14px rgb(7 17 40 / 28%);
   cursor:pointer;
   transform:translateY(-50%);
   transition:background-color .16s ease,border-color .16s ease,transform .16s ease;
@@ -110,7 +112,7 @@
 .pc-festival-bar__close svg{width:16px;height:16px;stroke-width:2.2}
 .pc-festival-bar__close:focus-visible{outline:3px solid rgba(255,255,255,.88);outline-offset:2px}
 @media(hover:hover) and (pointer:fine){
-  .pc-festival-bar__close:hover{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.14)}
+  .pc-festival-bar__close:hover{border-color:#fff;background:#fff}
 }
 .pc-festival-bar__close:active{transform:translateY(-50%) scale(.96)}
 
@@ -173,7 +175,7 @@
     white-space:nowrap;
   }
   .pc-festival-bar__art span em{display:none}
-  .pc-festival-bar__close{right:9px;width:38px;height:38px;border-radius:11px}
+  .pc-festival-bar__close{right:max(9px,env(safe-area-inset-right));width:40px;height:40px;border-radius:12px}
 }
 
 @media(max-width:380px){
@@ -182,7 +184,23 @@
   .pc-festival-bar__art span i{width:32px;height:32px;border-radius:9px}
   .pc-festival-bar__art strong{font-size:12px}
   .pc-festival-bar__art small{font-size:10px}
-  .pc-festival-bar__close{right:7px;width:36px;height:36px}
+  .pc-festival-bar__close{right:max(7px,env(safe-area-inset-right));width:38px;height:38px}
+}
+
+/* O banner ocupa uma linha própria: nunca pode cobrir a identificação ou as
+   ações do usuário que ficam na linha seguinte do cabeçalho. */
+.nx-header:has(>.pc-festival-bar),
+.mh26-header:has(>.pc-festival-bar){
+  display:flex;
+  flex-direction:column;
+  overflow:visible;
+}
+.nx-header:has(>.pc-festival-bar)>.nx-header__inner,
+.mh26-header:has(>.pc-festival-bar)>.mh26-header-row{
+  position:relative;
+  z-index:1;
+  flex:0 0 auto;
+  width:100%;
 }
 
 @media(prefers-reduced-motion:no-preference){

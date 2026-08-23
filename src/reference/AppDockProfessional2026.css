@@ -14,6 +14,62 @@ body::-webkit-scrollbar,
   display: none;
 }
 
+/* Mobile app shell: the browser document stays fixed and each public app
+   screen becomes the single scroll surface. Business logic and routing stay
+   untouched; this layer only controls viewport and scroll ownership. */
+@media (max-width: 767px) {
+  html:has(body .ref-dock),
+  body:has(.ref-dock),
+  body:has(.ref-dock) #root {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+  }
+
+  body:has(.ref-dock) #root > :is(
+    .mh26-page,
+    .msearch26-page,
+    .ref-page,
+    .pro-basket-page,
+    .smart-basket-page,
+    .pharmacy-directory-page
+  ) {
+    width: 100% !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-x: none !important;
+    overscroll-behavior-y: contain !important;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body:has(.ref-dock) #root > :is(
+    .mh26-page,
+    .msearch26-page,
+    .ref-page,
+    .pro-basket-page,
+    .smart-basket-page,
+    .pharmacy-directory-page
+  )::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .mh26-page > .mh26-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 900 !important;
+  }
+}
+
 @media (max-width: 680px) {
   html,
   body {

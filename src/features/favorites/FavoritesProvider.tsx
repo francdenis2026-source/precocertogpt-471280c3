@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { requestAuthAction } from "../../lib/authActionPrompt";
 
 type FavoriteContextValue = {
   favoriteIds: string[];
@@ -134,8 +135,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     if (!sessionUser) {
       const destination = returnTo || `${window.location.pathname}${window.location.search}`;
       sessionStorage.setItem(PENDING_KEY, JSON.stringify({ productId: id, returnTo: destination, createdAt: Date.now() } satisfies PendingFavorite));
-      window.dispatchEvent(new CustomEvent("pc:set-toast", { detail: { message: "Entre ou crie sua conta para salvar este favorito." } }));
-      window.location.assign(`/login?redirect=${encodeURIComponent(destination)}`);
+      requestAuthAction("favorite", destination);
       return false;
     }
 

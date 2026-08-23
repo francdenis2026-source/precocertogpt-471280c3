@@ -17,6 +17,8 @@ const ACTIONABLE_CARD_SELECTOR = [
   "a.ref-catalog-card[href^='/produto/']",
   ".ref-product-grid > a[href^='/produto/']",
   "a.ref-price-row[href^='/produto/']",
+  "a.msearch26-card[href^='/produto/']",
+  "a.mh26-product[href^='/produto/']",
 ].join(",");
 
 function productIdentifier(href: string) {
@@ -66,7 +68,7 @@ function keyboardActivate(event: KeyboardEvent<HTMLSpanElement>, callback: () =>
 }
 
 export function ProductCardQuickActions() {
-  const { userId, loading: authLoading, isFavorite, toggleFavorite } = useFavorites();
+  const { userId, isFavorite, toggleFavorite } = useFavorites();
   const [targets, setTargets] = useState<CardTarget[]>([]);
   const [catalogProducts, setCatalogProducts] = useState<Product[]>([]);
   const [basketItems, setBasketItems] = useState<BasketEntry[]>(readBasket);
@@ -106,20 +108,7 @@ export function ProductCardQuickActions() {
   }, []);
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!userId && readBasket().length) {
-      localStorage.removeItem(BASKET_KEY);
-      setBasketItems([]);
-    }
-  }, [authLoading, userId]);
-
-  useEffect(() => {
     const refresh = () => {
-      if (!authLoading && !userId) {
-        if (readBasket().length) localStorage.removeItem(BASKET_KEY);
-        setBasketItems([]);
-        return;
-      }
       setBasketItems(readBasket());
     };
     window.addEventListener("storage", refresh);
@@ -128,7 +117,7 @@ export function ProductCardQuickActions() {
       window.removeEventListener("storage", refresh);
       window.removeEventListener("pc:basket-changed", refresh);
     };
-  }, [authLoading, userId]);
+  }, []);
 
   useEffect(() => {
     if (!userId) return;

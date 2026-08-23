@@ -10,6 +10,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
+import { requestAuthAction } from "../lib/authActionPrompt";
 import { supabase } from "../lib/supabase";
 import { buildComparableOffers, findComparableProducts, type ComparableOffer } from "../lib/productSearch";
 import { PublicFooter, PublicHeader } from "./ReferenceExperience";
@@ -131,7 +132,7 @@ export function ProductDetailProfessional() {
     if (!session?.user) {
       const returnTo = `${window.location.pathname}${window.location.search}`;
       sessionStorage.setItem(PENDING_BASKET_KEY, JSON.stringify({ productId: String(target.id), returnTo, createdAt: Date.now() }));
-      window.location.assign(`/login?redirect=${encodeURIComponent(returnTo)}`);
+      requestAuthAction("basket", returnTo);
       return;
     }
     const current = readBasket();

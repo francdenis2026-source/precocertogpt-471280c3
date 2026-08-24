@@ -110,6 +110,15 @@ function hasKnownImageMismatch(product: Product) {
 
 export function resolveProductImage(product: Product): string | undefined {
   const identity = normalize([product.name, product.brand, product.size].filter(Boolean).join(" "));
+
+  // A arte antiga da cebola roxa contém uma etiqueta promocional incorporada
+  // ("400g / 2 a 3 unid.") com textos sobrepostos. Forçamos a fotografia limpa
+  // já existente no projeto em todos os cards, modais e páginas do produto.
+  if (identity.includes("cebolaroxa")) {
+    const cleanRedOnion = localAssets.find(asset => asset.key === "cebolaroxakg");
+    if (cleanRedOnion) return cleanRedOnion.url;
+  }
+
   // A imagem vinculada ao cadastro do produto é sempre a fonte principal.
   // Os arquivos locais existem apenas como contingência para cadastros sem foto.
   if (product.image_url && !hasKnownImageMismatch(product)) return product.image_url;

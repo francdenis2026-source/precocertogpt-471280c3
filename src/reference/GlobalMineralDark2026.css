@@ -58,6 +58,30 @@ html[data-theme="dark"] .nx-home {
 }
 
 html[data-theme="dark"] .nx-home .nx-header { background: rgb(14 24 30 / 95%); }
+html[data-theme="dark"] .nx-home .nx-hero {
+  background:
+    linear-gradient(100deg,rgb(8 17 23 / 98%) 0 39%,rgb(10 22 29 / 88%) 58%,rgb(12 25 32 / 52%)),
+    url('/hero-supermercado-editorial-2026.webp') center 46% / cover no-repeat;
+}
+html[data-theme="dark"] .nx-home .nx-hero::after {
+  background:linear-gradient(180deg,transparent 76%,#0e171c);
+}
+html[data-theme="dark"] .nx-home .nx-hero__visual {
+  border-color:#41525a;
+  background:#17242a;
+  box-shadow:0 24px 54px rgb(0 0 0 / 34%);
+}
+html[data-theme="dark"] .nx-home .nx-hero__photo {
+  background:
+    linear-gradient(180deg,rgb(8 17 23 / 8%) 32%,rgb(8 17 23 / 66%) 100%),
+    url('/hero-supermercado-editorial-2026.webp') center / cover no-repeat;
+  filter:saturate(.72) contrast(1.04) brightness(.82);
+}
+html[data-theme="dark"] .nx-home .nx-deal {
+  border-color:#42545c;
+  background:rgb(21 33 39 / 96%);
+  box-shadow:0 16px 34px rgb(0 0 0 / 30%);
+}
 html[data-theme="dark"] .nx-home .nx-catalog-band { background: linear-gradient(180deg,#0e171c,#152127 52%,#101b21); }
 html[data-theme="dark"] .nx-home .nx-local-band { background: linear-gradient(135deg,#101b21,#1b2930 52%,#132128); }
 html[data-theme="dark"] .nx-home .nx-product-card__media { background: linear-gradient(145deg,#22333a,#1b2930)!important; }
@@ -75,7 +99,26 @@ html[data-theme="dark"] .mh26-page {
   background:linear-gradient(180deg,#0e171c,#152127 320px,#101b21);
 }
 html[data-theme="dark"] .mh26-header { border-color:#35474f; background:rgb(14 24 30 / 96%); }
-html[data-theme="dark"] .mh26-hero { background:linear-gradient(100deg,rgb(8 19 25 / 98%),rgb(13 32 40 / 93%) 55%,rgb(28 52 58 / 72%)),url('/hero-supermercado-editorial-2026.webp') 66% center/cover no-repeat; }
+html[data-theme="dark"] .mh26-hero {
+  background:
+    linear-gradient(100deg,rgb(8 17 23 / 98%) 0%,rgb(10 24 31 / 92%) 56%,rgb(15 32 39 / 74%) 100%),
+    url('/hero-supermercado-editorial-2026.webp') 66% center / cover no-repeat;
+  box-shadow:inset 0 -1px 0 rgb(255 255 255 / 7%);
+}
+html[data-theme="dark"] .mh26-hero::after { content:none; }
+html[data-theme="dark"] .mh26-verified-badge {
+  border-color:rgb(218 228 226 / 24%);
+  background:rgb(255 255 255 / 8%);
+  color:#eef3f1;
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / 8%);
+}
+html[data-theme="dark"] .mh26-verified-icon {
+  background:#86b49f!important;
+  color:#10271f!important;
+}
+html[data-theme="dark"] .mh26-search-field {
+  box-shadow:0 16px 32px rgb(0 0 0 / 26%);
+}
 html[data-theme="dark"] .mh26-head-actions>a,
 html[data-theme="dark"] .mh26-product,
 html[data-theme="dark"] .mh26-actions>a { border-color:#35474f; background:#1b2930; }

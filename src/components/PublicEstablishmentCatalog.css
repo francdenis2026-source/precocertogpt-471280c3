@@ -29,3 +29,7 @@ html[data-theme="dark"] .sf-category-chips button.is-active{background:#e0aa50;b
 html[data-theme="dark"] .sf-heading a,html[data-theme="dark"] .sf-summary a{color:#fff}
 @media(max-width:900px){.sf-hero__inner{min-height:174px}.sf-category-panel{grid-template-columns:1fr}.sf-category-bars{display:none}}
 @media(max-width:680px){.sf-hero__inner{min-height:156px;padding:15px 0}.sf-content{padding-top:14px}.sf-catalog-notice{align-items:start}.sf-heading p{display:none}.sf-category-chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.sf-category-chips button{flex:0 0 auto}.sf-toolbar{position:sticky;top:58px;z-index:20;padding:6px 0;background:var(--sf-soft)}.sf-media{height:96px}}
+
+/* Rodapé mínimo nas páginas de estabelecimentos. */
+.sf-footer{padding:14px 0}.sf-footer__inner{justify-content:center;align-items:center;text-align:center}.sf-footer a{display:none}
+@media(max-width:680px){.sf-footer__inner{align-items:center;flex-direction:row}}

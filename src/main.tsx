@@ -8,6 +8,7 @@ import App from "./App";
 import { initializeSiteTheme } from "./lib/siteTheme";
 import "./reference/DesignSystem2.css";
 import "./reference/DesignSystem2Experience.css";
+import "./reference/GlobalMineralDark2026.css";
 
 initializeSiteTheme();
 

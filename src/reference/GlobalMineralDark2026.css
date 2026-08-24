@@ -1,0 +1,157 @@
+/*
+ * Modo escuro canônico — grafite mineral.
+ * Base neutra; sálvia somente para preço, economia e verificação;
+ * terracota para ações primárias. Carregado por último para impedir que
+ * camadas históricas restaurem fundos verde-floresta.
+ */
+html[data-theme="dark"] {
+  --pc-canvas: #0e171c;
+  --pc-surface: #152127;
+  --pc-surface-2: #1b2930;
+  --pc-surface-3: #22333a;
+  --pc-ink: #f3f5f4;
+  --pc-muted: #b6c1c5;
+  --pc-border: #35474f;
+  --pc-border-strong: #49606a;
+  --pc-navy: #101d24;
+  --pc-navy-2: #17272f;
+  --pc-green: #8ec5a7;
+  --pc-green-strong: #9bcdb2;
+  --pc-green-soft: #20352e;
+  --pc-gold: #e2b768;
+  --pc-bg: #0e171c;
+  --pc-text: #f3f5f4;
+  --pc-line: #35474f;
+  --pc-brand: #8ec5a7;
+  --pc-accent: #d9663a;
+  --pc-color-background: #0e171c;
+  --pc-color-surface: #152127;
+  --pc-color-foreground: #f3f5f4;
+  --pc-color-muted: #b6c1c5;
+  --pc-color-border: #35474f;
+  --pc-color-primary: #d9663a;
+  --pc-color-primary-foreground: #fffaf7;
+  --pc-color-accent: #8ec5a7;
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+  background: #0e171c;
+  color: #f3f5f4;
+}
+
+/* Homepage web: neutraliza definitivamente as regras verde-floresta tardias. */
+html[data-theme="dark"] .nx-home {
+  --nx-bg: #0e171c!important;
+  --nx-surface: #152127!important;
+  --nx-card: #1b2930!important;
+  --nx-soft: #22333a!important;
+  --nx-text: #f3f5f4!important;
+  --nx-muted: #b6c1c5!important;
+  --nx-line: #35474f!important;
+  --nx-blue: #82adcf!important;
+  --nx-blue-2: #d9663a!important;
+  --nx-teal: #7faf98!important;
+  --nx-green: #8ec5a7!important;
+  --nx-amber: #e2b768!important;
+  background: var(--nx-bg);
+}
+
+html[data-theme="dark"] .nx-home .nx-header { background: rgb(14 24 30 / 95%); }
+html[data-theme="dark"] .nx-home .nx-catalog-band { background: linear-gradient(180deg,#0e171c,#152127 52%,#101b21); }
+html[data-theme="dark"] .nx-home .nx-local-band { background: linear-gradient(135deg,#101b21,#1b2930 52%,#132128); }
+html[data-theme="dark"] .nx-home .nx-product-card__media { background: linear-gradient(145deg,#22333a,#1b2930)!important; }
+html[data-theme="dark"] .nx-home .nx-basket { border-color:#526c60; background:#17342d; }
+html[data-theme="dark"] .nx-home .nx-basket::after { background:linear-gradient(180deg,rgb(9 25 24 / 22%),rgb(13 42 36 / 72%) 46%,rgb(17 47 40 / 98%) 76%); }
+
+/* Homepage mobile e carrossel de atalhos. */
+html[data-theme="dark"] .mh26-page {
+  --mh-ink:#f3f5f4!important;
+  --mh-muted:#b6c1c5!important;
+  --mh-line:#35474f!important;
+  --mh-surface:#1b2930!important;
+  --mh-green:#8ec5a7!important;
+  --mh-green-dark:#a6d1ba!important;
+  background:linear-gradient(180deg,#0e171c,#152127 320px,#101b21);
+}
+html[data-theme="dark"] .mh26-header { border-color:#35474f; background:rgb(14 24 30 / 96%); }
+html[data-theme="dark"] .mh26-hero { background:linear-gradient(100deg,rgb(8 19 25 / 98%),rgb(13 32 40 / 93%) 55%,rgb(28 52 58 / 72%)),url('/hero-supermercado-editorial-2026.webp') 66% center/cover no-repeat; }
+html[data-theme="dark"] .mh26-head-actions>a,
+html[data-theme="dark"] .mh26-product,
+html[data-theme="dark"] .mh26-actions>a { border-color:#35474f; background:#1b2930; }
+html[data-theme="dark"] .mh26-page .ref-dock { border-color:#35474f!important; background:rgb(14 24 30 / 98%)!important; }
+html[data-theme="dark"] .hqa { --hqa-surface:#1b2930;--hqa-border:#35474f;--hqa-text:#f3f5f4;--hqa-muted:#b6c1c5;--hqa-green:#8ec5a7; }
+
+/* Todas as páginas públicas reconstruídas herdam a mesma profundidade. */
+html[data-theme="dark"] :where(
+  .ref-page,.search26-page,.msearch26-page,.sector-page,.sector-hub,
+  .pdp-page,.store-pro-page,.pro-basket-page,.smart-basket-page,
+  .mo-page,.pc-account-page,.pharmacy-directory-page
+) {
+  --ref-bg:#0e171c!important;
+  --ref-paper:#152127!important;
+  --ref-line:#35474f!important;
+  --ref-ink:#f3f5f4!important;
+  --ref-muted:#b6c1c5!important;
+  --ref-green:#8ec5a7!important;
+  background-color:#0e171c;
+  color:#f3f5f4;
+}
+
+html[data-theme="dark"] :where(
+  .ref-directory-search,.ref-results-table,.ref-store-list,.ref-store-row,
+  .ref-auth__card,.ref-info,.pdp-panel,.pdp-where,.pdp-meta,
+  .store-pro-summary,.store-pro-search,.store-pro-select,.store-pro-pagination,
+  .pro-basket-list,.pro-basket-summary,.smart-planner,.smart-product-picker,
+  .smart-strategies>button,.smart-plan-list,.smart-summary,.pc-account-hero,
+  .pc-account-tools>a
+) {
+  border-color:#35474f;
+  background-color:#152127;
+  color:#f3f5f4;
+}
+
+/* Busca desktop/mobile: superfícies grafite e resultados legíveis. */
+html[data-theme="dark"] :where(.search26-page,.msearch26-page) {
+  --search-bg:#0e171c;
+  --search-surface:#152127;
+  --search-card:#1b2930;
+  --search-soft:#22333a;
+  --search-line:#35474f;
+  --search-ink:#f3f5f4;
+  --search-muted:#b6c1c5;
+  --search-green:#8ec5a7;
+}
+
+/* Ações: terracota comunica ação; sálvia permanece semântica. */
+html[data-theme="dark"] :where(
+  .pc-btn--primary,.nx-login,.nx-search__submit,.mh26-search-submit,
+  .ref-auth__submit,.pro-basket-checkout,.smart-summary>button,
+  .smart-assistant__form>button
+) {
+  border-color:#d9663a;
+  background:#d9663a;
+  color:#fffaf7;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] :where(
+    .pc-btn--primary,.nx-login,.nx-search__submit,.mh26-search-submit,
+    .ref-auth__submit,.pro-basket-checkout,.smart-summary>button
+  ):hover { border-color:#e3774e; background:#e3774e; color:#fff; }
+}
+
+/* Verde somente onde seu significado é inequívoco. */
+html[data-theme="dark"] :where(
+  .pc-price,.pdp-price,.pdp-saving,.pro-basket-line-total strong,
+  .pro-basket-saving strong,.smart-summary>h2,.nx-product-card footer strong,
+  .nx-deal footer strong,.mh26-product>b,.ref-result-price
+) { color:#8ec5a7; }
+
+html[data-theme="dark"] :where(
+  input,select,textarea
+) { caret-color:#d9663a; }
+
+html[data-theme="dark"] :where(a,button,input,select,textarea):focus-visible {
+  outline-color:color-mix(in srgb,#d9663a 62%,transparent);
+}

@@ -170,6 +170,10 @@ html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
 .nx-footer__legal{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding-block:10px;border-top:1px solid rgb(255 255 255 / 18%);color:#d8ece9}.nx-footer__legal span,.nx-footer__legal p{margin:0;font-size:11px;line-height:1.45}.nx-footer__legal button{padding:0;border:0;background:transparent;color:#fff;font:inherit;font-weight:760;cursor:pointer}.nx-footer__legal button:hover{color:#ffd98b;text-decoration:underline;text-underline-offset:3px}.nx-footer__legal button:focus-visible{outline:3px solid rgb(255 217 139 / 45%);outline-offset:3px}
 @media(max-width:760px){.nx-footer__legal{align-items:flex-start;flex-direction:column;gap:5px;padding:11px 0 82px}.nx-footer__legal span,.nx-footer__legal p{font-size:10.5px}}
 
+/* Compensa a nova altura compacta de 48px da faixa de campanha. */
+.nx-header:has(.pc-festival-bar)+main{padding-top:112px}
+@media(max-width:760px){.nx-header:has(.pc-festival-bar)+main{padding-top:106px}.nx-header:has(.pc-festival-bar) nav{top:108px}}
+
 /* Vitrine web 2026: mídia contida, informação legível e preço em seu próprio plano. */
 @media(min-width:761px){
   .nx-market__products{padding:22px;border-radius:22px;background:color-mix(in srgb,var(--nx-surface) 98%,transparent)}

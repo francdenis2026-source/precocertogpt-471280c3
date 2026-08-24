@@ -5,7 +5,7 @@ import type { CatalogPayload } from "../data/catalog";
 import { businessGroups, type BusinessGroupId } from "../data/businessTaxonomy";
 import { fetchSectorCatalog, prefetchSectorCatalog, sectorStores } from "../data/sectorCatalog";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { AppDock, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./PharmacyDirectory.css";
 import "./CulturalProfiles.css";
 
@@ -157,6 +157,24 @@ function PharmacyStoreMark({ name, color }: { name: string; color: string }) {
   </i>;
 }
 
+function DirectoryFooter({ sector }: { sector: MarketplaceSector }) {
+  return <footer className="pharmacy-footer">
+    <div className="pharmacy-footer__inner">
+      <div className="pharmacy-footer__brand">
+        <Link to="/" aria-label="PreçoCerto — página inicial"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" /></Link>
+        <span><ShieldCheck aria-hidden="true" /> Informação local organizada com responsabilidade.</span>
+      </div>
+      <nav aria-label="Atalhos das farmácias">
+        <Link to={sector.href}>{sector.shortLabel}</Link>
+        <Link to="/buscar">Buscar produtos</Link>
+        <Link to="/estabelecimentos">Estabelecimentos</Link>
+      </nav>
+      <p>Preços e disponibilidade podem mudar. Confirme diretamente com o estabelecimento antes da compra.</p>
+    </div>
+    <small>© 2026 PreçoCerto · Feijó, Acre</small>
+  </footer>;
+}
+
 function CompactSectorDirectory({ catalog, sector }: { catalog: CatalogPayload | null; sector: MarketplaceSector }) {
   const Icon = sector.icon;
   const stores = catalog ? sectorStores(catalog, sector) : [];
@@ -209,7 +227,7 @@ function CompactSectorDirectory({ catalog, sector }: { catalog: CatalogPayload |
         <strong>Nenhum estabelecimento ativo nesta categoria.</strong>
       </section>}
     </main>
-    <AppDock current="stores" />
+    <DirectoryFooter sector={sector} />
   </div>;
 }
 

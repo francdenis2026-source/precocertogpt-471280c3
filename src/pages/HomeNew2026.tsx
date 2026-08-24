@@ -246,6 +246,14 @@ export function HomeNew2026() {
       </div>
       <div className="nx-local-band">
       <section className="nx-local nx-shell">
+        <aside className="nx-local__visual" aria-label="Indicadores do comércio local de Feijó">
+          <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
+          <div>
+            <article><strong>{catalog.metrics.stores.toLocaleString("pt-BR")}</strong><small>estabelecimentos</small></article>
+            <article><strong>{categories.length}</strong><small>categorias locais</small></article>
+            <article><strong>{catalog.metrics.prices.toLocaleString("pt-BR")}</strong><small>preços organizados</small></article>
+          </div>
+        </aside>
         <div className="nx-local__copy">
           <h2>O comércio local mais fácil de encontrar.</h2>
           <p>Explore estabelecimentos por categoria e localização. Se você vende em Feijó, apresente seu negócio a novos clientes.</p>

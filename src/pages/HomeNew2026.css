@@ -174,6 +174,18 @@ html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
 .nx-header:has(.pc-festival-bar)+main{padding-top:112px}
 @media(max-width:760px){.nx-header:has(.pc-festival-bar)+main{padding-top:106px}.nx-header:has(.pc-festival-bar) nav{top:108px}}
 
+/* Comércio local: fotografia e dados ocupam o espaço antes vazio. */
+.nx-local-band{padding:22px 0;background:linear-gradient(135deg,#eee6d7 0%,#fbf8f1 48%,#e8dfcc 100%)}
+.nx-local{min-height:226px;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(390px,.88fr);gap:16px}
+.nx-local__visual{position:relative;isolation:isolate;min-width:0;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:20px;border:1px solid color-mix(in srgb,var(--nx-line) 76%,transparent);border-radius:18px;background:url('/marketplace-local-profissional-v2.webp') center 48%/cover no-repeat;color:#fff;box-shadow:var(--nx-shadow-sm)}
+.nx-local__visual::after{position:absolute;z-index:-1;inset:0;background:linear-gradient(100deg,rgb(17 54 38 / 88%),rgb(17 54 38 / 48%) 58%,rgb(17 54 38 / 16%));content:""}
+.nx-local__visual>span{width:fit-content;min-height:30px;display:flex;align-items:center;gap:6px;padding:0 9px;border:1px solid rgb(255 255 255 / 22%);border-radius:999px;background:rgb(14 40 30 / 46%);font-size:11px;font-weight:820;backdrop-filter:blur(8px)}.nx-local__visual>span svg{width:14px;height:14px;color:#e1b45e}
+.nx-local__visual>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.nx-local__visual article{min-width:0;display:grid;gap:2px;padding:10px;border:1px solid rgb(255 255 255 / 18%);border-radius:11px;background:rgb(10 34 25 / 58%);backdrop-filter:blur(8px)}.nx-local__visual strong{font-family:"Manrope Variable",Manrope,sans-serif;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}.nx-local__visual small{overflow:hidden;color:#dceae1;font-size:9.5px;text-overflow:ellipsis;white-space:nowrap}
+.nx-local__copy{width:auto;padding:23px}.nx-local h2{font-family:"Manrope Variable",Manrope,sans-serif;font-size:clamp(1.75rem,2.35vw,2.25rem)}
+html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a 0%,#1e3226 52%,#15261c 100%)}html[data-theme="dark"] .nx-local__visual{border-color:#3d5144}html[data-theme="dark"] .nx-local__visual::after{background:linear-gradient(100deg,rgb(10 27 19 / 90%),rgb(12 34 24 / 56%) 58%,rgb(12 34 24 / 20%))}
+.nx-header:has(.pc-festival-bar)+main{padding-top:104px}
+@media(max-width:760px){.nx-header:has(.pc-festival-bar)+main{padding-top:102px}.nx-header:has(.pc-festival-bar) nav{top:104px}.nx-local{grid-template-columns:1fr;gap:10px}.nx-local__visual{min-height:190px}.nx-local__copy{width:100%}}
+
 /* Vitrine web 2026: mídia contida, informação legível e preço em seu próprio plano. */
 @media(min-width:761px){
   .nx-market__products{padding:22px;border-radius:22px;background:color-mix(in srgb,var(--nx-surface) 98%,transparent)}

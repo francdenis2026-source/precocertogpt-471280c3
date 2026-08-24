@@ -69,11 +69,11 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   .mh26-product>span em{background:#ece4d3;color:#1f4d37}
   .mh26-local{background:linear-gradient(140deg,#173626,#1f4d37)}
   .mh26-local small{color:#a9d9bd}.mh26-local>a{color:#173626}
-  html[data-theme="dark"] .mh26-page{--mh-ink:#f3f1e6;--mh-muted:#b7c2b3;--mh-line:#33473a;--mh-surface:#1e3226;background:linear-gradient(180deg,#12211a 0,#182a20 320px,#12211a 100%)}
-  html[data-theme="dark"] .mh26-header{background:rgb(20 37 29 / 96%);border-color:#33473a}
-  html[data-theme="dark"] .mh26-hero{background:linear-gradient(100deg,rgb(12 30 21 / 98%) 0%,rgb(19 50 34 / 93%) 54%,rgb(31 77 55 / 72%) 100%),url('/hero-supermercado-editorial-2026.webp') 66% center/cover no-repeat}
-  html[data-theme="dark"] .mh26-head-actions>a,html[data-theme="dark"] .mh26-product{background:#1e3226;border-color:#33473a}
-  html[data-theme="dark"] .mh26-product>span em{background:#24392c;color:#8fd9ae}
+  html[data-theme="dark"] .mh26-page{--mh-ink:#f2f4f3;--mh-muted:#b8c2c5;--mh-line:#354950;--mh-surface:#18272e;--mh-green:#82b39d;--mh-green-dark:#a4cbb9;background:linear-gradient(180deg,#0d181e 0,#14232a 320px,#0e1a20 100%)}
+  html[data-theme="dark"] .mh26-header{background:rgb(14 25 31 / 96%);border-color:#354950}
+  html[data-theme="dark"] .mh26-hero{background:linear-gradient(100deg,rgb(8 20 27 / 98%) 0%,rgb(13 35 43 / 94%) 54%,rgb(24 54 58 / 74%) 100%),url('/hero-supermercado-editorial-2026.webp') 66% center/cover no-repeat}
+  html[data-theme="dark"] .mh26-head-actions>a,html[data-theme="dark"] .mh26-product{background:#18272e;border-color:#354950}
+  html[data-theme="dark"] .mh26-product>span em{background:#22363a;color:#a3c9bb}
 }
 
 /* Identificação discreta da música: o controle continua compacto e a faixa

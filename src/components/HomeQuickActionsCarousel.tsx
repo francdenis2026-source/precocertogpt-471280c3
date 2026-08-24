@@ -51,8 +51,9 @@ export function HomeQuickActionsCarousel() {
         <em>{String(index + 1).padStart(2, "0")}</em>
       </Link>)}
     </div>
-    <div className="hqa-dots" aria-label={`Opção ${active + 1} de ${actions.length}`}>
-      {actions.map((action, index) => <button key={action.title} type="button" className={active === index ? "is-active" : ""} onClick={() => scrollTo(index)} aria-label={`Ir para ${action.title}`} aria-current={active === index ? "true" : undefined} />)}
+    <div className="hqa-position" role="status" aria-live="polite" aria-label={`Opção ${active + 1} de ${actions.length}`}>
+      <span><strong>{active + 1}</strong> de {actions.length}</span>
+      <small>{actions[active].title}</small>
     </div>
   </section>;
 }

@@ -33,19 +33,19 @@ html[data-theme="dark"] .nx-home{--nx-bg:#101827;--nx-surface:#19253a;--nx-card:
 /* Superfícies editoriais: a fotografia pertence ao hero. O restante da
    experiência mantém baixo ruído para produtos, preços e lojas liderarem. */
 .nx-home{--nx-bg:#f2f6f4;--nx-surface:#f8fbf9;--nx-card:#fff;--nx-soft:#e7efeb;--nx-line:#cbdad4}
-html[data-theme="dark"] .nx-home{--nx-bg:#0b191b;--nx-surface:#112426;--nx-card:#172d2f;--nx-soft:#1d3837;--nx-text:#f3f8f6;--nx-muted:#b4c7c3;--nx-line:#31504d;--nx-blue:#78b8df;--nx-blue-2:#9bc9e5;--nx-teal:#62d4ba;--nx-green:#6ed5a5}
+html[data-theme="dark"] .nx-home{--nx-bg:#0d171d;--nx-surface:#142129;--nx-card:#192831;--nx-soft:#21323a;--nx-text:#f3f5f4;--nx-muted:#b8c2c6;--nx-line:#354951;--nx-blue:#82add0;--nx-blue-2:#a5c7df;--nx-teal:#7bb8aa;--nx-green:#83b79e}
 .nx-catalog-band{background:linear-gradient(180deg,#eef4f1 0%,#f5f8f6 54%,#eef4f1 100%)}
 .nx-local-band{background:linear-gradient(135deg,#edf4f1 0%,#f8faf9 48%,#e7f0ec 100%)}
 .nx-basket{background:linear-gradient(145deg,#12556a 0%,#0b4354 58%,#083642 100%)}
 .nx-footer{background:linear-gradient(100deg,#123f49 0%,#11545a 52%,#103844 100%)}
-html[data-theme="dark"] .nx-header{background:rgb(13 30 32 / 94%)}
-html[data-theme="dark"] .nx-catalog-band{background:linear-gradient(180deg,#0b191b 0%,#102224 52%,#0c1c1e 100%)}
-html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#0c1b1d 0%,#122628 52%,#0d2022 100%)}
+html[data-theme="dark"] .nx-header{background:rgb(14 25 32 / 95%)}
+html[data-theme="dark"] .nx-catalog-band{background:linear-gradient(180deg,#0d171d 0%,#142229 52%,#0f1b21 100%)}
+html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#0e1a20 0%,#17262e 52%,#111f25 100%)}
 html[data-theme="dark"] .nx-basket{background:linear-gradient(145deg,#124b5a 0%,#0b3944 60%,#082c34 100%)}
 
 /* Mantém o chrome alinhado ao verde-petróleo mesmo após os refinamentos
    responsivos declarados abaixo. */
-html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
+html[data-theme="dark"] .nx-home .nx-header{background:rgb(14 25 32 / 95%)}
 @media(max-width:420px){.nx-brand img{width:132px}.nx-theme,.nx-menu,.pc-radio{width:40px;min-width:40px;height:40px}.nx-section-title{display:grid;gap:6px}.nx-section-title>a{justify-self:start}.nx-category-grid>a{grid-template-columns:36px minmax(0,1fr)}.nx-category-grid>a>svg{display:none}.nx-footer__links{grid-template-columns:1fr}.nx-footer__links nav{min-height:48px;border-top:1px solid rgb(255 255 255 / 15%);border-left:0}}
 
 /* Reconstrução mobile 2026: composição estável, compacta e com áreas seguras. */

@@ -9,6 +9,7 @@ import { getStoreLogoUrl } from "../data/storeLogos";
 import { FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
+import { HomeQuickActionsCarousel } from "../components/HomeQuickActionsCarousel";
 import { useSiteTheme } from "../hooks/useSiteTheme";
 import "./HomeNew2026.css";
 
@@ -211,6 +212,8 @@ export function HomeNew2026() {
         </div>
       </section>
 
+      <HomeQuickActionsCarousel />
+
       <div className="nx-catalog-band">
       <section className="nx-categories nx-shell" aria-labelledby="nx-categories-title">
         <div className="nx-section-title"><div><h2 id="nx-categories-title">Onde você quer comprar?</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight aria-hidden="true" /></Link></div>
@@ -231,11 +234,12 @@ export function HomeNew2026() {
           <span className="sr-only" role="status">{loading ? "Carregando preços" : "Preços carregados"}</span>
         </div>
         <aside className="nx-basket">
-          <ShoppingBasket aria-hidden="true" />
-          <h2>Monte uma cesta e compare o total.</h2>
-          <p>Organize seus produtos, ajuste quantidades e veja as opções disponíveis por estabelecimento.</p>
-          <Link to="/cesta-inteligente">Abrir cesta inteligente <ArrowRight /></Link>
-          <Link to="/cesta-basica">Ver minha lista</Link>
+          <div className="nx-basket__content">
+            <span className="nx-basket__eyebrow"><ShoppingBasket aria-hidden="true" /> COMPRA PLANEJADA</span>
+            <h2>Sua cesta pode custar menos.</h2>
+            <p>Compare o total e descubra a melhor combinação de preços nos estabelecimentos de Feijó.</p>
+            <div className="nx-basket__actions"><Link to="/cesta-inteligente">Montar cesta inteligente <ArrowRight /></Link><Link to="/cesta-basica">Abrir minha lista</Link></div>
+          </div>
         </aside>
       </section>
 

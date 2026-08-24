@@ -1,5 +1,6 @@
 @import "@fontsource-variable/outfit";
 @import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
 /* impeccable-disable overused-font -- Inter é a fonte corporal canônica definida em DESIGN.md. */
 
 /* Oculta somente o indicador visual da página inicial; wheel, toque e teclado continuam ativos. */
@@ -164,3 +165,50 @@ html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
 @media(prefers-reduced-motion:no-preference){.nx-hero__copy{animation:nx-hero-enter 380ms var(--nx-ease) both}.nx-hero__visual{animation:nx-hero-enter 380ms 50ms var(--nx-ease) both}}
 @media(prefers-reduced-motion:reduce){.nx-home *,.nx-home *::before,.nx-home *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 @keyframes nx-hero-enter{from{opacity:.01;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes nx-pulse{50%{opacity:.56}}@keyframes nx-shimmer{to{background-position:-200% 0}}
+
+/* Vitrine web 2026: mídia contida, informação legível e preço em seu próprio plano. */
+@media(min-width:761px){
+  .nx-market__products{padding:22px;border-radius:22px;background:color-mix(in srgb,var(--nx-surface) 98%,transparent)}
+  .nx-market__products .nx-section-title{margin-bottom:18px}
+  .nx-market__products .nx-section-title h2{font-family:"Manrope Variable",Manrope,sans-serif;font-size:clamp(1.75rem,2.25vw,2.25rem);font-weight:780;letter-spacing:-.04em}
+  .nx-product-grid{gap:12px}
+  .nx-market .nx-product-card{position:relative;isolation:isolate;border-radius:16px;background:var(--nx-card);box-shadow:0 6px 20px rgb(20 52 61 / 6%)}
+  .nx-market .nx-product-card>a{min-height:286px;display:grid;grid-template-rows:132px minmax(154px,1fr);overflow:hidden}
+  .nx-market .nx-product-card__media{position:relative;z-index:0;width:100%;height:132px!important;min-height:132px!important;max-height:132px!important;padding:13px!important;overflow:hidden;border:0!important;border-bottom:1px solid var(--nx-line)!important;border-radius:0!important;background:linear-gradient(145deg,#edf3f0,#e3ece8)!important;box-shadow:none!important}
+  .nx-market .nx-product-card__media img{display:block;width:auto!important;height:auto!important;max-width:78%!important;max-height:104px!important;margin:auto;object-fit:contain!important;border:0!important;border-radius:8px!important;background:#fff!important;box-shadow:0 4px 13px rgb(20 45 40 / 8%)!important;filter:contrast(1.04) saturate(1.02)}
+  html[data-theme="dark"] .nx-market .nx-product-card__media{background:linear-gradient(145deg,#223a3b,#1b3233)!important}
+  .nx-market .nx-product-card__copy{position:relative;z-index:1;min-height:154px;padding:13px 14px 12px;background:var(--nx-card);font-family:"Manrope Variable",Manrope,sans-serif}
+  .nx-market .nx-product-card__copy>small{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+  .nx-market .nx-product-card h3{min-height:38px;margin:5px 0 3px;font-size:14px;font-weight:760;line-height:1.35;letter-spacing:-.015em}
+  .nx-market .nx-product-card p{font-size:11.5px;line-height:1.35}
+  .nx-market .nx-product-card footer{min-height:49px;align-items:center;margin-top:auto;padding-top:9px}
+  .nx-market .nx-product-card footer>span:first-child{gap:1px}
+  .nx-market .nx-product-card footer small{font-size:10px;line-height:1.2}
+  .nx-market .nx-product-card footer strong{position:relative;z-index:2;display:block;font-family:"Manrope Variable",Manrope,sans-serif;font-size:19px;line-height:1.08;white-space:nowrap}
+  .nx-market .nx-product-card__action{flex:none;padding-left:4px;font-size:10.5px;white-space:nowrap}
+
+  .nx-basket{position:relative;isolation:isolate;min-height:100%;justify-content:flex-end;padding:0;overflow:hidden;border:1px solid color-mix(in srgb,#f2b84b 42%,#17614f);border-radius:22px;background:#0d5b4b;box-shadow:0 13px 34px rgb(10 54 47 / 18%)}
+  .nx-basket::before{position:absolute;z-index:-2;inset:0;background:url('/compra-inteligente-profissional.webp') 69% center/cover no-repeat;content:"";filter:saturate(.9) contrast(1.04)}
+  .nx-basket::after{position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,rgb(5 42 37 / 18%) 0%,rgb(6 54 45 / 65%) 40%,rgb(7 59 48 / 98%) 73%);content:""}
+  .nx-basket__content{display:flex;flex-direction:column;padding:24px;color:#fff}
+  .nx-basket__eyebrow{display:flex;align-items:center;gap:7px;margin-bottom:10px;color:#ffe2a1;font:800 10px/1.2 "Manrope Variable",Manrope,sans-serif;letter-spacing:.1em}
+  .nx-basket__eyebrow svg{width:18px;height:18px}
+  .nx-basket h2{margin:0 0 9px;font-family:"Manrope Variable",Manrope,sans-serif;font-size:clamp(1.55rem,2.25vw,2rem);font-weight:780;line-height:1.06;letter-spacing:-.04em}
+  .nx-basket p{margin:0 0 17px;color:#e3f2ed;font-size:12.5px;line-height:1.52}
+  .nx-basket__actions{display:grid;gap:8px}
+  .nx-basket__actions a{min-height:44px;border:1px solid rgb(255 255 255 / 22%);border-radius:12px;background:#f6c65f;color:#173c33;font-size:11.5px;font-weight:850}
+  .nx-basket__actions a:last-child{margin:0;background:rgb(4 43 36 / 68%);color:#fff}
+  html[data-theme="dark"] .nx-basket{border-color:#47765f;background:#0b4a3e}
+  html[data-theme="dark"] .nx-basket::after{background:linear-gradient(180deg,rgb(4 29 27 / 25%) 0%,rgb(5 40 35 / 72%) 42%,rgb(5 45 38 / 99%) 74%)}
+}
+
+@media(min-width:761px) and (max-width:1020px){
+  .nx-market{gap:16px}
+  .nx-market .nx-product-card>a{min-height:270px;grid-template-rows:124px minmax(146px,1fr)}
+  .nx-market .nx-product-card__media{height:124px!important;min-height:124px!important;max-height:124px!important}
+  .nx-market .nx-product-card__media img{max-width:72%!important;max-height:94px!important}
+  .nx-basket{min-height:300px}
+  .nx-basket::before{background-position:70% 42%}
+  .nx-basket::after{background:linear-gradient(90deg,rgb(5 55 46 / 98%) 0%,rgb(6 57 48 / 92%) 43%,rgb(6 54 45 / 22%) 76%)}
+  .nx-basket__content{width:min(500px,62%);justify-content:center;padding:30px}
+}

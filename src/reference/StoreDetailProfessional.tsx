@@ -8,7 +8,7 @@ import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
 import { groupForStore } from "../data/businessTaxonomy";
 import { marketplaceSectors } from "./MarketplaceSectors";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
 import "./StoreExperienceAcai2026.css";
 import "./StoreSectorHero.css";
@@ -283,6 +283,6 @@ export function StoreDetailProfessional() {
 
       <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link className="pc-btn pc-btn--ghost" to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
     </main>
-    <PublicFooter/>
+    <footer className="store-pro-legal">© {new Date().getFullYear()} PreçoCerto · Feijó-AC</footer>
   </div>;
 }

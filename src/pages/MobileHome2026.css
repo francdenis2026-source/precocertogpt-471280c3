@@ -23,6 +23,7 @@
 .mh26-page{--mh-surface:#fff;--mh-line:#cfddd7;background:linear-gradient(180deg,#eef4f1 0,#f6f8f7 300px,#f1f5f3 100%)}
 html[data-theme="dark"] .mh26-page{--mh-surface:#14282a;--mh-line:#304d49;background:linear-gradient(180deg,#0b191b 0,#102224 320px,#0c1c1e 100%)}
 html[data-theme="dark"] .mh26-header{background:rgba(12,27,29,.96)}
+html[data-theme="dark"] .mh26-logo img{content:url("/logo-preco-certo-inversa.svg?v=11")}
 html[data-theme="dark"] .mh26-head-actions>a,html[data-theme="dark"] .mh26-actions>a,html[data-theme="dark"] .mh26-product{background:#14282a;border-color:#304d49}
 html[data-theme="dark"] .mh26-actions>a.is-primary{background:linear-gradient(115deg,#14282a,#183331)}
 html[data-theme="dark"] .mh26-page .ref-dock{background:rgba(11,25,27,.98)!important}

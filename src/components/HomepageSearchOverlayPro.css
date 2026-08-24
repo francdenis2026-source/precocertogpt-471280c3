@@ -6,7 +6,8 @@
 .pc-search-overlay {
   position: fixed;
   inset: 0;
-  z-index: 2147482000;
+  /* A busca fica acima do conteúdo, mas abaixo dos headers fixos/sticky. */
+  z-index: 95;
   pointer-events: none;
   font-family: Manrope, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }

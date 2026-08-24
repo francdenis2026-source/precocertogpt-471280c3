@@ -55,6 +55,11 @@ export function MobileHome2026(){
 
    <section className="mh26-local"><span className="mh26-developer">dev &lt;Franc D’nis&gt;</span><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
   </main>
+  <footer className="mh26-footer">
+   <div><CheckCircle2 aria-hidden="true"/><strong>Informação local verificada</strong></div>
+   <small>© 2026 PreçoCerto · Feijó, Acre · dev &lt;Franc D’nis&gt;</small>
+   <p>Preços podem mudar. Confirme no estabelecimento antes da compra.</p>
+  </footer>
   <AppDock current="home"/>
  </div>
 }

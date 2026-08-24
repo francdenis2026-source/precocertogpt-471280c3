@@ -21,6 +21,7 @@
 /* Fundo calmo e sem fotografia fora do hero: melhora a leitura dos cards e
    mantém o modo escuro sofisticado, sem um verde saturado sobre o conteúdo. */
 .mh26-page{--mh-surface:#fff;--mh-line:#cfddd7;background:linear-gradient(180deg,#eef4f1 0,#f6f8f7 300px,#f1f5f3 100%)}
+.mh26-footer{display:grid;gap:10px;margin-top:18px;padding:20px 16px 96px;border-top:1px solid rgb(255 255 255 / 13%);background:linear-gradient(145deg,#173626,#122d20);color:#eef7f1}.mh26-footer>div{display:flex;align-items:center;gap:8px}.mh26-footer>div svg{width:17px;height:17px;color:#d9932c}.mh26-footer strong{font-size:12px}.mh26-footer small,.mh26-footer p{margin:0;color:#c9d9ce;font-size:11px;line-height:1.5}.mh26-footer p{padding-top:10px;border-top:1px solid rgb(255 255 255 / 13%)}
 html[data-theme="dark"] .mh26-page{--mh-surface:#14282a;--mh-line:#304d49;background:linear-gradient(180deg,#0b191b 0,#102224 320px,#0c1c1e 100%)}
 html[data-theme="dark"] .mh26-header{background:rgba(12,27,29,.96)}
 html[data-theme="dark"] .mh26-logo img{content:url("/logo-preco-certo-inversa.svg?v=11")}

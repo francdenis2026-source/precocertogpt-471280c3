@@ -259,14 +259,17 @@ export function HomeNew2026() {
       <div className="nx-shell nx-footer__main">
         <div className="nx-footer__brand">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
-          <button className="nx-footer__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">dev &lt;Franc D’nis&gt;</button>
         </div>
         <div className="nx-footer__links">
           <nav aria-label="Área comercial"><strong>Negócios</strong><span><Link to="/lojista">Para comerciantes</Link><Link to="/quero-vender">Quero vender</Link></span></nav>
           <nav aria-label="Categorias"><strong>Categorias</strong><span><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></span></nav>
           <nav aria-label="Suporte e participação"><strong>Suporte</strong><span><Link to="/colaborar">Colaborar</Link><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button></span></nav>
         </div>
-        <div className="nx-footer__meta"><span><i className="nx-check" aria-hidden="true">✓</i> Preços locais organizados</span><small>© 2026 PreçoCerto · Feijó, AC</small></div>
+        <div className="nx-footer__meta"><span><i className="nx-check" aria-hidden="true">✓</i> Informação local verificada</span></div>
+      </div>
+      <div className="nx-shell nx-footer__legal">
+        <span>© 2026 PreçoCerto · Feijó, Acre · <button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog" aria-label="Conhecer o desenvolvedor Franc D’nis">dev &lt;Franc D’nis&gt;</button></span>
+        <p>Preços podem mudar. Confirme no estabelecimento antes da compra.</p>
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />

@@ -14,31 +14,31 @@
 /* Hero compacto: era um cartão alto (min-height 300px + h1 até 4.9rem),
    desproporcional ao restante da página. Agora fica mais baixo e discreto,
    como um cabeçalho editorial, não um banner de tela cheia. */
-.store-pro-hero{position:relative;isolation:isolate;min-height:172px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#3c5364);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/mercado-bairro-feijo-v1.webp') 74% 30%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
+.store-pro-hero{position:relative;isolation:isolate;min-height:172px;overflow:hidden;border:1px solid color-mix(in srgb,var(--pc-border) 50%,#5c5238);border-radius:var(--pc-radius-block);background:var(--pc-navy) url('/mercado-bairro-feijo-v1.webp') 74% 30%/cover no-repeat;box-shadow:var(--pc-shadow-sm)}
 .store-pro-hero__overlay{position:absolute;z-index:-1;inset:0;background:linear-gradient(92deg,rgba(11,21,28,.93) 0%,rgba(11,21,28,.88) 38%,rgba(11,21,28,.58) 68%,rgba(11,21,28,.22) 100%)}
 html[data-theme="dark"] .store-pro-hero__overlay{background:linear-gradient(92deg,rgba(14,26,30,.86) 0%,rgba(15,29,32,.8) 38%,rgba(16,30,32,.5) 68%,rgba(16,30,32,.18) 100%)}
 .store-pro-hero__content{position:relative;z-index:2;min-height:172px;display:grid;grid-template-columns:74px minmax(0,1fr) auto;align-items:center;gap:18px;padding:20px 28px}
-.store-pro-logo{width:68px;height:68px;display:grid;place-items:center;overflow:hidden;border-radius:17px;color:#fff;background:#2d4657;box-shadow:0 10px 26px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.13)}
+.store-pro-logo{width:68px;height:68px;display:grid;place-items:center;overflow:hidden;border-radius:17px;color:#fff;background:#4e442a;box-shadow:0 10px 26px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.13)}
 .store-pro-logo svg{width:28px;height:28px}
 .store-pro-logo.has-image{background:#fff;padding:6px}
 .store-pro-logo.has-image img{width:100%;height:100%;display:block;object-fit:contain}
 .store-pro-copy{max-width:760px}
 .store-pro-copy>span,.store-pro-catalog-head>div>span{display:block;color:var(--pc-gold);font-size:12px;font-weight:900;letter-spacing:.12em}
 .store-pro-copy h1{margin:6px 0 8px;font-family:var(--pc-font-display);font-size:clamp(1.5rem,2.6vw,2.5rem);line-height:1.02;letter-spacing:-.03em;text-wrap:balance;color:#fff}
-.store-pro-copy p{max-width:640px;margin:0 0 12px;color:#c5ced5;font-size:13px;line-height:1.5}
+.store-pro-copy p{max-width:640px;margin:0 0 12px;color:#dad0b6;font-size:13px;line-height:1.5}
 .store-pro-meta-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.store-pro-meta-line b{display:flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid rgba(180, 202, 217,.18);border-radius:999px;background:rgba(10,23,33,.5);color:#e1e4e7;font-size:12.5px;font-weight:700}
-.store-pro-meta-line b svg{width:13px;color:#8caec7;height:13px}
+.store-pro-meta-line b{display:flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid rgba(180, 202, 217,.18);border-radius:999px;background:rgba(10,23,33,.5);color:#f1e7cd;font-size:12.5px;font-weight:700}
+.store-pro-meta-line b svg{width:13px;color:#b4aa90;height:13px}
 .store-pro-status{min-width:190px;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:9px;padding:11px 12px;border:1px solid rgba(140, 174, 199,.25);border-radius:14px;background:rgba(7,22,33,.55);backdrop-filter:blur(12px)}
-.store-pro-status>svg{width:32px;height:32px;padding:7px;border-radius:9px;background:#173246;color:#97b6cd}
+.store-pro-status>svg{width:32px;height:32px;padding:7px;border-radius:9px;background:#3a3016;color:#bdb399}
 .store-pro-status span{display:grid;gap:2px}
 .store-pro-status strong{color:#fff;font-size:12.5px}
-.store-pro-status small{color:#abb7bf;font-size:12px}
+.store-pro-status small{color:#c2b89e;font-size:12px}
 
 .store-pro-brand-art{position:absolute;z-index:0;inset:0 0 0 43%;display:flex;align-items:center;justify-content:center;padding:22px 34px 22px 70px;pointer-events:none}
 .store-pro-brand-art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,18,23,.96) 0%,rgba(11,18,23,.7) 22%,rgba(11,18,23,.2) 62%,rgba(11,18,23,.06) 100%)}
 .store-pro-brand-art img{position:relative;max-width:100%;max-height:240px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 18px 34px rgba(0,0,0,.35))}
-.store-pro-hero--bons-amigos{background:linear-gradient(135deg,#26343e 0%,#2c3943 45%,#213543 100%)}
+.store-pro-hero--bons-amigos{background:linear-gradient(135deg,#3e341a 0%,#443a20 45%,#3e341a 100%)}
 .store-pro-hero--bons-amigos .store-pro-hero__overlay{background:linear-gradient(90deg,rgba(7,12,16,.99) 0%,rgba(7,12,16,.97) 35%,rgba(7,12,16,.6) 57%,rgba(7,12,16,.08) 100%)}
 .store-pro-page--bons-amigos .store-pro-copy>span{color:#ff3b30}
 .store-pro-page--bons-amigos .store-pro-meta-line b svg{color:#ff4a3d}
@@ -121,7 +121,7 @@ html[data-theme="dark"] .store-pro-hero__overlay{background:linear-gradient(92de
 .store-pro-bottom-note a svg{width:12px;height:12px}
 
 .store-pro-state{min-height:100dvh;display:grid;place-items:center;align-content:center;gap:12px;background:var(--pc-canvas);color:var(--pc-ink)}
-.store-pro-state>a{padding:10px 14px;border-radius:9px;background:var(--pc-green);color:#19384f;font-weight:850}
+.store-pro-state>a{padding:10px 14px;border-radius:9px;background:var(--pc-green);color:#fff;font-weight:850}
 .store-pro-loader{width:34px;height:34px;border:3px solid var(--pc-border);border-top-color:var(--pc-green);border-radius:50%;animation:store-pro-spin .8s linear infinite}
 @keyframes store-pro-spin{to{transform:rotate(1turn)}}
 

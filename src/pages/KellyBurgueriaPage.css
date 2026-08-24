@@ -47,7 +47,7 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-hero__meta svg{width:12px;height:12px}
 .kelly-hero__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:1px}
 .kelly-hero__actions .pc-btn{font-size:13px}
-.kelly-hero__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
+.kelly-hero__actions .pc-btn--primary{background:#82785e;border-color:#82785e;color:#201600}
 .kelly-hero__actions .pc-btn--primary:hover{filter:brightness(1.05)}
 .kelly-hero__actions .pc-btn--ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);color:#fff}
 
@@ -118,7 +118,7 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-cta h2{margin:0 0 4px;font-size:19px}
 .kelly-cta p{margin:0;font-size:13.5px;color:var(--pc-muted);max-width:44ch}
 .kelly-cta__actions{display:flex;flex-wrap:wrap;gap:10px}
-.kelly-cta__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
+.kelly-cta__actions .pc-btn--primary{background:#82785e;border-color:#82785e;color:#201600}
 
 @media (max-width:760px){
   .kelly-info{grid-template-columns:1fr}

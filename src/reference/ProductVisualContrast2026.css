@@ -1,0 +1,121 @@
+/* Contraste sistêmico para produtos — carregado por último no aplicativo.
+   Fotos de catálogo são informação: nunca devem ser cortadas nem desaparecer
+   sobre a superfície do card. */
+
+:root {
+  --pc-product-well: #e7eeeb;
+  --pc-product-frame: #c5d3ce;
+  --pc-product-price: #075f3f;
+  --pc-product-muted: #52676f;
+  --pc-action-strong: #075f50;
+}
+
+html[data-theme="dark"] {
+  --pc-product-well: #203638;
+  --pc-product-frame: #49635f;
+  --pc-product-price: #91e3bd;
+  --pc-product-muted: #bdceca;
+  --pc-action-strong: #55caa0;
+}
+
+/* Poço visual: separa até fotografias brancas do fundo da página. */
+:where(
+  .nx-product-card__media,
+  .nx-deal__product > img,
+  .mh26-product > i,
+  .msearch26-thumb,
+  .search26-thumb,
+  .store-pro-product-image,
+  .pro-basket-thumb,
+  .pdp-main-image,
+  .pdp-similar img,
+  .ref-product-media,
+  .ref-catalog-card__media
+) {
+  border-color: var(--pc-product-frame) !important;
+  background: var(--pc-product-well) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pc-product-frame) 58%, transparent) !important;
+}
+
+/* A foto inteira permanece visível; textos, peso e quantidade da embalagem
+   não são recortados. A borda evidencia imagens de fundo branco. */
+:where(
+  .nx-product-card__media img,
+  .nx-deal__product > img,
+  .mh26-product > i img,
+  .msearch26-thumb img,
+  .search26-thumb img,
+  .store-pro-product-image img,
+  .pro-basket-thumb img,
+  .pdp-main-image > img,
+  .pdp-similar img,
+  .ref-product-media img,
+  .ref-catalog-card__media img
+) {
+  max-width: calc(100% - 8px) !important;
+  max-height: calc(100% - 8px) !important;
+  object-fit: contain !important;
+  border: 1px solid color-mix(in srgb, var(--pc-product-frame) 74%, transparent) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 10px rgb(20 45 40 / 9%) !important;
+  filter: contrast(1.07) saturate(1.03);
+}
+
+/* Preços e textos funcionais nunca usam verde de baixo contraste. */
+:where(
+  .nx-product-card footer strong,
+  .nx-deal footer strong,
+  .mh26-product > b,
+  .msearch26-price strong,
+  .search26-price strong,
+  .store-pro-grid > a > footer b,
+  .pro-basket-line-total strong,
+  .pro-basket-total > strong,
+  .pro-basket-saving strong,
+  .pdp-price-card strong,
+  .pdp-where > div > a > strong,
+  .pdp-similar b,
+  .pdp-basket > footer strong
+) {
+  color: var(--pc-product-price) !important;
+  font-weight: 850 !important;
+}
+
+:where(
+  .nx-product-card p,
+  .nx-product-card footer small,
+  .mh26-product > span em,
+  .mh26-product > span small,
+  .mh26-product > b small,
+  .msearch26-copy > span,
+  .msearch26-price small,
+  .search26-card p,
+  .pro-basket-unit small,
+  .pro-basket-line-total small
+) {
+  color: var(--pc-product-muted) !important;
+}
+
+/* CTAs verdes: branco sobre verde profundo no claro; tinta escura sobre
+   verde luminoso no escuro. Ambos mantêm contraste WCAG AA. */
+:where(.search26-search button, .pro-basket-primary, .pro-basket-empty a:first-child) {
+  border-color: var(--pc-action-strong) !important;
+  background: var(--pc-action-strong) !important;
+  color: #fff !important;
+}
+
+html[data-theme="dark"] :where(.search26-search button, .pro-basket-primary, .pro-basket-empty a:first-child) {
+  color: #071b16 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    .nx-product-card__media img,
+    .mh26-product > i img,
+    .msearch26-thumb img,
+    .search26-thumb img,
+    .store-pro-product-image img,
+    .pdp-main-image > img
+  ) { transition: none !important; }
+}

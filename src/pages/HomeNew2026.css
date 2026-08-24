@@ -212,3 +212,18 @@ html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
   .nx-basket::after{background:linear-gradient(90deg,rgb(5 55 46 / 98%) 0%,rgb(6 57 48 / 92%) 43%,rgb(6 54 45 / 22%) 76%)}
   .nx-basket__content{width:min(500px,62%);justify-content:center;padding:30px}
 }
+
+/* Revolução de cores — identidade "Mercado de Feijó".
+   Mata + terracota + ouro, aplicada por último para unificar toda a home sem
+   desfazer o enquadramento seguro das fotos e preços da vitrine web. */
+.nx-home{--nx-bg:#f6f2e8;--nx-surface:#fbf8f1;--nx-card:#fff;--nx-soft:#ece4d3;--nx-text:#17251d;--nx-muted:#5b665c;--nx-line:#ddd6c4;--nx-blue:#2f6f4f;--nx-blue-2:#c2532c;--nx-teal:#2f6f4f;--nx-amber:#d9932c;--nx-green:#1f6b45;--nx-shadow-sm:0 8px 22px rgb(23 41 30 / 8%);--nx-shadow:0 22px 58px rgb(23 41 30 / 14%)}
+html[data-theme="dark"] .nx-home{--nx-bg:#12211a;--nx-surface:#182a20;--nx-card:#1e3226;--nx-soft:#24392c;--nx-text:#f3f1e6;--nx-muted:#b7c2b3;--nx-line:#33473a;--nx-blue:#8fd9ae;--nx-blue-2:#d9663a;--nx-teal:#8fd9ae;--nx-amber:#f0c15c;--nx-green:#6ed49a}
+.nx-home :is(.nx-hero h1,.nx-section-title h2,.nx-local h2,.nx-basket h2){font-family:"Manrope Variable",Manrope,sans-serif}
+.nx-login:hover,.nx-search__submit:hover{background:#9c3f20}
+.nx-catalog-band{background:linear-gradient(180deg,#f2ecdf 0%,#fbf8f1 54%,#efe7d7 100%)}
+.nx-local-band{background:linear-gradient(135deg,#eee6d7 0%,#fbf8f1 48%,#e8dfcc 100%)}
+.nx-footer{background:linear-gradient(100deg,#173626 0%,#1f4d37 52%,#122d20 100%)}
+html[data-theme="dark"] .nx-header,html[data-theme="dark"] .nx-home .nx-header{background:rgb(18 33 26 / 94%)}
+html[data-theme="dark"] .nx-catalog-band{background:linear-gradient(180deg,#12211a 0%,#182a20 52%,#12211a 100%)}
+html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a 0%,#1e3226 52%,#15261c 100%)}
+@media(max-width:760px){.nx-hero{background:linear-gradient(180deg,rgb(246 242 232 / 94%) 0%,rgb(246 242 232 / 88%) 47%,rgb(246 242 232 / 96%) 100%),url('/hero-mercado-local-2026.webp') 63% center/cover no-repeat}html[data-theme="dark"] .nx-hero{background:linear-gradient(180deg,rgb(18 33 26 / 84%) 0%,rgb(18 33 26 / 73%) 48%,rgb(18 33 26 / 94%) 100%),url('/hero-supermercado-editorial-2026.webp') 62% center/cover no-repeat}}

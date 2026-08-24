@@ -47,7 +47,7 @@ html[data-theme="dark"] .mh26-page .ref-dock{background:rgba(11,25,27,.98)!impor
   .mh26-product>b{grid-column:2;justify-items:start;padding-top:0;font-size:17px}
   .mh26-product>b small{font-size:9.5px}
   .mh26-product.is-loading{height:142px}
-  html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
+html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
 }
 @media (max-width:370px){
   .mh26-product{grid-template-columns:82px minmax(0,1fr);gap:7px 9px;padding:10px 62px 10px 10px}
@@ -55,6 +55,25 @@ html[data-theme="dark"] .mh26-page .ref-dock{background:rgba(11,25,27,.98)!impor
   .mh26-product>i img{max-width:76px;max-height:86px}
   .mh26-product>span strong{font-size:14.5px}
   .mh26-product>b{font-size:16px}
+}
+
+/* Paleta canônica Mercado de Feijó — alinhada à home web. */
+@media(max-width:767px){
+  .mh26-page{--mh-ink:#17251d;--mh-muted:#5b665c;--mh-line:#ddd6c4;--mh-surface:#fff;--mh-green:#2f6f4f;--mh-green-dark:#1f4d37;background:linear-gradient(180deg,#f6f2e8 0,#fbf8f1 300px,#f2ede0 100%);color:var(--mh-ink);font-family:"Inter Variable",Inter,system-ui,sans-serif}
+  .mh26-page :is(.mh26-hero h1,.mh26-section h2,.mh26-local h2){font-family:"Manrope Variable",Manrope,sans-serif}
+  .mh26-page :is(a,button,input):focus-visible{outline-color:#d9932c}
+  .mh26-header{border-color:#ddd6c4;background:rgb(255 253 248 / 98%)}
+  .mh26-hero{background:linear-gradient(100deg,rgb(19 50 34 / 96%) 0%,rgb(30 78 53 / 88%) 52%,rgb(47 111 79 / 58%) 100%),url('/hero-mercado-local-2026.webp') 68% center/cover no-repeat}
+  .mh26-search-submit{background:#c2532c;box-shadow:0 5px 12px rgb(194 83 44 / 28%)}
+  .mh26-verified-icon{background:#8fd9ae!important;color:#173626!important}
+  .mh26-product>span em{background:#ece4d3;color:#1f4d37}
+  .mh26-local{background:linear-gradient(140deg,#173626,#1f4d37)}
+  .mh26-local small{color:#a9d9bd}.mh26-local>a{color:#173626}
+  html[data-theme="dark"] .mh26-page{--mh-ink:#f3f1e6;--mh-muted:#b7c2b3;--mh-line:#33473a;--mh-surface:#1e3226;background:linear-gradient(180deg,#12211a 0,#182a20 320px,#12211a 100%)}
+  html[data-theme="dark"] .mh26-header{background:rgb(20 37 29 / 96%);border-color:#33473a}
+  html[data-theme="dark"] .mh26-hero{background:linear-gradient(100deg,rgb(12 30 21 / 98%) 0%,rgb(19 50 34 / 93%) 54%,rgb(31 77 55 / 72%) 100%),url('/hero-supermercado-editorial-2026.webp') 66% center/cover no-repeat}
+  html[data-theme="dark"] .mh26-head-actions>a,html[data-theme="dark"] .mh26-product{background:#1e3226;border-color:#33473a}
+  html[data-theme="dark"] .mh26-product>span em{background:#24392c;color:#8fd9ae}
 }
 
 /* Identificação discreta da música: o controle continua compacto e a faixa

@@ -22,20 +22,20 @@ older files did not all need to be rewritten by hand to benefit from the real to
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#f8f6f1` | `#101511` |
-| Surface | `#ffffff` | `#19201b` |
-| Surface 2 | `#eff5f0` | `#222b25` |
-| Ink | `#202a24` | `#f4f8f5` |
-| Muted | `#58665e` | `#bcc9c0` |
-| Border | `#d4e1d7` | `#35443a` |
-| Primary / verified price | `#0b6b5c` | `#79d8c5` |
-| Primary strong | `#075447` | `#91dfd0` |
-| Accent | `#f26a21` | `#f69a61` |
-| Alert | `#a63f2b` | `#f0a08a` |
+| Canvas | `#fbf5ed` | `#1f1511` |
+| Surface | `#fffaf4` | `#2a1c17` |
+| Surface 2 | `#f6e7dc` | `#34231d` |
+| Ink | `#3a2118` | `#fff4e8` |
+| Muted | `#765a4c` | `#d8bfaf` |
+| Border | `#e7d4c7` | `#5a3a2e` |
+| Primary / verified price | `#b64f32` | `#ee9a78` |
+| Primary strong | `#8f3822` | `#ffb497` |
+| Accent | `#c65d3b` | `#e77f5d` |
+| Alert | `#9b3f27` | `#f1a184` |
 
-O modo escuro usa uma escala de carvão esverdeado profundo, sem preto puro e sem azul-marinho.
-O verde-petróleo da logomarca é a única cor primária e o laranja queimado é o accent; ambos ficam
-reservados para ação, preço, foco e estados importantes. A camada
+O modo escuro usa uma escala quente de cacau e mogno, com marfim para texto e terracota para
+ação, preço, foco e estados importantes. As cores verde e laranja originais aparecem somente
+dentro da logomarca, sempre sobre uma placa marfim no chrome escuro para preservar sua fidelidade. A camada
 `GlobalMineralDark2026.css`, carregada após os estilos históricos, remapeia as
 superfícies legadas para os mesmos papéis semânticos em todas as páginas.
 

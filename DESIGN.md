@@ -22,20 +22,20 @@ older files did not all need to be rewritten by hand to benefit from the real to
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#f4f6f5` | `#202428` |
-| Surface | `#ffffff` | `#292e33` |
-| Surface 2 | `#eaf0ed` | `#32383e` |
-| Ink | `#17251d` | `#f5f7f5` |
-| Muted | `#53645c` | `#c5cbd0` |
-| Border | `#d3ded8` | `#4b555e` |
-| Primary / verified price | `#17633f` | `#96ceb0` |
-| Primary strong | `#104c30` | `#adddc2` |
-| Accent | `#b77918` | `#edc778` |
+| Canvas | `#f7f8f4` | `#101511` |
+| Surface | `#ffffff` | `#19201b` |
+| Surface 2 | `#eff5f0` | `#222b25` |
+| Ink | `#202a24` | `#f4f8f5` |
+| Muted | `#58665e` | `#bcc9c0` |
+| Border | `#d4e1d7` | `#35443a` |
+| Primary / verified price | `#00743f` | `#78d99d` |
+| Primary strong | `#005b32` | `#8addaa` |
+| Accent | `#ff6400` | `#ff9847` |
 | Alert | `#a63f2b` | `#f0a08a` |
 
-O modo escuro usa uma escala mineral de carvão com luminosidade média, sem preto puro e
-sem verde-floresta dominando grandes áreas. Verde é a única cor primária,
-ouro é o accent e terracota aparece somente em alerta/erro. A camada
+O modo escuro usa uma escala de carvão esverdeado profundo, sem preto puro e sem azul-marinho.
+O verde da logomarca é a única cor primária e o laranja oficial é o accent; ambos ficam
+reservados para ação, preço, foco e estados importantes. A camada
 `GlobalMineralDark2026.css`, carregada após os estilos históricos, remapeia as
 superfícies legadas para os mesmos papéis semânticos em todas as páginas.
 

@@ -1,6 +1,6 @@
-const CACHE_VERSION = "precocerto-shell-v1";
-const STATIC_CACHE = "precocerto-static-v1";
-const NAVIGATION_TIMEOUT_MS = 8_000;
+const CACHE_VERSION = "precocerto-shell-v2";
+const STATIC_CACHE = "precocerto-static-v2";
+const NAVIGATION_TIMEOUT_MS = 15_000;
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -26,7 +26,9 @@ async function networkFirstNavigation(request) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), NAVIGATION_TIMEOUT_MS);
   try {
-    const response = await fetch(request, { signal: controller.signal });
+    // O documento define os hashes atuais de JS e CSS. Ignorar o HTTP cache
+    // aqui impede que uma navegação online reviva um pacote visual antigo.
+    const response = await fetch(request, { signal: controller.signal, cache: "no-store" });
     if (!response.ok) return response;
     const cache = await caches.open(CACHE_VERSION);
     await cache.put(request, response.clone());
@@ -60,6 +62,20 @@ async function staleWhileRevalidate(request) {
   });
 }
 
+async function networkFirstStatic(request) {
+  const cache = await caches.open(STATIC_CACHE);
+  try {
+    const response = await fetch(request, { cache: "no-cache" });
+    if (response.ok) await cache.put(request, response.clone());
+    return response;
+  } catch {
+    return await cache.match(request) || new Response("Recurso temporariamente indisponível.", {
+      status: 504,
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
+  }
+}
+
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -71,7 +87,11 @@ self.addEventListener("fetch", event => {
     event.respondWith(networkFirstNavigation(request));
     return;
   }
-  if (["script", "style", "image", "font"].includes(request.destination)) {
+  if (["script", "style"].includes(request.destination)) {
+    event.respondWith(networkFirstStatic(request));
+    return;
+  }
+  if (["image", "font"].includes(request.destination)) {
     event.respondWith(staleWhileRevalidate(request));
   }
 });

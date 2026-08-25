@@ -1,0 +1,74 @@
+/*
+ * Política visual permanente: o PreçoCerto não utiliza imagens decorativas
+ * como background global, hero ou banner estrutural. Imagens funcionais
+ * (produtos, logomarcas, estabelecimentos e conteúdo editorial) permanecem.
+ */
+
+html,
+body,
+#root,
+[class*="page"],
+[class*="hero"] {
+  background-image: none !important;
+}
+
+/* Homepage desktop/mobile: mantém conteúdo e busca, remove apenas mídia hero. */
+.nx-home,
+.nx-hero,
+.nx-hero__photo,
+.mh26-page,
+.mh26-hero {
+  background-image: none !important;
+}
+
+.nx-hero__visual,
+.mh26-hero-media,
+.kelly-hero__visual {
+  display: none !important;
+}
+
+.nx-hero__grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.nx-hero__copy {
+  max-width: 780px;
+}
+
+/* Remove qualquer mídia explicitamente marcada como hero sem afetar produtos/logos. */
+[class*="hero"] img[src*="hero"],
+[class*="hero"] picture:has(img[src*="hero"]),
+img[src*="estabelecimentos-hero"],
+img[src*="pharmacy-hero"],
+img[src*="merchant-access-hero"],
+img[src*="auth-market-hero"] {
+  display: none !important;
+}
+
+/* Fundos literários/promocionais antigos não devem reaparecer por CSS legado. */
+.ref-page,
+.auth-page,
+.login-page,
+.register-page,
+.dorinha-page,
+.store-page,
+.sector-page,
+.marketplace-sector,
+.pharmacy-directory-page,
+.smart-basket-page,
+.pro-basket-page {
+  background-image: none !important;
+}
+
+/* Kelly/Ponto do Sanduba: fotos de categoria que eram usadas como background. */
+.kelly-menu-group__head {
+  background-image: none !important;
+}
+
+/* Evita herança de imagens decorativas via pseudo-elementos de páginas/heroes. */
+[class*="page"]::before,
+[class*="page"]::after,
+[class*="hero"]::before,
+[class*="hero"]::after {
+  background-image: none !important;
+}

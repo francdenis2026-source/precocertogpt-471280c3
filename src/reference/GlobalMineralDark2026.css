@@ -1,61 +1,35 @@
 /*
- * Modo escuro canônico — grafite mineral.
- * Base neutra; sálvia somente para preço, economia e verificação;
- * terracota para ações primárias. Carregado por último para impedir que
- * camadas históricas restaurem fundos verde-floresta.
+ * Modo escuro canônico — azul-ardósia noturno.
+ * Base grafite azulada, azul-aço para ação/preço e ouro como assinatura.
+ * Carregado por último para impedir que camadas históricas restaurem verde.
  */
 html[data-theme="dark"] {
-  --pc-canvas: #202428;
-  --pc-surface: #292e33;
-  --pc-surface-2: #32383e;
-  --pc-surface-3: #3b434a;
-  --pc-ink: #f5f7f5;
-  --pc-muted: #c5cbd0;
-  --pc-subtle: #aeb8bf;
-  --pc-border: #4b555e;
-  --pc-border-strong: #65727c;
-  --pc-navy: #30373d;
-  --pc-navy-2: #b84f32;
-  --pc-footer: #252b30;
-  --pc-green: #96ceb0;
-  --pc-green-strong: #adddc2;
-  --pc-green-soft: #2b443d;
-  --pc-gold: #edc778;
-  --pc-bg: #202428;
-  --pc-text: #f5f7f5;
-  --pc-line: #4b555e;
-  --pc-brand: #96ceb0;
-  --pc-accent: #b84f32;
-  --pc-color-background: #202428;
-  --pc-color-surface: #292e33;
-  --pc-color-foreground: #f5f7f5;
-  --pc-color-muted: #c5cbd0;
-  --pc-color-border: #4b555e;
-  --pc-color-primary: #b84f32;
-  --pc-color-primary-foreground: #fffaf7;
-  --pc-color-accent: #96ceb0;
+  --pc-canvas:#171c23;--pc-surface:#202731;--pc-surface-2:#29323d;--pc-surface-3:#333e4a;
+  --pc-ink:#f3f6fa;--pc-muted:#c1cad5;--pc-subtle:#a8b3c0;--pc-border:#43505e;--pc-border-strong:#5b6b7d;
+  --pc-primary:#86b6e2;--pc-primary-strong:#b2d3f1;--pc-primary-soft:#273a4d;--pc-on-primary:#12202c;--pc-on-structural:#f3f6fa;
+  --pc-price:#9bc6eb;--pc-alert:#f0a08a;--pc-alert-soft:#49302d;--pc-border-interactive:#5b7086;--pc-image-well:#2e3742;
+  --pc-navy:#1c2530;--pc-navy-2:#86b6e2;--pc-footer:#151b22;
+  --pc-green:#86b6e2;--pc-green-strong:#b2d3f1;--pc-green-soft:#273a4d;
+  --pc-gold:#e2ba70;--pc-gold-on-dark:#e2ba70;--pc-gold-soft:#463b27;
+  --pc-bg:#171c23;--pc-text:#f3f6fa;--pc-line:#43505e;--pc-brand:#86b6e2;--pc-accent:#e2ba70;
+  --pc-color-background:#171c23;--pc-color-surface:#202731;--pc-color-foreground:#f3f6fa;
+  --pc-color-muted:#c1cad5;--pc-color-border:#43505e;--pc-color-primary:#86b6e2;
+  --pc-color-primary-foreground:#12202c;--pc-color-accent:#e2ba70;
   color-scheme: dark;
 }
 
 html[data-theme="dark"] body {
-  background: #202428;
-  color: #f5f7f5;
+  background:var(--pc-canvas);
+  color:var(--pc-ink);
 }
 
 /* Homepage web: neutraliza definitivamente as regras verde-floresta tardias. */
 html[data-theme="dark"] .nx-home {
-  --nx-bg: #202428!important;
-  --nx-surface: #292e33!important;
-  --nx-card: #32383e!important;
-  --nx-soft: #3b434a!important;
-  --nx-text: #f5f7f5!important;
-  --nx-muted: #c5cbd0!important;
-  --nx-line: #4b555e!important;
-  --nx-blue: #9bc3df!important;
-  --nx-blue-2: #b84f32!important;
-  --nx-teal: #8fc2aa!important;
-  --nx-green: #96ceb0!important;
-  --nx-amber: #edc778!important;
+  --nx-bg:var(--pc-canvas)!important;--nx-surface:var(--pc-surface)!important;
+  --nx-card:var(--pc-surface-2)!important;--nx-soft:var(--pc-surface-3)!important;
+  --nx-text:var(--pc-ink)!important;--nx-muted:var(--pc-muted)!important;--nx-line:var(--pc-border)!important;
+  --nx-blue:var(--pc-primary)!important;--nx-blue-2:var(--pc-primary-strong)!important;
+  --nx-teal:var(--pc-primary)!important;--nx-green:var(--pc-price)!important;--nx-amber:var(--pc-accent)!important;
   background: var(--nx-bg);
 }
 
@@ -87,8 +61,8 @@ html[data-theme="dark"] .nx-home .nx-deal {
 html[data-theme="dark"] .nx-home .nx-catalog-band { background:linear-gradient(180deg,#202428,#292e33 52%,#242a2f); }
 html[data-theme="dark"] .nx-home .nx-local-band { background:linear-gradient(135deg,#242a2f,#32383e 52%,#2b3136); }
 html[data-theme="dark"] .nx-home .nx-product-card__media { background:linear-gradient(145deg,#3b434a,#32383e)!important; }
-html[data-theme="dark"] .nx-home .nx-basket { border-color:#60786e; background:#29463e; }
-html[data-theme="dark"] .nx-home .nx-basket::after { background:linear-gradient(180deg,rgb(32 59 53 / 16%),rgb(37 73 63 / 54%) 46%,rgb(40 78 67 / 90%) 76%); }
+html[data-theme="dark"] .nx-home .nx-basket { border-color:var(--pc-border-interactive); background:var(--pc-navy); }
+html[data-theme="dark"] .nx-home .nx-basket::after { background:linear-gradient(180deg,rgb(31 48 66 / 12%),rgb(29 49 70 / 58%) 48%,rgb(24 40 57 / 92%) 78%); }
 
 /* Homepage mobile e carrossel de atalhos. */
 html[data-theme="dark"] .mh26-page {
@@ -96,8 +70,8 @@ html[data-theme="dark"] .mh26-page {
   --mh-muted:#c5cbd0!important;
   --mh-line:#4b555e!important;
   --mh-surface:#32383e!important;
-  --mh-green:#96ceb0!important;
-  --mh-green-dark:#b3dfc7!important;
+  --mh-green:var(--pc-primary)!important;
+  --mh-green-dark:var(--pc-primary-strong)!important;
   background:linear-gradient(180deg,#202428,#292e33 320px,#242a2f);
 }
 html[data-theme="dark"] .mh26-header { border-color:#4b555e; background:rgb(37 42 47 / 96%); }
@@ -115,8 +89,8 @@ html[data-theme="dark"] .mh26-verified-badge {
   box-shadow:inset 0 1px 0 rgb(255 255 255 / 8%);
 }
 html[data-theme="dark"] .mh26-verified-icon {
-  background:#a4d4bc!important;
-  color:#203a32!important;
+  background:var(--pc-primary-strong)!important;
+  color:var(--pc-on-primary)!important;
 }
 html[data-theme="dark"] .mh26-search-field {
   box-shadow:0 16px 32px rgb(10 12 14 / 20%);
@@ -125,7 +99,7 @@ html[data-theme="dark"] .mh26-head-actions>a,
 html[data-theme="dark"] .mh26-product,
 html[data-theme="dark"] .mh26-actions>a { border-color:#4b555e; background:#32383e; }
 html[data-theme="dark"] .mh26-page .ref-dock { border-color:#4b555e!important; background:rgb(37 42 47 / 98%)!important; }
-html[data-theme="dark"] .hqa { --hqa-surface:#32383e;--hqa-border:#4b555e;--hqa-text:#f5f7f5;--hqa-muted:#c5cbd0;--hqa-green:#96ceb0; }
+html[data-theme="dark"] .hqa { --hqa-surface:var(--pc-surface-2);--hqa-border:var(--pc-border);--hqa-text:var(--pc-ink);--hqa-muted:var(--pc-muted);--hqa-green:var(--pc-primary); }
 
 /* Todas as páginas públicas reconstruídas herdam a mesma profundidade. */
 html[data-theme="dark"] :where(
@@ -138,7 +112,7 @@ html[data-theme="dark"] :where(
   --ref-line:#4b555e!important;
   --ref-ink:#f5f7f5!important;
   --ref-muted:#c5cbd0!important;
-  --ref-green:#96ceb0!important;
+  --ref-green:var(--pc-primary)!important;
   background-color:#202428;
   color:#f5f7f5;
 }
@@ -165,40 +139,40 @@ html[data-theme="dark"] :where(.search26-page,.msearch26-page) {
   --search-line:#4b555e;
   --search-ink:#f5f7f5;
   --search-muted:#c5cbd0;
-  --search-green:#96ceb0;
+  --search-green:var(--pc-primary);
 }
 
-/* Ações: terracota comunica ação; sálvia permanece semântica. */
+/* Ações principais usam azul-aço; ouro fica reservado à assinatura. */
 html[data-theme="dark"] :where(
   .pc-btn--primary,.nx-login,.nx-search__submit,.mh26-search-submit,
   .ref-auth__submit,.pro-basket-checkout,.smart-summary>button,
   .smart-assistant__form>button
 ) {
-  border-color:#b84f32;
-  background:#b84f32;
-  color:#fffaf7;
+  border-color:var(--pc-primary);
+  background:var(--pc-primary);
+  color:var(--pc-on-primary);
 }
 
 @media (hover:hover) and (pointer:fine) {
   html[data-theme="dark"] :where(
     .pc-btn--primary,.nx-login,.nx-search__submit,.mh26-search-submit,
     .ref-auth__submit,.pro-basket-checkout,.smart-summary>button
-  ):hover { border-color:#a9472e; background:#a9472e; color:#fff; }
+  ):hover { border-color:var(--pc-primary-strong); background:var(--pc-primary-strong); color:var(--pc-on-primary); }
 }
 
-/* Verde somente onde seu significado é inequívoco. */
+/* Preço e economia recebem o azul claro de alta legibilidade. */
 html[data-theme="dark"] :where(
   .pc-price,.pdp-price,.pdp-saving,.pro-basket-line-total strong,
   .pro-basket-saving strong,.smart-summary>h2,.nx-product-card footer strong,
   .nx-deal footer strong,.mh26-product>b,.ref-result-price
-) { color:#96ceb0; }
+) { color:var(--pc-price); }
 
 html[data-theme="dark"] :where(
   input,select,textarea
-) { caret-color:#b84f32; }
+) { caret-color:var(--pc-primary); }
 
 html[data-theme="dark"] :where(a,button,input,select,textarea):focus-visible {
-  outline-color:color-mix(in srgb,#b84f32 62%,transparent);
+  outline-color:color-mix(in srgb,var(--pc-primary) 62%,transparent);
 }
 
 /* Chrome e áreas institucionais: nenhuma faixa volta ao quase-preto. */
@@ -308,7 +282,7 @@ html[data-theme="dark"] .hqa {
   --hqa-border:#56626b;
   --hqa-text:#f5f7f5;
   --hqa-muted:#c7d2ce;
-  --hqa-green:#adddc2;
+  --hqa-green:var(--pc-primary-strong);
   box-shadow:0 20px 46px rgb(10 12 14 / 24%),inset 0 1px 0 rgb(255 255 255 / 5%);
 }
 html[data-theme="dark"] .hqa-card {
@@ -342,7 +316,7 @@ html[data-theme="dark"] .hqa-card>i {
     box-shadow:0 18px 38px rgb(10 12 14 / 25%),inset 0 1px 0 rgb(255 255 255 / 7%);
   }
   html[data-theme="dark"] .hqa-controls button:hover:not(:disabled) {
-    border-color:#8fc2aa;
+    border-color:var(--pc-primary);
     background:#3b434a;
     color:#c5ead6;
   }
@@ -391,12 +365,12 @@ html[data-theme="dark"] :where(.nx-home,.mh26-page,.hqa) :where(a,button,input):
     box-shadow:0 8px 22px rgb(10 12 14 / 16%),inset 0 1px 0 rgb(255 255 255 / 4%);
   }
   html[data-theme="dark"] .mh26-product>i { background:linear-gradient(145deg,#3a4f53,#31464a); }
-  html[data-theme="dark"] .mh26-product>span em { background:#365049; color:#bce5d2; }
+  html[data-theme="dark"] .mh26-product>span em { background:var(--pc-primary-soft); color:var(--pc-primary-strong); }
   html[data-theme="dark"] .mh26-product:active,
   html[data-theme="dark"] .mh26-actions>a:active { background:#3b434a; }
   html[data-theme="dark"] .mh26-local {
     border-color:#60786e;
-    background:linear-gradient(140deg,#29463e,#315a4c);
+    background:linear-gradient(140deg,var(--pc-navy),var(--pc-primary-soft));
     box-shadow:0 16px 34px rgb(10 12 14 / 24%),inset 0 1px 0 rgb(255 255 255 / 7%);
   }
   html[data-theme="dark"] .mh26-page .ref-dock {
@@ -405,7 +379,7 @@ html[data-theme="dark"] :where(.nx-home,.mh26-page,.hqa) :where(a,button,input):
     box-shadow:0 -10px 28px rgb(10 12 14 / 24%)!important;
   }
   html[data-theme="dark"] .mh26-page .ref-dock a.is-active {
-    color:#adddc2!important;
+    color:var(--pc-primary-strong)!important;
   }
 }
 

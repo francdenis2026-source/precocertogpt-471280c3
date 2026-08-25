@@ -176,5 +176,20 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   html[data-theme="dark"] .mh26-search-overlay--portal{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
   html[data-theme="dark"] .mh26-search-overlay--portal>header{border-color:var(--pc-border);background:var(--pc-surface-2)}
   html[data-theme="dark"] .mh26-search-overlay--portal .mh26-search-list>button:active{background:var(--pc-surface-2)}
-  html[data-theme="dark"] .mh26-search-overlay-actions>button{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
+html[data-theme="dark"] .mh26-search-overlay-actions>button{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
+}
+
+/* Ponte final do tema escuro. Esta regra fica no arquivo proprietário para
+   impedir que camadas históricas reintroduzam verde na homepage mobile. */
+@media(max-width:767px){
+  html[data-theme="dark"] .mh26-page{--mh-bg:var(--pc-canvas);--mh-ink:var(--pc-ink);--mh-muted:var(--pc-muted);--mh-line:var(--pc-border);--mh-surface:var(--pc-surface);--mh-green:var(--pc-primary);--mh-green-dark:var(--pc-primary-strong);background:linear-gradient(180deg,var(--pc-canvas),var(--pc-surface) 320px,var(--pc-canvas));color:var(--pc-ink)}
+  html[data-theme="dark"] .mh26-header{border-color:var(--pc-border);background:color-mix(in srgb,var(--pc-surface) 96%,transparent)}
+  html[data-theme="dark"] :is(.mh26-head-actions>a,.mh26-theme,.mh26-product,.mh26-actions>a){border-color:var(--pc-border);background:var(--pc-surface-2);color:var(--pc-ink)}
+  html[data-theme="dark"] .mh26-actions>a.is-primary{background:linear-gradient(120deg,var(--pc-surface-2),var(--pc-primary-soft))}
+  html[data-theme="dark"] .mh26-product>i{background:var(--pc-image-well)}
+  html[data-theme="dark"] .mh26-product>span em{background:var(--pc-primary-soft);color:var(--pc-primary-strong)}
+  html[data-theme="dark"] .mh26-local{border-color:var(--pc-border-interactive);background:linear-gradient(140deg,var(--pc-navy),var(--pc-primary-soft))}
+  html[data-theme="dark"] .mh26-footer{background:var(--pc-footer)}
+  html[data-theme="dark"] .mh26-page .ref-dock{border-color:var(--pc-border)!important;background:color-mix(in srgb,var(--pc-surface) 98%,transparent)!important}
+  html[data-theme="dark"] .mh26-head-actions .pc-radio.has-track .pc-radio__track{background:color-mix(in srgb,var(--pc-surface-2) 94%,transparent)!important;color:var(--pc-ink)!important}
 }

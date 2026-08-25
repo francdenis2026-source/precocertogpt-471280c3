@@ -22,16 +22,16 @@
 }
 html[data-theme="dark"]{
   color-scheme:dark;
-  --pc-canvas:#202428;--pc-surface:#292e33;--pc-surface-2:#32383e;--pc-surface-3:#3b434a;
-  --pc-ink:#f5f7f5;--pc-muted:#c5cbd0;--pc-subtle:#aeb7bd;--pc-border:#4b555e;--pc-border-strong:#65727c;
-  /* Noturno mineral suave: carvão sem preto dominante, com superfícies
-     claramente separadas e os mesmos papéis semânticos do tema claro. */
-  --pc-primary:#96ceb0;--pc-primary-strong:#adddc2;--pc-primary-soft:#30443a;--pc-on-primary:#17251d;--pc-on-structural:#f5f7f5;
-  --pc-accent:#edc778;--pc-accent-soft:#4a4026;--pc-price:#adddc2;--pc-alert:#f0a08a;--pc-alert-soft:#4a3028;
-  --pc-border-interactive:#60786e;--pc-image-well:#343a3f;
-  --pc-navy:#252b30;--pc-navy-2:var(--pc-primary);--pc-footer:#1b2024;--pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
+  --pc-canvas:#171c23;--pc-surface:#202731;--pc-surface-2:#29323d;--pc-surface-3:#333e4a;
+  --pc-ink:#f3f6fa;--pc-muted:#c1cad5;--pc-subtle:#a8b3c0;--pc-border:#43505e;--pc-border-strong:#5b6b7d;
+  /* Azul-ardósia noturno: base grafite azulada, ação em azul-aço e ouro
+     somente como assinatura. Os aliases “green” abaixo são legados. */
+  --pc-primary:#86b6e2;--pc-primary-strong:#b2d3f1;--pc-primary-soft:#273a4d;--pc-on-primary:#12202c;--pc-on-structural:#f3f6fa;
+  --pc-accent:#e2ba70;--pc-accent-soft:#463b27;--pc-price:#9bc6eb;--pc-alert:#f0a08a;--pc-alert-soft:#49302d;
+  --pc-border-interactive:#5b7086;--pc-image-well:#2e3742;
+  --pc-navy:#1c2530;--pc-navy-2:var(--pc-primary);--pc-footer:#151b22;--pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
   --pc-gold:var(--pc-accent);--pc-gold-on-dark:var(--pc-accent);--pc-gold-soft:var(--pc-accent-soft);--pc-danger:var(--pc-alert);--pc-danger-soft:var(--pc-alert-soft);--pc-info:var(--pc-primary);
-  --pc-shadow-sm:0 1px 2px rgba(8,18,20,.22),0 6px 18px rgba(8,18,20,.18);--pc-shadow-lg:0 2px 8px rgba(8,18,20,.24),0 24px 60px rgba(8,18,20,.30);
+  --pc-shadow-sm:0 1px 2px rgba(4,9,15,.24),0 6px 18px rgba(4,9,15,.20);--pc-shadow-lg:0 2px 8px rgba(4,9,15,.28),0 24px 60px rgba(4,9,15,.36);
 }
 body{font-family:var(--pc-font-body)}
 :where(h1,h2,h3,.pc-display){font-family:var(--pc-font-display)}

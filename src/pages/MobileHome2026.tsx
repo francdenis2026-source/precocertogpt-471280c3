@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, MapPin, Moon, PackageSearch, Search, Sun, TrendingDown, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock3, MapPin, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, TrendingDown, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -59,9 +59,10 @@ export function MobileHome2026(){
    <section className="mh26-local"><span className="mh26-developer">dev &lt;Franc D’nis&gt;</span><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
   </main>
   <footer className="mh26-footer">
-   <div className="mh26-footer-brand"><img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto"/><span><MapPin aria-hidden="true"/> Feijó, Acre</span></div>
-   <nav aria-label="Links do rodapé"><Link to="/buscar">Buscar</Link><Link to="/estabelecimentos">Locais</Link><Link to="/lojista">Comerciantes</Link><Link to="/colaborar">Colaborar</Link></nav>
-   <small>© 2026 PreçoCerto · Compare e economize.</small>
+   <div className="mh26-footer-head"><img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto"/><span><MapPin aria-hidden="true"/> Feijó, Acre</span></div>
+   <div className="mh26-footer-proof"><Clock3 aria-hidden="true"/><span><strong>Preços registrados</strong><small>{lastPriceUpdate}</small></span><CheckCircle2 aria-hidden="true"/></div>
+   <nav aria-label="Principais caminhos"><Link to="/buscar"><Search aria-hidden="true"/><span>Buscar</span></Link><Link to="/estabelecimentos"><MapPin aria-hidden="true"/><span>Locais</span></Link><Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true"/><span>Cesta</span></Link><Link to="/lojista"><Store aria-hidden="true"/><span>Comerciante</span></Link></nav>
+   <div className="mh26-footer-note"><small>Confirme os valores no estabelecimento.</small><span>© 2026 PreçoCerto</span></div>
   </footer>
   <AppDock current="home"/>
  </div>

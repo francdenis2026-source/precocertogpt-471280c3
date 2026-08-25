@@ -41,7 +41,7 @@
   .nx-hero__links a{flex:0 0 auto!important;min-height:30px!important;background:rgb(255 255 255 / 11%)!important;color:#fff!important;border:1px solid rgb(255 255 255 / 13%)!important}
 
   .nx-hero__visual{min-height:154px!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#dce7e4!important}
-  .nx-hero__photo{background:linear-gradient(90deg,rgb(7 34 46 / 15%),rgb(7 34 46 / 2%)),url('/hero-supermercado-editorial-2026.webp') center 45%/cover no-repeat!important}
+  .nx-hero__photo{background:linear-gradient(90deg,rgb(7 34 46 / 15%),rgb(7 34 46 / 2%))}
   .nx-deal{right:12px!important;bottom:10px!important;left:12px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;padding:10px 11px!important;border-radius:12px!important}
   .nx-deal>span{grid-column:1/-1!important}
   .nx-deal__product{grid-template-columns:48px minmax(0,1fr)!important;margin-top:0!important}

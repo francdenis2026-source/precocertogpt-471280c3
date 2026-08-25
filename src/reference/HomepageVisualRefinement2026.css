@@ -96,22 +96,22 @@ html[data-theme="dark"] .hqa{--hqa-surface:var(--pc-surface);--hqa-border:var(--
 .nx-home .nx-hero{
   background:
     linear-gradient(100deg,rgb(244 246 245 / 98%) 0 40%,rgb(244 246 245 / 86%) 57%,rgb(244 246 245 / 28%) 78%),
-    url('/hero-mulher-compras-celular-2026.webp') 70% center/cover no-repeat;
+    url('/hero-mulher-compras-celular-2026.webp?v=2') 70% center/cover no-repeat;
 }
 .nx-home .nx-hero__photo{
   background:
     linear-gradient(180deg,transparent 48%,rgb(8 35 49 / 38%)),
-    url('/hero-mulher-compras-celular-2026.webp') 68% center/cover no-repeat;
+    url('/hero-mulher-compras-celular-2026.webp?v=2') 68% center/cover no-repeat;
 }
 html[data-theme="dark"] .nx-home .nx-hero{
   background:
     linear-gradient(102deg,rgb(23 28 32 / 97%) 0 40%,rgb(23 28 32 / 84%) 58%,rgb(23 28 32 / 35%) 80%),
-    url('/hero-mulher-compras-celular-2026.webp') 70% center/cover no-repeat;
+    url('/hero-mulher-compras-celular-2026.webp?v=2') 70% center/cover no-repeat;
 }
 html[data-theme="dark"] .nx-home .nx-hero__photo{
   background:
     linear-gradient(180deg,rgb(19 24 28 / 4%) 38%,rgb(19 24 28 / 48%)),
-    url('/hero-mulher-compras-celular-2026.webp') 68% center/cover no-repeat;
+    url('/hero-mulher-compras-celular-2026.webp?v=2') 68% center/cover no-repeat;
 }
 
 /* A marca ganha presença no cabeçalho sem reduzir áreas de toque ou disputar
@@ -141,18 +141,18 @@ html[data-theme="dark"] .pc-festival-bar__close{
 }
 
 @media(max-width:767px){
-  .mh26-logo img{height:56px;max-width:158px}
+  .mh26-logo img{height:58px;max-width:172px}
   .mh26-hero{
     background:
       linear-gradient(100deg,rgb(18 54 36 / 97%) 0%,rgb(20 61 41 / 89%) 52%,rgb(20 61 41 / 50%) 100%),
-      url('/hero-mulher-compras-celular-2026.webp') 70% center/cover no-repeat;
+      url('/hero-mulher-compras-celular-2026.webp?v=2') 70% center/cover no-repeat;
   }
   html[data-theme="dark"] .mh26-hero{
     background:
       linear-gradient(100deg,rgb(24 29 33 / 98%) 0%,rgb(29 35 39 / 92%) 54%,rgb(31 38 41 / 62%) 100%),
-      url('/hero-mulher-compras-celular-2026.webp') 70% center/cover no-repeat;
+      url('/hero-mulher-compras-celular-2026.webp?v=2') 70% center/cover no-repeat;
   }
 }
 @media(max-width:370px){
-  .mh26-logo img{height:54px;max-width:142px}
+  .mh26-logo img{height:56px;max-width:150px}
 }

@@ -57,8 +57,24 @@ window.addEventListener("online", startNotifications, { once: true });
 
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
-    void navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
-      // O app permanece funcional sem instalação PWA.
-    });
+    void navigator.serviceWorker.register("/sw.js", { scope: "/", updateViaCache: "none" })
+      .then(registration => registration.update())
+      .catch(() => {
+        // O app permanece funcional sem instalação PWA.
+      });
   }, { once: true });
+
+  // Quando o v2 assume uma aba que ainda executava o pacote antigo, uma única
+  // recarga controlada faz o documento apontar para os assets recém-publicados.
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    const reloadKey = "pc:sw-controller-reloaded:v2";
+    try {
+      if (sessionStorage.getItem(reloadKey)) return;
+      sessionStorage.setItem(reloadKey, "1");
+      window.location.reload();
+    } catch {
+      // Sem sessionStorage não é possível garantir recarga única; a próxima
+      // navegação já será atendida pelo novo controlador.
+    }
+  });
 }

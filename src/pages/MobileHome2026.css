@@ -39,12 +39,11 @@
   .mh26-product>span small,.mh26-product>span em,.mh26-product>b small{font-size:12px}.mh26-section>header small{font-size:12px;letter-spacing:.055em}.mh26-footer>small{font-size:11px}
 }
 
-/* Impeccable footer mobile v3 — navegação legível em uma faixa curta. */
+/* Footer mínimo mobile: o dock já concentra toda a navegação. */
 @media(max-width:767px){
-  .mh26-footer{position:relative;display:grid;gap:8px;margin-top:10px;padding:13px 12px 12px;border:0;border-top:2px solid #d6a84e;background:#10261b;color:#eef5f0;box-shadow:none}
+  .mh26-footer{position:relative;display:block;margin-top:10px;padding:0 12px;border:0;border-top:1px solid #455c60;background:#10261b;color:#eef5f0;box-shadow:none}
   .mh26-footer::before,.mh26-footer::after{display:none}
-  .mh26-footer-head{min-height:32px;display:flex;align-items:center;justify-content:space-between;gap:12px}.mh26-footer-head img{width:122px;height:29px;object-fit:contain}.mh26-footer-head>span{display:flex;align-items:center;gap:6px;color:#d8e5dc;font-size:12px;font-weight:750}.mh26-footer-head>span svg{width:15px;height:15px;color:#e4b95e}
-  .mh26-footer-note{min-height:36px;display:flex;align-items:end;justify-content:space-between;gap:16px;border-top:1px solid #304b3a}.mh26-footer-note button{min-height:32px;padding:5px 0 0;border:0;background:transparent;color:#afc1b5;font-size:11px;font-weight:650;cursor:pointer}.mh26-footer-note button:last-child{color:#d8e5dc;font-weight:750}
+  .mh26-footer-note{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:16px}.mh26-footer-note button{min-height:36px;padding:0;border:0;background:transparent;color:#afc1b5;font-size:11px;font-weight:650;cursor:pointer}.mh26-footer-note button:last-child{color:#d8e5dc;font-weight:750}
   html[data-theme="dark"] .mh26-footer{background:#0b1b13}
 }
 

@@ -33,19 +33,19 @@ html[data-theme="dark"] .nx-home{--nx-bg:#101827;--nx-surface:#19253a;--nx-card:
 /* Superfícies editoriais: a fotografia pertence ao hero. O restante da
    experiência mantém baixo ruído para produtos, preços e lojas liderarem. */
 .nx-home{--nx-bg:#f2f6f4;--nx-surface:#f8fbf9;--nx-card:#fff;--nx-soft:#e7efeb;--nx-line:#cbdad4}
-html[data-theme="dark"] .nx-home{--nx-bg:#0b191b;--nx-surface:#112426;--nx-card:#172d2f;--nx-soft:#1d3837;--nx-text:#f3f8f6;--nx-muted:#b4c7c3;--nx-line:#31504d;--nx-blue:#78b8df;--nx-blue-2:#9bc9e5;--nx-teal:#62d4ba;--nx-green:#6ed5a5}
+html[data-theme="dark"] .nx-home{--nx-bg:#0d171d;--nx-surface:#142129;--nx-card:#192831;--nx-soft:#21323a;--nx-text:#f3f5f4;--nx-muted:#b8c2c6;--nx-line:#354951;--nx-blue:#82add0;--nx-blue-2:#a5c7df;--nx-teal:#7bb8aa;--nx-green:#83b79e}
 .nx-catalog-band{background:linear-gradient(180deg,#eef4f1 0%,#f5f8f6 54%,#eef4f1 100%)}
 .nx-local-band{background:linear-gradient(135deg,#edf4f1 0%,#f8faf9 48%,#e7f0ec 100%)}
 .nx-basket{background:linear-gradient(145deg,#12556a 0%,#0b4354 58%,#083642 100%)}
 .nx-footer{background:linear-gradient(100deg,#123f49 0%,#11545a 52%,#103844 100%)}
-html[data-theme="dark"] .nx-header{background:rgb(13 30 32 / 94%)}
-html[data-theme="dark"] .nx-catalog-band{background:linear-gradient(180deg,#0b191b 0%,#102224 52%,#0c1c1e 100%)}
-html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#0c1b1d 0%,#122628 52%,#0d2022 100%)}
+html[data-theme="dark"] .nx-header{background:rgb(14 25 32 / 95%)}
+html[data-theme="dark"] .nx-catalog-band{background:linear-gradient(180deg,#0d171d 0%,#142229 52%,#0f1b21 100%)}
+html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#0e1a20 0%,#17262e 52%,#111f25 100%)}
 html[data-theme="dark"] .nx-basket{background:linear-gradient(145deg,#124b5a 0%,#0b3944 60%,#082c34 100%)}
 
 /* Mantém o chrome alinhado ao verde-petróleo mesmo após os refinamentos
    responsivos declarados abaixo. */
-html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
+html[data-theme="dark"] .nx-home .nx-header{background:rgb(14 25 32 / 95%)}
 @media(max-width:420px){.nx-brand img{width:132px}.nx-theme,.nx-menu,.pc-radio{width:40px;min-width:40px;height:40px}.nx-section-title{display:grid;gap:6px}.nx-section-title>a{justify-self:start}.nx-category-grid>a{grid-template-columns:36px minmax(0,1fr)}.nx-category-grid>a>svg{display:none}.nx-footer__links{grid-template-columns:1fr}.nx-footer__links nav{min-height:48px;border-top:1px solid rgb(255 255 255 / 15%);border-left:0}}
 
 /* Reconstrução mobile 2026: composição estável, compacta e com áreas seguras. */
@@ -166,26 +166,6 @@ html[data-theme="dark"] .nx-home .nx-header{background:rgb(13 30 32 / 94%)}
 @media(prefers-reduced-motion:reduce){.nx-home *,.nx-home *::before,.nx-home *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 @keyframes nx-hero-enter{from{opacity:.01;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes nx-pulse{50%{opacity:.56}}@keyframes nx-shimmer{to{background-position:-200% 0}}
 
-/* Faixa legal da homepage: conteúdo solicitado, integrado ao footer existente. */
-.nx-footer__legal{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding-block:10px;border-top:1px solid rgb(255 255 255 / 18%);color:#d8ece9}.nx-footer__legal span,.nx-footer__legal p{margin:0;font-size:11px;line-height:1.45}.nx-footer__legal button{padding:0;border:0;background:transparent;color:#fff;font:inherit;font-weight:760;cursor:pointer}.nx-footer__legal button:hover{color:#ffd98b;text-decoration:underline;text-underline-offset:3px}.nx-footer__legal button:focus-visible{outline:3px solid rgb(255 217 139 / 45%);outline-offset:3px}
-@media(max-width:760px){.nx-footer__legal{align-items:flex-start;flex-direction:column;gap:5px;padding:11px 0 82px}.nx-footer__legal span,.nx-footer__legal p{font-size:10.5px}}
-
-/* Compensa a nova altura compacta de 48px da faixa de campanha. */
-.nx-header:has(.pc-festival-bar)+main{padding-top:112px}
-@media(max-width:760px){.nx-header:has(.pc-festival-bar)+main{padding-top:106px}.nx-header:has(.pc-festival-bar) nav{top:108px}}
-
-/* Comércio local: fotografia e dados ocupam o espaço antes vazio. */
-.nx-local-band{padding:22px 0;background:linear-gradient(135deg,#eee6d7 0%,#fbf8f1 48%,#e8dfcc 100%)}
-.nx-local{min-height:226px;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(390px,.88fr);gap:16px}
-.nx-local__visual{position:relative;isolation:isolate;min-width:0;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:20px;border:1px solid color-mix(in srgb,var(--nx-line) 76%,transparent);border-radius:18px;background:url('/marketplace-local-profissional-v2.webp') center 48%/cover no-repeat;color:#fff;box-shadow:var(--nx-shadow-sm)}
-.nx-local__visual::after{position:absolute;z-index:-1;inset:0;background:linear-gradient(100deg,rgb(17 54 38 / 88%),rgb(17 54 38 / 48%) 58%,rgb(17 54 38 / 16%));content:""}
-.nx-local__visual>span{width:fit-content;min-height:30px;display:flex;align-items:center;gap:6px;padding:0 9px;border:1px solid rgb(255 255 255 / 22%);border-radius:999px;background:rgb(14 40 30 / 46%);font-size:11px;font-weight:820;backdrop-filter:blur(8px)}.nx-local__visual>span svg{width:14px;height:14px;color:#e1b45e}
-.nx-local__visual>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.nx-local__visual article{min-width:0;display:grid;gap:2px;padding:10px;border:1px solid rgb(255 255 255 / 18%);border-radius:11px;background:rgb(10 34 25 / 58%);backdrop-filter:blur(8px)}.nx-local__visual strong{font-family:"Manrope Variable",Manrope,sans-serif;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}.nx-local__visual small{overflow:hidden;color:#dceae1;font-size:9.5px;text-overflow:ellipsis;white-space:nowrap}
-.nx-local__copy{width:auto;padding:23px}.nx-local h2{font-family:"Manrope Variable",Manrope,sans-serif;font-size:clamp(1.75rem,2.35vw,2.25rem)}
-html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a 0%,#1e3226 52%,#15261c 100%)}html[data-theme="dark"] .nx-local__visual{border-color:#3d5144}html[data-theme="dark"] .nx-local__visual::after{background:linear-gradient(100deg,rgb(10 27 19 / 90%),rgb(12 34 24 / 56%) 58%,rgb(12 34 24 / 20%))}
-.nx-header:has(.pc-festival-bar)+main{padding-top:104px}
-@media(max-width:760px){.nx-header:has(.pc-festival-bar)+main{padding-top:102px}.nx-header:has(.pc-festival-bar) nav{top:104px}.nx-local{grid-template-columns:1fr;gap:10px}.nx-local__visual{min-height:190px}.nx-local__copy{width:100%}}
-
 /* Vitrine web 2026: mídia contida, informação legível e preço em seu próprio plano. */
 @media(min-width:761px){
   .nx-market__products{padding:22px;border-radius:22px;background:color-mix(in srgb,var(--nx-surface) 98%,transparent)}
@@ -248,14 +228,12 @@ html[data-theme="dark"] .nx-catalog-band{background:linear-gradient(180deg,#1221
 html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a 0%,#1e3226 52%,#15261c 100%)}
 @media(max-width:760px){.nx-hero{background:linear-gradient(180deg,rgb(246 242 232 / 94%) 0%,rgb(246 242 232 / 88%) 47%,rgb(246 242 232 / 96%) 100%),url('/hero-mercado-local-2026.webp') 63% center/cover no-repeat}html[data-theme="dark"] .nx-hero{background:linear-gradient(180deg,rgb(18 33 26 / 84%) 0%,rgb(18 33 26 / 73%) 48%,rgb(18 33 26 / 94%) 100%),url('/hero-supermercado-editorial-2026.webp') 62% center/cover no-repeat}}
 
-
 /* Rodapé exclusivo da home: uma faixa curta, legível e sem colunas altas. */
 .nx-footer__main{min-height:82px;display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(120px,.65fr);align-items:center;gap:22px;padding-block:12px}
 .nx-footer__brand{min-width:0;display:flex;align-items:center;gap:13px}.nx-footer__brand img{width:132px}.nx-footer__brand>span{max-width:150px;padding-left:13px;border-left:1px solid rgb(255 255 255 / 22%);color:#dceae2;font-size:10.5px;line-height:1.35}
 .nx-footer__links{display:flex;align-items:center;justify-content:center;gap:2px 15px}.nx-footer__links a,.nx-footer__links button{min-height:44px;display:inline-flex;align-items:center;padding:0;border:0;background:transparent;color:#f5f8f5;font:700 11px/1 "Inter Variable",Inter,sans-serif;cursor:pointer;white-space:nowrap}.nx-footer__links a:hover,.nx-footer__links button:hover{color:#f0c15c;text-decoration:underline;text-underline-offset:4px}
-.nx-footer__meta{display:grid;justify-items:end;gap:3px;color:#dceae2}.nx-footer__meta span{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:750}.nx-footer__meta span svg{width:14px;height:14px;color:#f0c15c}.nx-footer__meta small{font-size:10px}.nx-footer__legal{display:none}
+.nx-footer__meta{display:grid;justify-items:end;gap:3px;color:#dceae2}.nx-footer__meta span{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:750}.nx-footer__meta span svg{width:14px;height:14px;color:#f0c15c}.nx-footer__meta small{font-size:10px}
 @media(max-width:1120px){.nx-footer__main{grid-template-columns:150px 1fr auto;gap:14px}.nx-footer__brand>span{display:none}.nx-footer__meta{display:grid!important}.nx-footer__links{gap:2px 10px}}
-
 
 /* Homepage em cartões empilhados: camadas modulares de marketplace. */
 @media(min-width:768px){
@@ -270,7 +248,6 @@ html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a
   html[data-theme="dark"] .nx-catalog-band,html[data-theme="dark"] .nx-local-band{box-shadow:0 18px 40px rgb(0 0 0 / 24%)}
 }
 
-
 /* Footer Love: acabamento premium, compacto e organizado. */
 .nx-footer{position:relative;isolation:isolate;overflow:hidden;border-top:1px solid rgb(240 193 92 / 34%);background:linear-gradient(112deg,#0c1b14 0%,#163326 48%,#0d2118 100%);box-shadow:inset 0 1px 0 rgb(255 255 255 / 5%)}
 .nx-footer::before{position:absolute;z-index:-1;top:-78px;left:12%;width:320px;height:150px;border-radius:50%;background:radial-gradient(circle,rgb(73 151 105 / 22%),transparent 68%);content:"";pointer-events:none}
@@ -283,16 +260,14 @@ html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a
 .nx-footer__meta{padding-left:14px;border-left:1px solid rgb(255 255 255 / 14%);color:#bcd0c3}.nx-footer__meta span{color:#eaf2ed}.nx-footer__meta span svg{color:#f3c96f}.nx-footer__meta small{color:#9eb2a5}
 @media(max-width:1120px){.nx-footer__main{grid-template-columns:140px minmax(0,1fr) auto;gap:12px}.nx-footer__links{gap:1px}.nx-footer__links a,.nx-footer__links button{padding-inline:7px}.nx-footer__meta{padding-left:10px}}
 
-
 /* Evidência e recuperação do catálogo, sem esconder falhas remotas. */
 .nx-catalog-status{min-height:34px;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-top:12px;color:var(--nx-muted);font-size:12px;font-weight:680}.nx-catalog-status>span::before{display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--nx-green);content:""}.nx-catalog-status em{color:var(--nx-amber);font-style:normal}.nx-catalog-status button{min-height:34px;padding:0 11px;border:1px solid var(--nx-line);border-radius:10px;background:var(--nx-card);color:var(--nx-text);font-size:12px;font-weight:780;cursor:pointer}.nx-catalog-status.has-warning>span::before{background:var(--nx-amber)}
 
-
-/* Impeccable footer v2 — confiança local e caminhos essenciais. */
+/* Impeccable footer v3 — uma faixa editorial compacta, sem painéis redundantes. */
 .nx-footer{border-top:0;background:#10261b;color:#edf5f0}.nx-footer::before,.nx-footer::after{display:none}
-.nx-footer-v2{min-height:112px;display:grid;grid-template-columns:190px minmax(390px,1fr) 245px;grid-template-areas:"identity nav trust" "identity utility trust";align-items:center;gap:4px 28px;padding-block:16px}
-.nx-footer-v2__identity{grid-area:identity;display:grid;align-content:center;gap:5px}.nx-footer-v2__identity img{width:140px;height:32px;object-fit:contain}.nx-footer-v2__identity p{max-width:185px;margin:2px 0 0;color:#b9cabe;font-size:11px;line-height:1.4}.nx-footer-v2__identity small{color:#82988a;font-size:10px}
-.nx-footer-v2__nav{grid-area:nav;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.nx-footer-v2__nav a{min-width:0;min-height:46px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 8px;border-radius:12px;color:#eaf2ed;font-size:11px;font-weight:750;transition:background-color 180ms ease,color 180ms ease}.nx-footer-v2__nav a svg{width:17px;height:17px;flex:none;color:#e4b95e}.nx-footer-v2__nav a:hover{background:#1b3a2a;color:#fff}.nx-footer-v2__nav a:focus-visible,.nx-footer-v2__utility button:focus-visible{outline:3px solid #e4b95e;outline-offset:2px}
-.nx-footer-v2__trust{grid-area:trust;display:grid;align-content:center;gap:6px;padding-left:18px;border-left:1px solid #365241}.nx-footer-v2__trust>div{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:8px}.nx-footer-v2__trust>div>svg{width:28px;height:28px;padding:6px;border-radius:10px;background:#214632;color:#8ed2a8}.nx-footer-v2__trust>div span{display:grid}.nx-footer-v2__trust strong{font-size:11.5px}.nx-footer-v2__trust small{color:#afc2b5;font-size:10.5px}.nx-footer-v2__trust p{margin:0;color:#91a698;font-size:10px;line-height:1.35}.nx-footer-v2__place{display:flex;align-items:center;gap:5px;color:#dbe8df;font-size:10.5px;font-weight:700}.nx-footer-v2__place svg{width:13px;color:#e4b95e}
-.nx-footer-v2__utility{grid-area:utility;display:flex;align-items:center;justify-content:center;gap:14px}.nx-footer-v2__utility button{min-height:32px;padding:0;border:0;background:transparent;color:#9fb3a6;font-size:10.5px;font-weight:700;cursor:pointer}.nx-footer-v2__utility button:hover{color:#e4b95e;text-decoration:underline;text-underline-offset:4px}
-@media(max-width:1020px){.nx-footer-v2{grid-template-columns:150px minmax(0,1fr) 210px;gap-inline:14px}.nx-footer-v2__nav a{font-size:10px}.nx-footer-v2__nav a svg{display:none}.nx-footer-v2__identity p{display:none}}
+.nx-footer-v2{min-height:92px;display:grid;grid-template-columns:minmax(220px,.85fr) minmax(480px,1.65fr) auto;grid-template-areas:"identity nav place" "bottom bottom bottom";align-items:center;gap:6px 24px;padding-block:12px}
+.nx-footer-v2__identity{grid-area:identity;min-width:0;display:flex;align-items:center;gap:13px}.nx-footer-v2__identity img{width:132px;height:30px;object-fit:contain}.nx-footer-v2__identity p{max-width:150px;margin:0;padding-left:13px;border-left:1px solid #365241;color:#c2d2c8;font-size:12px;line-height:1.35}
+.nx-footer-v2__nav{grid-area:nav;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.nx-footer-v2__nav a{min-width:0;min-height:44px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 8px;border-radius:10px;color:#f0f6f2;font-size:12px;font-weight:750;transition:background-color 180ms ease,color 180ms ease}.nx-footer-v2__nav a svg{width:17px;height:17px;flex:none;color:#e4b95e}.nx-footer-v2__nav a:hover{background:#1b3a2a;color:#fff}.nx-footer-v2__nav a:focus-visible,.nx-footer-v2__utility button:focus-visible{outline:3px solid #e4b95e;outline-offset:2px}
+.nx-footer-v2__place{grid-area:place;display:flex;align-items:center;gap:6px;color:#e3ede6;font-size:12px;font-weight:750;white-space:nowrap}.nx-footer-v2__place svg{width:15px;height:15px;color:#e4b95e}
+.nx-footer-v2__bottom{grid-area:bottom;min-height:24px;display:flex;align-items:end;justify-content:space-between;border-top:1px solid #304b3a}.nx-footer-v2__bottom>small{color:#a9bcae;font-size:11px;font-weight:650}.nx-footer-v2__utility{display:flex;align-items:center;gap:16px}.nx-footer-v2__utility button{min-height:28px;padding:0;border:0;background:transparent;color:#bdcec3;font-size:11px;font-weight:700;cursor:pointer}.nx-footer-v2__utility button:hover{color:#e4b95e;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:1020px){.nx-footer-v2{grid-template-columns:150px minmax(0,1fr) auto;gap-inline:14px}.nx-footer-v2__identity p{display:none}.nx-footer-v2__nav a{font-size:11.5px}.nx-footer-v2__nav a svg{display:none}}

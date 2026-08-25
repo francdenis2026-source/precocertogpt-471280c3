@@ -274,7 +274,7 @@ export function HomeNew2026() {
         <div className="nx-footer-v2__identity">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
           <p>Compare antes de comprar no comércio local de Feijó.</p>
-          <small>© 2026 PreçoCerto</small>
+          <small>Desenvolvido por Franc D’nis</small>
         </div>
         <nav className="nx-footer-v2__nav" aria-label="Principais caminhos">
           <Link to="/buscar"><Search aria-hidden="true" /><span>Buscar preços</span></Link>

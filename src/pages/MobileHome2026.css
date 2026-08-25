@@ -87,3 +87,12 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   .mh26-head-actions .pc-radio.has-track .pc-radio__track strong{overflow:hidden!important;font-size:10px!important;font-weight:750!important;line-height:1.25!important;text-align:right!important;text-overflow:ellipsis!important;white-space:nowrap!important}
   html[data-theme="dark"] .mh26-head-actions .pc-radio.has-track .pc-radio__track{background:rgba(23,44,46,.94)!important;color:#dbe9e6!important}
 }
+
+
+@media(max-width:767px){
+  .mh26-footer{display:grid;gap:8px;margin-top:14px;padding:15px 14px 17px;background:linear-gradient(110deg,#173626,#1f4d37);color:#fff}
+  .mh26-footer-brand{display:flex;align-items:center;justify-content:space-between;gap:12px}.mh26-footer-brand img{width:124px;height:30px;object-fit:contain}.mh26-footer-brand span{display:flex;align-items:center;gap:4px;color:#dceae2;font-size:10px;font-weight:750}.mh26-footer-brand span svg{width:13px;color:#f0c15c}
+  .mh26-footer nav{display:flex;align-items:center;justify-content:space-between;gap:5px;border-block:1px solid rgb(255 255 255 / 14%)}.mh26-footer nav a{min-height:44px;display:flex;align-items:center;color:#f5f8f5;font-size:10.5px;font-weight:750}
+  .mh26-footer>small{color:#c9d9d0;font-size:9.5px;text-align:center}
+  html[data-theme="dark"] .mh26-footer{background:linear-gradient(110deg,#13291d,#193523)}
+}

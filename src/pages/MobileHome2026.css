@@ -122,22 +122,23 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   .mh26-header-row{height:66px}
   .mh26-logo img{height:60px;max-width:172px}
   .mh26-hero{
-    padding-top:18px;
-    background:
-      linear-gradient(100deg,rgb(18 42 31 / 84%) 0%,rgb(18 42 31 / 61%) 52%,rgb(18 42 31 / 14%) 100%),
-      url('/hero-mulher-compras-celular-2026.webp?v=4') 70% center/cover no-repeat;
+    padding-top:0;
+    background:linear-gradient(155deg,#173e2b 0%,#1f553b 100%);
   }
+  .mh26-hero>.pc-location{position:absolute;z-index:4;top:14px;left:16px;margin:0}
+  .mh26-hero-media{position:relative;height:clamp(176px,47vw,206px);margin:0 -16px 17px;overflow:hidden;background:#dce3d9}
+  .mh26-hero-media::after{position:absolute;inset:0;background:linear-gradient(180deg,rgb(10 24 17 / 5%) 45%,rgb(23 62 43 / 76%) 100%);content:"";pointer-events:none}
+  .mh26-hero-media img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 46%;filter:saturate(.96) contrast(1.02)}
   .mh26-hero::before{
     background:transparent;
     -webkit-backdrop-filter:none;
     backdrop-filter:none;
   }
-  .mh26-hero-copy h1{margin-top:14px}
+  .mh26-hero-copy h1{margin-top:0}
   html[data-theme="dark"] .mh26-hero{
-    background:
-      linear-gradient(100deg,rgb(22 27 31 / 82%) 0%,rgb(22 27 31 / 58%) 52%,rgb(22 27 31 / 16%) 100%),
-      url('/hero-mulher-compras-celular-2026.webp?v=4') 70% center/cover no-repeat;
+    background:linear-gradient(155deg,#252b30 0%,#30383b 100%);
   }
+  html[data-theme="dark"] .mh26-hero-media::after{background:linear-gradient(180deg,rgb(18 22 25 / 3%) 48%,rgb(37 43 48 / 82%) 100%)}
 }
 @media(max-width:370px){
   .mh26-logo img{height:57px;max-width:150px}

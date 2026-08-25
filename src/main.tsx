@@ -11,6 +11,7 @@ import "./reference/DesignSystem2Experience.css";
 import "./reference/GlobalMineralDark2026.css";
 import "./reference/HomepageVisualRefinement2026.css";
 import "./styles/NoDecorativeImagery2026.css";
+import "./styles/PriceColorNormalization2026.css";
 
 initializeSiteTheme();
 

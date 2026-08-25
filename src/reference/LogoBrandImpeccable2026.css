@@ -120,3 +120,36 @@ html[data-theme="dark"] :is(.home-smart-basket__budget-control>button,.home-smar
 html[data-theme="dark"] :is(.msearch26-hero,.sector-hub__hero,.sector-hub__tools){background:linear-gradient(140deg,var(--pc-navy),#183525)!important;border-color:var(--pc-border)!important}
 html[data-theme="dark"] .pc-card-action{background:color-mix(in srgb,var(--pc-surface) 94%,transparent)!important;border-color:var(--pc-border)!important;color:var(--pc-ink)!important}
 html[data-theme="dark"] :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-accent) 66%,transparent)!important;outline-offset:3px}
+
+/* Taste + Impeccable 2026: interface quente; cores originais restritas ao logo. */
+:root{
+  --pc-logo-green:#00743f;--pc-logo-green-bright:#0a8a49;--pc-logo-green-deep:#006b3b;
+  --pc-logo-orange:#ff6400;--pc-logo-orange-bright:#ff8a00;--pc-logo-orange-deep:#d94f24;
+  --pc-canvas:#fbf5ed;--pc-surface:#fffaf4;--pc-surface-2:#f6e7dc;--pc-surface-3:#efdbce;
+  --pc-ink:#3a2118;--pc-muted:#765a4c;--pc-subtle:#8d6f60;--pc-border:#e7d4c7;--pc-border-strong:#cfae9b;
+  --pc-primary:#b64f32;--pc-primary-strong:#8f3822;--pc-primary-soft:#f7e3d7;--pc-on-primary:#fffaf4;
+  --pc-accent:#c65d3b;--pc-accent-soft:#f8e5da;--pc-price:#9b3f27;--pc-info:#a7442a;
+  --pc-navy:#342019;--pc-navy-2:#402a22;--pc-footer:#21130f;
+  --pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
+  --pc-gold:var(--pc-accent);--pc-gold-on-dark:#f2ad91;--pc-gold-soft:var(--pc-accent-soft);
+  --pc-border-interactive:#c78b73;--pc-image-well:#f5e9df;accent-color:var(--pc-primary);
+}
+html[data-theme="dark"]{
+  --pc-canvas:#1f1511;--pc-surface:#2a1c17;--pc-surface-2:#34231d;--pc-surface-3:#402a22;
+  --pc-ink:#fff4e8;--pc-muted:#d8bfaf;--pc-subtle:#b99d8d;--pc-border:#5a3a2e;--pc-border-strong:#795143;
+  --pc-primary:#ee9a78;--pc-primary-strong:#ffb497;--pc-primary-soft:#4b2b20;--pc-on-primary:#32170f;
+  --pc-accent:#e77f5d;--pc-accent-soft:#4f2d22;--pc-price:#f1a184;--pc-info:#ee9a78;
+  --pc-navy:#261611;--pc-navy-2:#342019;--pc-footer:#21130f;
+  --pc-border-interactive:#94604d;--pc-image-well:#34231d;
+}
+.nx-header nav a:hover,.nx-header nav a.is-active,.pcx-nav a:hover{background:var(--pc-primary)!important;color:var(--pc-on-primary)!important}
+.nx-brand svg,.nx-section-heading>a,.pcx-section-head>a,.pcx-local-market a,.pcx-product__price strong,.pcx-login{color:var(--pc-primary-strong)!important}
+.pcx-basket__inner>a,.pcx-modal__actions a:first-child{background:var(--pc-primary)!important;color:var(--pc-on-primary)!important}
+.nx-hero,.pcx-hero,.pcx-explain,.pcx-merchant,.pcx-footer,.pcx-mobile{background:var(--pc-navy)!important}
+.pcx-hero__shade{background:linear-gradient(90deg,rgba(38,22,17,.99),rgba(52,31,23,.95) 44%,rgba(116,55,37,.62) 72%,rgba(64,35,26,.2))!important}
+.pcx-hero h1 strong,.pcx-local,.pcx-hero__proof svg{color:#f1a184!important}.pcx-basket__inner{background:linear-gradient(135deg,#f3ddd0,#fff4e8)!important}
+html[data-theme="dark"] :is(.ref-header,.ref-mobile-menu,.ref-dock,.nx-header,.mh26-header,.pcx-header){background:rgba(42,28,23,.97)!important;border-color:var(--pc-border)!important;box-shadow:0 8px 28px rgba(65,33,23,.3)!important}
+html[data-theme="dark"] :is(.nx-brand,.pcx-brand){padding:6px 9px;border-radius:11px;background:#fff5e8!important}
+html[data-theme="dark"] :is(.nx-brand img,.pcx-brand img){content:url('/logo-preco-certo.svg')!important;filter:none!important}
+html[data-theme="dark"] :is(.ref-footer,.nx-footer,.pcx-footer,.pcx-mobile){background:var(--pc-footer)!important}
+html[data-theme="dark"] :is(.msearch26-hero,.sector-hub__hero,.sector-hub__tools){background:linear-gradient(140deg,#261611,#5a3022)!important}

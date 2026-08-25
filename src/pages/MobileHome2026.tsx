@@ -41,7 +41,7 @@ export function MobileHome2026(){
   <main id="conteudo-principal">
    <section className="mh26-hero">
     <LocationSwitcher />
-    <div className="mh26-hero-copy"><span className="mh26-verified-badge"><i className="mh26-verified-icon" aria-hidden="true"><CheckCircle2/></i><b>PREÇOS LOCAIS VERIFICADOS</b></span><h1>Economize nas compras em Feijó.</h1><p>Compare produtos do comércio local e descubra onde seu dinheiro rende mais.</p></div>
+    <div className="mh26-hero-copy"><span className="mh26-verified-badge"><i className="mh26-verified-icon" aria-hidden="true"><CheckCircle2/></i><b>PREÇOS LOCAIS VERIFICADOS</b></span><h1>Em Feijó, comparar faz seu dinheiro render.</h1><p>Veja os preços do comércio local e escolha com confiança antes de sair para comprar.</p></div>
     <form className="mh26-search" onSubmit={e=>{e.preventDefault();const q=query.trim();if(q)navigate(`/buscar?q=${encodeURIComponent(q)}`)}} onFocus={()=>setFocused(true)}>
       <label className="mh26-search-label" htmlFor="mh26-query">O que você quer economizar hoje?</label>
       <div className="mh26-search-field"><Search aria-hidden="true"/><input id="mh26-query" value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>{if(e.key==="Escape"){setFocused(false);(e.currentTarget as HTMLInputElement).blur()}}} placeholder="Busque arroz, café, leite…" autoComplete="off" inputMode="search" role="combobox" aria-expanded={open} aria-controls="mh26-search-results"/>{query&&<button className="mh26-search-clear" type="button" aria-label="Limpar pesquisa" onClick={()=>setQuery("")}><X aria-hidden="true"/></button>}<button className="mh26-search-submit" type="submit">Buscar</button></div>
@@ -57,7 +57,7 @@ export function MobileHome2026(){
 
    <HomeQuickActionsCarousel />
 
-   <section className="mh26-section"><header><div><small><TrendingDown aria-hidden="true"/> MENOR PREÇO</small><h2>Destaques para comparar</h2></div><Link to="/buscar">Ver todos</Link></header><div className="mh26-products">{loading?Array.from({length:3},(_,i)=><div className="mh26-product is-loading" aria-hidden="true" key={i}/>):featured.slice(0,3).map(product=><Link className="mh26-product" to={`/produto/${product.slug||product.id}`} key={product.id}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||product.brand||"Comércio local"}</em></span><b><small>a partir de</small>{brl.format(product.minPrice)}</b></Link>)}</div></section>
+   <section className="mh26-section"><header><div><small><TrendingDown aria-hidden="true"/> MENOR PREÇO</small><h2>Achados que valem a comparação</h2></div><Link to="/buscar">Ver todos</Link></header><div className="mh26-products">{loading?Array.from({length:3},(_,i)=><div className="mh26-product is-loading" aria-hidden="true" key={i}/>):featured.slice(0,3).map(product=><Link className="mh26-product" to={`/produto/${product.slug||product.id}`} key={product.id}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||product.brand||"Comércio local"}</em></span><b><small>a partir de</small>{brl.format(product.minPrice)}</b></Link>)}</div></section>
 
    <section className="mh26-local"><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
   </main>

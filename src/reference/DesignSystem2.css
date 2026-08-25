@@ -3,15 +3,16 @@
   color-scheme:light;
   --pc-font-display:"Manrope Variable",Manrope,"Inter Variable",Inter,system-ui,sans-serif;
   --pc-font-body:"Manrope Variable",Manrope,"Inter Variable",Inter,system-ui,sans-serif;
-  --pc-canvas:#f6f2e8;--pc-surface:#ffffff;--pc-surface-2:#ece4d3;--pc-surface-3:#ddd6c4;
-  --pc-ink:#17251d;--pc-muted:#5b665c;--pc-subtle:#6b7266;--pc-border:#ddd6c4;--pc-border-strong:#b9ad91;
-  /* Paleta "Mercado de Feijó": mata (verde-escuro) como identidade estrutural
-     em vez do azul corporativo genérico anterior, com terracota reservado
-     para ação/link e ouro para destaque de preço/selo — todos herdados a
-     partir daqui, então essa troca resolve o site inteiro de uma vez. */
-  --pc-navy:#173626;--pc-navy-2:#c2532c;--pc-footer:#12211a;
-  --pc-green:#1f6b45;--pc-green-strong:#17532f;--pc-green-soft:#e4f0e8;
-  --pc-gold:#d9932c;--pc-gold-on-dark:#f0c15c;--pc-gold-soft:#faf0dc;--pc-danger:#b8422b;--pc-danger-soft:#f5e3da;--pc-info:#2f6f4f;
+  --pc-canvas:#f4f6f5;--pc-surface:#ffffff;--pc-surface-2:#eaf0ed;--pc-surface-3:#dce5e1;
+  --pc-ink:#17251d;--pc-muted:#53645c;--pc-subtle:#66736d;--pc-border:#d3ded8;--pc-border-strong:#a9bbb2;
+  /* Paleta "Mercado de Feijó": verde como identidade e ação, ouro como
+     assinatura e terracota reservado exclusivamente a alerta/erro. */
+  --pc-primary:#17633f;--pc-primary-strong:#104c30;--pc-primary-soft:#e2f0e8;--pc-on-primary:#ffffff;
+  --pc-accent:#b77918;--pc-accent-soft:#f7ecd7;--pc-price:#17633f;--pc-alert:#a63f2b;--pc-alert-soft:#f5e5df;
+  --pc-border-interactive:#9fb7ab;--pc-image-well:#edf2ef;--pc-brand-line:linear-gradient(90deg,var(--pc-primary),var(--pc-accent));
+  --pc-navy:var(--pc-primary-strong);--pc-navy-2:var(--pc-primary);--pc-footer:#122b20;
+  --pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
+  --pc-gold:var(--pc-accent);--pc-gold-on-dark:#f0c878;--pc-gold-soft:var(--pc-accent-soft);--pc-danger:var(--pc-alert);--pc-danger-soft:var(--pc-alert-soft);--pc-info:var(--pc-primary);
   --pc-radius-control:10px;--pc-radius-card:14px;--pc-radius-block:18px;--pc-radius-hero:24px;
   --pc-shadow-sm:0 1px 2px rgba(19,26,32,.06),0 6px 18px rgba(19,26,32,.07);--pc-shadow-lg:0 2px 6px rgba(19,26,32,.06),0 24px 56px rgba(19,26,32,.16);
   --pc-space-1:4px;--pc-space-2:8px;--pc-space-3:12px;--pc-space-4:16px;--pc-space-5:20px;--pc-space-6:24px;--pc-space-8:32px;--pc-space-10:40px;--pc-space-12:48px;--pc-space-16:64px;
@@ -21,12 +22,15 @@
 }
 html[data-theme="dark"]{
   color-scheme:dark;
-  --pc-canvas:#1b292c;--pc-surface:#233438;--pc-surface-2:#2b3e42;--pc-surface-3:#34494d;
-  --pc-ink:#f5f7f5;--pc-muted:#c3cfca;--pc-subtle:#aebdb7;--pc-border:#455c60;--pc-border-strong:#60787c;
-  /* Noturno mineral suave: grafite esverdeado sem preto dominante, com
-     superfícies claramente separadas e acentos semânticos preservados. */
-  --pc-navy:#263a3e;--pc-navy-2:#b84f32;--pc-footer:#203235;--pc-green:#96ceb0;--pc-green-strong:#adddc2;--pc-green-soft:#2b443d;
-  --pc-gold:#edc778;--pc-gold-on-dark:#edc778;--pc-gold-soft:#4a3f2a;--pc-danger:#ed9277;--pc-danger-soft:#4a3028;--pc-info:#9fd3ba;
+  --pc-canvas:#202428;--pc-surface:#292e33;--pc-surface-2:#32383e;--pc-surface-3:#3b434a;
+  --pc-ink:#f5f7f5;--pc-muted:#c5cbd0;--pc-subtle:#aeb7bd;--pc-border:#4b555e;--pc-border-strong:#65727c;
+  /* Noturno mineral suave: carvão sem preto dominante, com superfícies
+     claramente separadas e os mesmos papéis semânticos do tema claro. */
+  --pc-primary:#96ceb0;--pc-primary-strong:#adddc2;--pc-primary-soft:#30443a;--pc-on-primary:#17251d;
+  --pc-accent:#edc778;--pc-accent-soft:#4a4026;--pc-price:#adddc2;--pc-alert:#f0a08a;--pc-alert-soft:#4a3028;
+  --pc-border-interactive:#60786e;--pc-image-well:#343a3f;
+  --pc-navy:#252b30;--pc-navy-2:var(--pc-primary);--pc-footer:#1b2024;--pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
+  --pc-gold:var(--pc-accent);--pc-gold-on-dark:var(--pc-accent);--pc-gold-soft:var(--pc-accent-soft);--pc-danger:var(--pc-alert);--pc-danger-soft:var(--pc-alert-soft);--pc-info:var(--pc-primary);
   --pc-shadow-sm:0 1px 2px rgba(8,18,20,.22),0 6px 18px rgba(8,18,20,.18);--pc-shadow-lg:0 2px 8px rgba(8,18,20,.24),0 24px 60px rgba(8,18,20,.30);
 }
 body{font-family:var(--pc-font-body)}

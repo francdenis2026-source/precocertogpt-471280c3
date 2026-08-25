@@ -22,24 +22,29 @@ older files did not all need to be rewritten by hand to benefit from the real to
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#f6f2e8` | `#1b292c` |
-| Surface | `#ffffff` | `#233438` |
-| Surface 2 | `#ece4d3` | `#2b3e42` |
+| Canvas | `#f4f6f5` | `#202428` |
+| Surface | `#ffffff` | `#292e33` |
+| Surface 2 | `#eaf0ed` | `#32383e` |
 | Ink | `#17251d` | `#f5f7f5` |
-| Muted | `#5b665c` | `#c3cfca` |
-| Border | `#ddd6c4` | `#455c60` |
-| Green (verified price) | `#1f6b45` | `#96ceb0` |
-| Green strong | `#17532f` | `#adddc2` |
-| Gold (accent) | `#d9932c` | `#edc778` |
-| Navy / mineral structural | `#173626` | `#263a3e` |
+| Muted | `#53645c` | `#c5cbd0` |
+| Border | `#d3ded8` | `#4b555e` |
+| Primary / verified price | `#17633f` | `#96ceb0` |
+| Primary strong | `#104c30` | `#adddc2` |
+| Accent | `#b77918` | `#edc778` |
+| Alert | `#a63f2b` | `#f0a08a` |
 
-O modo escuro usa uma escala mineral de luminosidade média, sem preto puro e
-sem verde-floresta dominando grandes áreas. A camada
+O modo escuro usa uma escala mineral de carvão com luminosidade média, sem preto puro e
+sem verde-floresta dominando grandes áreas. Verde é a única cor primária,
+ouro é o accent e terracota aparece somente em alerta/erro. A camada
 `GlobalMineralDark2026.css`, carregada após os estilos históricos, remapeia as
 superfícies legadas para os mesmos papéis semânticos em todas as páginas.
 
-Typography is Outfit Variable for display/headings and Inter Variable for body copy, both
-loaded via `@fontsource-variable` in `main.tsx`. There is no Manrope anywhere in the app.
+`HomepageVisualRefinement2026.css`, carregado por último, conecta as variáveis
+históricas `--nx-*` e `--mh-*` aos tokens canônicos. Ele também unifica player,
+avatar, CTAs, categorias e dock sem criar outra paleta local.
+
+Typography uses Manrope Variable as the canonical display/body family. Inter and Outfit remain
+loaded for older page-specific rules while those surfaces migrate to the shared tokens.
 
 ## Primitives (Fase 1)
 

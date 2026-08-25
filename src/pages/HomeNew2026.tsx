@@ -17,12 +17,12 @@ const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 const categories = [
-  { name: "Mercados", copy: "Compras do dia", to: "/mercados", icon: ShoppingBasket, color: "#11875d" },
-  { name: "Açougues", copy: "Carnes e cortes", to: "/acougues", icon: Store, color: "#d94f45" },
-  { name: "Padarias", copy: "Pães e salgados", to: "/padarias", icon: Croissant, color: "#d98412" },
-  { name: "Lanchonetes", copy: "Lanches e pizzas", to: "/lanchonetes", icon: Store, color: "#e56335" },
-  { name: "Farmácias", copy: "Saúde e cuidado", to: "/farmacias", icon: HeartPulse, color: "#3156d9" },
-  { name: "Livros locais", copy: "Cultura de Feijó", to: "/livros", icon: BookOpen, color: "#7048c8" },
+  { name: "Mercados", copy: "Compras do dia", to: "/mercados", icon: ShoppingBasket },
+  { name: "Açougues", copy: "Carnes e cortes", to: "/acougues", icon: Store },
+  { name: "Padarias", copy: "Pães e salgados", to: "/padarias", icon: Croissant },
+  { name: "Lanchonetes", copy: "Lanches e pizzas", to: "/lanchonetes", icon: Store },
+  { name: "Farmácias", copy: "Saúde e cuidado", to: "/farmacias", icon: HeartPulse },
+  { name: "Livros locais", copy: "Cultura de Feijó", to: "/livros", icon: BookOpen },
 ] as const;
 
 function ProductImage({ product, eager = false }: { product: Product; eager?: boolean }) {
@@ -223,7 +223,7 @@ export function HomeNew2026() {
       <div className="nx-catalog-band">
       <section className="nx-categories nx-shell" aria-labelledby="nx-categories-title">
         <div className="nx-section-title"><div><h2 id="nx-categories-title">Onde você quer comprar?</h2></div><Link to="/explorar">Ver todas as categorias <ArrowRight aria-hidden="true" /></Link></div>
-        <div className="nx-category-grid">{categories.map(({ name, copy, to, icon: Icon, color }) => <Link key={name} to={to} style={{ "--nx-accent": color } as React.CSSProperties}><i aria-hidden="true"><Icon /></i><span><strong>{name}</strong><small>{copy}</small></span><ArrowRight aria-hidden="true" /></Link>)}</div>
+        <div className="nx-category-grid">{categories.map(({ name, copy, to, icon: Icon }) => <Link key={name} to={to}><i aria-hidden="true"><Icon /></i><span><strong>{name}</strong><small>{copy}</small></span><ArrowRight aria-hidden="true" /></Link>)}</div>
       </section>
 
       <section className="nx-market nx-shell" aria-labelledby="nx-market-title">

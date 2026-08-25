@@ -1,0 +1,83 @@
+/* Homepage refinement: one semantic palette, shared by light and dark. */
+.nx-home{
+  --nx-bg:var(--pc-canvas);--nx-surface:var(--pc-surface);--nx-card:var(--pc-surface);--nx-soft:var(--pc-surface-2);
+  --nx-text:var(--pc-ink);--nx-muted:var(--pc-muted);--nx-line:var(--pc-border);
+  --nx-blue:var(--pc-primary);--nx-blue-2:var(--pc-primary-strong);--nx-teal:var(--pc-primary);
+  --nx-green:var(--pc-price);--nx-amber:var(--pc-accent);
+  --nx-shadow-sm:var(--pc-shadow-sm);--nx-shadow:var(--pc-shadow-lg);
+}
+html[data-theme="dark"] .nx-home{
+  --nx-bg:var(--pc-canvas);--nx-surface:var(--pc-surface);--nx-card:var(--pc-surface);--nx-soft:var(--pc-surface-2);
+  --nx-text:var(--pc-ink);--nx-muted:var(--pc-muted);--nx-line:var(--pc-border);
+  --nx-blue:var(--pc-primary);--nx-blue-2:var(--pc-primary-strong);--nx-teal:var(--pc-primary);
+  --nx-green:var(--pc-price);--nx-amber:var(--pc-accent);
+}
+
+.mh26-page{
+  --mh-ink:var(--pc-ink);--mh-muted:var(--pc-muted);--mh-line:var(--pc-border);--mh-surface:var(--pc-surface);
+  --mh-green:var(--pc-primary);--mh-green-dark:var(--pc-primary-strong);--mh-gold:var(--pc-accent);
+  background:var(--pc-canvas);color:var(--pc-ink);
+}
+html[data-theme="dark"] .mh26-page{
+  --mh-ink:var(--pc-ink);--mh-muted:var(--pc-muted);--mh-line:var(--pc-border);--mh-surface:var(--pc-surface);
+  background:var(--pc-canvas);color:var(--pc-ink);
+}
+
+/* Chrome and promotional strip use the same brand roles instead of isolated hues. */
+.pc-festival-bar,.pc-festival-bar.theme-emerald,.pc-festival-bar.theme-amber,.pc-festival-bar.theme-slate{background:var(--pc-primary-strong)}
+.pc-festival-bar__art span i{background:color-mix(in srgb,var(--pc-accent) 22%,transparent);color:var(--pc-accent)}
+.pc-radio{border-color:var(--pc-border-interactive);background:var(--pc-surface);color:var(--pc-ink);box-shadow:var(--pc-shadow-sm)}
+.pc-radio__control,.pc-radio.is-playing .pc-radio__control{background:var(--pc-primary);color:var(--pc-surface);box-shadow:none}
+.pc-radio__copy small,.pc-radio__volume,.pc-radio.is-playing .pc-radio__copy small{color:var(--pc-muted)}
+.pc-radio__copy small i,.pc-radio.is-playing .pc-radio__signal i{background:var(--pc-primary)}
+.pc-radio__volume input{accent-color:var(--pc-primary)}
+.pc-radio:hover,.pc-radio.is-playing{border-color:var(--pc-primary);background:var(--pc-primary-soft);box-shadow:var(--pc-shadow-sm)}
+.pc-radio:focus-within{outline-color:color-mix(in srgb,var(--pc-primary) 38%,transparent)}
+.pc-radio.has-error{border-color:var(--pc-alert);background:var(--pc-alert-soft)}
+.pc-radio.has-error .pc-radio__control{background:var(--pc-alert)}
+.pc-radio.has-error .pc-radio__copy :is(small,strong){color:var(--pc-alert)}
+html[data-theme="dark"] .pc-radio,html[data-theme="dark"] .pc-radio__track{border-color:var(--pc-border-interactive);background:var(--pc-surface);color:var(--pc-ink)}
+html[data-theme="dark"] .pc-radio.is-playing{border-color:var(--pc-primary);background:var(--pc-primary-soft)}
+
+.mh26-head-actions .pc-user-trigger,.nx-header__actions .pc-user-trigger{border-color:var(--pc-border-interactive);background:var(--pc-surface)}
+.mh26-head-actions .pc-user-avatar,.nx-header__actions .pc-user-avatar{background:var(--pc-primary-soft);color:var(--pc-primary-strong)}
+html[data-theme="dark"] .mh26-head-actions .pc-user-trigger{border-color:var(--pc-border-interactive);background:var(--pc-surface)}
+
+/* Primary actions and navigation keep one stable hue across themes. */
+.nx-login,.nx-live-search__submit,.nx-basket__actions a:first-child,.nx-local__copy a:first-child,.mh26-search-submit{background:var(--pc-primary-strong);color:var(--pc-on-primary)}
+@media(hover:hover) and (pointer:fine){
+  .nx-login:hover,.nx-live-search__submit:hover,.nx-basket__actions a:first-child:hover,.nx-local__copy a:first-child:hover,.mh26-search-submit:hover{background:var(--pc-primary)}
+}
+.nx-dock a,.mh26-page .ref-dock a{color:var(--pc-muted)!important}
+.nx-dock a.is-active,.mh26-page .ref-dock a.is-active{background:var(--pc-primary-soft);color:var(--pc-primary-strong)!important}
+.nx-category-grid>a{--nx-accent:var(--pc-primary)!important}
+
+/* Product hierarchy: section title leads, product name supports, price decides. */
+.nx-section-title h2,.mh26-section h2{color:var(--pc-ink);font-weight:780;letter-spacing:-.025em}
+.nx-section-title h2::after,.mh26-section>header h2::after,.mh26-local h2::after{width:52px;height:2px;display:block;margin-top:8px;border-radius:2px;background:var(--pc-brand-line);content:""}
+.nx-product-card h3,.mh26-product>span strong{color:var(--pc-ink);font-weight:620;letter-spacing:-.005em}
+.nx-product-card footer strong,.nx-deal footer strong,.mh26-product>b{color:var(--pc-price);font-weight:850;font-variant-numeric:tabular-nums}
+.nx-product-card footer strong{font-size:1.32rem}
+.mh26-product>b{font-size:1.25rem;line-height:1.05}
+
+/* One surface per card: the image well is integrated, never a second framed card. */
+.nx-product-card,.mh26-product{border-color:transparent;background:var(--pc-surface);box-shadow:var(--pc-shadow-sm)}
+.nx-product-card__media,.mh26-product>i{border:0;background:var(--pc-image-well);box-shadow:none}
+.nx-product-card__media img,.mh26-product>i img{border:0!important;background:transparent!important;box-shadow:none!important}
+@media(hover:hover) and (pointer:fine){
+  .nx-product-card:hover,.mh26-product:hover{border-color:transparent;box-shadow:var(--pc-shadow-lg)}
+}
+
+/* Neutral dark surfaces; hue stays in controls, prices and the signature line. */
+html[data-theme="dark"] .nx-home :is(.nx-header,.nx-market__products,.nx-local__copy,.nx-category-grid>a,.nx-product-card,.nx-deal),
+html[data-theme="dark"] :is(.mh26-header,.mh26-product,.mh26-actions>a,.mh26-search-overlay){border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
+html[data-theme="dark"] .nx-home :is(.nx-catalog-band,.nx-local-band),html[data-theme="dark"] .mh26-page{background:var(--pc-canvas)}
+html[data-theme="dark"] .nx-home :is(.nx-product-card__media,.nx-category-grid i),html[data-theme="dark"] .mh26-product>i{background:var(--pc-image-well)!important}
+
+::selection{background:var(--pc-primary);color:var(--pc-surface)}
+
+@media(max-width:760px){
+  .nx-section-title h2{font-size:1.65rem}
+  .nx-product-card h3{font-size:.84rem}
+  .nx-product-card footer strong{font-size:1.2rem}
+}

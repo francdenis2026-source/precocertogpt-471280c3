@@ -12,6 +12,7 @@ import "./reference/GlobalMineralDark2026.css";
 import "./reference/HomepageVisualRefinement2026.css";
 import "./styles/NoDecorativeImagery2026.css";
 import "./styles/PriceColorNormalization2026.css";
+import "./reference/LogoBrandImpeccable2026.css";
 
 initializeSiteTheme();
 

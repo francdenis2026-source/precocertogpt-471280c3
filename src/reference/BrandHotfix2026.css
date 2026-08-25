@@ -1,0 +1,64 @@
+/* Hotfix visual carregado por último para invalidar cache de marca e garantir a identidade oficial. */
+.nx-brand img,
+.mh26-logo img {
+  content: url('/logo-preco-certo-oficial-2026.svg') !important;
+  filter: none !important;
+}
+
+.nx-home {
+  --nx-green: #0A8A49 !important;
+  --nx-green-strong: #006B3B !important;
+  --nx-green-soft: #EAF7F0 !important;
+  --nx-lime: #FF7A00 !important;
+  --nx-yellow: #FF8A00 !important;
+}
+
+.nx-header {
+  background: rgba(255,255,255,.96) !important;
+  color: #202020 !important;
+}
+.nx-header nav a { color:#4A4A4A !important; }
+.nx-header nav a:hover,
+.nx-header nav a.is-active { background:#006B3B !important; color:#fff !important; }
+.nx-login { background:linear-gradient(135deg,#FF8A00,#FF5A00) !important; }
+
+.nx-hero {
+  background:linear-gradient(135deg,#063E28 0%,#075E3A 58%,#1F2A25 100%) !important;
+}
+.nx-hero__backdrop {
+  background:
+    radial-gradient(circle at 78% 30%,rgba(255,122,0,.22),transparent 22rem),
+    linear-gradient(90deg,rgba(4,45,28,.98),rgba(6,77,47,.94) 48%,rgba(32,32,32,.76)) !important;
+}
+.nx-hero h1 em,
+.nx-hero__kicker svg { color:#FF8A00 !important; }
+.nx-live-search__submit,
+.nx-basket-panel a { background:linear-gradient(135deg,#0A8A49,#006B3B) !important; }
+.nx-hero__ctas .is-primary,
+.nx-hero__deal > a,
+.nx-basket-visual { background:linear-gradient(135deg,#FF8A00,#FF5A00) !important; }
+.nx-section-title span,
+.nx-section-title > a,
+.nx-offer-card__copy b,
+.nx-live-results > button > b { color:#006B3B !important; }
+.nx-offer-card__copy em,
+.nx-basket-panel span { color:#E85F00 !important; }
+.nx-category-strip > a > i { background:#EAF7F0 !important; color:#006B3B !important; }
+.nx-category-strip > a:nth-child(2n) > i { background:#FFF0E5 !important; color:#E85F00 !important; }
+
+@media (max-width:767px) {
+  .mh26-page {
+    --mh-green:#0A8A49 !important;
+    --mh-green-dark:#006B3B !important;
+    --mh-ink:#202020 !important;
+    background:linear-gradient(180deg,#F4F8F5 0,#FBFBF9 360px) !important;
+  }
+  .mh26-hero { background:linear-gradient(135deg,#063E28,#075E3A 60%,#222) !important; }
+  .mh26-search-submit { background:#0A8A49 !important; }
+  .mh26-section>header small,
+  .mh26-section>header>a,
+  .mh26-product>b { color:#006B3B !important; }
+  .mh26-local { background:linear-gradient(140deg,#063E28,#0A8A49) !important; }
+  .mh26-local small { color:#FFD0A6 !important; }
+  .mh26-page .ref-dock a.is-active { color:#0A8A49 !important; }
+}

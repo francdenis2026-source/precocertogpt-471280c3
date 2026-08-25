@@ -31,11 +31,14 @@ body,
 /* O bloco visual da hero permanece como superfície sólida com o card de preço. */
 .nx-hero__visual {
   display: flex !important;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
   min-height: 0 !important;
-  padding: 18px !important;
+  padding: 20px !important;
   background: var(--nx-soft) !important;
 }
+
 
 .nx-hero__visual-badge {
   position: static !important;

@@ -13,11 +13,21 @@ export default defineConfig({
     port: 8080,
   },
   build: {
+    cssCodeSplit: true,
     rollupOptions: {
       input: {
         main: resolve(projectRoot, "index.html"),
         dorinha: resolve(projectRoot, "autora/dorinha-barroso/index.html"),
         dorinhaShort: resolve(projectRoot, "dorinha-barroso/index.html"),
+      },
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/node_modules\/(react|react-dom|react-router|react-router-dom)\//.test(id)) return "react-vendor";
+          if (id.includes("node_modules/@supabase/")) return "supabase-vendor";
+          if (id.includes("node_modules/lucide-react/")) return "icons-vendor";
+          if (/node_modules\/(jspdf|jspdf-autotable|html2canvas|canvg)\//.test(id)) return "pdf-vendor";
+        },
       },
     },
   },

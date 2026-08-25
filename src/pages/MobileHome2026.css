@@ -179,6 +179,8 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
 html[data-theme="dark"] .mh26-search-overlay-actions>button{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
 }
 
+.mh26-hero-media img{object-position:64% 44%}
+
 /* Ponte final do tema escuro. Esta regra fica no arquivo proprietário para
    impedir que camadas históricas reintroduzam verde na homepage mobile. */
 @media(max-width:767px){

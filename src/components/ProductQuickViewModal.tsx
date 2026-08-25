@@ -5,6 +5,7 @@ import type { Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { requestAuthAction } from "../lib/authActionPrompt";
+import { supabase } from "../lib/supabase";
 import "./ProductQuickViewModal.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -29,9 +30,8 @@ function writeBasket(items: BasketEntry[]) {
 
 function QuickViewImage({ product }: { product: Product }) {
   const source = resolveProductImage(product);
-  const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [source]);
-  if (source && !failed) return <img className="pqv-image" src={source} alt={product.name} width="400" height="400" loading="eager" onError={() => setFailed(true)} />;
+  const [failedSource, setFailedSource] = useState("");
+  if (source && failedSource !== source) return <img className="pqv-image" src={source} alt={product.name} width="400" height="400" loading="eager" onError={() => setFailedSource(source)} />;
   return <div className="pqv-image-fallback" role="img" aria-label={`Imagem de ${product.name} em atualização`}><PackageSearch /><span>Imagem em atualização</span></div>;
 }
 
@@ -64,7 +64,6 @@ export function ProductQuickViewModal({ product, onClose }: { product: Product; 
   }, [onClose]);
 
   const handleAddToBasket = async () => {
-    const { supabase } = await import("../lib/supabase");
     const session = supabase ? (await supabase.auth.getSession()).data.session : null;
     if (!session?.user) {
       const returnTo = `${window.location.pathname}${window.location.search}`;
@@ -87,7 +86,7 @@ export function ProductQuickViewModal({ product, onClose }: { product: Product; 
   };
 
   return (
-    <div className="pqv-overlay" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+    <div className="pqv-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <div className="pqv-dialog" role="dialog" aria-modal="true" aria-labelledby="pqv-title" ref={dialogRef}>
         <button type="button" className="pqv-close" onClick={onClose} aria-label="Fechar" ref={closeButtonRef}><X aria-hidden="true" /></button>
 

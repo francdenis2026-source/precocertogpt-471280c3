@@ -80,7 +80,7 @@ export function MobileHome2026(){
    <section className="mh26-hero">
     <LocationSwitcher />
     <div className="mh26-hero-media">
-      <img src="/hero-mulher-compras-celular-2026.webp?v=5" alt="Mulher comparando produtos pelo celular durante as compras no supermercado" />
+      <img src="/hero-precocerto-comparacao-realista-2026.webp" alt="Mulher comparando preços pelo celular durante as compras no supermercado" width="1672" height="941" fetchPriority="high" />
     </div>
     <div className="mh26-hero-copy"><h1>Comparar faz seu dinheiro render.</h1><p>Veja os preços do comércio local e escolha com confiança antes de sair para comprar.</p></div>
     <form ref={searchRef} className="mh26-search" onSubmit={e=>{e.preventDefault();const q=query.trim();if(q)navigate(`/buscar?q=${encodeURIComponent(q)}`)}} onFocus={()=>setFocused(true)}>

@@ -12,7 +12,7 @@ import { AuthActionPrompt } from "./components/AuthActionPrompt";
 import { SeoRouteManager } from "./components/SeoRouteManager";
 import { AdminMaintenanceControl, PlatformMaintenanceGate } from "./components/PlatformMaintenance";
 import { FavoritesProvider } from "./features/favorites/FavoritesProvider";
-import { ReferenceAuthPage, ReferenceFavoritesPage, ReferenceInfoPage, ReferenceNotFound, ReferenceStoresPage } from "./reference/ReferenceExperience";
+import { ReferenceAuthPage, ReferenceFavoritesPage, ReferenceInfoPage, ReferenceMerchantDashboard, ReferenceNotFound, ReferenceStoresPage } from "./reference/ReferenceExperience";
 import { MarketplaceSectorLanding, marketplaceSectors } from "./reference/MarketplaceSectors";
 import { SectorHub2026 } from "./reference/SectorHub2026";
 import { HomeNew2026 } from "./pages/HomeNew2026";
@@ -44,7 +44,6 @@ const StoreDetailProfessional = lazy(() => import("./reference/StoreDetailProfes
 const CulturalProfilePage = lazy(() => import("./reference/CulturalProfilePage").then(module => ({ default: module.CulturalProfilePage })));
 const DorinhaEditorialPage = lazy(() => import("./reference/DorinhaEditorialPage").then(module => ({ default: module.DorinhaEditorialPage })));
 const MerchantOnboarding = lazy(() => import("./reference/MerchantOnboarding").then(module => ({ default: module.MerchantOnboarding })));
-const ReferenceMerchantDashboard = lazy(() => import("./reference/ReferenceExperience").then(module => ({ default: module.ReferenceMerchantDashboard })));
 const AdminControlCenter = lazy(() => import("./reference/AdminControlCenter").then(module => ({ default: module.AdminControlCenter })));
 const AdminCatalogWorkspace = lazy(() => import("./reference/AdminCatalogWorkspace").then(module => ({ default: module.AdminCatalogWorkspace })));
 const AdminEnvironmentsPage = lazy(() => import("./reference/AdminCatalogWorkspace").then(module => ({ default: module.AdminEnvironmentsPage })));

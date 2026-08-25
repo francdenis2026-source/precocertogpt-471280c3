@@ -247,3 +247,10 @@ html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a
 /* Footer mínimo da homepage: somente autoria e contato. */
 .nx-footer{border-top:0;background:#10261b;color:#edf5f0}.nx-footer::before,.nx-footer::after{display:none}
 .nx-footer-minimal{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:20px}.nx-footer-minimal button{min-height:36px;padding:0;border:0;background:transparent;color:#bdcec3;font-size:11.5px;font-weight:700;cursor:pointer}.nx-footer-minimal button:first-child{color:#a9bcae;font-weight:650}.nx-footer-minimal button:hover{color:#e4b95e;text-decoration:underline;text-underline-offset:4px}.nx-footer-minimal button:focus-visible{outline:3px solid #e4b95e;outline-offset:2px}
+
+/* Fotografia editorial própria do hero: recorte estável no desktop e mobile. */
+.nx-hero{background:linear-gradient(100deg,rgb(246 242 232 / 98%) 0 42%,rgb(246 242 232 / 90%) 60%,rgb(246 242 232 / 40%)),url('/hero-precocerto-comparacao-realista-2026.webp') center 48%/cover no-repeat}
+.nx-hero__photo{background:linear-gradient(180deg,transparent 48%,rgb(8 35 49 / 38%)),url('/hero-precocerto-comparacao-realista-2026.webp') center/cover no-repeat}
+html[data-theme="dark"] .nx-hero{background:linear-gradient(102deg,rgb(8 20 27 / 96%) 0 39%,rgb(8 20 27 / 79%) 57%,rgb(8 20 27 / 43%)),url('/hero-precocerto-comparacao-realista-2026.webp') center 48%/cover no-repeat}
+html[data-theme="dark"] .nx-hero__photo{background:linear-gradient(180deg,rgb(5 24 33 / 5%) 38%,rgb(5 24 33 / 46%)),url('/hero-precocerto-comparacao-realista-2026.webp') center/cover no-repeat}
+@media(max-width:760px){.nx-hero{background:linear-gradient(180deg,rgb(246 242 232 / 94%) 0%,rgb(246 242 232 / 87%) 47%,rgb(246 242 232 / 96%) 100%),url('/hero-precocerto-comparacao-realista-2026.webp') 66% center/cover no-repeat}html[data-theme="dark"] .nx-hero{background:linear-gradient(180deg,rgb(8 20 27 / 88%) 0%,rgb(8 20 27 / 75%) 48%,rgb(8 20 27 / 95%) 100%),url('/hero-precocerto-comparacao-realista-2026.webp') 66% center/cover no-repeat}}

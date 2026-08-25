@@ -83,7 +83,13 @@ async function rest(table, select, limit=5000) {
 }
 
 const sitemapPaths = routes.map(([pathname])=>pathname);
-const products = await rest('products','id,name,brand,category,size,unit,slug,image_url',10000);
+// As três consultas são independentes. Executá-las em paralelo evita que um
+// endpoint indisponível multiplique o tempo do build pelos três timeouts.
+const [products, stores, prices] = await Promise.all([
+  rest('products','id,name,brand,category,size,unit,slug,image_url',10000),
+  rest('establishments','id,name,slug,kind,neighborhood,short_description,logo_url,is_demo',5000),
+  rest('prices','product_id,establishment_id,value,captured_at',20000),
+]);
 for (const p of products) {
   const identifier = meaningful(p.slug) || p.id; if(!identifier || !meaningful(p.name)) continue;
   const name = meaningful(p.name);
@@ -96,7 +102,6 @@ for (const p of products) {
   sitemapPaths.push(pathname);
 }
 
-const stores = await rest('establishments','id,name,slug,kind,neighborhood,short_description,logo_url,is_demo',5000);
 for (const s of stores) {
   const identifier = meaningful(s.slug) || s.id; const name=meaningful(s.name); if(!identifier || !name || s.is_demo) continue;
   const pathname = `/estabelecimento/${encodeURIComponent(identifier)}`;
@@ -107,7 +112,6 @@ for (const s of stores) {
   sitemapPaths.push(pathname);
 }
 
-const prices = await rest('prices','product_id,establishment_id,value,captured_at',20000);
 const productById = new Map(products.map(product => [String(product.id), product]));
 const storeById = new Map(stores.map(store => [String(store.id), store]));
 const normalizedText = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();

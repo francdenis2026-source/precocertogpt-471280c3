@@ -1,7 +1,7 @@
 /*
  * Política visual permanente: o PreçoCerto não utiliza imagens decorativas
  * como background global, hero ou banner estrutural. Imagens funcionais
- * (produtos, logomarcas, estabelecimentos e conteúdo editorial) permanecem.
+ * (produtos e logomarcas) permanecem.
  */
 
 html,
@@ -12,23 +12,38 @@ body,
   background-image: none !important;
 }
 
-/* Homepage desktop/mobile: mantém conteúdo e busca, remove apenas mídia hero. */
+/* Homepage desktop/mobile: zera o background completo, não apenas background-image. */
 .nx-home,
 .nx-hero,
-.nx-hero__photo,
 .mh26-page,
 .mh26-hero {
   background-image: none !important;
 }
 
+.nx-hero,
+html[data-theme="dark"] .nx-hero {
+  background: var(--nx-bg) !important;
+}
+
+.mh26-hero,
+html[data-theme="dark"] .mh26-hero {
+  background: var(--mh26-bg, var(--nx-bg, #f6f2e8)) !important;
+}
+
+/* Remove fisicamente da composição visual qualquer camada fotográfica de hero. */
 .mh26-hero-media,
 .nx-hero__photo,
+.nx-hero__photo > img,
+.nx-hero__photo::before,
+.nx-hero__photo::after,
 .nx-hero__visual-shade,
 .kelly-hero__visual {
   display: none !important;
+  background: none !important;
+  background-image: none !important;
 }
 
-/* O bloco visual da hero permanece como superfície sólida com o card de preço. */
+/* O bloco à direita pode conter somente informação/preço em superfície sólida. */
 .nx-hero__visual {
   display: flex !important;
   flex-direction: column;
@@ -37,8 +52,8 @@ body,
   min-height: 0 !important;
   padding: 20px !important;
   background: var(--nx-soft) !important;
+  background-image: none !important;
 }
-
 
 .nx-hero__visual-badge {
   position: static !important;
@@ -49,12 +64,12 @@ body,
   position: static !important;
   inset: auto !important;
   width: 100%;
+  background-image: none !important;
 }
 
 .nx-hero__copy {
   max-width: 780px;
 }
-
 
 /* Remove qualquer mídia explicitamente marcada como hero sem afetar produtos/logos. */
 [class*="hero"] img[src*="hero"],
@@ -64,6 +79,18 @@ img[src*="pharmacy-hero"],
 img[src*="merchant-access-hero"],
 img[src*="auth-market-hero"] {
   display: none !important;
+}
+
+/* Remove fundos decorativos restantes da homepage. */
+.nx-catalog-band,
+.nx-local-band,
+.nx-basket,
+.nx-footer,
+html[data-theme="dark"] .nx-catalog-band,
+html[data-theme="dark"] .nx-local-band,
+html[data-theme="dark"] .nx-basket,
+html[data-theme="dark"] .nx-footer {
+  background-image: none !important;
 }
 
 /* Fundos literários/promocionais antigos não devem reaparecer por CSS legado. */
@@ -81,12 +108,10 @@ img[src*="auth-market-hero"] {
   background-image: none !important;
 }
 
-/* Kelly/Ponto do Sanduba: fotos de categoria que eram usadas como background. */
 .kelly-menu-group__head {
   background-image: none !important;
 }
 
-/* Evita herança de imagens decorativas via pseudo-elementos de páginas/heroes. */
 [class*="page"]::before,
 [class*="page"]::after,
 [class*="hero"]::before,

@@ -57,24 +57,27 @@ window.addEventListener("online", startNotifications, { once: true });
 
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
-    void navigator.serviceWorker.register("/sw.js", { scope: "/", updateViaCache: "none" })
-      .then(registration => registration.update())
-      .catch(() => {
-        // O app permanece funcional sem instalação PWA.
-      });
-  }, { once: true });
+    void (async () => {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(registration => registration.unregister()));
+      if ("caches" in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.filter(key => key.startsWith("precocerto-")).map(key => caches.delete(key)));
+      }
 
-  // Quando o v2 assume uma aba que ainda executava o pacote antigo, uma única
-  // recarga controlada faz o documento apontar para os assets recém-publicados.
-  navigator.serviceWorker.addEventListener("controllerchange", () => {
-    const reloadKey = "pc:sw-controller-reloaded:v4";
-    try {
-      if (sessionStorage.getItem(reloadKey)) return;
-      sessionStorage.setItem(reloadKey, "1");
-      window.location.reload();
-    } catch {
-      // Sem sessionStorage não é possível garantir recarga única; a próxima
-      // navegação já será atendida pelo novo controlador.
-    }
-  });
+      // Um controlador desregistrado permanece ligado à aba atual até uma
+      // navegação. Esta recarga única entrega os assets diretamente da rede.
+      if (!navigator.serviceWorker.controller) return;
+      const reloadKey = "pc:legacy-worker-removed";
+      try {
+        if (sessionStorage.getItem(reloadKey)) return;
+        sessionStorage.setItem(reloadKey, "1");
+        window.location.reload();
+      } catch {
+        // Sem armazenamento de sessão, evita-se qualquer risco de loop.
+      }
+    })().catch(() => {
+      // Falhas na limpeza não bloqueiam o funcionamento da aplicação.
+    });
+  }, { once: true });
 }

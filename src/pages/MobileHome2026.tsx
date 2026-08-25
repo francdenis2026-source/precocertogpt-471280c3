@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, Clock3, MapPin, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, TrendingDown, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, TrendingDown, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -49,7 +49,7 @@ export function MobileHome2026(){
       </div>}
     </form>
     <div className="mh26-quick" aria-label="Buscas populares"><span>Populares:</span>{["Arroz","Café","Leite","Açúcar"].map(item=><button key={item} type="button" onClick={()=>{setQuery(item);setFocused(true)}}>{item}</button>)}</div>
-    <div className={`mh26-catalog-status${catalogError?" has-warning":""}`} role="status"><span>Preços registrados em {lastPriceUpdate}</span>{catalogError&&<><em>Base local ativa.</em><button type="button" onClick={()=>{setLoading(true);fetchCatalog("",{force:true}).then(data=>{setCatalog(data);setCatalogError(data.error||"")}).catch(()=>setCatalogError("A atualização continua indisponível.")).finally(()=>setLoading(false))}}>Atualizar</button></>}</div>
+    <div className={`mh26-catalog-status${catalogError?" has-warning":""}`} role="status"><span>Atualizado em {lastPriceUpdate}</span>{catalogError&&<><em>Base local ativa.</em><button type="button" onClick={()=>{setLoading(true);fetchCatalog("",{force:true}).then(data=>{setCatalog(data);setCatalogError(data.error||"")}).catch(()=>setCatalogError("A atualização continua indisponível.")).finally(()=>setLoading(false))}}>Atualizar</button></>}</div>
    </section>
 
    <HomeQuickActionsCarousel />
@@ -60,7 +60,6 @@ export function MobileHome2026(){
   </main>
   <footer className="mh26-footer">
    <div className="mh26-footer-head"><img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto"/><span><MapPin aria-hidden="true"/> Feijó, Acre</span></div>
-   <div className="mh26-footer-proof"><Clock3 aria-hidden="true"/><span><strong>Preços registrados</strong><small>{lastPriceUpdate}</small></span><CheckCircle2 aria-hidden="true"/></div>
    <nav aria-label="Principais caminhos"><Link to="/buscar"><Search aria-hidden="true"/><span>Buscar</span></Link><Link to="/estabelecimentos"><MapPin aria-hidden="true"/><span>Locais</span></Link><Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true"/><span>Cesta</span></Link><Link to="/lojista"><Store aria-hidden="true"/><span>Comerciante</span></Link></nav>
    <div className="mh26-footer-note"><span>Desenvolvido por Franc D’nis</span></div>
   </footer>

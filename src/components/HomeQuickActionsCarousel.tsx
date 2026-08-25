@@ -37,18 +37,17 @@ export function HomeQuickActionsCarousel() {
 
   return <section className="hqa" aria-labelledby="hqa-title" aria-roledescription="carrossel">
     <div className="hqa-head">
-      <div><small>ATALHOS DO PREÇOCERTO</small><h2 id="hqa-title">O que você quer fazer?</h2></div>
+      <div><h2 id="hqa-title">O que você quer fazer?</h2><p>Escolha um caminho e encontre o que precisa mais rápido.</p></div>
       <div className="hqa-controls" aria-label="Controles do carrossel">
         <button type="button" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label="Ver opções anteriores"><ArrowLeft aria-hidden="true" /></button>
         <button type="button" onClick={() => scrollTo(active + 1)} disabled={active === actions.length - 1} aria-label="Ver próximas opções"><ArrowRight aria-hidden="true" /></button>
       </div>
     </div>
     <div className="hqa-track" ref={trackRef} onScroll={syncActive}>
-      {actions.map(({ title, copy, to, icon: Icon, tone }, index) => <Link className={`hqa-card hqa-card--${tone}`} to={to} key={title} aria-label={`${title}: ${copy}`}>
+      {actions.map(({ title, copy, to, icon: Icon, tone }) => <Link className={`hqa-card hqa-card--${tone}`} to={to} key={title} aria-label={`${title}: ${copy}`}>
         <i aria-hidden="true"><Icon /></i>
         <span><strong>{title}</strong><small>{copy}</small></span>
         <ArrowRight className="hqa-card__arrow" aria-hidden="true" />
-        <em>{String(index + 1).padStart(2, "0")}</em>
       </Link>)}
     </div>
     <div className="hqa-position" role="status" aria-live="polite" aria-label={`Opção ${active + 1} de ${actions.length}`}>

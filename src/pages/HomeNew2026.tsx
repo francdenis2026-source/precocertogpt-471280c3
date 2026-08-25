@@ -262,21 +262,9 @@ export function HomeNew2026() {
     </main>
 
     <footer className="nx-footer">
-      <div className="nx-shell nx-footer-v2">
-        <div className="nx-footer-v2__identity">
-          <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
-          <p>Compare antes de comprar no comércio local de Feijó.</p>
-        </div>
-        <nav className="nx-footer-v2__nav" aria-label="Principais caminhos">
-          <Link to="/buscar"><Search aria-hidden="true" /><span>Buscar preços</span></Link>
-          <Link to="/estabelecimentos"><MapPin aria-hidden="true" /><span>Onde comprar</span></Link>
-          <Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true" /><span>Cesta inteligente</span></Link>
-          <Link to="/lojista"><Store aria-hidden="true" /><span>Área do comerciante</span></Link>
-        </nav>
-        <span className="nx-footer-v2__place"><MapPin aria-hidden="true" /> Feijó, Acre</span>
-        <div className="nx-footer-v2__bottom">
-          <div className="nx-footer-v2__utility"><button className="nx-footer-v2__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvido por Franc D’nis</button><button type="button" onClick={() => setFooterPanel("contato")} aria-haspopup="dialog">Contato</button></div>
-        </div>
+      <div className="nx-shell nx-footer-minimal">
+        <button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvido por Franc D’nis</button>
+        <button type="button" onClick={() => setFooterPanel("contato")} aria-haspopup="dialog">Contato</button>
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />

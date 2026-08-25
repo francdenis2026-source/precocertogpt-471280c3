@@ -22,16 +22,21 @@ older files did not all need to be rewritten by hand to benefit from the real to
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#f5f7f4` | `#061721` |
-| Surface | `#ffffff` | `#0b2430` |
-| Surface 2 | `#edf2ee` | `#102e3b` |
-| Ink | `#102631` | `#f1f6f4` |
-| Muted | `#64767d` | `#a8bbc1` |
-| Border | `#d8e1dc` | `#294753` |
-| Green (action / verified price) | `#168657` | `#68db98` |
-| Green strong (text-on-light) | `#087a4d` | `#7ce5a7` |
-| Gold (accent) | `#946514` | `#e8b85d` |
-| Navy (institutional / admin) | `#082532` | `#061721` |
+| Canvas | `#f6f2e8` | `#1b292c` |
+| Surface | `#ffffff` | `#233438` |
+| Surface 2 | `#ece4d3` | `#2b3e42` |
+| Ink | `#17251d` | `#f5f7f5` |
+| Muted | `#5b665c` | `#c3cfca` |
+| Border | `#ddd6c4` | `#455c60` |
+| Green (verified price) | `#1f6b45` | `#96ceb0` |
+| Green strong | `#17532f` | `#adddc2` |
+| Gold (accent) | `#d9932c` | `#edc778` |
+| Navy / mineral structural | `#173626` | `#263a3e` |
+
+O modo escuro usa uma escala mineral de luminosidade média, sem preto puro e
+sem verde-floresta dominando grandes áreas. A camada
+`GlobalMineralDark2026.css`, carregada após os estilos históricos, remapeia as
+superfícies legadas para os mesmos papéis semânticos em todas as páginas.
 
 Typography is Outfit Variable for display/headings and Inter Variable for body copy, both
 loaded via `@fontsource-variable` in `main.tsx`. There is no Manrope anywhere in the app.

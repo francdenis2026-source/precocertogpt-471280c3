@@ -60,7 +60,6 @@ export function MobileHome2026(){
    <section className="mh26-local"><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
   </main>
   <footer className="mh26-footer">
-   <div className="mh26-footer-head"><img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto"/><span><MapPin aria-hidden="true"/> Feijó, Acre</span></div>
    <div className="mh26-footer-note"><button type="button" onClick={()=>setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvido por Franc D’nis</button><button type="button" onClick={()=>setFooterPanel("contato")} aria-haspopup="dialog">Contato</button></div>
   </footer>
   <FooterInfoDialogs open={footerPanel} onClose={()=>setFooterPanel(null)}/>

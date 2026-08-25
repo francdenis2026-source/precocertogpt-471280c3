@@ -21,14 +21,13 @@
 }
 html[data-theme="dark"]{
   color-scheme:dark;
-  --pc-canvas:#12211a;--pc-surface:#182a20;--pc-surface-2:#1e3226;--pc-surface-3:#24392c;
-  --pc-ink:#f3f1e6;--pc-muted:#b7c2b3;--pc-subtle:#a3ad9e;--pc-border:#33473a;--pc-border-strong:#55684f;
-  /* Mesma paleta "Mercado de Feijó" do modo claro, adaptada para o escuro:
-     mata profunda no lugar do azul-marinho, terracota e ouro mais claros
-     para manter contraste sobre fundo escuro. */
-  --pc-navy:#1f4d37;--pc-navy-2:#d9663a;--pc-footer:#0f1f16;--pc-green:#6ed49a;--pc-green-strong:#8fe0b2;--pc-green-soft:#1c332b;
-  --pc-gold:#f0c15c;--pc-gold-on-dark:#f0c15c;--pc-gold-soft:#3a2f1a;--pc-danger:#e18267;--pc-danger-soft:#3a2419;--pc-info:#8fd9ae;
-  --pc-shadow-sm:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.32);--pc-shadow-lg:0 2px 8px rgba(0,0,0,.45),0 24px 60px rgba(0,0,0,.5);
+  --pc-canvas:#1b292c;--pc-surface:#233438;--pc-surface-2:#2b3e42;--pc-surface-3:#34494d;
+  --pc-ink:#f5f7f5;--pc-muted:#c3cfca;--pc-subtle:#aebdb7;--pc-border:#455c60;--pc-border-strong:#60787c;
+  /* Noturno mineral suave: grafite esverdeado sem preto dominante, com
+     superfícies claramente separadas e acentos semânticos preservados. */
+  --pc-navy:#263a3e;--pc-navy-2:#b84f32;--pc-footer:#203235;--pc-green:#96ceb0;--pc-green-strong:#adddc2;--pc-green-soft:#2b443d;
+  --pc-gold:#edc778;--pc-gold-on-dark:#edc778;--pc-gold-soft:#4a3f2a;--pc-danger:#ed9277;--pc-danger-soft:#4a3028;--pc-info:#9fd3ba;
+  --pc-shadow-sm:0 1px 2px rgba(8,18,20,.22),0 6px 18px rgba(8,18,20,.18);--pc-shadow-lg:0 2px 8px rgba(8,18,20,.24),0 24px 60px rgba(8,18,20,.30);
 }
 body{font-family:var(--pc-font-body)}
 :where(h1,h2,h3,.pc-display){font-family:var(--pc-font-display)}

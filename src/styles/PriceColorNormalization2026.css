@@ -1,0 +1,42 @@
+/* Padronização global da cor de preços.
+   Evita o verde escuro usado como destaque monetário e separa preço de ações/estado. */
+:root{
+  --pc-price:#174d8e;
+}
+
+html[data-theme="dark"]{
+  --pc-price:#a1b7ff;
+}
+
+/* Home 2026 */
+.nx-home{
+  --nx-price:#174d8e;
+}
+html[data-theme="dark"] .nx-home{
+  --nx-price:#a1b7ff;
+}
+.nx-deal footer strong,
+.nx-results>button>b,
+.nx-live-result__price b,
+.nx-market-card footer b,
+.nx-product-card footer b,
+.nx-product-card__price,
+.nx-price,
+.nx-price-value{
+  color:var(--nx-price)!important;
+}
+
+/* Superfícies públicas e catálogos */
+.ref-price-value strong,
+.ref-result-price,
+.ref-result-price strong,
+.ref-catalog-grid .ref-result-price,
+.store-pro-grid>a>footer b,
+[class*="price-value"],
+[class*="priceValue"],
+[class*="product-price"],
+[class*="productPrice"]{
+  color:var(--pc-price)!important;
+}
+
+/* Mantém estados positivos/sucesso em verde; somente valores monetários usam azul. */

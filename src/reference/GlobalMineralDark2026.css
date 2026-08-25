@@ -5,32 +5,32 @@
  * camadas históricas restaurem fundos verde-floresta.
  */
 html[data-theme="dark"] {
-  --pc-canvas: #1b292c;
-  --pc-surface: #233438;
-  --pc-surface-2: #2b3e42;
-  --pc-surface-3: #34494d;
+  --pc-canvas: #202428;
+  --pc-surface: #292e33;
+  --pc-surface-2: #32383e;
+  --pc-surface-3: #3b434a;
   --pc-ink: #f5f7f5;
-  --pc-muted: #c3cfca;
-  --pc-subtle: #aebdb7;
-  --pc-border: #455c60;
-  --pc-border-strong: #60787c;
-  --pc-navy: #263a3e;
+  --pc-muted: #c5cbd0;
+  --pc-subtle: #aeb8bf;
+  --pc-border: #4b555e;
+  --pc-border-strong: #65727c;
+  --pc-navy: #30373d;
   --pc-navy-2: #b84f32;
-  --pc-footer: #203235;
+  --pc-footer: #252b30;
   --pc-green: #96ceb0;
   --pc-green-strong: #adddc2;
   --pc-green-soft: #2b443d;
   --pc-gold: #edc778;
-  --pc-bg: #1b292c;
+  --pc-bg: #202428;
   --pc-text: #f5f7f5;
-  --pc-line: #455c60;
+  --pc-line: #4b555e;
   --pc-brand: #96ceb0;
   --pc-accent: #b84f32;
-  --pc-color-background: #1b292c;
-  --pc-color-surface: #233438;
+  --pc-color-background: #202428;
+  --pc-color-surface: #292e33;
   --pc-color-foreground: #f5f7f5;
-  --pc-color-muted: #c3cfca;
-  --pc-color-border: #455c60;
+  --pc-color-muted: #c5cbd0;
+  --pc-color-border: #4b555e;
   --pc-color-primary: #b84f32;
   --pc-color-primary-foreground: #fffaf7;
   --pc-color-accent: #96ceb0;
@@ -38,19 +38,19 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] body {
-  background: #1b292c;
+  background: #202428;
   color: #f5f7f5;
 }
 
 /* Homepage web: neutraliza definitivamente as regras verde-floresta tardias. */
 html[data-theme="dark"] .nx-home {
-  --nx-bg: #1b292c!important;
-  --nx-surface: #233438!important;
-  --nx-card: #2b3e42!important;
-  --nx-soft: #34494d!important;
+  --nx-bg: #202428!important;
+  --nx-surface: #292e33!important;
+  --nx-card: #32383e!important;
+  --nx-soft: #3b434a!important;
   --nx-text: #f5f7f5!important;
-  --nx-muted: #c3cfca!important;
-  --nx-line: #455c60!important;
+  --nx-muted: #c5cbd0!important;
+  --nx-line: #4b555e!important;
   --nx-blue: #9bc3df!important;
   --nx-blue-2: #b84f32!important;
   --nx-teal: #8fc2aa!important;
@@ -59,51 +59,51 @@ html[data-theme="dark"] .nx-home {
   background: var(--nx-bg);
 }
 
-html[data-theme="dark"] .nx-home .nx-header { background: rgb(28 43 46 / 95%); }
+html[data-theme="dark"] .nx-home .nx-header { background: rgb(37 42 47 / 95%); }
 html[data-theme="dark"] .nx-home .nx-hero {
   background:
-    linear-gradient(100deg,rgb(22 36 39 / 94%) 0 39%,rgb(25 42 45 / 82%) 58%,rgb(31 49 52 / 44%)),
+    linear-gradient(100deg,rgb(29 33 37 / 94%) 0 39%,rgb(36 41 46 / 82%) 58%,rgb(46 52 58 / 44%)),
     url('/hero-supermercado-editorial-2026.webp') center 46% / cover no-repeat;
 }
 html[data-theme="dark"] .nx-home .nx-hero::after {
-  background:linear-gradient(180deg,transparent 76%,#1b292c);
+  background:linear-gradient(180deg,transparent 76%,#202428);
 }
 html[data-theme="dark"] .nx-home .nx-hero__visual {
-  border-color:#52696d;
-  background:#26383c;
-  box-shadow:0 24px 54px rgb(8 18 20 / 24%);
+  border-color:#59656e;
+  background:#30373d;
+  box-shadow:0 24px 54px rgb(10 12 14 / 24%);
 }
 html[data-theme="dark"] .nx-home .nx-hero__photo {
   background:
-    linear-gradient(180deg,rgb(22 36 39 / 4%) 32%,rgb(22 36 39 / 48%) 100%),
+    linear-gradient(180deg,rgb(29 33 37 / 4%) 32%,rgb(29 33 37 / 48%) 100%),
     url('/hero-supermercado-editorial-2026.webp') center / cover no-repeat;
   filter:saturate(.82) contrast(1.02) brightness(.94);
 }
 html[data-theme="dark"] .nx-home .nx-deal {
-  border-color:#52696d;
-  background:rgb(35 52 56 / 96%);
-  box-shadow:0 16px 34px rgb(8 18 20 / 22%);
+  border-color:#59656e;
+  background:rgb(44 50 56 / 96%);
+  box-shadow:0 16px 34px rgb(10 12 14 / 22%);
 }
-html[data-theme="dark"] .nx-home .nx-catalog-band { background:linear-gradient(180deg,#1b292c,#233438 52%,#1e3033); }
-html[data-theme="dark"] .nx-home .nx-local-band { background:linear-gradient(135deg,#1e3033,#2b3e42 52%,#23363a); }
-html[data-theme="dark"] .nx-home .nx-product-card__media { background:linear-gradient(145deg,#34494d,#2b3e42)!important; }
+html[data-theme="dark"] .nx-home .nx-catalog-band { background:linear-gradient(180deg,#202428,#292e33 52%,#242a2f); }
+html[data-theme="dark"] .nx-home .nx-local-band { background:linear-gradient(135deg,#242a2f,#32383e 52%,#2b3136); }
+html[data-theme="dark"] .nx-home .nx-product-card__media { background:linear-gradient(145deg,#3b434a,#32383e)!important; }
 html[data-theme="dark"] .nx-home .nx-basket { border-color:#60786e; background:#29463e; }
 html[data-theme="dark"] .nx-home .nx-basket::after { background:linear-gradient(180deg,rgb(32 59 53 / 16%),rgb(37 73 63 / 54%) 46%,rgb(40 78 67 / 90%) 76%); }
 
 /* Homepage mobile e carrossel de atalhos. */
 html[data-theme="dark"] .mh26-page {
   --mh-ink:#f5f7f5!important;
-  --mh-muted:#c3cfca!important;
-  --mh-line:#455c60!important;
-  --mh-surface:#2b3e42!important;
+  --mh-muted:#c5cbd0!important;
+  --mh-line:#4b555e!important;
+  --mh-surface:#32383e!important;
   --mh-green:#96ceb0!important;
   --mh-green-dark:#b3dfc7!important;
-  background:linear-gradient(180deg,#1b292c,#233438 320px,#1f3033);
+  background:linear-gradient(180deg,#202428,#292e33 320px,#242a2f);
 }
-html[data-theme="dark"] .mh26-header { border-color:#455c60; background:rgb(28 43 46 / 96%); }
+html[data-theme="dark"] .mh26-header { border-color:#4b555e; background:rgb(37 42 47 / 96%); }
 html[data-theme="dark"] .mh26-hero {
   background:
-    linear-gradient(100deg,rgb(22 36 39 / 94%) 0%,rgb(26 44 47 / 84%) 56%,rgb(35 55 58 / 62%) 100%),
+    linear-gradient(100deg,rgb(29 33 37 / 94%) 0%,rgb(38 43 48 / 84%) 56%,rgb(48 55 61 / 62%) 100%),
     url('/hero-supermercado-editorial-2026.webp') 66% center / cover no-repeat;
   box-shadow:inset 0 -1px 0 rgb(255 255 255 / 7%);
 }
@@ -119,13 +119,13 @@ html[data-theme="dark"] .mh26-verified-icon {
   color:#203a32!important;
 }
 html[data-theme="dark"] .mh26-search-field {
-  box-shadow:0 16px 32px rgb(8 18 20 / 20%);
+  box-shadow:0 16px 32px rgb(10 12 14 / 20%);
 }
 html[data-theme="dark"] .mh26-head-actions>a,
 html[data-theme="dark"] .mh26-product,
-html[data-theme="dark"] .mh26-actions>a { border-color:#455c60; background:#2b3e42; }
-html[data-theme="dark"] .mh26-page .ref-dock { border-color:#455c60!important; background:rgb(28 43 46 / 98%)!important; }
-html[data-theme="dark"] .hqa { --hqa-surface:#2b3e42;--hqa-border:#455c60;--hqa-text:#f5f7f5;--hqa-muted:#c3cfca;--hqa-green:#96ceb0; }
+html[data-theme="dark"] .mh26-actions>a { border-color:#4b555e; background:#32383e; }
+html[data-theme="dark"] .mh26-page .ref-dock { border-color:#4b555e!important; background:rgb(37 42 47 / 98%)!important; }
+html[data-theme="dark"] .hqa { --hqa-surface:#32383e;--hqa-border:#4b555e;--hqa-text:#f5f7f5;--hqa-muted:#c5cbd0;--hqa-green:#96ceb0; }
 
 /* Todas as páginas públicas reconstruídas herdam a mesma profundidade. */
 html[data-theme="dark"] :where(
@@ -133,13 +133,13 @@ html[data-theme="dark"] :where(
   .pdp-page,.store-pro-page,.pro-basket-page,.smart-basket-page,
   .mo-page,.pc-account-page,.pharmacy-directory-page
 ) {
-  --ref-bg:#1b292c!important;
-  --ref-paper:#233438!important;
-  --ref-line:#455c60!important;
+  --ref-bg:#202428!important;
+  --ref-paper:#292e33!important;
+  --ref-line:#4b555e!important;
   --ref-ink:#f5f7f5!important;
-  --ref-muted:#c3cfca!important;
+  --ref-muted:#c5cbd0!important;
   --ref-green:#96ceb0!important;
-  background-color:#1b292c;
+  background-color:#202428;
   color:#f5f7f5;
 }
 
@@ -151,20 +151,20 @@ html[data-theme="dark"] :where(
   .smart-strategies>button,.smart-plan-list,.smart-summary,.pc-account-hero,
   .pc-account-tools>a
 ) {
-  border-color:#455c60;
-  background-color:#233438;
+  border-color:#4b555e;
+  background-color:#292e33;
   color:#f5f7f5;
 }
 
 /* Busca desktop/mobile: superfícies grafite e resultados legíveis. */
 html[data-theme="dark"] :where(.search26-page,.msearch26-page) {
-  --search-bg:#1b292c;
-  --search-surface:#233438;
-  --search-card:#2b3e42;
-  --search-soft:#34494d;
-  --search-line:#455c60;
+  --search-bg:#202428;
+  --search-surface:#292e33;
+  --search-card:#32383e;
+  --search-soft:#3b434a;
+  --search-line:#4b555e;
   --search-ink:#f5f7f5;
-  --search-muted:#c3cfca;
+  --search-muted:#c5cbd0;
   --search-green:#96ceb0;
 }
 
@@ -203,16 +203,16 @@ html[data-theme="dark"] :where(a,button,input,select,textarea):focus-visible {
 
 /* Chrome e áreas institucionais: nenhuma faixa volta ao quase-preto. */
 html[data-theme="dark"] :where(.ref-footer,.nx-footer,.mh26-footer,.sector-header,.sector-footer,.sector-next) {
-  background:#203235!important;
-  border-color:#455c60!important;
+  background:#252b30!important;
+  border-color:#4b555e!important;
 }
 html[data-theme="dark"] :where(.ref-header,.ref-mobile-menu,.pc-user-menu,.ref-dock) {
-  background-color:color-mix(in srgb,#233438 96%,transparent)!important;
-  border-color:#455c60!important;
+  background-color:color-mix(in srgb,#292e33 96%,transparent)!important;
+  border-color:#4b555e!important;
 }
 html[data-theme="dark"] :where(.ref-product-dialog,.pc-dev-dialog,.pc-contact-dialog) {
-  background:#233438!important;
-  border-color:#455c60!important;
+  background:#292e33!important;
+  border-color:#4b555e!important;
   color:#f5f7f5!important;
 }
 
@@ -230,12 +230,12 @@ html[data-theme="dark"] :where(.ref-product-dialog,.pc-dev-dialog,.pc-contact-di
 }
 html[data-theme="dark"] .nx-home .nx-hero {
   background:
-    linear-gradient(100deg,rgb(22 36 39 / 94%) 0 39%,rgb(25 42 45 / 82%) 58%,rgb(31 49 52 / 40%)),
+    linear-gradient(100deg,rgb(29 33 37 / 94%) 0 39%,rgb(36 41 46 / 82%) 58%,rgb(46 52 58 / 40%)),
     url('/supermercado-premium.jpg') center 46% / cover no-repeat!important;
 }
 html[data-theme="dark"] .nx-home .nx-hero__photo {
   background:
-    linear-gradient(180deg,rgb(22 36 39 / 3%) 32%,rgb(22 36 39 / 42%) 100%),
+    linear-gradient(180deg,rgb(29 33 37 / 3%) 32%,rgb(29 33 37 / 42%) 100%),
     url('/supermercado-premium.jpg') center / cover no-repeat!important;
   filter:saturate(.96) contrast(1.04) brightness(.94)!important;
 }
@@ -248,7 +248,7 @@ html[data-theme="dark"] .nx-home .nx-hero__photo {
   }
   html[data-theme="dark"] .mh26-hero {
     background:
-      linear-gradient(100deg,rgb(22 36 39 / 94%) 0%,rgb(26 44 47 / 84%) 56%,rgb(35 55 58 / 58%) 100%),
+      linear-gradient(100deg,rgb(29 33 37 / 94%) 0%,rgb(38 43 48 / 84%) 56%,rgb(48 55 61 / 58%) 100%),
       url('/supermercado-hero.jpg') center 44% / cover no-repeat!important;
   }
 }
@@ -257,25 +257,25 @@ html[data-theme="dark"] .nx-home .nx-hero__photo {
    A profundidade vem de luminosidade, borda e sombra; o verde continua
    reservado a preço/verificação e a terracota às ações principais. */
 html[data-theme="dark"] .nx-home {
-  --nx-shadow-sm:0 10px 26px rgb(7 17 19 / 18%);
-  --nx-shadow:0 22px 52px rgb(7 17 19 / 26%);
+  --nx-shadow-sm:0 10px 26px rgb(10 12 14 / 18%);
+  --nx-shadow:0 22px 52px rgb(10 12 14 / 26%);
 }
 
 html[data-theme="dark"] .nx-home .nx-header {
   border-bottom-color:rgb(139 166 168 / 32%);
-  box-shadow:0 10px 28px rgb(7 17 19 / 20%);
+  box-shadow:0 10px 28px rgb(10 12 14 / 20%);
 }
 
 html[data-theme="dark"] .nx-home :where(.nx-theme,.nx-menu) {
-  border-color:#536a6e;
-  background:#2b3e42;
+  border-color:#59656e;
+  background:#32383e;
   box-shadow:inset 0 1px 0 rgb(255 255 255 / 5%);
 }
 
 html[data-theme="dark"] .nx-home .nx-search {
-  border-color:#60787c;
+  border-color:#65727c;
   background:#f8faf9;
-  box-shadow:0 16px 38px rgb(7 17 19 / 30%),inset 0 1px 0 #fff;
+  box-shadow:0 16px 38px rgb(10 12 14 / 30%),inset 0 1px 0 #fff;
 }
 html[data-theme="dark"] .nx-home .nx-search :where(input) { color:#18292c; }
 html[data-theme="dark"] .nx-home .nx-search input::placeholder { color:#5d6f72; }
@@ -283,67 +283,67 @@ html[data-theme="dark"] .nx-home .nx-search>svg { color:#537fa0; }
 html[data-theme="dark"] .nx-home .nx-search__clear { color:#526568; }
 html[data-theme="dark"] .nx-home .nx-search:focus-within {
   border-color:#9bc3df;
-  box-shadow:0 0 0 4px rgb(155 195 223 / 20%),0 18px 42px rgb(7 17 19 / 34%);
+  box-shadow:0 0 0 4px rgb(155 195 223 / 20%),0 18px 42px rgb(10 12 14 / 34%);
 }
 
 html[data-theme="dark"] .nx-home :where(.nx-market__products,.nx-local__copy) {
-  border-color:#50686c;
-  background:linear-gradient(145deg,#26393d,#233438 64%);
-  box-shadow:0 14px 34px rgb(7 17 19 / 18%),inset 0 1px 0 rgb(255 255 255 / 4%);
+  border-color:#56626b;
+  background:linear-gradient(145deg,#2d3338,#292e33 64%);
+  box-shadow:0 14px 34px rgb(10 12 14 / 18%),inset 0 1px 0 rgb(255 255 255 / 4%);
 }
 html[data-theme="dark"] .nx-home :where(.nx-category-grid>a,.nx-product-card) {
-  border-color:#4b6266;
-  background:#2b3e42;
-  box-shadow:0 8px 22px rgb(7 17 19 / 14%),inset 0 1px 0 rgb(255 255 255 / 4%);
+  border-color:#505b64;
+  background:#32383e;
+  box-shadow:0 8px 22px rgb(10 12 14 / 14%),inset 0 1px 0 rgb(255 255 255 / 4%);
 }
 html[data-theme="dark"] .nx-home .nx-category-grid i {
-  background:color-mix(in srgb,var(--nx-accent) 16%,#34494d);
+  background:color-mix(in srgb,var(--nx-accent) 16%,#3b434a);
 }
-html[data-theme="dark"] .nx-home .nx-product-card footer { border-top-color:#52696d; }
+html[data-theme="dark"] .nx-home .nx-product-card footer { border-top-color:#59656e; }
 html[data-theme="dark"] .nx-home .nx-product-card__action,
 html[data-theme="dark"] .nx-home .nx-section-title>a { color:#b5d3e8; }
 
 html[data-theme="dark"] .hqa {
-  --hqa-surface:#293c40;
-  --hqa-border:#50686c;
+  --hqa-surface:#30363b;
+  --hqa-border:#56626b;
   --hqa-text:#f5f7f5;
   --hqa-muted:#c7d2ce;
   --hqa-green:#adddc2;
-  box-shadow:0 20px 46px rgb(7 17 19 / 24%),inset 0 1px 0 rgb(255 255 255 / 5%);
+  box-shadow:0 20px 46px rgb(10 12 14 / 24%),inset 0 1px 0 rgb(255 255 255 / 5%);
 }
 html[data-theme="dark"] .hqa-card {
-  border-color:#526a6e;
-  background:linear-gradient(145deg,#304448,#293c40);
-  box-shadow:0 10px 26px rgb(7 17 19 / 17%),inset 0 1px 0 rgb(255 255 255 / 5%);
+  border-color:#59656e;
+  background:linear-gradient(145deg,#383f45,#30363b);
+  box-shadow:0 10px 26px rgb(10 12 14 / 17%),inset 0 1px 0 rgb(255 255 255 / 5%);
 }
 html[data-theme="dark"] .hqa-card:first-child {
-  background:color-mix(in srgb,var(--hqa-accent) 11%,#293c40);
+  background:color-mix(in srgb,var(--hqa-accent) 11%,#30363b);
 }
 html[data-theme="dark"] .hqa-card>i {
-  background:color-mix(in srgb,var(--hqa-accent) 18%,#34494d);
+  background:color-mix(in srgb,var(--hqa-accent) 18%,#3b434a);
   box-shadow:inset 0 1px 0 rgb(255 255 255 / 7%);
 }
 
 @media (hover:hover) and (pointer:fine) {
   html[data-theme="dark"] .nx-home :where(.nx-theme,.nx-menu):hover {
     border-color:#86aeb3;
-    background:#34494d;
+    background:#3b434a;
     color:#fff;
   }
   html[data-theme="dark"] .nx-home .nx-search__clear:hover { background:#e5ece9; color:#26383b; }
   html[data-theme="dark"] .nx-home :where(.nx-category-grid>a,.nx-product-card):hover {
-    border-color:color-mix(in srgb,var(--nx-accent) 58%,#60787c);
-    background:#304448;
-    box-shadow:0 16px 34px rgb(7 17 19 / 24%),inset 0 1px 0 rgb(255 255 255 / 6%);
+    border-color:color-mix(in srgb,var(--nx-accent) 58%,#65727c);
+    background:#383f45;
+    box-shadow:0 16px 34px rgb(10 12 14 / 24%),inset 0 1px 0 rgb(255 255 255 / 6%);
   }
   html[data-theme="dark"] .hqa-card:hover {
-    border-color:color-mix(in srgb,var(--hqa-accent) 62%,#60787c);
-    background:color-mix(in srgb,var(--hqa-accent) 9%,#304448);
-    box-shadow:0 18px 38px rgb(7 17 19 / 25%),inset 0 1px 0 rgb(255 255 255 / 7%);
+    border-color:color-mix(in srgb,var(--hqa-accent) 62%,#65727c);
+    background:color-mix(in srgb,var(--hqa-accent) 9%,#383f45);
+    box-shadow:0 18px 38px rgb(10 12 14 / 25%),inset 0 1px 0 rgb(255 255 255 / 7%);
   }
   html[data-theme="dark"] .hqa-controls button:hover:not(:disabled) {
     border-color:#8fc2aa;
-    background:#34494d;
+    background:#3b434a;
     color:#c5ead6;
   }
 }
@@ -355,54 +355,54 @@ html[data-theme="dark"] :where(.nx-home,.mh26-page,.hqa) :where(a,button,input):
 
 @media(max-width:767px){
   html[data-theme="dark"] .mh26-page {
-    background:linear-gradient(180deg,#1b292c 0,#233438 300px,#1f3033 100%);
+    background:linear-gradient(180deg,#202428 0,#292e33 300px,#242a2f 100%);
   }
   html[data-theme="dark"] .mh26-header {
-    border-bottom-color:#536a6e;
-    box-shadow:0 8px 24px rgb(7 17 19 / 20%);
+    border-bottom-color:#59656e;
+    box-shadow:0 8px 24px rgb(10 12 14 / 20%);
   }
   html[data-theme="dark"] :where(.mh26-head-actions>a,.mh26-theme) {
-    border-color:#536a6e;
-    background:#2b3e42;
+    border-color:#59656e;
+    background:#32383e;
     color:#f5f7f5;
     box-shadow:inset 0 1px 0 rgb(255 255 255 / 5%);
   }
   html[data-theme="dark"] .mh26-actions>a {
-    border-color:#50686c;
-    background:linear-gradient(145deg,#304448,#293c40);
-    box-shadow:0 10px 26px rgb(7 17 19 / 18%),inset 0 1px 0 rgb(255 255 255 / 5%);
+    border-color:#56626b;
+    background:linear-gradient(145deg,#383f45,#30363b);
+    box-shadow:0 10px 26px rgb(10 12 14 / 18%),inset 0 1px 0 rgb(255 255 255 / 5%);
   }
   html[data-theme="dark"] .mh26-actions>a.is-primary {
     border-color:#6c8580;
-    background:linear-gradient(120deg,#314943,#2b3e42);
+    background:linear-gradient(120deg,#314943,#32383e);
   }
   html[data-theme="dark"] .mh26-actions>a>svg:first-child {
     background:#354e49;
     color:#b5e0ca;
   }
   html[data-theme="dark"] .mh26-section {
-    border-color:#50686c;
-    background:linear-gradient(155deg,#26393d,#233438 72%);
-    box-shadow:0 14px 32px rgb(7 17 19 / 21%),inset 0 1px 0 rgb(255 255 255 / 4%);
+    border-color:#56626b;
+    background:linear-gradient(155deg,#2d3338,#292e33 72%);
+    box-shadow:0 14px 32px rgb(10 12 14 / 21%),inset 0 1px 0 rgb(255 255 255 / 4%);
   }
   html[data-theme="dark"] .mh26-product {
-    border-color:#4e666a;
-    background:#2b3e42;
-    box-shadow:0 8px 22px rgb(7 17 19 / 16%),inset 0 1px 0 rgb(255 255 255 / 4%);
+    border-color:#535f68;
+    background:#32383e;
+    box-shadow:0 8px 22px rgb(10 12 14 / 16%),inset 0 1px 0 rgb(255 255 255 / 4%);
   }
   html[data-theme="dark"] .mh26-product>i { background:linear-gradient(145deg,#3a4f53,#31464a); }
   html[data-theme="dark"] .mh26-product>span em { background:#365049; color:#bce5d2; }
   html[data-theme="dark"] .mh26-product:active,
-  html[data-theme="dark"] .mh26-actions>a:active { background:#34494d; }
+  html[data-theme="dark"] .mh26-actions>a:active { background:#3b434a; }
   html[data-theme="dark"] .mh26-local {
     border-color:#60786e;
     background:linear-gradient(140deg,#29463e,#315a4c);
-    box-shadow:0 16px 34px rgb(7 17 19 / 24%),inset 0 1px 0 rgb(255 255 255 / 7%);
+    box-shadow:0 16px 34px rgb(10 12 14 / 24%),inset 0 1px 0 rgb(255 255 255 / 7%);
   }
   html[data-theme="dark"] .mh26-page .ref-dock {
-    border-color:#536a6e!important;
-    background:rgb(35 52 56 / 97%)!important;
-    box-shadow:0 -10px 28px rgb(7 17 19 / 24%)!important;
+    border-color:#59656e!important;
+    background:rgb(44 50 56 / 97%)!important;
+    box-shadow:0 -10px 28px rgb(10 12 14 / 24%)!important;
   }
   html[data-theme="dark"] .mh26-page .ref-dock a.is-active {
     color:#adddc2!important;

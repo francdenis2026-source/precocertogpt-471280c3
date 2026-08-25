@@ -21,19 +21,40 @@ body,
   background-image: none !important;
 }
 
-.nx-hero__visual,
 .mh26-hero-media,
+.nx-hero__photo,
+.nx-hero__visual-shade,
 .kelly-hero__visual {
   display: none !important;
 }
 
-.nx-hero__grid {
-  grid-template-columns: minmax(0, 1fr) !important;
+/* O bloco visual da hero permanece como superfície sólida com o card de preço. */
+.nx-hero__visual {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 0 !important;
+  padding: 20px !important;
+  background: var(--nx-soft) !important;
+}
+
+
+.nx-hero__visual-badge {
+  position: static !important;
+  margin-bottom: auto;
+}
+
+.nx-hero__visual .nx-deal {
+  position: static !important;
+  inset: auto !important;
+  width: 100%;
 }
 
 .nx-hero__copy {
   max-width: 780px;
 }
+
 
 /* Remove qualquer mídia explicitamente marcada como hero sem afetar produtos/logos. */
 [class*="hero"] img[src*="hero"],

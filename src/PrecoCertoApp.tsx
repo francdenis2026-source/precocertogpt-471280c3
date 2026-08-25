@@ -1,5 +1,3 @@
-Warning: truncated output (original token count: 84004)
-Total output lines: 6070
 
 
 import {

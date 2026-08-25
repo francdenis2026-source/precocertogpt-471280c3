@@ -6,33 +6,12 @@ import { fetchSectorCatalog, productHasSectorOffer, sectorStores } from "../data
 import { getMarketplaceSector, marketplaceSectors, type MarketplaceSectorId } from "./MarketplaceSectors";
 import { resolveProductImage } from "../data/productImageResolver";
 import { AppDock, PublicHeader } from "./ReferenceExperience";
+import { productSearchScore } from "../lib/productSearch";
 import "./MobileSearchDiscovery2026.css";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
 type SortMode = "relevance" | "lowest" | "highest" | "name" | "stores";
-
-function score(product: Product, raw: string) {
-  const q = normalize(raw);
-  if (!q) return 20;
-  const name = normalize(product.name);
-  const brand = normalize(product.brand || "");
-  const category = normalize(product.category || "");
-  const establishment = normalize(product.establishment || "");
-  const neighborhood = normalize(product.neighborhood || "");
-  if (name === q) return 0;
-  if (name.startsWith(q)) return 1;
-  if (name.split(/\s+/).some(word => word.startsWith(q))) return 2;
-  if (name.includes(q)) return 3;
-  if (brand.startsWith(q)) return 4;
-  if (brand.includes(q)) return 5;
-  if (category.includes(q)) return 6;
-  if (establishment.includes(q)) return 7;
-  if (neighborhood.includes(q)) return 8;
-  const words = q.split(/\s+/).filter(Boolean);
-  const haystack = `${name} ${brand} ${category} ${establishment} ${neighborhood}`;
-  return words.every(word => haystack.includes(word)) ? 9 : 99;
-}
 
 function ProductThumb({ product }: { product: Product }) {
   const src = resolveProductImage(product);
@@ -75,14 +54,14 @@ export function MobileSearchDiscovery2026() {
   const hasRequest = Boolean(appliedQuery.trim()) || activeFilters > 0;
   const results = useMemo(() => {
     if (!catalog || !hasRequest) return [];
-    const rows = catalog.products.map(product => ({ product, rank: score(product, appliedQuery) })).filter(({ product, rank }) => {
-      if (appliedQuery.trim() && rank === 99) return false;
+    const rows = catalog.products.map(product => ({ product, rank: productSearchScore(product, appliedQuery) })).filter(({ product, rank }) => {
+      if (appliedQuery.trim() && rank <= 0) return false;
       if (activeSector && !productHasSectorOffer(product, catalog, activeSector)) return false;
       if (store !== "all" && String(product.establishmentId) !== store && !product.offers?.some(o => String(o.establishmentId) === store)) return false;
       if (category !== "all" && product.category !== category) return false;
       return product.minPrice > 0;
     });
-    rows.sort((a, b) => sort === "lowest" ? a.product.minPrice - b.product.minPrice : sort === "highest" ? b.product.minPrice - a.product.minPrice : sort === "name" ? a.product.name.localeCompare(b.product.name, "pt-BR") : sort === "stores" ? (b.product.storeCount || 0) - (a.product.storeCount || 0) : a.rank - b.rank || a.product.minPrice - b.product.minPrice);
+    rows.sort((a, b) => sort === "lowest" ? a.product.minPrice - b.product.minPrice : sort === "highest" ? b.product.minPrice - a.product.minPrice : sort === "name" ? a.product.name.localeCompare(b.product.name, "pt-BR") : sort === "stores" ? (b.product.storeCount || 0) - (a.product.storeCount || 0) : b.rank - a.rank || a.product.minPrice - b.product.minPrice);
     return rows.map(row => row.product);
   }, [catalog, hasRequest, appliedQuery, activeSector, store, category, sort]);
 

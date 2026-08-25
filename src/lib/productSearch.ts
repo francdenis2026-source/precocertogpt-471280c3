@@ -28,6 +28,9 @@ export function productSearchScore(product: Product, query: string) {
   const barcode = normalizeSearchText(product.barcode ?? "");
   const all = normalizeSearchText([product.name, product.brand, product.category, product.size, product.unit, product.barcode].filter(Boolean).join(" "));
   const tokens = q.split(" ").filter(Boolean);
+  // Para "sal", somente o nome do produto pode validar a intenção. Isso
+  // impede que um campo secundário inconsistente faça "Salgadinho" entrar.
+  if (tokens.includes("sal") && !name.split(" ").includes("sal")) return 0;
   if (!tokens.every(token => tokenMatchesText(token, all))) return 0;
   let score = 20;
   if (name === q) score += 120;

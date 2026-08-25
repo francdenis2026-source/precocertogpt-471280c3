@@ -13,15 +13,15 @@
     <path d="M106 236h64v190h-64z" fill="url(#g)"/>
     <path d="M289 174c58 0 108 22 145 59l-47 46c-24-23-56-36-94-36-67 0-114 43-114 103 0 60 47 103 114 103 39 0 72-13 97-38l46 46c-38 38-89 59-147 59-102 0-177-68-177-170 0-103 75-172 177-172Z" fill="url(#o)"/>
     <g transform="translate(55 177)">
-      <path d="M53 56h31M28 81h72M58 106h46" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
-      <path d="M57 56h28M29 81h65M58 106h40" stroke="#067A43" stroke-width="11" stroke-linecap="round"/>
-      <path d="M93 31h32c10 0 17 6 20 16l9 32h172c10 0 17 10 13 19l-27 71c-4 11-15 18-27 18H157c-13 0-24-8-27-21L96 31Z" fill="url(#d)" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
-      <path d="M156 188h117" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M156 188h117" stroke="#2F2F2F" stroke-width="7" stroke-linecap="round"/>
-      <circle cx="150" cy="218" r="24" fill="#2A2A2A" stroke="#fff" stroke-width="9"/><circle cx="278" cy="218" r="24" fill="#2A2A2A" stroke="#fff" stroke-width="9"/>
+      <path d="M54 65h42M43 91h57M65 117h42" stroke="#FF6400" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+      <path d="M92 35h34c10 0 18 7 21 17l8 28h166c12 0 20 12 15 23l-28 65c-4 10-14 16-25 16H160c-13 0-24-9-27-22L98 35Z" fill="#fff" stroke="#075B37" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M171 111h112M162 143h106" stroke="#FF6400" stroke-width="9" stroke-linecap="round" opacity=".92"/>
+      <path d="M158 188h122" stroke="#075B37" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="158" cy="216" r="19" fill="#FF6400" stroke="#fff" stroke-width="8"/><circle cx="278" cy="216" r="19" fill="#FF6400" stroke="#fff" stroke-width="8"/>
       <g transform="translate(303 96) rotate(13)">
-        <path d="M0 0h69c10 0 18 5 23 13l35 57c5 9 4 20-4 27l-47 45c-8 8-22 8-30 0L4 101c-4-4-6-9-6-15V18C-2 8 6 0 16 0Z" fill="url(#d)"/>
+        <path d="M0 0h69c10 0 18 5 23 13l35 57c5 9 4 20-4 27l-47 45c-8 8-22 8-30 0L4 101c-4-4-6-9-6-15V18C-2 8 6 0 16 0Z" fill="url(#o)" stroke="#fff" stroke-width="7"/>
         <circle cx="23" cy="25" r="12" fill="#fff"/><circle cx="23" cy="25" r="6" fill="#FF6B00"/>
-        <text x="33" y="93" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="700">%</text>
+        <text x="34" y="93" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700">%</text>
       </g>
     </g>
   </g>

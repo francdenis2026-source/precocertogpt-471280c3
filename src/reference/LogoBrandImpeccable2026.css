@@ -1,12 +1,12 @@
 /* PreçoCerto — identidade oficial derivada da logomarca SVG.
    Carregado por último: uma única fonte de verdade visual para todo o app. */
 :root{
-  --pc-logo-green:#00743f;--pc-logo-green-bright:#0a8a49;--pc-logo-green-deep:#005b32;
-  --pc-logo-orange:#ff6400;--pc-logo-orange-bright:#ff8a00;--pc-logo-orange-deep:#d94f00;--pc-logo-charcoal:#252525;
-  --pc-canvas:#f7f8f4;--pc-surface:#fff;--pc-surface-2:#eff5f0;--pc-surface-3:#e3eee6;
-  --pc-ink:#202a24;--pc-muted:#58665e;--pc-subtle:#6b786f;--pc-border:#d4e1d7;--pc-border-strong:#a8bfaf;
-  --pc-primary:var(--pc-logo-green);--pc-primary-strong:var(--pc-logo-green-deep);--pc-primary-soft:#e4f2e8;--pc-on-primary:#fff;--pc-on-structural:#fff;
-  --pc-accent:var(--pc-logo-orange);--pc-accent-soft:#fff0e4;--pc-price:var(--pc-logo-green);--pc-info:var(--pc-logo-green);
+  --pc-logo-green:#0b6b5c;--pc-logo-green-bright:#108572;--pc-logo-green-deep:#075447;
+  --pc-logo-orange:#f26a21;--pc-logo-orange-bright:#f58a45;--pc-logo-orange-deep:#c94d16;--pc-logo-charcoal:#252525;
+  --pc-canvas:#f8f6f1;--pc-surface:#fff;--pc-surface-2:#eef4f1;--pc-surface-3:#e2ece7;
+  --pc-ink:#1d2925;--pc-muted:#56655f;--pc-subtle:#697871;--pc-border:#d2dfd9;--pc-border-strong:#a4bbb1;
+  --pc-primary:var(--pc-logo-green);--pc-primary-strong:var(--pc-logo-green-deep);--pc-primary-soft:#e1f0eb;--pc-on-primary:#fff;--pc-on-structural:#fff;
+  --pc-accent:var(--pc-logo-orange);--pc-accent-soft:#fdefe7;--pc-price:var(--pc-logo-green);--pc-info:var(--pc-logo-green);
   --pc-navy:var(--pc-logo-charcoal);--pc-navy-2:#343434;--pc-footer:#202522;
   --pc-green:var(--pc-logo-green);--pc-green-strong:var(--pc-logo-green-deep);--pc-green-soft:var(--pc-primary-soft);
   --pc-gold:var(--pc-logo-orange);--pc-gold-on-dark:#ff9b3d;--pc-gold-soft:var(--pc-accent-soft);
@@ -16,8 +16,8 @@
 html[data-theme="dark"]{
   --pc-canvas:#101511;--pc-surface:#19201b;--pc-surface-2:#222b25;--pc-surface-3:#2b362e;
   --pc-ink:#f4f8f5;--pc-muted:#bcc9c0;--pc-subtle:#9eada2;--pc-border:#35443a;--pc-border-strong:#506357;
-  --pc-primary:#58c985;--pc-primary-strong:#8addaa;--pc-primary-soft:#1c3827;--pc-on-primary:#0c2114;--pc-on-structural:#f7faf7;
-  --pc-accent:#ff9847;--pc-accent-soft:#432b1b;--pc-price:#78d99d;--pc-info:#78d99d;
+  --pc-primary:#5fcab6;--pc-primary-strong:#91dfd0;--pc-primary-soft:#173a32;--pc-on-primary:#08231d;--pc-on-structural:#f7faf7;
+  --pc-accent:#f69a61;--pc-accent-soft:#422b20;--pc-price:#79d8c5;--pc-info:#79d8c5;
   --pc-navy:#141a16;--pc-navy-2:#1d251f;--pc-footer:#0c100d;
   --pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
   --pc-gold:var(--pc-accent);--pc-gold-on-dark:#ffa45c;--pc-gold-soft:var(--pc-accent-soft);
@@ -31,11 +31,11 @@ html[data-theme="dark"]{
   --pc-home-navy:#202522;--pc-home-navy-2:#2c332e;--pc-home-blue:var(--pc-logo-green);--pc-home-blue-2:var(--pc-logo-green-deep);
   --pc-home-coral:var(--pc-logo-orange);--pc-home-coral-2:var(--pc-logo-orange-deep);--pc-home-gold:var(--pc-logo-orange-bright);
   --pc-home-ink:var(--pc-ink);--pc-home-muted:var(--pc-muted);--pc-home-canvas:var(--pc-canvas);--pc-home-surface:var(--pc-surface);
-  --nx-green:var(--pc-logo-green)!important;--nx-green-strong:var(--pc-logo-green-deep)!important;--nx-green-soft:#e4f2e8!important;
+  --nx-green:var(--pc-logo-green)!important;--nx-green-strong:var(--pc-logo-green-deep)!important;--nx-green-soft:#e1f0eb!important;
   --nx-lime:var(--pc-logo-orange)!important;--nx-yellow:var(--pc-logo-orange-bright)!important;
   --mh26-brand:var(--pc-logo-green)!important;--mh26-accent:var(--pc-logo-orange)!important;
 }
-.pcx-home{--pcx-bg:var(--pc-canvas);--pcx-paper:var(--pc-surface);--pcx-ink:var(--pc-ink);--pcx-muted:var(--pc-muted);--pcx-line:var(--pc-border);--pcx-deep:#202522;--pcx-deep-2:#29312c;--pcx-green:var(--pc-logo-green);--pcx-green-2:var(--pc-logo-green-bright);--pcx-mint:#e4f2e8;--pcx-gold:var(--pc-logo-orange)}
+.pcx-home{--pcx-bg:var(--pc-canvas);--pcx-paper:var(--pc-surface);--pcx-ink:var(--pc-ink);--pcx-muted:var(--pc-muted);--pcx-line:var(--pc-border);--pcx-deep:#202522;--pcx-deep-2:#29312c;--pcx-green:var(--pc-logo-green);--pcx-green-2:var(--pc-logo-green-bright);--pcx-mint:#e1f0eb;--pcx-gold:var(--pc-logo-orange)}
 .nx-header,.pcx-header{background:color-mix(in srgb,#fff 96%,var(--pc-canvas))!important;border-color:var(--pc-border)!important;box-shadow:0 8px 24px rgba(24,42,31,.07)!important;color:var(--pc-ink)!important}
 .nx-brand img,.pcx-brand img{content:url('/logo-preco-certo.svg')!important;filter:none!important}
 .pcx-brand span,.pcx-nav a,.pcx-theme,.pcx-menu{color:var(--pc-ink)!important}

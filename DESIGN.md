@@ -22,19 +22,19 @@ older files did not all need to be rewritten by hand to benefit from the real to
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#f7f8f4` | `#101511` |
+| Canvas | `#f8f6f1` | `#101511` |
 | Surface | `#ffffff` | `#19201b` |
 | Surface 2 | `#eff5f0` | `#222b25` |
 | Ink | `#202a24` | `#f4f8f5` |
 | Muted | `#58665e` | `#bcc9c0` |
 | Border | `#d4e1d7` | `#35443a` |
-| Primary / verified price | `#00743f` | `#78d99d` |
-| Primary strong | `#005b32` | `#8addaa` |
-| Accent | `#ff6400` | `#ff9847` |
+| Primary / verified price | `#0b6b5c` | `#79d8c5` |
+| Primary strong | `#075447` | `#91dfd0` |
+| Accent | `#f26a21` | `#f69a61` |
 | Alert | `#a63f2b` | `#f0a08a` |
 
 O modo escuro usa uma escala de carvão esverdeado profundo, sem preto puro e sem azul-marinho.
-O verde da logomarca é a única cor primária e o laranja oficial é o accent; ambos ficam
+O verde-petróleo da logomarca é a única cor primária e o laranja queimado é o accent; ambos ficam
 reservados para ação, preço, foco e estados importantes. A camada
 `GlobalMineralDark2026.css`, carregada após os estilos históricos, remapeia as
 superfícies legadas para os mesmos papéis semânticos em todas as páginas.

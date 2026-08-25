@@ -81,6 +81,16 @@ function assignUniqueSlugs<T>(rows: T[], getName: (row: T) => string, getId: (ro
 const normalizeCatalogTerm = (value: string) => normalize(value)
   .replace(/\bmistura lactea condensada\b/g, "leite condensado");
 
+const exactWordCatalogTerms = new Set(["sal"]);
+
+const catalogQueryMatches = (field: string, query: string) => {
+  const fieldTokens = field.split(" ").filter(Boolean);
+  const queryTokens = query.split(" ").filter(Boolean);
+  return queryTokens.every(token => exactWordCatalogTerms.has(token)
+    ? fieldTokens.includes(token)
+    : field.includes(token));
+};
+
 const normalizeUnit = (value: string | null | undefined) => {
   const unit = normalize(value || "").replace(/[^a-z]/g, "");
   if (["un", "und", "unid", "unidade", "unidades"].includes(unit)) return "un";
@@ -339,7 +349,11 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
         const qNoSpace = q.replace(/\s+/g, "");
         return searchFields.some(field => {
           const normalizedField = normalizeCatalogTerm(field);
-          return normalizedField.includes(q) || normalizedField.replace(/\s+/g, "").includes(qNoSpace);
+          if (catalogQueryMatches(normalizedField, q)) return true;
+          // A forma sem espaços ajuda em nomes digitados juntos, mas não pode
+          // furar a regra de palavra completa de termos como "sal".
+          return !q.split(" ").some(token => exactWordCatalogTerms.has(token))
+            && normalizedField.replace(/\s+/g, "").includes(qNoSpace);
         });
       })
       .sort((a, b) =>

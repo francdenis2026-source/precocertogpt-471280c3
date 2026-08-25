@@ -186,12 +186,9 @@ export function HomeNew2026() {
             <div className={`nx-catalog-status${catalogError ? " has-warning" : ""}`} role="status"><span>Atualizado em {lastPriceUpdate}</span>{catalogError && <><em>Exibindo a base local.</em><button type="button" onClick={() => { setLoading(true); fetchCatalog("", { force: true }).then(value => { setCatalog(value); setCatalogError(value.error || ""); }).catch(() => setCatalogError("A atualização continua indisponível.")).finally(() => setLoading(false)); }}>Tentar atualizar</button></>}</div>
           </div>
 
-          <div className="nx-hero__visual">
-            <div className="nx-hero__photo">
-              <img src="/hero-precocerto-comparacao-master-2026.webp" alt="Mulher comparando preços pelo celular durante as compras no supermercado" width="1672" height="941" fetchPriority="high" sizes="(min-width: 1024px) 44vw, 100vw" />
-            </div>
-            <div className="nx-hero__visual-shade" aria-hidden="true" />
+          <div className="nx-hero__visual nx-hero__visual--plain">
             <div className="nx-hero__visual-badge"><span>COMPARAÇÃO LOCAL</span><strong>Preço certo, decisão melhor.</strong></div>
+
             <aside className="nx-deal" aria-label="Preço em destaque">
               {loading ? <div className="nx-deal__loading" aria-busy="true"><i /><i /><i /></div> : spotlight ? <>
                 <span>Menor preço em destaque</span>

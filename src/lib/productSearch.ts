@@ -5,6 +5,20 @@ export const normalizeSearchText = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
     .replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
 
+// Termos curtos que já formam uma palavra completa não devem funcionar como
+// prefixo de outro produto. Assim, "sal" encontra "Sal Refinado", mas não
+// "salgadinho", "salsicha" ou "salame".
+const exactWordSearchTerms = new Set(["sal"]);
+
+function tokenMatchesText(token: string, text: string) {
+  if (!exactWordSearchTerms.has(token)) return text.includes(token);
+  return text.split(" ").includes(token);
+}
+
+function tokenMatchesWord(token: string, word: string) {
+  return exactWordSearchTerms.has(token) ? word === token : word === token || word.startsWith(token);
+}
+
 export function productSearchScore(product: Product, query: string) {
   const q = normalizeSearchText(query);
   if (!q) return 1;
@@ -14,7 +28,7 @@ export function productSearchScore(product: Product, query: string) {
   const barcode = normalizeSearchText(product.barcode ?? "");
   const all = normalizeSearchText([product.name, product.brand, product.category, product.size, product.unit, product.barcode].filter(Boolean).join(" "));
   const tokens = q.split(" ").filter(Boolean);
-  if (!tokens.every(token => all.includes(token))) return 0;
+  if (!tokens.every(token => tokenMatchesText(token, all))) return 0;
   let score = 20;
   if (name === q) score += 120;
   else if (name.startsWith(q)) score += 90;
@@ -22,8 +36,8 @@ export function productSearchScore(product: Product, query: string) {
   if (brand === q || brand.startsWith(q)) score += 35;
   if (category === q) score += 20;
   if (barcode === q) score += 140;
-  score += tokens.filter(token => name.includes(token)).length * 12;
-  score += tokens.filter(token => brand.includes(token)).length * 5;
+  score += tokens.filter(token => tokenMatchesText(token, name)).length * 12;
+  score += tokens.filter(token => tokenMatchesText(token, brand)).length * 5;
   return score;
 }
 
@@ -48,7 +62,7 @@ export function suggestProducts(products: Product[], query: string, limit = 6) {
   const queryTokens = q.split(" ").filter(Boolean);
   const matches = products.filter(product => {
     const nameWords = normalizeSearchText(product.name).split(" ");
-    return queryTokens.every(token => nameWords.some(word => word === token || word.startsWith(token)));
+    return queryTokens.every(token => nameWords.some(word => tokenMatchesWord(token, word)));
   });
 
   const unique = new Map<string, Product>();

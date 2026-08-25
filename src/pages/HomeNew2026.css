@@ -282,3 +282,7 @@ html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a
 .nx-footer__links a:hover,.nx-footer__links button:hover{background:rgb(255 255 255 / 9%);color:#f3c96f;text-decoration:none;transform:translateY(-1px)}
 .nx-footer__meta{padding-left:14px;border-left:1px solid rgb(255 255 255 / 14%);color:#bcd0c3}.nx-footer__meta span{color:#eaf2ed}.nx-footer__meta span svg{color:#f3c96f}.nx-footer__meta small{color:#9eb2a5}
 @media(max-width:1120px){.nx-footer__main{grid-template-columns:140px minmax(0,1fr) auto;gap:12px}.nx-footer__links{gap:1px}.nx-footer__links a,.nx-footer__links button{padding-inline:7px}.nx-footer__meta{padding-left:10px}}
+
+
+/* Evidência e recuperação do catálogo, sem esconder falhas remotas. */
+.nx-catalog-status{min-height:34px;display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-top:12px;color:var(--nx-muted);font-size:12px;font-weight:680}.nx-catalog-status>span::before{display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--nx-green);content:""}.nx-catalog-status em{color:var(--nx-amber);font-style:normal}.nx-catalog-status button{min-height:34px;padding:0 11px;border:1px solid var(--nx-line);border-radius:10px;background:var(--nx-card);color:var(--nx-text);font-size:12px;font-weight:780;cursor:pointer}.nx-catalog-status.has-warning>span::before{background:var(--nx-amber)}

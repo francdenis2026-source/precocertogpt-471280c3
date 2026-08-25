@@ -17,6 +17,7 @@ const STORE_LOGOS = [
   { aliases: ["drogaria pague pouco", "pague pouco"], file: "drogaria-pague-pouco.webp" },
   { aliases: ["doceria doce dia", "doce dia"], file: "doce-dia.webp" },
   { aliases: ["central super"], file: "central-super.webp" },
+  { aliases: ["comercial maia", "e s maia"], file: "comercial-maia/logo.png" },
   { aliases: ["comercial vanderley", "comercial vandereley"], file: "comercial-vanderley.webp" },
   { aliases: ["drogarias ultra popular", "drogaria ultra popular", "ultra popular"], file: "drogaria-ultra-popular.webp" },
   { aliases: ["recanto da carne"], file: "recanto-da-carne.webp" },

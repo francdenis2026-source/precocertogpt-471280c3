@@ -7,7 +7,7 @@
   --pc-ink:#17251d;--pc-muted:#53645c;--pc-subtle:#66736d;--pc-border:#d3ded8;--pc-border-strong:#a9bbb2;
   /* Paleta "Mercado de Feijó": verde como identidade e ação, ouro como
      assinatura e terracota reservado exclusivamente a alerta/erro. */
-  --pc-primary:#17633f;--pc-primary-strong:#104c30;--pc-primary-soft:#e2f0e8;--pc-on-primary:#ffffff;
+  --pc-primary:#17633f;--pc-primary-strong:#104c30;--pc-primary-soft:#e2f0e8;--pc-on-primary:#ffffff;--pc-on-structural:#ffffff;
   --pc-accent:#b77918;--pc-accent-soft:#f7ecd7;--pc-price:#17633f;--pc-alert:#a63f2b;--pc-alert-soft:#f5e5df;
   --pc-border-interactive:#9fb7ab;--pc-image-well:#edf2ef;--pc-brand-line:linear-gradient(90deg,var(--pc-primary),var(--pc-accent));
   --pc-navy:var(--pc-primary-strong);--pc-navy-2:var(--pc-primary);--pc-footer:#122b20;
@@ -26,7 +26,7 @@ html[data-theme="dark"]{
   --pc-ink:#f5f7f5;--pc-muted:#c5cbd0;--pc-subtle:#aeb7bd;--pc-border:#4b555e;--pc-border-strong:#65727c;
   /* Noturno mineral suave: carvão sem preto dominante, com superfícies
      claramente separadas e os mesmos papéis semânticos do tema claro. */
-  --pc-primary:#96ceb0;--pc-primary-strong:#adddc2;--pc-primary-soft:#30443a;--pc-on-primary:#17251d;
+  --pc-primary:#96ceb0;--pc-primary-strong:#adddc2;--pc-primary-soft:#30443a;--pc-on-primary:#17251d;--pc-on-structural:#f5f7f5;
   --pc-accent:#edc778;--pc-accent-soft:#4a4026;--pc-price:#adddc2;--pc-alert:#f0a08a;--pc-alert-soft:#4a3028;
   --pc-border-interactive:#60786e;--pc-image-well:#343a3f;
   --pc-navy:#252b30;--pc-navy-2:var(--pc-primary);--pc-footer:#1b2024;--pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);

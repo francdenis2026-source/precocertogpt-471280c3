@@ -37,7 +37,7 @@ O sistema passou a trabalhar com quatro papéis cromáticos:
 | `--pc-price` | `#17633f` | `#adddc2` | preço em destaque |
 | `--pc-alert` | `#a63f2b` | `#f0a08a` | erro e alerta somente |
 
-Player, avatar, CTAs, categorias e dock agora consomem esses papéis. As categorias não mantiveram cores próprias: na home elas são navegação do mesmo nível, portanto a codificação multicolorida criava competição sem comunicar estado ou dado.
+Player, avatar, CTAs, categorias, ações rápidas e dock agora consomem esses papéis. Categorias e ações rápidas não mantiveram cores próprias: na home elas são navegação do mesmo nível, portanto a codificação multicolorida criava competição sem comunicar estado ou dado.
 
 ## P1 — tokens light/dark
 

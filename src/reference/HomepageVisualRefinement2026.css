@@ -51,6 +51,10 @@ html[data-theme="dark"] .mh26-head-actions .pc-user-trigger{border-color:var(--p
 .nx-dock a,.mh26-page .ref-dock a{color:var(--pc-muted)!important}
 .nx-dock a.is-active,.mh26-page .ref-dock a.is-active{background:var(--pc-primary-soft);color:var(--pc-primary-strong)!important}
 .nx-category-grid>a{--nx-accent:var(--pc-primary)!important}
+.hqa{--hqa-surface:var(--pc-surface);--hqa-border:var(--pc-border);--hqa-text:var(--pc-ink);--hqa-muted:var(--pc-muted);--hqa-green:var(--pc-primary)}
+.hqa-card,.hqa-card--blue,.hqa-card--orange,.hqa-card--purple,.hqa-card--teal{--hqa-accent:var(--pc-primary)}
+.hqa-head h2::after{width:52px;height:2px;display:block;margin-top:8px;border-radius:2px;background:var(--pc-brand-line);content:""}
+.hqa-controls button:hover:not(:disabled),.hqa-controls button:focus-visible{border-color:var(--pc-primary);background:var(--pc-primary-soft);color:var(--pc-primary-strong)}
 
 /* Product hierarchy: section title leads, product name supports, price decides. */
 .nx-section-title h2,.mh26-section h2{color:var(--pc-ink);font-weight:780;letter-spacing:-.025em}
@@ -73,6 +77,10 @@ html[data-theme="dark"] .nx-home :is(.nx-header,.nx-market__products,.nx-local__
 html[data-theme="dark"] :is(.mh26-header,.mh26-product,.mh26-actions>a,.mh26-search-overlay){border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
 html[data-theme="dark"] .nx-home :is(.nx-catalog-band,.nx-local-band),html[data-theme="dark"] .mh26-page{background:var(--pc-canvas)}
 html[data-theme="dark"] .nx-home :is(.nx-product-card__media,.nx-category-grid i),html[data-theme="dark"] .mh26-product>i{background:var(--pc-image-well)!important}
+html[data-theme="dark"] .hqa{--hqa-surface:var(--pc-surface);--hqa-border:var(--pc-border);--hqa-text:var(--pc-ink);--hqa-muted:var(--pc-muted);--hqa-green:var(--pc-primary)}
+
+.nx-basket,.mh26-local{border-color:var(--pc-border-interactive);background:var(--pc-navy);color:var(--pc-on-structural)}
+.nx-footer,.mh26-footer{background:var(--pc-footer);color:var(--pc-on-structural)}
 
 ::selection{background:var(--pc-primary);color:var(--pc-surface)}
 

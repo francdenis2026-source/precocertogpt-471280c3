@@ -67,7 +67,7 @@ if ("serviceWorker" in navigator && import.meta.env.PROD) {
   // Quando o v2 assume uma aba que ainda executava o pacote antigo, uma única
   // recarga controlada faz o documento apontar para os assets recém-publicados.
   navigator.serviceWorker.addEventListener("controllerchange", () => {
-    const reloadKey = "pc:sw-controller-reloaded:v3";
+    const reloadKey = "pc:sw-controller-reloaded:v4";
     try {
       if (sessionStorage.getItem(reloadKey)) return;
       sessionStorage.setItem(reloadKey, "1");

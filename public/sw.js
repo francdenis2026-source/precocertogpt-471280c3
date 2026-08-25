@@ -1,5 +1,5 @@
-const CACHE_VERSION = "precocerto-shell-v3";
-const STATIC_CACHE = "precocerto-static-v3";
+const CACHE_VERSION = "precocerto-shell-v4";
+const STATIC_CACHE = "precocerto-static-v4";
 const NAVIGATION_TIMEOUT_MS = 15_000;
 
 self.addEventListener("install", event => {

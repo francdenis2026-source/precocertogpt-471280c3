@@ -255,3 +255,17 @@ html[data-theme="dark"] .nx-local-band{background:linear-gradient(135deg,#12211a
 .nx-footer__links{display:flex;align-items:center;justify-content:center;gap:2px 15px}.nx-footer__links a,.nx-footer__links button{min-height:44px;display:inline-flex;align-items:center;padding:0;border:0;background:transparent;color:#f5f8f5;font:700 11px/1 "Inter Variable",Inter,sans-serif;cursor:pointer;white-space:nowrap}.nx-footer__links a:hover,.nx-footer__links button:hover{color:#f0c15c;text-decoration:underline;text-underline-offset:4px}
 .nx-footer__meta{display:grid;justify-items:end;gap:3px;color:#dceae2}.nx-footer__meta span{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:750}.nx-footer__meta span svg{width:14px;height:14px;color:#f0c15c}.nx-footer__meta small{font-size:10px}.nx-footer__legal{display:none}
 @media(max-width:1120px){.nx-footer__main{grid-template-columns:150px 1fr auto;gap:14px}.nx-footer__brand>span{display:none}.nx-footer__meta{display:grid!important}.nx-footer__links{gap:2px 10px}}
+
+
+/* Homepage em cartões empilhados: camadas modulares de marketplace. */
+@media(min-width:768px){
+  .nx-home>main{padding-bottom:24px;background:var(--nx-bg)}
+  .nx-hero{position:relative;z-index:1;padding-bottom:46px;border-radius:0 0 30px 30px;box-shadow:0 14px 34px rgb(23 41 30 / 10%)}
+  .nx-catalog-band{position:relative;z-index:2;width:min(calc(100% - 32px),1192px);margin:-22px auto 0;padding:18px 16px 16px;border:1px solid var(--nx-line);border-radius:26px;background:var(--nx-surface);box-shadow:0 16px 38px rgb(23 41 30 / 12%)}
+  .nx-catalog-band>.nx-shell{width:100%}
+  .nx-categories{padding:4px 4px 18px}
+  .nx-market{padding:0 4px 4px}
+  .nx-local-band{width:min(calc(100% - 32px),1192px);margin:14px auto 0;padding:16px;border:1px solid var(--nx-line);border-radius:26px;background:var(--nx-surface);box-shadow:0 12px 30px rgb(23 41 30 / 9%)}
+  .nx-local-band>.nx-shell{width:100%}.nx-local{min-height:220px}
+  html[data-theme="dark"] .nx-catalog-band,html[data-theme="dark"] .nx-local-band{box-shadow:0 18px 40px rgb(0 0 0 / 24%)}
+}

@@ -1,6 +1,6 @@
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BookOpen, Clock3, Croissant, HeartPulse, LayoutGrid, MapPin, Menu, Moon, PackageSearch, Search, ShieldCheck, ShoppingBasket, Store, Sun, X } from "lucide-react";
+import { ArrowRight, BookOpen, Croissant, HeartPulse, LayoutGrid, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
@@ -200,7 +200,7 @@ export function HomeNew2026() {
             </form>
 
             <div className="nx-hero__links"><span>Buscas rápidas:</span>{["Arroz", "Café", "Leite"].map(item => <button key={item} type="button" onClick={() => { setQuery(item); setFocused(true); }}>{item}</button>)}</div>
-            <div className={`nx-catalog-status${catalogError ? " has-warning" : ""}`} role="status"><span>Preços registrados em {lastPriceUpdate}</span>{catalogError && <><em>Exibindo a base local.</em><button type="button" onClick={() => { setLoading(true); fetchCatalog("", { force: true }).then(value => { setCatalog(value); setCatalogError(value.error || ""); }).catch(() => setCatalogError("A atualização continua indisponível.")).finally(() => setLoading(false)); }}>Tentar atualizar</button></>}</div>
+            <div className={`nx-catalog-status${catalogError ? " has-warning" : ""}`} role="status"><span>Atualizado em {lastPriceUpdate}</span>{catalogError && <><em>Exibindo a base local.</em><button type="button" onClick={() => { setLoading(true); fetchCatalog("", { force: true }).then(value => { setCatalog(value); setCatalogError(value.error || ""); }).catch(() => setCatalogError("A atualização continua indisponível.")).finally(() => setLoading(false)); }}>Tentar atualizar</button></>}</div>
           </div>
 
           <div className="nx-hero__visual">
@@ -252,14 +252,6 @@ export function HomeNew2026() {
       </div>
       <div className="nx-local-band">
       <section className="nx-local nx-shell">
-        <aside className="nx-local__visual" aria-label="Indicadores do comércio local de Feijó">
-          <span><MapPin aria-hidden="true" /> Feijó, Acre</span>
-          <div>
-            <article><strong>{catalog.metrics.stores.toLocaleString("pt-BR")}</strong><small>estabelecimentos</small></article>
-            <article><strong>{categories.length}</strong><small>categorias locais</small></article>
-            <article><strong>{catalog.metrics.prices.toLocaleString("pt-BR")}</strong><small>preços organizados</small></article>
-          </div>
-        </aside>
         <div className="nx-local__copy">
           <h2>O comércio local mais fácil de encontrar.</h2>
           <p>Explore estabelecimentos por categoria e localização. Se você vende em Feijó, apresente seu negócio a novos clientes.</p>
@@ -274,7 +266,6 @@ export function HomeNew2026() {
         <div className="nx-footer-v2__identity">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
           <p>Compare antes de comprar no comércio local de Feijó.</p>
-          <small>Desenvolvido por Franc D’nis</small>
         </div>
         <nav className="nx-footer-v2__nav" aria-label="Principais caminhos">
           <Link to="/buscar"><Search aria-hidden="true" /><span>Buscar preços</span></Link>
@@ -282,12 +273,11 @@ export function HomeNew2026() {
           <Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true" /><span>Cesta inteligente</span></Link>
           <Link to="/lojista"><Store aria-hidden="true" /><span>Área do comerciante</span></Link>
         </nav>
-        <div className="nx-footer-v2__trust">
-          <div><ShieldCheck aria-hidden="true" /><span><strong>Informação local</strong><small>Preços registrados em {lastPriceUpdate}</small></span></div>
-          <p>Os valores podem mudar. Confirme no estabelecimento antes da compra.</p>
-          <span className="nx-footer-v2__place"><MapPin aria-hidden="true" /> Feijó, Acre</span>
+        <span className="nx-footer-v2__place"><MapPin aria-hidden="true" /> Feijó, Acre</span>
+        <div className="nx-footer-v2__bottom">
+          <small>Desenvolvido por Franc D’nis</small>
+          <div className="nx-footer-v2__utility"><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button><button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Sobre o desenvolvedor</button></div>
         </div>
-        <div className="nx-footer-v2__utility"><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button><button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvedor</button></div>
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />

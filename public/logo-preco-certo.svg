@@ -1,6 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="84" viewBox="0 0 400 84" role="img" aria-labelledby="title desc">
-  <title id="title">PreçoCerto</title><desc id="desc">Escudo de proteção com seta de economia e a assinatura PreçoCerto</desc>
-  <defs><linearGradient id="shield" x1="17" y1="9" x2="69" y2="73" gradientUnits="userSpaceOnUse"><stop stop-color="#3679E8"/><stop offset="1" stop-color="#173F8C"/></linearGradient><linearGradient id="arrow" x1="24" y1="65" x2="72" y2="17" gradientUnits="userSpaceOnUse"><stop stop-color="#2459B8"/><stop offset="1" stop-color="#65A7FF"/></linearGradient></defs>
-  <g aria-hidden="true"><path d="M42 5 73 17v24c0 18.7-11.6 31-31 39C22.6 72 11 59.7 11 41V17L42 5Z" fill="url(#shield)"/><path d="M42 12.5 66 21.7v19.1c0 14.2-8 24.1-24 31.6-16-7.5-24-17.4-24-31.6V21.7L42 12.5Z" fill="#101C32" stroke="#72AFFF" stroke-width="2"/><path d="M26 43V29.5L42 22l15.8 7.4-7 6.4-8.8-4.2-8.8 4.1v7.2L26 43Z" fill="#fff"/><path d="m33 58.5 8.9-8.8 6.7 6.6 13.2-13.2" fill="none" stroke="#49A06D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 65.5 43 44l8.2 8.1L68.8 34.5" fill="none" stroke="#0D213E" stroke-opacity=".72" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 63 43 41.5l8.2 8.1L68.8 32" fill="none" stroke="url(#arrow)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="m61.4 24.7 14.7-4.8-4.8 14.7-9.9-9.9Z" fill="#65A7FF"/><path d="m34.5 57.8 7.4-7.4 9.2 9.2-9.2 9.2-7.4-7.4v-3.6Z" fill="#E8B84A"/><circle cx="38.3" cy="59.6" r="1.35" fill="#173F54"/></g>
-  <g aria-hidden="true" font-family="Outfit, Manrope, Arial, sans-serif" letter-spacing="-1.5"><text x="91" y="53" fill="#111B2E" font-size="38" font-weight="760">Preço</text><text x="218" y="53" fill="#3469D4" font-size="38" font-weight="520">Certo</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-labelledby="pc-logo-title pc-logo-desc">
+  <title id="pc-logo-title">Preço Certo</title>
+  <desc id="pc-logo-desc">Logomarca Preço Certo em verde e laranja com monograma PC, carrinho e etiqueta de desconto.</desc>
+  <defs>
+    <linearGradient id="g" x1="40" y1="35" x2="260" y2="310" gradientUnits="userSpaceOnUse"><stop stop-color="#0A8A49"/><stop offset="1" stop-color="#006B3B"/></linearGradient>
+    <linearGradient id="o" x1="175" y1="95" x2="330" y2="315" gradientUnits="userSpaceOnUse"><stop stop-color="#FF8A00"/><stop offset="1" stop-color="#FF5A00"/></linearGradient>
+    <linearGradient id="d" x1="150" y1="145" x2="350" y2="290" gradientUnits="userSpaceOnUse"><stop stop-color="#3A3A3A"/><stop offset="1" stop-color="#202020"/></linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity=".16"/></filter>
+  </defs>
+
+  <g transform="translate(10 4) scale(.68)" filter="url(#s)">
+    <path d="M106 74h170c75 0 129 38 146 99l-63 16c-10-33-40-52-85-52H170v101h-64V74Z" fill="url(#g)"/>
+    <path d="M106 236h64v190h-64z" fill="url(#g)"/>
+    <path d="M289 174c58 0 108 22 145 59l-47 46c-24-23-56-36-94-36-67 0-114 43-114 103 0 60 47 103 114 103 39 0 72-13 97-38l46 46c-38 38-89 59-147 59-102 0-177-68-177-170 0-103 75-172 177-172Z" fill="url(#o)"/>
+    <g transform="translate(55 177)">
+      <path d="M53 56h31M28 81h72M58 106h46" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+      <path d="M57 56h28M29 81h65M58 106h40" stroke="#067A43" stroke-width="11" stroke-linecap="round"/>
+      <path d="M93 31h32c10 0 17 6 20 16l9 32h172c10 0 17 10 13 19l-27 71c-4 11-15 18-27 18H157c-13 0-24-8-27-21L96 31Z" fill="url(#d)" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M156 188h117" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M156 188h117" stroke="#2F2F2F" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="150" cy="218" r="24" fill="#2A2A2A" stroke="#fff" stroke-width="9"/><circle cx="278" cy="218" r="24" fill="#2A2A2A" stroke="#fff" stroke-width="9"/>
+      <g transform="translate(303 96) rotate(13)">
+        <path d="M0 0h69c10 0 18 5 23 13l35 57c5 9 4 20-4 27l-47 45c-8 8-22 8-30 0L4 101c-4-4-6-9-6-15V18C-2 8 6 0 16 0Z" fill="url(#d)"/>
+        <circle cx="23" cy="25" r="12" fill="#fff"/><circle cx="23" cy="25" r="6" fill="#FF6B00"/>
+        <text x="33" y="93" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="700">%</text>
+      </g>
+    </g>
+  </g>
+
+  <g font-family="Inter,Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-5">
+    <text x="430" y="151" fill="#00743F" font-size="112">Preço</text>
+    <text x="430" y="276" fill="#FF6400" font-size="112">Certo</text>
+  </g>
 </svg>

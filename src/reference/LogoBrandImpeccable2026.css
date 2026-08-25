@@ -14,11 +14,11 @@
   accent-color:var(--pc-logo-green);
 }
 html[data-theme="dark"]{
-  --pc-canvas:#151a17;--pc-surface:#1e2521;--pc-surface-2:#28312b;--pc-surface-3:#333e37;
-  --pc-ink:#f5f8f5;--pc-muted:#c2ccc5;--pc-subtle:#aab7ae;--pc-border:#414f46;--pc-border-strong:#5b6f61;
-  --pc-primary:#50bf7c;--pc-primary-strong:#83d7a3;--pc-primary-soft:#203d2c;--pc-on-primary:#102218;--pc-on-structural:#f7faf7;
-  --pc-accent:#ff933d;--pc-accent-soft:#49301f;--pc-price:#78d49b;--pc-info:#78d49b;
-  --pc-navy:#1a201c;--pc-navy-2:#252d28;--pc-footer:#111512;
+  --pc-canvas:#101511;--pc-surface:#19201b;--pc-surface-2:#222b25;--pc-surface-3:#2b362e;
+  --pc-ink:#f4f8f5;--pc-muted:#bcc9c0;--pc-subtle:#9eada2;--pc-border:#35443a;--pc-border-strong:#506357;
+  --pc-primary:#58c985;--pc-primary-strong:#8addaa;--pc-primary-soft:#1c3827;--pc-on-primary:#0c2114;--pc-on-structural:#f7faf7;
+  --pc-accent:#ff9847;--pc-accent-soft:#432b1b;--pc-price:#78d99d;--pc-info:#78d99d;
+  --pc-navy:#141a16;--pc-navy-2:#1d251f;--pc-footer:#0c100d;
   --pc-green:var(--pc-primary);--pc-green-strong:var(--pc-primary-strong);--pc-green-soft:var(--pc-primary-soft);
   --pc-gold:var(--pc-accent);--pc-gold-on-dark:#ffa45c;--pc-gold-soft:var(--pc-accent-soft);
   --pc-border-interactive:#607a68;--pc-image-well:#252e28;
@@ -87,3 +87,29 @@ html[data-theme="dark"] .pcx-basket__inner{background:linear-gradient(135deg,#20
   html[data-theme="dark"] .mh26-product>span em{background:var(--pc-primary-soft)!important;color:var(--pc-primary-strong)!important}
   html[data-theme="dark"] .mh26-page .ref-dock{background:rgba(17,21,18,.98)!important;border-color:var(--pc-border)!important}
 }
+
+/* Modo escuro 2026: neutraliza azuis históricos que ainda eram declarados
+   diretamente por páginas antigas. A elevação acontece por luminosidade,
+   enquanto verde e laranja ficam reservados para ação, preço e estado. */
+html[data-theme="dark"],html[data-theme="dark"] body{background:var(--pc-canvas)!important;color:var(--pc-ink)}
+html[data-theme="dark"] :is(.ref-page,.nx-home,.mh26-page,.pcx-home,.msearch26-page){
+  --ref-bg:var(--pc-canvas)!important;--ref-paper:var(--pc-surface)!important;--ref-paper-2:var(--pc-surface-2)!important;
+  --ref-ink:var(--pc-ink)!important;--ref-muted:var(--pc-muted)!important;--ref-line:var(--pc-border)!important;
+  --ref-navy:var(--pc-navy)!important;--ref-navy-2:var(--pc-navy-2)!important;--ref-green:var(--pc-primary)!important;
+  --ref-green-strong:var(--pc-primary-strong)!important;--ref-gold:var(--pc-accent)!important;
+  --nx-canvas:var(--pc-canvas)!important;--nx-surface:var(--pc-surface)!important;--nx-ink:var(--pc-ink)!important;--nx-muted:var(--pc-muted)!important;
+  background:var(--pc-canvas)!important;color:var(--pc-ink)!important;
+}
+html[data-theme="dark"] :is(.ref-header,.ref-mobile-menu,.ref-dock,.nx-header,.mh26-header,.pcx-header){background:color-mix(in srgb,var(--pc-footer) 94%,transparent)!important;border-color:var(--pc-border)!important}
+html[data-theme="dark"] :is(.ref-footer,.nx-footer,.pcx-footer,.pcx-mobile){background:var(--pc-footer)!important;border-color:var(--pc-border)!important}
+html[data-theme="dark"] :is(.ref-product-grid>a,.ref-product-grid>article,.ref-results-table,.ref-store-list,.ref-basket-list,.ref-price-board,.ref-update,.nx-store-panel,.nx-offer-card,.nx-search-results,.pcx-product,.pcx-search-results,.pcx-modal__dialog){background:var(--pc-surface)!important;border-color:var(--pc-border)!important;color:var(--pc-ink)!important}
+html[data-theme="dark"] :is(.ref-product-grid a>div,.ref-result-product>i,.ref-basket-product>i,.nx-offer-card__image,.pcx-product__media,.pcx-modal__media){background:var(--pc-surface-2)!important;border-color:var(--pc-border)!important}
+html[data-theme="dark"] :is(.ref-results-table__head,.ref-filter-row button.is-active,.nx-store-links a,.nx-live-results__list>button:hover,.nx-live-results__list>button.is-active){background:var(--pc-surface-3)!important;border-color:var(--pc-border-strong)!important;color:var(--pc-ink)!important}
+html[data-theme="dark"] :is(.nx-live-search__field,.nx-search,.msearch26-search,.ref-directory-search){background:var(--pc-surface)!important;border-color:var(--pc-border-strong)!important;color:var(--pc-ink)!important;box-shadow:0 14px 34px rgba(0,0,0,.28)!important}
+html[data-theme="dark"] :is(.nx-live-search__clear,.nx-search__clear,.nx-live-results__all){background:var(--pc-surface-3)!important;border-color:var(--pc-border)!important;color:var(--pc-primary-strong)!important}
+html[data-theme="dark"] :is(.home-smart-basket){background:linear-gradient(135deg,var(--pc-surface) 0%,var(--pc-primary-soft) 58%,var(--pc-surface-2) 100%)!important}
+html[data-theme="dark"] :is(.home-smart-basket__planner,.home-smart-basket__modes>span,.home-smart-basket__budget-control,.home-smart-basket__people select,.home-smart-basket__quick-values button){background:var(--pc-surface-2)!important;border-color:var(--pc-border)!important;color:var(--pc-ink)!important}
+html[data-theme="dark"] :is(.home-smart-basket__budget-control>button,.home-smart-basket__planner header>span,.home-smart-basket__quick-values button.is-active){background:var(--pc-surface-3)!important;border-color:var(--pc-border-strong)!important;color:var(--pc-primary-strong)!important}
+html[data-theme="dark"] :is(.msearch26-hero,.sector-hub__hero,.sector-hub__tools){background:linear-gradient(140deg,var(--pc-navy),#183525)!important;border-color:var(--pc-border)!important}
+html[data-theme="dark"] .pc-card-action{background:color-mix(in srgb,var(--pc-surface) 94%,transparent)!important;border-color:var(--pc-border)!important;color:var(--pc-ink)!important}
+html[data-theme="dark"] :where(a,button,input,select,textarea,[role="button"]):focus-visible{outline:3px solid color-mix(in srgb,var(--pc-accent) 66%,transparent)!important;outline-offset:3px}

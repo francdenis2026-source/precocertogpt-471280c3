@@ -1,5 +1,5 @@
-const CACHE_VERSION = "precocerto-shell-v2";
-const STATIC_CACHE = "precocerto-static-v2";
+const CACHE_VERSION = "precocerto-shell-v3";
+const STATIC_CACHE = "precocerto-static-v3";
 const NAVIGATION_TIMEOUT_MS = 15_000;
 
 self.addEventListener("install", event => {
@@ -18,7 +18,11 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(keys.filter(key => ![CACHE_VERSION, STATIC_CACHE].includes(key)).map(key => caches.delete(key))))
-      .then(() => self.clients.claim()),
+      .then(() => self.clients.claim())
+      // Atualização excepcional do pacote visual: recarrega uma vez as abas
+      // abertas para que até clientes executando o JS antigo adotem o v3.
+      .then(() => self.clients.matchAll({ type: "window", includeUncontrolled: true }))
+      .then(clients => Promise.all(clients.map(client => client.navigate(client.url)))),
   );
 });
 

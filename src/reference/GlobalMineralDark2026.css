@@ -252,3 +252,166 @@ html[data-theme="dark"] .nx-home .nx-hero__photo {
       url('/supermercado-hero.jpg') center 44% / cover no-repeat!important;
   }
 }
+
+/* Impeccable 4.1 — acabamento da homepage no modo escuro.
+   A profundidade vem de luminosidade, borda e sombra; o verde continua
+   reservado a preço/verificação e a terracota às ações principais. */
+html[data-theme="dark"] .nx-home {
+  --nx-shadow-sm:0 10px 26px rgb(7 17 19 / 18%);
+  --nx-shadow:0 22px 52px rgb(7 17 19 / 26%);
+}
+
+html[data-theme="dark"] .nx-home .nx-header {
+  border-bottom-color:rgb(139 166 168 / 32%);
+  box-shadow:0 10px 28px rgb(7 17 19 / 20%);
+}
+
+html[data-theme="dark"] .nx-home :where(.nx-theme,.nx-menu) {
+  border-color:#536a6e;
+  background:#2b3e42;
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+
+html[data-theme="dark"] .nx-home .nx-search {
+  border-color:#60787c;
+  background:#f8faf9;
+  box-shadow:0 16px 38px rgb(7 17 19 / 30%),inset 0 1px 0 #fff;
+}
+html[data-theme="dark"] .nx-home .nx-search :where(input) { color:#18292c; }
+html[data-theme="dark"] .nx-home .nx-search input::placeholder { color:#5d6f72; }
+html[data-theme="dark"] .nx-home .nx-search>svg { color:#537fa0; }
+html[data-theme="dark"] .nx-home .nx-search__clear { color:#526568; }
+html[data-theme="dark"] .nx-home .nx-search:focus-within {
+  border-color:#9bc3df;
+  box-shadow:0 0 0 4px rgb(155 195 223 / 20%),0 18px 42px rgb(7 17 19 / 34%);
+}
+
+html[data-theme="dark"] .nx-home :where(.nx-market__products,.nx-local__copy) {
+  border-color:#50686c;
+  background:linear-gradient(145deg,#26393d,#233438 64%);
+  box-shadow:0 14px 34px rgb(7 17 19 / 18%),inset 0 1px 0 rgb(255 255 255 / 4%);
+}
+html[data-theme="dark"] .nx-home :where(.nx-category-grid>a,.nx-product-card) {
+  border-color:#4b6266;
+  background:#2b3e42;
+  box-shadow:0 8px 22px rgb(7 17 19 / 14%),inset 0 1px 0 rgb(255 255 255 / 4%);
+}
+html[data-theme="dark"] .nx-home .nx-category-grid i {
+  background:color-mix(in srgb,var(--nx-accent) 16%,#34494d);
+}
+html[data-theme="dark"] .nx-home .nx-product-card footer { border-top-color:#52696d; }
+html[data-theme="dark"] .nx-home .nx-product-card__action,
+html[data-theme="dark"] .nx-home .nx-section-title>a { color:#b5d3e8; }
+
+html[data-theme="dark"] .hqa {
+  --hqa-surface:#293c40;
+  --hqa-border:#50686c;
+  --hqa-text:#f5f7f5;
+  --hqa-muted:#c7d2ce;
+  --hqa-green:#adddc2;
+  box-shadow:0 20px 46px rgb(7 17 19 / 24%),inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+html[data-theme="dark"] .hqa-card {
+  border-color:#526a6e;
+  background:linear-gradient(145deg,#304448,#293c40);
+  box-shadow:0 10px 26px rgb(7 17 19 / 17%),inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+html[data-theme="dark"] .hqa-card:first-child {
+  background:color-mix(in srgb,var(--hqa-accent) 11%,#293c40);
+}
+html[data-theme="dark"] .hqa-card>i {
+  background:color-mix(in srgb,var(--hqa-accent) 18%,#34494d);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / 7%);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  html[data-theme="dark"] .nx-home :where(.nx-theme,.nx-menu):hover {
+    border-color:#86aeb3;
+    background:#34494d;
+    color:#fff;
+  }
+  html[data-theme="dark"] .nx-home .nx-search__clear:hover { background:#e5ece9; color:#26383b; }
+  html[data-theme="dark"] .nx-home :where(.nx-category-grid>a,.nx-product-card):hover {
+    border-color:color-mix(in srgb,var(--nx-accent) 58%,#60787c);
+    background:#304448;
+    box-shadow:0 16px 34px rgb(7 17 19 / 24%),inset 0 1px 0 rgb(255 255 255 / 6%);
+  }
+  html[data-theme="dark"] .hqa-card:hover {
+    border-color:color-mix(in srgb,var(--hqa-accent) 62%,#60787c);
+    background:color-mix(in srgb,var(--hqa-accent) 9%,#304448);
+    box-shadow:0 18px 38px rgb(7 17 19 / 25%),inset 0 1px 0 rgb(255 255 255 / 7%);
+  }
+  html[data-theme="dark"] .hqa-controls button:hover:not(:disabled) {
+    border-color:#8fc2aa;
+    background:#34494d;
+    color:#c5ead6;
+  }
+}
+
+html[data-theme="dark"] :where(.nx-home,.mh26-page,.hqa) :where(a,button,input):focus-visible {
+  outline:3px solid #edc778;
+  outline-offset:3px;
+}
+
+@media(max-width:767px){
+  html[data-theme="dark"] .mh26-page {
+    background:linear-gradient(180deg,#1b292c 0,#233438 300px,#1f3033 100%);
+  }
+  html[data-theme="dark"] .mh26-header {
+    border-bottom-color:#536a6e;
+    box-shadow:0 8px 24px rgb(7 17 19 / 20%);
+  }
+  html[data-theme="dark"] :where(.mh26-head-actions>a,.mh26-theme) {
+    border-color:#536a6e;
+    background:#2b3e42;
+    color:#f5f7f5;
+    box-shadow:inset 0 1px 0 rgb(255 255 255 / 5%);
+  }
+  html[data-theme="dark"] .mh26-actions>a {
+    border-color:#50686c;
+    background:linear-gradient(145deg,#304448,#293c40);
+    box-shadow:0 10px 26px rgb(7 17 19 / 18%),inset 0 1px 0 rgb(255 255 255 / 5%);
+  }
+  html[data-theme="dark"] .mh26-actions>a.is-primary {
+    border-color:#6c8580;
+    background:linear-gradient(120deg,#314943,#2b3e42);
+  }
+  html[data-theme="dark"] .mh26-actions>a>svg:first-child {
+    background:#354e49;
+    color:#b5e0ca;
+  }
+  html[data-theme="dark"] .mh26-section {
+    border-color:#50686c;
+    background:linear-gradient(155deg,#26393d,#233438 72%);
+    box-shadow:0 14px 32px rgb(7 17 19 / 21%),inset 0 1px 0 rgb(255 255 255 / 4%);
+  }
+  html[data-theme="dark"] .mh26-product {
+    border-color:#4e666a;
+    background:#2b3e42;
+    box-shadow:0 8px 22px rgb(7 17 19 / 16%),inset 0 1px 0 rgb(255 255 255 / 4%);
+  }
+  html[data-theme="dark"] .mh26-product>i { background:linear-gradient(145deg,#3a4f53,#31464a); }
+  html[data-theme="dark"] .mh26-product>span em { background:#365049; color:#bce5d2; }
+  html[data-theme="dark"] .mh26-product:active,
+  html[data-theme="dark"] .mh26-actions>a:active { background:#34494d; }
+  html[data-theme="dark"] .mh26-local {
+    border-color:#60786e;
+    background:linear-gradient(140deg,#29463e,#315a4c);
+    box-shadow:0 16px 34px rgb(7 17 19 / 24%),inset 0 1px 0 rgb(255 255 255 / 7%);
+  }
+  html[data-theme="dark"] .mh26-page .ref-dock {
+    border-color:#536a6e!important;
+    background:rgb(35 52 56 / 97%)!important;
+    box-shadow:0 -10px 28px rgb(7 17 19 / 24%)!important;
+  }
+  html[data-theme="dark"] .mh26-page .ref-dock a.is-active {
+    color:#adddc2!important;
+  }
+}
+
+@media(prefers-reduced-motion:no-preference){
+  :where(.nx-home,.mh26-page,.hqa) :where(a,button,.nx-product-card,.mh26-product,.hqa-card) {
+    transition-duration:180ms;
+    transition-timing-function:cubic-bezier(.2,.8,.2,1);
+  }
+}

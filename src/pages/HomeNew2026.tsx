@@ -188,7 +188,7 @@ export function HomeNew2026() {
 
           <div className="nx-hero__visual">
             <div className="nx-hero__photo">
-              <img src="/hero-precocerto-comparacao-realista-2026.webp" alt="Mulher comparando preços pelo celular durante as compras no supermercado" width="1672" height="941" fetchPriority="high" />
+              <img src="/hero-precocerto-comparacao-hd-2026.webp" alt="Mulher comparando preços pelo celular durante as compras no supermercado" width="2559" height="1440" fetchPriority="high" sizes="(min-width: 1024px) 44vw, 100vw" />
             </div>
             <div className="nx-hero__visual-shade" aria-hidden="true" />
             <div className="nx-hero__visual-badge"><span>COMPARAÇÃO LOCAL</span><strong>Preço certo, decisão melhor.</strong></div>

@@ -11,11 +11,11 @@ import { useSiteTheme } from "../hooks/useSiteTheme";
 import { AppDock, FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { HomeQuickActionsCarousel } from "../components/HomeQuickActionsCarousel";
 import { LocationSwitcher } from "../components/LocationSwitcher";
+import { suggestProducts } from "../lib/productSearch";
 import "./MobileHome2026.css";
 
 const initialCatalog=buildCatalog();
 const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
-const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
 
 function ProductImage({product}:{product:Product}){const[failed,setFailed]=useState(false);const src=resolveProductImage(product);return src&&!failed?<img src={src} alt={product.name} loading="lazy" onError={()=>setFailed(true)}/>:<span className="mh26-image-fallback"><PackageSearch aria-hidden="true"/><small>Imagem em atualização</small></span>}
 
@@ -33,7 +33,7 @@ export function MobileHome2026(){
  useEffect(()=>{const timer=window.setTimeout(()=>setCycle(currentCycle()),msUntilNextCycle()+250);return()=>window.clearTimeout(timer)},[cycle]);
  const products=useMemo(()=>catalog.products.filter(p=>p.minPrice>0),[catalog.products]);
  const lastPriceUpdate=useMemo(()=>{const latest=products.reduce((current,product)=>Math.max(current,Date.parse(product.updated_at||product.capturedAt||"")||0),0);return latest?new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}).format(latest):"indisponível"},[products]);
- const results=useMemo(()=>{const term=normalize(query);if(term.length<2)return[];return products.map(product=>{const name=normalize(product.name),brand=normalize(product.brand||""),category=normalize(product.category||""),store=normalize(product.establishment||"");let rank=99;if(name===term)rank=0;else if(name.startsWith(term))rank=1;else if(name.split(/\s+/).some(w=>w.startsWith(term)))rank=2;else if(name.includes(term))rank=3;else if(brand.startsWith(term))rank=4;else if(`${brand} ${category} ${store}`.includes(term))rank=5;return{product,rank}}).filter(x=>x.rank<99).sort((a,b)=>a.rank-b.rank||a.product.minPrice-b.product.minPrice).slice(0,5).map(x=>x.product)},[query,products]);
+ const results=useMemo(()=>query.trim().length<2?[]:suggestProducts(products,query,5),[query,products]);
  const featured=useMemo(()=>buildFeatured(products,cycle,4),[products,cycle]);
  const open=focused&&query.trim().length>=2;
  return <div className="mh26-page">

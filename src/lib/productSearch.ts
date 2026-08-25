@@ -19,6 +19,39 @@ function tokenMatchesWord(token: string, word: string) {
   return exactWordSearchTerms.has(token) ? word === token : word === token || word.startsWith(token);
 }
 
+type ProductFamilyId = "achocolatado" | "amido-de-milho" | "lava-roupas-em-po" | "macarrao-instantaneo";
+type SearchFamily = { id: ProductFamilyId; pattern: RegExp };
+
+// Sinônimos comerciais seguros. A lista é restrita para não transformar
+// produtos apenas relacionados (chocolate em pó, por exemplo) em equivalentes.
+const searchFamilies: SearchFamily[] = [
+  { id: "achocolatado", pattern: /\b(?:achocolatad[oa]s?(?:\s+em\s+po)?|nescau|toddy|chocolatto)\b/g },
+  { id: "amido-de-milho", pattern: /\b(?:maizena|amido\s+de\s+milho)\b/g },
+  { id: "lava-roupas-em-po", pattern: /\b(?:sabao\s+em\s+po|lava\s+roupas\s+em\s+po)\b/g },
+  { id: "macarrao-instantaneo", pattern: /\b(?:miojo|lamen|macarrao\s+instantaneo)\b/g },
+];
+
+function familyInText(value: string) {
+  const normalized = normalizeSearchText(value);
+  return searchFamilies.find(family => {
+    family.pattern.lastIndex = 0;
+    return family.pattern.test(normalized);
+  });
+}
+
+function queryFamily(value: string) {
+  const normalized = normalizeSearchText(value);
+  const family = familyInText(normalized);
+  if (!family) return null;
+  family.pattern.lastIndex = 0;
+  const remainder = normalized.replace(family.pattern, " ").replace(/\s+/g, " ").trim();
+  return { family: family.id, remainderTokens: remainder.split(" ").filter(Boolean) };
+}
+
+function recognizedFamilyFromName(name: string) {
+  return familyInText(name)?.id ?? "";
+}
+
 export function productSearchScore(product: Product, query: string) {
   const q = normalizeSearchText(query);
   if (!q) return 1;
@@ -31,8 +64,12 @@ export function productSearchScore(product: Product, query: string) {
   // Para "sal", somente o nome do produto pode validar a intenção. Isso
   // impede que um campo secundário inconsistente faça "Salgadinho" entrar.
   if (tokens.includes("sal") && !name.split(" ").includes("sal")) return 0;
-  if (!tokens.every(token => tokenMatchesText(token, all))) return 0;
+  const directMatch = tokens.every(token => tokenMatchesText(token, all));
+  const alias = queryFamily(q);
+  const aliasMatch = Boolean(alias && recognizedFamilyFromName(product.name) === alias.family && alias.remainderTokens.every(token => tokenMatchesText(token, all)));
+  if (!directMatch && !aliasMatch) return 0;
   let score = 20;
+  if (aliasMatch) score += 55;
   if (name === q) score += 120;
   else if (name.startsWith(q)) score += 90;
   else if (name.includes(q)) score += 70;
@@ -63,9 +100,12 @@ export function suggestProducts(products: Product[], query: string, limit = 6) {
   if (!q) return [...products].sort((a, b) => a.minPrice - b.minPrice).slice(0, limit);
 
   const queryTokens = q.split(" ").filter(Boolean);
+  const alias = queryFamily(q);
   const matches = products.filter(product => {
     const nameWords = normalizeSearchText(product.name).split(" ");
-    return queryTokens.every(token => nameWords.some(word => tokenMatchesWord(token, word)));
+    const directMatch = queryTokens.every(token => nameWords.some(word => tokenMatchesWord(token, word)));
+    const aliasMatch = Boolean(alias && recognizedFamilyFromName(product.name) === alias.family && alias.remainderTokens.every(token => nameWords.some(word => tokenMatchesWord(token, word))));
+    return directMatch || aliasMatch;
   });
 
   const unique = new Map<string, Product>();
@@ -105,6 +145,8 @@ function productMeasure(product: Product) {
 // creme de leite e leite condensado apenas porque tinham peso semelhante.
 function recognizedProductFamily(product: Product) {
   const name = normalizeSearchText(product.name);
+  const commercialFamily = recognizedFamilyFromName(name);
+  if (commercialFamily) return commercialFamily;
   if (/\bleite\s+(?:em\s+)?po\b/.test(name)) return "leite-em-po";
   if (/\bleite\s+condensado\b/.test(name)) return "leite-condensado";
   if (/\bcreme\s+de\s+leite\b/.test(name)) return "creme-de-leite";
@@ -137,7 +179,9 @@ export function isEquivalentProduct(reference: Product, candidate: Product) {
   if (String(reference.id) === String(candidate.id)) return true;
   const referenceCategory = normalizeSearchText(reference.category || "");
   const candidateCategory = normalizeSearchText(candidate.category || "");
-  if (referenceCategory && candidateCategory && referenceCategory !== candidateCategory) return false;
+  const referenceFamily = recognizedProductFamily(reference);
+  const candidateFamily = recognizedProductFamily(candidate);
+  if (referenceCategory && candidateCategory && referenceCategory !== candidateCategory && !(referenceFamily && referenceFamily === candidateFamily)) return false;
   if (!hasSameProductFamily(reference, candidate)) return false;
 
   const referenceMeasure = productMeasure(reference);
@@ -199,7 +243,9 @@ function similarityScore(reference: Product, candidate: Product) {
 
   const referenceCategory = normalizeSearchText(reference.category || "");
   const candidateCategory = normalizeSearchText(candidate.category || "");
-  if (referenceCategory && candidateCategory && referenceCategory !== candidateCategory) return 0;
+  const referenceFamily = recognizedProductFamily(reference);
+  const candidateFamily = recognizedProductFamily(candidate);
+  if (referenceCategory && candidateCategory && referenceCategory !== candidateCategory && !(referenceFamily && referenceFamily === candidateFamily)) return 0;
 
   const referenceTokens = productFamilyTokens(reference);
   const candidateTokens = productFamilyTokens(candidate);
@@ -208,7 +254,8 @@ function similarityScore(reference: Product, candidate: Product) {
   // Categoria isolada nunca define similaridade: "Mercearia", por exemplo,
   // pode conter arroz, feijão, óleo e biscoito. É obrigatório compartilhar ao
   // menos um termo real da família/natureza do produto.
-  if (!shared.length) return 0;
+  const sameRecognizedFamily = Boolean(referenceFamily && referenceFamily === candidateFamily);
+  if (!shared.length && !sameRecognizedFamily) return 0;
 
   const referenceIdentity = normalizeSearchText([reference.name, reference.brand, reference.size].join(" "));
   const candidateIdentity = normalizeSearchText([candidate.name, candidate.brand, candidate.size].join(" "));
@@ -216,6 +263,7 @@ function similarityScore(reference: Product, candidate: Product) {
 
   const union = new Set([...referenceTokens, ...candidateTokens]).size || 1;
   let score = shared.length * 100 + (shared.length / union) * 60;
+  if (sameRecognizedFamily) score += 180;
   if (referenceTokens[0] && referenceTokens[0] === candidateTokens[0]) score += 45;
   if (normalizeSearchText(reference.brand || "") === normalizeSearchText(candidate.brand || "")) score += 15;
   if (normalizeSearchText(reference.unit || "") === normalizeSearchText(candidate.unit || "")) score += 5;

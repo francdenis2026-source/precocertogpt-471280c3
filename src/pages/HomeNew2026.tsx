@@ -11,11 +11,11 @@ import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
 import { HomeQuickActionsCarousel } from "../components/HomeQuickActionsCarousel";
 import { useSiteTheme } from "../hooks/useSiteTheme";
+import { suggestProducts } from "../lib/productSearch";
 import "./HomeNew2026.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 const categories = [
   { name: "Mercados", copy: "Compras do dia", to: "/mercados", icon: ShoppingBasket },
   { name: "Açougues", copy: "Carnes e cortes", to: "/acougues", icon: Store },
@@ -83,25 +83,8 @@ export function HomeNew2026() {
   const featured = useMemo(() => buildFeatured(products, cycle, 4), [products, cycle]);
   const spotlight = featured[0];
   const suggestions = useMemo(() => {
-    const term = normalize(deferredQuery);
-    if (term.length < 2) return [];
-    const ranked = products.map(product => {
-      const name = normalize(product.name);
-      const brand = normalize(product.brand || "");
-      const category = normalize(product.category || "");
-      const store = normalize(product.establishment || "");
-      const size = normalize(product.size || "");
-      let relevance = 99;
-      if (name === term) relevance = 0;
-      else if (name.startsWith(term)) relevance = 1;
-      else if (name.split(/\s+/).some(word => word.startsWith(term))) relevance = 2;
-      else if (name.includes(term)) relevance = 3;
-      else if (brand === term || brand.startsWith(term)) relevance = 4;
-      else if (`${brand} ${category} ${store} ${size}`.includes(term)) relevance = 5;
-      return { product, relevance };
-    }).filter(item => item.relevance < 99);
-    return ranked.sort((a, b) => a.relevance - b.relevance || a.product.minPrice - b.product.minPrice || a.product.name.localeCompare(b.product.name, "pt-BR"))
-      .slice(0, 5).map(item => item.product);
+    if (deferredQuery.trim().length < 2) return [];
+    return suggestProducts(products, deferredQuery, 5);
   }, [deferredQuery, products]);
   const searchOpen = focused && query.trim().length >= 2;
 

@@ -56,6 +56,29 @@ describe('Busca de produtos por relevância', () => {
     expect(suggestions.filter(p => p.name === 'Arroz Tio João Tipo 1')).toHaveLength(1);
     expect(suggestions[0].minPrice).toBe(27.9);
   });
+
+  it('trata marcas popularizadas e nomes genéricos como a mesma intenção de busca', () => {
+    const bebidas = [
+      { ...base, id: 20, name: 'Nescau 400g', brand: 'Nestlé', category: 'Bebidas', size: '400 g' },
+      { ...base, id: 21, name: 'Achocolatado 3 Corações 400g', brand: '3 Corações', category: 'Mercearia', size: '400 g' },
+      { ...base, id: 22, name: 'Chocolate em Pó 50% 400g', brand: 'Marca', category: 'Mercearia', size: '400 g' },
+    ];
+    expect(searchProducts(bebidas, 'nescau').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+    expect(searchProducts(bebidas, 'achocolatado').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+    expect(searchProducts(bebidas, 'achocolatado em pó 400g').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+    expect(searchProducts(bebidas, 'achocolatado').map(product => product.id)).not.toContain(22);
+    expect(suggestProducts(bebidas, 'achocolatado').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+  });
+
+  it('reconhece outros sinônimos comerciais seguros', () => {
+    const aliases = [
+      { ...base, id: 30, name: 'Miojo Nissin Galinha 85g', brand: 'Nissin', size: '85 g' },
+      { ...base, id: 31, name: 'Macarrão Instantâneo Carne 85g', brand: 'Outra', size: '85 g' },
+      { ...base, id: 32, name: 'Amido de Milho 500g', brand: 'Marca', size: '500 g' },
+    ];
+    expect(searchProducts(aliases, 'macarrão instantâneo').map(product => product.id)).toEqual(expect.arrayContaining([30, 31]));
+    expect(searchProducts(aliases, 'maizena').map(product => product.id)).toContain(32);
+  });
 });
 
 describe('Produtos similares', () => {
@@ -134,6 +157,16 @@ describe('Ranking de preços equivalentes', () => {
     expect(isEquivalentProduct(leiteEmPo, doceDeLeite)).toBe(false);
     expect(isEquivalentProduct(leiteEmPo, condensado)).toBe(false);
     expect(isEquivalentProduct(leiteEmPo, leiteOutraMarca)).toBe(true);
+  });
+
+  it('compara Nescau e achocolatado somente quando a medida é compatível', () => {
+    const nescau = { ...base, id: 20, name: 'Nescau 400g', brand: 'Nestlé', size: '400 g', category: 'Bebidas' };
+    const equivalente = { ...base, id: 21, name: 'Achocolatado 3 Corações 400g', brand: '3 Corações', size: '400 g', category: 'Mercearia' };
+    const maior = { ...base, id: 22, name: 'Achocolatado 3 Corações 700g', brand: '3 Corações', size: '700 g', category: 'Mercearia' };
+    const chocolate = { ...base, id: 23, name: 'Chocolate em Pó 50% 400g', brand: 'Outra', size: '400 g', category: 'Mercearia' };
+    expect(isEquivalentProduct(nescau, equivalente)).toBe(true);
+    expect(isEquivalentProduct(nescau, maior)).toBe(false);
+    expect(isEquivalentProduct(nescau, chocolate)).toBe(false);
   });
 });
 

@@ -275,8 +275,7 @@ export function HomeNew2026() {
         </nav>
         <span className="nx-footer-v2__place"><MapPin aria-hidden="true" /> Feijó, Acre</span>
         <div className="nx-footer-v2__bottom">
-          <small>Desenvolvido por Franc D’nis</small>
-          <div className="nx-footer-v2__utility"><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button><button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Sobre o desenvolvedor</button></div>
+          <div className="nx-footer-v2__utility"><button className="nx-footer-v2__developer" type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvido por Franc D’nis</button><button type="button" onClick={() => setFooterPanel("contato")} aria-haspopup="dialog">Contato</button></div>
         </div>
       </div>
     </footer>

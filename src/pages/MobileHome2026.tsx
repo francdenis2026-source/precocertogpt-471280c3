@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, MapPin, Moon, PackageSearch, Search, Sun, TrendingDown, X } from "lucide-react";
+import { ArrowRight, MapPin, Moon, PackageSearch, Search, Sun, TrendingDown, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -41,7 +41,7 @@ export function MobileHome2026(){
   <main id="conteudo-principal">
    <section className="mh26-hero">
     <LocationSwitcher />
-    <div className="mh26-hero-copy"><span className="mh26-verified-badge"><i className="mh26-verified-icon" aria-hidden="true"><CheckCircle2/></i><b>PREÇOS LOCAIS VERIFICADOS</b></span><h1>Em Feijó, comparar faz seu dinheiro render.</h1><p>Veja os preços do comércio local e escolha com confiança antes de sair para comprar.</p></div>
+    <div className="mh26-hero-copy"><h1>Em Feijó, comparar faz seu dinheiro render.</h1><p>Veja os preços do comércio local e escolha com confiança antes de sair para comprar.</p></div>
     <form className="mh26-search" onSubmit={e=>{e.preventDefault();const q=query.trim();if(q)navigate(`/buscar?q=${encodeURIComponent(q)}`)}} onFocus={()=>setFocused(true)}>
       <label className="mh26-search-label" htmlFor="mh26-query">O que você quer economizar hoje?</label>
       <div className="mh26-search-field"><Search aria-hidden="true"/><input id="mh26-query" value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>{if(e.key==="Escape"){setFocused(false);(e.currentTarget as HTMLInputElement).blur()}}} placeholder="Busque arroz, café, leite…" autoComplete="off" inputMode="search" role="combobox" aria-expanded={open} aria-controls="mh26-search-results"/>{query&&<button className="mh26-search-clear" type="button" aria-label="Limpar pesquisa" onClick={()=>setQuery("")}><X aria-hidden="true"/></button>}<button className="mh26-search-submit" type="submit">Buscar</button></div>

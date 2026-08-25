@@ -1,5 +1,5 @@
 @media (max-width:767px){
-  .mh26-page{--mh-ink:#102832;--mh-muted:#60747c;--mh-line:#dbe7e3;--mh-surface:#fff;--mh-green:#087967;--mh-green-dark:#075b50;min-height:100dvh;padding-bottom:calc(84px + env(safe-area-inset-bottom));overflow-x:clip;background:linear-gradient(180deg,#edf5f2 0,#f7f9f8 360px);color:var(--mh-ink);font-family:Inter,system-ui,sans-serif;overscroll-behavior-y:contain}.mh26-page *{box-sizing:border-box}.mh26-page a{text-decoration:none;color:inherit}.mh26-page :is(a,button,input){touch-action:manipulation}.mh26-page :is(a,button,input):focus-visible{outline:3px solid #f2b84b;outline-offset:2px}
+  .mh26-page{--mh-ink:#102832;--mh-muted:#60747c;--mh-line:#dbe7e3;--mh-surface:#fff;--mh-green:#087967;--mh-green-dark:#075b50;min-height:100dvh;padding-bottom:calc(84px + env(safe-area-inset-bottom));overflow-x:clip;background:linear-gradient(180deg,#edf5f2 0,#f7f9f8 360px);color:var(--mh-ink);font-family:var(--pc-font-body,"Manrope Variable"),system-ui,sans-serif;overscroll-behavior-y:contain}.mh26-page *{box-sizing:border-box}.mh26-page a{text-decoration:none;color:inherit}.mh26-page :is(a,button,input){touch-action:manipulation}.mh26-page :is(a,button,input):focus-visible{outline:3px solid #f2b84b;outline-offset:2px}
   .mh26-header{position:relative;z-index:900;background:rgba(255,255,255,.98);border-bottom:1px solid rgba(196,215,209,.85)}.mh26-header-row{height:62px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px}.mh26-logo{min-width:0;display:flex;align-items:center;flex:1}.mh26-logo img{display:block;width:auto;height:52px;max-width:146px;object-fit:contain}.mh26-head-actions{display:flex;align-items:center;gap:7px;flex:none}.mh26-head-actions>a,.mh26-theme{width:44px;height:44px;display:grid;place-items:center;flex:0 0 44px;border:1px solid var(--mh-line);border-radius:14px;background:#f8fbfa;color:var(--mh-green-dark);box-shadow:0 3px 12px rgba(20,50,46,.06)}.mh26-theme{padding:0;cursor:pointer}.mh26-head-actions>a svg,.mh26-theme svg{width:20px;height:20px;stroke-width:2.2}
   .mh26-head-actions .pc-radio{width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;padding:4px!important;overflow:hidden!important;flex:0 0 44px!important;border-radius:14px!important}.mh26-head-actions .pc-radio__play{display:block!important}.mh26-head-actions .pc-radio__control{width:36px!important;height:36px!important;min-width:36px!important;border-radius:11px!important}.mh26-head-actions .pc-radio__copy,.mh26-head-actions .pc-radio__signal,.mh26-head-actions .pc-radio__volume,.mh26-head-actions .pc-radio__track{display:none!important}.mh26-head-actions .pc-radio.is-playing{width:44px!important;min-width:44px!important;max-width:44px!important;padding:4px!important}
   .mh26-hero{position:relative;z-index:50;padding:22px 16px 20px;overflow:visible;background:linear-gradient(100deg,rgb(5 28 36 / 96%) 0%,rgb(7 48 55 / 88%) 52%,rgb(8 82 72 / 58%) 100%),url('/hero-feijo-real-shopper-2026.webp') 72% center/cover no-repeat;color:#fff;box-shadow:inset 0 -1px 0 rgb(255 255 255 / 8%)}.mh26-hero::after{content:"";position:absolute;right:-72px;top:-78px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(91,207,180,.2),transparent 68%);pointer-events:none}.mh26-hero-copy{position:relative;z-index:1}.mh26-verified-badge{min-height:32px;display:inline-flex!important;align-items:center;gap:8px;padding:3px 10px 3px 5px;border:1px solid rgba(194,239,228,.34);border-radius:999px;background:rgba(255,255,255,.1);color:#e3fbf5;font-size:9.5px;letter-spacing:.075em;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}.mh26-verified-badge b{font:inherit;font-weight:900;white-space:nowrap}.mh26-verified-icon{width:23px!important;height:23px!important;min-width:23px!important;display:grid!important;place-items:center!important;overflow:visible!important;border-radius:50%;background:#65d4ba!important;color:#073c38!important;visibility:visible!important;opacity:1!important}.mh26-verified-icon svg{width:15px!important;height:15px!important;display:block!important;overflow:visible!important;color:inherit!important;stroke:currentColor!important;stroke-width:2.7!important;visibility:visible!important;opacity:1!important}.mh26-hero h1{max-width:12ch;margin:11px 0 8px;font-family:Outfit,Inter,sans-serif;font-size:clamp(2.15rem,10.8vw,3rem);font-weight:760;line-height:1;letter-spacing:-.045em;text-wrap:balance;text-shadow:0 3px 18px rgb(0 0 0 / 34%)}.mh26-hero p{max-width:34rem;margin:0 0 17px;color:#e2f0ed;font-size:14px;line-height:1.5;text-shadow:0 2px 10px rgb(0 0 0 / 35%)}
@@ -88,7 +88,7 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
 
 /* Paleta canônica Mercado de Feijó — alinhada à home web. */
 @media(max-width:767px){
-  .mh26-page{--mh-ink:#17251d;--mh-muted:#5b665c;--mh-line:#ddd6c4;--mh-surface:#fff;--mh-green:#2f6f4f;--mh-green-dark:#1f4d37;background:linear-gradient(180deg,#f6f2e8 0,#fbf8f1 300px,#f2ede0 100%);color:var(--mh-ink);font-family:"Inter Variable",Inter,system-ui,sans-serif}
+  .mh26-page{--mh-ink:#17251d;--mh-muted:#5b665c;--mh-line:#ddd6c4;--mh-surface:#fff;--mh-green:#2f6f4f;--mh-green-dark:#1f4d37;background:linear-gradient(180deg,#f6f2e8 0,#fbf8f1 300px,#f2ede0 100%);color:var(--mh-ink);font-family:var(--pc-font-body,"Manrope Variable"),system-ui,sans-serif}
   .mh26-page :is(.mh26-hero h1,.mh26-section h2,.mh26-local h2){font-family:"Manrope Variable",Manrope,sans-serif}
   .mh26-page :is(a,button,input):focus-visible{outline-color:#d9932c}
   .mh26-header{border-color:#ddd6c4;background:rgb(255 253 248 / 98%)}
@@ -114,4 +114,26 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   .mh26-head-actions .pc-radio.has-track .pc-radio__track small{display:none!important}
   .mh26-head-actions .pc-radio.has-track .pc-radio__track strong{overflow:hidden!important;font-size:10px!important;font-weight:750!important;line-height:1.25!important;text-align:right!important;text-overflow:ellipsis!important;white-space:nowrap!important}
   html[data-theme="dark"] .mh26-head-actions .pc-radio.has-track .pc-radio__track{background:rgba(23,44,46,.94)!important;color:#dbe9e6!important}
+}
+
+/* Hero mobile canônica. Mantida no arquivo proprietário para que nenhuma
+   regra histórica recupere a fotografia anterior durante a composição. */
+@media(max-width:767px){
+  .mh26-header-row{height:66px}
+  .mh26-logo img{height:60px;max-width:172px}
+  .mh26-hero{
+    padding-top:18px;
+    background:
+      linear-gradient(100deg,rgb(18 54 36 / 97%) 0%,rgb(20 61 41 / 87%) 50%,rgb(20 61 41 / 42%) 100%),
+      url('/hero-mulher-compras-celular-2026.webp?v=3') 70% center/cover no-repeat;
+  }
+  .mh26-hero-copy h1{margin-top:14px}
+  html[data-theme="dark"] .mh26-hero{
+    background:
+      linear-gradient(100deg,rgb(24 29 33 / 98%) 0%,rgb(29 35 39 / 90%) 52%,rgb(31 38 41 / 54%) 100%),
+      url('/hero-mulher-compras-celular-2026.webp?v=3') 70% center/cover no-repeat;
+  }
+}
+@media(max-width:370px){
+  .mh26-logo img{height:57px;max-width:150px}
 }

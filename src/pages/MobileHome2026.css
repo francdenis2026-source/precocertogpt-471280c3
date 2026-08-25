@@ -96,3 +96,20 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   .mh26-footer>small{color:#c9d9d0;font-size:9.5px;text-align:center}
   html[data-theme="dark"] .mh26-footer{background:linear-gradient(110deg,#13291d,#193523)}
 }
+
+
+/* Feed modular em cartões empilhados, inspirado em grandes marketplaces. */
+@media(max-width:767px){
+  .mh26-page{--mh-stack-gap:10px;background:var(--mh-bg,#eee9dc)}
+  .mh26-page>main{display:grid;gap:var(--mh-stack-gap);padding-bottom:4px}
+  .mh26-hero{z-index:3;margin-bottom:0;padding-bottom:30px;border-radius:0 0 24px 24px;box-shadow:0 12px 28px rgb(23 41 30 / 18%)}
+  .mh26-actions{position:relative;z-index:4;margin:-22px 10px 0;padding:12px;border:1px solid var(--mh-line);border-radius:21px;background:var(--mh-surface);box-shadow:0 12px 28px rgb(23 41 30 / 13%)}
+  .mh26-section{margin:0 10px;padding:17px 12px 13px;border:1px solid var(--mh-line);border-radius:21px;background:var(--mh-surface);box-shadow:0 8px 22px rgb(23 41 30 / 9%)}
+  .mh26-section>header{padding-inline:2px}
+  .mh26-local{margin:0 10px;padding:18px;border-radius:21px;box-shadow:0 10px 25px rgb(23 41 30 / 15%)}
+  .mh26-product{box-shadow:0 4px 14px rgb(23 41 30 / 7%);transition:transform 180ms ease,box-shadow 180ms ease}
+  .mh26-product:active,.mh26-actions>a:active{transform:scale(.985)}
+  .mh26-footer{margin-top:10px}
+  html[data-theme="dark"] .mh26-page{--mh-bg:#0d181e}
+  html[data-theme="dark"] .mh26-actions,html[data-theme="dark"] .mh26-section{box-shadow:0 12px 28px rgb(0 0 0 / 24%)}
+}

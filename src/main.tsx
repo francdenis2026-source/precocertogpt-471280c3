@@ -4,13 +4,13 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/outfit";
 import "@fontsource-variable/manrope";
 import "./styles/AppReset.css";
-import "./styles/NoDecorativeImagery2026.css";
 import App from "./App";
 import { initializeSiteTheme } from "./lib/siteTheme";
 import "./reference/DesignSystem2.css";
 import "./reference/DesignSystem2Experience.css";
 import "./reference/GlobalMineralDark2026.css";
 import "./reference/HomepageVisualRefinement2026.css";
+import "./styles/NoDecorativeImagery2026.css";
 
 initializeSiteTheme();
 

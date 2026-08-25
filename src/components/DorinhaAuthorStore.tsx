@@ -407,7 +407,7 @@ export function DorinhaAuthorStore() {
           </div>
         )}
       </div>
-      <p style={s.sourceNote}>A disponibilidade, o formato e os valores praticados em lojas externas são definidos pelas próprias plataformas e podem mudar sem aviso.</p>
+      <p style={s.sourceNote}>A disponibilidade, o formato e os valores praticados em estabelecimentos externos são definidos pelas próprias plataformas e podem mudar sem aviso.</p>
     </section>
 
     <section id="contato" style={s.contactWrap}>

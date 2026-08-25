@@ -4,8 +4,8 @@
   "description": "Economia real em Feijó — Compare preços e compre online.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#05264A",
-  "theme_color": "#05264A",
+  "background_color": "#F4F6F5",
+  "theme_color": "#17633F",
   "orientation": "portrait",
   "icons": [
     {

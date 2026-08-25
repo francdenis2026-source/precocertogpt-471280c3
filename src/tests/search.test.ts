@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { normalize } from '../data/remoteCatalog';
-import { findSimilarProducts, normalizeSearchText, searchProducts, suggestProducts } from '../lib/productSearch';
+import { buildComparableOffers, findSimilarProducts, isEquivalentProduct, normalizeSearchText, searchProducts, suggestProducts } from '../lib/productSearch';
 
 
 describe('Normalização de Busca', () => {
@@ -56,6 +56,29 @@ describe('Busca de produtos por relevância', () => {
     expect(suggestions.filter(p => p.name === 'Arroz Tio João Tipo 1')).toHaveLength(1);
     expect(suggestions[0].minPrice).toBe(27.9);
   });
+
+  it('trata marcas popularizadas e nomes genéricos como a mesma intenção de busca', () => {
+    const bebidas = [
+      { ...base, id: 20, name: 'Nescau 400g', brand: 'Nestlé', category: 'Bebidas', size: '400 g' },
+      { ...base, id: 21, name: 'Achocolatado 3 Corações 400g', brand: '3 Corações', category: 'Mercearia', size: '400 g' },
+      { ...base, id: 22, name: 'Chocolate em Pó 50% 400g', brand: 'Marca', category: 'Mercearia', size: '400 g' },
+    ];
+    expect(searchProducts(bebidas, 'nescau').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+    expect(searchProducts(bebidas, 'achocolatado').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+    expect(searchProducts(bebidas, 'achocolatado em pó 400g').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+    expect(searchProducts(bebidas, 'achocolatado').map(product => product.id)).not.toContain(22);
+    expect(suggestProducts(bebidas, 'achocolatado').map(product => product.id)).toEqual(expect.arrayContaining([20, 21]));
+  });
+
+  it('reconhece outros sinônimos comerciais seguros', () => {
+    const aliases = [
+      { ...base, id: 30, name: 'Miojo Nissin Galinha 85g', brand: 'Nissin', size: '85 g' },
+      { ...base, id: 31, name: 'Macarrão Instantâneo Carne 85g', brand: 'Outra', size: '85 g' },
+      { ...base, id: 32, name: 'Amido de Milho 500g', brand: 'Marca', size: '500 g' },
+    ];
+    expect(searchProducts(aliases, 'macarrão instantâneo').map(product => product.id)).toEqual(expect.arrayContaining([30, 31]));
+    expect(searchProducts(aliases, 'maizena').map(product => product.id)).toContain(32);
+  });
 });
 
 describe('Produtos similares', () => {
@@ -91,6 +114,59 @@ describe('Produtos similares', () => {
   it('remove cadastros duplicados do mesmo produto', () => {
     const duplicado = { ...arroz, id: 2, minPrice: .9 };
     expect(findSimilarProducts([arroz, duplicado], arroz)).toEqual([]);
+  });
+});
+
+describe('Ranking de preços equivalentes', () => {
+  const base = {
+    slug: 'arroz-a', category: 'Mercearia', size: '1 kg', unit: 'pacote',
+    minPrice: 8, avgPrice: 8, maxPrice: 8, storeCount: 1,
+    establishmentId: 1, establishmentSlug: 'loja-a', establishment: 'Loja A',
+    neighborhood: 'Centro', storeColor: '#000', capturedAt: new Date().toISOString(),
+  };
+  const referencia = { ...base, id: 1, name: 'Arroz Branco Marca A', brand: 'Marca A' };
+
+  it('ignora a marca, mas exige família e medida compatíveis', () => {
+    const outraMarca = { ...base, id: 2, name: 'Arroz Branco Marca B', brand: 'Marca B', size: '1000 g' };
+    const pacoteMaior = { ...base, id: 3, name: 'Arroz Branco Marca C', brand: 'Marca C', size: '5 kg' };
+    const outroProduto = { ...base, id: 4, name: 'Feijão Carioca Marca D', brand: 'Marca D' };
+    expect(isEquivalentProduct(referencia, outraMarca)).toBe(true);
+    expect(isEquivalentProduct(referencia, pacoteMaior)).toBe(false);
+    expect(isEquivalentProduct(referencia, outroProduto)).toBe(false);
+  });
+
+  it('inclui outros estabelecimentos, ordena por preço e mantém a melhor oferta de cada loja', () => {
+    const equivalente = {
+      ...base, id: 2, slug: 'arroz-b', name: 'Arroz Branco Marca B', brand: 'Marca B', size: '1000 g',
+      establishmentId: 2, establishmentSlug: 'loja-b', establishment: 'Loja B', minPrice: 6.5,
+      offers: [
+        { establishmentId: 2, establishmentSlug: 'loja-b', establishment: 'Loja B', neighborhood: 'Centro', storeColor: '#111', value: 6.5, capturedAt: base.capturedAt },
+        { establishmentId: 1, establishmentSlug: 'loja-a', establishment: 'Loja A', neighborhood: 'Centro', storeColor: '#000', value: 7.5, capturedAt: base.capturedAt },
+      ],
+    };
+    const ranking = buildComparableOffers([referencia, equivalente], referencia);
+    expect(ranking.map(item => [item.establishment, item.value])).toEqual([['Loja B', 6.5], ['Loja A', 7.5]]);
+    expect(ranking[0].productBrand).toBe('Marca B');
+  });
+
+  it('não mistura leite em pó com derivados de leite de mesma gramagem', () => {
+    const leiteEmPo = { ...base, id: 10, name: 'LEITE EM PÓ DOBOM 400G', brand: 'Dobom', size: '400 g', category: 'Laticínios' };
+    const doceDeLeite = { ...base, id: 11, name: 'Doce de Leite Aurea 400g', brand: 'Aurea', size: '400 g', category: 'Laticínios' };
+    const condensado = { ...base, id: 12, name: 'Leite Condensado 395g', brand: 'Italac', size: '395 g', category: 'Laticínios' };
+    const leiteOutraMarca = { ...base, id: 13, name: 'Leite em Pó Integral 400g', brand: 'Outra', size: '400 g', category: 'Laticínios' };
+    expect(isEquivalentProduct(leiteEmPo, doceDeLeite)).toBe(false);
+    expect(isEquivalentProduct(leiteEmPo, condensado)).toBe(false);
+    expect(isEquivalentProduct(leiteEmPo, leiteOutraMarca)).toBe(true);
+  });
+
+  it('compara Nescau e achocolatado somente quando a medida é compatível', () => {
+    const nescau = { ...base, id: 20, name: 'Nescau 400g', brand: 'Nestlé', size: '400 g', category: 'Bebidas' };
+    const equivalente = { ...base, id: 21, name: 'Achocolatado 3 Corações 400g', brand: '3 Corações', size: '400 g', category: 'Mercearia' };
+    const maior = { ...base, id: 22, name: 'Achocolatado 3 Corações 700g', brand: '3 Corações', size: '700 g', category: 'Mercearia' };
+    const chocolate = { ...base, id: 23, name: 'Chocolate em Pó 50% 400g', brand: 'Outra', size: '400 g', category: 'Mercearia' };
+    expect(isEquivalentProduct(nescau, equivalente)).toBe(true);
+    expect(isEquivalentProduct(nescau, maior)).toBe(false);
+    expect(isEquivalentProduct(nescau, chocolate)).toBe(false);
   });
 });
 

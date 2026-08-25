@@ -1,0 +1,128 @@
+/* UI/UX Pro Max — global product system. Imported last on purpose. */
+:root {
+  --ux-primary: #12344d;
+  --ux-primary-strong: #0b2438;
+  --ux-accent: #f59e0b;
+  --ux-success: #0f766e;
+  --ux-canvas: #f7f9fb;
+  --ux-surface: #ffffff;
+  --ux-surface-muted: #eef3f6;
+  --ux-text: #0f172a;
+  --ux-text-muted: #526273;
+  --ux-border: #d8e1e7;
+  --ux-danger: #b42318;
+  --ux-radius-sm: 10px;
+  --ux-radius-md: 16px;
+  --ux-radius-lg: 24px;
+  --ux-shadow-sm: 0 1px 2px rgb(15 23 42 / 5%);
+  --ux-shadow-md: 0 12px 30px rgb(15 23 42 / 8%);
+  --ux-shadow-lg: 0 24px 70px rgb(2 18 32 / 18%);
+  --ux-content: 1200px;
+  --ux-gutter: clamp(1rem, 3vw, 2rem);
+  --ux-transition: 180ms ease;
+}
+
+html { overflow-x: clip; scroll-behavior: smooth; }
+body { min-width: 320px; background: var(--ux-canvas); color: var(--ux-text); text-rendering: optimizeLegibility; }
+body, button, input, select, textarea { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+h1, h2, h3, h4, h5, h6 { font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.025em; text-wrap: balance; }
+p { text-wrap: pretty; }
+img, svg, video { max-width: 100%; }
+
+.pc-skip-link:focus { top: .75rem !important; left: .75rem !important; z-index: 100000 !important; padding: .75rem 1rem !important; border-radius: var(--ux-radius-sm); background: var(--ux-accent) !important; color: #111827 !important; font-weight: 800; }
+
+:where(a, button, input, select, textarea, summary, [role="button"], [tabindex]):focus-visible {
+  outline: 3px solid var(--ux-accent) !important;
+  outline-offset: 3px !important;
+}
+:where(button, [role="button"], summary, select, a[href]) { cursor: pointer; }
+:where(button, input, select, textarea) { font-size: max(16px, 1em); }
+:where(button, input, select) { min-height: 44px; }
+:where(button, a, input, select, textarea) { transition: border-color var(--ux-transition), background-color var(--ux-transition), color var(--ux-transition), box-shadow var(--ux-transition), opacity var(--ux-transition); }
+:where(button, input, select, textarea):disabled { cursor: not-allowed; opacity: .58; }
+
+/* One shared visual grammar across public, commerce, culture and account pages. */
+:where(.ref-page, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .pc-info-page) {
+  min-height: 100svh;
+  overflow-x: clip;
+  background: var(--ux-canvas);
+  color: var(--ux-text);
+}
+
+:where(.ref-shell, .search26-shell, .sector-hub__shell, .store-pro-shell, .sf-shell, .basket-shell, .merchant-shell, .culture-profile-shell) {
+  width: min(calc(100% - 2 * var(--ux-gutter)), var(--ux-content));
+  margin-inline: auto;
+}
+
+/* Consistent information surfaces without making every region look clickable. */
+:where(.ref-card, .ref-info, .ref-auth__card, .ref-store-card, .ref-live-card, .ref-product-dialog, .store-pro-notice, .store-pro-summary, .store-pro-card, .sf-card, .sf-category-panel, .basket-card, .merchant-card, .admin-card, .culture-profile-note) {
+  border: 1px solid var(--ux-border);
+  border-radius: var(--ux-radius-md);
+  box-shadow: var(--ux-shadow-sm);
+}
+
+:where(.ref-card, .ref-info, .ref-auth__card, .ref-store-card, .ref-live-card, .store-pro-notice, .store-pro-summary, .store-pro-card, .sf-card, .sf-category-panel, .basket-card, .merchant-card, .admin-card, .culture-profile-note):hover {
+  border-color: color-mix(in srgb, var(--ux-primary) 28%, var(--ux-border));
+  box-shadow: var(--ux-shadow-md);
+}
+
+/* Forms: clear affordance, comfortable touch target and no mobile zoom. */
+:where(.ref-page, .search26-page, .sector-page, .sector-hub, .store-pro-page, .storefront, .basket-page, .merchant-page, .dorinha-pro, .ref-admin) :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  min-height: 46px;
+  border: 1px solid var(--ux-border);
+  border-radius: var(--ux-radius-sm);
+  background: var(--ux-surface);
+  color: var(--ux-text);
+}
+:where(.ref-page, .search26-page, .sector-page, .sector-hub, .store-pro-page, .storefront, .basket-page, .merchant-page, .dorinha-pro, .ref-admin) :where(input, select, textarea):focus {
+  border-color: var(--ux-primary);
+  box-shadow: 0 0 0 4px rgb(245 158 11 / 16%);
+}
+
+/* Dialogs remain readable and usable on short and narrow screens. */
+:where(.ref-product-dialog, .pcn-modal__card, .th-product-modal, .pc-search-overlay__panel, [role="dialog"] > article) {
+  max-height: min(88svh, 760px);
+  overflow: auto;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: var(--ux-radius-lg);
+  box-shadow: var(--ux-shadow-lg);
+}
+:where(.ref-product-dialog__backdrop, .pcn-modal__backdrop, .pc-search-overlay__backdrop) { background: rgb(2 18 32 / 62%); backdrop-filter: blur(6px); }
+
+/* Dense data remains scannable instead of overflowing. */
+:where(.admin-table, .ref-table, .basket-table) { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+:where(.admin-table, .ref-table, .basket-table) :where(th, td, .admin-tr > *) { min-width: 7rem; }
+
+/* Price semantics: success green only for savings / verified best price. */
+:where(.ref-price-value, .sf-price, .store-pro-price, .pc-price-line strong, .is-best-price, .price-saving) { font-variant-numeric: tabular-nums; }
+:where(.is-best-price, .price-saving, .ref-economy strong) { color: var(--ux-success); }
+
+/* Dark mode keeps contrast without returning to a flat charcoal UI. */
+:where(html[data-theme="dark"], body[data-theme="dark"], .dark) {
+  --ux-canvas: #071927;
+  --ux-surface: #0d2536;
+  --ux-surface-muted: #133044;
+  --ux-text: #f8fafc;
+  --ux-text-muted: #b9c8d4;
+  --ux-border: #29465a;
+  --ux-shadow-sm: 0 1px 2px rgb(0 0 0 / 22%);
+  --ux-shadow-md: 0 14px 34px rgb(0 0 0 / 25%);
+}
+
+@media (max-width: 767px) {
+  :root { --ux-gutter: .875rem; --ux-radius-lg: 18px; }
+  h1 { font-size: clamp(2rem, 10vw, 3.25rem); line-height: 1.02; }
+  h2 { font-size: clamp(1.45rem, 7vw, 2.25rem); line-height: 1.12; }
+  :where(.ref-card, .ref-info, .ref-auth__card, .ref-store-card, .store-pro-notice, .store-pro-summary, .sf-card, .basket-card, .merchant-card, .admin-card) { border-radius: 14px; }
+  :where(.admin-tr, .ref-table-row) { min-width: 680px; }
+  :where(.pcn-mobile-dock, .ref-mobile-dock) { padding-bottom: max(.45rem, env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+@media (forced-colors: active) {
+  :where(button, a, input, select, textarea, [role="button"]) { border: 1px solid ButtonText; }
+}

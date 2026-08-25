@@ -1,0 +1,1702 @@
+/* Entrada única e ordenada do sistema visual público do PreçoCerto. */
+@import "./UiUxProMaxSystem2026.css";
+@import "./UiStylingSystem2026.css";
+@import "./UiTypographySystem2026.css";
+@import "./DesignTasteFrontendSystem2026.css";
+@import "./EmilDesignEngineeringSystem2026.css";
+@import "./AppleDesignSystem2026.css";
+@import "./BenciumInnovativeUxSystem2026.css";
+@import "./AnimationOpportunities2026.css";
+
+@media (max-width: 767px) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+    .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+    .dorinha-pro, .culture-profile-page, .ref-page)
+    :where(button, [role="button"], a.button, a[class*="button"], a[class*="action"]) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+
+/* Auditoria de legibilidade e contraste — camada final ativa, sem alcançar o admin. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) {
+  --pc-gold: #9a570f;
+  --pc-green: #147a43;
+  --pc-border: #c7d0d6;
+  --pc-border-strong: #aebbc3;
+}
+
+html[data-theme="dark"] :where(.hp-home, .search26-page, .sector-page, .sector-hub,
+  .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket,
+  .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) {
+  --pc-gold: #f4bd63;
+  --pc-green: #55d895;
+  --pc-border: #41515c;
+  --pc-border-strong: #596b77;
+}
+
+/* Lucide é quadrado. Neutraliza o atributo height=24 quando uma regra histórica
+   altera apenas width e evita ícones ovais, cortados ou aparentemente vazios. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page) svg.lucide {
+  height: auto;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+}
+
+/* Nenhuma informação pública essencial fica abaixo de 12 px. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page)
+  :where(small, figcaption, caption, time, [class*="caption"], [class*="eyebrow"],
+    [class*="kicker"], [class*="meta"]) {
+  font-size: 0.75rem !important;
+  line-height: 1.45;
+}
+
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page)
+  :where(button, label, select, nav a, [role="button"]) {
+  font-size: max(0.8125rem, 1em);
+}
+
+/* Correções específicas da homepage medida na auditoria. */
+.hp-home {
+  --hp-price: #147a43;
+  --hp-gold: #9a570f;
+  --hp-line: #c7d0d6;
+}
+html[data-theme="dark"] .hp-home {
+  --hp-price: #55d895;
+  --hp-gold: #f4bd63;
+  --hp-line: #41515c;
+}
+.hp-quickcats a svg.lucide,
+.hp-sector-grid svg.lucide,
+.hp-footer svg.lucide {
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+}
+.hp-footer svg.lucide { color: #f4bd63; }
+
+
+/* Auditoria expandida: inclui todas as áreas operacionais e administrativas. */
+:where(.admin-shell, .admin-page, .acc-shell, .avs-shell, .acw-shell,
+  .merchant-dashboard, .dashboard-page, [class*="admin-"]) svg.lucide {
+  height: auto;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+}
+
+:where(.admin-shell, .admin-page, .acc-shell, .avs-shell, .acw-shell,
+  .merchant-dashboard, .dashboard-page)
+  :where(small, figcaption, caption, time, [class*="caption"], [class*="eyebrow"],
+    [class*="kicker"], [class*="meta"], [class*="label"]) {
+  font-size: 0.75rem !important;
+  line-height: 1.45;
+}
+
+:where(.admin-shell, .admin-page, .acc-shell, .avs-shell, .acw-shell,
+  .merchant-dashboard, .dashboard-page)
+  :where(button, label, select, nav a, [role="button"]) {
+  font-size: max(0.8125rem, 1em);
+}
+
+/* Heros compactos: preservam imagem e hierarquia sem ocupar a janela inteira. */
+.hp-home .hp-hero,
+.hp-home .hp-hero__grid {
+  min-height: clamp(430px, 54svh, 500px) !important;
+}
+:where(.sector-hero, .ref-hero, .store-pro-hero, .pdx-hero, .merchant-hero,
+  .culture-hero, .culture-profile-hero, .dorinha-editorial__hero,
+  .search26-hero, .basket-hero, .smart-basket-hero) {
+  min-height: clamp(250px, 34svh, 390px) !important;
+}
+:where(.sector-hero__grid, .ref-hero__grid, .store-pro-hero__grid,
+  .pdx-hero__grid, .merchant-hero__grid, .culture-hero__grid,
+  .search26-hero__grid) {
+  min-height: inherit !important;
+  padding-block: clamp(2rem, 5svh, 3.75rem) !important;
+}
+
+/* Remove o traço diagonal verde criado pela textura editorial do hero. */
+.hp-home .hp-hero::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+.hp-home .hp-hero::after {
+  background: none !important;
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-hero,
+  .hp-home .hp-hero__grid {
+    min-height: auto !important;
+  }
+  :where(.sector-hero, .ref-hero, .store-pro-hero, .pdx-hero, .merchant-hero,
+    .culture-hero, .culture-profile-hero, .dorinha-editorial__hero,
+    .search26-hero, .basket-hero, .smart-basket-hero) {
+    min-height: auto !important;
+  }
+}
+
+
+/* Ícones: remove a moldura circular herdada que ocultava o desenho Lucide. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page,
+  .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page,
+  .dorinha-pro, .culture-profile-page, .ref-page, .admin-shell, .admin-page,
+  .acc-shell, .avs-shell, .acw-shell) svg.lucide {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  stroke: currentColor !important;
+}
+.hp-quickcats a svg.lucide {
+  width: 16px !important;
+  height: 16px !important;
+  color: #f1b451 !important;
+}
+.hp-sector-grid i svg.lucide,
+.hp-sector-grid > a > svg.lucide {
+  width: 20px !important;
+  height: 20px !important;
+}
+.hp-story li svg.lucide,
+.hp-story__content > a svg.lucide {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Fotografia da seção “Da pesquisa à escolha”: visível sem competir com a cópia. */
+.hp-home .hp-story__media {
+  opacity: .48 !important;
+  filter: saturate(.88) contrast(1.04) brightness(.98) !important;
+}
+.hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--taste-canvas) 96%, transparent) 0%,
+      color-mix(in srgb, var(--taste-canvas) 91%, transparent) 43%,
+      color-mix(in srgb, var(--taste-canvas) 58%, transparent) 67%,
+      color-mix(in srgb, var(--taste-canvas) 12%, transparent) 100%) !important;
+}
+
+html[data-theme="dark"] .hp-home .hp-story__media {
+  opacity: .52 !important;
+  filter: saturate(.92) contrast(1.03) brightness(1.18) !important;
+}
+html[data-theme="dark"] .hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 97%) 0%,
+      rgb(13 23 31 / 91%) 43%,
+      rgb(13 23 31 / 58%) 68%,
+      rgb(13 23 31 / 14%) 100%) !important;
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-story__media {
+    opacity: .36 !important;
+    filter: saturate(.84) contrast(1.03) brightness(1.04) !important;
+  }
+  html[data-theme="dark"] .hp-home .hp-story__media {
+    opacity: .42 !important;
+    filter: saturate(.88) contrast(1.02) brightness(1.16) !important;
+  }
+  .hp-home .hp-story::after,
+  html[data-theme="dark"] .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--taste-canvas) 72%, transparent) 0%,
+      var(--taste-canvas) 72%) !important;
+  }
+}
+
+
+/* Continuidade fotográfica entre o hero, categorias e vitrine de produtos. */
+.hp-home .hp-sectors,
+.hp-home .hp-offers {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--taste-paper);
+  background-image:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--taste-paper) 97%, transparent) 0%,
+      color-mix(in srgb, var(--taste-paper) 88%, transparent) 38%,
+      color-mix(in srgb, var(--taste-paper) 78%, transparent) 70%,
+      color-mix(in srgb, var(--taste-paper) 92%, transparent) 100%),
+    url("/compra-inteligente-profissional.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.hp-home .hp-sectors {
+  background-position: center 22%;
+  border-top: 1px solid color-mix(in srgb, var(--taste-line) 75%, transparent);
+}
+.hp-home .hp-offers {
+  background-position: center 78%;
+}
+.hp-home .hp-sectors::after,
+.hp-home .hp-offers::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 45%, color-mix(in srgb, var(--taste-paper) 55%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--taste-paper) 16%, transparent), color-mix(in srgb, var(--taste-paper) 72%, transparent));
+}
+.hp-home .hp-sectors > .hp-shell,
+.hp-home .hp-offers > .hp-shell {
+  position: relative;
+  z-index: 1;
+}
+
+html[data-theme="dark"] .hp-home .hp-sectors,
+html[data-theme="dark"] .hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 96%) 0%,
+      rgb(13 23 31 / 84%) 40%,
+      rgb(13 23 31 / 70%) 72%,
+      rgb(13 23 31 / 90%) 100%),
+    url("/compra-inteligente-profissional.webp");
+}
+html[data-theme="dark"] .hp-home .hp-sectors::after,
+html[data-theme="dark"] .hp-home .hp-offers::after {
+  background:
+    radial-gradient(circle at 10% 45%, rgb(13 23 31 / 42%), transparent 38%),
+    linear-gradient(180deg, rgb(13 23 31 / 6%), rgb(13 23 31 / 62%));
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-sectors,
+  .hp-home .hp-offers {
+    background-position: 68% center;
+    background-size: auto 100%;
+  }
+  .hp-home .hp-sectors {
+    background-image:
+      linear-gradient(90deg, color-mix(in srgb, var(--taste-paper) 96%, transparent), color-mix(in srgb, var(--taste-paper) 82%, transparent)),
+      url("/compra-inteligente-profissional.webp");
+  }
+  .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, color-mix(in srgb, var(--taste-paper) 94%, transparent), color-mix(in srgb, var(--taste-paper) 88%, transparent)),
+      url("/compra-inteligente-profissional.webp");
+  }
+}
+
+
+/* Refinamento fotográfico e microinterações — contraste equilibrado por tema. */
+.hp-home .hp-story__media {
+  opacity: .82 !important;
+  filter: saturate(1.02) contrast(1.09) brightness(.94) !important;
+  transform: scale(1.015);
+}
+.hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      rgb(244 242 237 / 91%) 0%,
+      rgb(244 242 237 / 78%) 36%,
+      rgb(244 242 237 / 45%) 56%,
+      rgb(244 242 237 / 12%) 76%,
+      transparent 100%) !important;
+}
+html[data-theme="dark"] .hp-home .hp-story__media {
+  opacity: .76 !important;
+  filter: saturate(1.08) contrast(1.08) brightness(1.08) !important;
+}
+html[data-theme="dark"] .hp-home .hp-story::after {
+  background:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 88%) 0%,
+      rgb(13 23 31 / 72%) 36%,
+      rgb(13 23 31 / 40%) 57%,
+      rgb(13 23 31 / 10%) 78%,
+      transparent 100%) !important;
+}
+
+/* A imagem de continuidade permanece visível, sem lavar o claro nem fechar o escuro. */
+.hp-home .hp-sectors,
+.hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 82%) 0%,
+      rgb(247 245 240 / 61%) 42%,
+      rgb(247 245 240 / 34%) 72%,
+      rgb(247 245 240 / 55%) 100%),
+    url("/compra-inteligente-profissional.webp");
+}
+.hp-home .hp-sectors::after,
+.hp-home .hp-offers::after {
+  background:
+    radial-gradient(circle at 8% 45%, rgb(247 245 240 / 30%), transparent 34%),
+    linear-gradient(180deg, rgb(247 245 240 / 8%), rgb(247 245 240 / 36%));
+}
+html[data-theme="dark"] .hp-home .hp-sectors,
+html[data-theme="dark"] .hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 78%) 0%,
+      rgb(13 23 31 / 56%) 42%,
+      rgb(13 23 31 / 30%) 72%,
+      rgb(13 23 31 / 48%) 100%),
+    url("/compra-inteligente-profissional.webp");
+}
+html[data-theme="dark"] .hp-home .hp-sectors::after,
+html[data-theme="dark"] .hp-home .hp-offers::after {
+  background:
+    radial-gradient(circle at 8% 45%, rgb(13 23 31 / 22%), transparent 34%),
+    linear-gradient(180deg, rgb(13 23 31 / 4%), rgb(13 23 31 / 30%));
+}
+
+/* Cards reativos: elevação curta, contorno cromático e brilho controlado. */
+.hp-home :where(.hp-sector-grid > *, .hp-offers article, .hp-story li) {
+  transition:
+    transform 180ms cubic-bezier(.2,.8,.2,1),
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+.hp-home :where(.hp-sector-grid > *, .hp-offers article):hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--pc-green) 58%, var(--taste-line));
+  box-shadow:
+    0 16px 34px rgb(11 45 62 / 14%),
+    0 0 0 1px color-mix(in srgb, var(--pc-green) 18%, transparent);
+}
+.hp-home .hp-sector-grid > *:nth-child(3n+2):hover {
+  border-color: color-mix(in srgb, var(--pc-gold) 66%, var(--taste-line));
+  box-shadow:
+    0 16px 34px rgb(11 45 62 / 14%),
+    0 0 0 1px color-mix(in srgb, var(--pc-gold) 24%, transparent);
+}
+.hp-home .hp-story li:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--pc-green) 42%, var(--taste-line));
+  background: color-mix(in srgb, var(--taste-paper) 94%, var(--pc-green));
+}
+
+/* Botões e links de ação: resposta visual clara no hover, clique e teclado. */
+.hp-home :where(button, a[role="button"], .hp-story__content > a, .hp-offers a) {
+  transition:
+    transform 160ms cubic-bezier(.2,.8,.2,1),
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.hp-home :where(button, a[role="button"], .hp-story__content > a):hover {
+  transform: translateY(-2px);
+  background-color: #147a43;
+  border-color: #147a43;
+  color: #fff;
+  box-shadow: 0 10px 22px rgb(20 122 67 / 24%);
+}
+.hp-home :where(button, a[role="button"], .hp-story__content > a):active {
+  transform: translateY(0) scale(.98);
+  box-shadow: 0 4px 10px rgb(20 122 67 / 18%);
+}
+.hp-home :where(button, a, [role="button"]):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--pc-gold) 74%, white);
+  outline-offset: 3px;
+  border-radius: max(6px, inherit);
+}
+.hp-home .hp-offers a:hover {
+  color: #147a43;
+}
+html[data-theme="dark"] .hp-home :where(.hp-sector-grid > *, .hp-offers article):hover {
+  box-shadow:
+    0 18px 38px rgb(0 0 0 / 34%),
+    0 0 0 1px color-mix(in srgb, var(--pc-green) 28%, transparent);
+}
+html[data-theme="dark"] .hp-home .hp-story li:hover {
+  background: color-mix(in srgb, var(--taste-paper) 92%, var(--pc-green));
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-story__media {
+    opacity: .62 !important;
+    filter: saturate(.98) contrast(1.07) brightness(.96) !important;
+  }
+  html[data-theme="dark"] .hp-home .hp-story__media {
+    opacity: .64 !important;
+    filter: saturate(1.04) contrast(1.06) brightness(1.07) !important;
+  }
+  .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      rgb(244 242 237 / 58%) 0%,
+      rgb(244 242 237 / 88%) 62%,
+      rgb(244 242 237 / 96%) 100%) !important;
+  }
+  html[data-theme="dark"] .hp-home .hp-story::after {
+    background: linear-gradient(180deg,
+      rgb(13 23 31 / 48%) 0%,
+      rgb(13 23 31 / 80%) 62%,
+      rgb(13 23 31 / 94%) 100%) !important;
+  }
+  .hp-home .hp-sectors,
+  .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(247 245 240 / 76%), rgb(247 245 240 / 52%)),
+      url("/compra-inteligente-profissional.webp");
+  }
+  html[data-theme="dark"] .hp-home .hp-sectors,
+  html[data-theme="dark"] .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(13 23 31 / 70%), rgb(13 23 31 / 46%)),
+      url("/compra-inteligente-profissional.webp");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-home :where(button, a, [role="button"], .hp-sector-grid > *, .hp-offers article, .hp-story li) {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* Imagens exclusivas por faixa: elimina repetição e cria narrativa local. */
+.hp-home .hp-sectors {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 88%) 0%,
+      rgb(247 245 240 / 70%) 38%,
+      rgb(247 245 240 / 34%) 72%,
+      rgb(247 245 240 / 52%) 100%),
+    url("/mercado-bairro-feijo-v1.webp");
+  background-position: center 54%;
+  background-size: cover;
+}
+.hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(247 245 240 / 84%) 0%,
+      rgb(247 245 240 / 66%) 40%,
+      rgb(247 245 240 / 30%) 76%,
+      rgb(247 245 240 / 48%) 100%),
+    url("/marketplace-local-profissional-v2.webp");
+  background-position: center 48%;
+  background-size: cover;
+}
+html[data-theme="dark"] .hp-home .hp-sectors {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 78%) 0%,
+      rgb(13 23 31 / 58%) 40%,
+      rgb(13 23 31 / 28%) 74%,
+      rgb(13 23 31 / 48%) 100%),
+    url("/mercado-bairro-feijo-v1.webp");
+}
+html[data-theme="dark"] .hp-home .hp-offers {
+  background-image:
+    linear-gradient(90deg,
+      rgb(13 23 31 / 76%) 0%,
+      rgb(13 23 31 / 54%) 42%,
+      rgb(13 23 31 / 26%) 76%,
+      rgb(13 23 31 / 46%) 100%),
+    url("/marketplace-local-profissional-v2.webp");
+}
+
+/* Rodapé editorial: substitui a faixa azul chapada por imagem com leitura segura. */
+.hp-home .hp-footer {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background-color: #071f35;
+  background-image:
+    linear-gradient(90deg,
+      rgb(7 31 53 / 90%) 0%,
+      rgb(7 31 53 / 78%) 38%,
+      rgb(7 31 53 / 42%) 68%,
+      rgb(7 31 53 / 22%) 100%),
+    url("/banners/feijo-community-band.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 62%;
+  border-top: 1px solid rgb(244 189 99 / 48%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%);
+}
+.hp-home .hp-footer :where(a, p, small, span) {
+  color: inherit;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 28%);
+}
+.hp-home .hp-footer a:hover {
+  color: #ffd993;
+}
+html[data-theme="dark"] .hp-home .hp-footer {
+  background-image:
+    linear-gradient(90deg,
+      rgb(4 18 31 / 84%) 0%,
+      rgb(4 18 31 / 68%) 40%,
+      rgb(4 18 31 / 34%) 72%,
+      rgb(4 18 31 / 18%) 100%),
+    url("/banners/feijo-community-band.webp");
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-sectors {
+    background-image:
+      linear-gradient(90deg, rgb(247 245 240 / 82%), rgb(247 245 240 / 54%)),
+      url("/mercado-bairro-feijo-v1.webp");
+    background-position: 64% center;
+  }
+  .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(247 245 240 / 80%), rgb(247 245 240 / 58%)),
+      url("/marketplace-local-profissional-v2.webp");
+    background-position: 58% center;
+  }
+  html[data-theme="dark"] .hp-home .hp-sectors {
+    background-image:
+      linear-gradient(90deg, rgb(13 23 31 / 74%), rgb(13 23 31 / 46%)),
+      url("/mercado-bairro-feijo-v1.webp");
+  }
+  html[data-theme="dark"] .hp-home .hp-offers {
+    background-image:
+      linear-gradient(90deg, rgb(13 23 31 / 72%), rgb(13 23 31 / 44%)),
+      url("/marketplace-local-profissional-v2.webp");
+  }
+  .hp-home .hp-footer,
+  html[data-theme="dark"] .hp-home .hp-footer {
+    background-position: 72% center;
+    background-image:
+      linear-gradient(90deg, rgb(5 24 42 / 90%), rgb(5 24 42 / 50%)),
+      url("/banners/feijo-community-band.webp");
+  }
+}
+
+
+/* Rodapé fotográfico exclusivo — substitui a ilustração anterior. */
+.hp-home .hp-footer,
+html[data-theme="dark"] .hp-home .hp-footer {
+  background-color: #071b2c;
+  background-image:
+    linear-gradient(90deg,
+      rgb(5 22 38 / 90%) 0%,
+      rgb(5 22 38 / 78%) 34%,
+      rgb(5 22 38 / 50%) 58%,
+      rgb(5 22 38 / 18%) 82%,
+      rgb(5 22 38 / 10%) 100%),
+    url("/footer-local-feijo-v2.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right 54%;
+}
+html[data-theme="dark"] .hp-home .hp-footer {
+  background-image:
+    linear-gradient(90deg,
+      rgb(3 14 25 / 88%) 0%,
+      rgb(3 14 25 / 72%) 36%,
+      rgb(3 14 25 / 42%) 60%,
+      rgb(3 14 25 / 12%) 84%,
+      rgb(3 14 25 / 8%) 100%),
+    url("/footer-local-feijo-v2.svg");
+}
+
+/* Header mais compacto, com leitura e alvos de interação maiores. */
+:root {
+  --pc-header-height: 64px;
+  --pc-header-height-scrolled: 56px;
+}
+.site-header,
+.site-header.site-header--absolute,
+.site-header.site-header--absolute.site-header--scrolled {
+  height: var(--pc-header-height) !important;
+  min-height: var(--pc-header-height) !important;
+}
+.site-header.site-header--scrolled {
+  height: var(--pc-header-height-scrolled) !important;
+  min-height: var(--pc-header-height-scrolled) !important;
+}
+.site-header .header-inner {
+  min-height: inherit !important;
+  padding-block: 4px !important;
+  gap: clamp(.75rem, 2vw, 1.5rem) !important;
+}
+.site-header .brand__logo-img {
+  height: 44px !important;
+  width: auto !important;
+}
+.site-header.site-header--scrolled .brand__logo-img {
+  height: 38px !important;
+}
+.site-header :where(nav a, button, [role="button"], .header-actions a) {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .875rem !important;
+  line-height: 1.15;
+  font-weight: 600 !important;
+}
+.site-header :where(nav, .header-actions) {
+  gap: clamp(.3rem, .8vw, .75rem) !important;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --pc-header-height: 60px;
+    --pc-header-height-scrolled: 54px;
+  }
+  .site-header .brand__logo-img {
+    height: 40px !important;
+  }
+  .site-header.site-header--scrolled .brand__logo-img {
+    height: 36px !important;
+  }
+  .site-header .header-inner {
+    padding-block: 3px !important;
+  }
+  .site-header :where(nav a, button, [role="button"], .header-actions a) {
+    min-height: 40px;
+    font-size: .875rem !important;
+  }
+  .hp-home .hp-footer,
+  html[data-theme="dark"] .hp-home .hp-footer {
+    background-position: 66% center;
+    background-image:
+      linear-gradient(90deg,
+        rgb(4 18 31 / 90%) 0%,
+        rgb(4 18 31 / 72%) 54%,
+        rgb(4 18 31 / 28%) 100%),
+      url("/footer-local-feijo-v2.svg");
+  }
+}
+
+
+/* Rodapé compacto: sem filete dourado e com contraste garantido. */
+.hp-home .hp-footer,
+html[data-theme="dark"] .hp-home .hp-footer {
+  min-height: 0 !important;
+  padding-block: clamp(1.25rem, 2.4vw, 2rem) !important;
+  border-top: 0 !important;
+  box-shadow: none !important;
+  background-image:
+    linear-gradient(90deg,
+      rgb(3 18 31 / 96%) 0%,
+      rgb(3 18 31 / 92%) 38%,
+      rgb(3 18 31 / 82%) 68%,
+      rgb(3 18 31 / 68%) 100%),
+    url("/footer-local-feijo-v2.svg");
+}
+.hp-home .hp-footer::before,
+.hp-home .hp-footer::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+}
+.hp-home .hp-footer > *,
+.hp-home .hp-footer :where(.hp-shell, [class*="footer-grid"], [class*="footer__grid"]) {
+  position: relative;
+  z-index: 1;
+}
+.hp-home .hp-footer :where(.hp-shell, [class*="footer-grid"], [class*="footer__grid"]) {
+  padding-block: 0 !important;
+  margin-block: 0 !important;
+  row-gap: clamp(.75rem, 1.6vw, 1.25rem) !important;
+}
+.hp-home .hp-footer :where(h2, h3, h4, strong, b, a) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 48%);
+}
+.hp-home .hp-footer :where(p, small, span, li, address) {
+  color: #dce9f1 !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 52%);
+}
+.hp-home .hp-footer :where(a, button):hover {
+  color: #ffd58a !important;
+}
+.hp-home .hp-footer :where(hr, [class*="divider"], [class*="separator"]) {
+  border-color: rgb(255 255 255 / 18%) !important;
+  background: rgb(255 255 255 / 18%) !important;
+}
+.hp-home .hp-footer :where(ul, p) {
+  margin-block: .25rem !important;
+}
+.hp-home .hp-footer :where(li) {
+  margin-block: .18rem !important;
+}
+
+@media (max-width: 767px) {
+  .hp-home .hp-footer,
+  html[data-theme="dark"] .hp-home .hp-footer {
+    padding-block: 1.125rem !important;
+    background-image:
+      linear-gradient(90deg,
+        rgb(3 18 31 / 96%) 0%,
+        rgb(3 18 31 / 88%) 62%,
+        rgb(3 18 31 / 72%) 100%),
+      url("/footer-local-feijo-v2.svg");
+  }
+}
+
+
+/* ============================================================
+   AUDITORIA VISUAL SISTÊMICA — páginas públicas
+   Petróleo = estrutura | Azul = ação | Âmbar = descoberta
+   Verde = economia/confirmado
+   ============================================================ */
+:root {
+  --audit-canvas: #f3f6f8;
+  --audit-surface: #ffffff;
+  --audit-surface-soft: #eaf0f4;
+  --audit-ink: #102332;
+  --audit-muted: #526675;
+  --audit-line: #c5d1d9;
+  --audit-petrol: #123f55;
+  --audit-petrol-strong: #0b2f42;
+  --audit-blue: #2868d8;
+  --audit-blue-soft: #e7efff;
+  --audit-amber: #a8640e;
+  --audit-amber-soft: #fff1d8;
+  --audit-green: #147a43;
+  --audit-green-soft: #e2f4e9;
+  --audit-shadow: 0 12px 30px rgb(16 35 50 / 9%);
+}
+html[data-theme="dark"] {
+  --audit-canvas: #0b1720;
+  --audit-surface: #142530;
+  --audit-surface-soft: #1b303d;
+  --audit-ink: #f2f6f8;
+  --audit-muted: #b6c5cf;
+  --audit-line: #395361;
+  --audit-petrol: #8dc4df;
+  --audit-petrol-strong: #071f30;
+  --audit-blue: #78a8ff;
+  --audit-blue-soft: #182d54;
+  --audit-amber: #ffc96f;
+  --audit-amber-soft: #45351c;
+  --audit-green: #62dfa0;
+  --audit-green-soft: #173b2a;
+  --audit-shadow: 0 16px 36px rgb(0 0 0 / 28%);
+}
+
+/* Fundos, texto e linhas coerentes nas áreas públicas. */
+:where(.hp-home, .search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page) {
+  color: var(--audit-ink);
+  --text: var(--audit-ink);
+  --muted: var(--audit-muted);
+  --border: var(--audit-line);
+  --surface: var(--audit-surface);
+  --background: var(--audit-canvas);
+}
+:where(.search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page) {
+  background-color: var(--audit-canvas) !important;
+}
+:where(.search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page)
+  :where(p, small, label, li, dd, figcaption, [class*="subtitle"], [class*="description"], [class*="meta"]) {
+  color: var(--audit-muted);
+}
+:where(.hp-home, .search26-page, .sector-hub, .ref-page, .sector-main,
+  .product-detail-page, .store-pro-page, .storefront, .pro-basket-shell,
+  .basket-page, .smart-basket, .pc-collab, .ref-info, .mo-page,
+  .dorinha-pro, .culture-profile-page)
+  :where(small, figcaption, time, [class*="eyebrow"], [class*="kicker"], [class*="meta"]) {
+  font-size: max(.75rem, 12px) !important;
+  line-height: 1.45 !important;
+}
+
+/* Headers públicos: mesma altura, leitura e contraste. */
+:where(.hp-header, .ref-header, .mo-head) {
+  min-height: 64px !important;
+  height: 64px !important;
+  background: color-mix(in srgb, var(--audit-surface) 94%, transparent) !important;
+  border-bottom: 1px solid var(--audit-line) !important;
+  box-shadow: 0 7px 20px rgb(16 35 50 / 7%) !important;
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+}
+:where(.hp-header__inner, .ref-header__inner, .mo-head .mo-shell) {
+  min-height: 64px !important;
+  height: 64px !important;
+  padding-block: 4px !important;
+}
+:where(.hp-header, .ref-header, .mo-head)
+  :where(a, button, [role="button"]) {
+  min-height: 40px;
+  font-size: .875rem !important;
+  font-weight: 650 !important;
+  color: var(--audit-ink);
+}
+:where(.hp-header, .ref-header, .mo-head)
+  :where(a, button, [role="button"]):hover {
+  color: var(--audit-blue);
+}
+.mo-head {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1200 !important;
+}
+
+/* Homepage: cards opacos e coloridos; fotografia não prejudica leitura. */
+.hp-home .hp-sector-grid > a {
+  background: color-mix(in srgb, var(--audit-surface) 95%, transparent) !important;
+  color: var(--audit-ink) !important;
+  border: 1px solid var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+  backdrop-filter: blur(12px);
+}
+.hp-home .hp-sector-grid > a :where(strong, b, span:first-of-type) {
+  color: var(--audit-ink) !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-sector-grid > a :where(small, p, span:last-child) {
+  color: var(--audit-muted) !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n+1) {
+  border-top: 3px solid var(--audit-amber) !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n+2) {
+  border-top: 3px solid var(--audit-blue) !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n+3) {
+  border-top: 3px solid var(--audit-green) !important;
+}
+.hp-home .hp-sector-grid > a:nth-child(4n) {
+  border-top: 3px solid var(--audit-petrol) !important;
+}
+.hp-home .hp-product-card {
+  background: color-mix(in srgb, var(--audit-surface) 97%, transparent) !important;
+  border: 1px solid var(--audit-line) !important;
+  color: var(--audit-ink) !important;
+  box-shadow: var(--audit-shadow);
+}
+.hp-home .hp-section-head :where(h2, h3) { color: var(--audit-ink) !important; }
+.hp-home .hp-section-head a { color: var(--audit-blue) !important; font-weight: 700; }
+
+/* Hub de categorias: identidade cromática por tipo, sem excesso de verde. */
+.sector-hub__sector {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border: 1px solid var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+.sector-hub__sector :where(h2, h3, strong) { color: var(--audit-ink) !important; }
+.sector-hub__sector :where(p, small, li) { color: var(--audit-muted) !important; }
+.sector-hub__sector--markets { border-left: 5px solid var(--audit-amber) !important; }
+.sector-hub__sector--butchers { border-left: 5px solid #b84c4c !important; }
+.sector-hub__sector--bakery { border-left: 5px solid #c97b2b !important; }
+.sector-hub__sector--food { border-left: 5px solid var(--audit-blue) !important; }
+.sector-hub__sector--pharmacies { border-left: 5px solid var(--audit-green) !important; }
+.sector-hub__sector--books { border-left: 5px solid #8058b6 !important; }
+.sector-hub__sector--services { border-left: 5px solid var(--audit-petrol) !important; }
+.sector-hub__sector-icon {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-petrol) !important;
+}
+.sector-hub__sector-link,
+.sector-hub__arrow { color: var(--audit-blue) !important; }
+
+/* Diretório: cartões maiores visualmente, textos legíveis e ranking por cor. */
+.ref-store-card {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border: 1px solid var(--audit-line) !important;
+  border-left: 4px solid var(--audit-blue) !important;
+  box-shadow: var(--audit-shadow);
+}
+.ref-store-card:nth-child(3n+1) { border-left-color: var(--audit-amber) !important; }
+.ref-store-card:nth-child(3n+2) { border-left-color: var(--audit-blue) !important; }
+.ref-store-card:nth-child(3n) { border-left-color: var(--audit-green) !important; }
+.ref-store-card :where(h2, h3, strong) { color: var(--audit-ink) !important; }
+.ref-store-card :where(p, small, span) { color: var(--audit-muted); }
+.ref-store-card :where(small, [class*="meta"], [class*="label"]) {
+  font-size: .75rem !important;
+}
+.ref-store-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 18px 38px rgb(16 35 50 / 14%);
+}
+
+/* Busca e formulários: controles identificáveis, foco azul e CTAs sólidos. */
+:where(.search26-page, .pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where(input, select, textarea) {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+}
+:where(.search26-page, .pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where(input, select, textarea):focus {
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--audit-blue) 22%, transparent) !important;
+  outline: none !important;
+}
+:where(.pc-btn--primary, .search26-search button, .pc-collab button, .mo-page button) {
+  color: #fff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 9px 20px color-mix(in srgb, var(--audit-blue) 28%, transparent);
+}
+:where(.pc-btn--primary, .search26-search button, .pc-collab button, .mo-page button):hover {
+  background: color-mix(in srgb, var(--audit-blue) 86%, #00182a) !important;
+  transform: translateY(-2px);
+}
+
+/* Rodapés internos: compactos, consistentes e sem texto invisível. */
+.ref-footer,
+.ref-footer--compact {
+  min-height: 72px !important;
+  padding-block: 1rem !important;
+  color: #eef7fb !important;
+  background:
+    radial-gradient(circle at 85% 20%, rgb(40 104 216 / 22%), transparent 34%),
+    linear-gradient(115deg, #071f30, #0e3b4e) !important;
+  border-top: 1px solid #355468 !important;
+}
+.ref-footer :where(a, strong, b, h2, h3, h4),
+.ref-footer--compact :where(a, strong, b, h2, h3, h4) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.ref-footer :where(p, small, span),
+.ref-footer--compact :where(p, small, span) {
+  color: #c9dce7 !important;
+  opacity: 1 !important;
+}
+.ref-footer__compact {
+  min-height: 0 !important;
+  padding-block: 0 !important;
+  gap: .75rem !important;
+}
+
+/* Cards genéricos das páginas institucionais. */
+:where(.pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where([class*="card"], [class*="panel"], [class*="step"]) {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+:where(.pc-collab, .ref-info, .mo-page, .pro-basket-shell)
+  :where([class*="card"], [class*="panel"], [class*="step"])
+  :where(h2, h3, strong) {
+  color: var(--audit-ink) !important;
+}
+
+@media (max-width: 760px) {
+  :where(.hp-header, .ref-header, .mo-head),
+  :where(.hp-header__inner, .ref-header__inner, .mo-head .mo-shell) {
+    min-height: 58px !important;
+    height: 58px !important;
+  }
+  .ref-footer,
+  .ref-footer--compact {
+    min-height: 64px !important;
+    padding-block: .875rem !important;
+  }
+  .hp-home .hp-sector-grid > a {
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(.sector-hub__sector, .ref-store-card, .hp-product-card) {
+    transition: transform 180ms cubic-bezier(.2,.8,.2,1),
+      border-color 180ms ease, box-shadow 180ms ease;
+  }
+  :where(.sector-hub__sector, .hp-product-card):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgb(16 35 50 / 14%);
+  }
+}
+
+
+/* Correção pós-auditoria: contraste do hero e busca em ambos os temas. */
+.hp-home .hp-hero__copy :where(h1, h2) {
+  color: #ffffff !important;
+  text-shadow: 0 3px 22px rgb(0 0 0 / 36%);
+}
+.hp-home .hp-hero__copy :where(p, .hp-eyebrow) {
+  color: #dceaf1 !important;
+  opacity: 1 !important;
+  text-shadow: 0 2px 16px rgb(0 0 0 / 48%);
+}
+.hp-home .hp-hero__copy h1 :where(span, em, strong) {
+  color: #9fdfbe !important;
+}
+.hp-home .hp-search {
+  background: rgb(255 255 255 / 96%) !important;
+  border: 1px solid rgb(255 255 255 / 72%) !important;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 22%) !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-search :where(input) {
+  color: #132534 !important;
+  background: transparent !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-search :where(input)::placeholder {
+  color: #5b6975 !important;
+  opacity: 1 !important;
+}
+.hp-home .hp-search__submit {
+  color: #ffffff !important;
+  background: #2868d8 !important;
+  border-color: #2868d8 !important;
+}
+.hp-home .hp-search__submit:hover {
+  background: #1e54b5 !important;
+}
+
+/* Barra editorial superior: elimina a faixa clara vazia. */
+.hp-home .pc-festival-bar {
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 78% 20%, rgb(40 104 216 / 34%), transparent 34%),
+    linear-gradient(105deg, #30204f, #123f55 58%, #0d513f) !important;
+  border: 0 !important;
+}
+.hp-home .pc-festival-bar :where(span, strong, a, button) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.hp-home .pc-festival-bar a {
+  background: rgb(255 255 255 / 14%) !important;
+  border: 1px solid rgb(255 255 255 / 22%) !important;
+}
+
+/* Compactação real do rodapé principal. */
+.hp-home .hp-footer__inner {
+  padding-block: 1rem !important;
+  gap: clamp(.875rem, 2vw, 1.5rem) !important;
+  align-items: start !important;
+}
+.hp-home .hp-footer__identity :where(p) {
+  margin-block: .35rem .6rem !important;
+  line-height: 1.4 !important;
+}
+.hp-home .hp-footer__nav {
+  gap: .35rem .9rem !important;
+}
+.hp-home .hp-footer__nav :where(a) {
+  min-height: 28px !important;
+  line-height: 1.25 !important;
+}
+.hp-home .hp-footer__meta {
+  margin-top: .65rem !important;
+  padding-top: .65rem !important;
+}
+.hp-home .hp-footer__panel-triggers {
+  gap: .4rem !important;
+}
+
+
+/* Segunda etapa: páginas de produto e diretório. */
+:where(main, [tabindex="-1"]):focus:not(:focus-visible),
+.ref-directory__main:focus {
+  outline: none !important;
+}
+
+/* Nenhum texto operacional abaixo de 12 px nas telas mais densas. */
+:where(.pdx-page, .ref-directory__main)
+  :where(span, small, p, a, button, li, label, strong, time) {
+  font-size: max(.75rem, 1em) !important;
+  line-height: max(1.35, normal);
+}
+
+/* Navegação de categorias com cor funcional e seleção evidente. */
+.ref-directory__main .sector-nav a {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: 0 6px 16px rgb(16 35 50 / 6%);
+}
+.ref-directory__main .sector-nav a:nth-child(7n+1) svg { color: var(--audit-petrol) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+2) svg { color: var(--audit-amber) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+3) svg { color: #b84c4c !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+4) svg { color: #c97b2b !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+5) svg { color: var(--audit-blue) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n+6) svg { color: var(--audit-green) !important; }
+.ref-directory__main .sector-nav a:nth-child(7n) svg { color: #8058b6 !important; }
+.ref-directory__main .sector-nav a:is(.is-active, [aria-current="page"]) {
+  color: #fff !important;
+  background: var(--audit-petrol-strong) !important;
+  border-color: var(--audit-petrol-strong) !important;
+}
+
+/* Produto: superfícies, preço e comparação visualmente separados. */
+.pdx-page {
+  color: var(--audit-ink) !important;
+  background: var(--audit-canvas) !important;
+}
+.pdx-product,
+.pdx-card {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+.pdx-product {
+  border-top: 3px solid transparent !important;
+  border-image: linear-gradient(90deg, var(--audit-blue), var(--audit-green), var(--audit-amber)) 1 !important;
+}
+.pdx-price-block {
+  color: var(--audit-ink) !important;
+  background:
+    linear-gradient(135deg,
+      var(--audit-green-soft),
+      color-mix(in srgb, var(--audit-surface) 86%, var(--audit-green))) !important;
+  border-color: color-mix(in srgb, var(--audit-green) 46%, var(--audit-line)) !important;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 32%);
+}
+.pdx-price-block :where([class*="price"], strong) {
+  color: var(--audit-green) !important;
+}
+.pdx-price-facts > * {
+  color: var(--audit-ink) !important;
+  background: color-mix(in srgb, var(--audit-surface) 94%, transparent) !important;
+  border-color: var(--audit-line) !important;
+}
+.pdx-quick-compare {
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+}
+.pdx-quick-compare__list > * {
+  border-color: var(--audit-line) !important;
+}
+.pdx-quick-compare__list > *.is-best {
+  color: var(--audit-ink) !important;
+  background: var(--audit-green-soft) !important;
+  border-color: var(--audit-green) !important;
+}
+.pdx-quick-compare__mark {
+  color: #ffffff !important;
+  background: var(--audit-green) !important;
+  border: 0 !important;
+}
+.pdx-quick-compare__mark svg {
+  display: block !important;
+  width: 18px !important;
+  height: 18px !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.25px !important;
+}
+.pdx-actions .pdx-primary-action,
+.pdx-actions .pc-btn--primary {
+  color: #ffffff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--audit-blue) 28%, transparent);
+}
+.pdx-trust {
+  color: var(--audit-green) !important;
+  background: var(--audit-green-soft) !important;
+  border-color: color-mix(in srgb, var(--audit-green) 35%, var(--audit-line)) !important;
+}
+.pdx-history-card { border-top: 3px solid var(--audit-amber) !important; }
+.pdx-offers--full { border-top: 3px solid var(--audit-blue) !important; }
+.pdx-similar { border-top: 3px solid var(--audit-green) !important; }
+.pdx-list-card { border-top: 3px solid var(--audit-petrol) !important; }
+.pdx-chart-stats > * {
+  background: var(--audit-surface-soft) !important;
+  border-color: var(--audit-line) !important;
+}
+.pdx-chart-row {
+  color: var(--audit-ink) !important;
+}
+.pdx-disclaimer {
+  color: var(--audit-muted) !important;
+  background: var(--audit-surface-soft) !important;
+  border-color: var(--audit-line) !important;
+}
+
+/* Rodapé principal: remove padding externo duplicado. */
+.hp-home .hp-footer,
+html[data-theme="dark"] .hp-home .hp-footer {
+  padding-block: 0 !important;
+}
+.hp-home .hp-footer__inner {
+  padding-block: .875rem !important;
+}
+
+@media (max-width: 760px) {
+  :where(.pdx-page, .ref-directory__main)
+    :where(span, small, p, a, button, li, label, strong, time) {
+    font-size: max(.75rem, 1em) !important;
+  }
+  .hp-home .hp-footer__inner {
+    padding-block: .75rem !important;
+  }
+}
+
+
+/* ============================================================
+   TERCEIRA ETAPA — estabelecimentos, colaboração e cultura
+   ============================================================ */
+
+/* O foco programático de mudança de rota não desenha moldura no layout inteiro. */
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+/* Kelly / Ponto do Sanduba: leitura, densidade e ritmo consistentes. */
+:where(.kelly-page, .sanduba-page) {
+  color: var(--audit-ink) !important;
+  background: var(--audit-canvas) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-hero {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: clamp(1.5rem, 3vw, 2.25rem) !important;
+  border: 1px solid color-mix(in srgb, var(--audit-amber) 36%, var(--audit-line)) !important;
+  box-shadow: 0 18px 42px rgb(16 35 50 / 16%);
+}
+:where(.kelly-page, .sanduba-page) .kelly-info {
+  gap: .65rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-info__card {
+  background: var(--audit-surface-soft) !important;
+  border-color: var(--audit-line) !important;
+  color: var(--audit-ink) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-info__card :where(p, small, span) {
+  color: var(--audit-muted) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-catalog-intro {
+  padding-block: 1.25rem .75rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-category-nav {
+  margin-block: .5rem 1rem !important;
+  gap: .45rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-category-nav button {
+  min-height: 38px !important;
+  color: var(--audit-ink) !important;
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-category-nav button:hover,
+:where(.kelly-page, .sanduba-page) .kelly-category-nav button[aria-selected="true"] {
+  color: #ffffff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-grid {
+  gap: .875rem !important;
+  margin-top: .875rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-group {
+  background: var(--audit-surface) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: var(--audit-shadow);
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__item-btn {
+  min-height: 66px !important;
+  padding-block: .6rem !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__copy strong {
+  font-size: .875rem !important;
+  color: var(--audit-ink) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__copy :where(p, small, span) {
+  font-size: .8125rem !important;
+  line-height: 1.35 !important;
+  color: var(--audit-muted) !important;
+}
+:where(.kelly-page, .sanduba-page) .kelly-menu-list__price {
+  font-size: .875rem !important;
+  color: var(--audit-green) !important;
+}
+
+/* Dorinha: seções nunca permanecem invisíveis aguardando animação. */
+.dorinha-editorial {
+  background: #f6f0e8 !important;
+  color: #261b22 !important;
+}
+html[data-theme="dark"] .dorinha-editorial {
+  background: #171218 !important;
+  color: #f5ece3 !important;
+}
+.dorinha-editorial__reveal {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+.dorinha-editorial__hero {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-block: clamp(2.25rem, 5vw, 3.75rem) !important;
+}
+.dorinha-editorial
+  :where(small, span, p, a, button, li, figcaption, strong) {
+  font-size: max(.75rem, 1em) !important;
+}
+.dorinha-editorial__manifest {
+  padding-block: clamp(2rem, 4vw, 3.25rem) !important;
+}
+.dorinha-editorial__catalog {
+  padding-block: clamp(2rem, 4vw, 3.5rem) !important;
+}
+.dorinha-editorial__book-copy {
+  color: inherit !important;
+}
+.dorinha-editorial__book-copy :where(p, small) {
+  color: color-mix(in srgb, currentColor 72%, transparent) !important;
+}
+
+/* Colaborar: painel claro com contraste real e hierarquia de passos. */
+.pc-collab__panel {
+  background: rgb(255 255 255 / 97%) !important;
+  color: #132534 !important;
+  border-color: rgb(255 255 255 / 72%) !important;
+  box-shadow: 0 22px 54px rgb(0 0 0 / 30%) !important;
+}
+.pc-collab__panel :where(h2, h3, strong, b, label) {
+  color: #132534 !important;
+  opacity: 1 !important;
+}
+.pc-collab__panel :where(p, small, span, li) {
+  color: #526675 !important;
+  opacity: 1 !important;
+}
+.pc-collab__panel :where(input, textarea) {
+  color: #132534 !important;
+  background: #ffffff !important;
+  border-color: #bdcbd4 !important;
+}
+.pc-collab__hint {
+  color: #31566c !important;
+  background: #e9f5ef !important;
+  border-color: #b8dcca !important;
+}
+
+/* Quero vender: desfaz o tratamento de header global no hero interno. */
+.mo-page .mo-head {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 1 !important;
+  width: min(1080px, 100%) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin-inline: auto !important;
+  padding: 0 !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.mo-page .mo-head > a {
+  min-height: 36px !important;
+  color: #dceaf2 !important;
+  font-size: .8125rem !important;
+}
+.mo-page .mo-head > div {
+  margin: .35rem 0 .7rem !important;
+}
+.mo-page .mo-head h1 {
+  color: #ffffff !important;
+  font-size: clamp(1.75rem, 3vw, 2.5rem) !important;
+  line-height: 1.04 !important;
+  margin: .2rem 0 .35rem !important;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 35%);
+}
+.mo-page .mo-head :where(span, p) {
+  color: #c8dae5 !important;
+  opacity: 1 !important;
+}
+.mo-page .mo-shell {
+  position: relative;
+  z-index: 1;
+}
+.mo-page .mo-steps {
+  color: #eef6fa !important;
+  background: rgb(7 31 48 / 92%) !important;
+  border-color: #456173 !important;
+  box-shadow: 0 18px 42px rgb(0 0 0 / 24%);
+}
+.mo-page .mo-steps > div {
+  color: #d9e6ed !important;
+}
+.mo-page .mo-steps > div.active {
+  color: #ffffff !important;
+  background: #174a63 !important;
+}
+.mo-page .mo-steps :where(strong, b) {
+  color: inherit !important;
+}
+.mo-page .mo-steps :where(small, p) {
+  color: #b8cad5 !important;
+  opacity: 1 !important;
+}
+.mo-page .mo-card {
+  color: #132534 !important;
+  background: rgb(255 255 255 / 97%) !important;
+  border-color: rgb(255 255 255 / 72%) !important;
+  box-shadow: 0 22px 54px rgb(0 0 0 / 28%);
+}
+.mo-page .mo-card :where(h2, strong, label) {
+  color: #132534 !important;
+}
+.mo-page .mo-card :where(p, small, span) {
+  color: #5c6f7c !important;
+  opacity: 1 !important;
+}
+.mo-page .mo-card :where(input, select, textarea) {
+  color: #132534 !important;
+  background: #ffffff !important;
+  border-color: #b9c8d1 !important;
+}
+.mo-page .mo-title > svg {
+  color: #ffffff !important;
+  background: var(--audit-petrol) !important;
+}
+.mo-page .mo-card button {
+  color: #ffffff !important;
+  background: var(--audit-blue) !important;
+  border-color: var(--audit-blue) !important;
+}
+
+@media (max-width: 760px) {
+  .mo-page .mo-head h1 {
+    font-size: 1.65rem !important;
+  }
+  .mo-page .mo-head p {
+    font-size: .75rem !important;
+  }
+  :where(.kelly-page, .sanduba-page) .kelly-hero {
+    padding: 1.15rem !important;
+  }
+}
+
+
+/* Foco de rota: remove apenas a moldura do container programaticamente focado.
+   Controles interativos continuam usando :focus-visible. */
+html body main[tabindex="-1"]:focus,
+html body main[tabindex="-1"]:focus-visible,
+html body [role="main"][tabindex="-1"]:focus,
+html body [role="main"][tabindex="-1"]:focus-visible {
+  outline: 0 !important;
+  outline-color: transparent !important;
+  box-shadow: none;
+}
+
+/* Acesso: texto auxiliar legível sem aumentar a altura da janela. */
+.ref-auth :where(small, span, p, label, a, button) {
+  font-size: max(.75rem, 1em) !important;
+}
+.ref-auth__card :where(p, small, span) {
+  opacity: 1 !important;
+}
+
+/* =========================================================================
+   Impeccable — endurecimento integral do modo escuro
+   Mantido no fim da camada canônica para neutralizar superfícies claras
+   legadas sem alterar os fluxos nem a fidelidade das imagens de produto.
+   ========================================================================= */
+
+/* O cabeçalho compacto não possuía estilo-base e herdava o botão cinza do
+   navegador. A correção vale nos dois temas; as cores vêm dos tokens. */
+.ref-header--back-only .ref-header__inner {
+  justify-content: space-between !important;
+}
+.ref-header__back-row,
+.ref-header__back,
+.ref-header__context {
+  display: flex;
+  align-items: center;
+}
+.ref-header__back-row { min-width: 0; gap: .75rem; }
+.ref-header__back {
+  min-height: 44px;
+  gap: .45rem;
+  padding: 0 .85rem;
+  border: 1px solid var(--audit-line);
+  border-radius: .75rem;
+  background: var(--audit-surface-soft);
+  color: var(--audit-ink);
+  font-weight: 800;
+  cursor: pointer;
+}
+.ref-header__back:hover { border-color: var(--audit-blue); }
+.ref-header__back svg { width: 1rem; height: 1rem; }
+.ref-header__context { min-width: 0; gap: .55rem; }
+.ref-header__context-logo { width: 2rem; height: 2rem; object-fit: contain; }
+.ref-header__context-title {
+  overflow: hidden;
+  color: var(--audit-ink);
+  font-size: .875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] body {
+  background: var(--audit-canvas);
+  color: var(--audit-ink);
+}
+
+/* Colaboração: elimina o cartão branco que rompia completamente a atmosfera
+   escura, preservando a hierarquia dourada e o feedback verde. */
+html[data-theme="dark"] .pc-collab__panel {
+  background: rgb(20 37 48 / 96%) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 38%) !important;
+}
+html[data-theme="dark"] .pc-collab__panel :where(h2, h3, strong, b, label) {
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] .pc-collab__panel :where(p, small, span, li) {
+  color: var(--audit-muted) !important;
+}
+html[data-theme="dark"] .pc-collab__panel :where(input, textarea) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] .pc-collab__account {
+  background: color-mix(in srgb, var(--audit-green) 10%, var(--audit-surface)) !important;
+  border-color: color-mix(in srgb, var(--audit-green) 30%, var(--audit-line)) !important;
+}
+html[data-theme="dark"] .pc-collab__hint {
+  background: var(--audit-green-soft) !important;
+  color: #bfe9d1 !important;
+  border-color: color-mix(in srgb, var(--audit-green) 28%, var(--audit-line)) !important;
+}
+
+/* Cadastro de lojista: o fluxo é uma tarefa operacional; no modo escuro o
+   formulário acompanha a escolha do usuário em vez de permanecer fixo claro. */
+html[data-theme="dark"] .mo-page .mo-card {
+  background: rgb(20 37 48 / 97%) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 34%) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(h2, strong, label) {
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(p, small, span) {
+  color: var(--audit-muted) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(input, select, textarea) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  caret-color: var(--audit-blue) !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(input, select, textarea)::placeholder {
+  color: #91a5b2 !important;
+  opacity: 1 !important;
+}
+html[data-theme="dark"] .mo-page .mo-card :where(input, select, textarea):focus {
+  border-color: var(--audit-blue) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--audit-blue) 24%, transparent) !important;
+}
+html[data-theme="dark"] .mo-page .mo-login,
+html[data-theme="dark"] .mo-page .mo-login a {
+  color: var(--audit-muted) !important;
+}
+
+/* Administração: transforma as superfícies operacionais que ainda estavam
+   fixadas em branco. A sidebar continua mais profunda para manter orientação. */
+html[data-theme="dark"] :where(.acc-shell, .acc-state, .acw-shell, .acw-state) {
+  background: var(--audit-canvas) !important;
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) {
+  color: var(--audit-ink) !important;
+}
+html[data-theme="dark"] :where(.acc-sidebar, .acw-sidebar) {
+  background: #071f30 !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] .acc-main :where(
+  .acc-panel, .acc-cards article, .acc-table-wrap, .acc-application-grid article,
+  .acc-activity article, .acc-top-actions label, .acc-top-actions > button,
+  .acc-top-actions > a
+),
+html[data-theme="dark"] .acw-main :where(
+  .acw-summary article, .acw-summary button, .acw-product-grid article,
+  .acw-store-grid article, .acw-gap-list article, .acw-environments article,
+  .acw-env-grid article, .acw-top label, .acw-top button, .acw-top .acw-back,
+  .acw-empty
+) {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) :where(
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea
+) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+  caret-color: var(--audit-blue) !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) :where(input, textarea)::placeholder {
+  color: #91a5b2 !important;
+  opacity: 1 !important;
+}
+html[data-theme="dark"] .acc-main :where(.acc-kpis div, .acc-table th, .acc-status, .acc-chip),
+html[data-theme="dark"] .acw-main :where(.acw-product-image, .acw-store-grid article > div > span) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] :where(.acc-main, .acw-main) :where(
+  p, small, span, em, .acc-top p, .acc-table td small, .acw-top p,
+  .acw-product-grid p, .acw-store-grid p
+) {
+  color: var(--audit-muted);
+}
+html[data-theme="dark"] :where(.acc-table td, .acc-table th, .acc-list li,
+  .acc-panel > header, .acw-product-grid footer, .acw-store-grid footer,
+  .acw-tabs, .acw-modal header, .acw-modal footer) {
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] :where(.acc-error, .acw-error) {
+  background: var(--pc-danger-soft) !important;
+  color: #ffc6bd !important;
+  border-color: color-mix(in srgb, var(--pc-danger) 44%, var(--audit-line)) !important;
+}
+html[data-theme="dark"] .acw-modal > form {
+  background: var(--audit-surface) !important;
+  color: var(--audit-ink) !important;
+  border: 1px solid var(--audit-line) !important;
+}
+html[data-theme="dark"] .acw-modal :where(.acw-upload > div, footer button.ghost) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+html[data-theme="dark"] :where(.acc-table button, .acc-application-grid button,
+  .acw-product-grid footer button, .acw-store-grid footer button) {
+  background: var(--audit-surface-soft) !important;
+  color: var(--audit-ink) !important;
+  border-color: var(--audit-line) !important;
+}
+
+@media (max-width: 680px) {
+  .ref-header__back span { display: none; }
+  .ref-header__back { width: 44px; padding: 0; justify-content: center; }
+  .ref-header__context-title { max-width: 36vw; }
+}

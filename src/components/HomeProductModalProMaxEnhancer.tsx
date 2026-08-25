@@ -65,8 +65,7 @@ export function HomeProductModalProMaxEnhancer() {
         const measure = parseMeasure(product?.size, product?.unit);
         const current = readBasket();
         const existing = current.find((item: any) => item.productName?.toLocaleLowerCase?.("pt-BR") === title.toLocaleLowerCase("pt-BR"));
-        if (existing) existing.quantity = Math.max(1, Number(existing.quantity || 1)) + 1;
-        else current.push({
+        if (!existing) current.push({
           productName: title,
           category: product?.category || modal?.querySelector<HTMLElement>(".th-product-modal__eyebrow")?.textContent?.trim() || "Geral",
           quantity: 1,
@@ -76,7 +75,9 @@ export function HomeProductModalProMaxEnhancer() {
         });
         localStorage.setItem(ACTIVE_ITEMS_KEY, JSON.stringify(current));
         window.dispatchEvent(new StorageEvent("storage", { key: ACTIVE_ITEMS_KEY, newValue: JSON.stringify(current) }));
-        button.innerHTML = `<span class="th-modal-basket-check">✓</span> Inserido na cesta`;
+        button.innerHTML = existing
+          ? `<span class="th-modal-basket-check">✓</span> Já está na cesta`
+          : `<span class="th-modal-basket-check">✓</span> Inserido na cesta`;
         button.classList.add("is-added");
         window.setTimeout(() => {
           button.disabled = false;

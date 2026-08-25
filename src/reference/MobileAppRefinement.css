@@ -55,7 +55,7 @@
   content:"Terra do açaí";
   display:block;
   font-family:"Outfit Variable","Inter Variable",system-ui,sans-serif;
-  font-size:12px;
+  font-size:13px;
   line-height:1;
   font-weight:780;
   letter-spacing:.025em;
@@ -87,7 +87,7 @@
     padding:3px 11px 3px 6px;
   }
   .ref-evolution-badge>span{width:28px;height:28px;flex-basis:28px;background-size:22px 22px}
-  .ref-evolution-badge strong::after{font-size:11px}
+  .ref-evolution-badge strong::after{font-size:12.5px}
   .ref-page :is(input,select,textarea){font-size:16px}
 }
 

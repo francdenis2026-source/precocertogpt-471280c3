@@ -6,7 +6,7 @@
 .dorinha-pro__hero-bg { opacity: .24 !important; }
 .dorinha-pro__hero--v4 .dorinha-pro__hero-copy { max-width: 720px !important; }
 .dorinha-pro__hero--v4 h1 { max-width: 690px !important; margin: 8px 0 10px !important; font-size: clamp(2rem, 3.5vw, 3.35rem) !important; line-height: .98 !important; }
-.dorinha-pro__hero--v4 p { max-width: 570px !important; margin: 0 !important; font-size: 12.5px !important; line-height: 1.55 !important; }
+.dorinha-pro__hero--v4 p { max-width: 570px !important; margin: 0 !important; font-size:13px !important; line-height: 1.55 !important; }
 .dorinha-pro__hero--v4 .dorinha-pro__hero-actions { margin-top: 14px !important; }
 .dorinha-pro__hero--v4 .dorinha-pro__hero-actions > a { min-height: 40px !important; padding: 0 14px !important; }
 .dorinha-pro__hero--v4 .dorinha-pro__hero-meta { margin-top: 10px !important; }
@@ -26,7 +26,7 @@
 @media (max-width: 720px) {
   .dorinha-pro__hero--v4 { width: calc(100% - 20px) !important; min-height: 0 !important; margin-top: 10px !important; grid-template-columns: 1fr 104px !important; gap: 13px !important; padding: 21px 17px !important; }
   .dorinha-pro__hero--v4 h1 { font-size: clamp(1.85rem, 9vw, 2.55rem) !important; }
-  .dorinha-pro__hero--v4 p { font-size: 12px !important; }
+  .dorinha-pro__hero--v4 p { font-size:13px !important; }
   .dorinha-pro__hero-portrait { align-self: end !important; width: 104px !important; height: 154px !important; }
   .dorinha-pro__hero-portrait div { display: none !important; }
   .dorinha-pro__hero-meta { grid-column: 1 / -1 !important; }

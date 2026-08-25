@@ -1,0 +1,187 @@
+/* PreçoCerto — busca mobile profissional 2026
+   Camada visual final da busca da Home em celulares. */
+@media (max-width:767px){
+  .nx-hero__copy{position:relative!important;padding:20px 14px 18px!important}
+
+  .nx-search{
+    position:relative!important;
+    z-index:160!important;
+    display:grid!important;
+    grid-template-columns:46px minmax(0,1fr) 46px!important;
+    grid-template-areas:"icon input clear" "submit submit submit"!important;
+    gap:8px!important;
+    width:100%!important;
+    min-height:0!important;
+    padding:8px!important;
+    border:1px solid rgba(255,255,255,.22)!important;
+    border-radius:20px!important;
+    background:#fff!important;
+    box-shadow:0 18px 46px rgba(3,23,34,.28)!important;
+    transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease!important;
+  }
+  .nx-search:focus-within{
+    border-color:#87cbe8!important;
+    box-shadow:0 0 0 4px rgba(114,196,230,.18),0 22px 54px rgba(3,23,34,.32)!important;
+    transform:translateY(-1px)!important;
+  }
+  html[data-theme="dark"] .nx-search{background:#152536!important;border-color:#31485a!important}
+
+  .nx-search>svg{
+    grid-area:icon!important;
+    align-self:center!important;
+    justify-self:center!important;
+    width:21px!important;
+    height:21px!important;
+    color:#1c678d!important;
+  }
+  html[data-theme="dark"] .nx-search>svg{color:#8ec8e2!important}
+
+  .nx-search input{
+    grid-area:input!important;
+    width:100%!important;
+    min-width:0!important;
+    height:50px!important;
+    padding:0 2px!important;
+    border:0!important;
+    outline:0!important;
+    background:transparent!important;
+    color:#102631!important;
+    font-size:16px!important;
+    font-weight:650!important;
+    letter-spacing:-.01em!important;
+  }
+  .nx-search input::placeholder{color:#6e7d84!important;font-weight:550!important;opacity:1!important}
+  html[data-theme="dark"] .nx-search input{color:#f7fbfd!important}
+  html[data-theme="dark"] .nx-search input::placeholder{color:#aab8c2!important}
+
+  .nx-search__clear{
+    grid-area:clear!important;
+    align-self:center!important;
+    justify-self:center!important;
+    width:42px!important;
+    height:42px!important;
+    min-height:42px!important;
+    border:1px solid #d9e3e6!important;
+    border-radius:12px!important;
+    background:#f4f7f7!important;
+    color:#51636b!important;
+  }
+  html[data-theme="dark"] .nx-search__clear{border-color:#34495a!important;background:#203348!important;color:#c8d4db!important}
+
+  .nx-search__submit{
+    grid-area:submit!important;
+    width:100%!important;
+    height:50px!important;
+    min-height:50px!important;
+    margin:0!important;
+    border:0!important;
+    border-radius:13px!important;
+    background:linear-gradient(135deg,#0b806c,#096b5c)!important;
+    color:#fff!important;
+    box-shadow:0 8px 18px rgba(8,111,94,.22)!important;
+    font-size:14px!important;
+    font-weight:850!important;
+    letter-spacing:.01em!important;
+  }
+  .nx-search__submit svg{width:17px!important;height:17px!important}
+  .nx-search__submit:active{transform:translateY(1px)!important;box-shadow:0 4px 10px rgba(8,111,94,.2)!important}
+
+  .nx-results{
+    position:absolute!important;
+    z-index:300!important;
+    top:calc(100% + 10px)!important;
+    right:0!important;
+    left:0!important;
+    width:auto!important;
+    max-height:min(62dvh,520px)!important;
+    padding:8px!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    -webkit-overflow-scrolling:touch!important;
+    border:1px solid #d8e3e6!important;
+    border-radius:18px!important;
+    background:#fff!important;
+    box-shadow:0 24px 60px rgba(4,24,34,.3)!important;
+  }
+  html[data-theme="dark"] .nx-results{border-color:#334a5b!important;background:#172638!important;box-shadow:0 24px 60px rgba(0,0,0,.48)!important}
+
+  .nx-results>header{
+    position:sticky!important;
+    top:-8px!important;
+    z-index:2!important;
+    min-height:42px!important;
+    margin:-8px -8px 5px!important;
+    padding:10px 12px!important;
+    border-bottom:1px solid #e5ecee!important;
+    background:rgba(255,255,255,.96)!important;
+    backdrop-filter:blur(10px)!important;
+  }
+  html[data-theme="dark"] .nx-results>header{border-color:#304758!important;background:rgba(23,38,56,.96)!important}
+  .nx-results>header strong{font-size:12px!important;font-weight:900!important;letter-spacing:.04em!important;text-transform:uppercase!important}
+  .nx-results>header span{font-size:11.5px!important}
+
+  .nx-results>button{
+    min-height:76px!important;
+    grid-template-columns:58px minmax(0,1fr) auto!important;
+    gap:11px!important;
+    padding:9px!important;
+    border:1px solid transparent!important;
+    border-radius:14px!important;
+  }
+  .nx-results>button+button{margin-top:3px!important}
+  .nx-results>button:hover,.nx-results>button.is-active{
+    border-color:#d8e8ec!important;
+    background:#eef6f6!important;
+  }
+  html[data-theme="dark"] .nx-results>button:hover,html[data-theme="dark"] .nx-results>button.is-active{border-color:#355063!important;background:#20364a!important}
+
+  .nx-results>button>i{
+    width:58px!important;
+    height:58px!important;
+    border:1px solid #e3e9eb!important;
+    border-radius:12px!important;
+    background:#fff!important;
+  }
+  .nx-results>button>i img{max-width:51px!important;max-height:51px!important}
+  .nx-results>button>span{gap:2px!important}
+  .nx-results>button small{color:#54717e!important;font-size:10.5px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.04em!important}
+  .nx-results>button strong{overflow:visible!important;color:#152b35!important;font-size:13.5px!important;line-height:1.2!important;text-overflow:clip!important;white-space:normal!important}
+  .nx-results>button em{min-width:0!important;color:#6f7e84!important;font-size:11px!important;white-space:normal!important}
+  html[data-theme="dark"] .nx-results>button strong{color:#f5f8fa!important}
+  html[data-theme="dark"] .nx-results>button small,html[data-theme="dark"] .nx-results>button em{color:#aabac4!important}
+  .nx-results>button>b{align-self:center!important;color:#087a4d!important;font-size:15px!important;font-weight:900!important;white-space:nowrap!important}
+  html[data-theme="dark"] .nx-results>button>b{color:#63d7a5!important}
+
+  .nx-results>a{
+    position:sticky!important;
+    bottom:-8px!important;
+    min-height:48px!important;
+    margin:6px -1px -1px!important;
+    border:1px solid #dbe6e8!important;
+    border-radius:13px!important;
+    background:#f3f7f7!important;
+    color:#185f87!important;
+    font-size:12.5px!important;
+    font-weight:850!important;
+  }
+  html[data-theme="dark"] .nx-results>a{border-color:#355063!important;background:#20364a!important;color:#a9d8ee!important}
+
+  .nx-results__empty{min-height:130px!important;flex-direction:column!important;gap:8px!important;padding:18px!important;text-align:center!important}
+  .nx-results__empty svg{width:34px!important;height:34px!important;color:#68808b!important}
+  .nx-results__empty strong{font-size:14px!important}
+  .nx-results__empty small{font-size:12px!important}
+
+  .nx-hero__links{margin-top:13px!important}
+  .nx-hero__links>span{flex:0 0 auto!important;font-size:11.5px!important;font-weight:750!important}
+  .nx-hero__links a{min-height:34px!important;padding:0 12px!important;border-radius:999px!important;font-size:11.5px!important}
+}
+
+@media (max-width:390px){
+  .nx-search{grid-template-columns:42px minmax(0,1fr) 42px!important;border-radius:17px!important}
+  .nx-search input{height:46px!important}
+  .nx-search__submit{height:48px!important;min-height:48px!important}
+  .nx-results>button{grid-template-columns:52px minmax(0,1fr)!important;grid-template-areas:"media copy" "media price"!important}
+  .nx-results>button>i{grid-area:media!important;width:52px!important;height:52px!important}
+  .nx-results>button>span{grid-area:copy!important}
+  .nx-results>button>b{grid-area:price!important;justify-self:start!important}
+}

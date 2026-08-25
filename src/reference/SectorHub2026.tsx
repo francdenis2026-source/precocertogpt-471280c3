@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
-  BadgeCheck,
   BookOpen,
   BriefcaseBusiness,
   Grid2X2,
@@ -13,6 +12,7 @@ import {
   ShoppingBasket,
   Sparkles,
   Store,
+  Tag,
   TrendingDown,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -20,13 +20,12 @@ import type { CatalogPayload, StoreRow } from "../data/catalog";
 import {
   fetchSectorCatalog,
   prefetchSectorCatalog,
-  sectorProducts,
   sectorStores,
+  withCatalog,
 } from "../data/sectorCatalog";
-import { marketplaceSectors } from "./MarketplaceSectors";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { primarySectors } from "./MarketplaceSectors";
+import { AppDock, PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./SectorHub2026.css";
-import "./SectorHubExperienceFixes2026.css";
 
 const normalize = (value: string) =>
   value
@@ -45,7 +44,12 @@ function isSponsored(store: StoreRow) {
     sponsoredIds.has(normalize(String(v || ""))),
   );
 }
+
+const plural = (n: number, one: string, many: string) =>
+  `${n} ${n === 1 ? one : many}`;
+
 export function SectorHub2026() {
+  const pageRef = useRef<HTMLDivElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload | null>(null);
   useEffect(() => {
     let active = true;
@@ -58,22 +62,19 @@ export function SectorHub2026() {
       active = false;
     };
   }, []);
-  const sectorData = useMemo(() => {
-    if (!catalog) return [];
-    return marketplaceSectors
-      .map((sector) => ({
-        sector,
-        stores: sectorStores(catalog, sector),
-        products: sectorProducts(catalog, sector),
-      }))
-      .filter(
-        (item) =>
-          item.stores.length > 0 ||
-          item.products.length > 0 ||
-          item.sector.id === "books" ||
-          item.sector.id === "services",
-      );
-  }, [catalog]);
+
+  /* Todas as categorias principais aparecem sempre, mesmo as que ainda não têm
+   * nenhum estabelecimento cadastrado: é assim que quem procura um açougue
+   * descobre que o lugar dele existe — e que quem tem um açougue descobre que
+   * pode se cadastrar. */
+  const sectorData = useMemo(
+    () =>
+      primarySectors.map((sector) => {
+        const stores = catalog ? sectorStores(catalog, sector) : [];
+        return { sector, total: stores.length, priced: withCatalog(stores).length };
+      }),
+    [catalog],
+  );
   const featuredStores = useMemo(() => {
     if (!catalog) return [];
     return catalog.stores
@@ -86,13 +87,10 @@ export function SectorHub2026() {
       )
       .slice(0, 8);
   }, [catalog]);
-  const totalSectorStores = sectorData.reduce(
-    (sum, item) => sum + item.stores.length,
-    0,
-  );
   const sponsoredVisible = featuredStores.some(isSponsored);
+
   return (
-    <div className="sector-hub">
+    <div className="sector-hub" ref={pageRef}>
       <PublicHeader backOnly />
       <main id="conteudo-principal">
         <section className="sector-hub__hero">
@@ -100,43 +98,93 @@ export function SectorHub2026() {
             <div className="sector-hub__hero-copy">
               <span className="sector-hub__eyebrow">
                 <Grid2X2 />
-                EXPLORAR FEIJÓ POR SETOR
+                GUIA DO COMÉRCIO DE FEIJÓ
               </span>
               <h1>
-                Descubra o que existe de verdade,{" "}
-                <em>sem misturar categorias.</em>
+                Onde comprar <em>em Feijó</em>
               </h1>
               <p>
-                A plataforma só relaciona produtos e estabelecimentos a um
-                setor quando existe vínculo real no catálogo.
+                Escolha o tipo de comércio que você procura e veja quem vende,
+                onde fica e por quanto — antes de sair de casa.
               </p>
               <div className="sector-hub__hero-stats">
-                <span><b>{catalog?.metrics.stores ?? "—"}</b> estabelecimentos</span>
-                <span><b>{catalog?.metrics.products ?? "—"}</b> produtos</span>
-                <span><b>{totalSectorStores || 0}</b> vínculos por setor</span>
+                <span>
+                  <b>{catalog?.metrics.stores ?? "—"}</b> estabelecimentos na
+                  cidade
+                </span>
+                <span>
+                  <b>{catalog?.metrics.products ?? "—"}</b> produtos com preço
+                </span>
               </div>
-              <small className="sector-hub__catalog-note">
-                <BadgeCheck /> Sem associação automática com setor sem catálogo.
-              </small>
+              <div className="sector-hub__hero-actions">
+                <Link to="/buscar">Buscar um produto <Search /><span className="sr-only">no catálogo local</span></Link>
+                <Link to="/estabelecimentos">Ver estabelecimentos <ArrowRight /></Link>
+              </div>
             </div>
           </div>
         </section>
         <section className="sector-hub__content sector-hub__shell">
           <header id="setores" className="sector-hub__section-head">
             <div>
-              <span>Setores da plataforma</span>
-              <h2>Veja somente áreas com contexto real.</h2>
+              <span>Categorias</span>
+              <h2>O que você está procurando?</h2>
             </div>
             <p>
-              Farmácias sem produtos não aparecem como catálogo ativo. Produtos
-              de mercado ficam nos mercados; conteúdos culturais e serviços usam
-              estruturas próprias.
+              Toque em uma categoria para ver a lista dos estabelecimentos de
+              Feijó, com endereço e os preços já publicados.
             </p>
           </header>
           <div className="sector-hub__sectors">
-            {sectorData.map(({ sector, stores, products }) => {
+            {sectorData.map(({ sector, total, priced }) => {
               const Icon = sector.icon;
-              const hasCatalog = stores.length > 0 || products.length > 0;
+              const body = (
+                <div className="sector-hub__sector-copy">
+                  <small>{sector.shortLabel}</small>
+                  <strong>{sector.label}</strong>
+                  <p>{sector.description}</p>
+                  {total > 0 ? (
+                    <div className="sector-hub__sector-meta">
+                      <span>
+                        <Store />
+                        {plural(total, "estabelecimento", "estabelecimentos")}
+                      </span>
+                      <span>
+                        <Tag />
+                        {priced > 0
+                          ? `${priced} com preços`
+                          : "preços em breve"}
+                      </span>
+                    </div>
+                  ) : (
+                    <p className="sector-hub__sector-invite">
+                      Ainda sem cadastro —{" "}
+                      <Link to="/cadastro-lojista">cadastre o seu</Link>
+                    </p>
+                  )}
+                </div>
+              );
+              if (total === 0) {
+                return (
+                  <div
+                    key={sector.id}
+                    className={`sector-hub__sector sector-hub__sector--${sector.id} sector-hub__sector--empty`}
+                  >
+                    <div className="sector-hub__sector-icon">
+                      <Icon />
+                    </div>
+                    {body}
+                    <Link
+                      className="sector-hub__sector-link"
+                      to={sector.href}
+                      onPointerEnter={prefetchSectorCatalog}
+                      onFocus={prefetchSectorCatalog}
+                      aria-label={`Ver ${sector.label}`}
+                    >
+                      <ArrowRight className="sector-hub__arrow" />
+                    </Link>
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={sector.id}
@@ -148,33 +196,7 @@ export function SectorHub2026() {
                   <div className="sector-hub__sector-icon">
                     <Icon />
                   </div>
-                  <div className="sector-hub__sector-copy">
-                    <small>{sector.eyebrow}</small>
-                    <strong>{sector.label}</strong>
-                    <p>{sector.description}</p>
-                    <div className="sector-hub__sector-meta">
-                      {hasCatalog ? (
-                        <>
-                          <span>
-                            <Store />
-                            {stores.length}{" "}
-                            {stores.length === 1
-                              ? "opção real"
-                              : "opções reais"}
-                          </span>
-                          <span>
-                            <PackageSearch />
-                            {products.length} itens vinculados
-                          </span>
-                        </>
-                      ) : (
-                        <span>
-                          <BadgeCheck />
-                          Perfil próprio, sem produtos fictícios
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                  {body}
                   <ArrowRight className="sector-hub__arrow" />
                 </Link>
               );
@@ -182,19 +204,19 @@ export function SectorHub2026() {
           </div>
           <section className="sector-hub__tools">
             <div className="sector-hub__tools-copy">
-              <span>Ferramentas para decidir melhor</span>
+              <span>Ferramentas</span>
               <h2>Pesquise, compare e planeje.</h2>
               <p>
-                A busca geral permite filtrar por estabelecimento, setor,
-                categoria, bairro e preço.
+                Procure por produto ou pelo nome da loja, monte a lista do mês e
+                guarde o que você compra sempre.
               </p>
             </div>
             <div className="sector-hub__tool-grid">
               <Link to="/buscar">
                 <Search />
                 <span>
-                  <strong>Busca avançada</strong>
-                  <small>Filtre por loja e categoria.</small>
+                  <strong>Busca</strong>
+                  <small>Ache um produto ou uma loja.</small>
                 </span>
                 <ArrowRight />
               </Link>
@@ -202,7 +224,7 @@ export function SectorHub2026() {
                 <Sparkles />
                 <span>
                   <strong>Cesta Inteligente</strong>
-                  <small>Monte pelo seu orçamento.</small>
+                  <small>Monte a compra pelo seu dinheiro.</small>
                 </span>
                 <ArrowRight />
               </Link>
@@ -210,7 +232,7 @@ export function SectorHub2026() {
                 <ShoppingBasket />
                 <span>
                   <strong>Lista de compras</strong>
-                  <small>Organize seus itens.</small>
+                  <small>Anote tudo que falta em casa.</small>
                 </span>
                 <ArrowRight />
               </Link>
@@ -218,7 +240,7 @@ export function SectorHub2026() {
                 <Heart />
                 <span>
                   <strong>Favoritos</strong>
-                  <small>Salve produtos importantes.</small>
+                  <small>Guarde o que você compra sempre.</small>
                 </span>
                 <ArrowRight />
               </Link>
@@ -228,10 +250,10 @@ export function SectorHub2026() {
             <header>
               <div>
                 <span>Negócios locais</span>
-                <h2>Estabelecimentos com catálogo ativo.</h2>
+                <h2>Lojas que já publicaram preços.</h2>
               </div>
               <Link to="/estabelecimentos">
-                Ver diretório completo <ArrowRight />
+                Ver todos os estabelecimentos <ArrowRight />
               </Link>
             </header>
             {featuredStores.length ? (
@@ -257,9 +279,15 @@ export function SectorHub2026() {
                         <span>
                           <small>{store.neighborhood || "Feijó"}</small>
                           <strong>{store.name}</strong>
-                          <em>{store.products || 0} itens catalogados</em>
+                          <em>
+                            {plural(
+                              store.products || 0,
+                              "item com preço",
+                              "itens com preço",
+                            )}
+                          </em>
                         </span>
-                        <b>VER CATÁLOGO</b>
+                        <b>VER PREÇOS</b>
                         <ArrowRight />
                       </Link>
                     );
@@ -276,10 +304,10 @@ export function SectorHub2026() {
               <div className="sector-hub__empty">
                 <PackageSearch />
                 <span>
-                  <strong>Nenhum catálogo ativo</strong>
+                  <strong>Nenhuma loja publicou preços ainda</strong>
                   <small>
-                    Os estabelecimentos aparecem quando houver produtos
-                    vinculados.
+                    Assim que um estabelecimento publicar o catálogo dele, ele
+                    aparece aqui.
                   </small>
                 </span>
               </div>
@@ -289,56 +317,58 @@ export function SectorHub2026() {
             <article>
               <BookOpen />
               <span>
-                <small>CULTURA E CONHECIMENTO</small>
-                <strong>Autores, livros e projetos culturais</strong>
+                <small>CULTURA</small>
+                <strong>Livros, autores e projetos culturais</strong>
                 <p>
-                  Perfis editoriais separados de estabelecimentos comerciais.
+                  Conheça quem escreve, publica e produz cultura em Feijó.
                 </p>
                 <Link to="/livros">
-                  Explorar cultura <ArrowRight />
+                  Ver livros e autores <ArrowRight />
                 </Link>
               </span>
             </article>
             <article>
               <BriefcaseBusiness />
               <span>
-                <small>SERVIÇOS LOCAIS</small>
-                <strong>Profissionais e especialidades</strong>
+                <small>SERVIÇOS</small>
+                <strong>Profissionais e prestadores de serviço</strong>
                 <p>
-                  Prestadores apresentados como serviços, não como produtos.
+                  Quem faz o serviço, onde atende e como falar direto com a
+                  pessoa.
                 </p>
                 <Link to="/servicos">
-                  Explorar serviços <ArrowRight />
+                  Ver serviços <ArrowRight />
                 </Link>
               </span>
             </article>
           </section>
           <section className="sector-hub__how">
             <div>
-              <TrendingDown />
+              <Grid2X2 />
               <span>
-                <small>01 · FILTRE</small>
-                <strong>Encontre somente dados compatíveis</strong>
+                <small>01 · ESCOLHA</small>
+                <strong>Abra a categoria do que você precisa</strong>
               </span>
             </div>
             <div>
-              <Store />
+              <TrendingDown />
               <span>
-                <small>02 · CONFIRA</small>
-                <strong>Abra o catálogo real da loja</strong>
+                <small>02 · COMPARE</small>
+                <strong>Veja o preço de cada loja lado a lado</strong>
               </span>
             </div>
             <div>
               <MapPin />
               <span>
-                <small>03 · DECIDA</small>
-                <strong>Compare e escolha com contexto</strong>
+                <small>03 · VÁ</small>
+                <strong>Compre onde for mais perto ou mais barato</strong>
               </span>
             </div>
           </section>
         </section>
       </main>
       <PublicFooter />
+      <AppDock current="explore" />
     </div>
   );
 }

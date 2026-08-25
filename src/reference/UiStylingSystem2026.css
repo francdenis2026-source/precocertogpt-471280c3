@@ -1,0 +1,144 @@
+/* ui-styling — semantic finish layer for the whole PreçoCerto product. */
+:root {
+  --background: 210 33% 98%;
+  --foreground: 215 42% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 42% 11%;
+  --primary: 205 62% 19%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 24% 94%;
+  --secondary-foreground: 205 62% 19%;
+  --muted: 210 24% 94%;
+  --muted-foreground: 211 17% 36%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 215 42% 11%;
+  --success: 173 77% 26%;
+  --success-foreground: 0 0% 100%;
+  --destructive: 4 76% 40%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 207 22% 88%;
+  --input: 207 22% 82%;
+  --ring: 38 92% 50%;
+  --radius: 1rem;
+}
+
+:where(html[data-theme="dark"], body[data-theme="dark"], .dark) {
+  --background: 205 69% 9%;
+  --foreground: 210 40% 98%;
+  --card: 204 59% 13%;
+  --card-foreground: 210 40% 98%;
+  --primary: 198 37% 82%;
+  --primary-foreground: 205 69% 9%;
+  --secondary: 204 46% 18%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 204 46% 18%;
+  --muted-foreground: 207 23% 73%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 205 69% 9%;
+  --success: 163 69% 45%;
+  --success-foreground: 205 69% 9%;
+  --border: 204 30% 27%;
+  --input: 204 30% 34%;
+}
+
+body { background-color: hsl(var(--background)); color: hsl(var(--foreground)); }
+::selection { background: hsl(var(--accent) / .28); color: hsl(var(--foreground)); }
+
+/* Preserve semantic text contrast across legacy page families. */
+:where(.ref-page, .search26-page, .sector-page, .sector-hub, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-admin) :where(p, small, label) {
+  line-height: 1.55;
+}
+:where(.ref-page, .search26-page, .sector-page, .sector-hub, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-admin) :where(small, .muted, [class*="subtitle"], [class*="description"]) {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Shared action language: solid, outline and quiet actions. */
+:where(.button, .btn, [class*="__cta"], [class*="__submit"], [class*="-action"]) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  border-radius: calc(var(--radius) - .25rem);
+  font-weight: 750;
+  line-height: 1;
+  text-decoration: none;
+}
+:where(.button, .btn, [class*="__cta"], [class*="__submit"], [class*="-action"]):active:not(:disabled) {
+  translate: 0 1px;
+}
+
+/* Inputs and controls read as one product, including search and admin. */
+:where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  border-color: hsl(var(--input));
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  caret-color: hsl(var(--primary));
+}
+:where(input, textarea)::placeholder { color: hsl(var(--muted-foreground) / .82); opacity: 1; }
+
+/* Badges, filters and category chips use the same compact rhythm. */
+:where([class*="badge"], [class*="chip"], [class*="pill"], .status) {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  min-height: 28px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 999px;
+  padding: .25rem .65rem;
+  font-size: .75rem;
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+/* Structural cards use restrained depth; only interactive cards lift. */
+:where(.ref-card, .ref-store-card, .ref-live-card, .store-pro-card, .sf-card, .basket-card, .merchant-card, .admin-card, .culture-profile-note) {
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+}
+:where(a.ref-card, a.ref-store-card, button.ref-card, .sf-card:has(button), .store-pro-card:has(a)):hover {
+  translate: 0 -2px;
+}
+
+/* Navigation remains legible and stable rather than shifting on hover. */
+:where(header, nav, [class*="header"], [class*="nav"]) a {
+  text-underline-offset: .28em;
+}
+:where(header, nav, [class*="header"], [class*="nav"]) a:hover { text-decoration-thickness: 2px; }
+
+/* Tables and list rows gain a predictable reading rhythm. */
+:where(table, .admin-table, .ref-table) { border-collapse: separate; border-spacing: 0; }
+:where(th, .admin-th) { color: hsl(var(--muted-foreground)); font-size: .75rem; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+:where(td, th, .admin-tr > *) { border-bottom-color: hsl(var(--border)); }
+
+/* Status and monetary meaning is consistent. */
+:where(.status.ok, .is-verified, .is-best, .is-success, [class*="saving"], [class*="economy"]) { color: hsl(var(--success)); }
+:where(.status.pending, .is-warning) { color: #a15c00; }
+:where(.status.error, .is-error, [aria-invalid="true"]) { color: hsl(var(--destructive)); }
+
+/* Empty/loading feedback avoids apparently broken blank pages. */
+:where([class*="empty"], [class*="state"]):not(:empty) {
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+}
+:where([class*="skeleton"]) {
+  background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--card)) 45%, hsl(var(--muted)) 65%);
+  background-size: 220% 100%;
+}
+
+@media (max-width: 767px) {
+  :root { --radius: .875rem; }
+  :where(.button, .btn, [class*="__cta"], [class*="__submit"], [class*="-action"]) { width: auto; max-width: 100%; }
+  :where([class*="actions"], [class*="toolbar"]) { flex-wrap: wrap; }
+  :where([class*="actions"] > a, [class*="actions"] > button) { flex: 1 1 10rem; }
+  :where(.ref-card, .ref-store-card, .store-pro-card, .sf-card, .basket-card, .merchant-card) { padding-inline: clamp(.875rem, 4vw, 1.25rem); }
+}
+
+@media (hover: none) {
+  :where(a.ref-card, a.ref-store-card, button.ref-card, .sf-card:has(button), .store-pro-card:has(a)):hover { translate: none; }
+}
+
+@media (prefers-contrast: more) {
+  :root { --border: 207 22% 65%; --muted-foreground: 211 23% 27%; }
+  :where(html[data-theme="dark"], body[data-theme="dark"], .dark) { --border: 204 22% 58%; --muted-foreground: 207 30% 85%; }
+}

@@ -21,7 +21,7 @@
    foto real do produto. */
 .kelly-hero{
   position:relative;overflow:hidden;border-radius:var(--pc-radius-block,20px);
-  min-height:168px;display:flex;align-items:flex-end;
+  min-height:144px;display:flex;align-items:flex-end;
   background:#0d0705 url('/kelly-burgueria/hero-burger.jpg') center 32%/cover no-repeat;
   border:1px solid var(--pc-border);
 }
@@ -34,20 +34,20 @@ html[data-theme="dark"] .kelly-hero__overlay{
   background:linear-gradient(100deg,rgba(22,15,10,.78) 0%,rgba(22,15,10,.62) 34%,rgba(22,15,10,.36) 60%,rgba(22,15,10,.12) 82%,transparent 100%),
              linear-gradient(180deg,rgba(22,15,10,.08) 0%,transparent 34%,rgba(22,15,10,.26) 100%);
 }
-.kelly-hero__content{position:relative;z-index:1;display:flex;align-items:flex-end;gap:16px;padding:18px 22px;width:100%}
-.kelly-hero__logo{flex:none;width:64px;height:64px;border-radius:15px;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 8px 18px rgba(0,0,0,.32);background:#0d0705}
+.kelly-hero__content{position:relative;z-index:1;display:flex;align-items:flex-end;gap:14px;padding:14px 18px;width:100%}
+.kelly-hero__logo{flex:none;width:52px;height:52px;border-radius:13px;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 8px 18px rgba(0,0,0,.32);background:#0d0705}
 .kelly-hero__logo img{width:100%;height:100%;object-fit:cover;display:block}
-.kelly-hero__copy{color:#fff;display:flex;flex-direction:column;gap:7px;min-width:0}
-.kelly-hero__kicker{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:#ffd764;width:fit-content}
-.kelly-hero__kicker svg{width:13px;height:13px}
-.kelly-hero__copy h1{margin:0;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.1;font-weight:900}
-.kelly-hero__copy p{margin:0;max-width:56ch;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.86)}
-.kelly-hero__meta{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:rgba(255,255,255,.82)}
+.kelly-hero__copy{color:#fff;display:flex;flex-direction:column;gap:5px;min-width:0}
+.kelly-hero__kicker{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.06em;color:#ffd764;width:fit-content}
+.kelly-hero__kicker svg{width:12px;height:12px}
+.kelly-hero__copy h1{margin:0;font-size:clamp(1.15rem,2.1vw,1.55rem);line-height:1.1;font-weight:900}
+.kelly-hero__copy p{margin:0;max-width:56ch;font-size:13px;line-height:1.4;color:rgba(255,255,255,.86)}
+.kelly-hero__meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;color:rgba(255,255,255,.82)}
 .kelly-hero__meta span{display:inline-flex;align-items:center;gap:5px}
-.kelly-hero__meta svg{width:13px;height:13px}
-.kelly-hero__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.kelly-hero__meta svg{width:12px;height:12px}
+.kelly-hero__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:1px}
 .kelly-hero__actions .pc-btn{font-size:13px}
-.kelly-hero__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
+.kelly-hero__actions .pc-btn--primary{background:#82785e;border-color:#82785e;color:#201600}
 .kelly-hero__actions .pc-btn--primary:hover{filter:brightness(1.05)}
 .kelly-hero__actions .pc-btn--ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);color:#fff}
 
@@ -56,36 +56,61 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-info__card{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);text-decoration:none}
 .kelly-info__card svg{flex:none;width:20px;height:20px;color:var(--pc-gold)}
 .kelly-info__card strong{display:block;font-size:13px}
-.kelly-info__card small{display:block;font-size:12px;color:var(--pc-muted);margin-top:2px;line-height:1.4}
+.kelly-info__card small{display:block;font-size:13px;color:var(--pc-muted);margin-top:2px;line-height:1.4}
 .kelly-info__card:hover{border-color:color-mix(in srgb,var(--pc-gold) 45%,var(--pc-border))}
 .kelly-info__card--static{cursor:default}
 
 .kelly-notice{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;border-radius:var(--pc-radius-card);border:1px solid var(--pc-border);background:var(--pc-surface-2);color:var(--pc-muted)}
 .kelly-notice svg{flex:none;width:18px;height:18px;color:var(--pc-green-strong);margin-top:1px}
 .kelly-notice strong{display:block;color:var(--pc-ink);font-size:13px}
-.kelly-notice small{display:block;font-size:12.5px;line-height:1.5;margin-top:2px}
+.kelly-notice small{display:block;font-size:13px;line-height:1.5;margin-top:2px}
+
+/* ---------- Navegação rápida entre seções ----------
+   Fica grudada logo abaixo do topo da área de rolagem enquanto o cardápio
+   passa por trás: com 8 seções (Kelly) ou 4 (Sanduba) e dezenas de itens,
+   isso poupa a pessoa de ficar rolando a página inteira pra achar uma
+   categoria. z-index baixo o bastante pra nunca cobrir o header do site. */
+.kelly-quicknav{
+  position:sticky;top:0;z-index:5;
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
+  margin:0 -20px;padding:8px 20px;
+  background:color-mix(in srgb,var(--pc-canvas) 92%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--pc-border);
+}
+.kelly-quicknav::-webkit-scrollbar{display:none}
+.kelly-quicknav a{
+  flex:none;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border-radius:999px;border:1px solid var(--pc-border);
+  background:var(--pc-surface);color:var(--pc-ink);
+  font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;
+  transition:border-color .15s ease,background-color .15s ease;
+}
+.kelly-quicknav a:hover{border-color:color-mix(in srgb,var(--pc-gold) 45%,var(--pc-border));background:var(--pc-surface-2)}
+.kelly-quicknav a small{color:var(--pc-muted);font-weight:700;font-size:12px}
 
 /* ---------- Menu groups ---------- */
-.kelly-menu-group{border:1px solid var(--pc-border);border-radius:var(--pc-radius-block,18px);overflow:hidden;background:var(--pc-surface)}
-.kelly-menu-group__head{position:relative;padding:18px 20px;background:var(--pc-navy) center/cover no-repeat;min-height:64px;display:flex;align-items:center}
+.kelly-menu-group{border:1px solid var(--pc-border);border-radius:var(--pc-radius-block,18px);overflow:hidden;background:var(--pc-surface);scroll-margin-top:66px}
+.kelly-menu-group__head{position:relative;padding:14px 18px;background:var(--pc-navy) center/cover no-repeat;min-height:56px;display:flex;align-items:center}
 .kelly-menu-group__head-veil{position:absolute;inset:0;background:linear-gradient(100deg,rgba(12,20,26,.9),rgba(12,20,26,.6) 60%,rgba(12,20,26,.35))}
-.kelly-menu-group__head-copy{position:relative;z-index:1;color:#fff}
-.kelly-menu-group__head-copy h2{margin:0;font-size:18px;font-weight:800}
-.kelly-menu-group__head-copy p{margin:4px 0 0;font-size:12.5px;color:rgba(255,255,255,.82)}
+.kelly-menu-group__head-copy{position:relative;z-index:1;color:#fff;display:flex;align-items:center;flex-wrap:wrap;column-gap:10px;row-gap:2px}
+.kelly-menu-group__head-icon{flex:none;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24)}
+.kelly-menu-group__head-icon svg{width:16px;height:16px}
+.kelly-menu-group__head-copy h2{margin:0;font-size:16.5px;font-weight:800}
+.kelly-menu-group__head-copy p{flex-basis:100%;margin:0;font-size:13px;color:rgba(255,255,255,.82)}
 
-.kelly-menu-list{list-style:none;margin:0;padding:6px 6px 10px}
-.kelly-menu-list>li{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border-bottom:1px solid var(--pc-border)}
+.kelly-menu-list{list-style:none;margin:0;padding:4px 6px 8px}
+.kelly-menu-list>li{border-bottom:1px solid var(--pc-border)}
 .kelly-menu-list>li:last-child{border-bottom:none}
-.kelly-menu-list>li.has-image{align-items:flex-start}
-.kelly-menu-list__thumb{flex:none;width:56px;height:56px;border-radius:12px;overflow:hidden;background:var(--pc-surface-2);margin-top:1px}
+.kelly-menu-list__thumb{flex:none;width:48px;height:48px;border-radius:11px;overflow:hidden;background:var(--pc-surface-2);margin-top:1px}
 .kelly-menu-list__thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.kelly-menu-list__copy{min-width:0;flex:1}
-.kelly-menu-list__copy strong{display:block;font-size:14px;color:var(--pc-ink)}
-.kelly-menu-list__copy p{margin:4px 0 0;font-size:12.5px;line-height:1.5;color:var(--pc-muted)}
-.kelly-menu-list__price{flex:none;font-weight:800;font-size:15px;color:var(--pc-green-strong);white-space:nowrap}
+.kelly-menu-list__copy{min-width:0;flex:1;display:block;text-align:left}
+.kelly-menu-list__copy strong{display:block;font-size:13.5px;color:var(--pc-ink)}
+.kelly-menu-list__copy p{margin:3px 0 0;font-size:13px;line-height:1.45;color:var(--pc-muted)}
+.kelly-menu-list__price{flex:none;font-weight:800;font-size:14.5px;color:var(--pc-green-strong);white-space:nowrap}
 
 @media (max-width:480px){
-  .kelly-menu-list__thumb{width:48px;height:48px;border-radius:10px}
+  .kelly-menu-list__thumb{width:44px;height:44px;border-radius:10px}
 }
 
 /* ---------- Bottom CTA ---------- */
@@ -93,19 +118,20 @@ html[data-theme="dark"] .kelly-hero__overlay{
 .kelly-cta h2{margin:0 0 4px;font-size:19px}
 .kelly-cta p{margin:0;font-size:13.5px;color:var(--pc-muted);max-width:44ch}
 .kelly-cta__actions{display:flex;flex-wrap:wrap;gap:10px}
-.kelly-cta__actions .pc-btn--primary{background:#25d366;border-color:#25d366;color:#08210f}
+.kelly-cta__actions .pc-btn--primary{background:#82785e;border-color:#82785e;color:#201600}
 
 @media (max-width:760px){
   .kelly-info{grid-template-columns:1fr}
-  .kelly-hero{min-height:200px}
+  .kelly-hero{min-height:172px}
   .kelly-hero__content{flex-direction:column;align-items:flex-start}
   .kelly-cta{flex-direction:column;align-items:flex-start}
 }
 
 @media (max-width:480px){
   .kelly-shell{padding:12px 14px 48px}
-  .kelly-hero__logo{width:56px;height:56px;border-radius:13px}
-  .kelly-menu-list>li{flex-direction:column;gap:4px}
+  .kelly-hero__logo{width:48px;height:48px;border-radius:12px}
+  .kelly-menu-list__item-btn{flex-direction:column;align-items:flex-start;gap:4px}
   .kelly-menu-list__copy{width:100%}
   .kelly-menu-list__price{align-self:flex-end}
+  .kelly-quicknav{margin:0 -14px;padding:7px 14px}
 }

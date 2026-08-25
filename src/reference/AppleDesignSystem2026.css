@@ -1,0 +1,105 @@
+/* apple-design principles translated to the PreçoCerto web identity. */
+:root {
+  --apple-material: color-mix(in srgb, var(--ux-surface) 82%, transparent);
+  --apple-material-heavy: color-mix(in srgb, var(--ux-surface) 92%, transparent);
+  --apple-material-edge: color-mix(in srgb, #ffffff 38%, var(--ux-border));
+  --apple-shadow-small: 0 8px 28px rgb(7 25 39 / 10%);
+  --apple-shadow-large: 0 24px 70px rgb(7 25 39 / 22%);
+  --apple-response: 160ms;
+  --apple-curve: cubic-bezier(.32, .72, 0, 1);
+}
+
+/* Floating chrome conveys hierarchy without consuming a hard visual strip. */
+:where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header) {
+  isolation: isolate;
+  background: var(--apple-material);
+  border-bottom-color: transparent;
+  box-shadow: var(--apple-shadow-small);
+  backdrop-filter: blur(20px) saturate(155%);
+  -webkit-backdrop-filter: blur(20px) saturate(155%);
+}
+:where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header)::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: auto 0 -12px;
+  height: 12px;
+  background: linear-gradient(to bottom, rgb(7 25 39 / 7%), transparent);
+  pointer-events: none;
+}
+
+/* Bottom navigation behaves like a light material above the page. */
+:where(.hp-dock, .pcn-mobile-dock, .ref-mobile-dock) {
+  background: var(--apple-material-heavy);
+  border-color: var(--apple-material-edge);
+  box-shadow: 0 18px 48px rgb(7 25 39 / 22%), inset 0 1px 0 rgb(255 255 255 / 22%);
+  backdrop-filter: blur(24px) saturate(165%);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+}
+
+/* Modal material is heavier than navigation because it owns focus. */
+:where(.ref-product-dialog, .pcn-modal__card, .th-product-modal, .pc-search-overlay__panel, [role="dialog"] > article) {
+  background: var(--apple-material-heavy);
+  border-color: var(--apple-material-edge);
+  box-shadow: var(--apple-shadow-large), inset 0 1px 0 rgb(255 255 255 / 24%);
+  backdrop-filter: blur(30px) saturate(145%);
+  -webkit-backdrop-filter: blur(30px) saturate(145%);
+}
+
+/* Response begins at pointer-down through :active, with no artificial delay. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, summary, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, summary, [role="button"]):active:not(:disabled) {
+  transform: scale(.97);
+  transition: transform 100ms var(--emil-ease-out, ease-out);
+}
+
+/* Optical typography: tracking tightens as display type grows. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) h1 {
+  font-optical-sizing: auto;
+  letter-spacing: -.04em;
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) h2 {
+  font-optical-sizing: auto;
+  letter-spacing: -.025em;
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(small, label, [class*="caption"], [class*="meta"]) {
+  letter-spacing: .012em;
+}
+
+/* Safe areas and flexible text preserve agency on small devices. */
+@media (max-width: 767px) {
+  :where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header) {
+    padding-top: env(safe-area-inset-top);
+  }
+  :where(.hp-dock, .pcn-mobile-dock, .ref-mobile-dock) {
+    bottom: max(.625rem, env(safe-area-inset-bottom));
+  }
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) h1 {
+    letter-spacing: -.032em;
+  }
+}
+
+/* Accessibility signals are independent, not a single reduced-effects switch. */
+@media (prefers-reduced-transparency: reduce) {
+  :where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header, .hp-dock, .pcn-mobile-dock, .ref-mobile-dock, .ref-product-dialog, .pcn-modal__card, .th-product-modal, .pc-search-overlay__panel, [role="dialog"] > article) {
+    background: var(--ux-surface) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+@media (prefers-contrast: more) {
+  :where(.hp-header, .ref-header, .sector-nav, .store-pro-header, .sf-header, .hp-dock, .pcn-mobile-dock, .ref-mobile-dock, .ref-product-dialog, .pcn-modal__card, .th-product-modal, .pc-search-overlay__panel, [role="dialog"] > article) {
+    background: var(--ux-surface);
+    border: 2px solid var(--ux-text);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, summary, [role="button"]):active:not(:disabled) {
+    transform: none;
+  }
+}

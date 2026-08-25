@@ -2,21 +2,24 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, Building2,
+  ArrowLeft, ArrowRight, BadgeCheck, Building2, Camera,
   Check, Code2, Eye, Heart, Info, LayoutDashboard, LockKeyhole, Mail, Map as MapIcon,
   MapPin, Menu, MessageCircle, Minus, Moon, PackageSearch, PiggyBank, Plus, Search, ShieldCheck, ShoppingBag, ShoppingBasket,
-  SlidersHorizontal, Store, Sun, Tag, TrendingDown, UserRound, UsersRound, WalletCards, X,
+  ReceiptText, SlidersHorizontal, Store, Sun, Tag, TrendingDown, UserRound, UsersRound, WalletCards, X,
 } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog, normalize } from "../data/remoteCatalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { getStoreMapQuery } from "../data/storeAddresses";
 import { loadSessionProfile, requestPasswordReset, signIn, signUp } from "../lib/roles";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { OnlinePresence } from "../components/OnlinePresence";
+import { HeaderRadioPlayer } from "../components/PersistentRadio";
+import { useSiteTheme } from "../hooks/useSiteTheme";
+import { groupForStore } from "../data/businessTaxonomy";
 import { SectorNavigator, getMarketplaceSector } from "./MarketplaceSectors";
 import "./ReferenceExperience.css";
+import "./CompactViewportPages.css";
 import "./ReferencePages.css";
 import "./ReferencePagesMore.css";
 import "./ReferenceResponsive.css";
@@ -34,7 +37,9 @@ import "./Chrome2026.css";
 import "./HomeSmartBasket.css";
 import "./Home2026.css";
 import "./Stores2026.css";
+import "./StoresProfessionalRebuild.css";
 import "./StoreExperienceAcai2026.css";
+import "./CollaborationPage.css";
 
 const initialCatalog = buildCatalog();
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -47,10 +52,10 @@ function ProductRangeSummary({ product }: { product: Product }) {
   const storeCount = product.storeCount || product.offers?.length || 1;
   const difference = Math.max(0, product.maxPrice - product.minPrice);
 
-  if (storeCount <= 1) return <>{brl.format(product.minPrice)}<small>1 estabelecimento consultado</small></>;
-  if (difference <= 0) return <>{brl.format(product.minPrice)}<small>Mesmo preço em {storeCount} estabelecimentos</small></>;
+  if (storeCount <= 1) return <>{brl.format(product.minPrice)}<small>1 loja consultada</small></>;
+  if (difference <= 0) return <>{brl.format(product.minPrice)}<small>Mesmo preço em {storeCount} lojas</small></>;
 
-  return <>{brl.format(product.minPrice)} — {brl.format(product.maxPrice)}<small>{storeCount} estabelecimentos comparados · diferença de {brl.format(difference)}</small></>;
+  return <>{brl.format(product.minPrice)} — {brl.format(product.maxPrice)}<small>{storeCount} lojas comparadas · diferença de {brl.format(difference)}</small></>;
 }
 
 function normalizeProductSearch(value: string) {
@@ -128,6 +133,9 @@ function productSearchScore(product: Product, rawQuery: string) {
   if (name.includes(term)) return 3;
   if (queryWords.every(word => nameWords.includes(word))) return 4;
   if (queryWords.every(word => nameWords.some(nameWord => nameWord.startsWith(word)))) return 5;
+  // Tolera diferenças de espaçamento no cadastro, como "Dobom"/"Do Bom".
+  const nameNoSpace = name.replace(/\s+/g, "");
+  if (nameNoSpace.includes(term.replace(/\s+/g, "")) || queryWords.every(word => nameNoSpace.includes(word))) return 6;
   const context = normalizeProductSearch(`${product.brand} ${product.category} ${product.establishment}`);
   if (context.includes(term)) return 10;
   if (queryWords.every(word => context.includes(word))) return 11;
@@ -154,8 +162,8 @@ function useCatalog() { return useCatalogState().catalog; }
 export function Brand({ inverse = false }: { inverse?: boolean }) {
   return <Link className="ref-brand" to="/" aria-label="PreçoCerto — início">
     {inverse
-      ? <img className="ref-brand__inverse" src="/logo-preco-certo-inversa.svg" alt="PreçoCerto" />
-      : <><img className="ref-brand__light" src="/logo-preco-certo.svg" alt="PreçoCerto" /><img className="ref-brand__dark" src="/logo-preco-certo-inversa.svg" alt="" aria-hidden="true" /></>}
+      ? <img className="ref-brand__inverse" src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" />
+      : <><img className="ref-brand__light" src="/logo-preco-certo.svg?v=11" alt="PreçoCerto" /><img className="ref-brand__dark" src="/logo-preco-certo-inversa.svg?v=11" alt="" aria-hidden="true" /></>}
     <span>FEIJÓ · ACRE</span>
   </Link>;
 }
@@ -163,13 +171,33 @@ export function Brand({ inverse = false }: { inverse?: boolean }) {
 export type FooterPanel = "contato" | "desenvolvedor" | null;
 
 export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClose: () => void }) {
+  const dialogRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!open) return;
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
-    document.addEventListener("keydown", closeOnEscape);
-    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener("keydown", closeOnEscape); };
+    const dialog = dialogRef.current;
+    const focusables = () => Array.from(dialog?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])') || []);
+    window.requestAnimationFrame(() => focusables()[0]?.focus());
+    const manageKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); onClose(); return; }
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) { event.preventDefault(); dialog?.focus(); return; }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", manageKeyboard);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", manageKeyboard);
+      previousFocusRef.current?.focus();
+    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -177,31 +205,29 @@ export function FooterInfoDialogs({ open, onClose }: { open: FooterPanel; onClos
   return createPortal(
     <div className="pc-dev-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
       {open === "contato"
-        ? <section className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title">
+        ? <section ref={dialogRef} className="pc-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-contact-title" tabIndex={-1}>
             <button className="pc-dev-close" type="button" aria-label="Fechar contato" onClick={onClose}><X /></button>
             <span className="pc-contact-icon"><Mail aria-hidden="true" /></span>
-            <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre estabelecimentos virtuais ou suporte à plataforma.</p></div>
+            <div className="pc-contact-copy"><small>CANAL OFICIAL</small><h2 id="pc-contact-title">Fale com o PreçoCerto</h2><p>Dúvidas, sugestões, parcerias, informações sobre lojas virtuais ou suporte à plataforma.</p></div>
             <a className="pc-contact-email" href="mailto:precocerto-fj@proton.me"><Mail /> <span><small>E-mail</small><strong>precocerto-fj@proton.me</strong></span></a>
             <p className="pc-contact-note"><ShieldCheck /> Utilize este endereço para contatos relacionados ao PreçoCerto.</p>
           </section>
-        : <section className="pc-dev-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dev-title" aria-describedby="pc-dev-description">
+        : <section ref={dialogRef} className="pc-dev-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dev-title" aria-describedby="pc-dev-description" tabIndex={-1}>
             <button className="pc-dev-close" type="button" aria-label="Fechar informações" onClick={onClose}><X /></button>
             <header className="pc-dev-header">
               <span className="pc-dev-avatar"><Store aria-hidden="true" /></span>
-              <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, estabelecimentos virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
+              <div><small>PREÇOCERTO · MARKETPLACE LOCAL</small><h2 id="pc-dev-title">Comércio local em uma plataforma própria.</h2><p>Catálogo, lojas virtuais, gestão de vendas e comparação de preços em um só ecossistema.</p></div>
             </header>
-            <div className="pc-dev-content">
-              <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar seu próprio estabelecimento virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
-              <div className="pc-dev-grid">
-                <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Uma vitrine digital para negócios da cidade, reunindo descoberta, catálogo, comparação e jornada de compra em um ambiente único.</p></div></article>
-                <article><Building2 /><div><strong>Estabelecimento virtual próprio</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação do próprio estabelecimento dentro da plataforma.</p></div></article>
-                <article><ShieldCheck /><div><strong>Clareza para o consumidor</strong><p>Quando um estabelecimento ainda não possui venda direta habilitada, o PreçoCerto identifica a página como catálogo informativo para evitar confusão.</p></div></article>
-                <article><Info /><div><strong>Informação para decidir melhor</strong><p>Preços e estabelecimentos são organizados para facilitar a comparação e ajudar o público a tomar decisões de compra com mais contexto.</p></div></article>
-                <article><Code2 /><div><strong>Tecnologia da plataforma</strong><p>Aplicação web construída com React, TypeScript, Vite e integração com Supabase, preparada para experiências responsivas e evolução contínua.</p></div></article>
-                <article><Heart /><div><strong>Projeto feito em Feijó</strong><p>Uma iniciativa local pensada para fortalecer a presença digital dos negócios e tornar o comércio da cidade mais acessível para quem compra.</p></div></article>
-              </div>
-              <div className="pc-dev-signature"><span><UserRound /> Desenvolvimento e idealização</span><strong>Franc D’nis</strong><small>Assinatura técnica do projeto</small></div>
+            <p id="pc-dev-description" className="pc-dev-intro">O PreçoCerto nasceu em Feijó-AC para aproximar consumidores, comerciantes e prestadores locais. Além da comparação de preços, a plataforma evolui como marketplace: cada negócio pode criar sua própria loja virtual, organizar produtos e administrar sua presença e suas vendas dentro do ecossistema.</p>
+            <div className="pc-dev-grid">
+              <article><ShoppingBag /><div><strong>Marketplace local</strong><p>Uma vitrine digital para negócios da cidade, reunindo descoberta, catálogo, comparação e jornada de compra em um ambiente único.</p></div></article>
+              <article><Building2 /><div><strong>Loja virtual própria</strong><p>Comerciantes podem estruturar sua presença digital, publicar produtos e ofertas e gerenciar a operação da própria loja dentro da plataforma.</p></div></article>
+              <article><ShieldCheck /><div><strong>Clareza para o consumidor</strong><p>Quando um estabelecimento ainda não possui venda direta habilitada, o PreçoCerto identifica a página como catálogo informativo para evitar confusão.</p></div></article>
+              <article><Info /><div><strong>Informação para decidir melhor</strong><p>Preços e estabelecimentos são organizados para facilitar a comparação e ajudar o público a tomar decisões de compra com mais contexto.</p></div></article>
+              <article><Code2 /><div><strong>Tecnologia da plataforma</strong><p>Aplicação web construída com React, TypeScript, Vite e integração com Supabase, preparada para experiências responsivas e evolução contínua.</p></div></article>
+              <article><Heart /><div><strong>Projeto feito em Feijó</strong><p>Uma iniciativa local pensada para fortalecer a presença digital dos negócios e tornar o comércio da cidade mais acessível para quem compra.</p></div></article>
             </div>
+            <div className="pc-dev-signature"><span><UserRound /> Desenvolvimento e idealização</span><strong>Franc D’nis</strong><small>Assinatura técnica do projeto</small></div>
             <footer className="pc-dev-footer"><span><MapPin /> Feijó · Acre · Brasil</span><button type="button" onClick={() => onClose()}><MessageCircle /> Fechar</button></footer>
           </section>}
     </div>,
@@ -264,16 +290,9 @@ function useBasket() {
 }
 
 function ThemeButton() {
-  const [dark, setDark] = useState(() => document.documentElement.dataset.theme === "dark");
-  const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    const theme = next ? "dark" : "light";
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-    localStorage.setItem("theme", theme);
-  };
-  return <button className="ref-theme" type="button" onClick={toggle} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
+  const { theme, toggleTheme } = useSiteTheme();
+  const dark = theme === "dark";
+  return <button className="ref-theme" type="button" onClick={toggleTheme} aria-label={dark ? "Usar tema claro" : "Usar tema escuro"}>{dark ? <Sun /> : <Moon />}</button>;
 }
 
 type PublicSection = "home" | "sectors" | "search" | "basket" | "stores" | "profile";
@@ -282,19 +301,22 @@ function sectionFromPath(pathname: string): PublicSection | undefined {
   if (pathname === "/") return "home";
   if (["/explorar", "/mercados", "/farmacias", "/padarias", "/livros", "/servicos"].some((path) => pathname === path || pathname.startsWith(`${path}/`))) return "sectors";
   if (pathname.startsWith("/buscar") || pathname.startsWith("/produto/")) return "search";
-  if (pathname.startsWith("/estabelecimentos") || pathname.startsWith("/estabelecimento/") || pathname.startsWith("/estabelecimento-virtual/")) return "stores";
+  if (pathname.startsWith("/estabelecimentos") || pathname.startsWith("/estabelecimento/") || pathname.startsWith("/loja/")) return "stores";
   if (pathname.startsWith("/cesta")) return "basket";
   if (pathname.startsWith("/favoritos") || pathname.startsWith("/minha-conta")) return "profile";
   return undefined;
 }
 
-// O título por rota mantém o contexto nas páginas que usam a barra compacta;
-// páginas dinâmicas podem substituir o texto e incluir uma logo.
+// A barra compacta (só com "Voltar") não recebia nenhum contexto da página:
+// quem caía direto em /buscar, /cesta ou numa loja específica via link
+// compartilhado não tinha nenhuma pista visual de onde estava. Um título
+// padrão por rota cobre todas as páginas de uma vez; páginas com conteúdo
+// dinâmico (como o nome da loja) podem sobrepor via a prop `title`/`logo`.
 function defaultBackBarTitle(pathname: string): string | undefined {
   if (pathname === "/buscar") return "Buscar produtos";
-  if (pathname === "/explorar") return "Setores";
+  if (pathname === "/explorar") return "Onde comprar";
   if (pathname === "/estabelecimentos") return "Estabelecimentos";
-  if (pathname.startsWith("/estabelecimento/") || pathname.startsWith("/estabelecimento-virtual/")) return "Estabelecimento";
+  if (pathname.startsWith("/estabelecimento/") || pathname.startsWith("/loja/")) return "Estabelecimento";
   if (pathname === "/cesta" || pathname === "/cesta-basica") return "Sua cesta";
   if (pathname === "/cesta-inteligente") return "Cesta inteligente";
   return undefined;
@@ -305,43 +327,36 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
   const { count } = useBasket();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const compactInternalHeader = pathname === "/buscar"
-    || pathname === "/estabelecimentos"
-    || pathname.startsWith("/estabelecimento/")
-    || pathname.startsWith("/estabelecimento-virtual/")
-    || pathname === "/cesta"
-    || pathname === "/cesta-basica"
-    || pathname === "/cesta-inteligente";
   const activeSection = sectionFromPath(pathname) ?? current;
   const activeProps = (section: PublicSection) => ({
     className: activeSection === section ? "is-active" : "",
     "aria-current": activeSection === section ? ("page" as const) : undefined,
   });
   useEffect(() => { setMenu(false); }, [pathname]);
-  if (backOnly || compactInternalHeader) {
+  if (backOnly) {
     const barTitle = title ?? defaultBackBarTitle(pathname);
     return <header className="ref-header ref-header--back-only">
-      <div className="ref-shell ref-header__inner">
-        <div className="ref-header__back-row">
-          <button className="ref-header__back" type="button" onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Voltar para a página anterior">
-            <ArrowLeft aria-hidden="true" />
-            <span>Voltar</span>
-          </button>
-          {(barTitle || logo) && <div className="ref-header__context">
-            {logo && <img className="ref-header__context-logo" src={logo} alt="" aria-hidden="true" />}
-            {barTitle && <strong className="ref-header__context-title">{barTitle}</strong>}
-          </div>}
-        </div>
-        <ThemeButton />
+    <div className="ref-shell ref-header__inner">
+      <div className="ref-header__back-row">
+        <button className="ref-header__back" type="button" onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Voltar para a página anterior">
+          <ArrowLeft aria-hidden="true" />
+          <span>Voltar</span>
+        </button>
+        {(barTitle || logo) && <div className="ref-header__context">
+          {logo && <img className="ref-header__context-logo" src={logo} alt="" aria-hidden="true" />}
+          {barTitle && <strong className="ref-header__context-title">{barTitle}</strong>}
+        </div>}
       </div>
-    </header>;
+      <div className="ref-header__actions">{pathname === "/" && <HeaderRadioPlayer />}<ThemeButton /></div>
+    </div>
+  </header>;
   }
   return <header className="ref-header">
     <div className="ref-shell ref-header__inner">
       <Brand />
       <nav className="ref-nav" aria-label="Navegação principal">
         <Link {...activeProps("home")} to="/">Início</Link>
-        <Link {...activeProps("sectors")} to="/explorar">Setores</Link>
+        <Link {...activeProps("sectors")} to="/explorar">Onde comprar</Link>
         <Link {...activeProps("search")} to="/buscar">Buscar</Link>
         <Link {...activeProps("stores")} to="/estabelecimentos">Estabelecimentos</Link>
         <Link {...activeProps("basket")} to="/cesta-basica">Lista {count > 0 && <b>{count}</b>}</Link>
@@ -351,6 +366,7 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
         {activeSection === "home" && <OnlinePresence />}
       </div>
       <div className="ref-header__actions">
+        {pathname === "/" && <HeaderRadioPlayer />}
         <ThemeButton />
         <Link className={`ref-favorites-link${activeSection === "profile" ? " is-active" : ""}`} aria-current={activeSection === "profile" ? "page" : undefined} to="/favoritos" aria-label="Favoritos"><Heart /></Link>
         <Link className="ref-signin" to="/login">Entrar</Link>
@@ -358,7 +374,7 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
       </div>
     </div>
     {menu && <nav className="ref-mobile-menu" aria-label="Menu">
-      <Link {...activeProps("sectors")} to="/explorar" onClick={() => setMenu(false)}><SlidersHorizontal aria-hidden="true" /> Explorar setores</Link>
+      <Link {...activeProps("sectors")} to="/explorar" onClick={() => setMenu(false)}><SlidersHorizontal aria-hidden="true" /> Onde comprar</Link>
       <Link {...activeProps("search")} to="/buscar" onClick={() => setMenu(false)}><Search aria-hidden="true" /> Buscar no PreçoCerto</Link>
       <Link {...activeProps("stores")} to="/estabelecimentos" onClick={() => setMenu(false)}><Store aria-hidden="true" /> Estabelecimentos</Link>
       <Link {...activeProps("basket")} to="/cesta-basica" onClick={() => setMenu(false)}><ShoppingBasket aria-hidden="true" /> Lista de compras</Link>
@@ -370,24 +386,24 @@ export function PublicHeader({ current, backOnly = false, title, logo }: { curre
 }
 
 export function PublicFooter() {
-  return <footer className="ref-footer ref-footer--compact">
-    <div className="ref-shell ref-footer__compact">
-      <Brand inverse />
-      <div className="ref-footer__compact-copy">
-        <span><BadgeCheck aria-hidden="true" /> Informação local para comprar melhor</span>
-        <small>&copy; 2026 PreçoCerto · Feijó, Acre</small>
-      </div>
+  return <footer className="ref-footer">
+    <div className="ref-shell ref-footer__grid">
+      <div className="ref-footer__brand"><Brand inverse /><p>Compare preços reais do comércio local e escolha onde comprar melhor em Feijó.</p><span><BadgeCheck aria-hidden="true" /> Informação local verificada</span></div>
+      <nav aria-label="PreçoCerto"><strong>PreçoCerto</strong><Link to="/buscar">Buscar produtos</Link><Link to="/estabelecimentos">Estabelecimentos</Link><Link to="/cesta-basica">Lista de compras</Link></nav>
+      <nav aria-label="Categorias"><strong>Categorias</strong><Link to="/mercados">Mercados</Link><Link to="/acougues">Açougues</Link><Link to="/padarias">Padarias</Link><Link to="/farmacias">Farmácias</Link></nav>
+      <nav aria-label="Suporte e negócios"><strong>Suporte e negócios</strong><Link to="/lojista">Área do lojista</Link><Link to="/quero-vender">Quero vender</Link><Link to="/colaborar">Colaborar</Link><Link to="/contato">Fale conosco</Link></nav>
     </div>
+    <div className="ref-shell ref-footer__legal"><small>&copy; 2026 PreçoCerto · Feijó, Acre · dev &lt;Franc D’nis&gt;</small><span>Preços podem mudar. Confirme no estabelecimento antes da compra.</span></div>
   </footer>;
 }
 
-export function AppDock({ current }: { current: "home" | "search" | "basket" | "stores" | "profile" }) {
+export function AppDock({ current }: { current: "home" | "search" | "explore" | "basket" | "stores" | "profile" }) {
   return <nav className="ref-dock" aria-label="Navegação principal do aplicativo">
     <Link className={current === "home" ? "is-active" : ""} to="/" aria-current={current === "home" ? "page" : undefined}><LayoutDashboard aria-hidden="true" /><span>Início</span></Link>
     <Link className={current === "search" ? "is-active" : ""} to="/buscar" aria-current={current === "search" ? "page" : undefined}><Search aria-hidden="true" /><span>Buscar</span></Link>
-    <Link className={current === "basket" ? "is-active" : ""} to="/cesta-basica" aria-current={current === "basket" ? "page" : undefined}><ShoppingBasket aria-hidden="true" /><span>Cesta</span></Link>
-    <Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos" aria-current={current === "stores" ? "page" : undefined}><Store aria-hidden="true" /><span>Lojas</span></Link>
-    <Link className={current === "profile" ? "is-active" : ""} to="/favoritos" aria-current={current === "profile" ? "page" : undefined}><Heart aria-hidden="true" /><span>Favoritos</span></Link>
+    <Link className={current === "explore" ? "is-active" : ""} to="/explorar" aria-current={current === "explore" ? "page" : undefined}><SlidersHorizontal aria-hidden="true" /><span>Explorar</span></Link>
+    <Link className={current === "stores" ? "is-active" : ""} to="/estabelecimentos" aria-current={current === "stores" ? "page" : undefined} aria-label="Estabelecimentos perto de mim"><MapPin aria-hidden="true" /><span>Perto</span></Link>
+    <Link className={current === "profile" ? "is-active" : ""} to="/minha-conta" aria-current={current === "profile" ? "page" : undefined}><UserRound aria-hidden="true" /><span>Conta</span></Link>
   </nav>;
 }
 
@@ -543,18 +559,18 @@ export function ReferenceHome() {
     document.addEventListener("keydown", handleKeyDown); return () => { document.removeEventListener("keydown", handleKeyDown); body.style.overflow = previousOverflow; body.style.paddingRight = previousPaddingRight; searchInputRef.current?.focus(); };
   }, [selectedProduct]);
   return <div className="ref-page ref-home"><PublicHeader current="home" /><main id="conteudo-principal">
-      <section className="ref-hero"><div className="ref-shell ref-hero__grid"><div className="ref-hero__copy"><span className="ref-kicker"><i /> AO VIVO EM FEIJÓ</span><h1>Compare antes<br /><em>de comprar.</em></h1><p>Encontre os menores preços em mercados e mercearias de Feijó. Informação local para economizar todos os dias.</p><form ref={searchFormRef} className={`ref-search${query ? " has-query" : ""}`} onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "ArrowDown" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => Math.min(index + 1, searchResults.length - 1)); } else if (event.key === "ArrowUp" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => index <= 0 ? searchResults.length - 1 : index - 1); } else if (event.key === "Home" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(0); } else if (event.key === "End" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(searchResults.length - 1); } else if (event.key === "Enter" && searchOpen && activeSearchIndex >= 0 && searchResults[activeSearchIndex]) { event.preventDefault(); setSearchOpen(false); setSelectedProduct(searchResults[activeSearchIndex]); } else if (event.key === "Escape") { event.preventDefault(); setSearchOpen(false); setActiveSearchIndex(-1); } }} placeholder="Buscar produto, marca ou estabelecimento…" aria-label="Buscar produto, marca ou estabelecimento" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" aria-activedescendant={activeSearchIndex >= 0 ? `resultado-busca-${activeSearchIndex}` : undefined} />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa" onPointerDown={event => event.preventDefault()} onClick={clearSearch}><X aria-hidden="true" /><span>Limpar</span></button>}<button className="ref-search-submit" type="submit" aria-label="Ver todos os resultados">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="listbox" aria-label="Resultados da pesquisa"><header><span>Melhores correspondências</span><small aria-live="polite">{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map((product, index) => <button id={`resultado-busca-${index}`} key={product.id} type="button" role="option" aria-selected={activeSearchIndex === index} tabIndex={-1} className={activeSearchIndex === index ? "is-keyboard-active" : ""} onMouseEnter={() => setActiveSearchIndex(index)} onClick={() => { setSearchOpen(false); setActiveSearchIndex(-1); setSelectedProduct(product); }} aria-label={`Ver detalhes de ${product.name}, menor preço ${brl.format(product.minPrice)}`}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></button>)}</div> : <div className="ref-search-results__empty" role="status"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><small><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</small><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form><div className="ref-trust"><span><BadgeCheck /> Preços verificados</span><span><MapPin /> Hiperlocal</span><span><ShieldCheck /> Dados protegidos</span></div></div>{catalogLoading ? <div className="ref-live-card ref-live-card--loading" aria-busy="true" aria-label="Carregando preço verificado"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizando dados…</small></div><div className="ref-live-card__skeleton"><i /><div><i /><i /><i /></div></div><div className="ref-live-card__skeleton-prices"><i /><i /></div><span className="ref-live-card__loading-label">Consultando os preços mais recentes de Feijó…</span></div> : lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Novo destaque a cada 60 min</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}</div></section>
+      <section className="ref-hero"><div className="ref-shell ref-hero__grid"><div className="ref-hero__copy"><span className="ref-kicker"><i /> AO VIVO EM FEIJÓ</span><h1>Compare antes<br /><em>de comprar.</em></h1><p>Encontre os menores preços em mercados e mercearias de Feijó. Informação local para economizar todos os dias.</p><form ref={searchFormRef} className={`ref-search${query ? " has-query" : ""}`} onSubmit={submit} role="search" onFocus={() => setSearchOpen(true)}><Search aria-hidden="true" /><input ref={searchInputRef} name="busca" autoComplete="off" value={query} onChange={event => { setQuery(event.target.value); setSearchOpen(true); }} onKeyDown={event => { if (event.key === "ArrowDown" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => Math.min(index + 1, searchResults.length - 1)); } else if (event.key === "ArrowUp" && searchResults.length) { event.preventDefault(); setSearchOpen(true); setActiveSearchIndex(index => index <= 0 ? searchResults.length - 1 : index - 1); } else if (event.key === "Home" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(0); } else if (event.key === "End" && searchOpen && searchResults.length) { event.preventDefault(); setActiveSearchIndex(searchResults.length - 1); } else if (event.key === "Enter" && searchOpen && activeSearchIndex >= 0 && searchResults[activeSearchIndex]) { event.preventDefault(); setSearchOpen(false); setSelectedProduct(searchResults[activeSearchIndex]); } else if (event.key === "Escape") { event.preventDefault(); setSearchOpen(false); setActiveSearchIndex(-1); } }} placeholder="Buscar produto, marca ou mercado…" aria-label="Buscar produto, marca ou mercado" role="combobox" aria-autocomplete="list" aria-expanded={searchOpen && Boolean(query.trim())} aria-controls="resultados-busca-home" aria-activedescendant={activeSearchIndex >= 0 ? `resultado-busca-${activeSearchIndex}` : undefined} />{query && <button className="ref-search-clear" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa" onPointerDown={event => event.preventDefault()} onClick={clearSearch}><X aria-hidden="true" /><span>Limpar</span></button>}<button className="ref-search-submit" type="submit" aria-label="Ver todos os resultados">Comparar <ArrowRight /></button>{searchOpen && query.trim() && <div className="ref-search-results" id="resultados-busca-home" role="listbox" aria-label="Resultados da pesquisa"><header><span>Melhores correspondências</span><small aria-live="polite">{searchResults.length ? `${searchResults.length} ${searchResults.length === 1 ? "produto encontrado" : "produtos encontrados"}` : "Nenhum produto encontrado"}</small></header>{searchResults.length ? <div className="ref-search-results__list">{searchResults.map((product, index) => <button id={`resultado-busca-${index}`} key={product.id} type="button" role="option" aria-selected={activeSearchIndex === index} tabIndex={-1} className={activeSearchIndex === index ? "is-keyboard-active" : ""} onMouseEnter={() => setActiveSearchIndex(index)} onClick={() => { setSearchOpen(false); setActiveSearchIndex(-1); setSelectedProduct(product); }} aria-label={`Ver detalhes de ${product.name}, menor preço ${brl.format(product.minPrice)}`}><span className="ref-search-results__image"><ProductVisual product={product} /></span><span className="ref-search-results__copy"><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment || "Comércio local"}</em></span><span className="ref-search-results__price"><small>Menor preço</small><strong>{brl.format(product.minPrice)}</strong></span><ArrowRight aria-hidden="true" /></button>)}</div> : <div className="ref-search-results__empty" role="status"><PackageSearch aria-hidden="true" /><div><strong>Não encontramos esse produto.</strong><span>Confira a escrita ou tente uma palavra do nome, como “arroz”, “leite” ou “sabão”.</span></div></div>}<footer><small><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</small><button type="submit">Ver todos os resultados <ArrowRight aria-hidden="true" /></button></footer></div>}</form><div className="ref-trust"><span><BadgeCheck /> Preços verificados</span><span><MapPin /> Hiperlocal</span><span><ShieldCheck /> Dados protegidos</span></div></div>{catalogLoading ? <div className="ref-live-card ref-live-card--loading" aria-busy="true" aria-label="Carregando preço verificado"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Atualizando dados…</small></div><div className="ref-live-card__skeleton"><i /><div><i /><i /><i /></div></div><div className="ref-live-card__skeleton-prices"><i /><i /></div><span className="ref-live-card__loading-label">Consultando os preços mais recentes de Feijó…</span></div> : lead && <div className="ref-live-card"><div className="ref-live-card__top"><span>PREÇO VERIFICADO</span><small>Novo destaque a cada 60 min</small></div><div className="ref-live-card__product"><ProductVisual product={lead} eager /><div><small>{lead.category}</small><h2>{lead.name}</h2><p>{lead.size || lead.brand}</p></div></div><div className="ref-live-card__prices"><div><small>Menor preço</small><strong>{brl.format(lead.minPrice)}</strong><span>{lead.establishment}</span></div><div><small>Economize até</small><strong>{brl.format(Math.max(0, lead.maxPrice - lead.minPrice))}</strong><span>comparando agora</span></div></div><button type="button" onClick={() => navigate(`/produto/${lead.slug || lead.id}`)}>Ver comparação completa <ArrowRight /></button></div>}</div></section>
       <SmartBasketHome />
       <section className="ref-proof"><div className="ref-shell ref-proof__grid"><div><strong>{integer.format(catalog.metrics.prices)}</strong><span>preços verificados</span></div><div><strong>{integer.format(catalog.metrics.products)}</strong><span>produtos monitorados</span></div><div><strong>{integer.format(catalog.metrics.stores)}</strong><span>estabelecimentos locais</span></div><div><strong>Feijó</strong><span>feito para nossa cidade</span></div></div></section>
-      <section className="ref-sectors ref-shell" aria-labelledby="ref-sectors-title"><div className="ref-sectors__heading"><div><span>EXPLORE SEM MISTURAR</span><h2 id="ref-sectors-title">Cada busca no lugar certo.</h2></div><p>Escolha um setor para ver produtos, serviços, estabelecimentos e profissionais com filtros próprios.</p></div><SectorNavigator compact/><Link className="ref-sectors__all" to="/explorar">Entender todos os setores <ArrowRight /></Link></section>
+      <section className="ref-sectors ref-shell" aria-labelledby="ref-sectors-title"><div className="ref-sectors__heading"><div><span>EXPLORE SEM MISTURAR</span><h2 id="ref-sectors-title">Cada busca no lugar certo.</h2></div><p>Escolha um setor para ver produtos, serviços, lojas e profissionais com filtros próprios.</p></div><SectorNavigator compact/><Link className="ref-sectors__all" to="/explorar">Ver todas as categorias <ArrowRight /></Link></section>
       <section className="ref-section ref-shell"><div className="ref-section__heading"><div><h2>Onde seu dinheiro rende mais.</h2><p className="ref-section__rotation-note">Seleção renovada a cada 60 minutos, com um comércio diferente em cada destaque.</p></div><Link to="/buscar">Ver todos os preços <ArrowRight /></Link></div><div className="ref-price-board">{featured.map((product, index) => <Link to={`/produto/${product.slug || product.id}`} className="ref-price-row" key={product.id}><span className="ref-price-rank">{String(index + 1).padStart(2, "0")}</span><span className="ref-price-image"><ProductVisual product={product} /></span><span className="ref-price-name"><small>{product.category}</small><strong>{product.name}</strong><em>{product.size || product.brand}</em></span><span className="ref-price-store"><small>melhor em</small><strong>{product.establishment}</strong><em>{product.neighborhood}</em></span><span className="ref-price-value"><small>a partir de</small><strong>{brl.format(product.minPrice)}</strong><em>{product.storeCount || product.offers?.length || 1} ofertas</em></span><ArrowRight /></Link>)}</div></section>
-      <section className="ref-economy"><div className="ref-shell ref-economy__grid"><div><h2>Compare sua lista.<br />Sinta a diferença no bolso.</h2><p>Compare a mesma lista em diferentes estabelecimentos e veja, em valores reais, quanto pode economizar no seu bolso.</p><div className="ref-economy__signals"><span><BadgeCheck /> {receipt.length} itens comparados</span><span><MapPin /> Preços de Feijó</span></div><Link to="/cesta-basica">Montar lista de compras <ArrowRight /></Link></div><aside className="ref-receipt" aria-label="Simulação de economia da lista"><header className="ref-receipt__top"><div><strong>PREÇO<span>CERTO</span></strong><small>Comparação local</small></div><span>SIMULAÇÃO</span></header><div className="ref-receipt__meta"><span>Feijó · Acre</span><span>Atualizado hoje</span></div>{receipt.map(product => <div className="ref-receipt__item" key={product.id}><div><span>{product.name}</span><small>{product.establishment}</small></div><strong>{brl.format(product.minPrice)}</strong><em>Economia {brl.format(Math.max(0, product.maxPrice - product.minPrice))}</em></div>)}<div className="ref-receipt__summary"><div><span>Total nos menores preços</span><strong>{brl.format(receipt.reduce((sum, item) => sum + item.minPrice, 0))}</strong></div></div><div className="ref-receipt__total"><div><span>Você pode economizar</span><small>nesta lista</small></div><strong>{brl.format(receipt.reduce((sum, item) => sum + Math.max(0, item.maxPrice - item.minPrice), 0))}</strong></div><footer className="ref-receipt__note"><BadgeCheck /><span>Preços locais verificados<small>Consulte antes da compra.</small></span></footer></aside></div></section>
-      <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre estabelecimentos perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
-    </main><PublicFooter /><AppDock current="home" />{selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) closeProductDialog(); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={closeProductDialog}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices" aria-busy={comparisonLoading}><div className={comparisonLoading ? "is-loading" : ""}><small>Menor preço ao vivo</small><strong>{comparisonLoading ? "Consultando…" : brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{comparisonLoading ? "Buscando estabelecimentos" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={comparisonLoading ? "is-loading" : (selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{comparisonLoading ? "Atualizando preços…" : (selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{comparisonLoading ? "Comparando o mesmo produto em estabelecimentos distintos" : (selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "estabelecimento consultado" : "estabelecimentos consultados"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{comparisonLoading ? "Atualizando estabelecimento…" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{comparisonLoading ? "Consulta ao vivo em andamento" : selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={leaveProductDialog}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}</div>;
+      <section className="ref-economy"><div className="ref-shell ref-economy__grid"><div><h2>Compare sua lista.<br />Sinta a diferença no bolso.</h2><p>Compare a mesma lista em diferentes lojas e veja, em valores reais, quanto pode economizar no seu bolso.</p><div className="ref-economy__signals"><span><BadgeCheck /> {receipt.length} itens comparados</span><span><MapPin /> Preços de Feijó</span></div><Link to="/cesta-basica">Montar lista de compras <ArrowRight /></Link></div><aside className="ref-receipt" aria-label="Simulação de economia da lista"><header className="ref-receipt__top"><div><strong>PREÇO<span>CERTO</span></strong><small>Comparação local</small></div><span>SIMULAÇÃO</span></header><div className="ref-receipt__meta"><span>Feijó · Acre</span><span>Atualizado hoje</span></div>{receipt.map(product => <div className="ref-receipt__item" key={product.id}><div><span>{product.name}</span><small>{product.establishment}</small></div><strong>{brl.format(product.minPrice)}</strong><em>Economia {brl.format(Math.max(0, product.maxPrice - product.minPrice))}</em></div>)}<div className="ref-receipt__summary"><div><span>Total nos menores preços</span><strong>{brl.format(receipt.reduce((sum, item) => sum + item.minPrice, 0))}</strong></div></div><div className="ref-receipt__total"><div><span>Você pode economizar</span><small>nesta lista</small></div><strong>{brl.format(receipt.reduce((sum, item) => sum + Math.max(0, item.maxPrice - item.minPrice), 0))}</strong></div><footer className="ref-receipt__note"><BadgeCheck /><span>Preços locais verificados<small>Consulte antes da compra.</small></span></footer></aside></div></section>
+      <section className="ref-local"><div className="ref-shell ref-local__inner"><div><h2>O mercado do seu bairro,<br />na sua mão.</h2><p>Explore catálogos, veja atualizações e encontre lojas perto de você.</p></div><div className="ref-local__actions"><Link to="/estabelecimentos"><Store /> Ver estabelecimentos <ArrowRight /></Link><Link to="/lojista"><Building2 /> Cadastrar meu comércio <ArrowRight /></Link></div></div></section>
+    </main><PublicFooter /><AppDock current="home" />{selectedProduct && <div className="ref-product-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) closeProductDialog(); }}><div ref={productDialogRef} className="ref-product-dialog" role="dialog" aria-modal="true" aria-labelledby="produto-modal-titulo"><button className="ref-product-dialog__close" type="button" aria-label="Fechar detalhes do produto" onClick={closeProductDialog}><X aria-hidden="true" /></button><div className="ref-product-dialog__visual"><span>{selectedProduct.category}</span><ProductVisual product={selectedProduct} eager /></div><section><span className="ref-product-dialog__eyebrow"><BadgeCheck /> PREÇO LOCAL VERIFICADO</span><h2 id="produto-modal-titulo">{selectedProduct.name}</h2><p>{[selectedProduct.brand, selectedProduct.size].filter(Boolean).join(" · ")}</p><div className="ref-product-dialog__prices" aria-busy={comparisonLoading}><div className={comparisonLoading ? "is-loading" : ""}><small>Menor preço ao vivo</small><strong>{comparisonLoading ? "Consultando…" : brl.format(selectedComparison?.lowest.value ?? selectedProduct.minPrice)}</strong><span>{comparisonLoading ? "Buscando estabelecimentos" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</span></div><div className={comparisonLoading ? "is-loading" : (selectedComparison?.difference || 0) > 0 ? "has-savings" : "no-savings"}><small>Diferença encontrada</small><strong>{comparisonLoading ? "Atualizando preços…" : (selectedComparison?.difference || 0) > 0 ? brl.format(selectedComparison!.difference) : "Sem diferença ainda"}</strong><span>{comparisonLoading ? "Comparando o mesmo produto em lojas distintas" : (selectedComparison?.difference || 0) > 0 ? `${percentage.format(selectedComparison!.percentage)}% · de ${brl.format(selectedComparison!.highest.value)} para ${brl.format(selectedComparison!.lowest.value)}` : `${selectedComparison?.storeCount || 1} ${(selectedComparison?.storeCount || 1) === 1 ? "loja consultada" : "lojas consultadas"}`}</span></div></div><div className="ref-product-dialog__store"><MapPin aria-hidden="true" /><span><small>Melhor opção encontrada</small><strong>{comparisonLoading ? "Atualizando estabelecimento…" : selectedComparison?.lowest.establishment || selectedProduct.establishment || "Comércio local"}</strong><em>{comparisonLoading ? "Consulta ao vivo em andamento" : selectedComparison?.lowest.neighborhood || selectedProduct.neighborhood || "Feijó, Acre"}</em></span></div><Link to={`/produto/${selectedProduct.slug || selectedProduct.id}`} onClick={leaveProductDialog}>Ver comparação completa <ArrowRight aria-hidden="true" /></Link></section></div></div>}</div>;
 }
 
 export function ReferenceStoresPage() {
-  const catalog = useCatalog(); const [params] = useSearchParams(); const activeDirectorySector = getMarketplaceSector(params.get("setor")); const [query, setQuery] = useState(""); const [mapStore, setMapStore] = useState(""); const [visibleStores, setVisibleStores] = useState(6); const stores = catalog.stores.filter(store => { const matchesQuery = normalize(`${store.name} ${store.neighborhood}`).includes(normalize(query)); const matchesSector = !activeDirectorySector || activeDirectorySector.businessKinds.includes(store.kind || "market"); return matchesQuery && matchesSector; }); const listedStores = stores.slice(0, visibleStores); useEffect(() => setVisibleStores(6), [query]); const mapLabel = mapStore || `${activeDirectorySector?.label || "Estabelecimentos"} em Feijó`; const selectedMapStore = stores.find(store => store.name === mapStore); const mapQuery = encodeURIComponent(mapStore ? getStoreMapQuery(mapStore, selectedMapStore?.neighborhood) : `${activeDirectorySector?.label || "Estabelecimentos"}, Feijó - AC, 69960-000, Brasil`);
+  const catalog = useCatalog(); const [params] = useSearchParams(); const activeDirectorySector = getMarketplaceSector(params.get("setor")); const [query, setQuery] = useState(""); const [mapStore, setMapStore] = useState(""); const [visibleStores, setVisibleStores] = useState(6); const stores = catalog.stores.filter(store => { const matchesQuery = normalize(`${store.name} ${store.neighborhood}`).includes(normalize(query)); const matchesSector = !activeDirectorySector || groupForStore(store).id === activeDirectorySector.id; return matchesQuery && matchesSector; }); const listedStores = stores.slice(0, visibleStores); useEffect(() => setVisibleStores(6), [query]); const mapLabel = mapStore || `${activeDirectorySector?.label || "Estabelecimentos"} em Feijó`; const mapSearchTerm = mapStore || activeDirectorySector?.label || "Estabelecimentos"; const mapQuery = encodeURIComponent(`${mapSearchTerm}, Feijó - AC, 69960-000, Brasil`);
   return <div className="ref-page ref-directory ref-stores-page"><PublicHeader current="stores" /><main id="conteudo-principal" className="ref-shell ref-directory__main"><section className="ref-stores-hero"><div><span>{activeDirectorySector ? activeDirectorySector.eyebrow.toLocaleUpperCase("pt-BR") : "COMÉRCIO LOCAL VERIFICADO"}</span><h1>{activeDirectorySector ? activeDirectorySector.label : <>Negócios locais,<br />mais perto.</>}</h1><p>{activeDirectorySector?.description || "Descubra estabelecimentos de Feijó, consulte catálogos e encontre onde comprar melhor."}</p><div><BadgeCheck /> {stores.length} {stores.length === 1 ? "cadastro neste setor" : "cadastros neste setor"}</div></div><Link to="/lojista">Cadastrar meu negócio <ArrowRight /></Link></section><div className="ref-search-sectors"><SectorNavigator active={activeDirectorySector?.id || "all"} compact/></div><div className="ref-stores-toolbar"><Search /><input value={query} onChange={event => setQuery(event.target.value)} placeholder={activeDirectorySector ? `Buscar em ${activeDirectorySector.shortLabel}` : "Buscar negócio ou bairro"} aria-label="Buscar estabelecimento" /><span>{stores.length} {stores.length === 1 ? "resultado" : "resultados"}</span></div><section className="ref-stores-directory"><div className="ref-store-cards"><header><div><span>ESTABELECIMENTOS</span><h2>Comércios para explorar</h2></div><small>Catálogos e preços locais</small></header>{listedStores.map(store => <article className={`ref-store-card${mapStore === store.name ? " is-map-active" : ""}`} key={store.id}><button className="ref-store-card__select" type="button" onClick={() => setMapStore(store.name)} aria-label={`Mostrar ${store.name} no mapa`}><i style={{ background: store.color }}><StoreLogo name={store.name} /></i><span><small>{store.neighborhood}</small><strong>{store.name}</strong><em>{store.products} produtos no catálogo</em></span><MapPin aria-hidden="true" /></button><footer><button type="button" onClick={() => setMapStore(store.name)}><MapPin /> Localizar</button><Link to={`/estabelecimento/${store.slug}`}>Abrir catálogo <ArrowRight /></Link></footer></article>)}{visibleStores < stores.length && <button className="ref-stores-more" type="button" onClick={() => setVisibleStores(count => Math.min(count + 6, stores.length))}>Mostrar mais estabelecimentos <span>{stores.length - visibleStores} restantes</span></button>}{!stores.length && <div className="ref-empty"><Store /><h2>Nenhum estabelecimento encontrado</h2><p>Tente buscar por outro nome ou bairro.</p></div>}</div><aside className="ref-stores-map" id="mapa-estabelecimentos"><header><MapIcon /><span><strong>{mapStore || "Mapa do comércio local"}</strong><small>{mapStore ? "Localização pesquisada em Feijó" : `Explore ${activeDirectorySector?.shortLabel.toLocaleLowerCase("pt-BR") || "negócios"} de Feijó`}</small></span></header><iframe key={mapQuery} title={`Mapa de ${mapLabel}`} src={`https://www.google.com/maps?q=${mapQuery}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noreferrer">Abrir mapa completo <ArrowRight /></a></aside></section></main><PublicFooter /><AppDock current="stores" /></div>;
 }
 
@@ -566,5 +582,60 @@ export function ReferenceMerchantDashboard() { const catalog = useCatalog(); con
 
 type InfoKind = "collaborate" | "contact" | "pharmacies" | "orders" | "culture";
 const infoCopy: Record<InfoKind, { eyebrow: string; title: string; copy: string; action: string; to: string }> = { collaborate: { eyebrow: "COLABORE COM FEIJÓ", title: "Ajude a manter os preços úteis.", copy: "Compartilhe atualizações e fortaleça uma base local mais transparente para todos.", action: "Entrar para colaborar", to: "/login" }, contact: { eyebrow: "FALE COM O PREÇOCERTO", title: "Estamos perto para ouvir.", copy: "Envie sua dúvida, sugestão ou proposta de parceria com o comércio local.", action: "Acessar minha conta", to: "/login" }, pharmacies: { eyebrow: "SAÚDE LOCAL", title: "Farmácias de Feijó.", copy: "A cobertura de preços de farmácias está sendo organizada com verificação e responsabilidade.", action: "Ver estabelecimentos", to: "/estabelecimentos" }, orders: { eyebrow: "SUAS COMPRAS", title: "Pedidos em um só lugar.", copy: "Entre para acompanhar pagamentos, preparo e entrega dos pedidos feitos nas lojas participantes.", action: "Entrar para continuar", to: "/login" }, culture: { eyebrow: "CULTURA DE FEIJÓ", title: "Talento local também tem valor.", copy: "Descubra projetos, livros e produções da nossa cidade dentro do ecossistema PreçoCerto.", action: "Explorar estabelecimentos", to: "/estabelecimentos" } };
-export function ReferenceInfoPage({ kind }: { kind: InfoKind }) { const content = infoCopy[kind]; return <div className="ref-page"><PublicHeader /><main id="conteudo-principal" className="ref-info"><span>{content.eyebrow}</span><h1>{content.title}</h1><p>{content.copy}</p><Link to={content.to}>{content.action} <ArrowRight /></Link></main><PublicFooter /></div>; }
+
+function CollaborationPage() {
+  const [profile, setProfile] = useState<Awaited<ReturnType<typeof loadSessionProfile>>>(null);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    void loadSessionProfile().then(value => {
+      if (!active) return;
+      setProfile(value);
+      setLoadingProfile(false);
+    });
+    return () => { active = false; };
+  }, []);
+
+  const emailSubject = encodeURIComponent("Colaboração de preços — nota de compra");
+  const emailBody = encodeURIComponent(
+    `Olá, equipe PreçoCerto!\n\nEstou enviando uma foto legível da minha nota de compra para análise e possível atualização dos preços.\n\nNome: ${profile?.name || ""}\nE-mail cadastrado: ${profile?.email || ""}\nEstabelecimento: \nData da compra: \nDiferença identificada: \n\nVou anexar a imagem da nota neste e-mail.`
+  );
+  const emailHref = `mailto:precocerto-fj@proton.me?subject=${emailSubject}&body=${emailBody}`;
+
+  return <div className="ref-page pc-collab-page">
+    <PublicHeader />
+    <main id="conteudo-principal" className="pc-collab">
+      <section className="pc-collab__hero" aria-labelledby="pc-collab-title">
+        <div className="pc-collab__copy">
+          <span className="pc-collab__eyebrow"><UsersRound aria-hidden="true" /> COLABORAÇÃO VERIFICADA</span>
+          <h1 id="pc-collab-title">Viu um preço diferente?</h1>
+          <p>Envie uma foto legível da sua nota de compra. Nossa equipe confere as informações e realiza as atualizações necessárias no catálogo.</p>
+          <div className="pc-collab__trust"><ShieldCheck aria-hidden="true" /><span><strong>Análise antes da publicação</strong><small>Nenhum preço é alterado automaticamente. A equipe PreçoCerto valida estabelecimento, produto, valor e data.</small></span></div>
+        </div>
+
+        <aside className="pc-collab__panel" aria-label="Enviar nota de compra">
+          <header><span><ReceiptText aria-hidden="true" /></span><div><small>SUA CONTRIBUIÇÃO</small><h2>Envie a nota por e-mail</h2></div></header>
+          <ol>
+            <li><b>1</b><span><strong>Fotografe a nota inteira</strong><small>Produto, preço, estabelecimento e data precisam estar legíveis.</small></span></li>
+            <li><b>2</b><span><strong>Informe a diferença encontrada</strong><small>Conte brevemente qual preço precisa ser conferido.</small></span></li>
+            <li><b>3</b><span><strong>Anexe a imagem e envie</strong><small>Destinatário: precocerto-fj@proton.me</small></span></li>
+          </ol>
+
+          {loadingProfile ? <div className="pc-collab__account is-loading">Verificando sua conta…</div> : profile ? <>
+            <div className="pc-collab__account"><BadgeCheck aria-hidden="true" /><span><small>COLABORADOR IDENTIFICADO</small><strong>{profile.name}</strong></span></div>
+            <a className="pc-collab__send" href={emailHref}><Camera aria-hidden="true" /> Preparar envio da nota <ArrowRight aria-hidden="true" /></a>
+            <small className="pc-collab__hint">Seu aplicativo de e-mail será aberto. Anexe a fotografia antes de enviar.</small>
+          </> : <>
+            <div className="pc-collab__account"><LockKeyhole aria-hidden="true" /><span><small>CONTA NECESSÁRIA</small><strong>Entre para enviar sua colaboração</strong></span></div>
+            <Link className="pc-collab__send" to="/login?redirect=/colaborar"><UserRound aria-hidden="true" /> Entrar ou criar conta <ArrowRight aria-hidden="true" /></Link>
+            <small className="pc-collab__hint">O acesso identificado ajuda a equipe a confirmar informações quando necessário.</small>
+          </>}
+        </aside>
+      </section>
+    </main>
+  </div>;
+}
+
+export function ReferenceInfoPage({ kind }: { kind: InfoKind }) { if (kind === "collaborate") return <CollaborationPage />; const content = infoCopy[kind]; return <div className="ref-page"><PublicHeader /><main id="conteudo-principal" className="ref-info"><span>{content.eyebrow}</span><h1>{content.title}</h1><p>{content.copy}</p><Link to={content.to}>{content.action} <ArrowRight /></Link></main><PublicFooter /></div>; }
 export function ReferenceNotFound() { return <div className="ref-page"><PublicHeader /><main id="conteudo-principal" className="ref-info"><span>PÁGINA NÃO ENCONTRADA</span><h1>Vamos voltar ao preço certo.</h1><p>Este endereço não existe ou foi reorganizado na nova experiência.</p><Link to="/">Ir para a homepage <ArrowRight /></Link></main><PublicFooter /></div>; }

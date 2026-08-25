@@ -1,0 +1,25 @@
+/* Mobile overlay safety — final layer for global/admin overlays. */
+@media (max-width:767px){
+  .ape-backdrop{padding:0!important;align-items:stretch!important;place-items:stretch!important;background:rgba(12,25,34,.68)!important}
+  .ape-dialog{width:100%!important;max-width:none!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;border-inline:0!important;display:grid!important;grid-template-rows:auto minmax(0,1fr) auto!important;overflow:hidden!important}
+  .ape-dialog>header{position:relative!important;z-index:2!important;padding:calc(12px + env(safe-area-inset-top)) 14px 11px!important;background:#fff!important;align-items:flex-start!important}
+  .ape-dialog>header h2{font-size:20px!important;line-height:1.08!important}.ape-dialog>header p{font-size:12px!important;line-height:1.35!important}
+  .ape-dialog>header button{width:44px!important;height:44px!important;flex:none!important}
+  .ape-content{grid-template-columns:1fr!important;gap:12px!important;padding:12px 14px 18px!important;overflow-y:auto!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;min-height:0!important}
+  .ape-image-panel{gap:8px!important}.ape-preview{height:150px!important;border-radius:11px!important}.ape-upload,.ape-remove-image{min-height:46px!important}
+  .ape-fields{grid-template-columns:1fr!important;gap:10px!important}.ape-fields label.wide{grid-column:auto!important}.ape-fields input{min-height:48px!important;font-size:16px!important}
+  .ape-feedback{margin:8px 14px 0!important}
+  .ape-dialog>footer{position:relative!important;z-index:3!important;margin:0!important;padding:10px 14px calc(10px + env(safe-area-inset-bottom))!important;border-top:1px solid #dfe4e8!important;background:#fff!important;box-shadow:0 -8px 24px rgba(22,39,51,.08)!important;align-items:stretch!important;flex-direction:column!important}
+  .ape-dialog>footer>span{font-size:11px!important;line-height:1.3!important}.ape-dialog>footer>div{display:grid!important;grid-template-columns:1fr 1.25fr!important;width:100%!important;gap:8px!important}
+  .ape-dialog>footer button{min-height:48px!important;justify-content:center!important;padding-inline:10px!important}
+  .ape-toast{left:12px!important;right:12px!important;bottom:calc(82px + env(safe-area-inset-bottom))!important;width:auto!important;justify-content:center!important;text-align:center!important}
+
+  .admin-video-quick{right:12px!important;bottom:calc(78px + env(safe-area-inset-bottom))!important;width:48px!important;height:48px!important;padding:0!important;justify-content:center!important;border-radius:50%!important}
+
+  /* Generic fixed action surfaces: keep clear of iOS home indicator / bottom nav. */
+  .pc-route-loading{min-height:100dvh!important}
+}
+
+@media (max-width:390px){
+  .ape-dialog>footer>div{grid-template-columns:1fr!important}
+}

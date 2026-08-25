@@ -1,0 +1,123 @@
+/* ui-typography — one deliberate type system across every route. */
+:root {
+  --type-xs: .75rem;
+  --type-sm: .875rem;
+  --type-base: 1rem;
+  --type-lg: 1.125rem;
+  --type-xl: 1.25rem;
+  --type-2xl: clamp(1.5rem, 1.35rem + .65vw, 1.875rem);
+  --type-3xl: clamp(1.875rem, 1.55rem + 1.4vw, 2.5rem);
+  --type-4xl: clamp(2.5rem, 1.9rem + 2.65vw, 4rem);
+  --type-leading-tight: 1.12;
+  --type-leading-heading: 1.22;
+  --type-leading-body: 1.6;
+  --type-leading-scan: 1.4;
+  --type-measure: 72ch;
+}
+
+html { font-size: 100%; font-synthesis: none; }
+body {
+  font-size: var(--type-base);
+  font-weight: 400;
+  line-height: var(--type-leading-body);
+  font-kerning: normal;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-block-start: 0;
+  color: inherit;
+  font-weight: 700;
+  line-height: var(--type-leading-heading);
+  overflow-wrap: anywhere;
+}
+h1 { font-size: var(--type-3xl); line-height: var(--type-leading-tight); }
+h2 { font-size: var(--type-2xl); }
+h3 { font-size: var(--type-xl); font-weight: 650; }
+h4 { font-size: var(--type-lg); font-weight: 650; }
+
+p, li, dd { overflow-wrap: break-word; }
+p { line-height: var(--type-leading-body); }
+:where(article, .ref-info__copy, .dorinha-pro__author-copy, .culture-profile-page) p { max-width: var(--type-measure); }
+
+/* Never let legacy microcopy collapse below a readable caption. */
+:where(small, figcaption, caption, time, [class*="caption"], [class*="eyebrow"], [class*="kicker"], [class*="label"], [class*="meta"]) {
+  font-size: var(--type-xs);
+  line-height: 1.45;
+}
+:where(label, button, select, option, nav a, [role="button"]) {
+  font-size: var(--type-sm);
+  line-height: var(--type-leading-scan);
+}
+:where(input, textarea) { font-size: var(--type-base); line-height: 1.5; }
+
+/* Marketing pages can speak larger; product and admin pages stay scannable. */
+:where(.hp-home, .sector-hub, .merchant-page, .dorinha-pro, .culture-profile-page) h1 {
+  font-size: var(--type-4xl);
+  line-height: 1.04;
+  letter-spacing: -.045em;
+}
+:where(.hp-home, .sector-hub, .merchant-page, .dorinha-pro, .culture-profile-page) h2 {
+  font-size: var(--type-3xl);
+  letter-spacing: -.035em;
+}
+:where(.product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .ref-page) h1 {
+  font-size: var(--type-3xl);
+}
+:where(.product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .ref-page) h2 {
+  font-size: var(--type-2xl);
+}
+
+/* Cards: three clear levels — title, supporting copy and caption. */
+:where(.ref-card, .ref-store-card, .ref-live-card, .store-pro-card, .sf-card, .basket-card, .merchant-card, .admin-card, [class*="product-card"], [class*="store-card"]) :where(h3, [class*="title"]) {
+  font-size: var(--type-base);
+  font-weight: 650;
+  line-height: 1.35;
+}
+:where(.ref-card, .ref-store-card, .ref-live-card, .store-pro-card, .sf-card, .basket-card, .merchant-card, .admin-card, [class*="product-card"], [class*="store-card"]) :where(p, [class*="description"]) {
+  font-size: var(--type-sm);
+  line-height: 1.5;
+}
+
+/* Tables and comparisons use tabular figures and correct alignment. */
+:where(table, .admin-table, .ref-table, [class*="comparison"], [class*="ranking"]) {
+  font-size: var(--type-sm);
+  line-height: var(--type-leading-scan);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+:where(table, .admin-table, .ref-table) :where(th, [role="columnheader"]) {
+  font-size: var(--type-xs);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+:where(table, .admin-table, .ref-table) :where(td:last-child, th:last-child, [data-type="number"]) { text-align: right; }
+
+/* Prices and metrics remain stable while values update. */
+:where([class*="price"], [class*="money"], [class*="total"], [class*="metric"], [class*="saving"], [class*="economy"], data, output) {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Long-form editorial content gets a reading measure; UI lists do not. */
+:where(.dorinha-pro__author-copy, .culture-profile-page, .ref-info__copy) :where(p, li) {
+  max-width: 68ch;
+  font-size: var(--type-base);
+  line-height: 1.68;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --type-3xl: clamp(1.75rem, 1.45rem + 1.6vw, 2.125rem);
+    --type-4xl: clamp(2.25rem, 1.55rem + 4vw, 3.25rem);
+    --type-measure: 100%;
+  }
+  :where(.hp-home, .sector-hub, .merchant-page, .dorinha-pro, .culture-profile-page) h1 { letter-spacing: -.035em; }
+  :where(.hp-home, .sector-hub, .merchant-page, .dorinha-pro, .culture-profile-page) h2 { letter-spacing: -.025em; }
+}
+
+@media (prefers-contrast: more) {
+  body { font-weight: 450; }
+  :where(small, figcaption, caption, time, [class*="caption"], [class*="label"], [class*="meta"]) { font-weight: 550; }
+}

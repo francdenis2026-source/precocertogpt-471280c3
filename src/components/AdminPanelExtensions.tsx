@@ -12,5 +12,5 @@ export function AdminPanelExtensions(){
     find();const frame=requestAnimationFrame(find);return()=>cancelAnimationFrame(frame);
   },[location.pathname]);
   if(!target)return null;
-  return createPortal(<><small>CATÁLOGO</small><a href="/admin/catalogo"><PackagePlus/><span>Produtos e lojas</span></a><a href="/admin/ambientes"><ExternalLink/><span>Ambientes</span></a></>,target);
+  return createPortal(<><small>CATÁLOGO</small><a href="/admin/catalogo"><PackagePlus/><span>Produtos e estabelecimentos</span></a><a href="/admin/ambientes"><ExternalLink/><span>Ambientes</span></a></>,target);
 }

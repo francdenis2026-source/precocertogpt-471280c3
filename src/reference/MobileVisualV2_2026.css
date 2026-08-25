@@ -1,0 +1,99 @@
+/* PreçoCerto Mobile Visual V2 2026
+   Deliberately changes the visual hierarchy on phones instead of shrinking desktop.
+   Desktop is untouched. */
+@media (max-width:767px){
+  .nx-home{background:#f4f7f6!important}
+  html[data-theme="dark"] .nx-home{background:#0f1825!important}
+
+  .nx-home>main{padding-top:58px!important}
+  .nx-header:has(.pc-festival-bar)+main{padding-top:114px!important}
+  .nx-header{border-bottom:1px solid color-mix(in srgb,var(--nx-line) 72%,transparent)!important;box-shadow:0 6px 20px rgb(13 37 47 / 8%)!important}
+  .nx-header__inner{height:58px!important;padding-inline:12px!important}
+  .nx-brand img{width:118px!important}
+  .nx-brand>span,.nx-login{display:none!important}
+  .nx-header__actions{gap:5px!important}
+  .nx-theme,.nx-menu{width:42px!important;height:42px!important;border-radius:11px!important}
+
+  .nx-header nav{top:64px!important;right:10px!important;left:10px!important;grid-template-columns:1fr 1fr!important;gap:7px!important;padding:9px!important;border-radius:16px!important;box-shadow:0 18px 50px rgb(11 29 39 / 20%)!important}
+  .nx-header:has(.pc-festival-bar) nav{top:120px!important}
+  .nx-header nav a{min-height:58px!important;border-radius:12px!important;font-size:12px!important;font-weight:800!important}
+
+  .nx-hero{padding:0!important;background:none!important;overflow:visible!important}
+  .nx-hero::after{display:none!important}
+  .nx-hero__grid{display:block!important;min-height:0!important;width:100%!important;margin:0!important}
+  .nx-hero__copy{padding:18px 14px 14px!important;background:linear-gradient(160deg,#102f43 0%,#17465d 58%,#225f75 100%)!important;color:#fff!important}
+  html[data-theme="dark"] .nx-hero__copy{background:linear-gradient(160deg,#0d2233,#12374c 60%,#17485e)!important}
+  .nx-hero h1{max-width:10.5ch!important;margin:0!important;color:#fff!important;font-size:clamp(2.25rem,11vw,3.05rem)!important;line-height:.95!important;letter-spacing:-.045em!important}
+  .nx-hero h1 em{color:#a9d8ee!important}
+  .nx-hero__copy>p{max-width:34rem!important;margin:10px 0 14px!important;color:#d8e4ea!important;font-size:13.5px!important;line-height:1.45!important}
+
+  .nx-search{z-index:40!important;display:grid!important;grid-template-columns:20px minmax(0,1fr) 42px!important;gap:7px!important;max-width:none!important;min-height:58px!important;padding:7px 7px 7px 13px!important;border:0!important;border-radius:15px!important;background:#fff!important;box-shadow:0 12px 30px rgb(0 0 0 / 18%)!important}
+  html[data-theme="dark"] .nx-search{background:#172638!important}
+  .nx-search input{height:44px!important;color:#132934!important;font-size:16px!important}
+  html[data-theme="dark"] .nx-search input{color:#fff!important}
+  .nx-search__submit{grid-column:1/-1!important;width:100%!important;height:47px!important;margin-top:1px!important;border-radius:11px!important;background:#0c7a67!important;font-size:14px!important}
+  .nx-search__clear{width:42px!important;height:42px!important}
+  .nx-results{right:-2px!important;left:-2px!important;max-height:min(55dvh,460px)!important;border-radius:14px!important;overflow-y:auto!important}
+  .nx-results>button{min-height:64px!important}
+
+  .nx-hero__links{display:flex!important;gap:6px!important;margin:11px 0 0!important;padding-bottom:1px!important;overflow-x:auto!important;color:#d7e2e8!important;scrollbar-width:none!important}
+  .nx-hero__links::-webkit-scrollbar{display:none!important}
+  .nx-hero__links a{flex:0 0 auto!important;min-height:30px!important;background:rgb(255 255 255 / 11%)!important;color:#fff!important;border:1px solid rgb(255 255 255 / 13%)!important}
+
+  .nx-hero__visual{min-height:154px!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#dce7e4!important}
+  .nx-hero__photo{background:linear-gradient(90deg,rgb(7 34 46 / 15%),rgb(7 34 46 / 2%)),url('/hero-supermercado-editorial-2026.webp') center 45%/cover no-repeat!important}
+  .nx-deal{right:12px!important;bottom:10px!important;left:12px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;padding:10px 11px!important;border-radius:12px!important}
+  .nx-deal>span{grid-column:1/-1!important}
+  .nx-deal__product{grid-template-columns:48px minmax(0,1fr)!important;margin-top:0!important}
+  .nx-deal__product>img{width:48px!important;height:45px!important}
+  .nx-deal footer{margin:0!important;padding:0 0 0 8px!important;border:0!important}
+  .nx-deal footer strong{font-size:18px!important}
+  .nx-deal footer a{width:38px!important;height:38px!important}
+
+  .nx-catalog-band{padding-top:14px!important;background:#f4f7f6!important}
+  html[data-theme="dark"] .nx-catalog-band{background:#0f1825!important}
+  .nx-categories,.nx-market,.nx-local{width:calc(100% - 24px)!important}
+  .nx-section-title{align-items:flex-end!important;margin-bottom:10px!important}
+  .nx-section-title h2{font-size:1.45rem!important;line-height:1.05!important}
+  .nx-section-title p{font-size:12px!important}
+  .nx-section-title>a{font-size:11.5px!important}
+
+  .nx-category-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+  .nx-category-grid>a{min-height:104px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:space-between!important;gap:7px!important;padding:10px!important;border-radius:14px!important;box-shadow:0 4px 14px rgb(20 52 61 / 5%)!important}
+  .nx-category-grid>a>i{width:36px!important;height:36px!important;border-radius:10px!important}
+  .nx-category-grid>a>span strong{font-size:12px!important}
+  .nx-category-grid>a>span small{display:none!important}
+  .nx-category-grid>a>svg{position:absolute!important;right:8px!important;top:10px!important;width:14px!important}
+
+  .nx-market{display:block!important;margin-top:22px!important}
+  .nx-product-grid{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+  .nx-product-card{overflow:hidden!important;border-radius:14px!important;background:var(--nx-card)!important;box-shadow:0 5px 18px rgb(20 52 61 / 6%)!important}
+  .nx-product-card>a{display:grid!important;grid-template-columns:92px minmax(0,1fr)!important;min-height:112px!important}
+  .nx-product-card__media{min-height:112px!important;border-radius:0!important}
+  .nx-product-card__media img{max-width:82px!important;max-height:92px!important}
+  .nx-product-card__copy{padding:10px 11px!important}
+  .nx-product-card__copy h3{margin:2px 0!important;font-size:13.5px!important;line-height:1.2!important}
+  .nx-product-card__copy p{font-size:11.5px!important}
+  .nx-product-card__copy footer{margin-top:7px!important;padding-top:7px!important}
+  .nx-product-card__copy footer strong{font-size:17px!important}
+  .nx-product-card__action{display:none!important}
+
+  .nx-basket{margin-top:10px!important;min-height:0!important;padding:15px!important;border-radius:15px!important}
+  .nx-basket>svg{width:26px!important;height:26px!important}
+  .nx-basket h2{margin:8px 0 5px!important;font-size:1.35rem!important}
+  .nx-basket p{font-size:12px!important;line-height:1.45!important}
+  .nx-basket a{min-height:46px!important;justify-content:center!important}
+
+  .nx-local-band{padding:20px 0 calc(88px + env(safe-area-inset-bottom))!important}
+  .nx-local{display:block!important}
+  .nx-local__copy{padding:0!important}
+
+  .ref-dock{display:grid!important;grid-template-columns:repeat(5,1fr)!important;height:auto!important;min-height:64px!important;padding:3px 4px env(safe-area-inset-bottom)!important;border-top:1px solid color-mix(in srgb,var(--ref-line) 75%,transparent)!important;box-shadow:0 -8px 26px rgb(9 28 38 / 10%)!important}
+  .ref-dock a{min-height:58px!important;border-radius:11px!important;font-size:10.5px!important}
+}
+
+@media (max-width:390px){
+  .nx-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .nx-category-grid>a{min-height:92px!important}
+  .nx-hero h1{font-size:clamp(2.05rem,11vw,2.65rem)!important}
+}

@@ -1,0 +1,189 @@
+/* PreçoCerto — header mobile equilibrado, confortável e sem sobrepor o hero. */
+@media (max-width:767px){
+  .nx-home>main{padding-top:64px!important}
+  .nx-header:has(.pc-festival-bar)+main{padding-top:120px!important}
+  .nx-header nav{top:70px!important}
+  .nx-header:has(.pc-festival-bar) nav{top:126px!important}
+
+  .nx-header__inner{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:center!important;
+    gap:6px!important;
+    overflow:hidden!important;
+    height:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+    padding-inline:8px!important;
+  }
+  .nx-brand{
+    min-width:0!important;
+    overflow:visible!important;
+    height:64px!important;
+    display:flex!important;
+    align-items:center!important;
+    padding:0!important;
+    margin:0!important;
+  }
+  .nx-brand img{
+    display:block!important;
+    width:min(172px,41vw)!important;
+    min-width:128px!important;
+    max-width:172px!important;
+    height:56px!important;
+    max-height:56px!important;
+    object-fit:contain!important;
+    object-position:left center!important;
+    transform:scale(1.05)!important;
+    transform-origin:left center!important;
+    margin:0!important;
+  }
+  .nx-header__actions{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:5px!important;
+    min-width:0!important;
+    max-width:100%!important;
+    flex:none!important;
+    overflow:hidden!important;
+  }
+  .nx-theme,.nx-menu{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    min-height:44px!important;
+    border-radius:12px!important;
+  }
+  .nx-theme svg,.nx-menu svg{width:19px!important;height:19px!important}
+
+  .nx-header__actions .pc-radio{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:44px!important;
+    min-width:44px!important;
+    max-width:44px!important;
+    height:44px!important;
+    min-height:44px!important;
+    max-height:44px!important;
+    flex:0 0 44px!important;
+    padding:5px!important;
+    overflow:hidden!important;
+    border-radius:12px!important;
+    position:relative!important;
+    z-index:3!important;
+  }
+  .nx-header__actions .pc-radio__play{
+    display:grid!important;
+    width:34px!important;
+    height:34px!important;
+    min-width:34px!important;
+    place-items:center!important;
+  }
+  .nx-header__actions .pc-radio__control{
+    width:34px!important;
+    height:34px!important;
+    border-radius:9px!important;
+  }
+  .nx-header__actions .pc-radio__copy,
+  .nx-header__actions .pc-radio__signal,
+  .nx-header__actions .pc-radio__volume{display:none!important}
+
+  .nx-header__actions .pc-radio.has-track{
+    width:min(160px,37vw)!important;
+    min-width:112px!important;
+    max-width:160px!important;
+    flex:0 1 160px!important;
+    padding-right:7px!important;
+    gap:6px!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__play{flex:0 0 34px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track{
+    position:static!important;
+    inset:auto!important;
+    z-index:auto!important;
+    display:grid!important;
+    min-width:0!important;
+    width:auto!important;
+    max-width:100%!important;
+    flex:1 1 auto!important;
+    gap:1px!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:inherit!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:none!important;
+    transform:none!important;
+    transition:none!important;
+    overflow:hidden!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__track small{
+    display:flex!important;
+    align-items:center!important;
+    gap:4px!important;
+    color:#148066!important;
+    font-size:7.5px!important;
+    font-weight:950!important;
+    letter-spacing:.09em!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__track small::before{
+    content:"";
+    width:6px!important;
+    height:6px!important;
+    flex:0 0 6px!important;
+    border-radius:50%!important;
+    background:#ef4d4d!important;
+    box-shadow:0 0 0 3px rgb(239 77 77 / 12%)!important;
+  }
+  .nx-header__actions .pc-radio.has-track .pc-radio__track strong{
+    display:block!important;
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+    color:inherit!important;
+    font-size:10px!important;
+    font-weight:820!important;
+    line-height:1.1!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+  }
+  html[data-theme="dark"] .nx-header__actions .pc-radio.has-track .pc-radio__track small{color:#62d7b4!important}
+
+  .nx-header__actions .pc-radio.is-loading,
+  .nx-header__actions .pc-radio.has-error{
+    width:44px!important;
+    min-width:44px!important;
+    max-width:44px!important;
+  }
+}
+
+@media (max-width:430px){
+  .nx-brand img{width:min(148px,38vw)!important;min-width:116px!important;max-width:148px!important;height:54px!important;max-height:54px!important;transform:scale(1.04)!important}
+  .nx-header__actions{gap:4px!important}
+  .nx-header__actions .pc-radio.has-track{width:min(138px,33vw)!important;min-width:104px!important;max-width:138px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track strong{font-size:9.5px!important}
+}
+
+@media (max-width:390px){
+  .nx-brand img{width:min(132px,35vw)!important;min-width:108px!important;max-width:132px!important;height:52px!important;max-height:52px!important;transform:scale(1.03)!important}
+  .nx-header__actions .pc-radio.has-track{width:min(118px,29vw)!important;min-width:94px!important;max-width:118px!important}
+}
+
+@media (max-width:370px){
+  .nx-header__inner{padding-inline:6px!important;gap:4px!important}
+  .nx-brand img{width:116px!important;min-width:104px!important;max-width:116px!important;height:50px!important;max-height:50px!important;transform:none!important}
+  .nx-header__actions{gap:3px!important}
+  .nx-theme,.nx-menu{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important}
+  .nx-header__actions .pc-radio{width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;flex-basis:44px!important;padding:5px!important}
+  .nx-header__actions .pc-radio__play,.nx-header__actions .pc-radio__control{width:34px!important;height:34px!important;min-width:34px!important}
+  .nx-header__actions .pc-radio.has-track{width:102px!important;min-width:92px!important;max-width:102px!important;padding-right:4px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track small{font-size:6.8px!important}
+  .nx-header__actions .pc-radio.has-track .pc-radio__track strong{font-size:8.8px!important}
+}

@@ -1,92 +1,231 @@
-/* Faixa fina e dispensável do Festival do Açaí — fica ANTES do cabeçalho
-   fixo da home (não é sticky), então some do fluxo assim que a pessoa rola a
-   página; o cabeçalho normal assume o topo. Ocupa uma única linha compacta,
-   sem empurrar o resto da home para baixo em nenhuma proporção relevante. */
+/* Banner superior de campanha — polish Impeccable 2026.
+   Uma única hierarquia, contraste forte, motion contida e largura total. */
 .pc-festival-bar{
   position:relative;
   z-index:110;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-height:42px;
-  padding:8px 14px;
-  background:linear-gradient(95deg,#3a1a52 0%,#17384c 62%,#123a26 100%);
-  color:#f6f1fb;
-  font-family:var(--pc-font-body,inherit);
-}
-
-.pc-festival-bar__inner{
-  flex:1;
-  min-width:0;
+  flex:0 0 auto;
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-wrap:wrap;
-  gap:6px 14px;
+  width:100%;
+  min-height:62px;
+  padding:0;
+  overflow:hidden;
+  background:#1c2e63;
+  color:#fff;
+  box-shadow:0 5px 18px rgb(10 21 55 / 16%);
+  font-family:var(--pc-font-body,inherit);
+  isolation:isolate;
+}
+.pc-festival-bar.theme-emerald{background:#0a584d}
+.pc-festival-bar.theme-amber{background:#6d450b}
+.pc-festival-bar.theme-slate{background:#29394d}
+
+/* Um único gesto visual: luz atravessa a campanha em intervalos longos. */
+.pc-festival-bar::before{
+  position:absolute;
+  z-index:2;
+  top:0;
+  bottom:0;
+  left:-34%;
+  width:24%;
+  content:"";
+  background:linear-gradient(110deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:skewX(-16deg);
+  opacity:0;
+  pointer-events:none;
+}
+.pc-festival-bar::after{
+  position:absolute;
+  z-index:3;
+  right:0;
+  bottom:0;
+  left:0;
+  height:1px;
+  content:"";
+  background:rgba(255,255,255,.24);
+  pointer-events:none;
 }
 
-.pc-festival-bar__inner p{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.pc-festival-bar__art{
+  position:relative;
+  z-index:1;
+  width:100%;
   min-width:0;
-  margin:0;
-  font-size:12.5px;
-  line-height:1.35;
+  display:block;
+  overflow:hidden;
+  color:#fff;
+  text-decoration:none;
+  transition:filter .18s ease;
 }
-.pc-festival-bar__inner p svg{width:15px;height:15px;flex:none;color:#e9c88a}
-.pc-festival-bar__inner p strong{font-weight:800}
-.pc-festival-bar__inner p span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-.pc-festival-bar__inner a{
-  flex:none;
+.pc-festival-bar__art img{
+  display:block;
+  width:100%;
+  height:62px;
+  object-fit:cover;
+  object-position:center;
+}
+.pc-festival-bar__art span{display:none}
+.pc-festival-bar__art span i{display:grid}
+.pc-festival-bar__art span i svg{width:17px;height:17px;stroke-width:2.2}
+.pc-festival-bar__art span b{display:grid;gap:2px}
+.pc-festival-bar__art span em{
+  margin-left:auto;
+  min-height:32px;
   display:inline-flex;
   align-items:center;
-  gap:4px;
-  padding:4px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.28);
+  padding:0 11px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:10px;
   color:#fff;
-  font-size:12px;
+  font-size:11px;
+  font-style:normal;
   font-weight:800;
   white-space:nowrap;
 }
+.pc-festival-bar__art:focus-visible{
+  outline:3px solid rgba(255,255,255,.9);
+  outline-offset:-4px;
+}
 @media(hover:hover) and (pointer:fine){
-  .pc-festival-bar__inner a:hover{background:rgba(255,255,255,.22)}
+  .pc-festival-bar__art:hover{filter:brightness(1.06)}
 }
 
 .pc-festival-bar__close{
-  flex:none;
-  width:28px;
-  height:28px;
+  position:absolute;
+  z-index:20;
+  right:max(12px,env(safe-area-inset-right));
+  top:50%;
+  width:36px;
+  height:36px;
   display:grid;
   place-items:center;
-  border:0;
-  border-radius:8px;
-  background:rgba(255,255,255,.08);
-  color:#f6f1fb;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:12px;
+  background:rgba(255,255,255,.96);
+  color:#15274f;
+  box-shadow:0 4px 14px rgb(7 17 40 / 28%);
   cursor:pointer;
+  transform:translateY(-50%);
+  transition:background-color .16s ease,border-color .16s ease,transform .16s ease;
 }
-.pc-festival-bar__close svg{width:15px;height:15px}
+.pc-festival-bar__close svg{width:16px;height:16px;stroke-width:2.2}
+.pc-festival-bar__close:focus-visible{outline:3px solid rgba(255,255,255,.88);outline-offset:2px}
 @media(hover:hover) and (pointer:fine){
-  .pc-festival-bar__close:hover{background:rgba(255,255,255,.18)}
+  .pc-festival-bar__close:hover{border-color:#fff;background:#fff}
 }
+.pc-festival-bar__close:active{transform:translateY(-50%) scale(.96)}
 
 @media(max-width:640px){
-  .pc-festival-bar{padding:7px 10px;gap:6px;align-items:flex-start}
-  .pc-festival-bar__inner{display:block;justify-content:flex-start}
-  .pc-festival-bar__inner p{display:block;width:100%;font-size:11.5px}
-  .pc-festival-bar__inner p svg{float:left;margin:1px 6px 0 0}
-  .pc-festival-bar__inner p span{max-width:none;overflow:visible;text-overflow:clip;white-space:normal}
-  .pc-festival-bar__inner a{display:inline-flex;margin-top:6px;padding:4px 10px;font-size:11px}
-  .pc-festival-bar__close{margin-top:1px}
+  .pc-festival-bar{
+    min-height:56px;
+    height:56px;
+    justify-content:flex-start;
+    background:#35104b;
+  }
+  .pc-festival-bar.theme-emerald{background:#075448}
+  .pc-festival-bar.theme-amber{background:#674008}
+  .pc-festival-bar.theme-slate{background:#26384a}
+  .pc-festival-bar__art{
+    width:100%;
+    height:56px;
+    display:flex;
+    align-items:center;
+    padding:0 54px 0 12px;
+  }
+  .pc-festival-bar__art img{display:none}
+  .pc-festival-bar__art span{
+    width:100%;
+    min-width:0;
+    display:grid;
+    grid-template-columns:36px minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+    line-height:1.15;
+  }
+  .pc-festival-bar__art span i{
+    width:36px;
+    height:36px;
+    place-items:center;
+    border-radius:11px;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .pc-festival-bar__art span i svg{width:18px;height:18px;color:#fff}
+  .pc-festival-bar__art span b{min-width:0;gap:3px}
+  .pc-festival-bar__art strong{
+    display:block;
+    overflow:hidden;
+    color:#fff;
+    font-size:13px;
+    font-weight:850;
+    line-height:1.15;
+    letter-spacing:-.015em;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .pc-festival-bar__art small{
+    display:block;
+    overflow:hidden;
+    color:rgba(255,255,255,.82);
+    font-size:10.5px;
+    font-weight:570;
+    line-height:1.2;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .pc-festival-bar__art span em{display:none}
+  .pc-festival-bar__close{right:max(9px,env(safe-area-inset-right));width:40px;height:40px;border-radius:12px}
+}
+
+@media(max-width:380px){
+  .pc-festival-bar__art{padding-left:9px;padding-right:51px}
+  .pc-festival-bar__art span{grid-template-columns:32px minmax(0,1fr);gap:8px}
+  .pc-festival-bar__art span i{width:32px;height:32px;border-radius:9px}
+  .pc-festival-bar__art strong{font-size:12px}
+  .pc-festival-bar__art small{font-size:10px}
+  .pc-festival-bar__close{right:max(7px,env(safe-area-inset-right));width:38px;height:38px}
+}
+
+/* O banner ocupa uma linha própria: nunca pode cobrir a identificação ou as
+   ações do usuário que ficam na linha seguinte do cabeçalho. */
+.nx-header:has(>.pc-festival-bar),
+.mh26-header:has(>.pc-festival-bar){
+  display:flex;
+  flex-direction:column;
+  overflow:visible;
+}
+.nx-header:has(>.pc-festival-bar)>.nx-header__inner,
+.mh26-header:has(>.pc-festival-bar)>.mh26-header-row{
+  position:relative;
+  z-index:1;
+  flex:0 0 auto;
+  width:100%;
 }
 
 @media(prefers-reduced-motion:no-preference){
-  .pc-festival-bar{animation:pc-festival-bar-in .3s ease}
+  .pc-festival-bar::before{animation:pc-festival-sheen 8.5s cubic-bezier(.16,1,.3,1) 1.2s infinite}
 }
-@keyframes pc-festival-bar-in{
-  from{opacity:0;transform:translateY(-6px)}
-  to{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  .pc-festival-bar::before{animation:none!important}
 }
+@keyframes pc-festival-sheen{
+  0%,68%{left:-34%;opacity:0}
+  73%{opacity:.75}
+  88%{left:116%;opacity:.45}
+  100%{left:116%;opacity:0}
+}
+
+/* Contraste noturno definido junto ao componente, independente da ordem dos
+   bundles de estilo da página. */
+html[data-theme="dark"] .pc-festival-bar,
+html[data-theme="dark"] .pc-festival-bar.theme-emerald,
+html[data-theme="dark"] .pc-festival-bar.theme-amber,
+html[data-theme="dark"] .pc-festival-bar.theme-slate{
+  background:var(--pc-navy,#252b30);
+  color:var(--pc-on-structural,#f5f7f5);
+}
+html[data-theme="dark"] .pc-festival-bar__art strong{color:var(--pc-on-structural,#f5f7f5)}
+html[data-theme="dark"] .pc-festival-bar__art small{color:color-mix(in srgb,var(--pc-on-structural,#f5f7f5) 82%,transparent)}
+html[data-theme="dark"] .pc-festival-bar__art span i{background:var(--pc-accent-soft,#4a4026);color:var(--pc-accent,#edc778)}
+html[data-theme="dark"] .pc-festival-bar__close{border-color:var(--pc-border-strong,#65727c);background:var(--pc-surface,#292e33);color:var(--pc-ink,#f5f7f5)}

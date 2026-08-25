@@ -2,7 +2,7 @@
 .true-home .th-header__inner{height:72px;gap:26px}
 .true-home .th-brand{gap:12px;min-height:52px;transition:transform .22s ease,opacity .22s ease}
 .true-home .th-brand img{width:158px;transition:transform .24s cubic-bezier(.2,.7,.2,1),filter .24s ease}
-.true-home .th-brand span{padding-left:12px;color:#e7d7e8;font-size:12px;font-weight:850;letter-spacing:.025em}
+.true-home .th-brand span{padding-left:12px;color:#e7d7e8;font-size:13px;font-weight:850;letter-spacing:.025em}
 .true-home .th-nav{gap:4px}
 .true-home .th-nav a,.true-home .th-login{position:relative;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;color:#f0e6f0;font-size:14px;font-weight:780;letter-spacing:.005em;overflow:hidden;transition:color .2s ease,background-color .2s ease,transform .2s ease}
 .true-home .th-nav a::after,.true-home .th-login::after{content:"";position:absolute;left:14px;right:14px;bottom:7px;height:2px;border-radius:99px;background:#d779dc;transform:scaleX(0);transform-origin:center;transition:transform .22s cubic-bezier(.2,.7,.2,1)}
@@ -12,11 +12,11 @@
 .true-home .th-footer{padding:32px 0;border-top:1px solid rgba(255,255,255,.08)}
 .true-home .th-footer__row{gap:34px}
 .true-home .th-footer__brand img{width:142px}
-.true-home .th-footer__brand span{color:#d6c1d7;font-size:11px;font-weight:800;letter-spacing:.02em}
+.true-home .th-footer__brand span{color:#d6c1d7;font-size:12.5px;font-weight:800;letter-spacing:.02em}
 .true-home .th-footer nav{gap:8px}
 .true-home .th-footer nav a{position:relative;min-height:40px;display:inline-flex;align-items:center;padding:8px 9px;color:#e2d3e2;font-size:13px;font-weight:760;transition:color .2s ease,transform .2s ease}
 .true-home .th-footer nav a::after{content:"";position:absolute;left:9px;right:9px;bottom:5px;height:2px;border-radius:99px;background:#d779dc;transform:scaleX(0);transition:transform .22s cubic-bezier(.2,.7,.2,1)}
-.true-home .th-footer small{color:#b89eb9;font-size:11px;font-weight:650;line-height:1.45}
+.true-home .th-footer small{color:#b89eb9;font-size:12.5px;font-weight:650;line-height:1.45}
 
 .true-home :is(.th-button,.th-search button,.th-quick__grid>a,.th-product__body>a,.th-store,.th-heading>a,.th-hero-card>a,.th-footer nav a,.th-nav a,.th-login,.th-product__topline button,.th-menu){touch-action:manipulation}
 .true-home :is(.th-button,.th-search button,.th-quick__grid>a,.th-product__body>a,.th-store,.th-heading>a,.th-hero-card>a,.th-product__topline button,.th-menu){will-change:transform}
@@ -47,7 +47,7 @@
 @media(max-width:640px){
   .true-home .th-header__inner{height:64px}
   .true-home .th-brand img{width:138px}
-  .true-home .th-brand span{font-size:11px}
+  .true-home .th-brand span{font-size:12.5px}
   .true-home .th-footer{padding:28px 0}
   .true-home .th-footer__brand img{width:132px}
   .true-home .th-footer nav a{font-size:13px;min-height:42px;padding-right:12px}

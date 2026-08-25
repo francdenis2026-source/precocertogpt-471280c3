@@ -1,14 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="280" height="76" viewBox="0 0 280 76" role="img" aria-labelledby="title desc">
-  <title id="title">PreçoCerto</title>
-  <desc id="desc">Etiqueta de preço com seta descendente, símbolo do PreçoCerto, versão para fundo escuro</desc>
-  <!-- Sobre fundo escuro o contêiner sai e a etiqueta assume o desenho, para
-       a marca não virar um bloco escuro dentro de outro. -->
-  <g transform="translate(2 6) scale(0.66)">
-    <path d="M25 28.5A6.5 6.5 0 0 1 31.5 22H56a6.5 6.5 0 0 1 4.6 1.9l13 13a6.5 6.5 0 0 1 0 9.2L50.1 69.6a6.5 6.5 0 0 1-9.2 0l-13-13A6.5 6.5 0 0 1 25 52Z" fill="#7fa8c2"/>
-    <circle cx="38" cy="35" r="4.6" fill="#0d222f"/>
-    <path d="M57 38v15.5" stroke="#0d222f" stroke-width="6" stroke-linecap="round"/>
-    <path d="M49.5 47 57 54.5 64.5 47" fill="none" stroke="#0d222f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  <text x="80" y="47" fill="#F0F5F8" font-family="Manrope, Inter, Arial, sans-serif" font-size="33" font-weight="800" letter-spacing="-1.2">Preço</text>
-  <text x="177" y="47" fill="#7fa8c2" font-family="Manrope, Inter, Arial, sans-serif" font-size="33" font-weight="800" letter-spacing="-1.2">Certo</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="84" viewBox="0 0 400 84" role="img" aria-labelledby="title desc">
+  <title id="title">PreçoCerto</title><desc id="desc">Escudo de proteção com seta de economia e a assinatura PreçoCerto para fundos escuros</desc>
+  <defs><linearGradient id="shield" x1="17" y1="9" x2="69" y2="73" gradientUnits="userSpaceOnUse"><stop stop-color="#4B91FF"/><stop offset="1" stop-color="#1F4C9A"/></linearGradient><linearGradient id="arrow" x1="24" y1="65" x2="72" y2="17" gradientUnits="userSpaceOnUse"><stop stop-color="#3675DD"/><stop offset="1" stop-color="#82BCFF"/></linearGradient></defs>
+  <g aria-hidden="true"><path d="M42 5 73 17v24c0 18.7-11.6 31-31 39C22.6 72 11 59.7 11 41V17L42 5Z" fill="url(#shield)"/><path d="M42 12.5 66 21.7v19.1c0 14.2-8 24.1-24 31.6-16-7.5-24-17.4-24-31.6V21.7L42 12.5Z" fill="#0B1629" stroke="#8CC4FF" stroke-width="2"/><path d="M26 43V29.5L42 22l15.8 7.4-7 6.4-8.8-4.2-8.8 4.1v7.2L26 43Z" fill="#fff"/><path d="m33 58.5 8.9-8.8 6.7 6.6 13.2-13.2" fill="none" stroke="#55B47D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 65.5 43 44l8.2 8.1L68.8 34.5" fill="none" stroke="#07101F" stroke-opacity=".76" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 63 43 41.5l8.2 8.1L68.8 32" fill="none" stroke="url(#arrow)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="m61.4 24.7 14.7-4.8-4.8 14.7-9.9-9.9Z" fill="#82BCFF"/><path d="m34.5 57.8 7.4-7.4 9.2 9.2-9.2 9.2-7.4-7.4v-3.6Z" fill="#F2C556"/><circle cx="38.3" cy="59.6" r="1.35" fill="#173F54"/></g>
+  <g aria-hidden="true" font-family="Outfit, Manrope, Arial, sans-serif" letter-spacing="-1.5"><text x="91" y="53" fill="#FFFFFF" font-size="38" font-weight="760">Preço</text><text x="218" y="53" fill="#91B7FF" font-size="38" font-weight="520">Certo</text></g>
 </svg>

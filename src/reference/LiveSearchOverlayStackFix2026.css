@@ -1,0 +1,64 @@
+/* PreçoCerto — correção estrutural de stacking da busca live (web + mobile).
+   O painel de resultados precisa escapar do hero e permanecer acima das seções seguintes. */
+
+.nx-home main,
+.nx-home .nx-hero,
+.nx-home .nx-hero__grid,
+.nx-home .nx-hero__copy,
+.nx-home .nx-live-search{
+  overflow:visible!important;
+}
+
+/* Remove o stacking context desnecessário da busca. */
+.nx-home .nx-live-search{
+  isolation:auto!important;
+}
+
+/* O hero inteiro precisa subir, pois z-index de um filho não atravessa o stacking context do pai. */
+.nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open){
+  position:relative!important;
+  z-index:9000!important;
+  isolation:auto!important;
+}
+
+.nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open) .nx-hero__grid,
+.nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open) .nx-hero__copy,
+.nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open) .nx-live-search{
+  z-index:9001!important;
+  overflow:visible!important;
+}
+
+.nx-home .nx-live-results{
+  z-index:10000!important;
+  pointer-events:auto!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+
+/* Seções posteriores nunca devem cobrir a busca aberta. */
+.nx-home .nx-catalog-band,
+.nx-home .nx-local-band,
+.nx-home .nx-footer{
+  position:relative!important;
+  z-index:1!important;
+}
+
+@media (min-width:768px){
+  .nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open){z-index:12000!important}
+  .nx-home .nx-live-results{
+    z-index:13000!important;
+    max-height:min(68dvh,610px)!important;
+  }
+}
+
+@media (max-width:767px){
+  .nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open){z-index:12000!important}
+  .nx-home .nx-live-results{
+    z-index:13000!important;
+    max-height:min(62dvh,520px)!important;
+  }
+  /* A área visual abaixo do copy não pode mascarar o dropdown. */
+  .nx-home .nx-hero--mobile-pro:has(.nx-live-search.is-open) .nx-hero__visual{
+    z-index:0!important;
+  }
+}

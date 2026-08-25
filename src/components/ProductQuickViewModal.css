@@ -1,0 +1,87 @@
+/* Modal "visualização rápida" de produto — usado nas páginas dedicadas de
+   Kelly Burgueria e Ponto do Sanduba. Reaproveita os tokens de design
+   globais (--pc-*) para ficar visualmente consistente com o resto do site. */
+
+.pqv-overlay{
+  position:fixed;inset:0;z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(6,10,14,.6);
+  backdrop-filter:blur(3px);
+  animation:pqv-fade .18s ease-out;
+}
+@keyframes pqv-fade{from{opacity:0}to{opacity:1}}
+
+.pqv-dialog{
+  position:relative;width:100%;max-width:560px;max-height:min(88vh,720px);overflow:auto;
+  display:flex;flex-direction:column;
+  background:var(--pc-surface);color:var(--pc-ink);
+  border:1px solid var(--pc-border);border-radius:var(--pc-radius-block,20px);
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+  animation:pqv-pop .2s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes pqv-pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+
+@media (min-width:640px){
+  .pqv-dialog{flex-direction:row;max-height:min(80vh,560px)}
+}
+
+.pqv-close{
+  position:absolute;top:12px;right:12px;z-index:2;
+  width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;border:1px solid var(--pc-border);
+  background:color-mix(in srgb,var(--pc-surface) 88%,transparent);color:var(--pc-ink);
+  cursor:pointer;
+}
+.pqv-close svg{width:16px;height:16px}
+.pqv-close:hover{background:var(--pc-surface-2)}
+
+.pqv-media{flex:none;position:relative;background:var(--pc-surface-2);display:flex;align-items:center;justify-content:center}
+.pqv-media{height:220px}
+@media (min-width:640px){.pqv-media{width:44%;height:auto}}
+
+.pqv-image{width:100%;height:100%;object-fit:cover;display:block}
+.pqv-image-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--pc-muted);height:100%;width:100%}
+.pqv-image-fallback svg{width:40px;height:40px;opacity:.6}
+.pqv-image-fallback span{font-size:13px}
+
+.pqv-body{flex:1;min-width:0;padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px}
+
+.pqv-kicker{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--pc-gold)}
+.pqv-body h2{margin:0;font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.2;font-weight:900}
+.pqv-size{margin:0;font-size:13px;color:var(--pc-muted);line-height:1.5}
+
+.pqv-price-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
+.pqv-price{font-size:22px;font-weight:900;color:var(--pc-green-strong)}
+.pqv-store{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--pc-muted)}
+.pqv-store svg{width:14px;height:14px;flex:none}
+
+.pqv-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.pqv-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 16px;border-radius:var(--pc-radius-control);
+  font-size:13.5px;font-weight:700;cursor:pointer;
+  border:1px solid var(--pc-border);background:var(--pc-surface);color:var(--pc-ink);
+  transition:border-color .15s ease,background-color .15s ease,color .15s ease;
+}
+.pqv-btn svg{width:17px;height:17px}
+.pqv-btn--primary{background:#e0384a;border-color:#e0384a;color:#fff}
+.pqv-btn--primary:hover{filter:brightness(1.06)}
+.pqv-btn--primary.is-active{background:#b81f30;border-color:#b81f30}
+.pqv-btn--ghost:hover{border-color:color-mix(in srgb,var(--pc-green) 40%,var(--pc-border));background:var(--pc-surface-2)}
+
+.pqv-message{margin:0;font-size:13px;font-weight:600;color:var(--pc-green-strong)}
+
+.pqv-link{margin-top:auto;padding-top:6px;font-size:13px;font-weight:700;color:var(--pc-muted);text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+.pqv-link:hover{color:var(--pc-ink)}
+
+/* Item de cardápio clicável (Kelly/Sanduba) */
+.kelly-menu-list__item-btn{
+  all:unset;box-sizing:border-box;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;padding:10px 12px;border-radius:11px;
+  transition:background-color .15s ease;
+}
+.kelly-menu-list>li.has-image .kelly-menu-list__item-btn{align-items:flex-start}
+.kelly-menu-list__item-btn:hover,.kelly-menu-list__item-btn:focus-visible{background:var(--pc-surface-2)}
+.kelly-menu-list__item-btn:focus-visible{outline:2px solid var(--pc-green);outline-offset:-2px}

@@ -1,0 +1,10 @@
+/* PreçoCerto Mobile Core Safety 2026 — shared low-risk mobile invariants. */
+@media (max-width:767px){
+  html,body,#root{width:100%;max-width:100%;min-width:0;overflow-x:clip!important}
+  body{overscroll-behavior-x:none}
+  *,*::before,*::after{box-sizing:border-box}
+  img,video,canvas,svg{max-width:100%}
+  input,select,textarea,button{max-width:100%;touch-action:manipulation}
+  :where(main,section,article,aside,header,footer,nav,form,div){min-width:0}
+  :where(p,h1,h2,h3,h4,strong,span,small,a,button){overflow-wrap:break-word}
+}

@@ -1,60 +1,41 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, X } from "lucide-react";
+import { Megaphone, X } from "lucide-react";
+import { loadActiveCampaigns, type PlatformCampaign } from "../lib/campaigns";
 import "./FestivalAcaiBar.css";
 
-// Faixa sazonal e discreta para a semana do Festival do Açaí + Festival de
-// Praia em Feijó. Some sozinha fora do intervalo abaixo — não precisa remover
-// o componente depois do evento, só ajustar (ou deixar) estas duas datas para
-// o próximo ano.
-const FESTIVAL_START = "2026-08-21T00:00:00-05:00";
-const FESTIVAL_END = "2026-08-25T00:00:00-05:00";
+const dismissKey = (campaignId: string) => `pc:campaign-dismissed:${campaignId}`;
+const wasDismissed = (campaignId: string) => {
+  try { return sessionStorage.getItem(dismissKey(campaignId)) === "1"; }
+  catch { return false; }
+};
 
-const DISMISS_KEY = "pc-festival-acai-2026-dismissed";
-
+// O nome é mantido para compatibilidade. O conteúdo agora vem do gestor de
+// campanhas. O fechamento vale somente para a sessão da aba: sobrevive a
+// recarregamentos, mas não é propagado para uma nova aba ou nova sessão.
 export function FestivalAcaiBar() {
-  const [visible, setVisible] = useState(false);
+  const [campaign, setCampaign] = useState<PlatformCampaign|null>(null);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const now = Date.now();
-    const inRange = now >= new Date(FESTIVAL_START).getTime() && now < new Date(FESTIVAL_END).getTime();
-    let dismissed = false;
-    try {
-      // Versões anteriores salvavam o fechamento permanentemente. Removemos
-      // essa preferência antiga e mantemos o aviso fechado só nesta sessão.
-      window.localStorage.removeItem(DISMISS_KEY);
-      dismissed = window.sessionStorage.getItem(DISMISS_KEY) === "1";
-    } catch {
-      // Navegação privada ou storage bloqueado: trata como não dispensado.
-    }
-    // Atualiza após a montagem sem provocar uma renderização encadeada dentro
-    // do próprio efeito; o HTML inicial continua estável para o prerender.
-    queueMicrotask(() => setVisible(inRange && !dismissed));
+    let mounted=true;
+    const refresh=()=>{void loadActiveCampaigns().then(rows=>{if(!mounted)return;const next=rows[0]||null;setCampaign(next);setHidden(Boolean(next&&wasDismissed(next.id)))})};
+    refresh();window.addEventListener('pc:campaigns-changed',refresh);
+    return()=>{mounted=false;window.removeEventListener('pc:campaigns-changed',refresh)};
   }, []);
 
-  if (!visible) return null;
-
-  const dismiss = () => {
-    try {
-      window.sessionStorage.setItem(DISMISS_KEY, "1");
-    } catch {
-      // Sem storage disponível: a faixa some só nesta sessão.
-    }
-    setVisible(false);
+  const closeBanner = () => {
+    if (!campaign) return;
+    setHidden(true);
+    try { sessionStorage.setItem(dismissKey(campaign.id), "1"); }
+    catch { /* o estado em memória ainda fecha o banner nesta visualização */ }
   };
 
-  return (
-    <div className="pc-festival-bar" role="region" aria-label="Aviso do Festival do Açaí">
-      <div className="pc-festival-bar__inner">
-        <p>
-          <Sparkles aria-hidden="true" />
-          <span><strong>Festival do Açaí + Festival de Praia</strong> em Feijó — compare preços antes de comprar.</span>
-        </p>
-        <Link to="/buscar">Ver preços<span aria-hidden="true"> →</span></Link>
-      </div>
-      <button type="button" className="pc-festival-bar__close" onClick={dismiss} aria-label="Fechar aviso do festival">
-        <X aria-hidden="true" />
-      </button>
-    </div>
-  );
+  if (!campaign || hidden) return null;
+  const content=<>{campaign.imageUrl&&<img src={campaign.imageUrl} width="1024" height="62" alt="" aria-hidden="true"/>}<span><i><Megaphone aria-hidden="true"/></i><b><strong>{campaign.title}</strong>{campaign.subtitle&&<small>{campaign.subtitle}</small>}</b><em>{campaign.linkLabel}</em></span></>;
+  const external=/^https?:\/\//i.test(campaign.linkUrl);
+  return <div className={`pc-festival-bar theme-${campaign.theme} kind-${campaign.kind}`} role="region" aria-label={campaign.title}>
+    {external?<a className="pc-festival-bar__art" href={campaign.linkUrl} target="_blank" rel="noreferrer">{content}</a>:<Link className="pc-festival-bar__art" to={campaign.linkUrl||'/buscar'}>{content}</Link>}
+    {campaign.isDismissible&&<button type="button" className="pc-festival-bar__close" onClick={closeBanner} aria-label="Fechar banner"><X aria-hidden="true"/></button>}
+  </div>;
 }

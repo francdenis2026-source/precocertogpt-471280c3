@@ -6,9 +6,9 @@ import { Link, useLocation } from "react-router-dom";
 const items = [
   { to: "/buscar", label: "Buscar", Icon: Search },
   { to: "/cesta-basica", label: "Lista", Icon: ListChecks },
-  { to: "/estabelecimentos", label: "Lojas", Icon: Store },
+  { to: "/estabelecimentos", label: "Estabelecimentos", Icon: Store },
   { to: "/favoritos", label: "Favoritos", Icon: Heart },
-  { to: "/explorar", label: "Setores", Icon: SlidersHorizontal },
+  { to: "/explorar", label: "Categorias", Icon: SlidersHorizontal },
 ] as const;
 
 export function MobileQuickNav() {

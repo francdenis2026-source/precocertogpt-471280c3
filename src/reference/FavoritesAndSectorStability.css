@@ -19,7 +19,7 @@
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid>article{min-height:210px;padding:9px;border-radius:var(--pc-radius-card)}
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid>article>button{top:7px;right:7px;width:32px;height:32px;border-radius:var(--pc-radius-control);box-shadow:var(--pc-shadow-sm)}
-  .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid>article>button svg{width:14px}
+  .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid>article>button svg{width:14px;height:14px}
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid article>a>div{height:108px;margin-bottom:8px;border-radius:var(--pc-radius-control);background:var(--pc-surface-2)}
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid article>a>div img{width:100%;height:100%;object-fit:contain;padding:6px}
   .ref-directory__main:has(>.ref-page-title+.ref-product-grid)>.ref-product-grid article>a>small{font-size:var(--pc-text-xs)}

@@ -1,0 +1,72 @@
+/* Implementação da auditoria find-animation-opportunities.
+ * Movimento somente quando explica estado, origem ou confirmação. */
+
+.smart-assistant {
+  transform-origin: right bottom;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 220ms var(--emil-ease-drawer), transform 220ms var(--emil-ease-drawer);
+  @starting-style { opacity: 0; transform: translateY(10px) scale(.98); }
+}
+
+.est-map.is-open {
+  transform-origin: top center;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 220ms var(--emil-ease-out), transform 220ms var(--emil-ease-out);
+  @starting-style { opacity: 0; transform: translateY(-8px); }
+}
+
+.ape-backdrop {
+  opacity: 1;
+  transition: opacity 180ms var(--emil-ease-out);
+  @starting-style { opacity: 0; }
+}
+.ape-dialog {
+  transform-origin: center;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 260ms var(--emil-ease-drawer), transform 260ms var(--emil-ease-drawer);
+  @starting-style { opacity: 0; transform: scale(.97); }
+}
+
+.pc-dev-backdrop {
+  opacity: 1;
+  transition: opacity 180ms var(--emil-ease-out);
+  @starting-style { opacity: 0; }
+}
+.pc-contact-dialog,
+.pc-dev-dialog {
+  transform-origin: center;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 240ms var(--emil-ease-out), transform 240ms var(--emil-ease-out);
+  @starting-style { opacity: 0; transform: scale(.97); }
+}
+
+.storefront-pro__delivery-fields {
+  display: grid;
+  gap: 7px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms var(--emil-ease-out), transform 180ms var(--emil-ease-out);
+  @starting-style { opacity: 0; transform: translateY(-6px); }
+}
+
+:where(.storefront-pro__notice, .store-catalog-message, .ape-feedback, [class*="notice"]):not(:empty) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms var(--emil-ease-out), transform 180ms var(--emil-ease-out);
+  @starting-style { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Permanecem estáticos: heros, fotos, cards, rankings, gráficos e resultados. */
+@media (prefers-reduced-motion: reduce) {
+  :where(.smart-assistant, .est-map.is-open, .ape-backdrop, .ape-dialog,
+    .pc-dev-backdrop, .pc-contact-dialog, .pc-dev-dialog,
+    .storefront-pro__delivery-fields, .storefront-pro__notice,
+    .store-catalog-message, .ape-feedback, [class*="notice"]) {
+    transform: none !important;
+    transition: opacity 120ms linear !important;
+  }
+}

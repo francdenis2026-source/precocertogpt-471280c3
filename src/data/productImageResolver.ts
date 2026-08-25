@@ -98,11 +98,30 @@ const publicFallbacks = [
   { terms: ["detergente", "ype"], url: "/products/detergente-ypx-neutro-500ml.jpg" },
 ] as const;
 
+// Alguns cadastros antigos receberam a URL de outro produto. Uma empada não
+// deve herdar uma foto genérica/vermelha só porque existe uma URL no banco.
+// Mantemos o estado neutro da interface até haver um arquivo identificável
+// como empada, evitando informação visual enganosa para o consumidor.
+function hasKnownImageMismatch(product: Product) {
+  const productIdentity = normalize([product.name, product.slug].filter(Boolean).join(" "));
+  if (!productIdentity.includes("empada")) return false;
+  return Boolean(product.image_url && !normalize(product.image_url).includes("empada"));
+}
+
 export function resolveProductImage(product: Product): string | undefined {
   const identity = normalize([product.name, product.brand, product.size].filter(Boolean).join(" "));
+
+  // A arte antiga da cebola roxa contém uma etiqueta promocional incorporada
+  // ("400g / 2 a 3 unid.") com textos sobrepostos. Forçamos a fotografia limpa
+  // já existente no projeto em todos os cards, modais e páginas do produto.
+  if (identity.includes("cebolaroxa")) {
+    const cleanRedOnion = localAssets.find(asset => asset.key === "cebolaroxakg");
+    if (cleanRedOnion) return cleanRedOnion.url;
+  }
+
   // A imagem vinculada ao cadastro do produto é sempre a fonte principal.
   // Os arquivos locais existem apenas como contingência para cadastros sem foto.
-  if (product.image_url) return product.image_url;
+  if (product.image_url && !hasKnownImageMismatch(product)) return product.image_url;
   const publicFallback = publicFallbacks.find(item => item.terms.every(term => identity.includes(term)));
   if (publicFallback) return publicFallback.url;
 

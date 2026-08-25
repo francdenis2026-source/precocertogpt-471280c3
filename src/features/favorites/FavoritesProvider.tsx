@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { requestAuthAction } from "../../lib/authActionPrompt";
 
 type FavoriteContextValue = {
   favoriteIds: string[];
@@ -17,6 +18,20 @@ const FavoritesContext = createContext<FavoriteContextValue | null>(null);
 const PENDING_KEY = "pc:pending_favorite";
 const COMPAT_KEY = "precocerto:favorites";
 
+function userCacheKey(userId: string) {
+  return `${COMPAT_KEY}:${userId}`;
+}
+
+function readCompatibility(userId: string): string[] {
+  try {
+    const raw = localStorage.getItem(userCacheKey(userId)) ?? localStorage.getItem(COMPAT_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
 function readPending(): PendingFavorite | null {
   try {
     const raw = sessionStorage.getItem(PENDING_KEY);
@@ -26,8 +41,11 @@ function readPending(): PendingFavorite | null {
   }
 }
 
-function saveCompatibility(ids: string[]) {
-  try { localStorage.setItem(COMPAT_KEY, JSON.stringify(ids)); } catch { /* compatibilidade opcional */ }
+function saveCompatibility(ids: string[], userId?: string) {
+  try {
+    localStorage.setItem(COMPAT_KEY, JSON.stringify(ids));
+    if (userId) localStorage.setItem(userCacheKey(userId), JSON.stringify(ids));
+  } catch { /* compatibilidade opcional */ }
   window.dispatchEvent(new CustomEvent("pc:favorites-changed", { detail: { ids } }));
 }
 
@@ -46,6 +64,8 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     }
 
     setUserId(id);
+    const cachedIds = readCompatibility(id);
+    setFavoriteIds(cachedIds);
     const { data, error } = await supabase
       .from("user_favorites")
       .select("product_id")
@@ -55,7 +75,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     if (!error) {
       const ids = (data ?? []).map(row => String(row.product_id));
       setFavoriteIds(ids);
-      saveCompatibility(ids);
+      saveCompatibility(ids, id);
     }
     setLoading(false);
   }, []);
@@ -69,11 +89,8 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const { error } = await supabase.from("user_favorites").upsert(
-      { user_id: id, product_id: pending.productId },
-      { onConflict: "user_id,product_id", ignoreDuplicates: true },
-    );
-    if (!error) sessionStorage.removeItem(PENDING_KEY);
+    const { error } = await supabase.from("user_favorites").insert({ user_id: id, product_id: pending.productId });
+    if (!error || error.code === "23505") sessionStorage.removeItem(PENDING_KEY);
   }, []);
 
   useEffect(() => {
@@ -118,21 +135,20 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     if (!sessionUser) {
       const destination = returnTo || `${window.location.pathname}${window.location.search}`;
       sessionStorage.setItem(PENDING_KEY, JSON.stringify({ productId: id, returnTo: destination, createdAt: Date.now() } satisfies PendingFavorite));
-      window.dispatchEvent(new CustomEvent("pc:set-toast", { detail: { message: "Entre ou crie sua conta para salvar este favorito." } }));
-      window.location.assign(`/login?redirect=${encodeURIComponent(destination)}`);
+      requestAuthAction("favorite", destination);
       return false;
     }
 
     const removing = favoriteIds.includes(id);
     const next = removing ? favoriteIds.filter(value => value !== id) : [id, ...favoriteIds.filter(value => value !== id)];
     setFavoriteIds(next);
-    saveCompatibility(next);
+    saveCompatibility(next, sessionUser.id);
 
     const response = removing
       ? await supabase.from("user_favorites").delete().eq("user_id", sessionUser.id).eq("product_id", id)
-      : await supabase.from("user_favorites").upsert({ user_id: sessionUser.id, product_id: id }, { onConflict: "user_id,product_id", ignoreDuplicates: true });
+      : await supabase.from("user_favorites").insert({ user_id: sessionUser.id, product_id: id });
 
-    if (response.error) {
+    if (response.error && response.error.code !== "23505") {
       await loadForUser(sessionUser.id);
       window.dispatchEvent(new CustomEvent("pc:set-toast", { detail: { message: "Não foi possível atualizar seus favoritos agora." } }));
       return false;

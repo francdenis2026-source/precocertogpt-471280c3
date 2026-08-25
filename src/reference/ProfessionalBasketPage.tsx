@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, Minus, PackageSearch, PiggyBank, Plus, ShoppingBasket, Sparkles, Store, Trash2 } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -6,6 +7,9 @@ import type { Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { AppDock, PublicHeader } from "./ReferenceExperience";
 import "./ProfessionalBasketPage.css";
+import "./CompactViewportPages.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type BasketEntry = { productId: string; quantity: number };
 const BASKET_KEY = "precocerto:active_basket_items";
@@ -32,6 +36,7 @@ function ProductThumb({ product }: { product: Product }) {
 }
 
 export function ProfessionalBasketPage() {
+  const pageRef = useRef<HTMLDivElement>(null);
   const [entries, setEntries] = useState<BasketEntry[]>(readBasket);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,7 +74,23 @@ export function ProfessionalBasketPage() {
     setEntries(next);
   }
 
-  return <div className="pro-basket-page">
+  // Entrada suave da hero (eyebrow, título, texto, KPIs em cascata) e,
+  // assim que a lista real substitui o esqueleto de carregamento, um
+  // stagger nos itens da lista e no resumo lateral — ambos ficam acima da
+  // dobra na maioria das telas, então revelar ao montar (sem scroll
+  // trigger) é mais apropriado do que esperar rolagem. Respeita
+  // prefers-reduced-motion e anima só transform/opacity.
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".pro-basket-eyebrow, .pro-basket-hero h1, .pro-basket-hero > div:first-child > p", { y: 16, opacity: 0, duration: .55, stagger: .06, ease: "power3.out" });
+    gsap.from(".pro-basket-kpis article", { y: 14, opacity: 0, duration: .5, stagger: .06, delay: .1, ease: "power2.out" });
+    if (!loading && rows.length) {
+      gsap.from(".pro-basket-item", { y: 14, opacity: 0, duration: .5, stagger: .05, ease: "power2.out" });
+      gsap.from(".pro-basket-summary", { y: 16, opacity: 0, duration: .55, delay: .1, ease: "power2.out" });
+    }
+  }, { scope: pageRef, dependencies: [loading] });
+
+  return <div className="pro-basket-page" ref={pageRef}>
     <PublicHeader current="basket"/>
 
     <main id="conteudo-principal" className="pro-basket-shell">
@@ -97,7 +118,7 @@ export function ProfessionalBasketPage() {
 
         <aside className="pro-basket-summary">
           <header><span><PiggyBank /></span><div><small>RESUMO DA LISTA</small><h2>Planejamento</h2></div></header>
-          <dl><div><dt>Produtos</dt><dd>{rows.length}</dd></div><div><dt>Unidades</dt><dd>{itemCount}</dd></div><div><dt>Lojas de referência</dt><dd>{storeCount || "—"}</dd></div><div><dt>Sem comparar</dt><dd>{brl.format(maxTotal)}</dd></div></dl>
+          <dl><div><dt>Produtos</dt><dd>{rows.length}</dd></div><div><dt>Unidades</dt><dd>{itemCount}</dd></div><div><dt>Estabelecimentos de referência</dt><dd>{storeCount || "—"}</dd></div><div><dt>Sem comparar</dt><dd>{brl.format(maxTotal)}</dd></div></dl>
           <div className="pro-basket-total"><span>Melhor total estimado</span><strong>{brl.format(bestTotal)}</strong><small><BadgeCheck /> preços do catálogo local</small></div>
           <div className="pro-basket-saving"><span>Você pode economizar</span><strong>{brl.format(savings)}</strong></div>
           <Link className="pro-basket-primary" to="/cesta-inteligente"><Sparkles /> Otimizar com Cesta Inteligente <ArrowRight /></Link>

@@ -22,19 +22,29 @@ older files did not all need to be rewritten by hand to benefit from the real to
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| Canvas | `#f5f7f4` | `#061721` |
-| Surface | `#ffffff` | `#0b2430` |
-| Surface 2 | `#edf2ee` | `#102e3b` |
-| Ink | `#102631` | `#f1f6f4` |
-| Muted | `#64767d` | `#a8bbc1` |
-| Border | `#d8e1dc` | `#294753` |
-| Green (action / verified price) | `#168657` | `#68db98` |
-| Green strong (text-on-light) | `#087a4d` | `#7ce5a7` |
-| Gold (accent) | `#946514` | `#e8b85d` |
-| Navy (institutional / admin) | `#082532` | `#061721` |
+| Canvas | `#f4f6f5` | `#202428` |
+| Surface | `#ffffff` | `#292e33` |
+| Surface 2 | `#eaf0ed` | `#32383e` |
+| Ink | `#17251d` | `#f5f7f5` |
+| Muted | `#53645c` | `#c5cbd0` |
+| Border | `#d3ded8` | `#4b555e` |
+| Primary / verified price | `#17633f` | `#96ceb0` |
+| Primary strong | `#104c30` | `#adddc2` |
+| Accent | `#b77918` | `#edc778` |
+| Alert | `#a63f2b` | `#f0a08a` |
 
-Typography is Outfit Variable for display/headings and Inter Variable for body copy, both
-loaded via `@fontsource-variable` in `main.tsx`. There is no Manrope anywhere in the app.
+O modo escuro usa uma escala mineral de carvão com luminosidade média, sem preto puro e
+sem verde-floresta dominando grandes áreas. Verde é a única cor primária,
+ouro é o accent e terracota aparece somente em alerta/erro. A camada
+`GlobalMineralDark2026.css`, carregada após os estilos históricos, remapeia as
+superfícies legadas para os mesmos papéis semânticos em todas as páginas.
+
+`HomepageVisualRefinement2026.css`, carregado por último, conecta as variáveis
+históricas `--nx-*` e `--mh-*` aos tokens canônicos. Ele também unifica player,
+avatar, CTAs, categorias e dock sem criar outra paleta local.
+
+Typography uses Manrope Variable as the canonical display/body family. Inter and Outfit remain
+loaded for older page-specific rules while those surfaces migrate to the shared tokens.
 
 ## Primitives (Fase 1)
 

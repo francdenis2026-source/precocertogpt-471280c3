@@ -1,0 +1,45 @@
+/* PreçoCerto — legibilidade do banner/hero no mobile 2026 */
+@media (max-width:767px){
+  .nx-hero__copy{padding:22px 16px 20px!important}
+  .nx-hero h1{
+    max-width:11.5ch!important;
+    font-size:clamp(2.55rem,12.2vw,3.35rem)!important;
+    line-height:.96!important;
+    letter-spacing:-.04em!important;
+    text-wrap:balance!important;
+  }
+  .nx-hero__copy>p{
+    max-width:32rem!important;
+    margin:12px 0 17px!important;
+    font-size:15.5px!important;
+    font-weight:540!important;
+    line-height:1.48!important;
+    letter-spacing:-.005em!important;
+  }
+  .nx-hero__links{gap:7px!important;margin-top:14px!important}
+  .nx-hero__links>span{font-size:12.5px!important;font-weight:800!important}
+  .nx-hero__links a{
+    min-height:36px!important;
+    padding-inline:13px!important;
+    font-size:12.5px!important;
+    font-weight:800!important;
+  }
+
+  /* Oferta/banner visual abaixo da busca */
+  .nx-hero__visual{min-height:174px!important}
+  .nx-deal{padding:12px 13px!important;gap:9px!important}
+  .nx-deal>span{font-size:12px!important;font-weight:900!important;letter-spacing:.025em!important}
+  .nx-deal__product strong{font-size:14px!important;line-height:1.2!important}
+  .nx-deal__product small,.nx-deal__product em{font-size:12px!important;line-height:1.25!important}
+  .nx-deal footer small{font-size:11.5px!important}
+  .nx-deal footer strong{font-size:21px!important;line-height:1!important}
+}
+
+@media (max-width:390px){
+  .nx-hero__copy{padding:20px 14px 18px!important}
+  .nx-hero h1{font-size:clamp(2.35rem,12vw,2.85rem)!important}
+  .nx-hero__copy>p{font-size:15px!important;line-height:1.45!important}
+  .nx-hero__links>span,.nx-hero__links a{font-size:12px!important}
+  .nx-hero__visual{min-height:168px!important}
+  .nx-deal__product strong{font-size:13.5px!important}
+}

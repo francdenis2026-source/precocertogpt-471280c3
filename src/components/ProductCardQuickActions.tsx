@@ -5,6 +5,7 @@ import { fetchCatalog } from "../data/remoteCatalog";
 import type { Product } from "../data/catalog";
 import { useFavorites } from "../features/favorites/FavoritesProvider";
 import { supabase } from "../lib/supabase";
+import { requestAuthAction } from "../lib/authActionPrompt";
 import "./ProductCardQuickActions.css";
 
 type CardTarget = { element: HTMLAnchorElement; identifier: string };
@@ -17,6 +18,8 @@ const ACTIONABLE_CARD_SELECTOR = [
   "a.ref-catalog-card[href^='/produto/']",
   ".ref-product-grid > a[href^='/produto/']",
   "a.ref-price-row[href^='/produto/']",
+  "a.msearch26-card[href^='/produto/']",
+  "a.mh26-product[href^='/produto/']",
 ].join(",");
 
 function productIdentifier(href: string) {
@@ -44,18 +47,16 @@ function writeBasket(items: BasketEntry[]) {
 function addBasketItem(productId: string) {
   const current = readBasket();
   const existing = current.find(item => item.productId === productId);
-  const next = existing
-    ? current.map(item => item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)
-    : [...current, { productId, quantity: 1 }];
+  const next = existing ? current : [...current, { productId, quantity: 1 }];
   writeBasket(next);
-  return next;
+  return { items: next, added: !existing };
 }
 
 function savePendingBasket(productId: string) {
   const returnTo = `${window.location.pathname}${window.location.search}`;
   const pending: PendingBasket = { productId, returnTo, createdAt: Date.now() };
   sessionStorage.setItem(PENDING_BASKET_KEY, JSON.stringify(pending));
-  window.location.assign(`/login?redirect=${encodeURIComponent(returnTo)}`);
+  requestAuthAction("basket", returnTo);
 }
 
 function keyboardActivate(event: KeyboardEvent<HTMLSpanElement>, callback: () => void) {
@@ -66,7 +67,7 @@ function keyboardActivate(event: KeyboardEvent<HTMLSpanElement>, callback: () =>
 }
 
 export function ProductCardQuickActions() {
-  const { userId, loading: authLoading, isFavorite, toggleFavorite } = useFavorites();
+  const { userId, isFavorite, toggleFavorite } = useFavorites();
   const [targets, setTargets] = useState<CardTarget[]>([]);
   const [catalogProducts, setCatalogProducts] = useState<Product[]>([]);
   const [basketItems, setBasketItems] = useState<BasketEntry[]>(readBasket);
@@ -106,20 +107,7 @@ export function ProductCardQuickActions() {
   }, []);
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!userId && readBasket().length) {
-      localStorage.removeItem(BASKET_KEY);
-      setBasketItems([]);
-    }
-  }, [authLoading, userId]);
-
-  useEffect(() => {
     const refresh = () => {
-      if (!authLoading && !userId) {
-        if (readBasket().length) localStorage.removeItem(BASKET_KEY);
-        setBasketItems([]);
-        return;
-      }
       setBasketItems(readBasket());
     };
     window.addEventListener("storage", refresh);
@@ -128,7 +116,7 @@ export function ProductCardQuickActions() {
       window.removeEventListener("storage", refresh);
       window.removeEventListener("pc:basket-changed", refresh);
     };
-  }, [authLoading, userId]);
+  }, []);
 
   useEffect(() => {
     if (!userId) return;
@@ -144,10 +132,10 @@ export function ProductCardQuickActions() {
       sessionStorage.removeItem(PENDING_BASKET_KEY);
       return;
     }
-    const next = addBasketItem(pending.productId);
-    setBasketItems(next);
+    const result = addBasketItem(pending.productId);
+    setBasketItems(result.items);
     sessionStorage.removeItem(PENDING_BASKET_KEY);
-    setFeedback("Produto adicionado à sua lista.");
+    setFeedback(result.added ? "Produto adicionado à sua lista." : "Produto já está na lista. Altere a quantidade na cesta.");
   }, [userId]);
 
   useEffect(() => {
@@ -174,13 +162,12 @@ export function ProductCardQuickActions() {
   const addToBasket = useCallback(async (productId: string) => {
     const session = supabase ? (await supabase.auth.getSession()).data.session : null;
     if (!session?.user) {
-      setFeedback("Entre para salvar sua lista de compras.");
       savePendingBasket(productId);
       return;
     }
-    const next = addBasketItem(productId);
-    setBasketItems(next);
-    setFeedback("Produto adicionado à lista.");
+    const result = addBasketItem(productId);
+    setBasketItems(result.items);
+    setFeedback(result.added ? "Produto adicionado à lista." : "Produto já está na lista. Altere a quantidade na cesta.");
   }, []);
 
   const stopPointer = (event: PointerEvent<HTMLSpanElement>) => event.stopPropagation();
@@ -215,8 +202,8 @@ export function ProductCardQuickActions() {
             className={`pc-card-action pc-card-action--basket${quantity ? " is-active" : ""}`}
             role="button"
             tabIndex={0}
-            aria-label={quantity ? `${product.name}: ${quantity} na lista. Adicionar mais um` : `Adicionar ${product.name} à lista`}
-            title={userId ? "Adicionar à lista" : "Entrar para salvar na lista"}
+            aria-label={quantity ? `${product.name} já está na lista. Altere a quantidade na cesta` : `Adicionar ${product.name} à lista`}
+            title={quantity ? "Já está na lista — altere a quantidade na cesta" : userId ? "Adicionar à lista" : "Entrar para salvar na lista"}
             onPointerDown={stopPointer}
             onClick={event => { stopClick(event); void addToBasket(id); }}
             onKeyDown={event => keyboardActivate(event, () => { void addToBasket(id); })}
@@ -235,6 +222,6 @@ export function ProductCardQuickActions() {
       <b>Ver lista</b>
     </a>}
 
-    {feedback && <div className="pc-card-action-feedback" role="status" aria-live="polite">{feedback}</div>}
+    {feedback && <div className="pc-quick-feedback" role="status" aria-live="polite">{feedback}</div>}
   </>;
 }

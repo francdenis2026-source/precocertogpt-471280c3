@@ -1,0 +1,134 @@
+/* design-taste-frontend
+   Reading: trust-first local commerce, editorial utility, restrained motion.
+   Dials: variance 5, motion 3, density 6. Public-facing surfaces only. */
+
+:root {
+  --taste-public-accent: #f59e0b;
+  --taste-public-navy: #0b2438;
+  --taste-public-petroleum: #12344d;
+  --taste-public-paper: #f7f9fb;
+  --taste-public-line: #d8e1e7;
+  --taste-public-radius-card: 16px;
+  --taste-public-radius-control: 10px;
+  --taste-public-radius-pill: 999px;
+  --taste-public-section: clamp(2.75rem, 5vw, 5.5rem);
+}
+
+/* One shape language: cards 16px, controls 10px, compact filters pill. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(article, [class*="card"], [class*="panel"], [role="dialog"] > *) {
+  border-radius: var(--taste-public-radius-card);
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(input, select, textarea, button:not([class*="chip"]):not([class*="pill"]), a[class*="button"], a[class*="action"], a[class*="cta"]) {
+  border-radius: var(--taste-public-radius-control);
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where([class*="chip"], [class*="pill"], [class*="badge"]) {
+  border-radius: var(--taste-public-radius-pill);
+}
+
+/* Motion 3: feedback only. The interface never moves away from the pointer. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button, article, [class*="card"]):hover {
+  translate: none;
+  transform: none;
+}
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(a, button):active:not(:disabled) {
+  translate: 0 1px;
+  transform: none;
+}
+
+/* Calm heroes: asymmetric, content-led, never a full-screen billboard. */
+:where(.hp-hero, .sector-hub__hero, .sector-hero, .store-pro-hero, .sf-hero, .merchant-hero, .culture-profile-hero) {
+  height: auto;
+  min-height: min(72svh, 680px);
+  max-height: none;
+}
+:where(.sector-hub__hero, .sector-hero, .store-pro-hero, .sf-hero, .merchant-hero, .culture-profile-hero) {
+  min-height: auto;
+  padding-block: clamp(2rem, 5vw, 4.5rem);
+}
+:where(.hp-hero h1, .sector-hub__hero h1, .sector-hero h1, .store-pro-hero h1, .sf-hero h1, .merchant-hero h1, .culture-profile-hero h1) {
+  max-width: 14ch;
+}
+:where(.hp-hero p, .sector-hub__hero p, .sector-hero p, .store-pro-hero p, .sf-hero p, .merchant-hero p, .culture-profile-hero p) {
+  max-width: 60ch;
+}
+
+/* Plain-language hierarchy. Reduce the repeated tiny uppercase eyebrow tell. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where([class*="eyebrow"], [class*="kicker"], [class*="section-note"]) {
+  letter-spacing: .055em;
+  text-transform: none;
+}
+
+/* Section headers stack naturally instead of floating copy in a corner. */
+:where(.hp-section-head, .sector-hub__section-head, .sf-heading, .store-pro-heading, .dorinha-pro__section-head) {
+  align-items: flex-start;
+}
+:where(.hp-section-head > div, .sector-hub__section-head > div, .sf-heading > div, .store-pro-heading > div, .dorinha-pro__section-head > div) {
+  max-width: 720px;
+}
+
+/* Reduce generic card walls. Borders organize repeated catalog data. */
+:where(.sf-grid, .store-pro-grid, .ref-store-grid, .search26-results, .basket-items) {
+  gap: clamp(.625rem, 1.5vw, 1rem);
+}
+:where(.sf-card, .store-pro-card, .ref-store-card, .search26-result) {
+  box-shadow: 0 1px 2px rgb(11 36 56 / 5%);
+}
+:where(.sf-card, .store-pro-card, .ref-store-card, .search26-result):hover {
+  border-color: color-mix(in srgb, var(--taste-public-petroleum) 34%, var(--taste-public-line));
+  box-shadow: 0 12px 30px rgb(11 36 56 / 9%);
+}
+
+/* Actions stay concise and never wrap. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(button, a[class*="cta"], a[class*="action"], a[class*="button"]) {
+  white-space: nowrap;
+}
+
+/* Photographs remain photographs: no pills or decorative labels over media. */
+:where(.sf-media, .store-pro-media, .hp-product-card__media, .dorinha-pro__cover) > :where([class*="badge"], [class*="label"], [class*="tag"]) {
+  display: none;
+}
+
+/* Compact public rhythm. Information stays above spectacle. */
+:where(.hp-sectors, .hp-offers, .sector-hub__content, .sf-content, .store-pro-content, .basket-content, .merchant-content) {
+  padding-block: var(--taste-public-section);
+}
+:where(.hp-local, .sector-hub__tools, .sector-hub__special, .dorinha-pro__market, .dorinha-pro__pix) {
+  margin-block: clamp(2rem, 4vw, 4rem);
+}
+
+/* Theme parity without pure white or pure black on the public canvas. */
+:where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) {
+  --taste-surface-bright: #fbfcfd;
+  --taste-surface-dark: #071927;
+}
+
+@media (min-width: 900px) {
+  /* Modest asymmetry makes the marketplace feel authored, not templated. */
+  :where(.hp-sector-grid, .sector-hub__sectors) > :first-child { grid-column: span 1; }
+  :where(.sf-grid, .store-pro-grid) > :nth-child(7n + 1) { grid-row: span 1; }
+}
+
+@media (max-width: 767px) {
+  :root { --taste-public-section: 2.75rem; }
+  :where(.hp-hero, .sector-hub__hero, .sector-hero, .store-pro-hero, .sf-hero, .merchant-hero, .culture-profile-hero) {
+    min-height: auto;
+    padding-block: 2rem;
+  }
+  :where(.hp-section-head, .sector-hub__section-head, .sf-heading, .store-pro-heading, .dorinha-pro__section-head) {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  :where(.hp-home, .search26-page, .sector-page, .sector-hub, .product-detail-page, .store-pro-page, .storefront, .basket-page, .smart-basket, .merchant-page, .dorinha-pro, .culture-profile-page, .ref-page) :where(button, a[class*="cta"], a[class*="action"], a[class*="button"]) {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :where(.hp-header, .hp-dock, .pc-search-overlay__panel, [role="dialog"]) {
+    backdrop-filter: none !important;
+    background-color: hsl(var(--card)) !important;
+  }
+}

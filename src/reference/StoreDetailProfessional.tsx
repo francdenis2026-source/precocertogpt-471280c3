@@ -1,17 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/lightMotion";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Clock3, Info, MapPin, PackageSearch, Search, ShieldCheck, SlidersHorizontal, Store, Tag } from "lucide-react";
 import { fetchCatalog } from "../data/remoteCatalog";
 import type { CatalogPayload, Product } from "../data/catalog";
 import { resolveProductImage } from "../data/productImageResolver";
 import { getStoreLogoUrl } from "../data/storeLogos";
-import { getStoreAddress, getStoreMapQuery } from "../data/storeAddresses";
-import { normalizeStoreKind } from "../data/sectorCatalog";
+import { groupForStore } from "../data/businessTaxonomy";
 import { marketplaceSectors } from "./MarketplaceSectors";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { PublicHeader } from "./ReferenceExperience";
 import "./StoreDetailProfessional.css";
 import "./StoreExperienceAcai2026.css";
 import "./StoreSectorHero.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const PAGE_SIZE = 20;
@@ -38,10 +40,15 @@ function storeBackdrop(key: string) {
 // comércio, e os demais (farmácia, padaria, cultura, serviços) — sem fotos
 // próprias no acervo — ganham um cartão com a cor e o ícone do setor, para
 // não repetir uma imagem de supermercado num perfil que não é um mercado.
-const marketSectorId = marketplaceSectors[0].id;
-function sectorForStore(kind?: string) {
-  const normalized = normalizeStoreKind(kind);
-  return marketplaceSectors.find(sector => sector.businessKinds.map(normalizeStoreKind).includes(normalized)) || marketplaceSectors[0];
+// A categoria do estabelecimento vem da taxonomia única (businessTaxonomy):
+// ela junta o tipo gravado no cadastro com o que o próprio nome revela
+// ("Açougue do João", "Panificadora Central"). Antes, qualquer tipo não
+// reconhecido virava "mercado" por padrão — e era por isso que açougue,
+// padaria e lanchonete apareciam com a foto e o rótulo de supermercado.
+const marketSectorId = "markets";
+function sectorForStore(store: { kind?: string | null; name?: string | null }) {
+  const group = groupForStore(store);
+  return marketplaceSectors.find(sector => sector.id === group.id) || marketplaceSectors[0];
 }
 
 // Um hero por setor, adequado ao tipo de comércio. Não há fotos reais no
@@ -61,10 +68,13 @@ const SECTOR_BACKDROPS: Record<string, string> = {
 
 const SECTOR_TAGLINES: Record<string, string> = {
   markets: "Consulte produtos, marcas e preços organizados para comparar antes de comprar.",
+  butchers: "Cortes, carnes e pescados deste açougue, com o preço à vista antes de você ir até lá.",
   pharmacies: "Medicamentos, higiene e cuidados pessoais organizados por este estabelecimento de saúde.",
-  bakery: "Cardápio e itens preparados deste comércio, organizados para consulta antes de ir até lá.",
+  bakery: "Pães, bolos, salgados e doces desta casa, organizados para consulta antes de ir até lá.",
+  food: "Cardápio completo com preço aberto, para escolher o pedido antes de chamar no WhatsApp.",
   books: "Obras, autoria e projeto cultural deste perfil, sem mistura com catálogo de supermercado.",
   services: "Especialidade, contato e área de atendimento deste prestador de serviço local.",
+  other: "Produtos e informações deste comércio local, organizados para consulta.",
 };
 
 function normalize(value: string) {
@@ -94,10 +104,31 @@ export function StoreDetailProfessional() {
   const [sort, setSort] = useState<"name" | "price-asc" | "price-desc">("name");
   const [page, setPage] = useState(1);
   const [logoFailed, setLogoFailed] = useState(false);
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  // Entrada suave da hero e revelação dos blocos abaixo dela ao rolar.
+  // O catálogo carrega de forma assíncrona, então a dependência em
+  // `loading` garante que a animação só rode depois que a hero de verdade
+  // existe no DOM (na primeira renderização, com loading=true, a página
+  // mostra só o spinner). Sem essa dependência o useGSAP rodaria uma vez no
+  // mount, antes do conteúdo aparecer, e nunca animaria nada.
+  useGSAP(() => {
+    if (loading || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".store-pro-logo, .store-pro-copy > *", { y: 18, opacity: 0, duration: .6, stagger: .06, ease: "power3.out" });
+    gsap.utils.toArray<HTMLElement>(".store-pro-notice, .store-pro-summary").forEach((el, index) => {
+      gsap.from(el, { y: 14, opacity: 0, duration: .5, delay: .1 + index * .05, ease: "power2.out" });
+    });
+    gsap.from(".store-pro-catalog", { scrollTrigger: { trigger: ".store-pro-catalog", start: "top 88%", once: true }, y: 22, opacity: 0, duration: .55, ease: "power2.out" });
+  }, { scope: pageRef, dependencies: [loading] });
 
   useEffect(() => {
     let active = true;
-    fetchCatalog("", { force: true })
+    // Reaproveita o catálogo já em cache (60s) sempre que possível — a Home,
+    // a busca e os favoritos já carregam esse mesmo catálogo antes do
+    // usuário chegar aqui, então forçar uma nova consulta completa ao banco
+    // a cada clique em um estabelecimento é o que fazia esta página demorar
+    // e mostrar "Carregando…" por vários segundos sem necessidade.
+    fetchCatalog()
       .then(data => { if (active) setCatalog(data); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
@@ -139,14 +170,34 @@ export function StoreDetailProfessional() {
   useEffect(() => setPage(1), [query, category, sort]);
   useEffect(() => { if (page > pageCount) setPage(pageCount); }, [page, pageCount]);
 
-  if (loading) return <main className="store-pro-state"><span className="store-pro-loader" /><h1>Carregando estabelecimento…</h1></main>;
+  // Enquanto o catálogo carrega (raro agora que a página reaproveita o
+  // cache, mas ainda acontece na primeira visita ao site), mostra um
+  // esqueleto com a mesma "forma" da página real sobre um fundo com a
+  // identidade visual da marca, em vez de uma tela em branco com spinner —
+  // assim a transição parece parte do design, não uma falha de carregamento.
+  if (loading) return (
+    <main className="store-pro-skeleton" role="status" aria-live="polite">
+      <span className="store-pro-skeleton__sr">Carregando estabelecimento…</span>
+      <div className="store-pro-skeleton__hero">
+        <span className="store-pro-skeleton__logo" />
+        <div className="store-pro-skeleton__lines">
+          <span className="store-pro-skeleton__bar store-pro-skeleton__bar--kicker" />
+          <span className="store-pro-skeleton__bar store-pro-skeleton__bar--title" />
+          <span className="store-pro-skeleton__bar store-pro-skeleton__bar--text" />
+        </div>
+      </div>
+      <div className="store-pro-skeleton__grid">
+        {Array.from({ length: 8 }).map((_, index) => <span className="store-pro-skeleton__card" key={index} />)}
+      </div>
+    </main>
+  );
   if (!store || !catalog) return <main className="store-pro-state"><Store /><h1>Estabelecimento não encontrado</h1><Link to="/estabelecimentos">Voltar aos estabelecimentos</Link></main>;
 
   const startResult = filteredProducts.length ? (safePage - 1) * PAGE_SIZE + 1 : 0;
   const endResult = Math.min(safePage * PAGE_SIZE, filteredProducts.length);
   const logoUrl = getStoreLogoUrl(store.name);
   const isBonsAmigos = normalize(store.name).includes("bons amigos");
-  const sector = sectorForStore(store.kind);
+  const sector = sectorForStore(store);
   const isMarketSector = sector.id === marketSectorId;
   const backdrop = isMarketSector ? storeBackdrop(store.slug || String(store.id)) : SECTOR_BACKDROPS[sector.id];
   const showLogo = logoUrl && !logoFailed;
@@ -155,15 +206,14 @@ export function StoreDetailProfessional() {
   // sempre na busca do mapa evita que o Google Maps resolva o nome da loja
   // para outro lugar do Brasil (ou não encontre nada) quando o nome sozinho
   // é ambíguo ou pouco conhecido fora da cidade.
-  const fullAddress = getStoreAddress(store.name);
-  const mapsQuery = encodeURIComponent(getStoreMapQuery(store.name, store.neighborhood));
+  const mapsQuery = encodeURIComponent(`${store.name}, ${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó - AC, 69960-000, Brasil`);
   const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
-  return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`}>
+  return <div className={`ref-page store-pro-page${isBonsAmigos ? " store-pro-page--bons-amigos" : ""}`} ref={pageRef}>
     <PublicHeader current="stores" title={store.name} logo={showLogo ? logoUrl : undefined}/>
     <main id="conteudo-principal" className="store-pro-shell">
       <div className="store-pro-topline store-pro-topline--location-only">
-        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {fullAddress || `${store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000`}</a>
+        <a href={mapsHref} target="_blank" rel="noreferrer"><MapPin /> {store.neighborhood && store.neighborhood !== "—" ? `${store.neighborhood}, ` : ""}Feijó · Acre · CEP 69960-000</a>
       </div>
 
       <section
@@ -233,6 +283,6 @@ export function StoreDetailProfessional() {
 
       <aside className="store-pro-bottom-note"><ShieldCheck /><strong>Informação para comparação</strong><span>Confirme estoque, disponibilidade e condições diretamente no estabelecimento.</span><Link className="pc-btn pc-btn--ghost" to="/fale-conosco">Saiba mais <ArrowRight /></Link></aside>
     </main>
-    <PublicFooter/>
+    <footer className="store-pro-legal">© {new Date().getFullYear()} PreçoCerto · Feijó-AC</footer>
   </div>;
 }

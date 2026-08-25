@@ -146,3 +146,35 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
 @media(max-width:370px){
   .mh26-logo img{height:57px;max-width:150px}
 }
+
+/* Resultados em uma camada global: não são recortados pela hero, pelos cards
+   seguintes nem pelo dock e continuam ancorados ao campo durante a rolagem. */
+@media(max-width:767px){
+  .mh26-search-overlay--portal{
+    position:fixed;
+    z-index:2147483000;
+    right:auto;
+    bottom:auto;
+    grid-template-rows:auto minmax(0,1fr) auto;
+    overflow:hidden;
+    overscroll-behavior:contain;
+    border-color:var(--pc-border);
+    background:var(--pc-surface);
+    color:var(--pc-ink);
+    box-shadow:0 24px 70px rgb(8 18 22 / 42%);
+    isolation:isolate;
+  }
+  .mh26-search-overlay--portal>header{background:var(--pc-surface-2);border-color:var(--pc-border)}
+  .mh26-search-overlay-actions{display:flex;align-items:center;gap:7px}
+  .mh26-search-overlay-actions>span{color:var(--pc-muted);font-size:11px;white-space:nowrap}
+  .mh26-search-overlay-actions>button{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--pc-border);border-radius:11px;background:var(--pc-surface);color:var(--pc-ink);cursor:pointer}
+  .mh26-search-overlay-actions>button svg{width:17px;height:17px}
+  .mh26-search-overlay--portal .mh26-search-list{min-height:0;overflow-y:auto;scrollbar-color:var(--pc-border-strong) transparent;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  .mh26-search-overlay--portal .mh26-search-list>button{color:var(--pc-ink)}
+  .mh26-search-overlay--portal .mh26-search-list>button:focus-visible{outline:3px solid color-mix(in srgb,var(--pc-primary) 38%,transparent);outline-offset:-2px}
+  .mh26-search-overlay--portal>a{flex:none;background:var(--pc-primary-soft);color:var(--pc-primary-strong)}
+  html[data-theme="dark"] .mh26-search-overlay--portal{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
+  html[data-theme="dark"] .mh26-search-overlay--portal>header{border-color:var(--pc-border);background:var(--pc-surface-2)}
+  html[data-theme="dark"] .mh26-search-overlay--portal .mh26-search-list>button:active{background:var(--pc-surface-2)}
+  html[data-theme="dark"] .mh26-search-overlay-actions>button{border-color:var(--pc-border);background:var(--pc-surface);color:var(--pc-ink)}
+}

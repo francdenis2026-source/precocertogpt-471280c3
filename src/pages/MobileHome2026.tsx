@@ -16,19 +16,21 @@ const initialCatalog=buildCatalog();
 const brl=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 const normalize=(value:string)=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
 
-function ProductImage({product}:{product:Product}){const src=resolveProductImage(product);return src?<img src={src} alt={product.name} loading="lazy"/>:<PackageSearch aria-hidden="true"/>}
+function ProductImage({product}:{product:Product}){const[failed,setFailed]=useState(false);const src=resolveProductImage(product);return src&&!failed?<img src={src} alt={product.name} loading="lazy" onError={()=>setFailed(true)}/>:<span className="mh26-image-fallback"><PackageSearch aria-hidden="true"/><small>Imagem em atualização</small></span>}
 
 export function MobileHome2026(){
  const navigate=useNavigate();
  const{theme,toggleTheme}=useSiteTheme();
  const[catalog,setCatalog]=useState<CatalogPayload>({...initialCatalog,metrics:verifiedDatasetMetrics});
  const[loading,setLoading]=useState(true);
+ const[catalogError,setCatalogError]=useState("");
  const[query,setQuery]=useState("");
  const[focused,setFocused]=useState(false);
  const[cycle,setCycle]=useState(()=>currentCycle());
- useEffect(()=>{let active=true;fetchCatalog().then(data=>{if(active)setCatalog(data)}).catch(()=>undefined).finally(()=>{if(active)setLoading(false)});return()=>{active=false}},[]);
+ useEffect(()=>{let active=true;fetchCatalog().then(data=>{if(active){setCatalog(data);setCatalogError(data.error||"")}}).catch(()=>{if(active)setCatalogError("Não foi possível atualizar o catálogo agora.")}).finally(()=>{if(active)setLoading(false)});return()=>{active=false}},[]);
  useEffect(()=>{const timer=window.setTimeout(()=>setCycle(currentCycle()),msUntilNextCycle()+250);return()=>window.clearTimeout(timer)},[cycle]);
  const products=useMemo(()=>catalog.products.filter(p=>p.minPrice>0),[catalog.products]);
+ const lastPriceUpdate=useMemo(()=>{const latest=products.reduce((current,product)=>Math.max(current,Date.parse(product.updated_at||product.capturedAt||"")||0),0);return latest?new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}).format(latest):"indisponível"},[products]);
  const results=useMemo(()=>{const term=normalize(query);if(term.length<2)return[];return products.map(product=>{const name=normalize(product.name),brand=normalize(product.brand||""),category=normalize(product.category||""),store=normalize(product.establishment||"");let rank=99;if(name===term)rank=0;else if(name.startsWith(term))rank=1;else if(name.split(/\s+/).some(w=>w.startsWith(term)))rank=2;else if(name.includes(term))rank=3;else if(brand.startsWith(term))rank=4;else if(`${brand} ${category} ${store}`.includes(term))rank=5;return{product,rank}}).filter(x=>x.rank<99).sort((a,b)=>a.rank-b.rank||a.product.minPrice-b.product.minPrice).slice(0,5).map(x=>x.product)},[query,products]);
  const featured=useMemo(()=>buildFeatured(products,cycle,4),[products,cycle]);
  const open=focused&&query.trim().length>=2;
@@ -47,6 +49,7 @@ export function MobileHome2026(){
       </div>}
     </form>
     <div className="mh26-quick" aria-label="Buscas populares"><span>Populares:</span>{["Arroz","Café","Leite","Açúcar"].map(item=><button key={item} type="button" onClick={()=>{setQuery(item);setFocused(true)}}>{item}</button>)}</div>
+    <div className={`mh26-catalog-status${catalogError?" has-warning":""}`} role="status"><span>Preços registrados em {lastPriceUpdate}</span>{catalogError&&<><em>Base local ativa.</em><button type="button" onClick={()=>{setLoading(true);fetchCatalog("",{force:true}).then(data=>{setCatalog(data);setCatalogError(data.error||"")}).catch(()=>setCatalogError("A atualização continua indisponível.")).finally(()=>setLoading(false))}}>Atualizar</button></>}</div>
    </section>
 
    <HomeQuickActionsCarousel />

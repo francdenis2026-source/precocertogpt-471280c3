@@ -415,3 +415,32 @@ html[data-theme="dark"] :where(.nx-home,.mh26-page,.hqa) :where(a,button,input):
     transition-timing-function:cubic-bezier(.2,.8,.2,1);
   }
 }
+
+/* Hero: desfoque fotográfico sutil para priorizar a mensagem e a busca. */
+.nx-home .nx-hero::before,
+.mh26-hero::before {
+  position:absolute;
+  z-index:0;
+  inset:0;
+  background:rgb(18 36 38 / 3%);
+  -webkit-backdrop-filter:blur(2.2px) saturate(.94);
+  backdrop-filter:blur(2.2px) saturate(.94);
+  content:"";
+  pointer-events:none;
+}
+.nx-home .nx-hero__grid,
+.mh26-hero>* {
+  position:relative;
+  z-index:1;
+}
+.nx-home .nx-hero__photo {
+  transform:scale(1.012);
+  filter:blur(1.4px) saturate(.98) contrast(1.03)!important;
+}
+html[data-theme="dark"] .nx-home .nx-hero::before,
+html[data-theme="dark"] .mh26-hero::before {
+  background:rgb(18 36 38 / 6%);
+}
+html[data-theme="dark"] .nx-home .nx-hero__photo {
+  filter:blur(1.4px) saturate(.92) contrast(1.04) brightness(.94)!important;
+}

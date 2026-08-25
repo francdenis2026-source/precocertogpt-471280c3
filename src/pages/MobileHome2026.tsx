@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, MapPin, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, TrendingDown, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin, Moon, PackageSearch, Search, Sun, TrendingDown, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -8,7 +8,7 @@ import { buildFeatured, currentCycle, msUntilNextCycle } from "../data/featuredR
 import { FestivalAcaiBar } from "../components/FestivalAcaiBar";
 import { HeaderRadioPlayer } from "../components/PersistentRadio";
 import { useSiteTheme } from "../hooks/useSiteTheme";
-import { AppDock } from "../reference/ReferenceExperience";
+import { AppDock, FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { HomeQuickActionsCarousel } from "../components/HomeQuickActionsCarousel";
 import "./MobileHome2026.css";
 
@@ -26,6 +26,7 @@ export function MobileHome2026(){
  const[catalogError,setCatalogError]=useState("");
  const[query,setQuery]=useState("");
  const[focused,setFocused]=useState(false);
+ const[footerPanel,setFooterPanel]=useState<FooterPanel>(null);
  const[cycle,setCycle]=useState(()=>currentCycle());
  useEffect(()=>{let active=true;fetchCatalog().then(data=>{if(active){setCatalog(data);setCatalogError(data.error||"")}}).catch(()=>{if(active)setCatalogError("Não foi possível atualizar o catálogo agora.")}).finally(()=>{if(active)setLoading(false)});return()=>{active=false}},[]);
  useEffect(()=>{const timer=window.setTimeout(()=>setCycle(currentCycle()),msUntilNextCycle()+250);return()=>window.clearTimeout(timer)},[cycle]);
@@ -56,13 +57,13 @@ export function MobileHome2026(){
 
    <section className="mh26-section"><header><div><small><TrendingDown aria-hidden="true"/> MENOR PREÇO</small><h2>Destaques para comparar</h2></div><Link to="/buscar">Ver todos</Link></header><div className="mh26-products">{loading?Array.from({length:3},(_,i)=><div className="mh26-product is-loading" aria-hidden="true" key={i}/>):featured.slice(0,3).map(product=><Link className="mh26-product" to={`/produto/${product.slug||product.id}`} key={product.id}><i><ProductImage product={product}/></i><span><small>{product.category}</small><strong>{product.name}</strong><em>{product.establishment||product.brand||"Comércio local"}</em></span><b><small>a partir de</small>{brl.format(product.minPrice)}</b></Link>)}</div></section>
 
-   <section className="mh26-local"><span className="mh26-developer">dev &lt;Franc D’nis&gt;</span><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
+   <section className="mh26-local"><div><small>COMÉRCIO LOCAL</small><h2>Encontre onde comprar em Feijó.</h2><p>Mercados, açougues, padarias, farmácias e outros estabelecimentos em um só lugar.</p></div><Link to="/explorar">Explorar categorias <ArrowRight/></Link></section>
   </main>
   <footer className="mh26-footer">
    <div className="mh26-footer-head"><img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto"/><span><MapPin aria-hidden="true"/> Feijó, Acre</span></div>
-   <nav aria-label="Principais caminhos"><Link to="/buscar"><Search aria-hidden="true"/><span>Buscar</span></Link><Link to="/estabelecimentos"><MapPin aria-hidden="true"/><span>Locais</span></Link><Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true"/><span>Cesta</span></Link><Link to="/lojista"><Store aria-hidden="true"/><span>Comerciante</span></Link></nav>
-   <div className="mh26-footer-note"><span>Desenvolvido por Franc D’nis</span></div>
+   <div className="mh26-footer-note"><button type="button" onClick={()=>setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvido por Franc D’nis</button><button type="button" onClick={()=>setFooterPanel("contato")} aria-haspopup="dialog">Contato</button></div>
   </footer>
+  <FooterInfoDialogs open={footerPanel} onClose={()=>setFooterPanel(null)}/>
   <AppDock current="home"/>
  </div>
 }

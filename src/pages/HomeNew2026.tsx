@@ -1,6 +1,6 @@
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BookOpen, Croissant, HeartPulse, LayoutGrid, MapPin, Menu, Moon, PackageSearch, Search, ShoppingBasket, Store, Sun, X } from "lucide-react";
+import { ArrowRight, BookOpen, Clock3, Croissant, HeartPulse, LayoutGrid, MapPin, Menu, Moon, PackageSearch, Search, ShieldCheck, ShoppingBasket, Store, Sun, X } from "lucide-react";
 import { buildCatalog, type CatalogPayload, type Product, verifiedDatasetMetrics } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
 import { resolveCutoutImage, resolveProductImage } from "../data/productImageResolver";
@@ -270,19 +270,24 @@ export function HomeNew2026() {
     </main>
 
     <footer className="nx-footer">
-      <div className="nx-shell nx-footer__main">
-        <div className="nx-footer__brand">
+      <div className="nx-shell nx-footer-v2">
+        <div className="nx-footer-v2__identity">
           <img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto" width="143" height="30" />
-          <span>Compare preços no comércio local.</span>
+          <p>Compare antes de comprar no comércio local de Feijó.</p>
+          <small>© 2026 PreçoCerto</small>
         </div>
-        <nav className="nx-footer__links" aria-label="Links do rodapé">
-          <Link to="/buscar">Buscar preços</Link>
-          <Link to="/estabelecimentos">Estabelecimentos</Link>
-          <Link to="/lojista">Para comerciantes</Link>
-          <button type="button" onClick={() => setFooterPanel("contato")}>Contato</button>
-          <button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvedor</button>
+        <nav className="nx-footer-v2__nav" aria-label="Principais caminhos">
+          <Link to="/buscar"><Search aria-hidden="true" /><span>Buscar preços</span></Link>
+          <Link to="/estabelecimentos"><MapPin aria-hidden="true" /><span>Onde comprar</span></Link>
+          <Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true" /><span>Cesta inteligente</span></Link>
+          <Link to="/lojista"><Store aria-hidden="true" /><span>Área do comerciante</span></Link>
         </nav>
-        <div className="nx-footer__meta"><span><MapPin aria-hidden="true" /> Feijó, Acre</span><small>© 2026 PreçoCerto</small></div>
+        <div className="nx-footer-v2__trust">
+          <div><ShieldCheck aria-hidden="true" /><span><strong>Informação local</strong><small>Preços registrados em {lastPriceUpdate}</small></span></div>
+          <p>Os valores podem mudar. Confirme no estabelecimento antes da compra.</p>
+          <span className="nx-footer-v2__place"><MapPin aria-hidden="true" /> Feijó, Acre</span>
+        </div>
+        <div className="nx-footer-v2__utility"><button type="button" onClick={() => setFooterPanel("contato")}>Contato</button><button type="button" onClick={() => setFooterPanel("desenvolvedor")} aria-haspopup="dialog">Desenvolvedor</button></div>
       </div>
     </footer>
     <FooterInfoDialogs open={footerPanel} onClose={() => setFooterPanel(null)} />

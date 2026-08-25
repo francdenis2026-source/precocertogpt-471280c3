@@ -38,6 +38,7 @@ export function HomeNew2026() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [catalog, setCatalog] = useState<CatalogPayload>({ ...initialCatalog, metrics: verifiedDatasetMetrics });
   const [loading, setLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState("");
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -54,7 +55,7 @@ export function HomeNew2026() {
 
   useEffect(() => {
     let active = true;
-    fetchCatalog().then(value => { if (active) setCatalog(value); }).catch(() => undefined).finally(() => { if (active) setLoading(false); });
+    fetchCatalog().then(value => { if (active) { setCatalog(value); setCatalogError(value.error || ""); } }).catch(() => { if (active) setCatalogError("Não foi possível atualizar o catálogo agora."); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
 
@@ -75,6 +76,10 @@ export function HomeNew2026() {
   }, [menuOpen]);
 
   const products = useMemo(() => catalog.products.filter(product => product.minPrice > 0), [catalog.products]);
+  const lastPriceUpdate = useMemo(() => {
+    const latest = products.reduce((current, product) => Math.max(current, Date.parse(product.updated_at || product.capturedAt || "") || 0), 0);
+    return latest ? new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).format(latest) : "indisponível";
+  }, [products]);
   const featured = useMemo(() => buildFeatured(products, cycle, 4), [products, cycle]);
   const spotlight = featured[0];
   const suggestions = useMemo(() => {
@@ -195,6 +200,7 @@ export function HomeNew2026() {
             </form>
 
             <div className="nx-hero__links"><span>Buscas rápidas:</span>{["Arroz", "Café", "Leite"].map(item => <button key={item} type="button" onClick={() => { setQuery(item); setFocused(true); }}>{item}</button>)}</div>
+            <div className={`nx-catalog-status${catalogError ? " has-warning" : ""}`} role="status"><span>Preços registrados em {lastPriceUpdate}</span>{catalogError && <><em>Exibindo a base local.</em><button type="button" onClick={() => { setLoading(true); fetchCatalog("", { force: true }).then(value => { setCatalog(value); setCatalogError(value.error || ""); }).catch(() => setCatalogError("A atualização continua indisponível.")).finally(() => setLoading(false)); }}>Tentar atualizar</button></>}</div>
           </div>
 
           <div className="nx-hero__visual">

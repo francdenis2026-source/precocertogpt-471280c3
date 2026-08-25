@@ -22,40 +22,42 @@ const retireBoot = () => {
   window.clearTimeout(bootRemovalTimer);
   bootRemovalTimer = window.setTimeout(() => boot?.classList.add("is-removed"), 400);
 };
-const showOffline = () => {
-  window.clearTimeout(bootRemovalTimer);
-  document.documentElement.classList.add("pc-boot-offline-mode");
-  boot?.classList.remove("is-removed");
-  boot?.classList.remove("is-done");
-};
-const hideOffline = () => {
-  document.documentElement.classList.remove("pc-boot-offline-mode");
-  boot?.classList.add("is-done");
-  retireBoot();
-};
-window.addEventListener("offline", showOffline);
-window.addEventListener("online", hideOffline);
 
-if (navigator.onLine) {
-  // Notificações não fazem parte do caminho crítico da primeira pintura.
-  window.setTimeout(() => {
-    void import("./lib/paymentNotifications")
-      .then(({ startPaymentNotifications }) => startPaymentNotifications())
-      .catch(() => {
-        // A interface continua disponível mesmo se o serviço de notificações falhar.
-      });
-  }, 1_500);
+// A aplicação sempre monta, mesmo quando navigator.onLine começa como false.
+// O catálogo possui base local e estados próprios; bloquear todo o React por
+// um sinal instável do navegador transformava uma oscilação de rede em uma
+// tela genérica e impedia inclusive o conteúdo que já estava disponível.
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
 
-  createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-      <App />
-    </StrictMode>,
-  );
-
-  // Oculta a tela de inicialização somente depois que o React assumiu a página.
+// Oculta a tela de inicialização somente depois que o React assumiu a página.
+window.requestAnimationFrame(() => {
   window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => boot?.classList.add("is-done"));
+    boot?.classList.add("is-done");
+    retireBoot();
   });
-} else {
-  showOffline();
+});
+
+const startNotifications = () => {
+  if (!navigator.onLine) return;
+  void import("./lib/paymentNotifications")
+    .then(({ startPaymentNotifications }) => startPaymentNotifications())
+    .catch(() => {
+      // A interface e o catálogo local continuam disponíveis.
+    });
+};
+
+// Notificações não fazem parte do caminho crítico da primeira pintura.
+window.setTimeout(startNotifications, 1_500);
+window.addEventListener("online", startNotifications, { once: true });
+
+if ("serviceWorker" in navigator && import.meta.env.PROD) {
+  window.addEventListener("load", () => {
+    void navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
+      // O app permanece funcional sem instalação PWA.
+    });
+  }, { once: true });
 }

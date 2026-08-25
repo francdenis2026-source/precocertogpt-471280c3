@@ -46,9 +46,26 @@ const round = (value: number) => Math.round(value * 100) / 100;
 const toNumber = (value: number | string | null) => (value === null ? NaN : Number(value));
 const DATABASE_PAGE_SIZE = 1000;
 const CATALOG_CACHE_TTL_MS = 60_000;
+const CATALOG_REQUEST_TIMEOUT_MS = 5_000;
+const CATALOG_RETRY_DELAY_MS = 350;
 
 let cachedCatalog: { value: CatalogResult; expiresAt: number } | null = null;
 let pendingCatalog: Promise<CatalogResult> | null = null;
+
+function withTimeout<T>(request: Promise<T>, timeoutMs: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = globalThis.setTimeout(() => reject(new Error("A consulta de preços excedeu 5 segundos.")), timeoutMs);
+    request.then(value => {
+      globalThis.clearTimeout(timer);
+      resolve(value);
+    }, error => {
+      globalThis.clearTimeout(timer);
+      reject(error);
+    });
+  });
+}
+
+const wait = (durationMs: number) => new Promise<void>(resolve => globalThis.setTimeout(resolve, durationMs));
 
 export const normalize = (value: string) =>
   value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -396,6 +413,25 @@ async function loadCatalog(query = ""): Promise<CatalogResult> {
   }
 }
 
+async function loadCatalogResilient(query = ""): Promise<CatalogResult> {
+  const local = buildCatalog(query);
+  if (!supabase) return { ...local, source: "local", error: "Supabase não configurado." };
+
+  let lastError = "Não foi possível atualizar o catálogo agora.";
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const result = await withTimeout(loadCatalog(query), CATALOG_REQUEST_TIMEOUT_MS);
+      if (result.source === "supabase" || !result.error) return result;
+      lastError = result.error;
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : lastError;
+    }
+    if (attempt === 0) await wait(CATALOG_RETRY_DELAY_MS);
+  }
+
+  return { ...local, source: "local", error: `${lastError} Exibindo a base local disponível.` };
+}
+
 export function fetchCatalog(
   query = "",
   options: { force?: boolean } = {},
@@ -407,7 +443,7 @@ export function fetchCatalog(
   }
   if (canReuse && pendingCatalog) return pendingCatalog;
 
-  const request = loadCatalog(query);
+  const request = loadCatalogResilient(query);
   if (!query) {
     pendingCatalog = request;
     request.then(value => {

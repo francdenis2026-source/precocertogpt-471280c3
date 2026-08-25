@@ -73,7 +73,7 @@ html[data-theme="dark"] .mh26-page .ref-dock{background:rgba(11,25,27,.98)!impor
   .mh26-product>span small{font-size:10px;font-weight:800;letter-spacing:.035em}
   .mh26-product>span strong{font-size:15px;line-height:1.3}
   .mh26-product>span em{width:fit-content;max-width:100%;padding:3px 8px;border-radius:999px;background:#e2f3ee;color:#08705f;font-size:11.5px;font-weight:850;line-height:1.3}
-  .mh26-product>b{grid-column:2;justify-items:start;padding-top:0;font-size:17px}
+  .mh26-product>b{grid-column:2;justify-items:start;padding-top:0;font-size:20px;line-height:1.05}
   .mh26-product>b small{font-size:9.5px}
   .mh26-product.is-loading{height:142px}
 html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
@@ -83,7 +83,7 @@ html[data-theme="dark"] .mh26-product>span em{background:#244641;color:#9ce5d5}
   .mh26-product>i{width:82px;height:94px}
   .mh26-product>i img{max-width:76px;max-height:86px}
   .mh26-product>span strong{font-size:14.5px}
-  .mh26-product>b{font-size:16px}
+  .mh26-product>b{font-size:18px}
 }
 
 /* Paleta canônica Mercado de Feijó — alinhada à home web. */

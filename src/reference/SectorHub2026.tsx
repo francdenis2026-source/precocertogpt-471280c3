@@ -24,7 +24,7 @@ import {
   withCatalog,
 } from "../data/sectorCatalog";
 import { primarySectors } from "./MarketplaceSectors";
-import { PublicFooter, PublicHeader } from "./ReferenceExperience";
+import { AppDock, PublicFooter, PublicHeader } from "./ReferenceExperience";
 import "./SectorHub2026.css";
 
 const normalize = (value: string) =>
@@ -368,6 +368,7 @@ export function SectorHub2026() {
         </section>
       </main>
       <PublicFooter />
+      <AppDock current="explore" />
     </div>
   );
 }

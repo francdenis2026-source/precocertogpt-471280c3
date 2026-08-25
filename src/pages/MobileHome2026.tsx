@@ -10,6 +10,7 @@ import { HeaderRadioPlayer } from "../components/PersistentRadio";
 import { useSiteTheme } from "../hooks/useSiteTheme";
 import { AppDock, FooterInfoDialogs, type FooterPanel } from "../reference/ReferenceExperience";
 import { HomeQuickActionsCarousel } from "../components/HomeQuickActionsCarousel";
+import { LocationSwitcher } from "../components/LocationSwitcher";
 import "./MobileHome2026.css";
 
 const initialCatalog=buildCatalog();
@@ -39,6 +40,7 @@ export function MobileHome2026(){
   <header className="mh26-header"><FestivalAcaiBar/><div className="mh26-header-row"><Link to="/" className="mh26-logo" aria-label="PreçoCerto — início"><img src="/logo-preco-certo.svg?v=11" alt="PreçoCerto"/></Link><div className="mh26-head-actions"><HeaderRadioPlayer/><button className="mh26-theme" type="button" onClick={toggleTheme} aria-label={theme==="dark"?"Ativar modo claro":"Ativar modo escuro"} title={theme==="dark"?"Modo claro":"Modo escuro"}>{theme==="dark"?<Sun aria-hidden="true"/>:<Moon aria-hidden="true"/>}</button><Link to="/estabelecimentos" aria-label="Ver estabelecimentos próximos"><MapPin aria-hidden="true"/></Link></div></div></header>
   <main id="conteudo-principal">
    <section className="mh26-hero">
+    <LocationSwitcher />
     <div className="mh26-hero-copy"><span className="mh26-verified-badge"><i className="mh26-verified-icon" aria-hidden="true"><CheckCircle2/></i><b>PREÇOS LOCAIS VERIFICADOS</b></span><h1>Economize nas compras em Feijó.</h1><p>Compare produtos do comércio local e descubra onde seu dinheiro rende mais.</p></div>
     <form className="mh26-search" onSubmit={e=>{e.preventDefault();const q=query.trim();if(q)navigate(`/buscar?q=${encodeURIComponent(q)}`)}} onFocus={()=>setFocused(true)}>
       <label className="mh26-search-label" htmlFor="mh26-query">O que você quer economizar hoje?</label>

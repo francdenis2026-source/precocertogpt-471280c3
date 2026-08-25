@@ -1,4 +1,7 @@
-import { FormEvent, KeyboardEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, CheckCircle2, Heart, ImageOff, MapPin, Menu, Moon, Search, ShieldCheck, ShoppingBasket, Store, Sun, TrendingDown, X } from "lucide-react";
 import { buildCatalog, type Product, type StoreRow } from "../data/catalog";
 import { fetchCatalog } from "../data/remoteCatalog";
@@ -6,6 +9,8 @@ import { getStoreLogoUrl } from "../data/storeLogos";
 import { resolveProductImage } from "../data/productImageResolver";
 import { searchProducts } from "../lib/productSearch";
 import "./TrueHomepageTripleSkill.css";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const seed=buildCatalog();
 const money=(value:number)=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(value);
@@ -17,6 +22,7 @@ function ProductImage({product}:{product:Product}){const image=resolveProductIma
 function SearchThumb({product}:{product:Product}){const image=resolveProductImage(product);return <span className="pcx-search-result__thumb">{image?<img src={image} alt="" loading="lazy"/>:<ImageOff/>}</span>}
 
 export function TrueHomepage(){
+ const rootRef=useRef<HTMLDivElement>(null);
  const[products,setProducts]=useState<Product[]>(seed.products),[stores,setStores]=useState<StoreRow[]>(seed.stores),[metrics,setMetrics]=useState(seed.metrics),[query,setQuery]=useState(""),[menuOpen,setMenuOpen]=useState(false),[selectedProduct,setSelectedProduct]=useState<Product|null>(null),[theme,setTheme]=useState<Theme>(readTheme);
  useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem("precocerto-theme",theme)},[theme]);
  useEffect(()=>{let active=true;fetchCatalog().then(r=>{if(active){setProducts(r.products);setStores(r.stores);setMetrics(r.metrics)}}).catch(()=>undefined);return()=>{active=false}},[]);
@@ -27,7 +33,8 @@ export function TrueHomepage(){
  const liveResults=useMemo(()=>{const term=query.trim();if(term.length<2)return[];return searchProducts(products,term).filter(p=>Number.isFinite(p.minPrice)&&p.minPrice>0).slice(0,6)},[products,query]);
  const submitSearch=(e:FormEvent)=>{e.preventDefault();const value=query.trim();window.location.href=value?`/buscar?q=${encodeURIComponent(value)}`:"/buscar"};
  const productKey=(event:KeyboardEvent<HTMLElement>,product:Product)=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();setSelectedProduct(product)}};
- return <div className="pcx-home">
+ useGSAP(()=>{const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(reduced)return;const mm=gsap.matchMedia();mm.add("(min-width: 981px)",()=>{gsap.fromTo(".pcx-hero__copy",{y:28,opacity:.72},{y:0,opacity:1,duration:1.05,ease:"power4.out"});gsap.to(".pcx-explain__copy",{scrollTrigger:{trigger:".pcx-explain",start:"top 18%",end:"bottom 72%",pin:true,pinSpacing:false}});gsap.fromTo(".pcx-explain__copy>span",{opacity:.28},{opacity:1,ease:"none",scrollTrigger:{trigger:".pcx-explain",start:"top 72%",end:"bottom 52%",scrub:true}})});return()=>mm.revert()},{scope:rootRef});
+ return <div className="pcx-home" ref={rootRef}>
   <header className="pcx-header"><div className="pcx-shell pcx-header__inner"><a href="/" className="pcx-brand" aria-label="PreçoCerto, início"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/><span><MapPin/> Feijó-AC</span></a><nav className="pcx-nav" aria-label="Navegação principal"><a href="/buscar">Comparar preços</a><a href="/estabelecimentos">Estabelecimentos</a><a href="/cesta-basica">Cesta inteligente</a></nav><div className="pcx-header__actions"><button className="pcx-theme" type="button" onClick={()=>setTheme(t=>t==="dark"?"light":"dark")} aria-label={theme==="dark"?"Ativar modo claro":"Ativar modo escuro"}>{theme==="dark"?<Sun/>:<Moon/>}</button><a className="pcx-login" href="/login">Entrar</a><a className="pcx-header-cta" href="/buscar"><Search/> Pesquisar</a><button className="pcx-menu" type="button" aria-label="Abrir menu" onClick={()=>setMenuOpen(true)}><Menu/></button></div></div></header>
   {menuOpen&&<div className="pcx-mobile" role="dialog" aria-modal="true"><div className="pcx-mobile__head"><img src="/logo-preco-certo-inversa.svg" alt="PreçoCerto"/><button onClick={()=>setMenuOpen(false)} aria-label="Fechar menu"><X/></button></div><nav><a href="/buscar">Comparar preços <ArrowRight/></a><a href="/cesta-basica">Cesta inteligente <ArrowRight/></a><a href="/estabelecimentos">Estabelecimentos <ArrowRight/></a><a href="/lojista">Área do lojista <ArrowRight/></a><a href="/login">Entrar <ArrowRight/></a></nav></div>}
   <main>

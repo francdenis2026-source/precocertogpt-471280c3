@@ -62,7 +62,7 @@ export function MobileHome2026(){
    <div className="mh26-footer-head"><img src="/logo-preco-certo-inversa.svg?v=11" alt="PreçoCerto"/><span><MapPin aria-hidden="true"/> Feijó, Acre</span></div>
    <div className="mh26-footer-proof"><Clock3 aria-hidden="true"/><span><strong>Preços registrados</strong><small>{lastPriceUpdate}</small></span><CheckCircle2 aria-hidden="true"/></div>
    <nav aria-label="Principais caminhos"><Link to="/buscar"><Search aria-hidden="true"/><span>Buscar</span></Link><Link to="/estabelecimentos"><MapPin aria-hidden="true"/><span>Locais</span></Link><Link to="/cesta-inteligente"><ShoppingBasket aria-hidden="true"/><span>Cesta</span></Link><Link to="/lojista"><Store aria-hidden="true"/><span>Comerciante</span></Link></nav>
-   <div className="mh26-footer-note"><small>Confirme os valores no estabelecimento.</small><span>© 2026 PreçoCerto</span></div>
+   <div className="mh26-footer-note"><span>Desenvolvido por Franc D’nis</span></div>
   </footer>
   <AppDock current="home"/>
  </div>
